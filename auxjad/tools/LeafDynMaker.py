@@ -2,8 +2,8 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""An extansion of LeafMaker which also take optional lists of dynamics
-    and articulations.
+    r"""An extansion of abjad.LeafMaker which can also take optional lists of
+    dynamics and articulations.
 
     ..  container:: example
 
@@ -51,8 +51,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [5, None, (0, 2, 7)]
         >>> durations = [(1, 4), (1, 8), (1, 16)]
-        >>> dynamics = ['p', '', 'f']
-        >>> articulations = ['staccato', '', 'tenuto']
+        >>> dynamics = ['p', None, 'f']
+        >>> articulations = ['staccato', None, 'tenuto']
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
@@ -66,7 +66,6 @@ class LeafDynMaker(abjad.LeafMaker):
                 \p
                 -\staccato
                 r8
-
                 <c' d' g'>16
                 \f
                 -\tenuto
@@ -179,33 +178,35 @@ class LeafDynMaker(abjad.LeafMaker):
                  *,
                  no_repeat=False
                  ) -> abjad.Selection:
-        if dynamics is not None:
-            assert isinstance(dynamics,
-                              (str, list, abjad.Dynamic),
-                              ), repr(dynamics)
-        if articulations is not None:
-            assert isinstance(articulations,
-                              (str, list, abjad.Articulation),
-                              ), repr(articulations)
-        leaves = super().__call__(pitches, durations)
-        previous_dyn = None
         dynamics_ = self._listify(dynamics)
         articulations_ = self._listify(articulations)
+        for dynamic in dynamics_:
+            if dynamic is not None:
+                assert isinstance(dynamic,
+                                  (str, abjad.Dynamic),
+                                  ), repr(dynamic)
+        for articulation in articulations_:
+            if articulation is not None:
+                assert isinstance(articulation,
+                                  (str, abjad.Articulation),
+                                  ), repr(articulation)
+        leaves = super().__call__(pitches, durations)
+        tied_leaves = abjad.select(leaves).logical_ties()
+        previous_dynamic = None
         greatest_len = max(len(pitches), len(durations))
         self._fill_list(dynamics_, greatest_len)
         self._fill_list(articulations_,
                         greatest_len,
                         default=self._single_element_or_none(articulations_),
                         )
-        tied_leaves = abjad.select(leaves).logical_ties()
-        for item, dynamic, articulation in zip(tied_leaves,
-                                               dynamics_,
-                                               articulations_):
-            if (not no_repeat or dyn != previous_dyn) and dynamic:
-                abjad.attach(abjad.Dynamic(dynamic), item[0])
-                previous_dyn = dynamic
+        for tied_item, dynamic, articulation in zip(tied_leaves,
+                                                    dynamics_,
+                                                    articulations_):
+            if (not no_repeat or dynamic != previous_dynamic) and dynamic:
+                abjad.attach(abjad.Dynamic(dynamic), tied_item.head)
+                previous_dynamic = dynamic
             if articulation:
-                abjad.attach(abjad.Articulation(articulation), item[0])
+                abjad.attach(abjad.Articulation(articulation), tied_item.head)
         return abjad.Selection(leaves)
 
     @staticmethod
@@ -226,6 +227,6 @@ class LeafDynMaker(abjad.LeafMaker):
             return None
 
     @staticmethod
-    def _fill_list(input_list, size, default=None):
-        while len(input_list) < size:
+    def _fill_list(input_list, length, default=None):
+        while len(input_list) < length:
             input_list.append(default)

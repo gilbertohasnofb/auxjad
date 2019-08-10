@@ -16,33 +16,30 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-
-        ..  docs::
-
-            >>> abjad.f(staff)
-            \new Staff
-            {
-                c'32
-                \pp
-                -\staccato
-                d'16
-                \p
-                -\accent
-                e'16.
-                \mp
-                -\tenuto
-                f'8
-                \mf
-                -\portato
-                g'8
-                \f
-                -\marcato
-                ~
-                g'32
-                a'8.
-                \ff
-                -\stopped
-            }
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'32
+            \pp
+            -\staccato
+            d'16
+            \p
+            -\accent
+            e'16.
+            \mp
+            -\tenuto
+            f'8
+            \mf
+            -\portato
+            g'8
+            \f
+            -\marcato
+            ~
+            g'32
+            a'8.
+            \ff
+            -\stopped
+        }
 
     ..  container:: example
 
@@ -56,20 +53,17 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-
-        ..  docs::
-
-            >>> abjad.f(staff)
-            \new Staff
-            {
-                f'4
-                \p
-                -\staccato
-                r8
-                <c' d' g'>16
-                \f
-                -\tenuto
-            }
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            f'4
+            \p
+            -\staccato
+            r8
+            <c' d' g'>16
+            \f
+            -\tenuto
+        }
 
     ..  container:: example
 
@@ -85,24 +79,22 @@ class LeafDynMaker(abjad.LeafMaker):
         ...                        no_repeat=True,
         ...                        )
         >>> staff = abjad.Staff(notes)
-
-        ..  docs::
-            >>> abjad.f(staff)
-            \new Staff
-            {
-                c'32
-                \pp
-                d'16
-                e'16.
-                \mp
-                f'8
-                \f
-                g'8
-                ~
-                g'32
-                a'8.
-                \p
-            }
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'32
+            \pp
+            d'16
+            e'16.
+            \mp
+            f'8
+            \f
+            g'8
+            ~
+            g'32
+            a'8.
+            \p
+        }
 
     ..  container:: example
 
@@ -117,23 +109,21 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-
-        ..  docs::
-            >>> abjad.f(staff)
-            \new Staff
-            {
-                c'4
-                \p
-                -\staccato
-                d'4
-                \f
-                -\accent
-                e'4
-                \ff
-                f'4
-                g'4
-                a'4
-            }
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            \p
+            -\staccato
+            d'4
+            \f
+            -\accent
+            e'4
+            \ff
+            f'4
+            g'4
+            a'4
+        }
 
     ..  container:: example
 
@@ -148,25 +138,23 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-
-        ..  docs::
-            >>> abjad.f(staff)
-            \new Staff
-            {
-                c'4
-                \p
-                -\staccato
-                d'4
-                -\staccato
-                e'4
-                -\staccato
-                f'4
-                -\staccato
-                g'4
-                -\staccato
-                a'4
-                -\staccato
-            }
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            \p
+            -\staccato
+            d'4
+            -\staccato
+            e'4
+            -\staccato
+            f'4
+            -\staccato
+            g'4
+            -\staccato
+            a'4
+            -\staccato
+        }
 
     """
 

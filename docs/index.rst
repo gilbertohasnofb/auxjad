@@ -1,4 +1,4 @@
-.. listools documentation master file, created by
+.. auxjad documentation master file, created by
    sphinx-quickstart on Mon Dec  3 00:15:26 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.

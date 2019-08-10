@@ -154,8 +154,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'listools', 'listools Documentation',
-     author, 'listools', 'One line description of project.',
+    (master_doc, 'auxjad', 'auxjad Documentation',
+     author, 'auxjad', 'One line description of project.',
      'Miscellaneous'),
 ]
 

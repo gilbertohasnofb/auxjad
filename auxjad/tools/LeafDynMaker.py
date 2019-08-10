@@ -2,7 +2,7 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""An extansion of abjad.LeafMaker which can also take optional lists of
+    r"""An extension of abjad.LeafMaker which can also take optional lists of
     dynamics and articulations.
 
     ..  container:: example
@@ -14,7 +14,7 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> dynamics = ['pp', 'p', 'mp', 'mf', 'f', 'ff']
         >>> articulations = ['.', '>', '-', '_', '^', '+']
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
-        >>> notes = leaf_dyn_maker(pitches, durations, dynamics)
+        >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
 
         ..  docs::

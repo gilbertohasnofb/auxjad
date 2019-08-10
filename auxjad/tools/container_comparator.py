@@ -51,9 +51,9 @@ def container_comparator(container1,
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1,
-                                        container2,
-                                        include_indicators=True,
-                                        )
+        ...                             container2,
+        ...                             include_indicators=True,
+        ...                             )
         True
 
     ..  container:: example
@@ -76,9 +76,9 @@ def container_comparator(container1,
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1,
-                                        container2,
-                                        include_grace_notes=True,
-                                        )
+        ...                             container2,
+        ...                             include_grace_notes=True,
+        ...                             )
         False
 
     ..  container:: example
@@ -91,9 +91,9 @@ def container_comparator(container1,
         >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1,
-                                        container2,
-                                        include_grace_notes=True,
-                                        )
+        ...                             container2,
+        ...                             include_grace_notes=True,
+        ...                             )
         False
 
     """

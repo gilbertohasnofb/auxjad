@@ -43,8 +43,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ..  container:: example
 
-         Tuple elements in ``pitches`` result in chords. None-valued elements
-         in ``pitches`` result in rests:
+        Tuple elements in ``pitches`` result in chords. None-valued elements
+        in ``pitches`` result in rests:
 
         >>> pitches = [5, None, (0, 2, 7)]
         >>> durations = [(1, 4), (1, 8), (1, 16)]

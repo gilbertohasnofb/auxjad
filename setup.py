@@ -6,22 +6,25 @@ except ImportError:
 import auxjad
 
 auxjad_classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    'Development Status :: 5 - Production/Stable',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3 :: Only',
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Topic :: Software Development :: Libraries",
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Python Modules',
-    "Topic :: Utilities",
+    'Topic :: Utilities',
 ]
 
-with open("README.rst", "r") as fp:
-    auxjad_long_description = fp.read()
+with open('README.rst', 'r') as file:
+    auxjad_long_description = file.read()
+
+with open('requirements.txt', 'r') as file:
+    requirements = file.read().splitlines()
 
 setup(
     name='auxjad',
@@ -36,5 +39,5 @@ setup(
     tests_require=['pytest'],
     classifiers=auxjad_classifiers,
     python_requires='>=3.6',
+    install_requires=requirements,
 )
-

@@ -1,2 +1,1 @@
-abjad
-
+abjad==3.0.0

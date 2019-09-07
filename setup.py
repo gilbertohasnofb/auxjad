@@ -23,9 +23,6 @@ auxjad_classifiers = [
 with open('README.rst', 'r') as file:
     auxjad_long_description = file.read()
 
-with open('requirements.txt', 'r') as file:
-    requirements = file.read().splitlines()
-
 setup(
     name='auxjad',
     description='Auxiliary functions and classes for Abjad 3.0.',
@@ -36,8 +33,8 @@ setup(
     url='https://github.com/gilbertohasnofb/auxjad',
     license='MIT',
     long_description=auxjad_long_description,
-    tests_require=['pytest'],
+    tests_require=['pytest', 'abjad==3.0.0'],
     classifiers=auxjad_classifiers,
     python_requires='>=3.6',
-    install_requires=requirements,
+    install_requires=['abjad==3.0.0'],
 )

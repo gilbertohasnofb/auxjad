@@ -15,4 +15,4 @@ This library is published under the MIT License.
 from auxjad.tools import *
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.2.1"
+__version__ = "0.2.2"

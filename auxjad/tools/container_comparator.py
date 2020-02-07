@@ -2,8 +2,8 @@ import abjad
 import itertools
 
 
-def container_comparator(container1,
-                         container2,
+def container_comparator(container1: abjad.Container,
+                         container2: abjad.Container,
                          include_indicators: bool = False,
                          include_grace_notes: bool = False,
                          ) -> bool:
@@ -97,10 +97,23 @@ def container_comparator(container1,
         False
 
     """
+    if not isinstance(container1, abjad.Container):
+        raise TypeError('\'container1\' must be \'abjad.Container\' or '
+                        'child class')
+    if not isinstance(container2, abjad.Container):
+        raise TypeError('\'container2\' must be \'abjad.Container\' or '
+                        'child class')
+    if not isinstance(include_indicators, bool):
+        raise TypeError('\'include_indicators\' must be \'bool\'')
+    if not isinstance(include_grace_notes, bool):
+        raise TypeError('\'include_grace_notes\' must be \'bool\'')
+
     leaves1 = [leaf for leaf in abjad.select(container1).leaves()]
     leaves2 = [leaf for leaf in abjad.select(container2).leaves()]
+
     if len(leaves1) != len(leaves2):
         return False
+
     for leaf1, leaf2 in zip(leaves1, leaves2):
         if type(leaf1) != type(leaf2):
             return False
@@ -112,13 +125,15 @@ def container_comparator(container1,
         if type(leaf1) == abjad.Chord:
             if leaf1.written_pitches != leaf2.written_pitches:
                 return False
+
         if include_indicators:
             if abjad.inspect(leaf1).indicators() != \
                     abjad.inspect(leaf2).indicators():
                 return False
+
         if include_grace_notes:
-            grace_container1 = abjad.inspect(leaf1).grace_container()
-            grace_container2 = abjad.inspect(leaf2).grace_container()
+            grace_container1 = abjad.inspect(leaf1).before_grace_container()
+            grace_container2 = abjad.inspect(leaf2).before_grace_container()
             if grace_container1 and grace_container2:
                 ungraced_container1 = abjad.Container()
                 ungraced_container2 = abjad.Container()
@@ -132,4 +147,5 @@ def container_comparator(container1,
                     return False
             elif grace_container1 != grace_container2:
                 return False
+
     return True

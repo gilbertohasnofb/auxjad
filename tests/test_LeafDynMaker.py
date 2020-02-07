@@ -16,26 +16,27 @@ def test_LeafDynMaker_01():
         {
             c'32
             \pp
-            -\staccato
+            - \staccato
             d'16
             \p
-            -\accent
+            - \accent
             e'16.
             \mp
-            -\tenuto
+            - \tenuto
             f'8
             \mf
-            -\portato
+            - \portato
             g'8
             \f
-            -\marcato
+            - \marcato
             ~
             g'32
             a'8.
             \ff
-            -\stopped
+            - \stopped
         }
         ''')
+
 
 def test_LeafDynMaker_02():
     pitches = [5, None, (0, 2, 7)]
@@ -51,13 +52,14 @@ def test_LeafDynMaker_02():
         {
             f'4
             \p
-            -\staccato
+            - \staccato
             r8
             <c' d' g'>16
             \f
-            -\tenuto
+            - \tenuto
         }
         ''')
+
 
 def test_LeafDynMaker_03():
     pitches = [0, 2, 4, 5, 7, 9]
@@ -89,6 +91,7 @@ def test_LeafDynMaker_03():
         }
         ''')
 
+
 def test_LeafDynMaker_04():
     pitches = [0, 2, 4, 5, 7, 9]
     durations = (1, 4)
@@ -103,10 +106,10 @@ def test_LeafDynMaker_04():
         {
             c'4
             \p
-            -\staccato
+            - \staccato
             d'4
             \f
-            -\accent
+            - \accent
             e'4
             \ff
             f'4
@@ -114,6 +117,7 @@ def test_LeafDynMaker_04():
             a'4
         }
         ''')
+
 
 def test_LeafDynMaker_05():
     pitches = [0, 2, 4, 5, 7, 9]
@@ -129,16 +133,50 @@ def test_LeafDynMaker_05():
         {
             c'4
             \p
-            -\staccato
+            - \staccato
             d'4
-            -\staccato
+            - \staccato
             e'4
-            -\staccato
+            - \staccato
             f'4
-            -\staccato
+            - \staccato
             g'4
-            -\staccato
+            - \staccato
             a'4
-            -\staccato
+            - \staccato
+        }
+        ''')
+
+
+def test_LeafDynMaker_06():
+    pitches = [0,
+               "d'",
+               'E4',
+               abjad.Pitch(5),
+               abjad.Pitch("g'"),
+               abjad.Pitch("A4"),
+               ]
+    durations = [1/32,
+                 (2, 32),
+                 0.09375,
+                 abjad.Duration(0.125),
+                 abjad.Duration((5, 32)),
+                 abjad.Duration(6/32),
+                 ]
+    leaf_dyn_maker = auxjad.LeafDynMaker()
+    notes = leaf_dyn_maker(pitches, durations)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            c'32
+            d'16
+            e'16.
+            f'8
+            g'8
+            ~
+            g'32
+            a'8.
         }
         ''')

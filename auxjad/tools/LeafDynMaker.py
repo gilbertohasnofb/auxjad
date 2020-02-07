@@ -156,6 +156,39 @@ class LeafDynMaker(abjad.LeafMaker):
             -\staccato
         }
 
+    ..  container:: example
+
+        Similarly to abjad's native classes, it accepts many types of elements
+        in its input lists:
+
+        >>> pitches = [0,
+        ...            "d'",
+        ...            'E4',
+        ...            abjad.Pitch(5),
+        ...            abjad.Pitch("g'"),
+        ...            abjad.Pitch("A4"),
+        ...            ]
+        >>> durations = [1/32,
+        ...              (2, 32),
+        ...              0.09375,
+        ...              abjad.Duration(0.125),
+        ...              abjad.Duration((5, 32)),
+        ...              abjad.Duration(6/32),
+        ...              ]
+        >>> leaf_dyn_maker = auxjad.LeafDynMaker()
+        >>> notes = leaf_dyn_maker(pitches, durations)
+        >>> staff = abjad.Staff(notes)
+        \new Staff
+        {
+            c'32
+            d'16
+            e'16.
+            f'8
+            g'8
+            ~
+            g'32
+            a'8.
+        }
     """
 
     def __call__(self,
@@ -166,44 +199,64 @@ class LeafDynMaker(abjad.LeafMaker):
                  *,
                  no_repeat=False
                  ) -> abjad.Selection:
+        for pitch in pitches:
+            if pitch is not None:
+                assert isinstance(pitch,
+                                  (int, float, str, tuple, abjad.Pitch),
+                                  ), repr(pitch)
+        for duration in durations:
+            if duration is not None:
+                assert isinstance(duration,
+                                  (int, float, tuple, str, abjad.Duration),
+                                  ), repr(duration)
+        if dynamics:
+            for dynamic in dynamics:
+                if dynamic is not None:
+                    assert isinstance(dynamic,
+                                      (str, abjad.Dynamic),
+                                      ), repr(dynamic)
+        if articulations:
+            for articulation in articulations:
+                if articulation is not None:
+                    assert isinstance(articulation,
+                                      (str, abjad.Articulation),
+                                      ), repr(articulation)
+
+        leaves = super().__call__(pitches, durations)
+        logical_ties = leaves.logical_ties()
+        # TODO: logical_ties() is broken: it only identifies logical ties in
+        # a selection when the selection belongs to a container; but if I
+        # attribute it to a container, the leaves become associated to it
+        # and cannot be used elsewhere.
+
         dynamics_ = self._listify(dynamics)
         articulations_ = self._listify(articulations)
-        for dynamic in dynamics_:
-            if dynamic is not None:
-                assert isinstance(dynamic,
-                                  (str, abjad.Dynamic),
-                                  ), repr(dynamic)
-        for articulation in articulations_:
-            if articulation is not None:
-                assert isinstance(articulation,
-                                  (str, abjad.Articulation),
-                                  ), repr(articulation)
-        leaves = super().__call__(pitches, durations)
-        tied_leaves = abjad.select(leaves).logical_ties()
-        previous_dynamic = None
         greatest_len = max(len(pitches), len(durations))
         self._fill_list(dynamics_, greatest_len)
         self._fill_list(articulations_,
                         greatest_len,
                         default=self._single_element_or_none(articulations_),
                         )
-        for tied_item, dynamic, articulation in zip(tied_leaves,
+
+        previous_dynamic = None
+        for logical_tie, dynamic, articulation in zip(logical_ties,
                                                     dynamics_,
                                                     articulations_):
             if (not no_repeat or dynamic != previous_dynamic) and dynamic:
-                abjad.attach(abjad.Dynamic(dynamic), tied_item.head)
+                abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic
             if articulation:
-                abjad.attach(abjad.Articulation(articulation), tied_item.head)
+                abjad.attach(abjad.Articulation(articulation), logical_tie.head)
+
         return abjad.Selection(leaves)
 
     @staticmethod
-    def _listify(input):
-        if input:
-            if isinstance(input, list):
-                return input[:]
+    def _listify(argument):
+        if argument:
+            if isinstance(argument, list):
+                return argument
             else:
-                return [input]
+                return [argument]
         else:
             return []
 

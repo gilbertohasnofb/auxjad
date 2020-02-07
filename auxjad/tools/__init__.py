@@ -1,3 +1,3 @@
 from .LeafDynMaker import LeafDynMaker
 from .container_comparator import container_comparator
-from .time_signature_remover import time_signature_remover
+from .remove_repeated_time_signature import remove_repeated_time_signature

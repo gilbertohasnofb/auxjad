@@ -18,7 +18,7 @@ def test_container_comparator_01():
             d'8
         }
         ''')
-    staff = auxjad.time_signature_remover(staff)
+    staff = auxjad.remove_repeated_time_signature(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff
@@ -49,7 +49,7 @@ def test_container_comparator_02():
             d'8
         }
         ''')
-    staff = auxjad.time_signature_remover(staff)
+    staff = auxjad.remove_repeated_time_signature(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff
@@ -86,7 +86,7 @@ def test_container_comparator_03():
             }
         }
         ''')
-    staff = auxjad.time_signature_remover(staff)
+    staff = auxjad.remove_repeated_time_signature(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff

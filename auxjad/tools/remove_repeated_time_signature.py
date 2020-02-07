@@ -2,7 +2,8 @@ import abjad
 import itertools
 
 
-def time_signature_remover(container: abjad.Container) -> abjad.Container:
+def remove_repeated_time_signature(container: abjad.Container
+                                   ) -> abjad.Container:
     r"""A function which removes all unecessary time signatures. It removes
     consecutive effective time signatures, even if separated by any number of
     bars with no time signature.
@@ -25,7 +26,7 @@ def time_signature_remover(container: abjad.Container) -> abjad.Container:
             c'4
             d'8
         }
-        >>> staff = auxjad.time_signature_remover(staff)
+        >>> staff = auxjad.remove_repeated_time_signature(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -55,7 +56,7 @@ def time_signature_remover(container: abjad.Container) -> abjad.Container:
             c'4
             d'8
         }
-        >>> staff = auxjad.time_signature_remover(staff)
+        >>> staff = auxjad.remove_repeated_time_signature(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -91,7 +92,7 @@ def time_signature_remover(container: abjad.Container) -> abjad.Container:
                 b2
             }
         }
-        >>> staff = auxjad.time_signature_remover(staff)
+        >>> staff = auxjad.remove_repeated_time_signature(staff)
         >>> abjad.f(staff)
         \new Staff
         {

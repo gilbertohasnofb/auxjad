@@ -282,14 +282,13 @@ def remove_repeated_dynamics(container: abjad.Container,
 
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError('\'container\' must be \'abjad.Container\' or '
-                        'child class')
+        raise TypeError("'container' must be 'abjad.Container' or child class")
     if not isinstance(ignore_hairpins, bool):
-        raise TypeError('\'ignore_hairpins\' must be \'bool\'')
+        raise TypeError("'ignore_hairpins' must be 'bool'")
     if not isinstance(reset_after_rests,
                       (int, float, tuple, str, abjad.Duration),
                       ):
-        raise TypeError('\'reset_after_rests\' must be \'bool\' or duration')
+        raise TypeError("'reset_after_rests' must be 'bool' or duration")
 
     leaves = [leaf for leaf in abjad.select(container).leaves()]
 

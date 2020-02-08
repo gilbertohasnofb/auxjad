@@ -107,8 +107,7 @@ def remove_repeated_time_signature(container: abjad.Container
 
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError('\'container\' must be \'abjad.Container\' or '
-                        'child class')
+        raise TypeError("'container' must be 'abjad.Container' or child class")
 
     measures = [measure for measure in
                 abjad.select(container).leaves().group_by_measure()]

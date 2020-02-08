@@ -97,15 +97,15 @@ def container_comparator(container1: abjad.Container,
 
     """
     if not isinstance(container1, abjad.Container):
-        raise TypeError('\'container1\' must be \'abjad.Container\' or '
-                        'child class')
+        raise TypeError("'container1' must be 'abjad.Container' or "
+                        "child class")
     if not isinstance(container2, abjad.Container):
-        raise TypeError('\'container2\' must be \'abjad.Container\' or '
-                        'child class')
+        raise TypeError("'container2' must be 'abjad.Container' or "
+                        "child class")
     if not isinstance(include_indicators, bool):
-        raise TypeError('\'include_indicators\' must be \'bool\'')
+        raise TypeError("'include_indicators' must be 'bool'")
     if not isinstance(include_grace_notes, bool):
-        raise TypeError('\'include_grace_notes\' must be \'bool\'')
+        raise TypeError("'include_grace_notes' must be 'bool'")
 
     leaves1 = [leaf for leaf in abjad.select(container1).leaves()]
     leaves2 = [leaf for leaf in abjad.select(container2).leaves()]

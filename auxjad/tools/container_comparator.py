@@ -3,6 +3,7 @@ import abjad
 
 def container_comparator(container1: abjad.Container,
                          container2: abjad.Container,
+                         *,
                          include_indicators: bool = False,
                          include_grace_notes: bool = False,
                          ) -> bool:
@@ -26,7 +27,8 @@ def container_comparator(container1: abjad.Container,
         situations like the one below do not yield a false positive:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "
+        ...                          "f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1, container2)
         False
 
@@ -61,7 +63,8 @@ def container_comparator(container1: abjad.Container,
         example below are understood to be identical:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
+        ...                          "f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1, container2)
         True
 
@@ -73,7 +76,8 @@ def container_comparator(container1: abjad.Container,
         longer:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
+        ...                          "f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1,
         ...                             container2,
         ...                             include_grace_notes=True,
@@ -87,8 +91,10 @@ def container_comparator(container1: abjad.Container,
         leaf, but also wether the contents of the grace containers are the
         identical:
 
-        >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
+        ...                          "f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 "
+        ...                          "f'4 <g' a'>2 r2")
         >>> auxjad.container_comparator(container1,
         ...                             container2,
         ...                             include_grace_notes=True,

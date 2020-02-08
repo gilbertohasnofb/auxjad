@@ -2,7 +2,7 @@ import abjad
 
 
 def remove_repeated_time_signatures(container: abjad.Container
-                                   ) -> abjad.Container:
+                                    ) -> abjad.Container:
     r"""A function which removes all unecessary time signatures. It removes
     consecutive effective time signatures, even if separated by any number of
     bars with no time signature.

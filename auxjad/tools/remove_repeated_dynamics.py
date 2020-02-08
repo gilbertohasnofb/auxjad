@@ -2,6 +2,7 @@ import abjad
 
 
 def remove_repeated_dynamics(container: abjad.Container,
+                             *,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
                              ) -> abjad.Container:
@@ -286,7 +287,7 @@ def remove_repeated_dynamics(container: abjad.Container,
     if not isinstance(ignore_hairpins, bool):
         raise TypeError("'ignore_hairpins' must be 'bool'")
     if not isinstance(reset_after_rests,
-                      (int, float, tuple, str, abjad.Duration),
+                      (bool, int, float, tuple, str, abjad.Duration),
                       ):
         raise TypeError("'reset_after_rests' must be 'bool' or duration")
 

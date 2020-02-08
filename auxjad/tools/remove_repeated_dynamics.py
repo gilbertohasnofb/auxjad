@@ -1,5 +1,4 @@
 import abjad
-import itertools
 
 
 def remove_repeated_dynamics(container: abjad.Container,

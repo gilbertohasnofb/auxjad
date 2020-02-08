@@ -1,5 +1,4 @@
 import abjad
-import itertools
 
 
 def remove_repeated_time_signature(container: abjad.Container

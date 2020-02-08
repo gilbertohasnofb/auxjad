@@ -1,5 +1,4 @@
 import abjad
-import itertools
 
 
 def container_comparator(container1: abjad.Container,

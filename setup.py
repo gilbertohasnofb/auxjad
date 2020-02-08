@@ -25,7 +25,7 @@ with open('README.rst', 'r') as file:
 
 setup(
     name='auxjad',
-    description='Auxiliary functions and classes for Abjad 3.0.',
+    description='Auxiliary functions and classes for Abjad 3.1.',
     author='Gilberto Agostinho',
     author_email='gilbertohasnofb@gmail.com',
     version=auxjad.__version__,
@@ -33,8 +33,8 @@ setup(
     url='https://github.com/gilbertohasnofb/auxjad',
     license='MIT',
     long_description=auxjad_long_description,
-    tests_require=['pytest', 'abjad==3.0.0'],
+    tests_require=['pytest', 'abjad==3.1'],
     classifiers=auxjad_classifiers,
     python_requires='>=3.6',
-    install_requires=['abjad==3.0.0'],
+    install_requires=['abjad==3.1'],
 )

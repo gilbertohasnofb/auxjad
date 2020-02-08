@@ -1,5 +1,5 @@
 from .LeafDynMaker import LeafDynMaker
 from .container_comparator import container_comparator
-from .remove_repeated_time_signature import remove_repeated_time_signature
+from .remove_repeated_time_signatures import remove_repeated_time_signatures
 from .remove_repeated_dynamics import remove_repeated_dynamics
 from .simplified_time_signature_ratio import simplified_time_signature_ratio

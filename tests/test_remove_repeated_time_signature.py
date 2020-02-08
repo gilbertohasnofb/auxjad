@@ -2,7 +2,7 @@ import abjad
 import auxjad
 
 
-def test_container_comparator_01():
+def test_remove_repeated_time_signature_01():
     staff = abjad.Staff(r"c'4 d'8 | c'4 d'8")
     abjad.attach(abjad.TimeSignature((3, 8)), staff[0])
     abjad.attach(abjad.TimeSignature((3, 8)), staff[2])
@@ -32,7 +32,7 @@ def test_container_comparator_01():
         ''')
 
 
-def test_container_comparator_02():
+def test_remove_repeated_time_signature_02():
     staff = abjad.Staff(r"c'4 d'8 | e'4. | c'4 d'8")
     abjad.attach(abjad.TimeSignature((3, 8)), staff[0])
     abjad.attach(abjad.TimeSignature((3, 8)), staff[3])
@@ -64,7 +64,7 @@ def test_container_comparator_02():
         ''')
 
 
-def test_container_comparator_03():
+def test_remove_repeated_time_signature_03():
     staff = abjad.Staff([abjad.Note("c'2"),
                          abjad.Chord("<d' f'>2"),
                          abjad.Tuplet((2, 3), "g2 a2 b2"),

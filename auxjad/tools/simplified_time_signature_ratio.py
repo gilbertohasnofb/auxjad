@@ -60,6 +60,9 @@ def simplified_time_signature_ratio(ratio,
         if not isinstance(denominator, int):
             raise TypeError("'ratio's elements must be 'int'")
 
+    while denominator < min_denominator:
+        numerator *= 2
+        denominator *= 2
     while True:
         if numerator % 2 == 0 and denominator % 2 == 0 and \
                 denominator >= 2 * min_denominator:
@@ -69,6 +72,6 @@ def simplified_time_signature_ratio(ratio,
             if abjad_duration:
                 return abjad.Duration(int(numerator), int(denominator))
             elif abjad_time_signature:
-                return abjad.TimeSignature(int(numerator), int(denominator))
+                return abjad.TimeSignature((int(numerator), int(denominator)))
             else:
                 return int(numerator), int(denominator)

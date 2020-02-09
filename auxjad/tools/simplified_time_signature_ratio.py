@@ -1,7 +1,7 @@
 import abjad
 
 
-def simplified_time_signature_ratio(ratio: tuple,
+def simplified_time_signature_ratio(ratio,
                                     *,
                                     min_denominator: int = 4,
                                     ) -> tuple:
@@ -40,15 +40,25 @@ def simplified_time_signature_ratio(ratio: tuple,
         abjad.TimeSignature((1, 2))
 
     """
-    if not isinstance(ratio, tuple):
-        raise TypeError("'ratio' must be 'tuple'")
-    numerator, denominator = ratio
-    if not isinstance(numerator, int):
-        raise TypeError("'ratio's elements must be 'int'")
-    if not isinstance(denominator, int):
-        raise TypeError("'ratio's elements must be 'int'")
+    if not isinstance(ratio, (tuple, abjad.Duration, abjad.TimeSignature)):
+        raise TypeError("'ratio' must be 'tuple' or duration")
     if not isinstance(min_denominator, int):
         raise TypeError("'min_denominator' must be 'int'")
+
+    abjad_duration = False
+    abjad_time_signature = False
+    if isinstance(ratio, abjad.Duration):
+        abjad_duration = True
+        numerator, denominator = ratio.pair
+    elif isinstance(ratio, abjad.TimeSignature):
+        abjad_time_signature = True
+        numerator, denominator = ratio.pair
+    else:
+        numerator, denominator = ratio
+        if not isinstance(numerator, int):
+            raise TypeError("'ratio's elements must be 'int'")
+        if not isinstance(denominator, int):
+            raise TypeError("'ratio's elements must be 'int'")
 
     while True:
         if numerator % 2 == 0 and denominator % 2 == 0 and \
@@ -56,4 +66,9 @@ def simplified_time_signature_ratio(ratio: tuple,
             numerator /= 2
             denominator /= 2
         else:
-            return int(numerator), int(denominator)
+            if abjad_duration:
+                return abjad.Duration(int(numerator), int(denominator))
+            elif abjad_time_signature:
+                return abjad.TimeSignature(int(numerator), int(denominator))
+            else:
+                return int(numerator), int(denominator)

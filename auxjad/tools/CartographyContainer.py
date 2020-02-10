@@ -14,9 +14,10 @@ class CartographyContainer():
         >>> container.contents
         [0, 1, 2, 3, 4]
 
-        The default decay rate is 0.75; that is, each consecutive element has
-        only 0.75 chance of being selected as the preceeding ones. The weights
-        are associated with the index position, not the elements themselves.
+        The default decay rate is 0.75; that is, the weight of any given
+        elements is the weight of the previous one multiplied by 0.75. The
+        weights are associated with the index position, not the elements
+        themselves.
 
         >>> container.weights
         [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
@@ -197,8 +198,9 @@ class CartographyContainer():
             raise TypeError("'container' must be 'list")
         if not isinstance(decay_rate, float):
             raise TypeError("'decay_rate' must be float")
-        if decay_rate <= 0.0 or decay_rate >= 1.0:
-            raise ValueError("'decay_rate' must be between 0.0 and 1.0")
+        if decay_rate <= 0.0 or decay_rate > 1.0:
+            raise ValueError("'decay_rate' must be larger than 0.0 and "
+                             "less than or equal to 1.0")
         self.contents = container[:]
         self.previous_index = None
         self._decay_rate = decay_rate
@@ -251,8 +253,9 @@ class CartographyContainer():
     def set_decay_rate(self, new_decay_rate: float):
         if not isinstance(new_decay_rate, float):
             raise TypeError("'new_decay_rate' must be float")
-        if new_decay_rate <= 0.0 or new_decay_rate >= 1.0:
-            raise ValueError("'new_decay_rate' must be between 0.0 and 1.0")
+        if new_decay_rate <= 0.0 or new_decay_rate > 1.0:
+            raise ValueError("'new_decay_rate' must be larger than 0.0 and "
+                             "less than or equal to 1.0")
         self._decay_rate = new_decay_rate
         self._generate_weights()
 

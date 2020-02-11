@@ -164,15 +164,15 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> pitches = [0,
         ...            "d'",
         ...            'E4',
-        ...            abjad.Pitch(5),
-        ...            abjad.Pitch("g'"),
-        ...            abjad.Pitch("A4"),
+        ...            abjad.NumberedPitch(5),
+        ...            abjad.NamedPitch("g'"),
+        ...            abjad.NamedPitch("A4"),
         ...            ]
-        >>> durations = [1/32,
-        ...              (2, 32),
-        ...              0.09375,
+        >>> durations = [(1, 32),
+        ...              "2/32",
+        ...              abjad.Duration("3/32"),
         ...              abjad.Duration(0.125),
-        ...              abjad.Duration((5, 32)),
+        ...              abjad.Duration(5, 32),
         ...              abjad.Duration(6/32),
         ...              ]
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
@@ -199,36 +199,22 @@ class LeafDynMaker(abjad.LeafMaker):
                  *,
                  no_repeat=False
                  ) -> abjad.Selection:
-        for pitch in pitches:
-            if pitch is not None:
-                assert isinstance(pitch,
-                                  (int, float, str, tuple, abjad.Pitch),
-                                  ), repr(pitch)
-        for duration in durations:
-            if duration is not None:
-                assert isinstance(duration,
-                                  (int, float, tuple, str, abjad.Duration),
-                                  ), repr(duration)
         if dynamics:
             for dynamic in dynamics:
                 if dynamic is not None:
-                    assert isinstance(dynamic,
-                                      (str, abjad.Dynamic),
-                                      ), repr(dynamic)
+                    if not isinstance(dynamic, (str, abjad.Dynamic)):
+                        raise TypeError("'dynamic' must be 'str' or "
+                                        "'abjad.Dynamic'")
         if articulations:
             for articulation in articulations:
                 if articulation is not None:
-                    assert isinstance(articulation,
-                                      (str, abjad.Articulation),
-                                      ), repr(articulation)
-        # TODO: rewrite type checks above by raising exceptions.
+                    if not isinstance(articulation, (str, abjad.Articulation)):
+                        raise TypeError("'articulation' must be 'str' or "
+                                        "'abjad.Articulation'")
 
         leaves = super().__call__(pitches, durations)
+        dummy_container = abjad.Container(leaves)
         logical_ties = leaves.logical_ties()
-        # TODO: logical_ties() is broken: it only identifies logical ties in
-        # a selection when the selection belongs to a container; but if I
-        # attribute it to a container, the leaves become associated to it
-        # and cannot be used elsewhere.
 
         dynamics_ = self._listify(dynamics)
         articulations_ = self._listify(articulations)
@@ -247,9 +233,14 @@ class LeafDynMaker(abjad.LeafMaker):
                 abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic
             if articulation:
-                abjad.attach(abjad.Articulation(articulation), logical_tie.head)
+                abjad.attach(abjad.Articulation(articulation),
+                             logical_tie.head,
+                             )
 
-        return abjad.Selection(leaves)
+        result = dummy_container[:]
+        dummy_container[:] = []
+
+        return result
 
     @staticmethod
     def _listify(argument):

@@ -237,13 +237,13 @@ class LoopWindowByElements():
             raise TypeError("'container' must be 'abjad.Container' or "
                             "child class")
         if not isinstance(elements_per_window, int):
-            raise TypeError("'elements_per_window' must be a int")
+            raise TypeError("'elements_per_window' must be 'int'")
         if not isinstance(step_size, int):
-            raise TypeError("'step_size' must be a int")
+            raise TypeError("'step_size' must be 'int'")
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be float")
+            raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         if not isinstance(initial_head_position,

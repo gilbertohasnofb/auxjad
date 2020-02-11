@@ -195,9 +195,9 @@ class CartographyContainer():
                  decay_rate: float = 0.75,
                  ):
         if not isinstance(container, list):
-            raise TypeError("'container' must be 'list")
+            raise TypeError("'container' must be 'list'")
         if not isinstance(decay_rate, float):
-            raise TypeError("'decay_rate' must be float")
+            raise TypeError("'decay_rate' must be 'float'")
         if decay_rate <= 0.0 or decay_rate > 1.0:
             raise ValueError("'decay_rate' must be larger than 0.0 and "
                              "less than or equal to 1.0")

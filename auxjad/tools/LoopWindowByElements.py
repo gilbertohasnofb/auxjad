@@ -1,22 +1,23 @@
 import abjad
 import random
 import copy
-from simplified_time_signature_ratio import simplified_time_signature_ratio
+from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 class LoopWindowByElements():
     r"""Takes a container as input as well as an integer representing the
     number of elements per looping window, then outputs a container with
     the elements processed in the looping process. For instance, if the initial
-    container had the leaves [A, B, C, D, E] and the looping window was size 3,
-    the output would be: A B C B C D C D E D E E, which can be better
-    visualised in:
+    container had the leaves [A, B, C, D, E, F] and the looping window was size
+    three, the output would be: A B C B C D C D E D E F E F F, which can be
+    better visualised as:
 
     A B C
       B C D
         C D E
-          D E
-            E
+          D E F
+            E F
+              F
 
     ..  container:: example
 
@@ -27,23 +28,199 @@ class LoopWindowByElements():
         are commented out with %%% because abjad only adds them to the score
         once the leaves are part of a staff:
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'4 g'1")
-        >>> looper = LoopWindowByElements(input_music, 3)
-        >>> container = looper()
-        >>> abjad.f(container)
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(input_music, 3)
+        >>> window = looper()
+        >>> abjad.f(window)
         {
             %%% \time 4/4 %%%
             c'4
             d'2
             e'4
         }
-        >>> container = looper()
-        >>> abjad.f(container)
+        >>> window = looper()
+        >>> abjad.f(window)
         {
-            %%% \time 4/4 %%%
+            %%% \time 11/8 %%%
             d'2
             e'4
-            f'4
+            f'2
+            ~
+            f'8
+        }
+
+        The method get_current_window() will output the current window without
+        moving the head forwards.
+
+        >>> abjad.f(looper.get_current_window())
+        {
+            %%% \time 11/8 %%%
+            d'2
+            e'4
+            f'2
+            ~
+            f'8
+        }
+
+    ..  container:: example
+
+        This class can take many optional keyword arguments during its
+        creation. step_size dictates the size of each individual step in
+        number of elements (default value is 1). max_steps sets the maximum
+        number of steps that the window can advance when the object is called,
+        ranging between 1 and the input value (default is also 1).
+        repetition_chance sets the chance of a window result repeating itself
+        (that is, the window not moving forward when called). It should range
+        from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
+        initial_head_position can be used to offset the starting position of
+        the looping window (default is 0).
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(input_music,
+        ...                                      3,
+        ...                                      step_size=1,
+        ...                                      max_steps=2,
+        ...                                      repetition_chance=0.25,
+        ...                                      initial_head_position=0,
+        ...                                      )
+        >>> looper.elements_per_window
+        3
+        >>> looper.step_size
+        1
+        >>> looper.repetition_chance
+        0.25
+        >>> looper.max_steps
+        2
+        >>> looper.current_head_position
+        0
+
+    ..  container:: example
+
+        This class has an internal counter which counts the number of times it
+        has been called. It can be reset with the method reset_counter().
+        Resetting the counter will not reset the current_head_position. To
+        change the head position, use the method set_head_position(). Notice
+        that the counter simply counts the number of calls, while the
+        current_head_position only moves forwards after a call (since it may
+        not move at all when using repetition_chance). It also stays at 0 after
+        the very first call, since that is when the 0-th window is output.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(input_music, 3)
+        >>> looper.counter
+        0
+        >>> looper.current_head_position
+        0
+        >>> for _ in range(4):
+        ...     looper()
+        >>> looper.counter
+        4
+        >>> looper.current_head_position
+        3
+        >>> looper.reset_counter()
+        >>> looper.current_head_position
+        4
+        >>> looper.counter
+        0
+        >>> looper.set_head_position(0)
+        >>> looper.current_head_position
+        0
+        >>> looper.counter
+        0
+
+    ..  container:: example
+
+        The function len() can be used to get the total number of elements in
+        the container.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(input_music, 3)
+        >>> len(looper)
+        5
+
+    ..  container:: example
+
+        To run through the whole process automatically, from the initial head
+        position until the process outputs the single last element, use the
+        method output_all(). A property named done will also change to True
+        once the process has reached the end.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopWindowByElements(input_music, 2)
+        >>> looper.done
+        False
+        >>> window = looper.output_all()
+        >>> looper.done
+        True
+        >>> abjad.f(window)
+        {
+            {
+                %%% \time 2/4 %%%
+                c'4
+                d'4
+            }
+            {
+                %%% \time 2/4 %%%
+                d'4
+                e'4
+            }
+            {
+                %%% \time 2/4 %%%
+                e'4
+                f'4
+            }
+            {
+                %%% \time 1/4 %%%
+                f'4
+            }
+        }
+
+    ..  container:: example
+
+        This class can handle tuplets, but the output is not ideal and so this
+        functionality should be considered experimental. Time signatures will
+        be correct when dealing with partial tuplets (thus having non-standard
+        values in their denominators), but each individual note of a tuplet
+        will have the ratio printed above it.
+
+        >>> input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
+        >>> looper = auxjad.LoopWindowByElements(input_music, 2)
+        >>> window = looper.output_all()
+        >>> abjad.f(window)
+        {
+            {
+                %%% \time 3/8 %%%
+                c'4
+                d'8
+            }
+            {
+                %%% #(ly:expect-warning "strange time signature found") %%%
+                %%% \time 7/24 %%%
+                d'8
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3 {
+                    a4
+                }
+            }
+            {
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3 {
+                    %%% \time 2/4 %%%
+                    a4
+                }
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3 {
+                    g2
+                }
+            }
+            {
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3 {
+                    %%% #(ly:expect-warning "strange time signature found") %%%
+                    %%% \time 2/6 %%%
+                    g2
+                }
+            }
         }
     """
 
@@ -52,8 +229,8 @@ class LoopWindowByElements():
                  elements_per_window: int,
                  *,
                  step_size: int = 1,
-                 repetition_chance: float = 0.0,
                  max_steps: int = 1,
+                 repetition_chance: float = 0.0,
                  initial_head_position: int = 0,
                  ):
         if not isinstance(container, abjad.Container):
@@ -63,12 +240,12 @@ class LoopWindowByElements():
             raise TypeError("'elements_per_window' must be a int")
         if not isinstance(step_size, int):
             raise TypeError("'step_size' must be a int")
+        if not isinstance(max_steps, int):
+            raise TypeError("'max_steps' must be 'int'")
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be float")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
         if not isinstance(initial_head_position,
                   (int, float, tuple, str, abjad.Duration),
                   ):
@@ -81,16 +258,21 @@ class LoopWindowByElements():
         self.repetition_chance = repetition_chance
         self.max_steps = max_steps
         self.counter = 0
+        self.done = False
         self._current_window = self._slice_container()
 
 
     def __call__(self) -> abjad.Selection:
         self._move_head()
         self._slice_container()
+        self._check_if_done()
         return self._current_window
 
     def reset_counter(self):
         self.counter = 0
+
+    def set_head_position(self, new_head_position):
+        self.current_head_position = new_head_position
 
     def get_current_window(self):
         return self._current_window
@@ -98,8 +280,8 @@ class LoopWindowByElements():
     def __len__(self):
         return len(self._container)
 
-    def done(self):
-        return self.current_head_position > (len(self._container) - 2)
+    def _check_if_done(self):
+        self.done = self.current_head_position > (len(self._container) - 2)
 
     def _slice_container(self) -> abjad.Selection:
         start = self.current_head_position
@@ -130,17 +312,6 @@ class LoopWindowByElements():
 
     def output_all(self):
         result = abjad.Container()
-        while not self.done():
+        while not self.done:
             result.append(self.__call__())
         return result
-
-
-# input_music = abjad.Container(r"c'4 d'8 e'2 f'16 g'1 a'4 b'32 \times 4/5 {a4 g2 a2} c'2.. d'4. e'8. f'1")
-# looper = LoopWindowByElements(input_music, 5)
-# while not looper.done():
-#     staff.append(looper())
-# input_music = abjad.Container(r"c'4 d'2 e'4 f'4 g'1")
-# looper = LoopWindowByElements(input_music, 3)
-# container = looper.output_all()
-# staff = abjad.Staff([container])
-# abjad.f(staff)

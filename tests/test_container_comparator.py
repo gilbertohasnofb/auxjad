@@ -42,6 +42,7 @@ def test_container_comparator_05():
 #    container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
 #    container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
 #    assert auxjad.container_comparator(container1, container2) == True
+# TODO: investigate why False
 
 
 def test_container_comparator_07():

@@ -57,7 +57,7 @@ def test_LoopWindowByElements_02():
     assert looper.current_head_position == 0
 
 
-def test_LoopWindowByElements_02():
+def test_LoopWindowByElements_03():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music, 3)
     assert looper.current_head_position == 0
@@ -69,7 +69,7 @@ def test_LoopWindowByElements_02():
     assert looper.current_head_position == 2
 
 
-def test_LoopWindowByElements_03():
+def test_LoopWindowByElements_04():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music, 3)
     assert looper.counter == 0
@@ -86,13 +86,13 @@ def test_LoopWindowByElements_03():
     assert looper.counter == 0
 
 
-def test_LoopWindowByElements_04():
+def test_LoopWindowByElements_05():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music, 3)
     assert len(looper) == 5
 
 
-def test_LoopWindowByElements_05():
+def test_LoopWindowByElements_06():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LoopWindowByElements(input_music, 2)
     assert looper.done == False
@@ -124,7 +124,7 @@ def test_LoopWindowByElements_05():
         ''')
 
 
-def test_LoopWindowByElements_06():
+def test_LoopWindowByElements_07():
     input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
     looper = auxjad.LoopWindowByElements(input_music, 2)
     window = looper.output_all()

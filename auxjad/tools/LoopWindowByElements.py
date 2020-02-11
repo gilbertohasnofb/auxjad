@@ -30,18 +30,22 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music, 3)
-        >>> window = looper()
-        >>> abjad.f(window)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'4
             d'2
             e'4
         }
-        >>> window = looper()
-        >>> abjad.f(window)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
         {
-            %%% \time 11/8 %%%
+            \time 11/8
             d'2
             e'4
             f'2
@@ -52,9 +56,12 @@ class LoopWindowByElements():
         The method get_current_window() will output the current window without
         moving the head forwards.
 
-        >>> abjad.f(looper.get_current_window())
+        >>> notes = looper.get_current_window()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
         {
-            %%% \time 11/8 %%%
+            \time 11/8
             d'2
             e'4
             f'2
@@ -153,26 +160,19 @@ class LoopWindowByElements():
         >>> looper.done
         True
         >>> abjad.f(window)
+        \new Staff
         {
-            {
-                %%% \time 2/4 %%%
-                c'4
-                d'4
-            }
-            {
-                %%% \time 2/4 %%%
-                d'4
-                e'4
-            }
-            {
-                %%% \time 2/4 %%%
-                e'4
-                f'4
-            }
-            {
-                %%% \time 1/4 %%%
-                f'4
-            }
+            \time 2/4
+            c'4
+            d'4
+            \time 2/4
+            d'4
+            e'4
+            \time 2/4
+            e'4
+            f'4
+            \time 1/4
+            f'4
         }
 
     ..  container:: example
@@ -187,39 +187,32 @@ class LoopWindowByElements():
         >>> looper = auxjad.LoopWindowByElements(input_music, 2)
         >>> window = looper.output_all()
         >>> abjad.f(window)
+        \new Staff
         {
-            {
-                %%% \time 3/8 %%%
-                c'4
-                d'8
+            \time 3/8
+            c'4
+            d'8
+            #(ly:expect-warning "strange time signature found")
+            \time 7/24
+            d'8
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                a4
             }
-            {
-                %%% #(ly:expect-warning "strange time signature found") %%%
-                %%% \time 7/24 %%%
-                d'8
-                \tweak edge-height #'(0.7 . 0)
-                \times 2/3 {
-                    a4
-                }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                \time 2/4
+                a4
             }
-            {
-                \tweak edge-height #'(0.7 . 0)
-                \times 2/3 {
-                    %%% \time 2/4 %%%
-                    a4
-                }
-                \tweak edge-height #'(0.7 . 0)
-                \times 2/3 {
-                    g2
-                }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                g2
             }
-            {
-                \tweak edge-height #'(0.7 . 0)
-                \times 2/3 {
-                    %%% #(ly:expect-warning "strange time signature found") %%%
-                    %%% \time 2/6 %%%
-                    g2
-                }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                #(ly:expect-warning "strange time signature found")
+                \time 2/6
+                g2
             }
         }
     """
@@ -259,14 +252,14 @@ class LoopWindowByElements():
         self.max_steps = max_steps
         self.counter = 0
         self.done = False
-        self._current_window = self._slice_container()
+        self._slice_container()
 
 
     def __call__(self) -> abjad.Selection:
         self._move_head()
         self._slice_container()
         self._check_if_done()
-        return self._current_window
+        return copy.deepcopy(self._current_window)
 
     def reset_counter(self):
         self.counter = 0
@@ -274,8 +267,8 @@ class LoopWindowByElements():
     def set_head_position(self, new_head_position):
         self.current_head_position = new_head_position
 
-    def get_current_window(self):
-        return self._current_window
+    def get_current_window(self) -> abjad.Selection:
+        return copy.deepcopy(self._current_window)
 
     def __len__(self):
         return len(self._container)
@@ -287,12 +280,12 @@ class LoopWindowByElements():
         start = self.current_head_position
         end = self.current_head_position + self.elements_per_window
         logical_ties = self._container[start:end]
-        self._current_window = abjad.Container()
+        dummy_container = abjad.Container()
         time_signature_duration = 0
         for logical_tie in logical_ties:
             effective_duration = abjad.inspect(logical_tie).duration()
             logical_tie_ = copy.deepcopy(logical_tie)
-            self._current_window.append(logical_tie_)
+            dummy_container.append(logical_tie_)
             multiplier = effective_duration / logical_tie_.written_duration
             logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
             time_signature_duration += effective_duration
@@ -300,7 +293,9 @@ class LoopWindowByElements():
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
             abjad.attach(time_signature,
-                         abjad.select(self._current_window).leaves()[0])
+                         abjad.select(dummy_container).leaves()[0])
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
 
     def _move_head(self):
         if self.counter > 0:  # first time always leave head at 0
@@ -310,8 +305,10 @@ class LoopWindowByElements():
                     self.step_size * random.randint(1, self.max_steps)
         self.counter += 1
 
-    def output_all(self):
-        result = abjad.Container()
+    def output_all(self) -> abjad.Selection:
+        dummy_container = abjad.Container()
         while not self.done:
-            result.append(self.__call__())
+            dummy_container.append(self.__call__())
+        result = dummy_container[:]
+        dummy_container[:] = []
         return result

@@ -1,8 +1,6 @@
 language: python
 python:
   - &mainstream_python 3.6
-  - 3.6-dev
-  - 3.7-dev
 cache: pip
 script:
   - python -m pytest -v

@@ -221,6 +221,7 @@ class LeafDynMaker(abjad.LeafMaker):
                     assert isinstance(articulation,
                                       (str, abjad.Articulation),
                                       ), repr(articulation)
+        # TODO: rewrite type checks above by raising exceptions.
 
         leaves = super().__call__(pitches, durations)
         logical_ties = leaves.logical_ties()

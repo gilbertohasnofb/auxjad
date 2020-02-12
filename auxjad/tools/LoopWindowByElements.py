@@ -12,12 +12,14 @@ class LoopWindowByElements():
     three, the output would be: A B C B C D C D E D E F E F F, which can be
     better visualised as:
 
-    A B C
-      B C D
-        C D E
-          D E F
-            E F
-              F
+    .. code-block:: none
+
+        A B C
+          B C D
+            C D E
+              D E F
+                E F
+                  F
 
     ..  container:: example
 

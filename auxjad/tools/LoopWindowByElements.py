@@ -242,9 +242,9 @@ class LoopWindowByElements():
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         if not isinstance(initial_head_position,
-                  (int, float, tuple, str, abjad.Duration),
-                  ):
-              raise TypeError("'initial_head_position' must be a duration")
+                          (int, float, tuple, str, abjad.Duration),
+                          ):
+            raise TypeError("'initial_head_position' must be a duration")
 
         self._container = abjad.select(container).logical_ties()
         self.current_head_position = initial_head_position
@@ -255,7 +255,6 @@ class LoopWindowByElements():
         self.counter = 0
         self.done = False
         self._slice_container()
-
 
     def __call__(self) -> abjad.Selection:
         self._move_head()

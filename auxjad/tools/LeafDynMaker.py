@@ -227,8 +227,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         previous_dynamic = None
         for logical_tie, dynamic, articulation in zip(logical_ties,
-                                                    dynamics_,
-                                                    articulations_):
+                                                      dynamics_,
+                                                      articulations_):
             if (not no_repeat or dynamic != previous_dynamic) and dynamic:
                 abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic

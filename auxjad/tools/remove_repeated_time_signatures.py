@@ -114,7 +114,9 @@ def remove_repeated_time_signatures(container: abjad.Container
 
     previous_time_signature = None
     for measure in measures:
-        time_signature = abjad.inspect(measure[0]).indicator(abjad.TimeSignature)
+        time_signature = abjad.inspect(measure[0]).indicator(
+            abjad.TimeSignature
+        )
         if time_signature == previous_time_signature:
             abjad.detach(abjad.TimeSignature, measure[0])
         if time_signature:

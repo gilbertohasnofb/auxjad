@@ -10,7 +10,7 @@ class TenneysContainer():
 
     This implementation is based on the paper: Polansky, L., A. Barnett, and
     M. Winter (2011). `A Few More Words About James Tenney: Dissonant
-    Counterpoint and Statistical Feedback'. In: Journal of Mathematics and 
+    Counterpoint and Statistical Feedback'. In: Journal of Mathematics and
     Music 5(2). pp. 63--82.
 
     ..  container:: example
@@ -302,7 +302,7 @@ class TenneysContainer():
             if not len(container) == len(weights):
                 raise ValueError("'weights' must have the same length "
                                  "as 'container'")
-            if not all(isinstance(weight, (int, float)) \
+            if not all(isinstance(weight, (int, float))
                        for weight in weights):
                 raise TypeError("'weights' elements must be "
                                 "'int' or 'float'")
@@ -354,7 +354,7 @@ class TenneysContainer():
             if not len(new_container) == len(weights):
                 raise ValueError("'weights' must have the same length "
                                  "as 'new_container'")
-            if not all(isinstance(weight, (int, float)) \
+            if not all(isinstance(weight, (int, float))
                        for weight in weights):
                 raise TypeError("'weights' elements must be "
                                 "'int' or 'float'")

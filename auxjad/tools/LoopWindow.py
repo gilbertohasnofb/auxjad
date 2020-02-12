@@ -28,8 +28,8 @@ class LoopWindow():
                           ):
             raise TypeError("'window_size' must be a duration")
         if not isinstance(step_size,
-                  (int, float, tuple, str, abjad.Duration),
-                  ):
+                          (int, float, tuple, str, abjad.Duration),
+                          ):
             raise TypeError("'step_size' must be a duration")
         if not isinstance(allow_repetition, bool):
             raise TypeError("'allow_repetition' must be 'bool' or 'float'")
@@ -40,9 +40,9 @@ class LoopWindow():
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if not isinstance(initial_head_position,
-                  (int, float, tuple, str, abjad.Duration),
-                  ):
-              raise TypeError("'initial_head_position' must be a duration")
+                          (int, float, tuple, str, abjad.Duration),
+                          ):
+            raise TypeError("'initial_head_position' must be a duration")
 
         self._container = container
         self.current_head_position = initial_head_position
@@ -52,7 +52,6 @@ class LoopWindow():
         self.max_steps = max_steps
         self.counter = 0
         self._current_window = self._slice_container()
-
 
     def __call__(self) -> abjad.Selection:
         self._move_head()
@@ -69,13 +68,14 @@ class LoopWindow():
         # slice self._container
         # from self.current_head_position
         # to self.current_head_position + self.window_size
-        return #sliced container
+        # return sliced container
+        pass
 
     def _move_head(self):
         if self.counter > 0:  # first window always the initial
             if self.allow_repetition:
                 aux = random.random()
-                if aux > self.allow_repetition: # if <= then repeats
+                if aux > self.allow_repetition:  # if <= then repeats
                     self.current_head_position += \
                         self.step_size * random.randint(1, self.max_steps)
         self.counter += 1

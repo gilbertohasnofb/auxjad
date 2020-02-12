@@ -10,7 +10,7 @@ def test_TenneysContainer_01():
     assert container.curvature == 1.0
     assert container.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert container.probabilities == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-    assert container.previous_index == None
+    assert container.previous_index is None
     assert len(container) == 6
     result = ''
     for _ in range(30):
@@ -40,21 +40,21 @@ def test_TenneysContainer_02():
 
 
 def test_TenneysContainer_03():
-   random.seed(76231)
-   container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'],
-                                       curvature=15.2,
-                                       )
-   result = ''
-   for _ in range(30):
-       result += container()
-   assert result == 'DFAECBDFAECBDFAECBDFAECBDFAECB'
-   assert container.probabilities == [17874877.39956566,
-                                      0.0,
-                                      1.0,
-                                      42106007735.02238,
-                                      37640.547696542824,
-                                      1416810830.8957152,
-                                      ]
+    random.seed(76231)
+    container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'],
+                                        curvature=15.2,
+                                        )
+    result = ''
+    for _ in range(30):
+        result += container()
+    assert result == 'DFAECBDFAECBDFAECBDFAECBDFAECB'
+    assert container.probabilities == [17874877.39956566,
+                                       0.0,
+                                       1.0,
+                                       42106007735.02238,
+                                       37640.547696542824,
+                                       1416810830.8957152,
+                                       ]
 
 
 def test_TenneysContainer_04():

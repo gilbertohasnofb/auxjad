@@ -101,9 +101,9 @@ def test_LoopWindowByElements_05():
 def test_LoopWindowByElements_06():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LoopWindowByElements(input_music, 2)
-    assert looper.done == False
+    assert looper.done is False
     notes = looper.output_all()
-    assert looper.done == True
+    assert looper.done is True
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r'''

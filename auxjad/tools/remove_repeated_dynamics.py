@@ -297,7 +297,7 @@ def remove_repeated_dynamics(container: abjad.Container,
     duration_since_last_note = abjad.Duration(0)
     for leaf in leaves:
         if type(leaf) in (abjad.Rest, abjad.MultimeasureRest):
-            if reset_after_rests is True:
+            if isinstance(reset_after_rests, bool) and reset_after_rests:
                 previous_dynamic = None
             elif reset_after_rests:
                 duration_since_last_note += leaf.written_duration

@@ -105,3 +105,16 @@ def test_CartographyContainer_11():
     n = container.previous_index
     assert n == 3
     assert container.get_element(n) == 31
+
+
+def test_CartographyContainer_12():
+    random.seed(98743)
+    container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+    result = ''
+    for _ in range(30):
+        result += str(container())
+    assert result == '210431340000344203001220034203'
+    result = ''
+    for _ in range(30):
+        result += str(container(no_repeat=True))
+    assert result == '210421021020304024230120241202'

@@ -36,6 +36,18 @@ class CartographyContainer():
         ...     result += str(container())
         >>> result
         203001402200011111101400310140
+        
+    ..  container:: example
+
+        Calling the container with the optional keyword argument no_repeat set 
+        to True will forbid immediate repetitions among consecutive calls.
+    
+        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+        >>> result = ''
+        >>> for _ in range(30):
+        ...     result += str(container(no_repeat=True))
+        >>> result
+        210421021020304024230120241202
 
     ..  container:: example
 
@@ -206,11 +218,20 @@ class CartographyContainer():
         self._decay_rate = decay_rate
         self._generate_weights()
 
-    def __call__(self):
-        self.previous_index = random.choices(
-            [n for n in range(self.__len__())],
-            weights=self.weights,
-            )[0]
+    def __call__(self, no_repeat=False):
+        if not no_repeat:
+            new_index = random.choices(
+                [n for n in range(self.__len__())],
+                weights=self.weights,
+                )[0]
+        else:
+            new_index = self.previous_index
+            while (new_index == self.previous_index):
+                new_index = random.choices(
+                    [n for n in range(self.__len__())],
+                    weights=self.weights,
+                    )[0]
+        self.previous_index = new_index
         return self.contents[self.previous_index]
 
     def __len__(self):

@@ -12,7 +12,7 @@ Bugs can be reported to https://github.com/gilbertohasnofb/auxjad/issues.
 This library is published under the MIT License.
 """
 
-from auxjad.tools import *
+from .tools import *
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.3.0"
+__version__ = "0.3.1"

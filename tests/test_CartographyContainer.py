@@ -118,3 +118,8 @@ def test_CartographyContainer_12():
     for _ in range(30):
         result += str(container(no_repeat=True))
     assert result == '210421021020304024230120241202'
+
+def test_CartographyContainer_13():
+    container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
+    assert container.contents[2] == 14
+    assert container.contents[1:4] == [7, 14, 31]

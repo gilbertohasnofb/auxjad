@@ -36,12 +36,12 @@ class CartographyContainer():
         ...     result += str(container())
         >>> result
         203001402200011111101400310140
-        
+
     ..  container:: example
 
-        Calling the container with the optional keyword argument no_repeat set 
+        Calling the container with the optional keyword argument no_repeat set
         to True will forbid immediate repetitions among consecutive calls.
-    
+
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
         >>> result = ''
         >>> for _ in range(30):
@@ -199,6 +199,18 @@ class CartographyContainer():
         3
         >>> container.get_element(previous_index)
         31
+
+    ..  container:: example
+
+        Individual elements are also accessible via indeces of the content
+        attribute. When accessed in this manner, they can also be sliced like a
+        regular list.
+
+        >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
+        >>> container.contents[2]
+        14
+        >>> container.contents[1:4]
+        [7, 14, 31]
     """
 
     def __init__(self,

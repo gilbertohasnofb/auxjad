@@ -142,6 +142,50 @@ class CartographyContainer():
 
     ..  container:: example
 
+        It is also possible to mirror two elements around a pivot at the centre
+        of the container; given an element (selected by its index), this
+        operation will locate and swap it for its complementary element. The
+        complementary element is defined as that one which is at a same
+        distance from the centre pivot but in the opposite direction.
+
+        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+        >>> container.contents
+        [0, 1, 2, 3, 4]
+        >>> container.mirror(0)
+        >>> container.contents
+        [4, 1, 2, 3, 0]
+        >>> container.mirror(0)
+        >>> container.contents
+        [0, 1, 2, 3, 4]
+        >>> container.mirror(3)
+        >>> container.contents
+        [0, 3, 2, 1, 4]
+        >>> container.mirror(2)
+        >>> container.contents
+        [0, 3, 2, 1, 4]
+
+    ..  container:: example
+
+        To mirror a random pair of complementary elements, use the
+        mirror_random method. In case of a container with an odd number of
+        elements, this method will never pick an element at the pivot point
+        since the operation would not change the contents.
+
+        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+        >>> container.contents
+        [0, 1, 2, 3, 4]
+        >>> container.mirror_random()
+        >>> container.contents
+        [4, 1, 2, 3, 0]
+        >>> container.mirror_random()
+        >>> container.contents
+        [4, 3, 2, 1, 0]
+        >>> container.mirror_random()
+        >>> container.contents
+        [4, 1, 2, 3, 0]
+
+    ..  container:: example
+
         The method randomise() will randomise the position of the elements of
         a container.
 
@@ -265,6 +309,15 @@ class CartographyContainer():
             self.contents = self.contents[1:] + self.contents[:1]
         else:
             self.contents = self.contents[-1:] + self.contents[:-1]
+
+    def mirror(self, index: int):
+        aux = self.contents[index]
+        self.contents[index] = self.contents[-1 - index]
+        self.contents[-1 - index] = aux
+
+    def mirror_random(self):
+        max_index = self.__len__() // 2 - 1
+        self.mirror(random.randint(0, max_index))
 
     def randomise(self):
         random.shuffle(self.contents)

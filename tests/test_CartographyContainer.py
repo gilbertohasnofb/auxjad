@@ -119,7 +119,31 @@ def test_CartographyContainer_12():
         result += str(container(no_repeat=True))
     assert result == '210421021020304024230120241202'
 
+
 def test_CartographyContainer_13():
     container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
     assert container.contents[2] == 14
     assert container.contents[1:4] == [7, 14, 31]
+
+
+def test_CartographyContainer_14():
+    container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+    container.mirror(0)
+    assert container.contents == [4, 1, 2, 3, 0]
+    container.mirror(0)
+    assert container.contents == [0, 1, 2, 3, 4]
+    container.mirror(3)
+    assert container.contents == [0, 3, 2, 1, 4]
+    container.mirror(2)
+    assert container.contents == [0, 3, 2, 1, 4]
+
+
+def test_CartographyContainer_15():
+    random.seed(90129)
+    container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+    container.mirror_random()
+    assert container.contents == [4, 1, 2, 3, 0]
+    container.mirror_random()
+    assert container.contents == [4, 3, 2, 1, 0]
+    container.mirror_random()
+    assert container.contents == [4, 1, 2, 3, 0]

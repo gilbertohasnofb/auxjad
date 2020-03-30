@@ -139,16 +139,20 @@ def test_LoopWindowByElements_07():
             e'4
         }
         ''')
-    looper.set_elements_per_window(2)
+    looper.set_elements_per_window(4)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff
         {
-            \time 3/4
+            \time 19/8
             d'2
             e'4
+            f'2
+            ~
+            f'8
+            g'1
         }
         ''')
 

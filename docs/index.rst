@@ -37,6 +37,11 @@ LoopWindowByElements
 .. autoclass:: auxjad.LoopWindowByElements
 
 
+LoopWindowByList
+----------------
+.. autoclass:: auxjad.LoopWindowByList
+
+
 remove_repeated_dynamics
 ------------------------
 .. autofunction:: auxjad.remove_repeated_dynamics

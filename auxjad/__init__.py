@@ -15,4 +15,4 @@ This library is published under the MIT License.
 from .tools import *
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.3.3"
+__version__ = "0.3.4"

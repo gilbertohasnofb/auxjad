@@ -177,6 +177,38 @@ class LoopWindowByElements():
             f'4
         }
 
+    .. container:: example
+
+        To change the size of the window after instantiation, use the method
+        set_elements_per_window(). In the example below, the initial window is
+        of size 3, and so the first call of the looper object outputs the
+        first, second, and third leaves. The window size is then set to 2, and
+        the looper is called again, moving to the leaf in the next position,
+        thus outputting the second and third leaves.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(input_music, 3)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'2
+            e'4
+        }
+        >>> looper.set_elements_per_window(2)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            d'2
+            e'4
+        }
+
     ..  container:: example
 
         This class can handle tuplets, but the output is not ideal and so this
@@ -267,6 +299,9 @@ class LoopWindowByElements():
 
     def set_head_position(self, new_head_position):
         self.current_head_position = new_head_position
+
+    def set_elements_per_window(self, new_elements_per_window):
+        self.elements_per_window = new_elements_per_window
 
     def get_current_window(self) -> abjad.Selection:
         return copy.deepcopy(self._current_window)

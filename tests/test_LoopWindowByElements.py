@@ -125,6 +125,35 @@ def test_LoopWindowByElements_06():
 
 
 def test_LoopWindowByElements_07():
+    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopWindowByElements(input_music, 3)
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'2
+            e'4
+        }
+        ''')
+    looper.set_elements_per_window(2)
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 3/4
+            d'2
+            e'4
+        }
+        ''')
+
+
+def test_LoopWindowByElements_08():
     input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
     looper = auxjad.LoopWindowByElements(input_music, 2)
     notes = looper.output_all()

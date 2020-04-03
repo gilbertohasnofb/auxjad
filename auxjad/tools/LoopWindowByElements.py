@@ -82,7 +82,7 @@ class LoopWindowByElements():
         (that is, the window not moving forward when called). It should range
         from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
         initial_head_position can be used to offset the starting position of
-        the looping window (default is 0).
+        the looping window. It must be an integer and its default value is 0.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -277,10 +277,8 @@ class LoopWindowByElements():
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(initial_head_position,
-                          (int, float, tuple, str, abjad.Duration),
-                          ):
-            raise TypeError("'initial_head_position' must be a duration")
+        if not isinstance(initial_head_position, int):
+            raise TypeError("'initial_head_position' must be 'int'")
 
         self._container = abjad.select(container).logical_ties()
         self.current_head_position = initial_head_position

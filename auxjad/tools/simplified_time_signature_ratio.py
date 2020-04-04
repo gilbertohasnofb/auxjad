@@ -41,7 +41,8 @@ def simplified_time_signature_ratio(ratio,
 
     """
     if not isinstance(ratio, (tuple, abjad.Duration, abjad.TimeSignature)):
-        raise TypeError("'ratio' must be 'tuple' or duration")
+        raise TypeError("'ratio' must be 'tuple', 'abjad.Duration', or "
+                        "'abjad.TimeSignature'")
     if not isinstance(min_denominator, int):
         raise TypeError("'min_denominator' must be 'int'")
 

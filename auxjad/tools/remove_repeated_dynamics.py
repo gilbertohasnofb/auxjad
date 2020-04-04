@@ -289,7 +289,8 @@ def remove_repeated_dynamics(container: abjad.Container,
     if not isinstance(reset_after_rests,
                       (bool, int, float, tuple, str, abjad.Duration),
                       ):
-        raise TypeError("'reset_after_rests' must be 'bool' or duration")
+        raise TypeError("'reset_after_rests' must be a number, 'bool' or "
+                        "'abjad.Duration'")
 
     leaves = [leaf for leaf in abjad.select(container).leaves()]
 

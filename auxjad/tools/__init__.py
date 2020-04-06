@@ -1,7 +1,7 @@
 from .CartographyContainer import CartographyContainer
 from .container_comparator import container_comparator
 from .LeafDynMaker import LeafDynMaker
-# from .LoopWindow import LoopWindow
+from .LoopWindow import LoopWindow
 from .LoopWindowByElements import LoopWindowByElements
 from .LoopWindowByList import LoopWindowByList
 from .remove_repeated_dynamics import remove_repeated_dynamics

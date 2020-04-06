@@ -32,6 +32,11 @@ LeafDynMaker
 .. autoclass:: auxjad.LeafDynMaker
 
 
+LoopWindow
+----------
+.. autoclass:: auxjad.LoopWindow
+
+
 LoopWindowByElements
 --------------------
 .. autoclass:: auxjad.LoopWindowByElements

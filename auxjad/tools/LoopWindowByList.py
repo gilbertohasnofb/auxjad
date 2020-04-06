@@ -24,12 +24,12 @@ class LoopWindowByList():
 
     ..  container:: example
 
-        It takes a list and the size of the window as input. Each call of the
-        object, in this case looper(), will move the window forward and output
-        the result:
+        It takes a list and the number of elements of the window as arguments.
+        Each call of the object, in this case looper(), will move the window
+        forwards and output the result:
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper()
@@ -43,20 +43,38 @@ class LoopWindowByList():
 
     ..  container:: example
 
+        The instances of LoopWindowByList can also be used as an iterator,
+        which can then be used in a for loop to exhaust all windows.
+
+        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> looper = auxjad.LoopWindowByList(input_list,
+        ...                                  elements_per_window=3,
+        ...                                  )
+        >>> for window in looper:
+        ...     print(window)
+        ['A', 'B', 'C']
+        ['B', 'C', 'D']
+        ['C', 'D', 'E']
+        ['D', 'E', 'F']
+        ['E', 'F']
+        ['F']
+
+    ..  container:: example
+
         This class can take many optional keyword arguments during its
         creation. step_size dictates the size of each individual step in
         number of elements (default value is 1). max_steps sets the maximum
         number of steps that the window can advance when the object is called,
         ranging between 1 and the input value (default is also 1).
         repetition_chance sets the chance of a window result repeating itself
-        (that is, the window not moving forward when called). It should range
+        (that is, the window not moving forwards when called). It should range
         from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
         initial_head_position can be used to offset the starting position of
         the looping window (default is 0).
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list,
-        ...                                  3,
+        ...                                  elements_per_window=3,
         ...                                  step_size=1,
         ...                                  max_steps=2,
         ...                                  repetition_chance=0.25,
@@ -85,7 +103,7 @@ class LoopWindowByList():
         the very first call, since that is when the 0-th window is output.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> looper.counter
         0
         >>> looper.current_head_position
@@ -117,26 +135,20 @@ class LoopWindowByList():
         the container.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> len(looper)
         6
 
     ..  container:: example
 
-        To run through the whole process automatically, from the initial head
-        position until the process outputs the single last element, use the
-        method output_all(). A property named done will also change to True
-        once the process has reached the end.
+        To run through the whole process and output it as a single list, from
+        the initial head position until the process outputs the single last
+        element, use the method output_all().
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
-        >>> looper.done
-        False
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> looper.output_all()
         ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
-        >>> looper.done
-        True
-
 
     .. container:: example
 
@@ -149,7 +161,7 @@ class LoopWindowByList():
         elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper.set_elements_per_window(4)
@@ -161,7 +173,7 @@ class LoopWindowByList():
         It should be clear that the list can contain any types of elements:
 
         >>> input_list = [123, 'foo', (3, 4), 3.14]
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> looper()
         [123, 'foo', (3, 4)]
 
@@ -178,7 +190,7 @@ class LoopWindowByList():
         ...     abjad.Container(r"r2 bf2"),
         ...     abjad.Container(r"c''2. r4"),
         ... ]
-        >>> looper = auxjad.LoopWindowByList(input_list, 3)
+        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
         >>> staff = abjad.Staff()
         >>> for element in looper.output_all():
         ...     staff.append(copy.deepcopy(element))
@@ -226,8 +238,8 @@ class LoopWindowByList():
 
     def __init__(self,
                  container: list,
-                 elements_per_window: int,
                  *,
+                 elements_per_window: int,
                  step_size: int = 1,
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
@@ -247,6 +259,9 @@ class LoopWindowByList():
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         if not isinstance(initial_head_position, int):
             raise TypeError("'initial_head_position' must be 'int'")
+        if initial_head_position >= len(container):
+            raise ValueError("'initial_head_position' must be smaller than "
+                             "the length of 'container'")
 
         self._container = container[:]
         self.current_head_position = initial_head_position
@@ -255,19 +270,22 @@ class LoopWindowByList():
         self.repetition_chance = repetition_chance
         self.max_steps = max_steps
         self.counter = 0
-        self.done = False
         self._slice_container()
 
     def __call__(self) -> list:
         self._move_head()
+        if self._done():
+            raise RuntimeError("'container' has been exhausted")
         self._slice_container()
-        self._check_if_done()
         return self._current_window[:]
 
     def reset_counter(self):
         self.counter = 0
 
     def set_head_position(self, new_head_position):
+        if new_head_position >= self._container.__len__():
+            raise ValueError("'new_head_position' must be smaller than the "
+                             "length of 'container'")
         self.current_head_position = new_head_position
 
     def set_elements_per_window(self, new_elements_per_window):
@@ -279,8 +297,8 @@ class LoopWindowByList():
     def __len__(self):
         return len(self._container)
 
-    def _check_if_done(self):
-        self.done = self.current_head_position > (len(self._container) - 2)
+    def _done(self):
+        return self.current_head_position >= self._container.__len__()
 
     def _slice_container(self) -> list:
         start = self.current_head_position
@@ -297,6 +315,19 @@ class LoopWindowByList():
 
     def output_all(self) -> list:
         dummy_container = []
-        while not self.done:
-            dummy_container.extend(self.__call__())
+        while True:
+            try:
+                dummy_container.extend(self.__call__())
+            except:
+                break
         return dummy_container[:]
+
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> list:
+        self._move_head()
+        if self._done():
+            raise StopIteration
+        self._slice_container()
+        return self._current_window[:]

@@ -1,9 +1,10 @@
+import pytest
 import auxjad
 
 
 def test_LoopWindowByList_01():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert looper() == ['A', 'B', 'C']
     assert looper() == ['B', 'C', 'D']
     assert looper.get_current_window() == ['B', 'C', 'D']
@@ -12,7 +13,7 @@ def test_LoopWindowByList_01():
 def test_LoopWindowByList_02():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
     looper = auxjad.LoopWindowByList(input_list,
-                                     3,
+                                     elements_per_window=3,
                                      step_size=1,
                                      max_steps=2,
                                      repetition_chance=0.25,
@@ -27,7 +28,7 @@ def test_LoopWindowByList_02():
 
 def test_LoopWindowByList_03():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert looper.current_head_position == 0
     looper()
     assert looper.current_head_position == 0
@@ -39,7 +40,7 @@ def test_LoopWindowByList_03():
 
 def test_LoopWindowByList_04():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert looper.counter == 0
     assert looper.current_head_position == 0
     for _ in range(4):
@@ -56,21 +57,19 @@ def test_LoopWindowByList_04():
 
 def test_LoopWindowByList_05():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert len(looper) == 6
 
 
 def test_LoopWindowByList_06():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopWindowByList(input_list, 3)
-    assert not looper.done
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert looper.output_all() == ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
-    assert looper.done
 
 
 def test_LoopWindowByList_07():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert looper() == ['A', 'B', 'C']
     looper.set_elements_per_window(4)
     assert looper() == ['B', 'C', 'D', 'E']
@@ -78,7 +77,7 @@ def test_LoopWindowByList_07():
 
 def test_LoopWindowByList_08():
     input_list = [123, 'foo', (3, 4), 3.14]
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     assert looper() == [123, 'foo', (3, 4)]
 
 
@@ -91,7 +90,7 @@ def test_LoopWindowByList_09():
         abjad.Container(r"r2 bf2"),
         abjad.Container(r"c''2. r4"),
     ]
-    looper = auxjad.LoopWindowByList(input_list, 3)
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
     staff = abjad.Staff()
     for element in looper.output_all():
         staff.append(copy.deepcopy(element))
@@ -137,3 +136,14 @@ def test_LoopWindowByList_09():
             }
         }
         ''')
+
+
+def test_LoopWindowByList_10():
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+    assert looper.__next__() == ['A', 'B', 'C']
+    assert looper.__next__() == ['B', 'C', 'D']
+    assert looper.__next__() == ['C', 'D']
+    assert looper.__next__() == ['D']
+    with pytest.raises(StopIteration):
+        looper.__next__()

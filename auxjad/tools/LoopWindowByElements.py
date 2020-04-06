@@ -5,8 +5,8 @@ from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 class LoopWindowByElements():
-    r"""Takes a container as input as well as an integer representing the
-    number of elements per looping window, then outputs a container with
+    r"""Takes an abjad.Container as input as well as an integer representing
+    the number of elements per looping window, then outputs a container with
     the elements processed in the looping process. For instance, if the initial
     container had the leaves [A, B, C, D, E, F] and the looping window was size
     three, the output would be: A B C B C D C D E D E F E F F, which can be

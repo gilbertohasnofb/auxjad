@@ -2,16 +2,15 @@ import random
 
 
 class LoopWindowByList():
-    r"""Similar to LoopWindowByList, but instead of taking an
-    abjad.Container as input, it takes a list of arbitrary size. It then
-    outputs the list elements, whatever they may be. The list elements can be
-    abjad.Container's, but they can also be anything else, thus being more
-    general. Takes a list as input as well as an integer representing the
-    number of elements per looping window, then outputs individual elements
-    with according to the looping process. For instance, if the initial
-    list had the elements [A, B, C, D, E, F] and the looping window was size
-    three, the output would be: A B C B C D C D E D E F E F F, which can be
-    better visualised as:
+    r"""Similar to LoopWindowByList, but instead of taking an abjad.Container
+    input, it takes a list of arbitrary size. It then outputs the list
+    elements, whatever they may be. The list elements can be abjad.Container's,
+    but they can also be anything else, thus being more general. Takes a list
+    as input as well as an integer representing the number of elements per
+    looping window, then outputs individual elements with according to the
+    looping process. For instance, if the initial list had the elements [A, B,
+    C, D, E, F] and the looping window was size three, the output would be: A B
+    C B C D C D E D E F E F F, which can be better visualised as:
 
     .. code-block:: none
 
@@ -99,8 +98,9 @@ class LoopWindowByList():
         change the head position, use the method set_head_position(). Notice
         that the counter simply counts the number of calls, while the
         current_head_position only moves forwards after a call (since it may
-        not move at all when using repetition_chance). It also stays at 0 after
-        the very first call, since that is when the 0-th window is output.
+        not move at all when using repetition_chance). It also stays at its
+        initial value after the very first call, since that is when the 0-th
+        window is output.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
@@ -270,7 +270,6 @@ class LoopWindowByList():
         self.repetition_chance = repetition_chance
         self.max_steps = max_steps
         self.counter = 0
-        self._slice_container()
 
     def __call__(self) -> list:
         self._move_head()
@@ -294,10 +293,10 @@ class LoopWindowByList():
     def get_current_window(self) -> list:
         return self._current_window[:]
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._container)
 
-    def _done(self):
+    def _done(self) -> bool:
         return self.current_head_position >= self._container.__len__()
 
     def _slice_container(self) -> list:

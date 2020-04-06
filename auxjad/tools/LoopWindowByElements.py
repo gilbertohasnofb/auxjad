@@ -143,8 +143,9 @@ class LoopWindowByElements():
         change the head position, use the method set_head_position(). Notice
         that the counter simply counts the number of calls, while the
         current_head_position only moves forwards after a call (since it may
-        not move at all when using repetition_chance). It also stays at 0 after
-        the very first call, since that is when the 0-th window is output.
+        not move at all when using repetition_chance). It also stays at its
+        initial value after the very first call, since that is when the 0-th
+        window is output.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -331,7 +332,6 @@ class LoopWindowByElements():
         self.repetition_chance = repetition_chance
         self.max_steps = max_steps
         self.counter = 0
-        self._slice_container()
 
     def __call__(self) -> abjad.Selection:
         self._move_head()
@@ -355,10 +355,10 @@ class LoopWindowByElements():
     def get_current_window(self) -> abjad.Selection:
         return copy.deepcopy(self._current_window)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._container)
 
-    def _done(self):
+    def _done(self) -> bool:
         return self.current_head_position >= self._container.__len__()
 
     def _slice_container(self) -> abjad.Selection:
@@ -378,7 +378,8 @@ class LoopWindowByElements():
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
             abjad.attach(time_signature,
-                         abjad.select(dummy_container).leaves()[0])
+                         abjad.select(dummy_container).leaves()[0],
+                         )
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -404,7 +405,7 @@ class LoopWindowByElements():
     def __iter__(self):
         return self
 
-    def __next__(self) -> list:
+    def __next__(self) -> abjad.Selection:
         self._move_head()
         if self._done():
             raise StopIteration

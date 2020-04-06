@@ -306,7 +306,7 @@ class LoopWindowByList():
         self._current_window = self._container[start:end]
 
     def _move_head(self):
-        if self.counter > 0:  # first time always leave head at 0
+        if self.counter > 0:  # 1st time always leave head at initial position
             if self.repetition_chance == 0.0 \
                     or random.random() > self.repetition_chance:
                 self.current_head_position += \

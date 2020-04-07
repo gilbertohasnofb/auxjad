@@ -26,9 +26,7 @@ class LoopWindowByElements():
         Usage is similar to other factory classes. It takes a container (or
         child class equivalent) and the number of elements of the window as
         arguments. Each call of the object, in this case looper(), will move
-        the window forwards and output the result. Notice that the time
-        signatures in the example below are commented out with %%% because
-        abjad only adds them to the score once the leaves are part of a staff:
+        the window forwards and output the result.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -148,10 +146,31 @@ class LoopWindowByElements():
         2
         >>> looper.max_steps
         3
-        >>> looper.repetition_chance ==
+        >>> looper.repetition_chance
         1
         >>> looper.head_position
         2
+
+    ..  container:: example
+
+        To disable time signatures altogether, initialise LoopWindowByElements
+        with the keyword omit_time_signature set to True (default is False), or
+        use the set_omit_time_signature() method after initialisation.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(input_music,
+        ...                                      elements_per_window=3,
+        ...                                      omit_time_signature=True,
+        ...                                      )
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            d'2
+            e'4
+        }
 
     ..  container:: example
 
@@ -406,7 +425,7 @@ class LoopWindowByElements():
             multiplier = effective_duration / logical_tie_.written_duration
             logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
             time_signature_duration += effective_duration
-        if len(logical_ties) > 0:
+        if len(logical_ties) > 0 and not self.omit_time_signature:
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
             abjad.attach(time_signature,

@@ -181,6 +181,7 @@ class LoopWindow():
         ...                            max_steps=2,
         ...                            repetition_chance=0.25,
         ...                            head_position=(2, 8),
+        ...                            omit_time_signature=False,
         ...                            )
         >>> looper.window_size
         3/4
@@ -192,6 +193,8 @@ class LoopWindow():
         2
         >>> looper.head_position
         1/4
+        >>> looper.omit_time_signature
+        False
 
         Use the set methods below to change these values after initialisation.
 
@@ -200,6 +203,7 @@ class LoopWindow():
         >>> looper.set_max_steps(3)
         >>> looper.set_repetition_chance(0.1)
         >>> looper.set_head_position((0, 1))
+        >>> looper.set_omit_time_signature(True)
         >>> looper.window_size
         5/4
         >>> looper.step_size
@@ -210,6 +214,8 @@ class LoopWindow():
         0.1
         >>> looper.head_position
         0
+        >>> looper.omit_time_signature
+        True
 
     ..  container:: example
 
@@ -305,6 +311,22 @@ class LoopWindow():
         \new Staff
         {
             d'4.
+        }
+
+        To disable time signatures altogether, initialise LoopWindow with the
+        keyword omit_time_signature set to True (default is False), or use the
+        set_omit_time_signature() method after initialisation.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindow(input_music, omit_time_signature=True)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            d'2
+            e'4
         }
 
     ..  container:: example
@@ -518,7 +540,7 @@ class LoopWindow():
             abjad.mutate(dummy_container[start : end]).copy()
         )
         abjad.mutate(dummy_container[:]).rewrite_meter(window_size)
-        if self._new_time_signature:
+        if self._new_time_signature and not self.omit_time_signature:
             abjad.attach(abjad.TimeSignature(window_size),
                          abjad.select(dummy_container).leaves()[0],
                          )

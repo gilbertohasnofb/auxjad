@@ -181,7 +181,7 @@ def test_LoopWindow_03():
         }
         ''')
     with pytest.raises(StopIteration):
-        looper.__next__()
+        assert looper.__next__()
 
 
 def test_LoopWindow_04():
@@ -378,3 +378,21 @@ def test_LoopWindow_08():
             e'4
         }
         ''')
+
+
+def test_LoopWindow_09():
+    wrong_type_input = 'foobar'
+    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    with pytest.raises(TypeError):
+        assert auxjad.LoopWindow(wrong_type_input)
+        assert auxjad.LoopWindow(input_music, window_size=17j)
+        assert auxjad.LoopWindow(input_music, max_steps='foobar')
+        assert auxjad.LoopWindow(input_music, repetition_chance='foobar')
+        assert auxjad.LoopWindow(input_music, head_position=62.3j)
+        assert auxjad.LoopWindow(input_music, omit_time_signature='foobar')
+    with pytest.raises(ValueError):
+        assert auxjad.LoopWindow(input_music, window_size=(100, 1))
+        assert auxjad.LoopWindow(input_music, max_steps=-1)
+        assert auxjad.LoopWindow(input_music, repetition_chance=-0.3)
+        assert auxjad.LoopWindow(input_music, repetition_chance=1.4)
+        assert auxjad.LoopWindow(input_music, head_position=(100, 1))

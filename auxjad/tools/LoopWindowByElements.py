@@ -1,10 +1,10 @@
 import abjad
-import random
 import copy
+from ._LoopWindowGeneric import _LoopWindowGeneric
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
-class LoopWindowByElements():
+class LoopWindowByElements(_LoopWindowGeneric):
     r"""Takes an abjad.Container as input as well as an integer representing
     the number of elements per looping window, then outputs a container with
     the elements processed in the looping process. For instance, if the initial
@@ -30,7 +30,7 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=3,
+        ...                                      window_size=3,
         ...                                      )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -78,7 +78,7 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=2,
+        ...                                      window_size=2,
         ...                                      )
         >>> for window in looper:
         ...     staff = abjad.Staff(window)
@@ -116,13 +116,13 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=3,
+        ...                                      window_size=3,
         ...                                      step_size=1,
         ...                                      max_steps=2,
         ...                                      repetition_chance=0.25,
         ...                                      head_position=0,
         ...                                      )
-        >>> looper.elements_per_window
+        >>> looper.window_size
         3
         >>> looper.step_size
         1
@@ -135,12 +135,12 @@ class LoopWindowByElements():
 
         Use the set methods below to change these values after initialisation.
 
-        >>> looper.set_elements_per_window(2)
+        >>> looper.set_window_size(2)
         >>> looper.set_step_size(2)
         >>> looper.set_max_steps(3)
         >>> looper.set_repetition_chance(0.1)
         >>> looper.set_head_position(2)
-        >>> looper.elements_per_window
+        >>> looper.window_size
         2
         >>> looper.step_size
         2
@@ -159,7 +159,7 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=3,
+        ...                                      window_size=3,
         ...                                      omit_time_signature=True,
         ...                                      )
         >>> notes = looper()
@@ -179,7 +179,7 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=3,
+        ...                                      window_size=3,
         ...                                      )
         >>> len(looper)
         5
@@ -192,7 +192,7 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=2,
+        ...                                      window_size=2,
         ...                                      )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
@@ -215,15 +215,15 @@ class LoopWindowByElements():
     .. container:: example
 
         To change the size of the window after instantiation, use the method
-        set_elements_per_window(). In the example below, the initial window is
-        of size 3, and so the first call of the looper object outputs the
-        first, second, and third leaves. The window size is then set to 4, and
-        the looper is called again, moving to the leaf in the next position,
-        thus outputting the second, third, fourth, and fifth leaves.
+        set_window_size(). In the example below, the initial window is of size
+        3, and so the first call of the looper object outputs the first,
+        second, and third leaves. The window size is then set to 4, and the
+        looper is called again, moving to the leaf in the next position, thus
+        outputting the second, third, fourth, and fifth leaves.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=3,
+        ...                                      window_size=3,
         ...                                      )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -235,7 +235,7 @@ class LoopWindowByElements():
             d'2
             e'4
         }
-        >>> looper.set_elements_per_window(4)
+        >>> looper.set_window_size(4)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -260,7 +260,7 @@ class LoopWindowByElements():
 
         >>> input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
         >>> looper = auxjad.LoopWindowByElements(input_music,
-        ...                                      elements_per_window=2,
+        ...                                      window_size=2,
         ...                                      )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
@@ -298,7 +298,7 @@ class LoopWindowByElements():
     def __init__(self,
                  container: abjad.Container,
                  *,
-                 elements_per_window: int,
+                 window_size: int,
                  step_size: int = 1,
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
@@ -306,95 +306,20 @@ class LoopWindowByElements():
                  omit_time_signature: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
-            raise TypeError("'container' must be 'abjad.Container' or "
-                            "child class")
-        if not isinstance(elements_per_window, int):
-            raise TypeError("'elements_per_window' must be 'int'")
-        if elements_per_window < 1:
-            raise ValueError("'elements_per_window' must be greater than zero")
-        if not isinstance(step_size, int):
-            raise TypeError("'step_size' must be 'int'")
-        if step_size < 1:
-            raise ValueError("'step_size' must be greater than zero")
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
-        if max_steps < 1:
-            raise ValueError("'max_steps' must be greater than zero")
-        if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be 'float'")
-        if repetition_chance < 0.0 or repetition_chance > 1.0:
-            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(head_position, int):
-            raise TypeError("'head_position' must be 'int'")
-        if not isinstance(omit_time_signature, bool):
-            raise TypeError("'omit_time_signature' must be 'bool'")
-
+            raise TypeError("'container' must be 'abjad.Container' or child "
+                            "class")
         self._container = abjad.select(container).logical_ties()
+        super().__init__(head_position,
+                         window_size,
+                         step_size,
+                         max_steps,
+                         repetition_chance,
+                         )
+        self.set_omit_time_signature(omit_time_signature)
 
-        if head_position >= self._container.__len__():
-            raise ValueError("'head_position' must be smaller than "
-                             "the length of 'container'")
 
-        self.head_position = head_position
-        self.elements_per_window = elements_per_window
-        self.step_size = step_size
-        self.repetition_chance = repetition_chance
-        self.max_steps = max_steps
-        self.omit_time_signature = omit_time_signature
-        self._first_window = True
-
-    def __call__(self) -> abjad.Selection:
-        self._move_head()
-        if self._done():
-            raise RuntimeError("'container' has been exhausted")
-        self._slice_container()
-        return copy.deepcopy(self._current_window)
-
-    def set_head_position(self,
-                          head_position: int,
-                          ):
-        if not isinstance(head_position, int):
-            raise TypeError("'head_position' must be 'int'")
-        if head_position >= self._container.__len__():
-            raise ValueError("'head_position' must be smaller than the length "
-                             "of 'container'")
-        self.head_position = head_position
-
-    def set_elements_per_window(self,
-                                elements_per_window: int,
-                                ):
-        if not isinstance(elements_per_window, int):
-            raise TypeError("'elements_per_window' must be 'int'")
-        if elements_per_window < 1:
-            raise ValueError("'elements_per_window' must be greater than zero")
-        self.elements_per_window = elements_per_window
-
-    def set_step_size(self,
-                      step_size: int,
-                      ):
-        if not isinstance(step_size, int):
-            raise TypeError("'step_size' must be 'int'")
-        if step_size < 1:
-            raise ValueError("'step_size' must be greater than zero")
-        self.step_size = step_size
-
-    def set_max_steps(self,
-                      max_steps: int,
-                      ):
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
-        if max_steps < 1:
-            raise ValueError("'max_steps' must be greater than zero")
-        self.max_steps = max_steps
-
-    def set_repetition_chance(self,
-                              repetition_chance: float,
-                              ):
-        if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be 'float'")
-        if repetition_chance < 0.0 or repetition_chance > 1.0:
-            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        self.repetition_chance = repetition_chance
+    def __len__(self) -> int:
+        return len(self._container)
 
     def set_omit_time_signature(self,
                                 omit_time_signature: bool,
@@ -403,18 +328,9 @@ class LoopWindowByElements():
             raise TypeError("'omit_time_signature' must be 'bool'")
         self.omit_time_signature = omit_time_signature
 
-    def get_current_window(self) -> abjad.Selection:
-        return copy.deepcopy(self._current_window)
-
-    def __len__(self) -> int:
-        return len(self._container)
-
-    def _done(self) -> bool:
-        return self.head_position >= self._container.__len__()
-
     def _slice_container(self) -> abjad.Selection:
         start = self.head_position
-        end = self.head_position + self.elements_per_window
+        end = self.head_position + self.window_size
         logical_ties = self._container[start:end]
         dummy_container = abjad.Container()
         time_signature_duration = 0
@@ -433,33 +349,3 @@ class LoopWindowByElements():
                          )
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-
-    def _move_head(self):
-        if not self._first_window:  # first window always at initial position
-            if self.repetition_chance == 0.0 \
-                    or random.random() > self.repetition_chance:
-                self.head_position += \
-                    self.step_size * random.randint(1, self.max_steps)
-        else:
-            self._first_window = False
-
-    def output_all(self) -> abjad.Selection:
-        dummy_container = abjad.Container()
-        while True:
-            try:
-                dummy_container.append(self.__call__())
-            except:
-                break
-        result = dummy_container[:]
-        dummy_container[:] = []
-        return result
-
-    def __iter__(self):
-        return self
-
-    def __next__(self) -> abjad.Selection:
-        self._move_head()
-        if self._done():
-            raise StopIteration
-        self._slice_container()
-        return copy.deepcopy(self._current_window)

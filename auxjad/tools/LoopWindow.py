@@ -1,9 +1,9 @@
 import abjad
-import random
 import copy
+from ._LoopWindowGeneric import _LoopWindowGeneric
 
 
-class LoopWindow():
+class LoopWindow(_LoopWindowGeneric):
     r"""Using a looping window, this slices an input abjad.Container and output
     them as containers.
 
@@ -383,62 +383,25 @@ class LoopWindow():
                  omit_time_signature: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
-            raise TypeError("'container' must be 'abjad.Container' or "
-                            "child class")
-        if not isinstance(window_size,
-                          (int, float, tuple, str, abjad.Meter),
-                          ):
-            raise TypeError("'window_size' must be 'tuple' or 'abjad.Meter'")
-        if not isinstance(step_size,
-                          (int, float, tuple, str, abjad.Duration),
-                          ):
-            raise TypeError("'step_size' must be a 'tuple' or "
-                            "'abjad.Duration'")
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
-        if max_steps < 1:
-            raise ValueError("'max_steps' must be greater than zero")
-        if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be 'float'")
-        if repetition_chance < 0.0 or repetition_chance > 1.0:
-            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(head_position,
-                          (int, float, tuple, str, abjad.Duration),
-                          ):
-            raise TypeError("'head_position' must be a number or "
-                            "'abjad.Duration'")
-        if not isinstance(omit_time_signature, bool):
-            raise TypeError("'omit_time_signature' must be 'bool'")
-
+            raise TypeError("'container' must be 'abjad.Container' or child "
+                            "class")
         self._container = copy.deepcopy(container)
         self._container_length = abjad.inspect(container[:]).duration()
-
-        if  abjad.Meter(window_size).duration > self._container_length:
-            raise ValueError("'window_size' must be smaller than or equal to "
-                             "the duration of 'container'")
-        if abjad.Duration(head_position) >= self._container_length:
-            raise ValueError("'head_position' must be smaller than "
-                             "the duration of 'container'")
-
-        self.head_position = abjad.Duration(head_position)
-        self.window_size = abjad.Meter(window_size)
-        self.step_size = abjad.Duration(step_size)
-        self.repetition_chance = repetition_chance
-        self.max_steps = max_steps
-        self.omit_time_signature = omit_time_signature
-        self._first_window = True
         self._new_time_signature = True
-
-    def __call__(self) -> abjad.Selection:
-        self._move_head()
-        if self._done():
-            raise RuntimeError("'container' has been exhausted")
-        self._slice_container()
-        return copy.deepcopy(self._current_window)
+        self.set_omit_time_signature(omit_time_signature)
+        super().__init__(head_position,
+                         window_size,
+                         step_size,
+                         max_steps,
+                         repetition_chance,
+                         )
 
     def set_head_position(self,
                           head_position: tuple,
                           ):
+        r"""Custom set_head_position() method since parent's method uses
+        integers as input, intead of tuples or abjad.Duration.
+        """
         if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
                           ):
@@ -452,6 +415,9 @@ class LoopWindow():
     def set_window_size(self,
                         window_size: tuple,
                         ):
+        r"""Custom set_window_size() method since parent's method uses
+        integers as input, intead of tuples or abjad.Duration.
+        """
         if not isinstance(window_size,
                           (int, float, tuple, str, abjad.Meter),
                           ):
@@ -460,37 +426,23 @@ class LoopWindow():
                               - self.head_position:
             raise ValueError("'window_size' must be smaller than or equal "
                              "to the length of 'container'")
-        if self.window_size.duration != abjad.Meter(window_size).duration:
+        if self._first_window or self.window_size.duration \
+                != abjad.Meter(window_size).duration:
             self.window_size = abjad.Meter(window_size)
             self._new_time_signature = True
 
     def set_step_size(self,
                       step_size: tuple,
                       ):
+        r"""Custom set_step_size() method since parent's method uses integers
+        as input, intead of tuples or abjad.Duration.
+        """
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
                           ):
             raise TypeError("'step_size' must be a 'tuple' or "
                             "'abjad.Duration'")
         self.step_size = abjad.Duration(step_size)
-
-    def set_max_steps(self,
-                      max_steps: int,
-                      ):
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
-        if max_steps < 1:
-            raise ValueError("'max_steps' must be greater than zero")
-        self.max_steps = max_steps
-
-    def set_repetition_chance(self,
-                              repetition_chance: float,
-                              ):
-        if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be 'float'")
-        if repetition_chance < 0.0 or repetition_chance > 1.0:
-            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        self.repetition_chance = repetition_chance
 
     def set_omit_time_signature(self,
                                 omit_time_signature: bool,
@@ -499,10 +451,10 @@ class LoopWindow():
             raise TypeError("'omit_time_signature' must be 'bool'")
         self.omit_time_signature = omit_time_signature
 
-    def get_current_window(self) -> abjad.Selection:
-        return copy.deepcopy(self._current_window)
-
-    def _done(self):
+    def _done(self) -> bool:
+        r"""Custom _done method since parent's method uses the __len__ method,
+        which cannot be used for non-integer values such as abjad.Duration.
+        """
         return self.head_position >= self._container_length
 
     def _slice_container(self) -> abjad.Selection:
@@ -547,33 +499,3 @@ class LoopWindow():
             self._new_time_signature = False
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-
-    def _move_head(self):
-        if not self._first_window:  # first window always at initial position
-            if self.repetition_chance == 0.0 \
-                    or random.random() > self.repetition_chance:
-                self.head_position += \
-                    self.step_size * random.randint(1, self.max_steps)
-        else:
-            self._first_window = False
-
-    def output_all(self) -> abjad.Selection:
-        dummy_container = abjad.Container()
-        while True:
-            try:
-                dummy_container.append(self.__call__())
-            except:
-                break
-        result = dummy_container[:]
-        dummy_container[:] = []
-        return result
-
-    def __iter__(self):
-        return self
-
-    def __next__(self) -> abjad.Selection:
-        self._move_head()
-        if self._done():
-            raise StopIteration
-        self._slice_container()
-        return copy.deepcopy(self._current_window)

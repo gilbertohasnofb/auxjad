@@ -1,7 +1,7 @@
-import random
+from ._LoopWindowGeneric import _LoopWindowGeneric
 
 
-class LoopWindowByList():
+class LoopWindowByList(_LoopWindowGeneric):
     r"""Similar to LoopWindowByList, but instead of taking an abjad.Container
     input, it takes a list of arbitrary size. It then outputs the list
     elements, whatever they may be. The list elements can be abjad.Container's,
@@ -28,7 +28,7 @@ class LoopWindowByList():
         forwards and output the result:
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper()
@@ -47,7 +47,7 @@ class LoopWindowByList():
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list,
-        ...                                  elements_per_window=3,
+        ...                                  window_size=3,
         ...                                  )
         >>> for window in looper:
         ...     print(window)
@@ -73,13 +73,13 @@ class LoopWindowByList():
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list,
-        ...                                  elements_per_window=3,
+        ...                                  window_size=3,
         ...                                  step_size=1,
         ...                                  max_steps=2,
         ...                                  repetition_chance=0.25,
         ...                                  head_position=0,
         ...                                  )
-        >>> looper.elements_per_window
+        >>> looper.window_size
         3
         >>> looper.step_size
         1
@@ -92,12 +92,12 @@ class LoopWindowByList():
 
         Use the set methods below to change these values after initialisation.
 
-        >>> looper.set_elements_per_window(2)
+        >>> looper.set_window_size(2)
         >>> looper.set_step_size(2)
         >>> looper.set_max_steps(3)
         >>> looper.set_repetition_chance(0.1)
         >>> looper.set_head_position(2)
-        >>> looper.elements_per_window
+        >>> looper.window_size
         2
         >>> looper.step_size
         2
@@ -114,7 +114,7 @@ class LoopWindowByList():
         the container.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> len(looper)
         6
 
@@ -125,25 +125,25 @@ class LoopWindowByList():
         element, use the method output_all().
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> looper.output_all()
         ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
 
     .. container:: example
 
         To change the size of the window after instantiation, use the method
-        set_elements_per_window(). In the example below, the initial window is
-        of size 3, and so the first call of the looper object outputs the
-        first, second, and third elements of the list. The window size is then
-        set to 4, and the looper is called again, moving to the element in the
-        next position, thus outputting the second, third, fourth, and fifth
+        set_window_size(). In the example below, the initial window is of size
+        3, and so the first call of the looper object outputs the first,
+        second, and third elements of the list. The window size is then set to
+        4, and the looper is called again, moving to the element in the next
+        position, thus outputting the second, third, fourth, and fifth
         elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
-        >>> looper.set_elements_per_window(4)
+        >>> looper.set_window_size(4)
         >>> looper()
         ['B', 'C', 'D', 'E']
 
@@ -152,7 +152,7 @@ class LoopWindowByList():
         It should be clear that the list can contain any types of elements:
 
         >>> input_list = [123, 'foo', (3, 4), 3.14]
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> looper()
         [123, 'foo', (3, 4)]
 
@@ -169,7 +169,7 @@ class LoopWindowByList():
         ...     abjad.Container(r"r2 bf2"),
         ...     abjad.Container(r"c''2. r4"),
         ... ]
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> staff = abjad.Staff()
         >>> for element in looper.output_all():
         ...     staff.append(copy.deepcopy(element))
@@ -218,7 +218,7 @@ class LoopWindowByList():
     def __init__(self,
                  container: list,
                  *,
-                 elements_per_window: int,
+                 window_size: int,
                  step_size: int = 1,
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
@@ -226,109 +226,31 @@ class LoopWindowByList():
                  ):
         if not isinstance(container, list):
             raise TypeError("'container' must be 'list'")
-        if not isinstance(elements_per_window, int):
-            raise TypeError("'elements_per_window' must be 'int'")
-        if elements_per_window < 1:
-            raise ValueError("'elements_per_window' must be greater than zero")
-        if not isinstance(step_size, int):
-            raise TypeError("'step_size' must be 'int'")
-        if step_size < 1:
-            raise ValueError("'step_size' must be greater than zero")
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
-        if max_steps < 1:
-            raise ValueError("'max_steps' must be greater than zero")
-        if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be 'float'")
-        if repetition_chance < 0.0 or repetition_chance > 1.0:
-            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(head_position, int):
-            raise TypeError("'head_position' must be 'int'")
-        if head_position >= len(container):
-            raise ValueError("'head_position' must be smaller than "
-                             "the length of 'container'")
-
         self._container = container[:]
-        self.head_position = head_position
-        self.elements_per_window = elements_per_window
-        self.step_size = step_size
-        self.repetition_chance = repetition_chance
-        self.max_steps = max_steps
-        self._first_window = True
-
-    def __call__(self) -> list:
-        self._move_head()
-        if self._done():
-            raise RuntimeError("'container' has been exhausted")
-        self._slice_container()
-        return self._current_window[:]
-
-    def set_head_position(self, head_position):
-        if head_position >= self._container.__len__():
-            raise ValueError("'head_position' must be smaller than the "
-                             "length of 'container'")
-        self.head_position = head_position
-
-    def set_elements_per_window(self,
-                                elements_per_window: int,
-                                ):
-        if not isinstance(elements_per_window, int):
-            raise TypeError("'elements_per_window' must be 'int'")
-        if elements_per_window < 1:
-            raise ValueError("'elements_per_window' must be greater than zero")
-        self.elements_per_window = elements_per_window
-
-    def set_step_size(self,
-                      step_size: int,
-                      ):
-        if not isinstance(step_size, int):
-            raise TypeError("'step_size' must be 'int'")
-        if step_size < 1:
-            raise ValueError("'step_size' must be greater than zero")
-        self.step_size = step_size
-
-    def set_max_steps(self,
-                      max_steps: int,
-                      ):
-        if not isinstance(max_steps, int):
-            raise TypeError("'max_steps' must be 'int'")
-        if max_steps < 1:
-            raise ValueError("'max_steps' must be greater than zero")
-        self.max_steps = max_steps
-
-    def set_repetition_chance(self,
-                              repetition_chance: float,
-                              ):
-        if not isinstance(repetition_chance, float):
-            raise TypeError("'repetition_chance' must be 'float'")
-        if repetition_chance < 0.0 or repetition_chance > 1.0:
-            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        self.repetition_chance = repetition_chance
-
-    def get_current_window(self) -> list:
-        return self._current_window[:]
+        super().__init__(head_position,
+                         window_size,
+                         step_size,
+                         max_steps,
+                         repetition_chance,
+                         )
 
     def __len__(self) -> int:
         return len(self._container)
 
-    def _done(self) -> bool:
-        return self.head_position >= self._container.__len__()
-
-    def _slice_container(self) -> list:
-        start = self.head_position
-        end = self.head_position + self.elements_per_window
-        self._current_window = self._container[start:end]
-
-    def _move_head(self):
-        if not self._first_window:  # first window always at initial position
-            if self.repetition_chance == 0.0 \
-                    or random.random() > self.repetition_chance:
-                self.head_position += \
-                    self.step_size * random.randint(1, self.max_steps)
-        else:
-            self._first_window = False
+    def __next__(self) -> list:
+        r"""Custom __next__ dunder method since parent's method outputs an
+        abjad.Selection.
+        """
+        self._move_head()
+        if self._done():
+            raise StopIteration
+        self._slice_container()
+        return self._current_window[:]
 
     def output_all(self) -> list:
+        r"""Custom __next__ dunder method since parent's method outputs an
+        abjad.Selection.
+        """
         dummy_container = []
         while True:
             try:
@@ -337,12 +259,7 @@ class LoopWindowByList():
                 break
         return dummy_container[:]
 
-    def __iter__(self):
-        return self
-
-    def __next__(self) -> list:
-        self._move_head()
-        if self._done():
-            raise StopIteration
-        self._slice_container()
-        return self._current_window[:]
+    def _slice_container(self) -> list:
+        start = self.head_position
+        end = self.head_position + self.window_size
+        self._current_window = self._container[start:end]

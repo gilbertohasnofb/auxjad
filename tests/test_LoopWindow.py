@@ -191,33 +191,26 @@ def test_LoopWindow_04():
                                step_size=(5, 8),
                                max_steps=2,
                                repetition_chance=0.25,
-                               initial_head_position=(2, 8),
+                               head_position=(2, 8),
                                )
     assert looper.window_size == abjad.Meter((3, 4))
     assert looper.step_size == abjad.Duration((5, 8))
-    assert looper.repetition_chance == 0.25
     assert looper.max_steps == 2
-    assert looper.current_head_position == abjad.Duration((1, 4))
+    assert looper.repetition_chance == 0.25
+    assert looper.head_position == abjad.Duration((1, 4))
+    looper.set_window_size((5, 4))
+    looper.set_step_size((1, 4))
+    looper.set_max_steps(3)
+    looper.set_repetition_chance(0.1)
+    looper.set_head_position((0, 1))
+    assert looper.window_size == abjad.Meter((5, 4))
+    assert looper.step_size == abjad.Duration((1, 4))
+    assert looper.max_steps == 3
+    assert looper.repetition_chance == 0.1
+    assert looper.head_position == abjad.Duration((0, 1))
 
 
 def test_LoopWindow_05():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindow(input_music)
-    assert looper.counter == 0
-    assert looper.current_head_position == 0
-    for _ in range(4):
-        looper()
-    assert looper.counter == 4
-    assert looper.current_head_position == 3/16
-    looper.reset_counter()
-    assert looper.current_head_position == 3/16
-    assert looper.counter == 0
-    looper.set_head_position((0, 1))
-    assert looper.current_head_position == 0
-    assert looper.counter == 0
-
-
-def test_LoopWindow_06():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LoopWindow(input_music,
                                window_size=(3, 4),
@@ -245,7 +238,7 @@ def test_LoopWindow_06():
         ''')
 
 
-def test_LoopWindow_07():
+def test_LoopWindow_06():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindow(input_music)
     notes = looper.__next__()
@@ -326,7 +319,7 @@ def test_LoopWindow_07():
         ''')
 
 
-def test_LoopWindow_08():
+def test_LoopWindow_07():
     input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'} d'2.")
     looper = auxjad.LoopWindow(input_music,
                                window_size=(3, 4),

@@ -55,51 +55,44 @@ def test_LoopWindowByElements_02():
                                          step_size=1,
                                          max_steps=2,
                                          repetition_chance=0.25,
-                                         initial_head_position=0,
+                                         head_position=0,
                                          )
     assert looper.elements_per_window == 3
     assert looper.step_size == 1
     assert looper.max_steps == 2
     assert looper.repetition_chance == 0.25
-    assert looper.current_head_position == 0
+    assert looper.head_position == 0
+    looper.set_elements_per_window(2)
+    looper.set_step_size(2)
+    looper.set_max_steps(3)
+    looper.set_repetition_chance(0.1)
+    looper.set_head_position(2)
+    assert looper.elements_per_window == 2
+    assert looper.step_size == 2
+    assert looper.max_steps == 3
+    assert looper.repetition_chance == 0.1
+    assert looper.head_position == 2
 
 
 def test_LoopWindowByElements_03():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music, elements_per_window=3)
-    assert looper.current_head_position == 0
+    assert looper.head_position == 0
     looper()
-    assert looper.current_head_position == 0
+    assert looper.head_position == 0
     looper()
-    assert looper.current_head_position == 1
+    assert looper.head_position == 1
     looper()
-    assert looper.current_head_position == 2
+    assert looper.head_position == 2
 
 
 def test_LoopWindowByElements_04():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music, elements_per_window=3)
-    assert looper.counter == 0
-    assert looper.current_head_position == 0
-    for _ in range(4):
-        looper()
-    assert looper.counter == 4
-    assert looper.current_head_position == 3
-    looper.reset_counter()
-    assert looper.current_head_position == 3
-    assert looper.counter == 0
-    looper.set_head_position(0)
-    assert looper.current_head_position == 0
-    assert looper.counter == 0
-
-
-def test_LoopWindowByElements_05():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music, elements_per_window=3)
     assert len(looper) == 5
 
 
-def test_LoopWindowByElements_06():
+def test_LoopWindowByElements_05():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LoopWindowByElements(input_music, elements_per_window=2)
     notes = looper.output_all()
@@ -123,7 +116,7 @@ def test_LoopWindowByElements_06():
         ''')
 
 
-def test_LoopWindowByElements_07():
+def test_LoopWindowByElements_06():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music, elements_per_window=3)
     notes = looper()
@@ -156,11 +149,11 @@ def test_LoopWindowByElements_07():
         ''')
 
 
-def test_LoopWindowByElements_08():
+def test_LoopWindowByElements_07():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopWindowByElements(input_music,
                                          elements_per_window=3,
-                                         initial_head_position=2,
+                                         head_position=2,
                                          )
     notes = looper()
     staff = abjad.Staff(notes)
@@ -178,7 +171,7 @@ def test_LoopWindowByElements_08():
         ''')
 
 
-def test_LoopWindowByElements_09():
+def test_LoopWindowByElements_08():
     input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
     looper = auxjad.LoopWindowByElements(input_music, elements_per_window=2)
     notes = looper.output_all()
@@ -216,7 +209,7 @@ def test_LoopWindowByElements_09():
         ''')
 
 
-def test_LoopWindowByList_10():
+def test_LoopWindowByList_09():
     input_music = abjad.Container(r"c'4 d'2")
     looper = auxjad.LoopWindowByElements(input_music, elements_per_window=2)
     notes = looper.__next__()

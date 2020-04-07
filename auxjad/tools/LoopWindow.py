@@ -169,8 +169,8 @@ class LoopWindow():
         repetition_chance sets the chance of a window result repeating itself
         (that is, the window not moving forwards when called). It should range
         from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        initial_head_position can be used to offset the starting position of
-        the looping window. It must be a tuple or an abjad.Duration, and its
+        head_position can be used to offset the starting position of the
+        looping window. It must be a tuple or an abjad.Duration, and its
         default value is (0, 1) which is the equivalent of a duration of length
         zero.
 
@@ -180,7 +180,7 @@ class LoopWindow():
         ...                            step_size=(5, 8),
         ...                            max_steps=2,
         ...                            repetition_chance=0.25,
-        ...                            initial_head_position=(2, 8),
+        ...                            head_position=(2, 8),
         ...                            )
         >>> looper.window_size
         3/4
@@ -190,41 +190,25 @@ class LoopWindow():
         0.25
         >>> looper.max_steps
         2
-        >>> looper.current_head_position
+        >>> looper.head_position
         1/4
 
-    ..  container:: example
+        Use the set methods below to change these values after initialisation.
 
-        This class has an internal counter which counts the number of times it
-        has been called. It can be reset with the method reset_counter().
-        Resetting the counter will not reset the current_head_position. To
-        change the head position, use the method set_head_position(). Notice
-        that the counter simply counts the number of calls, while the
-        current_head_position only moves forwards after a call (since it may
-        not move at all when using repetition_chance). It also stays at its
-        initial value after the very first call.
-
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopWindow(input_music)
-        >>> looper.counter
-        0
-        >>> looper.current_head_position
-        0
-        >>> for _ in range(4):
-        ...     looper()
-        >>> looper.counter
-        4
-        >>> looper.current_head_position
-        3/16
-        >>> looper.reset_counter()
-        >>> looper.current_head_position
-        3/16
-        >>> looper.counter
-        0
+        >>> looper.set_window_size((5, 4))
+        >>> looper.set_step_size((1, 4))
+        >>> looper.set_max_steps(3)
+        >>> looper.set_repetition_chance(0.1)
         >>> looper.set_head_position((0, 1))
-        >>> looper.current_head_position
-        0
-        >>> looper.counter
+        >>> looper.window_size
+        5/4
+        >>> looper.step_size
+        1/4
+        >>> looper.max_steps
+        3
+        >>> looper.repetition_chance
+        0.1
+        >>> looper.head_position
         0
 
     ..  container:: example
@@ -373,7 +357,8 @@ class LoopWindow():
                  step_size: tuple = (1, 16),
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
-                 initial_head_position: tuple = (0, 1),
+                 head_position: tuple = (0, 1),
+                 omit_time_signature: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
             raise TypeError("'container' must be 'abjad.Container' or "
@@ -389,15 +374,19 @@ class LoopWindow():
                             "'abjad.Duration'")
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
+        if max_steps < 1:
+            raise ValueError("'max_steps' must be greater than zero")
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(initial_head_position,
+        if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
                           ):
-            raise TypeError("'initial_head_position' must be a number or "
+            raise TypeError("'head_position' must be a number or "
                             "'abjad.Duration'")
+        if not isinstance(omit_time_signature, bool):
+            raise TypeError("'omit_time_signature' must be 'bool'")
 
         self._container = copy.deepcopy(container)
         self._container_length = abjad.inspect(container[:]).duration()
@@ -405,16 +394,17 @@ class LoopWindow():
         if  abjad.Meter(window_size).duration > self._container_length:
             raise ValueError("'window_size' must be smaller than or equal to "
                              "the duration of 'container'")
-        if abjad.Duration(initial_head_position) >= self._container_length:
-            raise ValueError("'initial_head_position' must be smaller than "
+        if abjad.Duration(head_position) >= self._container_length:
+            raise ValueError("'head_position' must be smaller than "
                              "the duration of 'container'")
 
-        self.current_head_position = abjad.Duration(initial_head_position)
+        self.head_position = abjad.Duration(head_position)
         self.window_size = abjad.Meter(window_size)
         self.step_size = abjad.Duration(step_size)
         self.repetition_chance = repetition_chance
         self.max_steps = max_steps
-        self.counter = 0
+        self.omit_time_signature = omit_time_signature
+        self._first_window = True
         self._new_time_signature = True
 
     def __call__(self) -> abjad.Selection:
@@ -424,42 +414,77 @@ class LoopWindow():
         self._slice_container()
         return copy.deepcopy(self._current_window)
 
-    def reset_counter(self):
-        self.counter = 0
-
-    def set_head_position(self, new_head_position):
-        if not isinstance(new_head_position,
+    def set_head_position(self,
+                          head_position: tuple,
+                          ):
+        if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
                           ):
-            raise TypeError("'new_head_position' must be a number or "
+            raise TypeError("'head_position' must be a number or "
                             "'abjad.Duration'")
-        if abjad.Duration(new_head_position) >= self._container_length:
-            raise ValueError("'new_head_position' must be smaller than the "
+        if abjad.Duration(head_position) >= self._container_length:
+            raise ValueError("'head_position' must be smaller than the "
                              "length of 'container'")
-        self.current_head_position = abjad.Duration(new_head_position)
+        self.head_position = abjad.Duration(head_position)
 
-    def set_window_size(self, new_window_size):
-        if not isinstance(new_window_size,
+    def set_window_size(self,
+                        window_size: tuple,
+                        ):
+        if not isinstance(window_size,
                           (int, float, tuple, str, abjad.Meter),
                           ):
-            raise TypeError("'new_window_size' must be 'tuple' or "
-                            "'abjad.Meter'")
-        if abjad.Meter(new_window_size).duration >= self._container_length \
-                              - self.current_head_position:
-            raise ValueError("'new_window_size' must be smaller than or equal "
+            raise TypeError("'window_size' must be 'tuple' or 'abjad.Meter'")
+        if abjad.Meter(window_size).duration >= self._container_length \
+                              - self.head_position:
+            raise ValueError("'window_size' must be smaller than or equal "
                              "to the length of 'container'")
-        if self.window_size.duration != abjad.Meter(new_window_size).duration:
-            self.window_size = abjad.Meter(new_window_size)
+        if self.window_size.duration != abjad.Meter(window_size).duration:
+            self.window_size = abjad.Meter(window_size)
             self._new_time_signature = True
+
+    def set_step_size(self,
+                      step_size: tuple,
+                      ):
+        if not isinstance(step_size,
+                          (int, float, tuple, str, abjad.Duration),
+                          ):
+            raise TypeError("'step_size' must be a 'tuple' or "
+                            "'abjad.Duration'")
+        self.step_size = abjad.Duration(step_size)
+
+    def set_max_steps(self,
+                      max_steps: int,
+                      ):
+        if not isinstance(max_steps, int):
+            raise TypeError("'max_steps' must be 'int'")
+        if max_steps < 1:
+            raise ValueError("'max_steps' must be greater than zero")
+        self.max_steps = max_steps
+
+    def set_repetition_chance(self,
+                              repetition_chance: float,
+                              ):
+        if not isinstance(repetition_chance, float):
+            raise TypeError("'repetition_chance' must be 'float'")
+        if repetition_chance < 0.0 or repetition_chance > 1.0:
+            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
+        self.repetition_chance = repetition_chance
+
+    def set_omit_time_signature(self,
+                                omit_time_signature: bool,
+                                ):
+        if not isinstance(omit_time_signature, bool):
+            raise TypeError("'omit_time_signature' must be 'bool'")
+        self.omit_time_signature = omit_time_signature
 
     def get_current_window(self) -> abjad.Selection:
         return copy.deepcopy(self._current_window)
 
     def _done(self):
-        return self.current_head_position >= self._container_length
+        return self.head_position >= self._container_length
 
     def _slice_container(self) -> abjad.Selection:
-        head = self.current_head_position
+        head = self.head_position
         window_size = self.window_size
         dummy_container = copy.deepcopy(self._container)
         # splitting leaves at both slicing points
@@ -488,7 +513,7 @@ class LoopWindow():
             rests = abjad.LeafMaker()(None, missing_dur)
             dummy_container.extend(rests)
             end += len(rests)
-        # transforming abjad.Selection -> abjad.Container by copying
+        # transforming abjad.Selection -> abjad.Container for rewrite_meter
         dummy_container = abjad.Container(
             abjad.mutate(dummy_container[start : end]).copy()
         )
@@ -502,12 +527,13 @@ class LoopWindow():
         dummy_container[:] = []
 
     def _move_head(self):
-        if self.counter > 0:  # 1st time always leave head at initial position
+        if not self._first_window:  # first window always at initial position
             if self.repetition_chance == 0.0 \
                     or random.random() > self.repetition_chance:
-                self.current_head_position += \
+                self.head_position += \
                     self.step_size * random.randint(1, self.max_steps)
-        self.counter += 1
+        else:
+            self._first_window = False
 
     def output_all(self) -> abjad.Selection:
         dummy_container = abjad.Container()

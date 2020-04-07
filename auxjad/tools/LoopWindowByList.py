@@ -68,8 +68,8 @@ class LoopWindowByList():
         repetition_chance sets the chance of a window result repeating itself
         (that is, the window not moving forwards when called). It should range
         from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        initial_head_position can be used to offset the starting position of
-        the looping window (default is 0).
+        head_position can be used to offset the starting position of the
+        looping window (default is 0).
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list,
@@ -77,7 +77,7 @@ class LoopWindowByList():
         ...                                  step_size=1,
         ...                                  max_steps=2,
         ...                                  repetition_chance=0.25,
-        ...                                  initial_head_position=0,
+        ...                                  head_position=0,
         ...                                  )
         >>> looper.elements_per_window
         3
@@ -87,47 +87,26 @@ class LoopWindowByList():
         0.25
         >>> looper.max_steps
         2
-        >>> looper.current_head_position
+        >>> looper.head_position
         0
 
-    ..  container:: example
+        Use the set methods below to change these values after initialisation.
 
-        This class has an internal counter which counts the number of times it
-        has been called. It can be reset with the method reset_counter().
-        Resetting the counter will not reset the current_head_position. To
-        change the head position, use the method set_head_position(). Notice
-        that the counter simply counts the number of calls, while the
-        current_head_position only moves forwards after a call (since it may
-        not move at all when using repetition_chance). It also stays at its
-        initial value after the very first call, since that is when the 0-th
-        window is output.
-
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, elements_per_window=3)
-        >>> looper.counter
-        0
-        >>> looper.current_head_position
-        0
-        >>> for _ in range(4):
-        ...     looper()
-        ['A', 'B', 'C']
-        ['B', 'C', 'D']
-        ['C', 'D', 'E']
-        ['D', 'E', 'F']
-        >>> looper.counter
-        4
-        >>> looper.current_head_position
+        >>> looper.set_elements_per_window(2)
+        >>> looper.set_step_size(2)
+        >>> looper.set_max_steps(3)
+        >>> looper.set_repetition_chance(0.1)
+        >>> looper.set_head_position(2)
+        >>> looper.elements_per_window
+        2
+        >>> looper.step_size
+        2
+        >>> looper.max_steps
         3
-        >>> looper.reset_counter()
-        >>> looper.current_head_position
-        4
-        >>> looper.counter
-        0
-        >>> looper.set_head_position(0)
-        >>> looper.current_head_position
-        0
-        >>> looper.counter
-        0
+        >>> looper.repetition_chance ==
+        1
+        >>> looper.head_position
+        2
 
     ..  container:: example
 
@@ -243,33 +222,39 @@ class LoopWindowByList():
                  step_size: int = 1,
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
-                 initial_head_position: int = 0,
+                 head_position: int = 0,
                  ):
         if not isinstance(container, list):
             raise TypeError("'container' must be 'list'")
         if not isinstance(elements_per_window, int):
             raise TypeError("'elements_per_window' must be 'int'")
+        if elements_per_window < 1:
+            raise ValueError("'elements_per_window' must be greater than zero")
         if not isinstance(step_size, int):
             raise TypeError("'step_size' must be 'int'")
+        if step_size < 1:
+            raise ValueError("'step_size' must be greater than zero")
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
+        if max_steps < 1:
+            raise ValueError("'max_steps' must be greater than zero")
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        if not isinstance(initial_head_position, int):
-            raise TypeError("'initial_head_position' must be 'int'")
-        if initial_head_position >= len(container):
-            raise ValueError("'initial_head_position' must be smaller than "
+        if not isinstance(head_position, int):
+            raise TypeError("'head_position' must be 'int'")
+        if head_position >= len(container):
+            raise ValueError("'head_position' must be smaller than "
                              "the length of 'container'")
 
         self._container = container[:]
-        self.current_head_position = initial_head_position
+        self.head_position = head_position
         self.elements_per_window = elements_per_window
         self.step_size = step_size
         self.repetition_chance = repetition_chance
         self.max_steps = max_steps
-        self.counter = 0
+        self._first_window = True
 
     def __call__(self) -> list:
         self._move_head()
@@ -278,17 +263,47 @@ class LoopWindowByList():
         self._slice_container()
         return self._current_window[:]
 
-    def reset_counter(self):
-        self.counter = 0
-
-    def set_head_position(self, new_head_position):
-        if new_head_position >= self._container.__len__():
-            raise ValueError("'new_head_position' must be smaller than the "
+    def set_head_position(self, head_position):
+        if head_position >= self._container.__len__():
+            raise ValueError("'head_position' must be smaller than the "
                              "length of 'container'")
-        self.current_head_position = new_head_position
+        self.head_position = head_position
 
-    def set_elements_per_window(self, new_elements_per_window):
-        self.elements_per_window = new_elements_per_window
+    def set_elements_per_window(self,
+                                elements_per_window: int,
+                                ):
+        if not isinstance(elements_per_window, int):
+            raise TypeError("'elements_per_window' must be 'int'")
+        if elements_per_window < 1:
+            raise ValueError("'elements_per_window' must be greater than zero")
+        self.elements_per_window = elements_per_window
+
+    def set_step_size(self,
+                      step_size: int,
+                      ):
+        if not isinstance(step_size, int):
+            raise TypeError("'step_size' must be 'int'")
+        if step_size < 1:
+            raise ValueError("'step_size' must be greater than zero")
+        self.step_size = step_size
+
+    def set_max_steps(self,
+                      max_steps: int,
+                      ):
+        if not isinstance(max_steps, int):
+            raise TypeError("'max_steps' must be 'int'")
+        if max_steps < 1:
+            raise ValueError("'max_steps' must be greater than zero")
+        self.max_steps = max_steps
+
+    def set_repetition_chance(self,
+                              repetition_chance: float,
+                              ):
+        if not isinstance(repetition_chance, float):
+            raise TypeError("'repetition_chance' must be 'float'")
+        if repetition_chance < 0.0 or repetition_chance > 1.0:
+            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
+        self.repetition_chance = repetition_chance
 
     def get_current_window(self) -> list:
         return self._current_window[:]
@@ -297,20 +312,21 @@ class LoopWindowByList():
         return len(self._container)
 
     def _done(self) -> bool:
-        return self.current_head_position >= self._container.__len__()
+        return self.head_position >= self._container.__len__()
 
     def _slice_container(self) -> list:
-        start = self.current_head_position
-        end = self.current_head_position + self.elements_per_window
+        start = self.head_position
+        end = self.head_position + self.elements_per_window
         self._current_window = self._container[start:end]
 
     def _move_head(self):
-        if self.counter > 0:  # 1st time always leave head at initial position
+        if not self._first_window:  # first window always at initial position
             if self.repetition_chance == 0.0 \
                     or random.random() > self.repetition_chance:
-                self.current_head_position += \
+                self.head_position += \
                     self.step_size * random.randint(1, self.max_steps)
-        self.counter += 1
+        else:
+            self._first_window = False
 
     def output_all(self) -> list:
         dummy_container = []

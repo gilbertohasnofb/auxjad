@@ -13,13 +13,17 @@ def simplified_time_signature_ratio(ratio,
         By default, the function simplifies the ratio of numerator/denominator
         using a minimum denominator value of 4 (that is, the denominator will
         not get smaller than 4). In the case below, (2, 4) is the simplest
-        representaion of the ratio (4, 8) with a denominator equal to or larger
-        than 4.
+        representation of the ratio (4, 8) with a denominator equal to or
+        larger than 4.
 
         >>> ratio = auxjad.simplified_time_signature_ratio((4, 8))
         >>> time_signature = abjad.TimeSignature(ratio)
         >>> format(time_signature)
         abjad.TimeSignature((2, 4))
+        >>> ratio = auxjad.simplified_time_signature_ratio((1, 1))
+        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> format(time_signature)
+        abjad.TimeSignature((4, 4))
 
         If a ratio cannot be simplified at all, the function returns the
         original values.
@@ -38,6 +42,12 @@ def simplified_time_signature_ratio(ratio,
         >>> time_signature = abjad.TimeSignature(ratio)
         >>> format(time_signature)
         abjad.TimeSignature((1, 2))
+        >>> ratio = auxjad.simplified_time_signature_ratio((1, 1),
+        ...                                                min_denominator=1
+        ...                                                )
+        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> format(time_signature)
+        abjad.TimeSignature((1, 1))
 
     """
     if not isinstance(ratio, (tuple, abjad.Duration, abjad.TimeSignature)):

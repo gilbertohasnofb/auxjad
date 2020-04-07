@@ -309,13 +309,13 @@ class LoopWindowByElements(_LoopWindowGeneric):
             raise TypeError("'container' must be 'abjad.Container' or child "
                             "class")
         self._container = abjad.select(container).logical_ties()
+        self.set_omit_time_signature(omit_time_signature)
         super().__init__(head_position,
                          window_size,
                          step_size,
                          max_steps,
                          repetition_chance,
                          )
-        self.set_omit_time_signature(omit_time_signature)
 
 
     def __len__(self) -> int:

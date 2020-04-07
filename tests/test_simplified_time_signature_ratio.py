@@ -28,3 +28,17 @@ def test_simplified_time_signature_ratio_04():
     time_signature = abjad.TimeSignature(ratio)
     assert format(time_signature) == abjad.String.normalize(
         r'''abjad.TimeSignature((1, 2))''')
+
+
+def test_simplified_time_signature_ratio_05():
+    ratio = auxjad.simplified_time_signature_ratio((1, 1))
+    time_signature = abjad.TimeSignature(ratio)
+    assert format(time_signature) == abjad.String.normalize(
+        r'''abjad.TimeSignature((4, 4))''')
+
+
+def test_simplified_time_signature_ratio_06():
+    ratio = auxjad.simplified_time_signature_ratio((1, 1), min_denominator=1)
+    time_signature = abjad.TimeSignature(ratio)
+    assert format(time_signature) == abjad.String.normalize(
+        r'''abjad.TimeSignature((1, 1))''')

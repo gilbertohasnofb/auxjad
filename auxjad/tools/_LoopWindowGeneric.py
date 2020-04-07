@@ -4,8 +4,11 @@ import copy
 
 
 class _LoopWindowGeneric():
-    r""" xxx
+    r"""This is the parent class of all LoopWindowXxx classes. It implements
+    all common methods and attributes, and initialises those using its set_
+    methods.
     """
+
     def __init__(self,
                  head_position,
                  window_size,
@@ -92,7 +95,7 @@ class _LoopWindowGeneric():
                              "of 'container'")
         self.head_position = head_position
 
-    def get_current_window(self) -> [list, abjad.Selection]:
+    def get_current_window(self) -> (list, abjad.Selection):
         return copy.deepcopy(self._current_window)
 
     def output_all(self) -> abjad.Selection:
@@ -117,3 +120,6 @@ class _LoopWindowGeneric():
 
     def _done(self) -> bool:
         return self.head_position >= self._container.__len__()
+
+    def _slice_container(self):
+        pass

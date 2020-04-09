@@ -5,7 +5,7 @@ def remove_repeated_dynamics(container: abjad.Container,
                              *,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
-                             ) -> abjad.Container:
+                             ):
     r"""A function which removes all consecutive repeated dynamics. It removes
     consecutive effective dynamics, even if separated by any number of
     notes without one. It resets its memory of what was the previous dynamic
@@ -35,7 +35,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             d'8
             \f
         }
-        >>> staff = auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -66,7 +66,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             d'8
             \f
         }
-        >>> staff = auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -104,7 +104,7 @@ def remove_repeated_dynamics(container: abjad.Container,
                 b2
             }
         }
-        >>> staff = auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -138,7 +138,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             d'8
             \f
         }
-        >>> staff = auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -171,9 +171,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             d'8
             \f
         }
-        >>> staff = auxjad.remove_repeated_dynamics(staff,
-        ...                                         ignore_hairpins=True,
-        ...                                         )
+        >>> auxjad.remove_repeated_dynamics(staff, ignore_hairpins=True)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -194,7 +192,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         will be considered as repeated and the second dynamic will be removed.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
-        >>> staff = auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -208,9 +206,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         dynamics will always be restated after a rest.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
-        >>> staff = auxjad.remove_repeated_dynamics(staff,
-        ...                                         reset_after_rests=True,
-        ...                                         )
+        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=True)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -233,9 +229,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         so the repeated dynamic is removed.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
-        >>> staff = auxjad.remove_repeated_dynamics(staff,
-        ...                                         reset_after_rests=(4, 4),
-        ...                                         )
+        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=(4, 4))
         >>> abjad.f(staff)
         \new Staff
         {
@@ -248,9 +242,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         But setting the duration to 2/4 forces the dynamic to be restated.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
-        >>> staff = auxjad.remove_repeated_dynamics(staff,
-        ...                                         reset_after_rests=2/4,
-        ...                                         )
+        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=2/4)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -266,7 +258,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         The function also handles measure rests with reset_after_rests.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | R1 | c'4\pp")
-        >>> staff = auxjad.remove_repeated_dynamics(
+        >>> auxjad.remove_repeated_dynamics(
         ...     staff,
         ...     reset_after_rests=abjad.Duration(4, 4),
         ... )
@@ -320,5 +312,3 @@ def remove_repeated_dynamics(container: abjad.Container,
                 previous_dynamic = current_dynamic
             elif current_dynamic is not None:
                 abjad.detach(abjad.Dynamic, leaf)
-
-    return container

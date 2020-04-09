@@ -204,13 +204,13 @@ def test_LoopWindow_04():
     looper.set_step_size((1, 4))
     looper.set_max_steps(3)
     looper.set_repetition_chance(0.1)
-    looper.set_head_position((0, 1))
+    looper.set_head_position(0)
     looper.set_omit_time_signature(True)
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
     assert looper.repetition_chance == 0.1
-    assert looper.head_position == abjad.Duration((0, 1))
+    assert looper.head_position == abjad.Duration(0)
     assert looper.omit_time_signature
 
 

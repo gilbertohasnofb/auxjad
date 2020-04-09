@@ -1,7 +1,10 @@
 import abjad
 
 
-def simplified_time_signature_ratio(ratio,
+def simplified_time_signature_ratio(ratio: (tuple,
+                                            abjad.Duration,
+                                            abjad.TimeSignature,
+                                            ),
                                     *,
                                     min_denominator: int = 4,
                                     ) -> tuple:

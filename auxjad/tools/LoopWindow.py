@@ -171,8 +171,7 @@ class LoopWindow(_LoopWindowGeneric):
         from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
         head_position can be used to offset the starting position of the
         looping window. It must be a tuple or an abjad.Duration, and its
-        default value is (0, 1) which is the equivalent of a duration of length
-        zero.
+        default value is 0.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music,
@@ -202,7 +201,7 @@ class LoopWindow(_LoopWindowGeneric):
         >>> looper.set_step_size((1, 4))
         >>> looper.set_max_steps(3)
         >>> looper.set_repetition_chance(0.1)
-        >>> looper.set_head_position((0, 1))
+        >>> looper.set_head_position(0)
         >>> looper.set_omit_time_signature(True)
         >>> looper.window_size
         5/4
@@ -375,11 +374,11 @@ class LoopWindow(_LoopWindowGeneric):
     def __init__(self,
                  container: abjad.Container,
                  *,
-                 window_size: tuple = (4, 4),
-                 step_size: tuple = (1, 16),
+                 window_size: (tuple, abjad.Meter) = (4, 4),
+                 step_size: (int, float, tuple, str, abjad.Duration) = (1, 16),
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
-                 head_position: tuple = (0, 1),
+                 head_position: (int, float, tuple, str, abjad.Duration) = 0,
                  omit_time_signature: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
@@ -413,7 +412,7 @@ class LoopWindow(_LoopWindowGeneric):
         self.head_position = abjad.Duration(head_position)
 
     def set_window_size(self,
-                        window_size: tuple,
+                        window_size: (tuple, abjad.Meter),
                         ):
         r"""Custom set_window_size() method since parent's method uses
         integers as input, intead of tuples or abjad.Duration.
@@ -462,7 +461,7 @@ class LoopWindow(_LoopWindowGeneric):
         window_size = self.window_size
         dummy_container = copy.deepcopy(self._container)
         # splitting leaves at both slicing points
-        if head > abjad.Duration(0, 1):
+        if head > abjad.Duration(0):
             abjad.mutate(dummy_container[:]).split([head,
                                                     window_size.duration,
                                                     ])

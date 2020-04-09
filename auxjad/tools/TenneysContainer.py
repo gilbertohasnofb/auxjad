@@ -366,12 +366,14 @@ class TenneysContainer():
             self.weights = [1.0 for _ in self.contents]
         self._generate_probabilities(reset=True)
 
-    def set_curvature(self, new_curvature):
-        if not isinstance(new_curvature, float):
-            raise TypeError("'new_curvature' must be 'float'")
-        if new_curvature < 0.0:
-            raise ValueError("'new_curvature' must be larger than 0.0")
-        self.curvature = new_curvature
+    def set_curvature(self,
+                      curvature: float,
+                      ):
+        if not isinstance(curvature, float):
+            raise TypeError("'curvature' must be 'float'")
+        if curvature < 0.0:
+            raise ValueError("'curvature' must be larger than 0.0")
+        self.curvature = curvature
         self._generate_probabilities()
 
     def reset_probabilities(self):
@@ -385,7 +387,9 @@ class TenneysContainer():
             else:
                 self._counter[i] += 1
 
-    def _generate_probabilities(self, reset=False):
+    def _generate_probabilities(self,
+                                reset: bool = False,
+                                ):
         if reset:
             self._counter = [1 for _ in self.contents]
         self.probabilities = []

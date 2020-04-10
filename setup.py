@@ -32,8 +32,8 @@ setup(
     url='https://github.com/gilbertohasnofb/auxjad',
     license='MIT',
     long_description=auxjad_long_description,
-    tests_require=['pytest', 'abjad==3.1'],
+    tests_require=['abjad==3.1', 'pytest'],
     classifiers=auxjad_classifiers,
     python_requires='>=3.6',
-    install_requires=['abjad==3.1'],
+    install_requires=['abjad==3.1', 'setuptools'],
 )

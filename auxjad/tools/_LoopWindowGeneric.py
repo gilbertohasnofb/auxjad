@@ -1,6 +1,6 @@
-import abjad
-import random
 import copy
+import random
+import abjad
 
 
 class _LoopWindowGeneric():

@@ -22,9 +22,24 @@ CartographyContainer
 .. autoclass:: auxjad.CartographyContainer
 
 
+close_container
+---------------
+.. autofunction:: auxjad.close_container
+
+
 container_comparator
 --------------------
 .. autofunction:: auxjad.container_comparator
+
+
+fill_with_rests
+---------------
+.. autofunction:: auxjad.fill_with_rests
+
+
+is_container_full
+-----------------
+.. autofunction:: auxjad.is_container_full
 
 
 LeafDynMaker
@@ -62,6 +77,16 @@ simplified_time_signature_ratio
 .. autofunction:: auxjad.simplified_time_signature_ratio
 
 
+sync_containers
+---------------
+.. autofunction:: auxjad.sync_containers
+
+
 TenneysContainer
 ----------------
 .. autoclass:: auxjad.TenneysContainer
+
+
+underfull_duration
+------------------
+.. autofunction:: auxjad.underfull_duration

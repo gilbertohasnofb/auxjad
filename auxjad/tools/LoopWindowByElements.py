@@ -1,5 +1,5 @@
-import abjad
 import copy
+import abjad
 from ._LoopWindowGeneric import _LoopWindowGeneric
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 

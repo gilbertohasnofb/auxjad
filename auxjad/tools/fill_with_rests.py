@@ -1,6 +1,6 @@
 import abjad
-from .underfull_duration import underfull_duration
 from .is_container_full import is_container_full
+from .underfull_duration import underfull_duration
 
 
 def fill_with_rests(container: abjad.Container):

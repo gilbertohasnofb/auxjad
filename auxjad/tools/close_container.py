@@ -1,7 +1,7 @@
 import abjad
+from .is_container_full import is_container_full
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 from .underfull_duration import underfull_duration
-from .is_container_full import is_container_full
 
 
 def close_container(container: abjad.Container):

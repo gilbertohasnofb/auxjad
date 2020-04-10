@@ -156,10 +156,9 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> looper()
         [123, 'foo', (3, 4)]
 
-        This includes Abjad's types, though it is important to remember Abjad's
-        exclusive membership requirement; since this class will output a same
-        element multiples times, it might be necessary to use copy.deepcopy to
-        avoid breaking the membership rule:
+        This also include Abjad's types. Abjad's exclusive membership
+        requirement is respected since each call returns a copy.deepcopy of the
+        window. The same is true to the output_all() method.
 
         >>> import abjad
         >>> import copy
@@ -172,7 +171,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> staff = abjad.Staff()
         >>> for element in looper.output_all():
-        ...     staff.append(copy.deepcopy(element))
+        ...     staff.append(element)
         >>> abjad.f(staff)
         \new Staff
         {

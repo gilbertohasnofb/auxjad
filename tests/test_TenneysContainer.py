@@ -1,6 +1,6 @@
+import random
 import abjad
 import auxjad
-import random
 
 
 def test_TenneysContainer_01():

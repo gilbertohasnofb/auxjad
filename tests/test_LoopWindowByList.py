@@ -1,3 +1,4 @@
+import abjad
 import pytest
 import auxjad
 
@@ -75,8 +76,6 @@ def test_LoopWindowByList_07():
 
 
 def test_LoopWindowByList_08():
-    import abjad
-    import copy
     input_list = [
         abjad.Container(r"c'4 d'4 e'4 f'4"),
         abjad.Container(r"fs'1"),
@@ -86,7 +85,7 @@ def test_LoopWindowByList_08():
     looper = auxjad.LoopWindowByList(input_list, window_size=3)
     staff = abjad.Staff()
     for element in looper.output_all():
-        staff.append(copy.deepcopy(element))
+        staff.append(element)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff

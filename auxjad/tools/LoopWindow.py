@@ -1,5 +1,5 @@
-import abjad
 import copy
+import abjad
 from ._LoopWindowGeneric import _LoopWindowGeneric
 
 

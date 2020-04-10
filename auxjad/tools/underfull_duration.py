@@ -73,7 +73,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ValueError exception.
 
-        >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 af'4")
+        >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
         >>> auxjad.underfull_duration(container)
         ValueError: 'container' is malformed, with an underfull bar preceeding
         a time signature change

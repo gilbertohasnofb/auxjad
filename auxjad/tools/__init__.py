@@ -1,5 +1,6 @@
 from .CartographyContainer import CartographyContainer
 from .container_comparator import container_comparator
+from .fill_with_rests import fill_with_rests
 from .is_container_full import is_container_full
 from .LeafDynMaker import LeafDynMaker
 from .LoopWindow import LoopWindow

@@ -95,7 +95,7 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 4/4 %%%
             c'1
             %%% \time 1/4 %%%
-            R4
+            R1*1/4
         }
 
     ..  container:: example
@@ -189,7 +189,7 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 4/4 %%%
             c'1
             %%% \time 3/4 %%%
-            R2.
+            R1*3/4
         }
 
     ..  container:: example
@@ -214,7 +214,7 @@ def sync_containers(*containers: abjad.Container,
             e'4
             f'4
             %%% \time 1/4 %%%
-            R4
+            R1*1/4
         }
         >>> abjad.f(container2)
         {
@@ -237,7 +237,7 @@ def sync_containers(*containers: abjad.Container,
             c'2
             r4
             %%% \time 2/4 %%%
-            R2
+            R1*1/2
         }
 
         It's important to note that LilyPond does not support simultanoues
@@ -338,7 +338,10 @@ def sync_containers(*containers: abjad.Container,
             # creating new bars for any leftover duratin
             if use_multimeasure_rests and (adjust_last_time_signature or \
                     duration_difference == effective_time_signature.duration):
-                rests = [abjad.MultimeasureRest(duration_difference.pair)]
+                multiplier = duration_difference.pair
+                if multiplier[0] == multiplier[1]:  # avoiding R1 * 1
+                    multiplier = None
+                rests = [abjad.MultimeasureRest((4, 4), multiplier=multiplier)]
             else:
                 rests = abjad.LeafMaker()(None, duration_difference)
             if adjust_last_time_signature:

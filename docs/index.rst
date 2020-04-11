@@ -17,6 +17,11 @@ the auxjad package
 .. automodule:: auxjad
 
 
+are_containers_equal
+--------------------
+.. autofunction:: auxjad.are_containers_equal
+
+
 CartographyContainer
 --------------------
 .. autoclass:: auxjad.CartographyContainer
@@ -25,11 +30,6 @@ CartographyContainer
 close_container
 ---------------
 .. autofunction:: auxjad.close_container
-
-
-container_comparator
---------------------
-.. autofunction:: auxjad.container_comparator
 
 
 fill_with_rests

@@ -1,7 +1,7 @@
 import abjad
 
 
-def container_comparator(container1: abjad.Container,
+def are_containers_equal(container1: abjad.Container,
                          container2: abjad.Container,
                          *,
                          include_indicators: bool = False,
@@ -16,7 +16,7 @@ def container_comparator(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         True
 
     ..  container:: example
@@ -28,7 +28,7 @@ def container_comparator(container1: abjad.Container,
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         False
 
     ..  container:: example
@@ -38,7 +38,7 @@ def container_comparator(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         True
 
     ..  container:: example
@@ -50,7 +50,7 @@ def container_comparator(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1,
+        >>> auxjad.are_containers_equal(container1,
         ...                             container2,
         ...                             include_indicators=True,
         ...                             )
@@ -62,27 +62,27 @@ def container_comparator(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Staff(r"c'4 \grace{d'4} d'4 e'4 f'4")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         False
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.container_comparator(container1, container2)
+        >>> auxjad.are_containers_equal(container1, container2)
         True
 
     """

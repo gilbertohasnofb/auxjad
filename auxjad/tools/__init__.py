@@ -1,6 +1,6 @@
+from .are_containers_equal import are_containers_equal
 from .CartographyContainer import CartographyContainer
 from .close_container import close_container
-from .container_comparator import container_comparator
 from .fill_with_rests import fill_with_rests
 from .is_container_full import is_container_full
 from .LeafDynMaker import LeafDynMaker

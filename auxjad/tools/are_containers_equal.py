@@ -84,7 +84,6 @@ def are_containers_equal(container1: abjad.Container,
         ...                          "f'4 <g' a'>2 r2")
         >>> auxjad.are_containers_equal(container1, container2)
         True
-
     """
     if not isinstance(container1, abjad.Container):
         raise TypeError("'container1' must be 'abjad.Container' or "

@@ -104,7 +104,6 @@ def remove_repeated_time_signatures(container: abjad.Container
                 b2
             }
         }
-
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")

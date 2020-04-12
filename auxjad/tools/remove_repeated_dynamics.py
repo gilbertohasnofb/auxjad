@@ -272,7 +272,6 @@ def remove_repeated_dynamics(container: abjad.Container,
             c'4
             \pp
         }
-
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")

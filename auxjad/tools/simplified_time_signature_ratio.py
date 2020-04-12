@@ -51,7 +51,6 @@ def simplified_time_signature_ratio(ratio: (tuple,
         >>> time_signature = abjad.TimeSignature(ratio)
         >>> format(time_signature)
         abjad.TimeSignature((1, 1))
-
     """
     if not isinstance(ratio, (tuple, abjad.Duration, abjad.TimeSignature)):
         raise TypeError("'ratio' must be 'tuple', 'abjad.Duration', or "

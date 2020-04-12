@@ -3,14 +3,14 @@ from .underfull_duration import underfull_duration
 
 
 def is_container_full(container: abjad.Container) -> bool:
-    r"""Checks if an abjad.Container is full. Based on
-    auxjad.underfull_duration.
+    r"""Checks if an ``abjad.Container`` is full. Based on
+    ``auxjad.underfull_duration``.
 
     ..  container:: example
 
-        Returns the missing duration of the last bar of any container or child
-        class. If no time signature is encountered, it uses LilyPond's
-        convention and considers the container as in 4/4.
+        Returns ``True`` if the last bar of any container (or child class) is
+        full, otherwise returns ``False``. If no time signature is encountered,
+        it uses LilyPond's convention and considers the container as in 4/4.
 
         >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Container(r"c'4 d'4 e'4")
@@ -72,7 +72,7 @@ def is_container_full(container: abjad.Container) -> bool:
     ..  container:: example
 
         If a container is malformed, i.e. it has an underfilled bar before a
-        time signature change, the function raises a ValueError exception.
+        time signature change, the function raises a ``ValueError`` exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
         >>> auxjad.is_container_full(container)

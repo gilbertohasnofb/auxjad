@@ -5,12 +5,15 @@ from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 class LoopWindowByElements(_LoopWindowGeneric):
-    r"""Takes an abjad.Container as input as well as an integer representing
-    the number of elements per looping window, then outputs a container with
-    the elements processed in the looping process. For instance, if the initial
-    container had the leaves [A, B, C, D, E, F] and the looping window was size
-    three, the output would be: A B C B C D C D E D E F E F F, which can be
-    better visualised as:
+    r"""Takes an ``abjad.Container`` as input as well as an integer
+    representing the number of elements per looping window, then outputs a
+    container with the elements processed in the looping process. For instance,
+    if the initial container had the leaves ``[A, B, C, D, E, F]`` and the
+    looping window was size three, the output would be:
+
+    ``A B C B C D C D E D E F E F F``
+
+    This can be better visualised as:
 
     .. code-block:: none
 
@@ -25,8 +28,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
 
         Usage is similar to other factory classes. It takes a container (or
         child class equivalent) and the number of elements of the window as
-        arguments. Each call of the object, in this case looper(), will move
-        the window forwards and output the result.
+        arguments. Each call of the object, in this case ``looper()``, will
+        move the window forwards and output the result.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -55,8 +58,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
         }
 
-        The method get_current_window() will output the current window without
-        moving the head forwards.
+        The method ``get_current_window()`` will output the current window
+        without moving the head forwards.
 
         >>> notes = looper.get_current_window()
         >>> staff = abjad.Staff(notes)
@@ -73,8 +76,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
 
     ..  container:: example
 
-        The instances of LoopWindowByElements can also be used as an iterator,
-        which can then be used in a for loop to exhaust all windows.
+        The instances of ``LoopWindowByElements`` can also be used as an
+        iterator, which can then be used in a for loop to exhaust all windows.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -104,14 +107,14 @@ class LoopWindowByElements(_LoopWindowGeneric):
     ..  container:: example
 
         This class can take many optional keyword arguments during its
-        creation. step_size dictates the size of each individual step in
-        number of elements (default value is 1). max_steps sets the maximum
+        creation. ``step_size`` dictates the size of each individual step in
+        number of elements (default value is 1). ``max_steps`` sets the maximum
         number of steps that the window can advance when the object is called,
         ranging between 1 and the input value (default is also 1).
-        repetition_chance sets the chance of a window result repeating itself
-        (that is, the window not moving forwards when called). It should range
-        from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        head_position can be used to offset the starting position of the
+        ``repetition_chance`` sets the chance of a window result repeating
+        itself (that is, the window not moving forwards when called). It should
+        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
+        ``head_position`` can be used to offset the starting position of the
         looping window. It must be an integer and its default value is 0.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -133,7 +136,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
         >>> looper.head_position
         0
 
-        Use the set methods below to change these values after initialisation.
+        Use the ``set_`` methods below to change these values after
+        initialisation.
 
         >>> looper.set_window_size(2)
         >>> looper.set_step_size(2)
@@ -153,9 +157,10 @@ class LoopWindowByElements(_LoopWindowGeneric):
 
     ..  container:: example
 
-        To disable time signatures altogether, initialise LoopWindowByElements
-        with the keyword omit_time_signature set to True (default is False), or
-        use the set_omit_time_signature() method after initialisation.
+        To disable time signatures altogether, initialise
+        ``LoopWindowByElements`` with the keyword argument
+        ``omit_time_signature`` set to ``True`` (default is ``False``), or use
+        the ``set_omit_time_signature()`` method after initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -174,8 +179,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
 
     ..  container:: example
 
-        The function len() can be used to get the total number of elements in
-        the container.
+        The function ``len()`` can be used to get the total number of elements
+        in the container.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -187,8 +192,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
     ..  container:: example
 
         To run through the whole process and output it as a single container,
-        from  the initial head position until the process outputs the single
-        last element, use the method output_all().
+        from the initial head position until the process outputs the single
+        last element, use the method ``output_all()``.
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -212,11 +217,65 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'4
         }
 
+    ..  container:: example
+
+        When using ``output_all()``, set the keyword argument
+        ``tie_identical_pitches`` to ``True`` in order to tie identical notes
+        or chords at the end and beginning of consecutive windows.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. "
+        ...                               "<e' g'>16")
+        >>> looper = auxjad.LoopWindowByElements(input_music,
+        ...                                      window_size=4,
+        ...                                      )
+        >>> music = looper.output_all(tie_identical_pitches=True)
+        >>> staff = abjad.Staff(music)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 9/8
+            c'4
+            d'2
+            r8
+            d'4
+            ~
+            \time 4/4
+            d'2
+            r8
+            d'4
+            <e' g'>8
+            \time 3/4
+            r8
+            d'4
+            <e' g'>8
+            r4
+            \time 11/8
+            d'4
+            <e' g'>8
+            r4
+            f'2.
+            \time 19/16
+            <e' g'>8
+            r4
+            f'2.
+            <e' g'>16
+            \time 17/16
+            r4
+            f'2.
+            <e' g'>16
+            \time 13/16
+            f'2.
+            <e' g'>16
+            ~
+            \time 1/16
+            <e' g'>16
+        }
+
     .. container:: example
 
         To change the size of the window after instantiation, use the method
-        set_window_size(). In the example below, the initial window is of size
-        3, and so the first call of the looper object outputs the first,
+        ``set_window_size()``. In the example below, the initial window is of
+        size 3, and so the first call of the looper object outputs the first,
         second, and third leaves. The window size is then set to 4, and the
         looper is called again, moving to the leaf in the next position, thus
         outputting the second, third, fourth, and fifth leaves.

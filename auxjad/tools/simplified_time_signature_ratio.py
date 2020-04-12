@@ -36,7 +36,7 @@ def simplified_time_signature_ratio(ratio: (tuple,
         >>> format(time_signature)
         abjad.TimeSignature((7, 8))
 
-        The min_denominator can be set to values other than 4. If set to 2,
+        The ``min_denominator`` can be set to values other than 4. If set to 2,
         the simplest representaion of the ratio (4, 8) becomes (1, 2).
 
         >>> ratio = auxjad.simplified_time_signature_ratio((4, 8),

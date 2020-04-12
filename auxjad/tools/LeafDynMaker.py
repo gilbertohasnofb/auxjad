@@ -2,12 +2,12 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""An extension of abjad.LeafMaker which can also take optional lists of
-    dynamics and articulations.
+    r"""An extension of ``abjad.LeafMaker`` which can also take optional lists
+    of dynamics and articulations.
 
     ..  container:: example
 
-        Usage is similar to LeafMaker:
+        Usage is similar to ``abjad.LeafMaker``:
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = [(1, 32), (2, 32), (3, 32), (4, 32), (5, 32), (6, 32)]
@@ -158,7 +158,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ..  container:: example
 
-        Similarly to abjad's native classes, it accepts many types of elements
+        Similarly to Abjad's native classes, it accepts many types of elements
         in its input lists:
 
         >>> pitches = [0,

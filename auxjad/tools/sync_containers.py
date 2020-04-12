@@ -9,7 +9,7 @@ def sync_containers(*containers: abjad.Container,
                     use_multimeasure_rests: bool = True,
                     adjust_last_time_signature: bool = True,
                     ):
-    r"""Takes an arbitrary number of abjad.Container's (or child classes),
+    r"""Takes an arbitrary number of ``abjad.Container``'s (or child classes),
     finds the longest one and adds rests to all the shorter ones, making them
     the same length. By default, it rewrites the last time signature if
     necessary, and uses multi-measure rests whenever possible.
@@ -35,9 +35,9 @@ def sync_containers(*containers: abjad.Container,
         }
 
         Notice that the time signatures in the output are commented out with
-        '%%%'. This is because Abjad only applies time signatures to containers
-        that belong to a abjad.Staff. The present function works with either
-        abjad.Container and abjad.Staff.
+        ``%%%``. This is because Abjad only applies time signatures to
+        containers that belong to a ``abjad.Staff``. The present function works
+        with either ``abjad.Container`` and ``abjad.Staff``.
 
         >>> container1 = abjad.Container(r"\time 4/4 g'2.")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
@@ -101,7 +101,7 @@ def sync_containers(*containers: abjad.Container,
     ..  container:: example
 
         To disable multi-measure rests, set the keyword argument
-        use_multimeasure_rests to False.
+        ``use_multimeasure_rests`` to ``False``.
 
         >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
@@ -127,7 +127,7 @@ def sync_containers(*containers: abjad.Container,
     ..  container:: example
 
         To allow containers to be left open (with underfull bars), set the
-        keyword argument adjust_last_time_signature to False.
+        keyword argument ``adjust_last_time_signature`` to ``False``.
 
         >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
@@ -242,10 +242,10 @@ def sync_containers(*containers: abjad.Container,
 
         It's important to note that LilyPond does not support simultanoues
         staves with different time signatures (i.e. polymetric notation) by
-        default. In order to enable it, the "Timing_translator" and
-        "Default_bar_line_engraver" must be removed from the Score context and
-        added to the Staff context. Below is a full example of how this can be
-        accomplished using Abjad.
+        default. In order to enable it, the ``"Timing_translator"`` and
+        ``"Default_bar_line_engraver"`` must be removed from the ``Score``
+        context and added to the ``Staff`` context. Below is a full example of
+        how this can be accomplished using Abjad.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Container(r"\time 3/4 a2. \time 4/4 c'4")
@@ -286,7 +286,7 @@ def sync_containers(*containers: abjad.Container,
     ..  container:: example
 
         If one or more containers is malformed, i.e. it has an underfilled bar
-        before a time signature change, the function raises a ValueError
+        before a time signature change, the function raises a ``ValueError``
         exception.
 
         >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")

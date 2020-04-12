@@ -2,8 +2,8 @@ import abjad
 
 
 def underfull_duration(container: abjad.Container) -> abjad.Duration:
-    r"""Checks if an abjad.Container is underfull and returns the missing
-    abjad.Duration.
+    r"""Checks if an ``abjad.Container`` is underfull and returns the missing
+    ``abjad.Duration``.
 
     ..  container:: example
 
@@ -71,7 +71,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
     ..  container:: example
 
         If a container is malformed, i.e. it has an underfilled bar before a
-        time signature change, the function raises a ValueError exception.
+        time signature change, the function raises a ``ValueError`` exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
         >>> auxjad.underfull_duration(container)

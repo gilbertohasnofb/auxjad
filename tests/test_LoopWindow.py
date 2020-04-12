@@ -396,3 +396,69 @@ def test_LoopWindow_09():
         assert auxjad.LoopWindow(input_music, repetition_chance=-0.3)
         assert auxjad.LoopWindow(input_music, repetition_chance=1.4)
         assert auxjad.LoopWindow(input_music, head_position=(100, 1))
+
+
+def test_LoopWindow_10():
+    input_music = abjad.Container(r"c'4 e'2 d'2 f'4")
+    looper = auxjad.LoopWindow(input_music,
+                               window_size=(3, 4),
+                               step_size=(1, 4),
+                               )
+    music = looper.output_all(tie_identical_pitches=True)
+    staff = abjad.Staff(music)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            e'2
+            ~
+            e'2
+            d'4
+            e'4
+            d'2
+            ~
+            d'2
+            f'4
+            d'4
+            f'4
+            r4
+            f'4
+            r2
+        }
+        ''')
+
+
+def test_LoopWindow_11():
+    input_music = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
+    looper = auxjad.LoopWindow(input_music,
+                               window_size=(3, 4),
+                               step_size=(1, 4),
+                               )
+    music = looper.output_all(tie_identical_pitches=True)
+    staff = abjad.Staff(music)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            <e' f' g'>2
+            ~
+            <e' f' g'>2
+            r4
+            <e' f' g'>4
+            r4
+            f'4
+            r4
+            f'2
+            ~
+            f'2.
+            ~
+            f'2
+            r4
+            f'4
+            r2
+        }
+        ''')

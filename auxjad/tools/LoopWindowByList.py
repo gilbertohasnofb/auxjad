@@ -2,15 +2,19 @@ from ._LoopWindowGeneric import _LoopWindowGeneric
 
 
 class LoopWindowByList(_LoopWindowGeneric):
-    r"""Similar to LoopWindowByList, but instead of taking an abjad.Container
-    input, it takes a list of arbitrary size. It then outputs the list
-    elements, whatever they may be. The list elements can be abjad.Container's,
-    but they can also be anything else, thus being more general. Takes a list
-    as input as well as an integer representing the number of elements per
-    looping window, then outputs individual elements with according to the
-    looping process. For instance, if the initial list had the elements [A, B,
-    C, D, E, F] and the looping window was size three, the output would be: A B
-    C B C D C D E D E F E F F, which can be better visualised as:
+    r"""Similar to ``LoopWindowByList``, but instead of taking an
+    ``abjad.Container`` input, it takes a list of arbitrary size. It then
+    outputs the list elements, whatever they may be. The list elements can be
+    ``abjad.Container``'s, but they can also be anything else, thus being more
+    general. Takes a list as input as well as an integer representing the
+    number of elements per looping window, then outputs individual elements
+    with according to the looping process. For instance, if the initial list
+    had the elements ``[A, B, C, D, E, F]`` and the looping window was size
+    three, the output would be:
+
+    ``A B C B C D C D E D E F E F F``
+
+    This can be better visualised as:
 
     .. code-block:: none
 
@@ -24,8 +28,8 @@ class LoopWindowByList(_LoopWindowGeneric):
     ..  container:: example
 
         It takes a list and the number of elements of the window as arguments.
-        Each call of the object, in this case looper(), will move the window
-        forwards and output the result:
+        Each call of the object, in this case ``looper()``, will move the
+        window forwards and output the result:
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
@@ -42,7 +46,7 @@ class LoopWindowByList(_LoopWindowGeneric):
 
     ..  container:: example
 
-        The instances of LoopWindowByList can also be used as an iterator,
+        The instances of ``LoopWindowByList`` can also be used as an iterator,
         which can then be used in a for loop to exhaust all windows.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -61,14 +65,14 @@ class LoopWindowByList(_LoopWindowGeneric):
     ..  container:: example
 
         This class can take many optional keyword arguments during its
-        creation. step_size dictates the size of each individual step in
-        number of elements (default value is 1). max_steps sets the maximum
+        creation. ``step_size`` dictates the size of each individual step in
+        number of elements (default value is 1). ``max_steps`` sets the maximum
         number of steps that the window can advance when the object is called,
         ranging between 1 and the input value (default is also 1).
-        repetition_chance sets the chance of a window result repeating itself
-        (that is, the window not moving forwards when called). It should range
-        from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        head_position can be used to offset the starting position of the
+        ``repetition_chance`` sets the chance of a window result repeating
+        itself (that is, the window not moving forwards when called). It should
+        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
+        ``head_position`` can be used to offset the starting position of the
         looping window (default is 0).
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -90,7 +94,8 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> looper.head_position
         0
 
-        Use the set methods below to change these values after initialisation.
+        Use the ``set_`` methods below to change these values after
+        initialisation.
 
         >>> looper.set_window_size(2)
         >>> looper.set_step_size(2)
@@ -110,8 +115,8 @@ class LoopWindowByList(_LoopWindowGeneric):
 
     ..  container:: example
 
-        The function len() can be used to get the total number of elements in
-        the container.
+        The function ``len()`` can be used to get the total number of elements
+        in the container.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
@@ -122,7 +127,7 @@ class LoopWindowByList(_LoopWindowGeneric):
 
         To run through the whole process and output it as a single list, from
         the initial head position until the process outputs the single last
-        element, use the method output_all().
+        element, use the method ``output_all()``.
 
         >>> input_list = ['A', 'B', 'C', 'D']
         >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
@@ -132,8 +137,8 @@ class LoopWindowByList(_LoopWindowGeneric):
     .. container:: example
 
         To change the size of the window after instantiation, use the method
-        set_window_size(). In the example below, the initial window is of size
-        3, and so the first call of the looper object outputs the first,
+        ``set_window_size()``. In the example below, the initial window is of
+        size 3, and so the first call of the looper object outputs the first,
         second, and third elements of the list. The window size is then set to
         4, and the looper is called again, moving to the element in the next
         position, thus outputting the second, third, fourth, and fifth
@@ -157,8 +162,8 @@ class LoopWindowByList(_LoopWindowGeneric):
         [123, 'foo', (3, 4)]
 
         This also include Abjad's types. Abjad's exclusive membership
-        requirement is respected since each call returns a copy.deepcopy of the
-        window. The same is true to the output_all() method.
+        requirement is respected since each call returns a ``copy.deepcopy`` of
+        the window. The same is true to the ``output_all()`` method.
 
         >>> import abjad
         >>> import copy

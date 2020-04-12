@@ -22,8 +22,8 @@ class CartographyContainer():
         >>> container.weights
         [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
 
-        Applying the len() function to the container will give the length of
-        the container.
+        Applying the ``len()`` function to the container will give the length
+        of the container.
 
         >>> len(container)
         5
@@ -39,8 +39,9 @@ class CartographyContainer():
 
     ..  container:: example
 
-        Calling the container with the optional keyword argument no_repeat set
-        to True will forbid immediate repetitions among consecutive calls.
+        Calling the container with the optional keyword argument ``no_repeat``
+        set to ``True`` will forbid immediate repetitions among consecutive
+        calls.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
         >>> result = ''
@@ -51,8 +52,8 @@ class CartographyContainer():
 
     ..  container:: example
 
-        The keyword argument decay_rate can be used to set a different decay
-        rate when creating a container.
+        The keyword argument ``decay_rate`` can be used to set a different
+        decay rate when creating a container.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4],
         ...                                         decay_rate=0.5,
@@ -61,7 +62,7 @@ class CartographyContainer():
         [1.0, 0.5, 0.25, 0.125, 0.0625]
 
         The decay rate can also be set after the creation of a container,
-        using the method set_decay_rate().
+        using the method ``set_decay_rate()``.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
         >>> container.set_decay_rate(0.2)
@@ -92,10 +93,10 @@ class CartographyContainer():
 
     ..  container:: example
 
-        The method append_keeping_n() is similar to append(), but it keeps the
-        first n indeces untouched. It thus discards the n+1-th element, shifts
-        all the next ones lefwards and then appends the new element at the end
-        of the container.
+        The method ``append_keeping_n()`` is similar to ``append()``, but it
+        keeps the first n indeces untouched. It thus discards the n+1-th
+        element, shifts all the next ones lefwards and then appends the new
+        element at the end of the container.
 
         >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
         >>> container.contents
@@ -125,7 +126,7 @@ class CartographyContainer():
         Rotation is another type of container transformation. It rotates all
         elements rightwards, while moving the rightmost element into the
         leftmost index. It can take the optional keyword argument anticlockwise
-        which if set to True will rotate in the opposite direction.
+        which if set to ``True`` will rotate in the opposite direction.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
         >>> container.contents
@@ -167,8 +168,8 @@ class CartographyContainer():
     ..  container:: example
 
         To mirror a random pair of complementary elements, use the
-        mirror_random method. In case of a container with an odd number of
-        elements, this method will never pick an element at the pivot point
+        ``mirror_random()`` method. In case of a container with an odd number
+        of elements, this method will never pick an element at the pivot point
         since the operation would not change the contents.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
@@ -186,8 +187,8 @@ class CartographyContainer():
 
     ..  container:: example
 
-        The method randomise() will randomise the position of the elements of
-        a container.
+        The method ``randomise()`` will randomise the position of the elements
+        of a container.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
         >>> container.contents
@@ -199,7 +200,7 @@ class CartographyContainer():
     ..  container:: example
 
         The contents of a container can also be altered after it has been
-        initialised using the set_container() method. The length of the
+        initialised using the ``set_container()`` method. The length of the
         container can change too.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4],
@@ -219,8 +220,8 @@ class CartographyContainer():
 
     ..  container:: example
 
-        To method replace_element() replaces a specific element at a specified
-        index.
+        To method ``replace_element()`` replaces a specific element at a
+        specified index.
 
         >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
         >>> container.contents
@@ -232,8 +233,8 @@ class CartographyContainer():
     ..  container:: example
 
         The attribute previous_index stores the previously selected index. It
-        can be used with the get_element() method in order to retrieve the last
-        value output by the object.
+        can be used with the ``get_element()`` method in order to retrieve the
+        last value output by the object.
 
         >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
         >>> container()

@@ -6,8 +6,8 @@ def are_containers_equal(container1: abjad.Container,
                          *,
                          include_indicators: bool = False,
                          ) -> bool:
-    r"""A comparator function returning True when two containers are identical
-    and False when they are not.
+    r"""A comparator function returning ``True`` when two containers are
+    identical and ``False`` when they are not.
 
     ..  container:: example
 
@@ -21,9 +21,10 @@ def are_containers_equal(container1: abjad.Container,
 
     ..  container:: example
 
-        Even if all leaves of both containers are identical in pitches and in
-        written_duration, the function considers the effective duration so that
-        situations like the one below do not yield a false positive:
+        Even if all leaves of both containers are identical in relation to both
+        pitches and written durations, the function considers the effective
+        durations. This means that situations like the one below do not yield a
+        false positive:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "

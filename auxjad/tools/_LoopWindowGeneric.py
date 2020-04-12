@@ -1,6 +1,7 @@
 import copy
 import random
 import abjad
+from .are_leaves_tieable import are_leaves_tieable
 
 
 class _LoopWindowGeneric():
@@ -98,11 +99,22 @@ class _LoopWindowGeneric():
     def get_current_window(self) -> (list, abjad.Selection):
         return copy.deepcopy(self._current_window)
 
-    def output_all(self) -> abjad.Selection:
+    def output_all(self,
+                   *,
+                   tie_identical_pitches: bool = False,
+                   ) -> abjad.Selection:
         dummy_container = abjad.Container()
         while True:
             try:
-                dummy_container.append(self.__call__())
+                if not tie_identical_pitches or len(dummy_container) == 0:
+                    dummy_container.append(self.__call__())
+                else:
+                    new_window = self.__call__()
+                    leaf1 = abjad.select(new_window).leaves()[0]
+                    leaf2 = abjad.select(dummy_container).leaves()[-1]
+                    if are_leaves_tieable(leaf1, leaf2):
+                        abjad.attach(abjad.Tie(), dummy_container[-1])
+                    dummy_container.append(new_window)
             except:
                 break
         result = dummy_container[:]

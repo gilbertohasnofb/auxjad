@@ -9,13 +9,13 @@ def remove_repeated_dynamics(container: abjad.Container,
     r"""A function which removes all consecutive repeated dynamics. It removes
     consecutive effective dynamics, even if separated by any number of
     notes without one. It resets its memory of what was the previous dynamic
-    every time it finds a hairpin, since notation such as "c'4\f\> c'4\f\>" is
-    quite common; this behaviour can be toggled off using the ignore_hairpins
-    keyword. By default, it remembers the previous dynamic even with notes
-    separated by rests; this can be toggled off using reset_after_rests=True.
-    To set a maximum length of silence after which dynamics are restated, set
-    reset_after_rests to a duration using abjad.Duration() or any other
-    duration format accepted by Abjad.
+    every time it finds a hairpin, since notation such as ``"c'4\f\> c'4\f\>"``
+    is quite common; this behaviour can be toggled off using the
+    ``ignore_hairpins`` keyword argument. By default, it remembers the previous
+    dynamic even with notes separated by rests; this can be toggled off using
+    ``reset_after_rests=True``. To set a maximum length of silence after which
+    dynamics are restated, set ``reset_after_rests`` to a duration using
+    ``abjad.Duration()`` or any other duration format accepted by Abjad.
 
     ..  container:: example
 
@@ -153,7 +153,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             d'8
         }
 
-        To override the previous behaviour, set ignore_hairpins to True and
+        To override the previous behaviour, set ``ignore_hairpins=True`` and
         hairpins will be ignored.
 
         >>> staff = abjad.Staff(r"c'4\pp\< d'8\f\> | c'4\f d'8\f")
@@ -202,7 +202,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             c'4
         }
 
-        To override the previous behaviour, set reset_after_rests to True and
+        To override the previous behaviour, set ``reset_after_rests=True`` and
         dynamics will always be restated after a rest.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
@@ -219,14 +219,14 @@ def remove_repeated_dynamics(container: abjad.Container,
 
     ..  container:: example
 
-        The argument reset_after_rests takes not only boolean values but also
-        duration (abjad.Duration, tuple, float, etc.). This sets the maximum
-        length of rests before which identical dynamics are restated. If the
-        total length of rests falls below that value, then repeated dynamics
-        are removed.
+        The argument ``reset_after_rests`` takes not only boolean values but
+        also duration (``abjad.Duration``, tuple, float, etc.). This sets the
+        maximum length of rests before which identical dynamics are restated.
+        If the total length of rests falls below that value, then repeated
+        dynamics are removed.
 
-        In the case below, a rest of r2. is shorter than a duration of (4, 4),
-        so the repeated dynamic is removed.
+        In the case below, a rest of ``r2``. is shorter than a duration of
+        (4, 4), so the repeated dynamic is removed.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
         >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=(4, 4))
@@ -255,7 +255,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
     ..  container:: example
 
-        The function also handles measure rests with reset_after_rests.
+        The function also handles measure rests with ``reset_after_rests``.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | R1 | c'4\pp")
         >>> auxjad.remove_repeated_dynamics(

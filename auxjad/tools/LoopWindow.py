@@ -4,14 +4,14 @@ from ._LoopWindowGeneric import _LoopWindowGeneric
 
 
 class LoopWindow(_LoopWindowGeneric):
-    r"""Using a looping window, this slices an input abjad.Container and output
-    them as containers.
+    r"""Using a looping window, this slices an input ``abjad.Container`` and
+    output them as containers.
 
     ..  container:: example
 
         Usage is similar to other factory classes. It takes a container (or
         child class equivalent) as argument. Each call of the object, in this
-        case looper(), will move the window forwards and output the sliced
+        case ``looper()``, will move the window forwards and output the sliced
         window. If no window_size nor step_size are entered as arguments, they
         are set to the following default values, respectively: (4, 4), i.e. a
         window of the size of a 4/4 bar, and (1, 16), i.e. a step of the length
@@ -44,8 +44,8 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
-        The method get_current_window() will output the current window without
-        moving the head forwards.
+        The method ``get_current_window()`` will output the current window
+        without moving the head forwards.
 
         >>> notes = looper.get_current_window()
         >>> staff = abjad.Staff(notes)
@@ -64,10 +64,10 @@ class LoopWindow(_LoopWindowGeneric):
 
     ..  container:: example
 
-        The optional arguments window_size and step_size can be used to set
-        different window and step sizes. window_size can take a tuple or an
-        abjad.Meter as input, while step_size takes a tuple or an
-        abjad.Duration.
+        The optional arguments ``window_size`` and ``step_size`` can be used to
+        set different window and step sizes. ``window_size`` can take a tuple
+        or an ``abjad.Meter`` as input, while ``step_size`` takes a tuple or an
+        ``abjad.Duration``.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music,
@@ -94,8 +94,8 @@ class LoopWindow(_LoopWindowGeneric):
 
     ..  container:: example
 
-        The instances of LoopWindow can also be used as an iterator, which can
-        then be used in a for loop to exhaust all windows. Notice how it
+        The instances of ``LoopWindow`` can also be used as an iterator, which
+        can then be used in a for loop to exhaust all windows. Notice how it
         appends rests at the end of the container, until it is totally
         exhausted.
 
@@ -163,14 +163,14 @@ class LoopWindow(_LoopWindowGeneric):
     ..  container:: example
 
         This class can take many optional keyword arguments during its
-        creation, besides window_size and step_size. max_steps sets the maximum
-        number of steps that the window can advance when the object is called,
-        ranging between 1 and the input value (default is also 1).
-        repetition_chance sets the chance of a window result repeating itself
-        (that is, the window not moving forwards when called). It should range
-        from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        head_position can be used to offset the starting position of the
-        looping window. It must be a tuple or an abjad.Duration, and its
+        creation, besides ``window_size`` and ``step_size``. ``max_steps`` sets
+        the maximum number of steps that the window can advance when the object
+        is called, ranging between 1 and the input value (default is also 1).
+        ``repetition_chance`` sets the chance of a window result repeating
+        itself (that is, the window not moving forwards when called). It should
+        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
+        ``head_position`` can be used to offset the starting position of the
+        looping window. It must be a tuple or an ``abjad.Duration``, and its
         default value is 0.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -195,7 +195,8 @@ class LoopWindow(_LoopWindowGeneric):
         >>> looper.omit_time_signature
         False
 
-        Use the set methods below to change these values after initialisation.
+        Use the ``set_`` methods below to change these values after
+        initialisation.
 
         >>> looper.set_window_size((5, 4))
         >>> looper.set_step_size((1, 4))
@@ -219,8 +220,8 @@ class LoopWindow(_LoopWindowGeneric):
     ..  container:: example
 
         To run through the whole process and output it as a single container,
-        from  the initial head position until the process outputs the single
-        last element, use the method output_all().
+        from the initial head position until the process outputs the single
+        last element, use the method ``output_all()``.
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.LoopWindow(input_music,
@@ -246,14 +247,50 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
+    ..  container:: example
+
+        When using ``output_all()``, set the keyword argument
+        ``tie_identical_pitches`` to ``True`` in order to tie identical notes
+        or chords at the end and beginning of consecutive windows.
+
+        >>> input_music = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
+        >>> looper = auxjad.LoopWindow(input_music,
+        ...                            window_size=(3, 4),
+        ...                            step_size=(1, 4),
+        ...                            )
+        >>> music = looper.output_all(tie_identical_pitches=True)
+        >>> staff = abjad.Staff(music)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            <e' f' g'>2
+            ~
+            <e' f' g'>2
+            r4
+            <e' f' g'>4
+            r4
+            f'4
+            r4
+            f'2
+            ~
+            f'2.
+            ~
+            f'2
+            r4
+            f'4
+            r2
+        }
+
     .. container:: example
 
         To change the size of the looping window after instantiation, use the
-        method set_window_size(). In the example below, the initial window is
-        of size (4, 4), but changes to (3, 8) after three calls. Notice how the
-        very first call attaches a time signature equivalent to the window size
-        to the output window; subsequent calls will not have time signatures
-        unless the size of the looping window changes.
+        method ``set_window_size()``. In the example below, the initial window
+        is of size (4, 4), but changes to (3, 8) after three calls. Notice how
+        the very first call attaches a time signature equivalent to the window
+        size to the output window; subsequent calls will not have time
+        signatures unless the size of the looping window changes.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music)
@@ -312,9 +349,10 @@ class LoopWindow(_LoopWindowGeneric):
             d'4.
         }
 
-        To disable time signatures altogether, initialise LoopWindow with the
-        keyword omit_time_signature set to True (default is False), or use the
-        set_omit_time_signature() method after initialisation.
+        To disable time signatures altogether, initialise ``LoopWindow`` with
+        the keyword argument ``omit_time_signature`` set to ``True`` (default
+        is ``False``), or use the ``set_omit_time_signature()`` method after
+        initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music, omit_time_signature=True)

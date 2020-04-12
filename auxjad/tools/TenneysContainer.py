@@ -22,8 +22,8 @@ class TenneysContainer():
         >>> container.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
 
-        Applying the len() function to the container will give the length of
-        the container.
+        Applying the ``len()`` function to the container will give the length
+        of the container.
 
         >>> len(container)
         6
@@ -64,26 +64,26 @@ class TenneysContainer():
     ..  container:: example
 
         This class can take two optional keywords argument during its
-        instantiation, namely weights and curvature. weights takes a list of
-        floats with the individual weights of each element; by default, all
-        weights are set to 1.0. These weights affects the effective
-        probability of each element. The other argument, curvature, is the
-        exponent of the growth function for all elements. The growth function
-        takes as input the number of iterations since an element has been last
-        selected, and raise this number by the curvature value. If curvature
-        is set to 1.0 (which is its default value), the growth is linear with
-        each iteration. If set to a value larger than 0.0 and less than 1.0,
-        the growth is negative (or concave), so that the chances of an element
-        which is not being selected will grow at ever smaller rates as the
-        number of iterations it has not been selected increase. If the
-        curvature is set to 1.0, the growth is linear with the number of
-        iterations. If the curvature is larger than 1.0, the curvature is
-        positive (or convex) and the growth will accelerate as the number of
-        iterations an element has not been selected grows. Setting the
-        curvature to 0.0 will result in an static probability vector with all
-        values set to 1.0, except for the previously selected one which will be
-        set to 0.0; this will result in a uniformly random selection without
-        repetition.
+        instantiation, namely ``weights`` and ``curvature``. ``weights`` takes
+        a list of floats with the individual weights of each element; by
+        default,  all weights are set to 1.0. These weights affects the
+        effective probability of each element. The other argument,
+        ``curvature``, is the exponent of the growth function for all elements.
+        The growth function takes as input the number of iterations since an
+        element has been last selected, and raise this number by the curvature
+        value. If ``curvature`` is set to 1.0 (which is its default value), the
+        growth is linear with each iteration. If set to a value larger than 0.0
+        and less than 1.0, the growth is negative (or concave), so that the
+        chances of an element which is not being selected will grow at ever
+        smaller rates as the number of iterations it has not been selected
+        increase. If the ``curvature`` is set to 1.0, the growth is linear with
+        the number of iterations. If the ``curvature`` is larger than 1.0, the
+        curvature is positive (or convex) and the growth will accelerate as the
+        number of iterations an element has not been selected grows. Setting
+        the curvature to 0.0 will result in an static probability vector with
+        all values set to 1.0, except for the previously selected one which
+        will be set to 0.0; this will result in a uniformly random selection
+        without repetition.
 
         With linear curvature (default value of 1.0):
 
@@ -133,7 +133,7 @@ class TenneysContainer():
         results in sequences which have more chances of a same element being
         near each other. In the sequence below, note how there are many cases
         of a same element being separated only by a single other one, such as
-        'ACA' in index 6.
+        ``'ACA'`` in index 6.
 
         >>> result = ''
         >>> for _ in range(30):
@@ -181,7 +181,7 @@ class TenneysContainer():
         sequences which have less chances of a same element being near each
         other. In the sequence below, with a curvature of 15.2, note how the
         elements are as far apart from each other, resulting in a repeating
-        string of 'DFAECB'.
+        string of ``'DFAECB'``.
 
         >>> result = ''
         >>> for _ in range(30):
@@ -226,7 +226,7 @@ class TenneysContainer():
     ..  container:: example
 
         To reset the probability to its initial value, use the method
-        reset_probabilities().
+        ``reset_probabilities()``.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
@@ -240,9 +240,9 @@ class TenneysContainer():
     ..  container:: example
 
         To replace an element in the container, use the method
-        replace_element(). This will not affect the current probability vector,
-        and the new element will have the same probability as the one it
-        replaced.
+        ``replace_element()``. This will not affect the current probability
+        vector, and the new element will have the same probability as the one
+        it replaced.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
@@ -256,9 +256,9 @@ class TenneysContainer():
     ..  container:: example
 
         A new container of an arbitrary length can be set at any point using
-        the method set_container(). Do notice that the probabilities will be
-        reset at that point. This method can take the optional keyword argument
-        weights similarly to when instantiating the class.
+        the method ``set_container()``. Do notice that the probabilities will
+        be reset at that point. This method can take the optional keyword
+        argument weights similarly to when instantiating the class.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
@@ -277,7 +277,7 @@ class TenneysContainer():
 
     ..  container:: example
 
-        To change the curvature value at any point, use the set_curvature()
+        To change the curvature value at any point, use the ``set_curvature()``
         method.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])

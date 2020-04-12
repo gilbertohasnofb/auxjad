@@ -4,7 +4,7 @@ from .underfull_duration import underfull_duration
 
 
 def fill_with_rests(container: abjad.Container):
-    r"""Fills an abjad.Container with rests in order to make it full.
+    r"""Fills an ``abjad.Container`` with rests in order to make it full.
 
     ..  container:: example
 
@@ -95,9 +95,9 @@ def fill_with_rests(container: abjad.Container):
         }
 
         Notice that the time signatures in the output are commented out with
-        '%%%'. This is because Abjad only applies time signatures to containers
-        that belong to a abjad.Staff. The present function works with either
-        abjad.Container and abjad.Staff.
+        ``%%%.`` This is because Abjad only applies time signatures to
+        containers that belong to a ``abjad.Staff``. The present function works
+        with either ``abjad.Container`` and ``abjad.Staff``.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
         >>> auxjad.fill_with_rests(container)
@@ -146,7 +146,7 @@ def fill_with_rests(container: abjad.Container):
     ..  container:: example
 
         If a container is malformed, i.e. it has an underfilled bar before a
-        time signature change, the function raises a ValueError exception.
+        time signature change, the function raises a ``ValueError`` exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
         >>> auxjad.fill_with_rests(container)

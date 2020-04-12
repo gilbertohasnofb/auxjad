@@ -316,3 +316,54 @@ def test_LoopWindowByElements_11():
                                            window_size=3,
                                            head_position=100,
                                            )
+
+
+def test_LoopWindowByElements_12():
+    input_music = abjad.Container(r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16")
+    looper = auxjad.LoopWindowByElements(input_music,
+                                         window_size=4,
+                                         )
+    music = looper.output_all(tie_identical_pitches=True)
+    staff = abjad.Staff(music)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 9/8
+            c'4
+            d'2
+            r8
+            d'4
+            ~
+            \time 4/4
+            d'2
+            r8
+            d'4
+            <e' g'>8
+            \time 3/4
+            r8
+            d'4
+            <e' g'>8
+            r4
+            \time 11/8
+            d'4
+            <e' g'>8
+            r4
+            f'2.
+            \time 19/16
+            <e' g'>8
+            r4
+            f'2.
+            <e' g'>16
+            \time 17/16
+            r4
+            f'2.
+            <e' g'>16
+            \time 13/16
+            f'2.
+            <e' g'>16
+            ~
+            \time 1/16
+            <e' g'>16
+        }
+        ''')

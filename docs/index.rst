@@ -22,6 +22,11 @@ are_containers_equal
 .. autofunction:: auxjad.are_containers_equal
 
 
+are_leaves_tieable
+------------------
+.. autofunction:: auxjad.are_leaves_tieable
+
+
 CartographyContainer
 --------------------
 .. autoclass:: auxjad.CartographyContainer

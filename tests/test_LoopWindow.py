@@ -191,6 +191,7 @@ def test_LoopWindow_04():
                                step_size=(5, 8),
                                max_steps=2,
                                repetition_chance=0.25,
+                               forward_bias=0.2,
                                head_position=(2, 8),
                                omit_time_signature=False,
                                )
@@ -198,18 +199,21 @@ def test_LoopWindow_04():
     assert looper.step_size == abjad.Duration((5, 8))
     assert looper.max_steps == 2
     assert looper.repetition_chance == 0.25
+    assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_time_signature
     looper.set_window_size((5, 4))
     looper.set_step_size((1, 4))
     looper.set_max_steps(3)
     looper.set_repetition_chance(0.1)
+    looper.set_forward_bias(0.8)
     looper.set_head_position(0)
     looper.set_omit_time_signature(True)
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
     assert looper.repetition_chance == 0.1
+    assert looper.forward_bias == 0.8
     assert looper.head_position == abjad.Duration(0)
     assert looper.omit_time_signature
 
@@ -517,3 +521,99 @@ def test_LoopWindow_14():
                                )
     with pytest.raises(RuntimeError):
         looper.output_n(100)
+
+
+def test_LoopWindow_15():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+    looper = auxjad.LoopWindow(input_music,
+                               window_size=(3, 4),
+                               step_size=(1, 4),
+                               head_position=(3, 4),
+                               forward_bias = 0.0
+                               )
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 3/4
+            f'4
+            g'4
+            a'4
+        }
+        ''')
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            e'4
+            f'4
+            g'4
+        }
+        ''')
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            d'4
+            e'4
+            f'4
+        }
+        ''')
+
+
+def test_LoopWindow_16():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+    looper = auxjad.LoopWindow(input_music,
+                           window_size=(3, 4),
+                           step_size=(1, 4),
+                           head_position=(3, 4),
+                           forward_bias=0.0,
+                           )
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+    r'''
+    \new Staff
+    {
+        \time 3/4
+        f'4
+        g'4
+        a'4
+        e'4
+        f'4
+        g'4
+        d'4
+        e'4
+        f'4
+        c'4
+        d'4
+        e'4
+    }
+    ''')
+
+
+def test_LoopWindow_17():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+    looper = auxjad.LoopWindow(input_music,
+                           window_size=(3, 4),
+                           step_size=(1, 4),
+                           forward_bias=0.0,
+                           )
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+    r'''
+    \new Staff
+    {
+        \time 3/4
+        c'4
+        d'4
+        e'4
+    }
+    ''')

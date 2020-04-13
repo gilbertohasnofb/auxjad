@@ -55,6 +55,7 @@ def test_LoopWindowByElements_02():
                                          step_size=1,
                                          max_steps=2,
                                          repetition_chance=0.25,
+                                         forward_bias=0.2,
                                          head_position=0,
                                          omit_time_signature=False,
                                          )
@@ -62,18 +63,21 @@ def test_LoopWindowByElements_02():
     assert looper.step_size == 1
     assert looper.max_steps == 2
     assert looper.repetition_chance == 0.25
+    assert looper.forward_bias == 0.2
     assert looper.head_position == 0
     assert not looper.omit_time_signature
     looper.set_window_size(2)
     looper.set_step_size(2)
     looper.set_max_steps(3)
     looper.set_repetition_chance(0.1)
+    looper.set_forward_bias(0.8)
     looper.set_head_position(2)
     looper.set_omit_time_signature(True)
     assert looper.window_size == 2
     assert looper.step_size == 2
     assert looper.max_steps == 3
     assert looper.repetition_chance == 0.1
+    assert looper.forward_bias == 0.8
     assert looper.head_position == 2
     assert looper.omit_time_signature
 
@@ -413,3 +417,49 @@ def test_LoopWindowByElements_15():
     looper = auxjad.LoopWindowByElements(input_music, window_size=2)
     with pytest.raises(RuntimeError):
         looper.output_n(100)
+
+
+def test_LoopWindowByElements_16():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindowByElements(input_music,
+                                         window_size=2,
+                                         head_position=2,
+                                         forward_bias=0.0
+                                         )
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 2/4
+            e'4
+            f'4
+            \time 2/4
+            d'4
+            e'4
+            \time 2/4
+            c'4
+            d'4
+        }
+        ''')
+
+
+def test_LoopWindowByElements_16():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindowByElements(input_music,
+                                     window_size=2,
+                                     head_position=0,
+                                     forward_bias=0.0
+                                     )
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+    r'''
+    \new Staff
+    {
+        \time 2/4
+        c'4
+        d'4
+    }
+    ''')

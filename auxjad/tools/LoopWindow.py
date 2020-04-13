@@ -168,10 +168,14 @@ class LoopWindow(_LoopWindowGeneric):
         is called, ranging between 1 and the input value (default is also 1).
         ``repetition_chance`` sets the chance of a window result repeating
         itself (that is, the window not moving forwards when called). It should
-        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        ``head_position`` can be used to offset the starting position of the
-        looping window. It must be a tuple or an ``abjad.Duration``, and its
-        default value is 0.
+        range from 0.0 to 1.0 (default 0.0, i.e. no repetition).
+        ``forward_bias`` sets the chance of the window moving forward instead
+        of backwards. It should range from 0.0 to 1.0 (default 1.0, which means
+        the window can only move forwards. A value of 0.5 gives 50% chance of
+        moving forwards while a value of 0.0 will move the window only
+        backwards). Finally, ``head_position`` can be used to offset the
+        starting position of the looping window. It must be a tuple or an
+        ``abjad.Duration``, and its default value is 0.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music,
@@ -179,6 +183,7 @@ class LoopWindow(_LoopWindowGeneric):
         ...                            step_size=(5, 8),
         ...                            max_steps=2,
         ...                            repetition_chance=0.25,
+        ...                            forward_bias=0.2,
         ...                            head_position=(2, 8),
         ...                            omit_time_signature=False,
         ...                            )
@@ -188,6 +193,8 @@ class LoopWindow(_LoopWindowGeneric):
         5/8
         >>> looper.repetition_chance
         0.25
+        >>> looper.forward_bias
+        0.2
         >>> looper.max_steps
         2
         >>> looper.head_position
@@ -202,6 +209,7 @@ class LoopWindow(_LoopWindowGeneric):
         >>> looper.set_step_size((1, 4))
         >>> looper.set_max_steps(3)
         >>> looper.set_repetition_chance(0.1)
+        >>> looper.set_forward_bias(0.8)
         >>> looper.set_head_position(0)
         >>> looper.set_omit_time_signature(True)
         >>> looper.window_size
@@ -212,6 +220,8 @@ class LoopWindow(_LoopWindowGeneric):
         3
         >>> looper.repetition_chance
         0.1
+        >>> looper.forward_bias
+        0.8
         >>> looper.head_position
         0
         >>> looper.omit_time_signature
@@ -443,6 +453,7 @@ class LoopWindow(_LoopWindowGeneric):
                  step_size: (int, float, tuple, str, abjad.Duration) = (1, 16),
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
+                 forward_bias: float = 1.0,
                  head_position: (int, float, tuple, str, abjad.Duration) = 0,
                  omit_time_signature: bool = False,
                  ):
@@ -458,6 +469,7 @@ class LoopWindow(_LoopWindowGeneric):
                          step_size,
                          max_steps,
                          repetition_chance,
+                         forward_bias,
                          )
 
     def set_head_position(self,
@@ -486,7 +498,7 @@ class LoopWindow(_LoopWindowGeneric):
                           (int, float, tuple, str, abjad.Meter),
                           ):
             raise TypeError("'window_size' must be 'tuple' or 'abjad.Meter'")
-        if abjad.Meter(window_size).duration >= self._container_length \
+        if abjad.Meter(window_size).duration > self._container_length \
                               - self.head_position:
             raise ValueError("'window_size' must be smaller than or equal "
                              "to the length of 'container'")
@@ -520,7 +532,8 @@ class LoopWindow(_LoopWindowGeneric):
         method, which cannot be used for non-integer values such as
         ``abjad.Duration``.
         """
-        return self.head_position >= self._container_length
+        return self.head_position >= self._container_length or \
+            self.head_position < 0
 
     def _slice_container(self) -> abjad.Selection:
         head = self.head_position

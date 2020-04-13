@@ -16,6 +16,7 @@ class _LoopWindowGeneric():
                  step_size,
                  max_steps,
                  repetition_chance,
+                 forward_bias,
                  ):
         self._first_window = True
         self.set_head_position(head_position)
@@ -23,7 +24,7 @@ class _LoopWindowGeneric():
         self.set_step_size(step_size)
         self.set_max_steps(max_steps)
         self.set_repetition_chance(repetition_chance)
-        self.set_max_steps(max_steps)
+        self.set_forward_bias(forward_bias)
 
     def __call__(self) -> abjad.Selection:
         self._move_head()
@@ -83,6 +84,15 @@ class _LoopWindowGeneric():
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         self.repetition_chance = repetition_chance
+
+    def set_forward_bias(self,
+                         forward_bias: float,
+                         ):
+        if not isinstance(forward_bias, float):
+            raise TypeError("'forward_bias' must be 'float'")
+        if forward_bias < 0.0 or forward_bias > 1.0:
+            raise ValueError("'forward_bias' must be between 0.0 and 1.0")
+        self.forward_bias = forward_bias
 
     def set_head_position(self,
                           head_position: int,
@@ -145,13 +155,19 @@ class _LoopWindowGeneric():
         if not self._first_window:  # first window always at initial position
             if self.repetition_chance == 0.0 \
                     or random.random() > self.repetition_chance:
-                self.head_position += \
-                    self.step_size * random.randint(1, self.max_steps)
+                step = self.step_size * random.randint(1, self.max_steps)
+                diretion = self._biased_choice(self.forward_bias)
+                self.head_position += step * diretion
         else:
             self._first_window = False
 
     def _done(self) -> bool:
-        return self.head_position >= self._container.__len__()
+        return self.head_position >= self._container.__len__() or \
+            self.head_position < 0
 
     def _slice_container(self):
         pass
+
+    @staticmethod
+    def _biased_choice(bias):
+        return random.choices([1, -1], weights=[bias, 1.0-bias])[0]

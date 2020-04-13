@@ -18,22 +18,26 @@ def test_LoopWindowByList_02():
                                      step_size=1,
                                      max_steps=2,
                                      repetition_chance=0.25,
+                                     forward_bias=0.2,
                                      head_position=0,
                                      )
     assert looper.window_size == 3
     assert looper.step_size == 1
     assert looper.max_steps == 2
     assert looper.repetition_chance == 0.25
+    assert looper.forward_bias == 0.2
     assert looper.head_position == 0
     looper.set_window_size(2)
     looper.set_step_size(2)
     looper.set_max_steps(3)
     looper.set_repetition_chance(0.1)
+    looper.set_forward_bias(0.8)
     looper.set_head_position(2)
     assert looper.window_size == 2
     assert looper.step_size == 2
     assert looper.max_steps == 3
     assert looper.repetition_chance == 0.1
+    assert looper.forward_bias == 0.8
     assert looper.head_position == 2
 
 
@@ -200,3 +204,23 @@ def test_LoopWindowByList_12():
     looper = auxjad.LoopWindowByList(input_list, window_size=3)
     with pytest.raises(RuntimeError):
         looper.output_n(100)
+
+
+def test_LoopWindowByList_13():
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.LoopWindowByList(input_list,
+                                     window_size=2,
+                                     head_position=2,
+                                     forward_bias=0.0,
+                                     )
+    assert looper.output_all() == ['C', 'D', 'B', 'C', 'A', 'B']
+
+
+def test_LoopWindowByList_14():
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.LoopWindowByList(input_list,
+                                     window_size=2,
+                                     head_position=0,
+                                     forward_bias=0.0,
+                                     )
+    assert looper.output_all() == ['A', 'B']

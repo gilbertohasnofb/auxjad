@@ -71,9 +71,13 @@ class LoopWindowByList(_LoopWindowGeneric):
         ranging between 1 and the input value (default is also 1).
         ``repetition_chance`` sets the chance of a window result repeating
         itself (that is, the window not moving forwards when called). It should
-        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). Finally,
-        ``head_position`` can be used to offset the starting position of the
-        looping window (default is 0).
+        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). 
+        ``forward_bias`` sets the chance of the window moving forward instead
+        of backwards. It should range from 0.0 to 1.0 (default 1.0, which means
+        the window can only move forwards. A value of 0.5 gives 50% chance of
+        moving forwards while a value of 0.0 will move the window only
+        backwards). Finally, ``head_position`` can be used to offset the
+        starting position of the looping window (default is 0).
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list,
@@ -81,6 +85,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         ...                                  step_size=1,
         ...                                  max_steps=2,
         ...                                  repetition_chance=0.25,
+        ...                                  forward_bias=0.2,
         ...                                  head_position=0,
         ...                                  )
         >>> looper.window_size
@@ -89,6 +94,8 @@ class LoopWindowByList(_LoopWindowGeneric):
         1
         >>> looper.repetition_chance
         0.25
+        >>> looper.forward_bias
+        0.2
         >>> looper.max_steps
         2
         >>> looper.head_position
@@ -101,6 +108,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> looper.set_step_size(2)
         >>> looper.set_max_steps(3)
         >>> looper.set_repetition_chance(0.1)
+        >>> looper.set_forward_bias(0.8)
         >>> looper.set_head_position(2)
         >>> looper.window_size
         2
@@ -108,8 +116,10 @@ class LoopWindowByList(_LoopWindowGeneric):
         2
         >>> looper.max_steps
         3
-        >>> looper.repetition_chance ==
-        1
+        >>> looper.repetition_chance
+        0.1
+        >>> looper.forward_bias
+        0.8
         >>> looper.head_position
         2
 
@@ -237,6 +247,7 @@ class LoopWindowByList(_LoopWindowGeneric):
                  step_size: int = 1,
                  max_steps: int = 1,
                  repetition_chance: float = 0.0,
+                 forward_bias: float = 1.0,
                  head_position: int = 0,
                  ):
         if not isinstance(container, list):
@@ -247,6 +258,7 @@ class LoopWindowByList(_LoopWindowGeneric):
                          step_size,
                          max_steps,
                          repetition_chance,
+                         forward_bias,
                          )
 
     def __len__(self) -> int:

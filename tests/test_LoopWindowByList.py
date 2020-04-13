@@ -142,7 +142,7 @@ def test_LoopWindowByList_09():
 
 
 
-def test_LoopWindowByList_00():
+def test_LoopWindowByList_10():
     wrong_type_input = 'foo'
     input_list = ['A', 'B', 'C', 'D']
     with pytest.raises(TypeError):
@@ -187,3 +187,16 @@ def test_LoopWindowByList_00():
         assert auxjad.LoopWindowByList(input_list,
                                        window_size=3,
                                        head_position=100)
+
+
+def test_LoopWindowByList_11():
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.LoopWindowByList(input_list, window_size=3)
+    assert looper.output_n(2) == ['A', 'B', 'C', 'B', 'C', 'D']
+
+
+def test_LoopWindowByList_12():
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.LoopWindowByList(input_list, window_size=3)
+    with pytest.raises(RuntimeError):
+        looper.output_n(100)

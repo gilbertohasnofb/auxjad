@@ -462,3 +462,58 @@ def test_LoopWindow_11():
             r2
         }
         ''')
+
+
+def test_LoopWindow_12():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindow(input_music,
+                               window_size=(3, 4),
+                               step_size=(1, 4),
+                               )
+    music = looper.output_n(2)
+    staff = abjad.Staff(music)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            d'4
+            e'4
+            f'4
+        }
+        ''')
+
+
+def test_LoopWindow_13():
+    input_music = abjad.Container(r"c'4 d'2 e'4 f'4")
+    looper = auxjad.LoopWindow(input_music,
+                               window_size=(3, 4),
+                               step_size=(1, 4),
+                               )
+    music = looper.output_n(2, tie_identical_pitches=True)
+    staff = abjad.Staff(music)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'2
+            ~
+            d'2
+            e'4
+        }
+        ''')
+
+
+def test_LoopWindow_14():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindow(input_music,
+                               window_size=(3, 4),
+                               step_size=(1, 4),
+                               )
+    with pytest.raises(RuntimeError):
+        looper.output_n(100)

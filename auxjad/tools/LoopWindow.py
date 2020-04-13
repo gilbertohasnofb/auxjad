@@ -283,6 +283,33 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
+    ..  container:: example
+
+        To run through just part of the process and output it as a single
+        container, starting from the initial head position, use the method
+        ``output_n()`` and pass the number of iterations as argument. Similarly
+        to ``output_all()``, the keyword argument ``tie_identical_pitches`` is
+        available for tying pitches.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopWindow(input_music,
+        ...                            window_size=(3, 4),
+        ...                            step_size=(1, 4),
+        ...                            )
+        >>> music = looper.output_n(2)
+        >>> staff = abjad.Staff(music)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            d'4
+            e'4
+            f'4
+        }
+
     .. container:: example
 
         To change the size of the looping window after instantiation, use the
@@ -436,8 +463,8 @@ class LoopWindow(_LoopWindowGeneric):
     def set_head_position(self,
                           head_position: tuple,
                           ):
-        r"""Custom set_head_position() method since parent's method uses
-        integers as input, intead of tuples or abjad.Duration.
+        r"""Custom ``set_head_position()`` method since parent's method uses
+        integers as input, intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
@@ -471,8 +498,8 @@ class LoopWindow(_LoopWindowGeneric):
     def set_step_size(self,
                       step_size: tuple,
                       ):
-        r"""Custom set_step_size() method since parent's method uses integers
-        as input, intead of tuples or abjad.Duration.
+        r"""Custom ``set_step_size()`` method since parent's method uses
+        integers as input, intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
@@ -489,8 +516,9 @@ class LoopWindow(_LoopWindowGeneric):
         self.omit_time_signature = omit_time_signature
 
     def _done(self) -> bool:
-        r"""Custom _done method since parent's method uses the __len__ method,
-        which cannot be used for non-integer values such as abjad.Duration.
+        r"""Custom ``_done`` method since parent's method uses the ``__len__``
+        method, which cannot be used for non-integer values such as
+        ``abjad.Duration``.
         """
         return self.head_position >= self._container_length
 

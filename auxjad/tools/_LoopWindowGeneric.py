@@ -121,6 +121,26 @@ class _LoopWindowGeneric():
         dummy_container[:] = []
         return result
 
+    def output_n(self,
+                 n: int,
+                 *,
+                 tie_identical_pitches: bool = False,
+                 ) -> abjad.Selection:
+        dummy_container = abjad.Container()
+        for _ in range(n):
+            if not tie_identical_pitches or len(dummy_container) == 0:
+                dummy_container.append(self.__call__())
+            else:
+                new_window = self.__call__()
+                leaf1 = abjad.select(new_window).leaves()[0]
+                leaf2 = abjad.select(dummy_container).leaves()[-1]
+                if are_leaves_tieable(leaf1, leaf2):
+                    abjad.attach(abjad.Tie(), dummy_container[-1])
+                dummy_container.append(new_window)
+        result = dummy_container[:]
+        dummy_container[:] = []
+        return result
+
     def _move_head(self):
         if not self._first_window:  # first window always at initial position
             if self.repetition_chance == 0.0 \

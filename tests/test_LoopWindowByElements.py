@@ -367,3 +367,49 @@ def test_LoopWindowByElements_12():
             <e' g'>16
         }
         ''')
+
+
+def test_LoopWindowByElements_13():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    notes = looper.output_n(2)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 2/4
+            c'4
+            d'4
+            \time 2/4
+            d'4
+            e'4
+        }
+        ''')
+
+
+def test_LoopWindowByElements_14():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    notes = looper.output_n(2, tie_identical_pitches=True)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 2/4
+            c'4
+            d'4
+            ~
+            \time 2/4
+            d'4
+            e'4
+        }
+        ''')
+
+
+def test_LoopWindowByElements_15():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    with pytest.raises(RuntimeError):
+        looper.output_n(100)

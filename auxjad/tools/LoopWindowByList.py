@@ -125,6 +125,17 @@ class LoopWindowByList(_LoopWindowGeneric):
 
     ..  container:: example
 
+        To run through just part of the process and output it as a single
+        list, starting from the initial head position, use the method
+        ``output_n()`` and pass the number of iterations as argument.
+
+        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper.output_n(2)
+        ['A', 'B', 'C', 'B', 'C', 'D']
+
+    ..  container:: example
+
         To run through the whole process and output it as a single list, from
         the initial head position until the process outputs the single last
         element, use the method ``output_all()``.
@@ -243,7 +254,7 @@ class LoopWindowByList(_LoopWindowGeneric):
 
     def __next__(self) -> list:
         r"""Custom __next__ dunder method since parent's method outputs an
-        abjad.Selection.
+        ``abjad.Selection``.
         """
         self._move_head()
         if self._done():
@@ -252,8 +263,8 @@ class LoopWindowByList(_LoopWindowGeneric):
         return self._current_window[:]
 
     def output_all(self) -> list:
-        r"""Custom __next__ dunder method since parent's method outputs an
-        abjad.Selection.
+        r"""Custom output_all() method since parent's method outputs an
+        ``abjad.Selection``.
         """
         dummy_container = []
         while True:
@@ -261,6 +272,15 @@ class LoopWindowByList(_LoopWindowGeneric):
                 dummy_container.extend(self.__call__())
             except:
                 break
+        return dummy_container[:]
+
+    def output_n(self, n: int) -> list:
+        r"""Custom output_n() method since parent's method outputs an
+        ``abjad.Selection``.
+        """
+        dummy_container = []
+        for _ in range(n):
+            dummy_container.extend(self.__call__())
         return dummy_container[:]
 
     def _slice_container(self) -> list:

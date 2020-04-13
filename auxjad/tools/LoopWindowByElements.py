@@ -271,6 +271,31 @@ class LoopWindowByElements(_LoopWindowGeneric):
             <e' g'>16
         }
 
+    ..  container:: example
+
+        To run through just part of the process and output it as a single
+        container, starting from the initial head position, use the method
+        ``output_n()`` and pass the number of iterations as argument. Similarly
+        to ``output_all()``, the keyword argument ``tie_identical_pitches`` is
+        available for tying pitches.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopWindowByElements(input_music,
+        ...                                      window_size=2,
+        ...                                      )
+        >>> window = looper.output_n(2)
+        >>> staff = abjad.Staff(window)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 2/4
+            c'4
+            d'4
+            \time 2/4
+            d'4
+            e'4
+        }
+
     .. container:: example
 
         To change the size of the window after instantiation, use the method

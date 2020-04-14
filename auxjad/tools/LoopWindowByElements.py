@@ -456,7 +456,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             raise TypeError("'force_identical_time_signatures' must be 'bool'")
         self.force_identical_time_signatures = force_identical_time_signatures
 
-    def _slice_container(self) -> abjad.Selection:
+    def _slice_container(self):
         start = self.head_position
         end = self.head_position + self.window_size
         logical_ties = self._container[start:end]

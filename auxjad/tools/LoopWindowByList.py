@@ -71,7 +71,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         ranging between 1 and the input value (default is also 1).
         ``repetition_chance`` sets the chance of a window result repeating
         itself (that is, the window not moving forwards when called). It should
-        range from 0.0 to 1.0 (default 0.0, i.e. no repetition). 
+        range from 0.0 to 1.0 (default 0.0, i.e. no repetition).
         ``forward_bias`` sets the chance of the window moving forward instead
         of backwards. It should range from 0.0 to 1.0 (default 1.0, which means
         the window can only move forwards. A value of 0.5 gives 50% chance of
@@ -295,7 +295,7 @@ class LoopWindowByList(_LoopWindowGeneric):
             dummy_container.extend(self.__call__())
         return dummy_container[:]
 
-    def _slice_container(self) -> list:
+    def _slice_container(self):
         start = self.head_position
         end = self.head_position + self.window_size
         self._current_window = self._container[start:end]

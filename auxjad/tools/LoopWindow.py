@@ -535,7 +535,7 @@ class LoopWindow(_LoopWindowGeneric):
         return self.head_position >= self._container_length or \
             self.head_position < 0
 
-    def _slice_container(self) -> abjad.Selection:
+    def _slice_container(self):
         head = self.head_position
         window_size = self.window_size
         dummy_container = copy.deepcopy(self._container)

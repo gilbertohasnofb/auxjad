@@ -31,7 +31,7 @@ class _LoopWindowGeneric():
         if self._done():
             raise RuntimeError("'container' has been exhausted")
         self._slice_container()
-        return copy.deepcopy(self._current_window)
+        return self.get_current_window()
 
     def __iter__(self):
         return self

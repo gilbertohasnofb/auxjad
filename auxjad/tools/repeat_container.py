@@ -203,11 +203,12 @@ def repeat_container(container: abjad.Container,
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")
-    if not is_container_full(container):
-        close_container(container)
-    output_container = type(container)()
+    container_ = copy.deepcopy(container)
+    if not is_container_full(container_):
+        close_container(container_)
+    output_container = type(container_)()
     for _ in range(n):
-        output_container.extend(copy.deepcopy(container))
+        output_container.extend(copy.deepcopy(container_))
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)
     if omit_all_time_signatures:

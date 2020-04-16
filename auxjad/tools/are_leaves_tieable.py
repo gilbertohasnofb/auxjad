@@ -2,8 +2,8 @@ import abjad
 
 
 def are_leaves_tieable(leaf1: abjad.Leaf,
-                     leaf2: abjad.Leaf,
-                     ) -> bool:
+                       leaf2: abjad.Leaf,
+                       ) -> bool:
     r"""A comparator function returning ``True`` when two leaves have identical
     pitches and thus can be tied, otherwise returning ``False``.
 

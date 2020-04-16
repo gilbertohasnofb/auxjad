@@ -113,6 +113,8 @@ class _LoopWindowGeneric():
                    *,
                    tie_identical_pitches: bool = False,
                    ) -> abjad.Selection:
+        if not isinstance(tie_identical_pitches, bool):
+            raise TypeError("'tie_identical_pitches' must be 'bool'")
         dummy_container = abjad.Container()
         while True:
             try:
@@ -136,6 +138,12 @@ class _LoopWindowGeneric():
                  *,
                  tie_identical_pitches: bool = False,
                  ) -> abjad.Selection:
+        if not isinstance(n, int):
+            raise TypeError("'n' must be 'int'")
+        if n < 1:
+            raise ValueError("'n' must be greater than zero")
+        if not isinstance(tie_identical_pitches, bool):
+            raise TypeError("'tie_identical_pitches' must be 'bool'")
         dummy_container = abjad.Container()
         for _ in range(n):
             if not tie_identical_pitches or len(dummy_container) == 0:

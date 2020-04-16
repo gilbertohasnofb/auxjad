@@ -290,6 +290,10 @@ class LoopWindowByList(_LoopWindowGeneric):
         r"""Custom output_n() method since parent's method outputs an
         ``abjad.Selection``.
         """
+        if not isinstance(n, int):
+            raise TypeError("'n' must be 'int'")
+        if n < 0:
+            raise ValueError("'n' must be a positive 'int'")
         dummy_container = []
         for _ in range(n):
             dummy_container.extend(self.__call__())

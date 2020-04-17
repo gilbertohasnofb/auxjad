@@ -77,6 +77,11 @@ remove_repeated_time_signatures
 .. autofunction:: auxjad.remove_repeated_time_signatures
 
 
+rests_to_multimeasure_rest
+--------------------------
+.. autofunction:: auxjad.rests_to_multimeasure_rest
+
+
 simplified_time_signature_ratio
 -------------------------------
 .. autofunction:: auxjad.simplified_time_signature_ratio

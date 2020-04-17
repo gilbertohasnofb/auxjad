@@ -52,6 +52,11 @@ LeafDynMaker
 .. autoclass:: auxjad.LeafDynMaker
 
 
+LeafShuffler
+------------
+.. autoclass:: auxjad.LeafShuffler
+
+
 LoopWindow
 ----------
 .. autoclass:: auxjad.LoopWindow

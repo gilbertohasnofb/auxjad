@@ -5,6 +5,7 @@ from .close_container import close_container
 from .fill_with_rests import fill_with_rests
 from .is_container_full import is_container_full
 from .LeafDynMaker import LeafDynMaker
+from .LeafShuffler import LeafShuffler
 from .LoopWindow import LoopWindow
 from .LoopWindowByElements import LoopWindowByElements
 from .LoopWindowByList import LoopWindowByList

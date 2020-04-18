@@ -116,8 +116,8 @@ def test_complex_music_example_01():
             e'8
             d'8
             c'8.
-            cs'16
             \p
+            cs'16
             ~
             cs'4
             ~
@@ -132,8 +132,8 @@ def test_complex_music_example_01():
             d'16
             r16
             c'8
-            cs'4.
             \p
+            cs'4.
             e'4
             \pp
             - \staccato

@@ -529,7 +529,7 @@ def test_LoopWindow_15():
                                window_size=(3, 4),
                                step_size=(1, 4),
                                head_position=(3, 4),
-                               forward_bias = 0.0
+                               forward_bias = 0.0,
                                )
     notes = looper()
     staff = abjad.Staff(notes)
@@ -636,6 +636,47 @@ def test_LoopWindow_18():
         ~
         d'4..
         e'16
+        ~
+        e'8.
+        f'16
+    }
+    ''')
+
+
+def test_LoopWindow_19():
+    input_music = abjad.Container(r"c'4-.\pp\< d'2--\f e'4->\ppp f'2 ~ f'8")
+    looper = auxjad.LoopWindow(input_music)
+    staff = abjad.Staff()
+    for _ in range(2):
+        music = looper()
+        staff.append(music)
+    assert format(staff) == abjad.String.normalize(
+    r'''
+    \new Staff
+    {
+        \time 4/4
+        c'4
+        \pp
+        - \staccato
+        \<
+        d'2
+        \f
+        - \tenuto
+        e'4
+        \ppp
+        - \accent
+        c'8.
+        \pp
+        - \staccato
+        \<
+        d'16
+        \f
+        - \tenuto
+        ~
+        d'4..
+        e'16
+        \ppp
+        - \accent
         ~
         e'8.
         f'16

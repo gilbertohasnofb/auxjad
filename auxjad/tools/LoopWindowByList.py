@@ -46,6 +46,21 @@ class LoopWindowByList(_LoopWindowGeneric):
 
     ..  container:: example
 
+        The very first call will output the input list without processing
+        it. To disable this behaviour and have the looping window move on the
+        very first call, initialise the class with the keyword argument
+        ``move_window_on_first_call`` set to ``True``.
+
+        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> looper = auxjad.LoopWindowByList(input_list,
+        ...                                  window_size=3,
+        ...                                  move_window_on_first_call=True,
+        ...                                  )
+        >>> looper()
+        ['B', 'C', 'D']
+
+    ..  container:: example
+
         The instances of ``LoopWindowByList`` can also be used as an iterator,
         which can then be used in a for loop to exhaust all windows.
 
@@ -249,6 +264,7 @@ class LoopWindowByList(_LoopWindowGeneric):
                  repetition_chance: float = 0.0,
                  forward_bias: float = 1.0,
                  head_position: int = 0,
+                 move_window_on_first_call: bool = False,
                  ):
         if not isinstance(container, list):
             raise TypeError("'container' must be 'list'")
@@ -259,6 +275,7 @@ class LoopWindowByList(_LoopWindowGeneric):
                          max_steps,
                          repetition_chance,
                          forward_bias,
+                         move_window_on_first_call,
                          )
 
     def __len__(self) -> int:

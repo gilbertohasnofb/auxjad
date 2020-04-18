@@ -498,3 +498,25 @@ def test_LoopWindowByElements_17():
             f'4
         }
         ''')
+
+
+def test_LoopWindowByElements_18():
+    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopWindowByElements(input_music,
+                                         window_size=3,
+                                         move_window_on_first_call=True,
+                                         )
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 11/8
+            d'2
+            e'4
+            f'2
+            ~
+            f'8
+        }
+        ''')

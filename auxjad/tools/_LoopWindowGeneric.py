@@ -17,6 +17,7 @@ class _LoopWindowGeneric():
                  max_steps,
                  repetition_chance,
                  forward_bias,
+                 move_window_on_first_call,
                  ):
         self._first_window = True
         self.set_head_position(head_position)
@@ -25,6 +26,8 @@ class _LoopWindowGeneric():
         self.set_max_steps(max_steps)
         self.set_repetition_chance(repetition_chance)
         self.set_forward_bias(forward_bias)
+        if move_window_on_first_call:
+            self._first_window = False
 
     def __call__(self) -> abjad.Selection:
         self._move_head()

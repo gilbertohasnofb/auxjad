@@ -64,6 +64,33 @@ class LoopWindow(_LoopWindowGeneric):
 
     ..  container:: example
 
+        The very first call will output the input container without processing
+        it. To disable this behaviour and have the looping window move on the
+        very first call, initialise the class with the keyword argument
+        ``move_window_on_first_call`` set to ``True``.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindow(input_music,
+        ...                            move_window_on_first_call=True,
+        ...                            )
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'8.
+            d'16
+            ~
+            d'4..
+            e'16
+            ~
+            e'8.
+            f'16
+        }
+
+    ..  container:: example
+
         The optional arguments ``window_size`` and ``step_size`` can be used to
         set different window and step sizes. ``window_size`` can take a tuple
         or an ``abjad.Meter`` as input, while ``step_size`` takes a tuple or an
@@ -456,6 +483,7 @@ class LoopWindow(_LoopWindowGeneric):
                  forward_bias: float = 1.0,
                  head_position: (int, float, tuple, str, abjad.Duration) = 0,
                  omit_time_signature: bool = False,
+                 move_window_on_first_call: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
             raise TypeError("'container' must be 'abjad.Container' or child "
@@ -471,6 +499,7 @@ class LoopWindow(_LoopWindowGeneric):
                          max_steps,
                          repetition_chance,
                          forward_bias,
+                         move_window_on_first_call,
                          )
 
     def set_head_position(self,

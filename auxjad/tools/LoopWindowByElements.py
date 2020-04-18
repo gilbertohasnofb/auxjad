@@ -76,6 +76,32 @@ class LoopWindowByElements(_LoopWindowGeneric):
 
     ..  container:: example
 
+        The very first call will output the input container without processing
+        it. To disable this behaviour and have the looping window move on the
+        very first call, initialise the class with the keyword argument
+        ``move_window_on_first_call`` set to ``True``.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopWindowByElements(
+        ...     input_music,
+        ...     window_size=3,
+        ...     move_window_on_first_call=True,
+        ... )
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 11/8
+            d'2
+            e'4
+            f'2
+            ~
+            f'8
+        }
+
+    ..  container:: example
+
         The instances of ``LoopWindowByElements`` can also be used as an
         iterator, which can then be used in a for loop to exhaust all windows.
 
@@ -420,6 +446,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
                  head_position: int = 0,
                  omit_all_time_signatures: bool = False,
                  force_identical_time_signatures: bool = False,
+                 move_window_on_first_call: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
             raise TypeError("'container' must be 'abjad.Container' or child "
@@ -437,6 +464,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
                          max_steps,
                          repetition_chance,
                          forward_bias,
+                         move_window_on_first_call,
                          )
 
 

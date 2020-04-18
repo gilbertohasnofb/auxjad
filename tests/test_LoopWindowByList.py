@@ -224,3 +224,12 @@ def test_LoopWindowByList_14():
                                      forward_bias=0.0,
                                      )
     assert looper.output_all() == ['A', 'B']
+
+
+def test_LoopWindowByList_15():
+    input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+    looper = auxjad.LoopWindowByList(input_list,
+                                     window_size=3,
+                                     move_window_on_first_call=True,
+                                     )
+    assert looper() == ['B', 'C', 'D']

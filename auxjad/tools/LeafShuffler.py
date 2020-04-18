@@ -75,6 +75,7 @@ class LeafShuffler:
         ...                                output_single_measure=False,
         ...                                disable_rewrite_meter=False,
         ...                                force_time_signatures=False,
+        ...                                omit_time_signatures=False,
         ...                                )
         >>> print(shuffler.output_single_measure)
         False
@@ -82,14 +83,19 @@ class LeafShuffler:
         False
         >>> print(shuffler.force_time_signatures)
         False
+        >>> print(shuffler.omit_time_signatures)
+        False
         >>> shuffler.set_output_single_measure(True)
         >>> shuffler.set_disable_rewrite_meter(True)
         >>> shuffler.set_force_time_signatures(True)
+        >>> shuffler.set_omit_time_signatures(True)
         >>> print(shuffler.output_single_measure)
         True
         >>> print(shuffler.disable_rewrite_meter)
         True
         >>> print(shuffler.force_time_signatures)
+        True
+        >>> print(shuffler.omit_time_signatures)
         True
 
 
@@ -221,6 +227,34 @@ class LeafShuffler:
             r8.
             r16
             d'4..
+        }
+
+    ..  container:: example
+
+        To disable time signatures altogether, initialise this class with the
+        keyword argument ``omit_time_signatures`` set to ``True`` (default is
+        ``False``), or use the ``set_omit_time_signatures()`` method after
+        initialisation.
+
+        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
+        >>> shuffler = auxjad.LeafShuffler(container,
+        ...                                omit_time_signatures=True,
+        ...                                )
+        >>> music = shuffler()
+        >>> staff = abjad.Staff(music)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            d'4..
+            e'16
+            ~
+            e'8.
+            f'16
+            ~
+            f'4..
+            r16
+            r8.
+            c'16
         }
 
     ..  container:: example
@@ -400,9 +434,11 @@ class LeafShuffler:
 
     def __init__(self,
                  container: abjad.Container,
+                 *,
                  output_single_measure: bool = False,
                  disable_rewrite_meter: bool = False,
                  force_time_signatures: bool = False,
+                 omit_time_signatures: bool = False,
                  ):
         if not isinstance(container, abjad.Container):
             raise TypeError("'container' must be 'abjad.Container' or child "
@@ -413,6 +449,7 @@ class LeafShuffler:
         self.set_output_single_measure(output_single_measure)
         self.set_disable_rewrite_meter(disable_rewrite_meter)
         self.set_force_time_signatures(force_time_signatures)
+        self.set_omit_time_signatures(omit_time_signatures)
         self._last_time_signature = None
 
     def __len__(self) -> int:
@@ -423,6 +460,11 @@ class LeafShuffler:
         return self.get_current_container()
 
     def get_current_container(self) -> abjad.Selection:
+        if self.omit_time_signatures:
+            for leaf in abjad.select(self._current_container).leaves():
+                for indicator in abjad.inspect(leaf).indicators():
+                    if isinstance(indicator, abjad.TimeSignature):
+                        abjad.detach(indicator, leaf)
         return copy.deepcopy(self._current_container)
 
     def shuffle_leaves(self):
@@ -552,6 +594,13 @@ class LeafShuffler:
         if not isinstance(force_time_signatures, bool):
             raise TypeError("'force_time_signatures' must be 'bool'")
         self.force_time_signatures = force_time_signatures
+
+    def set_omit_time_signatures(self,
+                                 omit_time_signatures: bool,
+                                 ):
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self.omit_time_signatures = omit_time_signatures
 
     def _shuffle_leaves(self):
         if self.force_time_signatures:

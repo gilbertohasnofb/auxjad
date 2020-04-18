@@ -318,3 +318,22 @@ def test_LeafShuffler_11():
         e'8
     }
     ''')
+
+
+def test_LeafShuffler_12():
+    random.seed(87234)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    shuffler = auxjad.LeafShuffler(container)
+    music = shuffler.shuffle_leaves()
+    staff = abjad.Staff(music)
+    assert format(staff) == abjad.String.normalize(
+        r'''
+        \new Staff
+        {
+            \time 4/4
+            d'4
+            c'4
+            f'4
+            e'4
+        }
+        ''')

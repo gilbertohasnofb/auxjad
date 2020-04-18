@@ -46,6 +46,25 @@ class LeafShuffler:
 
     ..  container:: example
 
+        Calling the object outputs the same result as using the method
+        ``shuffle_leaves()``.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> music = shuffler.shuffle_leaves()
+        >>> staff = abjad.Staff(music)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            f'4
+            c'4
+            e'4
+            d'4
+        }
+
+    ..  container:: example
+
         This class has three ``set_`` methods shown below, which can be used to
         change its optional keyword arguments after instantiation.
 
@@ -406,56 +425,8 @@ class LeafShuffler:
     def get_current_container(self) -> abjad.Selection:
         return copy.deepcopy(self._current_container)
 
-    def output_n(self,
-                 n: int,
-                 ) -> abjad.Selection:
-        if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
-        if n < 1:
-            raise ValueError("'n' must be greater than zero")
-        dummy_container = abjad.Container()
-        for _ in range(n):
-            dummy_container.append(self.__call__())
-        remove_repeated_time_signatures(dummy_container)
-        result = dummy_container[:]
-        dummy_container[:] = []
-        return result
-
-    def output_n_shuffled_pitches(self,
-                                  n: int,
-                                  ) -> abjad.Selection:
-        if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
-        if n < 1:
-            raise ValueError("'n' must be greater than zero")
-        dummy_container = abjad.Container()
-        for _ in range(n):
-            dummy_container.append(self.shuffle_pitches())
-        remove_repeated_time_signatures(dummy_container)
-        result = dummy_container[:]
-        dummy_container[:] = []
-        return result
-
-    def output_n_rotated_pitches(self,
-                                 n: int,
-                                 *,
-                                 n_rotations: int = 1,
-                                 anticlockwise: bool = False,
-                                 ) -> abjad.Selection:
-        if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
-        if n < 1:
-            raise ValueError("'n' must be greater than zero")
-        dummy_container = abjad.Container()
-        for _ in range(n):
-            dummy_container.append(self.rotate_pitches(
-                n_rotations=n_rotations,
-                anticlockwise=anticlockwise,
-            ))
-        remove_repeated_time_signatures(dummy_container)
-        result = dummy_container[:]
-        dummy_container[:] = []
-        return result
+    def shuffle_leaves(self):
+        return self.__call__()
 
     def shuffle_pitches(self) -> abjad.Selection:
         if self.force_time_signatures:
@@ -509,6 +480,57 @@ class LeafShuffler:
         self._last_time_signature = self._time_signatures[-1]
         # updating logical ties
         return self.get_current_container()
+
+    def output_n(self,
+                 n: int,
+                 ) -> abjad.Selection:
+        if not isinstance(n, int):
+            raise TypeError("'n' must be 'int'")
+        if n < 1:
+            raise ValueError("'n' must be greater than zero")
+        dummy_container = abjad.Container()
+        for _ in range(n):
+            dummy_container.append(self.__call__())
+        remove_repeated_time_signatures(dummy_container)
+        result = dummy_container[:]
+        dummy_container[:] = []
+        return result
+
+    def output_n_shuffled_pitches(self,
+                                  n: int,
+                                  ) -> abjad.Selection:
+        if not isinstance(n, int):
+            raise TypeError("'n' must be 'int'")
+        if n < 1:
+            raise ValueError("'n' must be greater than zero")
+        dummy_container = abjad.Container()
+        for _ in range(n):
+            dummy_container.append(self.shuffle_pitches())
+        remove_repeated_time_signatures(dummy_container)
+        result = dummy_container[:]
+        dummy_container[:] = []
+        return result
+
+    def output_n_rotated_pitches(self,
+                                 n: int,
+                                 *,
+                                 n_rotations: int = 1,
+                                 anticlockwise: bool = False,
+                                 ) -> abjad.Selection:
+        if not isinstance(n, int):
+            raise TypeError("'n' must be 'int'")
+        if n < 1:
+            raise ValueError("'n' must be greater than zero")
+        dummy_container = abjad.Container()
+        for _ in range(n):
+            dummy_container.append(self.rotate_pitches(
+                n_rotations=n_rotations,
+                anticlockwise=anticlockwise,
+            ))
+        remove_repeated_time_signatures(dummy_container)
+        result = dummy_container[:]
+        dummy_container[:] = []
+        return result
 
     def set_output_single_measure(self,
                                   output_single_measure: bool,

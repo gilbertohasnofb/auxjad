@@ -461,6 +461,7 @@ class LoopWindow(_LoopWindowGeneric):
             raise TypeError("'container' must be 'abjad.Container' or child "
                             "class")
         self._container = copy.deepcopy(container)
+        self._remove_all_time_signatures(self._container)
         self._container_length = abjad.inspect(container[:]).duration()
         self._new_time_signature = True
         self.set_omit_time_signature(omit_time_signature)

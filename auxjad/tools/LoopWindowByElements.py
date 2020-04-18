@@ -424,7 +424,9 @@ class LoopWindowByElements(_LoopWindowGeneric):
         if not isinstance(container, abjad.Container):
             raise TypeError("'container' must be 'abjad.Container' or child "
                             "class")
-        self._container = abjad.select(container).logical_ties()
+        container_ = copy.deepcopy(container)
+        self._remove_all_time_signatures(container_)
+        self._container = abjad.select(container_).logical_ties()
         self.set_omit_all_time_signatures(omit_all_time_signatures)
         self.set_force_identical_time_signatures(
             force_identical_time_signatures)

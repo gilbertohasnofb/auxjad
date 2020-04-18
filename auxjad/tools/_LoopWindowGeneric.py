@@ -179,3 +179,9 @@ class _LoopWindowGeneric():
     @staticmethod
     def _biased_choice(bias):
         return random.choices([1, -1], weights=[bias, 1.0-bias])[0]
+
+    @staticmethod
+    def _remove_all_time_signatures(container):
+        for leaf in abjad.select(container).leaves():
+            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+                abjad.detach(abjad.TimeSignature, leaf)

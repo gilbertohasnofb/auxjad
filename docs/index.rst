@@ -27,6 +27,11 @@ are_leaves_tieable
 .. autofunction:: auxjad.are_leaves_tieable
 
 
+ArtificialHarmonic
+------------------
+.. autoclass:: auxjad.ArtificialHarmonic
+
+
 CartographyContainer
 --------------------
 .. autoclass:: auxjad.CartographyContainer

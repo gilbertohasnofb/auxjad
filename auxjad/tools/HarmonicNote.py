@@ -1,5 +1,4 @@
 import abjad
-from abjad import pitch as abjad_pitch
 
 
 class HarmonicNote(abjad.Note):
@@ -66,7 +65,7 @@ class HarmonicNote(abjad.Note):
     ..  container:: example
 
         All properties of `abjad.Note` are also available to be read. This
-        class also includes a new property named `.style`:
+        class also includes a new property named `style`:
 
         >>> note = auxjad.HarmonicNote("c''4")
         >>> note.written_pitch

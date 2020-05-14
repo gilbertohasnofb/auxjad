@@ -53,15 +53,15 @@ def test_HarmonicNote_04():
 
 def test_HarmonicNote_05():
     note = auxjad.HarmonicNote("c''4")
+    assert note.written_pitch == "c''"
     assert note.written_duration == 1/4
     assert note.style == 'harmonic'
-    assert note.written_pitch == "c''"
+    note.written_pitch = 18
     note.written_duration = abjad.Duration(1, 8)
     note.style = 'harmonic-mixed'
-    note.written_pitch = 18
+    assert note.written_pitch == "fs''"
     assert note.written_duration == 1/8
     assert note.style == 'harmonic-mixed'
-    assert note.written_pitch == "fs''"
 
 
 def test_HarmonicNote_06():

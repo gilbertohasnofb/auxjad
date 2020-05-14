@@ -1,5 +1,6 @@
 from .are_containers_equal import are_containers_equal
 from .are_leaves_tieable import are_leaves_tieable
+from .ArtificialHarmonic import ArtificialHarmonic
 from .CartographyContainer import CartographyContainer
 from .close_container import close_container
 from .fill_with_rests import fill_with_rests

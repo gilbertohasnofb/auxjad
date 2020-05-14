@@ -42,6 +42,11 @@ fill_with_rests
 .. autofunction:: auxjad.fill_with_rests
 
 
+HarmonicNote
+------------
+.. autoclass:: auxjad.HarmonicNote
+
+
 is_container_full
 -----------------
 .. autofunction:: auxjad.is_container_full

@@ -146,6 +146,56 @@ class ArtificialHarmonic(abjad.Chord):
         'harmonic-mixed'
         >>> chord.is_parenthesized
         True
+
+    ..  container:: example
+
+        The methods `sounding_pitch()` and `sounding_note()` return the
+        sounding pitch and sounding note, respectively. Their types are
+        `abjad.Pitch` and `abjad.Note`, respectively.
+
+        >>> harmonics = [ArtificialHarmonic("<g b>4"),
+        ...              ArtificialHarmonic("<g c'>4"),
+        ...              ArtificialHarmonic("<g d'>4"),
+        ...              ArtificialHarmonic("<g e'>4"),
+        ...              ArtificialHarmonic("<g g'>4"),
+        ...              ]
+        >>> for harmonic in harmonics:
+        ...     print(harmonic.sounding_pitch())
+        b''
+        g''
+        d''
+        b''
+        g'
+        >>> for harmonic in harmonics:
+        ...     print(harmonic.sounding_note())
+        b''4
+        g''4
+        d''4
+        b''4
+        g'4
+
+    ..  container:: example
+
+        The note created by `sounding_note()` inherits all indicators from the
+        `ArtificialHarmonic`.
+
+        >>> note = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
+        >>> abjad.f(note.sounding_note())
+        g''4
+        \pp
+        - \staccato
+
+    ..  container:: example
+
+        Both `sounding_pitch()` and `sounding_note()` methods raise a
+        ValueError exception when it cannot calculate the sounding pitch for
+        the given interval.
+
+        >>> ArtificialHarmonic("<g ef'>4").sounding_pitch()
+        ValueError: cannot calculate sounding pitch for given interval
+        >>> ArtificialHarmonic("<g ef'>4").sounding_note()
+        ValueError: cannot calculate sounding pitch for given interval
+
     """
 
     def __init__(self,
@@ -163,6 +213,36 @@ class ArtificialHarmonic(abjad.Chord):
         self.style = self._style
         self._is_parenthesized = is_parenthesized
         self.is_parenthesized = self._is_parenthesized
+
+    def sounding_pitch(self) -> abjad.Pitch:
+        interval = abs(self.note_heads[1].written_pitch \
+                   - self.note_heads[0].written_pitch).semitones
+        sounding_pitch_dict = {1: 48,
+                               2: 36,
+                               3: 31,
+                               4: 28,
+                               5: 24,
+                               7: 19,
+                               9: 28,
+                               12: 12,
+                               16: 28,
+                               19: 19,
+                               24: 24,
+                               28: 28,
+                               }
+        try:
+            sounding_pitch = self.note_heads[0].written_pitch \
+                           + sounding_pitch_dict[interval]
+        except:
+            raise KeyError('cannot calculate sounding pitch for given '
+                           'interval')
+        return sounding_pitch
+
+    def sounding_note(self) -> abjad.Note:
+        note = abjad.Note(self.sounding_pitch(), self.written_duration)
+        for indicator in abjad.inspect(self).indicators():
+            abjad.attach(indicator, note)
+        return note
 
     @property
     def written_pitches(self) -> abjad.pitch.PitchSegment:

@@ -99,3 +99,58 @@ def test_ArtificialHarmonic_06():
 def test_ArtificialHarmonic_07():
     with pytest.raises(ValueError):
         assert auxjad.ArtificialHarmonic("<g c' d'>4")
+
+
+def test_ArtificialHarmonic_08():
+    harmonics = [auxjad.ArtificialHarmonic("<g b>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic("<g c'>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic("<g d'>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic("<g e'>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic("<g g'>4").sounding_pitch(),
+                 ]
+    notes = [abjad.Note("b''4"),
+             abjad.Note("g''4"),
+             abjad.Note("d''4"),
+             abjad.Note("b''4"),
+             abjad.Note("g'4"),
+             ]
+    for harmonic_pitch, note in zip(harmonics, notes):
+        assert harmonic_pitch == note.written_pitch
+
+
+def test_ArtificialHarmonic_09():
+    with pytest.raises(KeyError):
+        auxjad.ArtificialHarmonic("<g ef'>4").sounding_pitch()
+
+
+def test_ArtificialHarmonic_10():
+    harmonics = [auxjad.ArtificialHarmonic("<g b>4").sounding_note(),
+                 auxjad.ArtificialHarmonic("<g c'>4").sounding_note(),
+                 auxjad.ArtificialHarmonic("<g d'>4").sounding_note(),
+                 auxjad.ArtificialHarmonic("<g e'>4").sounding_note(),
+                 auxjad.ArtificialHarmonic("<g g'>4").sounding_note(),
+                 ]
+    notes = [abjad.Note("b''4"),
+             abjad.Note("g''4"),
+             abjad.Note("d''4"),
+             abjad.Note("b''4"),
+             abjad.Note("g'4"),
+             ]
+    for harmonic, note in zip(harmonics, notes):
+        assert harmonic.written_pitch == note.written_pitch
+        assert harmonic.written_duration == note.written_duration
+
+
+def test_ArtificialHarmonic_11():
+    note = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
+    assert format(note.sounding_note()) ==  abjad.String.normalize(
+    r'''
+    g''4
+    \pp
+    - \staccato
+    ''')
+
+
+def test_ArtificialHarmonic_12():
+    with pytest.raises(KeyError):
+        auxjad.ArtificialHarmonic("<g ef'>4").sounding_note()

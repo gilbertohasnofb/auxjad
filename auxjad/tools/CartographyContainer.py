@@ -62,10 +62,10 @@ class CartographyContainer():
         [1.0, 0.5, 0.25, 0.125, 0.0625]
 
         The decay rate can also be set after the creation of a container,
-        using the method ``set_decay_rate()``.
+        using the property ``decay_rate``.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.set_decay_rate(0.2)
+        >>> container.decay_rate = 0.2
         >>> container.weights
         [1.0, 0.2, 0.04000000000000001, 0.008000000000000002,
         0.0016000000000000003]
@@ -200,8 +200,8 @@ class CartographyContainer():
     ..  container:: example
 
         The contents of a container can also be altered after it has been
-        initialised using the ``set_container()`` method. The length of the
-        container can change too.
+        initialised using the ``container`` property. The length of the
+        container can change as well.
 
         >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4],
         ...                                         decay_rate=0.5,
@@ -210,7 +210,7 @@ class CartographyContainer():
         5
         >>> container.weights
         [1.0, 0.5, 0.25, 0.125, 0.0625]
-        >>> container.set_container([10, 7, 14, 31, 98, 47, 32])
+        >>> container.contents = [10, 7, 14, 31, 98, 47, 32]
         >>> container.contents
         [10, 7, 14, 31, 98, 47, 32]
         >>> len(container)
@@ -220,42 +220,28 @@ class CartographyContainer():
 
     ..  container:: example
 
-        To method ``replace_element()`` replaces a specific element at a
-        specified index.
+        This class allows indecing and slicing just like regular lists. This
+        can be used to both access and alter elements.
 
         >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
-        >>> container.contents
+        >>> container[1]
+        7
+        >>> container[1:4]
+        [7, 14, 31]
+        >>> container[:]
         [10, 7, 14, 31, 98]
-        >>> container.replace_element(100, 2)
-        >>> container.contents
-        [10, 7, 100, 31, 98]
-
-    ..  container:: example
-
-        The attribute previous_index stores the previously selected index. It
-        can be used with the ``get_element()`` method in order to retrieve the
-        last value output by the object.
-
-        >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
         >>> container()
         31
         >>> previous_index = container.previous_index
         >>> previous_index
         3
-        >>> container.get_element(previous_index)
+        >>> container[previous_index]
         31
-
-    ..  container:: example
-
-        Individual elements are also accessible via indeces of the content
-        attribute. When accessed in this manner, they can also be sliced like a
-        regular list.
-
-        >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
-        >>> container.contents[2]
-        14
-        >>> container.contents[1:4]
-        [7, 14, 31]
+        >>> container.contents
+        [10, 7, 14, 31, 98]
+        >>> container[2] = 100
+        >>> container.contents
+        [10, 7, 100, 31, 98]
     """
 
     def __init__(self,
@@ -270,10 +256,13 @@ class CartographyContainer():
         if decay_rate <= 0.0 or decay_rate > 1.0:
             raise ValueError("'decay_rate' must be larger than 0.0 and "
                              "less than or equal to 1.0")
-        self.contents = container[:]
+        self._contents = container[:]
         self.previous_index = None
         self._decay_rate = decay_rate
         self._generate_weights()
+
+    def __repr__(self) -> str:
+        return str(self._contents)
 
     def __call__(self, no_repeat=False):
         if not no_repeat:
@@ -289,55 +278,37 @@ class CartographyContainer():
                     weights=self.weights,
                     )[0]
         self.previous_index = new_index
-        return self.contents[self.previous_index]
+        return self._contents[self.previous_index]
 
-    def __len__(self):
-        return len(self.contents)
+    def __len__(self) -> int:
+        return len(self._contents)
 
-    def append(self, new_element):
-        self.contents = self.contents[1:] + [new_element]
+    def __getitem__(self, key: int):
+        return self._contents[key]
 
-    def append_keeping_n(self, new_element, n: int):
-        self.contents = self.contents[:n] \
-                      + self.contents[n+1:] \
-                      + [new_element]
+    def __setitem__(self, key, value):
+        self._contents[key] = value
 
-    def prepend(self, new_element):
-        self.contents = [new_element] + self.contents[:-1]
+    @property
+    def contents(self) -> list:
+        return self._contents
 
-    def rotate(self, anticlockwise=False):
-        if not anticlockwise:
-            self.contents = self.contents[1:] + self.contents[:1]
-        else:
-            self.contents = self.contents[-1:] + self.contents[:-1]
-
-    def mirror(self, index: int):
-        aux = self.contents[index]
-        self.contents[index] = self.contents[-1 - index]
-        self.contents[-1 - index] = aux
-
-    def mirror_random(self):
-        max_index = self.__len__() // 2 - 1
-        self.mirror(random.randint(0, max_index))
-
-    def randomise(self):
-        random.shuffle(self.contents)
-
-    def get_element(self, index: int):
-        return self.contents[index]
-
-    def replace_element(self, new_element, index: int):
-        self.contents = self.contents[:index] \
-                      + [new_element] \
-                      + self.contents[index+1:]
-
-    def set_container(self, new_container: list):
+    @contents.setter
+    def contents(self,
+                 new_container: list
+                 ):
         if not isinstance(new_container, list):
             raise TypeError("'new_container' must be 'list")
-        self.contents = new_container[:]
+        self._contents = new_container[:]
         self._generate_weights()
 
-    def set_decay_rate(self, new_decay_rate: float):
+    @property
+    def decay_rate(self) -> float:
+        return self._decay_rate
+
+    @decay_rate.setter
+    def decay_rate(self,
+                   new_decay_rate: float):
         if not isinstance(new_decay_rate, float):
             raise TypeError("'new_decay_rate' must be float")
         if new_decay_rate <= 0.0 or new_decay_rate > 1.0:
@@ -345,6 +316,35 @@ class CartographyContainer():
                              "less than or equal to 1.0")
         self._decay_rate = new_decay_rate
         self._generate_weights()
+
+    def append(self, new_element):
+        self._contents = self._contents[1:] + [new_element]
+
+    def append_keeping_n(self, new_element, n: int):
+        self._contents = self._contents[:n] \
+                      + self._contents[n+1:] \
+                      + [new_element]
+
+    def prepend(self, new_element):
+        self._contents = [new_element] + self._contents[:-1]
+
+    def rotate(self, anticlockwise=False):
+        if not anticlockwise:
+            self._contents = self._contents[1:] + self._contents[:1]
+        else:
+            self._contents = self._contents[-1:] + self._contents[:-1]
+
+    def mirror(self, index: int):
+        aux = self._contents[index]
+        self._contents[index] = self._contents[-1 - index]
+        self._contents[-1 - index] = aux
+
+    def mirror_random(self):
+        max_index = self.__len__() // 2 - 1
+        self.mirror(random.randint(0, max_index))
+
+    def randomise(self):
+        random.shuffle(self._contents)
 
     def _generate_weights(self):
         self.weights = []

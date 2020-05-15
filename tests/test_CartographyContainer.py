@@ -7,6 +7,7 @@ def test_CartographyContainer_01():
     random.seed(41298)
     container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
     assert container.contents == [0, 1, 2, 3, 4]
+    assert repr(container) == "[0, 1, 2, 3, 4]"
     assert container.weights == [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
     assert len(container) == 5
     result = ''
@@ -63,7 +64,7 @@ def test_CartographyContainer_08():
     container = auxjad.CartographyContainer([0, 1, 2, 3, 4], decay_rate=0.5)
     assert len(container) == 5
     assert container.weights == [1.0, 0.5, 0.25, 0.125, 0.0625]
-    container.set_container([10, 7, 14, 31, 98, 47, 32])
+    container.contents = [10, 7, 14, 31, 98, 47, 32]
     assert container.contents == [10, 7, 14, 31, 98, 47, 32]
     assert len(container) == 7
     assert container.weights == [1.0,
@@ -78,14 +79,14 @@ def test_CartographyContainer_08():
 
 def test_CartographyContainer_09():
     container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
-    container.replace_element(100, 2)
+    container[2] = 100
     assert container.contents == [10, 7, 100, 31, 98]
 
 
 def test_CartographyContainer_10():
     random.seed(83552)
     container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-    container.set_decay_rate(0.2)
+    container.decay_rate = 0.2
     assert container.weights == [1.0,
                                  0.2,
                                  0.04000000000000001,
@@ -101,10 +102,13 @@ def test_CartographyContainer_10():
 def test_CartographyContainer_11():
     random.seed(19844)
     container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
+    assert container[1] == 7
+    assert container[1:4] == [7, 14, 31]
+    assert container[:] == [10, 7, 14, 31, 98]
     assert container() == 31
     n = container.previous_index
     assert n == 3
-    assert container.get_element(n) == 31
+    assert container[n] == 31
 
 
 def test_CartographyContainer_12():
@@ -121,12 +125,6 @@ def test_CartographyContainer_12():
 
 
 def test_CartographyContainer_13():
-    container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
-    assert container.contents[2] == 14
-    assert container.contents[1:4] == [7, 14, 31]
-
-
-def test_CartographyContainer_14():
     container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
     container.mirror(0)
     assert container.contents == [4, 1, 2, 3, 0]
@@ -138,7 +136,7 @@ def test_CartographyContainer_14():
     assert container.contents == [0, 3, 2, 1, 4]
 
 
-def test_CartographyContainer_15():
+def test_CartographyContainer_14():
     random.seed(90129)
     container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
     container.mirror_random()

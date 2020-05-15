@@ -2,12 +2,12 @@ import abjad
 
 
 class ArtificialHarmonic(abjad.Chord):
-    r"""Creates an abjad.Chord with a tweaked top note head for notating
+    r"""Creates an ``abjad.Chord`` with a tweaked top note head for notating
     artificial harmonics.
 
     ..  container:: example
 
-        Usage is similar to `abjad.Chord`:
+        Usage is similar to ``abjad.Chord``:
 
         >>> chord = auxjad.ArtificialHarmonic("<g c'>4")
         >>> chord.style
@@ -19,8 +19,8 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
-        And similarly to `abjad.Chord`, pitch and duration can be input in many
-        different ways:
+        And similarly to ``abjad.Chord``, pitch and duration can be input in
+        many different ways:
 
         >>> chord1 = auxjad.ArtificialHarmonic("<g c'>4")
         >>> chord2 = auxjad.ArtificialHarmonic(["g", "c'"], 1/4)
@@ -55,7 +55,7 @@ class ArtificialHarmonic(abjad.Chord):
 
         It is important to note that this class can only be initialised with
         exactly two pitches. Any other number of pitches will raise a
-        `ValueError`:
+        ``ValueError``:
 
         >>> auxjad.ArtificialHarmonic("<g c' d'>4")
         ValueError: 'ArtificialHarmonic' requires exactly two 'note_heads' for
@@ -63,9 +63,9 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
-        When creating an `ArtificialHarmonic`, use the keyword argument `style`
-        to set a different type of chord head for the top note, such as
-        `'harmonic-mixed'`:
+        When creating an ``ArtificialHarmonic``, use the keyword argument
+        ``style`` to set a different type of chord head for the top note, such
+        as ``'harmonic-mixed'``:
 
         >>> chord = auxjad.ArtificialHarmonic("<g c'>4",
         ...                                   style='harmonic-mixed',
@@ -83,7 +83,7 @@ class ArtificialHarmonic(abjad.Chord):
 
         To notate natural harmonics with a parenthesised pitch for the open
         string at the bottom of the interval, set the keyword
-        `is_parenthesized` to `True`.
+        ``is_parenthesized`` to ``True``.
 
         >>> chord = auxjad.ArtificialHarmonic("<g c'>4",
         ...                                   is_parenthesized=True,
@@ -101,7 +101,8 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
-        Similarly to `abjad.Chord`, `ArtificialHarmonic` can take multipliers:
+        Similarly to ``abjad.Chord``, ``ArtificialHarmonic`` can take
+        multipliers:
 
         >>> chord = auxjad.ArtificialHarmonic("<g c'>4",
         ...                                   multiplier=(2, 3),
@@ -117,9 +118,9 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
-        All properties of `abjad.Chord` are also available to be read. This
-        class also includes two new properties named `style` and
-        `is_parenthesized`:
+        All properties of ``abjad.Chord`` are also available to be read. This
+        class also includes two new properties named ``style`` and
+        ``is_parenthesized``:
 
         >>> chord = auxjad.ArtificialHarmonic("<g c'>4")
         >>> chord.written_pitches
@@ -149,9 +150,9 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
-        The methods `sounding_pitch()` and `sounding_note()` return the
+        The methods ``sounding_pitch()`` and ``sounding_note()`` return the
         sounding pitch and sounding note, respectively. Their types are
-        `abjad.Pitch` and `abjad.Note`, respectively.
+        ``abjad.Pitch`` and ``abjad.Note``, respectively.
 
         >>> harmonics = [ArtificialHarmonic("<g b>4"),
         ...              ArtificialHarmonic("<g c'>4"),
@@ -176,8 +177,8 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
-        The note created by `sounding_note()` inherits all indicators from the
-        `ArtificialHarmonic`.
+        The note created by ``sounding_note()`` inherits all indicators from
+        the ``ArtificialHarmonic``.
 
         >>> note = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
         >>> abjad.f(note.sounding_note())
@@ -187,7 +188,7 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
-        Both `sounding_pitch()` and `sounding_note()` methods raise a
+        Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
         ValueError exception when it cannot calculate the sounding pitch for
         the given interval.
 

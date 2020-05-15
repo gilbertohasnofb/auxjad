@@ -2,11 +2,11 @@ import abjad
 
 
 class HarmonicNote(abjad.Note):
-    r"""Creates an abjad.Note with tweaked notehead for harmonics.
+    r"""Creates an ``abjad.Note`` with tweaked notehead for harmonics.
 
     ..  container:: example
 
-        Usage is similar to `abjad.Note`:
+        Usage is similar to ``abjad.Note``:
 
         >>> note = auxjad.HarmonicNote("c''4")
         >>> note.style
@@ -15,8 +15,8 @@ class HarmonicNote(abjad.Note):
         \tweak style #'harmonic
         c''4
 
-        And similarly to `abjad.Note`, pitch and duration can be input in many
-        different ways:
+        And similarly to ``abjad.Note``, pitch and duration can be input in
+        many different ways:
 
         >>> note1 = auxjad.HarmonicNote("c''4")
         >>> note2 = auxjad.HarmonicNote("c''", 1/4)
@@ -37,8 +37,8 @@ class HarmonicNote(abjad.Note):
 
     ..  container:: example
 
-        When creating an `HarmonicNote`, use the keyword argument `style` to
-        set a different type of note head, such as `'harmonic-mixed'`:
+        When creating an ``HarmonicNote``, use the keyword argument ``style``
+        to set a different type of note head, such as ``'harmonic-mixed'``:
 
         >>> note = auxjad.HarmonicNote("c''4",
         ...                            style='harmonic-mixed',
@@ -51,7 +51,7 @@ class HarmonicNote(abjad.Note):
 
     ..  container:: example
 
-        Similarly to `abjad.Note`, `HarmonicNote` can take multipliers:
+        Similarly to ``abjad.Note``, ``HarmonicNote`` can take multipliers:
 
         >>> note = auxjad.HarmonicNote("c''4",
         ...                            multiplier=(2, 3),
@@ -64,8 +64,8 @@ class HarmonicNote(abjad.Note):
 
     ..  container:: example
 
-        All properties of `abjad.Note` are also available to be read. This
-        class also includes a new property named `style`:
+        All properties of ``abjad.Note`` are also available to be read. This
+        class also includes a new property named ``style``:
 
         >>> note = auxjad.HarmonicNote("c''4")
         >>> note.written_pitch
@@ -91,7 +91,7 @@ class HarmonicNote(abjad.Note):
     ..  container:: example
 
         To create a note with a regular note head and with a flageolet circle
-        above it, use the style `'flageolet'`:
+        above it, use the style ``'flageolet'``:
 
         >>> note = auxjad.HarmonicNote("c''1",
         ...                            style='flageolet',

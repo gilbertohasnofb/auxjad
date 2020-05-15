@@ -34,7 +34,7 @@ def test_LoopWindow_01():
             f'16
         }
         ''')
-    notes = looper.get_current_window()
+    notes = looper.current_window
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r'''
@@ -202,13 +202,13 @@ def test_LoopWindow_04():
     assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_time_signature
-    looper.set_window_size((5, 4))
-    looper.set_step_size((1, 4))
-    looper.set_max_steps(3)
-    looper.set_repetition_chance(0.1)
-    looper.set_forward_bias(0.8)
-    looper.set_head_position(0)
-    looper.set_omit_time_signature(True)
+    looper.window_size = (5, 4)
+    looper.step_size = (1, 4)
+    looper.max_steps = 3
+    looper.repetition_chance = 0.1
+    looper.forward_bias = 0.8
+    looper.head_position = 0
+    looper.omit_time_signature = True
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
@@ -293,7 +293,7 @@ def test_LoopWindow_06():
             f'8
         }
         ''')
-    looper.set_window_size((3, 8))
+    looper.window_size = (3, 8)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(

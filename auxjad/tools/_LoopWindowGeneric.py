@@ -5,8 +5,8 @@ from .are_leaves_tieable import are_leaves_tieable
 
 
 class _LoopWindowGeneric():
-    r"""This is the parent class of all LoopWindowXxx classes. It implements
-    all common methods and attributes, and initialises those using its set_
+    r"""This is the parent class of all LoopWindow<...> classes. It implements
+    all common methods and attributes, and initialises those using its @setter
     methods.
     """
 
@@ -20,12 +20,12 @@ class _LoopWindowGeneric():
                  move_window_on_first_call,
                  ):
         self._first_window = True
-        self.set_head_position(head_position)
-        self.set_window_size(window_size)
-        self.set_step_size(step_size)
-        self.set_max_steps(max_steps)
-        self.set_repetition_chance(repetition_chance)
-        self.set_forward_bias(forward_bias)
+        self.head_position = head_position
+        self.window_size = window_size
+        self.step_size = step_size
+        self.max_steps = max_steps
+        self.repetition_chance = repetition_chance
+        self.forward_bias = forward_bias
         if move_window_on_first_call:
             self._first_window = False
 
@@ -34,7 +34,7 @@ class _LoopWindowGeneric():
         if self._done():
             raise RuntimeError("'container' has been exhausted")
         self._slice_container()
-        return self.get_current_window()
+        return self.current_window
 
     def __iter__(self):
         return self
@@ -46,9 +46,14 @@ class _LoopWindowGeneric():
         self._slice_container()
         return copy.deepcopy(self._current_window)
 
-    def set_window_size(self,
-                        window_size: int,
-                        ):
+    @property
+    def window_size(self) -> int:
+        return self._window_size
+
+    @window_size.setter
+    def window_size(self,
+                    window_size: int,
+                    ):
         if not isinstance(window_size, int):
             raise TypeError("'window_size' must be 'int'")
         if window_size < 1:
@@ -56,11 +61,16 @@ class _LoopWindowGeneric():
         if window_size > self._container.__len__():
             raise ValueError("'window_size' must be smaller than or equal to "
                              "the length of 'container'")
-        self.window_size = window_size
+        self._window_size = window_size
 
-    def set_step_size(self,
-                      step_size: int,
-                      ):
+    @property
+    def step_size(self) -> int:
+        return self._step_size
+
+    @step_size.setter
+    def step_size(self,
+                  step_size: int,
+                  ):
         if not isinstance(step_size, int):
             raise TypeError("'step_size' must be 'int'")
         if step_size < 1:
@@ -68,38 +78,58 @@ class _LoopWindowGeneric():
         if step_size >= self._container.__len__():
             raise ValueError("'step_size' must be smaller than the length of "
                              "'container'")
-        self.step_size = step_size
+        self._step_size = step_size
 
-    def set_max_steps(self,
-                      max_steps: int,
-                      ):
+    @property
+    def max_steps(self) -> int:
+        return self._max_steps
+
+    @max_steps.setter
+    def max_steps(self,
+                  max_steps: int,
+                  ):
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if max_steps < 1:
             raise ValueError("'max_steps' must be greater than zero")
-        self.max_steps = max_steps
+        self._max_steps = max_steps
 
-    def set_repetition_chance(self,
-                              repetition_chance: float,
-                              ):
+    @property
+    def repetition_chance(self) -> float:
+        return self._repetition_chance
+
+    @repetition_chance.setter
+    def repetition_chance(self,
+                          repetition_chance: float,
+                          ):
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
-        self.repetition_chance = repetition_chance
+        self._repetition_chance = repetition_chance
 
-    def set_forward_bias(self,
-                         forward_bias: float,
-                         ):
+    @property
+    def forward_bias(self) -> float:
+        return self._forward_bias
+
+    @forward_bias.setter
+    def forward_bias(self,
+                     forward_bias: float,
+                     ):
         if not isinstance(forward_bias, float):
             raise TypeError("'forward_bias' must be 'float'")
         if forward_bias < 0.0 or forward_bias > 1.0:
             raise ValueError("'forward_bias' must be between 0.0 and 1.0")
-        self.forward_bias = forward_bias
+        self._forward_bias = forward_bias
 
-    def set_head_position(self,
-                          head_position: int,
-                          ):
+    @property
+    def head_position(self) -> int:
+        return self._head_position
+
+    @head_position.setter
+    def head_position(self,
+                      head_position: int,
+                      ):
         if not isinstance(head_position, int):
             raise TypeError("'head_position' must be 'int'")
         if head_position < 0:
@@ -107,9 +137,10 @@ class _LoopWindowGeneric():
         if head_position >= self._container.__len__():
             raise ValueError("'head_position' must be smaller than the length "
                              "of 'container'")
-        self.head_position = head_position
+        self._head_position = head_position
 
-    def get_current_window(self) -> (list, abjad.Selection):
+    @property
+    def current_window(self) -> (list, abjad.Selection):
         return copy.deepcopy(self._current_window)
 
     def output_all(self,
@@ -164,17 +195,17 @@ class _LoopWindowGeneric():
 
     def _move_head(self):
         if not self._first_window:  # first window always at initial position
-            if self.repetition_chance == 0.0 \
-                    or random.random() > self.repetition_chance:
-                step = self.step_size * random.randint(1, self.max_steps)
-                diretion = self._biased_choice(self.forward_bias)
-                self.head_position += step * diretion
+            if self._repetition_chance == 0.0 \
+                    or random.random() > self._repetition_chance:
+                step = self._step_size * random.randint(1, self._max_steps)
+                diretion = self._biased_choice(self._forward_bias)
+                self._head_position += step * diretion
         else:
             self._first_window = False
 
     def _done(self) -> bool:
-        return self.head_position >= self._container.__len__() or \
-            self.head_position < 0
+        return self._head_position >= self._container.__len__() or \
+            self._head_position < 0
 
     def _slice_container(self):
         pass

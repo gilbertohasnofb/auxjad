@@ -44,10 +44,10 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
-        The method ``get_current_window()`` will output the current window
-        without moving the head forwards.
+        The property ``current_window`` can be used to access the current
+        window without moving the head forwards.
 
-        >>> notes = looper.get_current_window()
+        >>> notes = looper.current_window()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
@@ -229,16 +229,15 @@ class LoopWindow(_LoopWindowGeneric):
         >>> looper.omit_time_signature
         False
 
-        Use the ``set_`` methods below to change these values after
-        initialisation.
+        Use the properties below to change these values after initialisation.
 
-        >>> looper.set_window_size((5, 4))
-        >>> looper.set_step_size((1, 4))
-        >>> looper.set_max_steps(3)
-        >>> looper.set_repetition_chance(0.1)
-        >>> looper.set_forward_bias(0.8)
-        >>> looper.set_head_position(0)
-        >>> looper.set_omit_time_signature(True)
+        >>> looper.window_size = (5, 4)
+        >>> looper.step_size = (1, 4)
+        >>> looper.max_steps = 3
+        >>> looper.repetition_chance = 0.1
+        >>> looper.forward_bias = 0.8
+        >>> looper.head_position = 0
+        >>> looper.omit_time_signature = True
         >>> looper.window_size
         5/4
         >>> looper.step_size
@@ -350,11 +349,11 @@ class LoopWindow(_LoopWindowGeneric):
     .. container:: example
 
         To change the size of the looping window after instantiation, use the
-        method ``set_window_size()``. In the example below, the initial window
-        is of size (4, 4), but changes to (3, 8) after three calls. Notice how
-        the very first call attaches a time signature equivalent to the window
-        size to the output window; subsequent calls will not have time
-        signatures unless the size of the looping window changes.
+        property ``window_size``. In the example below, the initial window is
+        of size (4, 4), but changes to (3, 8) after three calls. Notice how the
+        very first call attaches a time signature equivalent to the window size
+        to the output window; subsequent calls will not have time signatures
+        unless the size of the looping window changes.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music)
@@ -391,7 +390,7 @@ class LoopWindow(_LoopWindowGeneric):
             e'8
             f'8
         }
-        >>> looper.set_window_size((3, 8))
+        >>> looper.window_size = (3, 8)
         >>> for _ in range(3):
         ...     notes = looper()
         ...     staff = abjad.Staff(notes)
@@ -415,7 +414,7 @@ class LoopWindow(_LoopWindowGeneric):
 
         To disable time signatures altogether, initialise ``LoopWindow`` with
         the keyword argument ``omit_time_signature`` set to ``True`` (default
-        is ``False``), or use the ``set_omit_time_signature()`` method after
+        is ``False``), or use the ``omit_time_signature`` property after
         initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -536,7 +535,7 @@ class LoopWindow(_LoopWindowGeneric):
         self._remove_all_time_signatures(self._container)
         self._container_length = abjad.inspect(container[:]).duration()
         self._new_time_signature = True
-        self.set_omit_time_signature(omit_time_signature)
+        self.omit_time_signature = omit_time_signature
         super().__init__(head_position,
                          window_size,
                          step_size,
@@ -546,11 +545,19 @@ class LoopWindow(_LoopWindowGeneric):
                          move_window_on_first_call,
                          )
 
-    def set_head_position(self,
-                          head_position: tuple,
-                          ):
-        r"""Custom ``set_head_position()`` method since parent's method uses
-        integers as input, intead of tuples or ``abjad.Duration``.
+    def __repr__(self) -> str:
+        return str(abjad.f(self._container))
+
+    @property
+    def head_position(self) -> abjad.Duration:
+        return self._head_position
+
+    @head_position.setter
+    def head_position(self,
+                      head_position: (tuple, abjad.Duration),
+                      ):
+        r"""Custom setter method since parent's method uses integers as input,
+        intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
@@ -560,58 +567,73 @@ class LoopWindow(_LoopWindowGeneric):
         if abjad.Duration(head_position) >= self._container_length:
             raise ValueError("'head_position' must be smaller than the "
                              "length of 'container'")
-        self.head_position = abjad.Duration(head_position)
+        self._head_position = abjad.Duration(head_position)
 
-    def set_window_size(self,
-                        window_size: (tuple, abjad.Meter),
-                        ):
-        r"""Custom set_window_size() method since parent's method uses
-        integers as input, intead of tuples or abjad.Duration.
+    @property
+    def window_size(self) -> abjad.Meter:
+        return self._window_size
+
+    @window_size.setter
+    def window_size(self,
+                    window_size: (tuple, abjad.Meter),
+                    ):
+        r"""Custom setter method since parent's method uses integers as input,
+        intead of tuples or abjad.Duration.
         """
         if not isinstance(window_size,
                           (int, float, tuple, str, abjad.Meter),
                           ):
             raise TypeError("'window_size' must be 'tuple' or 'abjad.Meter'")
         if abjad.Meter(window_size).duration > self._container_length \
-                              - self.head_position:
+                              - self._head_position:
             raise ValueError("'window_size' must be smaller than or equal "
                              "to the length of 'container'")
-        if self._first_window or self.window_size.duration \
+        if self._first_window or self._window_size.duration \
                 != abjad.Meter(window_size).duration:
-            self.window_size = abjad.Meter(window_size)
+            self._window_size = abjad.Meter(window_size)
             self._new_time_signature = True
 
-    def set_step_size(self,
-                      step_size: tuple,
-                      ):
-        r"""Custom ``set_step_size()`` method since parent's method uses
-        integers as input, intead of tuples or ``abjad.Duration``.
+    @property
+    def step_size(self) -> abjad.Duration:
+        return self._step_size
+
+    @step_size.setter
+    def step_size(self,
+                  step_size: tuple,
+                  ):
+        r"""Custom setter method since parent's method uses integers as input,
+        intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
                           ):
             raise TypeError("'step_size' must be a 'tuple' or "
                             "'abjad.Duration'")
-        self.step_size = abjad.Duration(step_size)
+        self._step_size = abjad.Duration(step_size)
 
-    def set_omit_time_signature(self,
-                                omit_time_signature: bool,
-                                ):
+    @property
+    def omit_time_signature(self) -> list:
+        return self._omit_time_signature
+
+    @omit_time_signature.setter
+    def omit_time_signature(self,
+                            omit_time_signature: bool,
+                            ):
         if not isinstance(omit_time_signature, bool):
             raise TypeError("'omit_time_signature' must be 'bool'")
-        self.omit_time_signature = omit_time_signature
+        self._omit_time_signature = omit_time_signature
 
     def _done(self) -> bool:
         r"""Custom ``_done`` method since parent's method uses the ``__len__``
         method, which cannot be used for non-integer values such as
         ``abjad.Duration``.
         """
-        return self.head_position >= self._container_length or \
-            self.head_position < 0
+        return self._head_position >= self._container_length or \
+            self._head_position < 0
 
     def _slice_container(self):
-        head = self.head_position
-        window_size = self.window_size
+        head = self._head_position
+        window_size = self._window_size
         dummy_container = copy.deepcopy(self._container)
         # splitting leaves at both slicing points
         if head > abjad.Duration(0):
@@ -652,7 +674,7 @@ class LoopWindow(_LoopWindowGeneric):
             abjad.mutate(dummy_container[start : end]).copy()
         )
         abjad.mutate(dummy_container[:]).rewrite_meter(window_size)
-        if self._new_time_signature and not self.omit_time_signature:
+        if self._new_time_signature and not self._omit_time_signature:
             abjad.attach(abjad.TimeSignature(window_size),
                          abjad.select(dummy_container).leaves()[0],
                          )

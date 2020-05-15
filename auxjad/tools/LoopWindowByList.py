@@ -38,10 +38,10 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> looper()
         ['B', 'C', 'D']
 
-        The method get_current_window() will output the current window without
-        moving the head forwards.
+        The property ``current_window`` can be used to access the current
+        window without moving the head forwards.
 
-        >>> looper.get_current_window()
+        >>> looper.current_window
         ['B', 'C', 'D']
 
     ..  container:: example
@@ -116,15 +116,14 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> looper.head_position
         0
 
-        Use the ``set_`` methods below to change these values after
-        initialisation.
+        Use the properties below to change these values after initialisation.
 
-        >>> looper.set_window_size(2)
-        >>> looper.set_step_size(2)
-        >>> looper.set_max_steps(3)
-        >>> looper.set_repetition_chance(0.1)
-        >>> looper.set_forward_bias(0.8)
-        >>> looper.set_head_position(2)
+        >>> looper.window_size = 2
+        >>> looper.step_size = 2
+        >>> looper.max_steps = 3
+        >>> looper.repetition_chance = 0.1
+        >>> looper.forward_bias = 0.8
+        >>> looper.head_position = 2
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -172,19 +171,19 @@ class LoopWindowByList(_LoopWindowGeneric):
 
     .. container:: example
 
-        To change the size of the window after instantiation, use the method
-        ``set_window_size()``. In the example below, the initial window is of
-        size 3, and so the first call of the looper object outputs the first,
-        second, and third elements of the list. The window size is then set to
-        4, and the looper is called again, moving to the element in the next
-        position, thus outputting the second, third, fourth, and fifth
+        To change the size of the looping window after instantiation, use the
+        property ``window_size``. In the example below, the initial window is
+        of size 3, and so the first call of the looper object outputs the
+        first, second, and third elements of the list. The window size is then
+        set to 4, and the looper is called again, moving to the element in the
+        next position, thus outputting the second, third, fourth, and fifth
         elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
-        >>> looper.set_window_size(4)
+        >>> looper.window_size = 4
         >>> looper()
         ['B', 'C', 'D', 'E']
 
@@ -277,6 +276,9 @@ class LoopWindowByList(_LoopWindowGeneric):
                          forward_bias,
                          move_window_on_first_call,
                          )
+
+    def __repr__(self) -> str:
+        return str(self._container)
 
     def __len__(self) -> int:
         return len(self._container)

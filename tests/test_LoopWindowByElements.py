@@ -32,7 +32,7 @@ def test_LoopWindowByElements_01():
             f'8
         }
         ''')
-    notes = looper.get_current_window()
+    notes = looper.current_window
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r'''
@@ -68,14 +68,14 @@ def test_LoopWindowByElements_02():
     assert looper.head_position == 0
     assert not looper.omit_all_time_signatures
     assert not looper.force_identical_time_signatures
-    looper.set_window_size(2)
-    looper.set_step_size(2)
-    looper.set_max_steps(3)
-    looper.set_repetition_chance(0.1)
-    looper.set_forward_bias(0.8)
-    looper.set_head_position(2)
-    looper.set_omit_all_time_signatures(True)
-    looper.set_force_identical_time_signatures(True)
+    looper.window_size = 2
+    looper.step_size = 2
+    looper.max_steps = 3
+    looper.repetition_chance = 0.1
+    looper.forward_bias = 0.8
+    looper.head_position = 2
+    looper.omit_all_time_signatures = True
+    looper.force_identical_time_signatures = True
     assert looper.window_size == 2
     assert looper.step_size == 2
     assert looper.max_steps == 3
@@ -141,7 +141,7 @@ def test_LoopWindowByElements_06():
             e'4
         }
         ''')
-    looper.set_window_size(4)
+    looper.window_size = 4
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(

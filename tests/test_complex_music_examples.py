@@ -28,7 +28,7 @@ def test_complex_music_example_01():
         music = looper()
         staff.append(music)
     # shuffling the last output container by the looping window 3 times
-    container = abjad.Container(looper.get_current_window())
+    container = abjad.Container(looper.current_window)
     shuffler = auxjad.LeafShuffler(container, omit_time_signatures=True)
     for _ in range(3):
         music = shuffler()

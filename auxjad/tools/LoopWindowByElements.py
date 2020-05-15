@@ -58,10 +58,10 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
         }
 
-        The method ``get_current_window()`` will output the current window
-        without moving the head forwards.
+        The property ``current_window`` can be used to access the current
+        window without moving the head forwards.
 
-        >>> notes = looper.get_current_window()
+        >>> notes = looper.current_window
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
@@ -133,8 +133,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
         signature. This is because consecutive identical time signatures are
         omitted by default. To change this behaviour, instantialise this class
         with the keyword argument ``force_identical_time_signatures`` set to
-        ``True``, or use the ``set_force_identical_time_signatures()`` method
-        to change its value after the initialisation.
+        ``True``, or change the ``force_identical_time_signatures`` property
+        to alter its value after the initialisation.
 
     ..  container:: example
 
@@ -183,17 +183,16 @@ class LoopWindowByElements(_LoopWindowGeneric):
         >>> looper.force_identical_time_signatures
         False
 
-        Use the ``set_`` methods below to change these values after
-        initialisation.
+        Use the properties below to change these values after initialisation.
 
-        >>> looper.set_window_size(2)
-        >>> looper.set_step_size(2)
-        >>> looper.set_max_steps(3)
-        >>> looper.set_repetition_chance(0.1)
-        >>> looper.set_forward_bias(0.8)
-        >>> looper.set_head_position(2)
-        >>> looper.set_omit_all_time_signatures(True)
-        >>> looper.set_force_identical_time_signatures(True)
+        >>> looper.window_size = 2
+        >>> looper.step_size = 2
+        >>> looper.max_steps = 3
+        >>> looper.repetition_chance = 0.1
+        >>> looper.forward_bias = 0.8
+        >>> looper.head_position = 2
+        >>> looper.omit_all_time_signatures = True
+        >>> looper.force_identical_time_signatures = True
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -216,7 +215,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
         To disable time signatures altogether, initialise
         ``LoopWindowByElements`` with the keyword argument
         ``omit_all_time_signatures`` set to ``True`` (default is ``False``), or
-        use the ``set_omit_all_time_signatures()`` method after initialisation.
+        use the ``omit_time_signature`` property after initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -354,12 +353,12 @@ class LoopWindowByElements(_LoopWindowGeneric):
 
     .. container:: example
 
-        To change the size of the window after instantiation, use the method
-        ``set_window_size()``. In the example below, the initial window is of
-        size 3, and so the first call of the looper object outputs the first,
-        second, and third leaves. The window size is then set to 4, and the
-        looper is called again, moving to the leaf in the next position, thus
-        outputting the second, third, fourth, and fifth leaves.
+        To change the size of the looping window after instantiation, use the
+        property ``window_size``. In the example below, the initial window is
+        of size 3, and so the first call of the looper object outputs the
+        first, second, and third leaves. The window size is then set to 4, and
+        the looper is called again, moving to the leaf in the next position,
+        thus outputting the second, third, fourth, and fifth leaves.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindowByElements(input_music,
@@ -375,7 +374,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             d'2
             e'4
         }
-        >>> looper.set_window_size(4)
+        >>> looper.window_size = 4
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -454,9 +453,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
         container_ = copy.deepcopy(container)
         self._remove_all_time_signatures(container_)
         self._container = abjad.select(container_).logical_ties()
-        self.set_omit_all_time_signatures(omit_all_time_signatures)
-        self.set_force_identical_time_signatures(
-            force_identical_time_signatures)
+        self._omit_all_time_signatures = omit_all_time_signatures
+        self._force_identical_time_signatures = force_identical_time_signatures
         self._last_time_signature = None
         super().__init__(head_position,
                          window_size,
@@ -467,24 +465,35 @@ class LoopWindowByElements(_LoopWindowGeneric):
                          move_window_on_first_call,
                          )
 
+    def __repr__(self) -> str:
+        return str(self._container)
 
     def __len__(self) -> int:
         return len(self._container)
 
-    def set_omit_all_time_signatures(self,
-                                     omit_all_time_signatures: bool,
-                                     ):
+    @property
+    def omit_all_time_signatures(self) -> list:
+        return self._omit_all_time_signatures
+
+    @omit_all_time_signatures.setter
+    def omit_all_time_signatures(self,
+                                 omit_all_time_signatures: bool,
+                                 ):
         if not isinstance(omit_all_time_signatures, bool):
             raise TypeError("'omit_all_time_signatures' must be 'bool'")
-        self.omit_all_time_signatures = omit_all_time_signatures
+        self._omit_all_time_signatures = omit_all_time_signatures
 
-    def set_force_identical_time_signatures(
-            self,
-            force_identical_time_signatures: bool,
-            ):
+    @property
+    def force_identical_time_signatures(self) -> list:
+        return self._force_identical_time_signatures
+
+    @force_identical_time_signatures.setter
+    def force_identical_time_signatures(self,
+                                        force_identical_time_signatures: bool,
+                                        ):
         if not isinstance(force_identical_time_signatures, bool):
             raise TypeError("'force_identical_time_signatures' must be 'bool'")
-        self.force_identical_time_signatures = force_identical_time_signatures
+        self._force_identical_time_signatures = force_identical_time_signatures
 
     def _slice_container(self):
         start = self.head_position
@@ -499,11 +508,11 @@ class LoopWindowByElements(_LoopWindowGeneric):
             multiplier = effective_duration / logical_tie_.written_duration
             logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
             time_signature_duration += effective_duration
-        if len(logical_ties) > 0 and not self.omit_all_time_signatures:
+        if len(logical_ties) > 0 and not self._omit_all_time_signatures:
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
             if time_signature != self._last_time_signature or \
-                    self.force_identical_time_signatures:
+                    self._force_identical_time_signatures:
                 abjad.attach(time_signature,
                              abjad.select(dummy_container).leaves()[0],
                              )

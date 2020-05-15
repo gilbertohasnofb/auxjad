@@ -7,6 +7,7 @@ def test_TenneysContainer_01():
     random.seed(43714)
     container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
     assert container.contents == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert repr(container) == "['A', 'B', 'C', 'D', 'E', 'F']"
     assert container.curvature == 1.0
     assert container.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert container.probabilities == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
@@ -78,9 +79,16 @@ def test_TenneysContainer_05():
     container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
     for _ in range(30):
         container()
-    container.replace_element('foo', 2)
-    assert container.contents == ['A', 'B', 'foo', 'D', 'E', 'F']
     assert container.probabilities == [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
+    assert container[2] == 'C'
+    assert container[1:4] == ['B', 'C', 'D']
+    container[2] = 'foo'
+    assert container[:] == ['A', 'B', 'foo', 'D', 'E', 'F']
+    container[:] = ['foo', 'bar', 'X', 'Y', 'Z', '...']
+    assert container.contents == ['foo', 'bar', 'X', 'Y', 'Z', '...']
+    assert container.probabilities == [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
+    assert 'foo' in container
+    assert 'A' not in container
 
 
 def test_TenneysContainer_06():
@@ -89,17 +97,20 @@ def test_TenneysContainer_06():
     for _ in range(30):
         container()
     assert container.probabilities == [2.0, 1.0, 4.0, 3.0, 0.0, 5.0]
-    container.set_container([2, 4, 6, 8])
+    container.contents = [2, 4, 6, 8]
     assert container.contents == [2, 4, 6, 8]
     assert len(container) == 4
     assert container.weights == [1.0, 1.0, 1.0, 1.0]
     assert container.probabilities == [1.0, 1.0, 1.0, 1.0]
+    container.weights = [1.2, 3.0, 2.5, 1.3]
+    assert container.weights == [1.2, 3.0, 2.5, 1.3]
+
 
 
 def test_TenneysContainer_07():
     container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
     assert container.curvature == 1.0
-    container.set_curvature(0.25)
+    container.curvature = 0.25
     assert container.curvature == 0.25
 
 

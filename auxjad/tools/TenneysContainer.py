@@ -239,33 +239,51 @@ class TenneysContainer():
 
     ..  container:: example
 
-        To replace an element in the container, use the method
-        ``replace_element()``. This will not affect the current probability
-        vector, and the new element will have the same probability as the one
-        it replaced.
+        This class allows slicing to get and set values in the container. This
+        will not affect the current probability vector, and the new element
+        will have the same probability as the one it replaced.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
         ...     container()
-        >>> container.replace_element('foo', 2)
-        >>> container.contents
-        ['A', 'B', 'foo', 'D', 'E', 'F']
         >>> container.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
+        >>> container[2]
+        'C'
+        >>> container[1:4]
+        ['B', 'C', 'D']
+        >>> container[2] = 'foo'
+        >>> container.contents
+        ['A', 'B', 'foo', 'D', 'E', 'F']
+        >>> container[:] = ['foo', 'bar', 'X', 'Y', 'Z', '...']
+        >>> container.contents
+        ['foo', 'bar', 'X', 'Y', 'Z', '...']
+        >>> container.probabilities
+        [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
+
+        You cna also check if the object contains a specific element. In the
+        case of the container above, we have:
+
+        >>> 'foo' in container
+        True
+        >>> 'A' in container
+        False
 
     ..  container:: example
 
         A new container of an arbitrary length can be set at any point using
-        the method ``set_container()``. Do notice that the probabilities will
-        be reset at that point. This method can take the optional keyword
-        argument weights similarly to when instantiating the class.
+        the property ``contents``. Do notice that the probabilities will be
+        reset at that point. This method can take the optional keyword argument
+        weights similarly to when instantiating the class.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
         ...     container()
         >>> container.probabilities
         [2.0, 1.0, 4.0, 3.0, 0.0, 5.0]
-        >>> container.set_container([2, 4, 6, 8])
+        >>> container.contents
+        ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> container.contents = [2, 4, 6, 8]
         >>> container.contents
         [2, 4, 6, 8]
         >>> len(container)
@@ -277,13 +295,13 @@ class TenneysContainer():
 
     ..  container:: example
 
-        To change the curvature value at any point, use the ``set_curvature()``
-        method.
+        To change the curvature value at any point, simply set the property
+        ``curvature`` to a different value.
 
         >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> container.curvature
         1.0
-        >>> container.set_curvature(0.25)
+        >>> container.curvature = 0.25
         >>> container.curvature
         0.25
     """
@@ -311,15 +329,18 @@ class TenneysContainer():
         if curvature < 0.0:
             raise ValueError("'curvature' must be larger than 0.0")
 
-        self.contents = container[:]
+        self._contents = container[:]
         if weights:
-            self.weights = weights[:]
+            self._weights = weights[:]
         else:
-            self.weights = [1.0 for _ in self.contents]
-        self._counter = [1 for _ in self.contents]
-        self.previous_index = None
-        self.curvature = curvature
+            self._weights = [1.0 for _ in range(self.__len__())]
+        self._curvature = curvature
+        self._counter = [1 for _ in range(self.__len__())]
         self._generate_probabilities()
+        self.previous_index = None
+
+    def __repr__(self):
+        return str(self._contents)
 
     def __call__(self):
         self.previous_index = random.choices(
@@ -328,56 +349,67 @@ class TenneysContainer():
             )[0]
         self._regenerate_counts()
         self._generate_probabilities()
-        return self.contents[self.previous_index]
+        return self._contents[self.previous_index]
 
     def __len__(self):
-        return len(self.contents)
+        return len(self._contents)
 
-    def get_element(self, index: int):
-        return self.contents[index]
+    def __getitem__(self, key: int):
+        return self._contents[key]
 
-    def replace_element(self, new_element, index: int):
-        self.contents = self.contents[:index] \
-                      + [new_element] \
-                      + self.contents[index+1:]
+    def __setitem__(self, key, value):
+        self._contents[key] = value
 
-    def set_container(self,
-                      new_container: list,
-                      *,
-                      weights: list = None,
-                      ):
+    @property
+    def contents(self) -> list:
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 new_container: list,
+                 ):
         if not isinstance(new_container, list):
             raise TypeError("'new_container' must be 'list")
-        if weights:
-            if not isinstance(weights, list):
-                raise TypeError("'weights' must be 'list'")
-            if not len(new_container) == len(weights):
-                raise ValueError("'weights' must have the same length "
-                                 "as 'new_container'")
-            if not all(isinstance(weight, (int, float))
-                       for weight in weights):
-                raise TypeError("'weights' elements must be "
-                                "'int' or 'float'")
+        self._contents = new_container[:]
+        self.weights = [1.0 for _ in range(self.__len__())]
 
-        self.contents = new_container[:]
-        if weights:
-            self.weights = weights[:]
-        else:
-            self.weights = [1.0 for _ in self.contents]
+    @property
+    def weights(self) -> list:
+        return self._weights
+
+    @weights.setter
+    def weights(self,
+                weights: list,
+                ):
+        if not isinstance(weights, list):
+            raise TypeError("'weights' must be 'list'")
+        if not self.__len__() == len(weights):
+            raise ValueError("'weights' must have the same length "
+                             "as the contents of the object")
+        if not all(isinstance(weight, (int, float))
+                   for weight in weights):
+            raise TypeError("'weights' elements must be "
+                            "'int' or 'float'")
+        self._weights = weights[:]
         self._generate_probabilities(reset=True)
 
-    def set_curvature(self,
-                      curvature: float,
-                      ):
+    @property
+    def curvature(self) -> list:
+        return self._curvature
+
+    @curvature.setter
+    def curvature(self,
+                  curvature: float,
+                  ):
         if not isinstance(curvature, float):
             raise TypeError("'curvature' must be 'float'")
         if curvature < 0.0:
             raise ValueError("'curvature' must be larger than 0.0")
-        self.curvature = curvature
+        self._curvature = curvature
         self._generate_probabilities()
 
     def reset_probabilities(self):
-        self._counter = [1 for _ in self.contents]
+        self._counter = [1 for _ in range(self.__len__())]
         self._generate_probabilities()
 
     def _regenerate_counts(self):
@@ -391,10 +423,10 @@ class TenneysContainer():
                                 reset: bool = False,
                                 ):
         if reset:
-            self._counter = [1 for _ in self.contents]
+            self._counter = [1 for _ in range(self.__len__())]
         self.probabilities = []
-        for weight, count in zip(self.weights, self._counter):
+        for weight, count in zip(self._weights, self._counter):
             self.probabilities.append(weight * self._growth_function(count))
 
     def _growth_function(self, count):
-        return count ** self.curvature
+        return count ** self._curvature

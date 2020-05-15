@@ -29,10 +29,10 @@ class LeafShuffler:
             e'4
         }
 
-        To get the result of the last operation, use the
-        ``get_current_container()`` method.
+        To get the result of the last operation, use the property
+        ``current_container``.
 
-        >>> music = shuffler.get_current_container()
+        >>> music = shuffler.current_container
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
         \new Staff
@@ -65,8 +65,9 @@ class LeafShuffler:
 
     ..  container:: example
 
-        This class has three ``set_`` methods shown below, which can be used to
-        change its optional keyword arguments after instantiation.
+        This class has many keyword arguments, all of which can be altered
+        after instantiation using properties with the same names as shown
+        below.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 |"
         ...                             r"\time 2/4 f'4 g'4 |"
@@ -77,25 +78,25 @@ class LeafShuffler:
         ...                                force_time_signatures=False,
         ...                                omit_time_signatures=False,
         ...                                )
-        >>> print(shuffler.output_single_measure)
+        >>> shuffler.output_single_measure
         False
-        >>> print(shuffler.disable_rewrite_meter)
+        >>> shuffler.disable_rewrite_meter
         False
-        >>> print(shuffler.force_time_signatures)
+        >>> shuffler.force_time_signatures
         False
-        >>> print(shuffler.omit_time_signatures)
+        >>> shuffler.omit_time_signatures
         False
-        >>> shuffler.set_output_single_measure(True)
-        >>> shuffler.set_disable_rewrite_meter(True)
-        >>> shuffler.set_force_time_signatures(True)
-        >>> shuffler.set_omit_time_signatures(True)
-        >>> print(shuffler.output_single_measure)
+        >>> shuffler.output_single_measure = True
+        >>> shuffler.disable_rewrite_meter = True
+        >>> shuffler.force_time_signatures = True
+        >>> shuffler.omit_time_signatures = True
+        >>> shuffler.output_single_measure
         True
-        >>> print(shuffler.disable_rewrite_meter)
+        >>> shuffler.disable_rewrite_meter
         True
-        >>> print(shuffler.force_time_signatures)
+        >>> shuffler.force_time_signatures
         True
-        >>> print(shuffler.omit_time_signatures)
+        >>> shuffler.omit_time_signatures
         True
 
 
@@ -233,7 +234,7 @@ class LeafShuffler:
 
         To disable time signatures altogether, initialise this class with the
         keyword argument ``omit_time_signatures`` set to ``True`` (default is
-        ``False``), or use the ``set_omit_time_signatures()`` method after
+        ``False``), or change the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
@@ -256,6 +257,11 @@ class LeafShuffler:
             r8.
             c'16
         }
+        >>> shuffler.omit_time_signatures
+        True
+        >>> shuffler.omit_time_signatures = False
+        >>> shuffler.omit_time_signatures
+        False
 
     ..  container:: example
 
@@ -446,21 +452,25 @@ class LeafShuffler:
         self._current_container = copy.deepcopy(container)
         self._update_current_container_logical_ties()
         self._find_time_signatures()
-        self.set_output_single_measure(output_single_measure)
-        self.set_disable_rewrite_meter(disable_rewrite_meter)
-        self.set_force_time_signatures(force_time_signatures)
-        self.set_omit_time_signatures(omit_time_signatures)
+        self.output_single_measure = output_single_measure
+        self.disable_rewrite_meter = disable_rewrite_meter
+        self.force_time_signatures = force_time_signatures
+        self.omit_time_signatures = omit_time_signatures
         self._last_time_signature = None
+
+    def __repr__(self) -> str:
+        return str(abjad.f(self._current_container))
 
     def __len__(self) -> int:
         return len(self._current_container_logical_ties)
 
     def __call__(self) -> abjad.Selection:
         self._shuffle_leaves()
-        return self.get_current_container()
+        return self.current_container
 
-    def get_current_container(self) -> abjad.Selection:
-        if self.omit_time_signatures:
+    @property
+    def current_container(self) -> abjad.Selection:
+        if self._omit_time_signatures:
             for leaf in abjad.select(self._current_container).leaves():
                 for indicator in abjad.inspect(leaf).indicators():
                     if isinstance(indicator, abjad.TimeSignature):
@@ -471,7 +481,7 @@ class LeafShuffler:
         return self.__call__()
 
     def shuffle_pitches(self) -> abjad.Selection:
-        if self.force_time_signatures:
+        if self._force_time_signatures:
             self._last_time_signature = None
         pitches = self._get_pitch_list()
         # shuffling (while preserving rests)
@@ -488,7 +498,7 @@ class LeafShuffler:
         self._last_time_signature = self._time_signatures[-1]
         self._update_current_container_logical_ties()
         # updating logical ties
-        return self.get_current_container()
+        return self.current_container
 
     def rotate_pitches(self,
                         *,
@@ -501,7 +511,7 @@ class LeafShuffler:
            raise ValueError("'n_rotations' must be greater than zero")
         if not isinstance(anticlockwise, bool):
            raise TypeError("'anticlockwise' must be 'bool'")
-        if self.force_time_signatures:
+        if self._force_time_signatures:
             self._last_time_signature = None
         pitches = self._get_pitch_list()
         # rotating pitches (while preserving rests)
@@ -521,7 +531,7 @@ class LeafShuffler:
         self._rewrite_pitches(pitches)
         self._last_time_signature = self._time_signatures[-1]
         # updating logical ties
-        return self.get_current_container()
+        return self.current_container
 
     def output_n(self,
                  n: int,
@@ -574,36 +584,56 @@ class LeafShuffler:
         dummy_container[:] = []
         return result
 
-    def set_output_single_measure(self,
-                                  output_single_measure: bool,
-                                  ):
+    @property
+    def output_single_measure(self) -> bool:
+        return self._output_single_measure
+
+    @output_single_measure.setter
+    def output_single_measure(self,
+                              output_single_measure: bool,
+                              ):
         if not isinstance(output_single_measure, bool):
             raise TypeError("'output_single_measure' must be 'bool'")
-        self.output_single_measure = output_single_measure
+        self._output_single_measure = output_single_measure
 
-    def set_disable_rewrite_meter(self,
-                                  disable_rewrite_meter: bool,
-                                  ):
+    @property
+    def disable_rewrite_meter(self) -> bool:
+        return self._disable_rewrite_meter
+
+    @disable_rewrite_meter.setter
+    def disable_rewrite_meter(self,
+                              disable_rewrite_meter: bool,
+                              ):
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
-        self.disable_rewrite_meter = disable_rewrite_meter
+        self._disable_rewrite_meter = disable_rewrite_meter
 
-    def set_force_time_signatures(self,
-                                  force_time_signatures: bool,
-                                  ):
+    @property
+    def force_time_signatures(self) -> bool:
+        return self._force_time_signatures
+
+    @force_time_signatures.setter
+    def force_time_signatures(self,
+                              force_time_signatures: bool,
+                              ):
         if not isinstance(force_time_signatures, bool):
             raise TypeError("'force_time_signatures' must be 'bool'")
-        self.force_time_signatures = force_time_signatures
+        self._force_time_signatures = force_time_signatures
 
-    def set_omit_time_signatures(self,
-                                 omit_time_signatures: bool,
-                                 ):
+    @property
+    def omit_time_signatures(self) -> bool:
+        return self._omit_time_signatures
+
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                             omit_time_signatures: bool,
+                             ):
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
-        self.omit_time_signatures = omit_time_signatures
+        self._omit_time_signatures = omit_time_signatures
 
     def _shuffle_leaves(self):
-        if self.force_time_signatures:
+        if self._force_time_signatures:
             self._last_time_signature = None
         dummy_container = abjad.Container()
         indeces = list(range(self.__len__()))
@@ -615,7 +645,7 @@ class LeafShuffler:
             for leaf in logical_tie:
                 if abjad.inspect(leaf).effective(abjad.TimeSignature):
                     abjad.detach(abjad.TimeSignature, leaf)
-        if not self.output_single_measure:
+        if not self._output_single_measure:
             # splitting leaves at bar line points
             abjad.mutate(dummy_container[:]).split(
                 self._time_signatures_durations,
@@ -652,7 +682,7 @@ class LeafShuffler:
                 abjad.attach(time_signature, dummy_container[0])
             self._last_time_signature = time_signature
         # rewrite meter
-        if not self.disable_rewrite_meter:
+        if not self._disable_rewrite_meter:
             start = 0
             duration = abjad.Duration(0)
             index = 0

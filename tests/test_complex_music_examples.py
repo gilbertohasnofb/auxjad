@@ -35,7 +35,7 @@ def test_complex_music_example_01():
         staff.append(music)
     # continuing with the looping process 3 more times using the last shuffled
     # container
-    container = abjad.Container(shuffler.get_current_container())
+    container = abjad.Container(shuffler.current_container)
     looper = auxjad.LoopWindow(container, omit_time_signature=True)
     for _ in range(3):
         music = looper()

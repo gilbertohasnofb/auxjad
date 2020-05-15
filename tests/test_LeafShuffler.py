@@ -6,6 +6,7 @@ import auxjad
 def test_LeafShuffler_01():
     random.seed(87234)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    assert repr(container) == 'Container("c\'4 d\'4 e\'4 f\'4")'
     shuffler = auxjad.LeafShuffler(container)
     music = shuffler()
     staff = abjad.Staff(music)
@@ -20,7 +21,7 @@ def test_LeafShuffler_01():
             e'4
         }
         ''')
-    music = shuffler.get_current_container()
+    music = shuffler.current_container
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
         r'''
@@ -45,9 +46,9 @@ def test_LeafShuffler_02():
     assert not shuffler.output_single_measure
     assert not shuffler.disable_rewrite_meter
     assert not shuffler.force_time_signatures
-    shuffler.set_output_single_measure(True)
-    shuffler.set_disable_rewrite_meter(True)
-    shuffler.set_force_time_signatures(True)
+    shuffler.output_single_measure = True
+    shuffler.disable_rewrite_meter = True
+    shuffler.force_time_signatures = True
     assert shuffler.output_single_measure
     assert shuffler.disable_rewrite_meter
     assert shuffler.force_time_signatures
@@ -138,7 +139,7 @@ def test_LeafShuffler_05():
             d'4..
         }
         ''')
-    shuffler.set_force_time_signatures(True)
+    shuffler.force_time_signatures = True
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
@@ -364,3 +365,6 @@ def test_LeafShuffler_13():
             c'16
         }
         ''')
+    assert shuffler.omit_time_signatures
+    shuffler.omit_time_signatures = False
+    assert not shuffler.omit_time_signatures

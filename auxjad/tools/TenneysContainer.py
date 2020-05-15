@@ -339,7 +339,7 @@ class TenneysContainer():
         self._generate_probabilities()
         self.previous_index = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self._contents)
 
     def __call__(self):
@@ -351,7 +351,7 @@ class TenneysContainer():
         self._generate_probabilities()
         return self._contents[self.previous_index]
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._contents)
 
     def __getitem__(self, key: int):

@@ -19,7 +19,7 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
-        .. figure:: _images/image-ArtificialHarmonic-1.png
+        .. figure:: ../_images/image-ArtificialHarmonic-1.png
 
         And similarly to ``abjad.Chord``, pitch and duration can be input in
         many different ways:
@@ -54,7 +54,7 @@ class ArtificialHarmonic(abjad.Chord):
             >4
         }
 
-        .. figure:: _images/image-ArtificialHarmonic-2.png
+        .. figure:: ../_images/image-ArtificialHarmonic-2.png
 
 
 
@@ -86,7 +86,7 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
-        .. figure:: _images/image-ArtificialHarmonic-3.png
+        .. figure:: ../_images/image-ArtificialHarmonic-3.png
 
     ..  container:: example
 
@@ -108,7 +108,7 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
-        .. figure:: _images/image-ArtificialHarmonic-4.png
+        .. figure:: ../_images/image-ArtificialHarmonic-4.png
 
     ..  container:: example
 
@@ -127,7 +127,7 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4 * 2/3
 
-        .. figure:: _images/image-ArtificialHarmonic-5.png
+        .. figure:: ../_images/image-ArtificialHarmonic-5.png
 
     ..  container:: example
 
@@ -199,7 +199,7 @@ class ArtificialHarmonic(abjad.Chord):
         \pp
         - \staccato
 
-        .. figure:: _images/image-ArtificialHarmonic-6.png
+        .. figure:: ../_images/image-ArtificialHarmonic-6.png
 
     ..  container:: example
 

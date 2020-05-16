@@ -35,13 +35,14 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: _images/image-repeat_container-1.png
+        .. figure:: ../_images/image-repeat_container-1.png
+
+    .. note::
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
         containers that belong to a ``abjad.Staff``. The present function works
         with either ``abjad.Container`` and ``abjad.Staff``.
-
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> output_container = auxjad.repeat_container(container, 3)
         >>> abjad.f(output_container)
@@ -57,9 +58,6 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
-
-        .. figure:: _images/image-repeat_container-2.png
-
         >>> staff = abjad.Staff([output_container])
         >>> abjad.f(output_container)
         {
@@ -74,8 +72,6 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
-
-        .. figure:: _images/image-repeat_container-3.png
 
     ..  container:: example
 
@@ -102,7 +98,7 @@ def repeat_container(container: abjad.Container,
             g'2
         }
 
-        .. figure:: _images/image-repeat_container-4.png
+        .. figure:: ../_images/image-repeat_container-4.png
 
     ..  container:: example
 
@@ -126,7 +122,7 @@ def repeat_container(container: abjad.Container,
             f'2
         }
 
-        .. figure:: _images/image-repeat_container-5.png
+        .. figure:: ../_images/image-repeat_container-5.png
 
     ..  container:: example
 
@@ -152,7 +148,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: _images/image-repeat_container-6.png
+        .. figure:: ../_images/image-repeat_container-6.png
 
     ..  container:: example
 
@@ -182,7 +178,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: _images/image-repeat_container-7.png
+        .. figure:: ../_images/image-repeat_container-7.png
 
     ..  container:: example
 
@@ -206,9 +202,9 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: _images/image-repeat_container-8.png
+        .. figure:: ../_images/image-repeat_container-8.png
 
-    ..  container:: example
+    ..  warning::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

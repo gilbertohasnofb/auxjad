@@ -37,7 +37,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \f
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-1.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-1.png
 
         >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
@@ -52,7 +52,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             d'8
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-2.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-2.png
 
     ..  container:: example
 
@@ -75,7 +75,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \f
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-3.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-3.png
 
         >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
@@ -91,7 +91,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \f
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-4.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-4.png
 
     ..  container:: example
 
@@ -119,7 +119,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             }
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-5.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-5.png
 
         >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
@@ -135,7 +135,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             }
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-6.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-6.png
 
     ..  container:: example
 
@@ -160,7 +160,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-7.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-7.png
 
         >>> auxjad.remove_repeated_dynamics(staff)
         >>> abjad.f(staff)
@@ -179,7 +179,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-8.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-8.png
 
         To override the previous behaviour, set ``ignore_hairpins=True`` and
         hairpins will be ignored.
@@ -202,7 +202,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-9.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-9.png
 
         >>> auxjad.remove_repeated_dynamics(staff, ignore_hairpins=True)
         >>> abjad.f(staff)
@@ -220,7 +220,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-10.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-10.png
 
     ..  container:: example
 
@@ -239,7 +239,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             c'4
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-11.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-11.png
 
         To override the previous behaviour, set ``reset_after_rests=True`` and
         dynamics will always be restated after a rest.
@@ -256,7 +256,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \pp
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-12.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-12.png
 
     ..  container:: example
 
@@ -280,7 +280,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             c'4
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-13.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-13.png
 
         But setting the duration to 2/4 forces the dynamic to be restated.
 
@@ -296,7 +296,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \pp
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-14.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-14.png
 
     ..  container:: example
 
@@ -320,7 +320,7 @@ def remove_repeated_dynamics(container: abjad.Container,
             \pp
         }
 
-        .. figure:: _images/image-remove_repeated_dynamics-15.png
+        .. figure:: ../_images/image-remove_repeated_dynamics-15.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")

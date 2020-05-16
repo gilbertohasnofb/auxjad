@@ -41,7 +41,7 @@ class LeafDynMaker(abjad.LeafMaker):
             -\stopped
         }
 
-        .. figure:: _images/image-LeafDynMaker-1.png
+        .. figure:: ../_images/image-LeafDynMaker-1.png
 
     ..  container:: example
 
@@ -67,7 +67,7 @@ class LeafDynMaker(abjad.LeafMaker):
             -\tenuto
         }
 
-        .. figure:: _images/image-LeafDynMaker-2.png
+        .. figure:: ../_images/image-LeafDynMaker-2.png
 
     ..  container:: example
 
@@ -100,7 +100,7 @@ class LeafDynMaker(abjad.LeafMaker):
             \p
         }
 
-        .. figure:: _images/image-LeafDynMaker-3.png
+        .. figure:: ../_images/image-LeafDynMaker-3.png
 
     ..  container:: example
 
@@ -131,7 +131,7 @@ class LeafDynMaker(abjad.LeafMaker):
             a'4
         }
 
-        .. figure:: _images/image-LeafDynMaker-4.png
+        .. figure:: ../_images/image-LeafDynMaker-4.png
 
     ..  container:: example
 
@@ -164,7 +164,7 @@ class LeafDynMaker(abjad.LeafMaker):
             -\staccato
         }
 
-        .. figure:: _images/image-LeafDynMaker-5.png
+        .. figure:: ../_images/image-LeafDynMaker-5.png
 
     ..  container:: example
 
@@ -201,7 +201,7 @@ class LeafDynMaker(abjad.LeafMaker):
             a'8.
         }
 
-        .. figure:: _images/image-LeafDynMaker-6.png
+        .. figure:: ../_images/image-LeafDynMaker-6.png
     """
 
     def __call__(self,

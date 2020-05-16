@@ -18,7 +18,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             R1
         }
 
-        .. figure:: _images/image-rests_to_multimeasure_rest-1.png
+        .. figure:: ../_images/image-rests_to_multimeasure_rest-1.png
 
     ..  container:: example
 
@@ -32,7 +32,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             R1 * 3/4
         }
 
-        .. figure:: _images/image-rests_to_multimeasure_rest-2.png
+        .. figure:: ../_images/image-rests_to_multimeasure_rest-2.png
 
     ..  container:: example
 
@@ -56,7 +56,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             R1 * 5/4
         }
 
-        .. figure:: _images/image-rests_to_multimeasure_rest-3.png
+        .. figure:: ../_images/image-rests_to_multimeasure_rest-3.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")

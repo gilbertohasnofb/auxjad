@@ -46,7 +46,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindowByElements-1.png
+        .. figure:: ../_images/image-LoopWindowByElements-1.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -61,7 +61,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
         }
 
-        .. figure:: _images/image-LoopWindowByElements-2.png
+        .. figure:: ../_images/image-LoopWindowByElements-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -79,7 +79,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
         }
 
-        .. figure:: _images/image-LoopWindowByElements-3.png
+        .. figure:: ../_images/image-LoopWindowByElements-3.png
 
     ..  container:: example
 
@@ -107,7 +107,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
         }
 
-        .. figure:: _images/image-LoopWindowByElements-4.png
+        .. figure:: ../_images/image-LoopWindowByElements-4.png
 
     ..  container:: example
 
@@ -133,7 +133,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindowByElements-5.png
+        .. figure:: ../_images/image-LoopWindowByElements-5.png
 
         Notice how the second staff in the example above does not have a time
         signature. This is because consecutive identical time signatures are
@@ -238,7 +238,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindowByElements-6.png
+        .. figure:: ../_images/image-LoopWindowByElements-6.png
 
     ..  container:: example
 
@@ -280,7 +280,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'4
         }
 
-        .. figure:: _images/image-LoopWindowByElements-7.png
+        .. figure:: ../_images/image-LoopWindowByElements-7.png
 
     ..  container:: example
 
@@ -336,7 +336,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             <e' g'>16
         }
 
-        .. figure:: _images/image-LoopWindowByElements-8.png
+        .. figure:: ../_images/image-LoopWindowByElements-8.png
 
     ..  container:: example
 
@@ -363,7 +363,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindowByElements-9.png
+        .. figure:: ../_images/image-LoopWindowByElements-9.png
 
     .. container:: example
 
@@ -389,7 +389,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindowByElements-10.png
+        .. figure:: ../_images/image-LoopWindowByElements-10.png
 
         >>> looper.window_size = 4
         >>> notes = looper()
@@ -406,7 +406,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             g'1
         }
 
-        .. figure:: _images/image-LoopWindowByElements-11.png
+        .. figure:: ../_images/image-LoopWindowByElements-11.png
 
     ..  container:: example
 
@@ -452,7 +452,7 @@ class LoopWindowByElements(_LoopWindowGeneric):
             }
         }
 
-        .. figure:: _images/image-LoopWindowByElements-12.png
+        .. figure:: ../_images/image-LoopWindowByElements-12.png
     """
 
     def __init__(self,

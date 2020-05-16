@@ -69,7 +69,7 @@ def is_container_full(container: abjad.Container) -> bool:
         >>> auxjad.is_container_full(container4)
         False
 
-    ..  container:: example
+    ..  warning::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

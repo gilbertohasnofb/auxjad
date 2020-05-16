@@ -11,107 +11,46 @@ Welcome to auxjad's documentation!
     :caption: Contents
 
 
-the auxjad package
+The auxjad package
 ==================
 
 .. automodule:: auxjad
 
 
-are_containers_equal
---------------------
-.. autofunction:: auxjad.are_containers_equal
+auxjad's contents
+=================
 
+Below is a table with all classes and functions included in ``auxjad``. Click
+on their their names or use the left side panel to navigate to the individual
+documentaion of each class and function.
 
-are_leaves_tieable
-------------------
-.. autofunction:: auxjad.are_leaves_tieable
+.. autosummary::
+    :toctree: members
 
+    auxjad.are_containers_equal
+    auxjad.are_leaves_tieable
+    auxjad.ArtificialHarmonic
+    auxjad.CartographyContainer
+    auxjad.close_container
+    auxjad.fill_with_rests
+    auxjad.HarmonicNote
+    auxjad.is_container_full
+    auxjad.LeafDynMaker
+    auxjad.LeafShuffler
+    auxjad.LoopWindow
+    auxjad.LoopWindowByElements
+    auxjad.LoopWindowByList
+    auxjad.remove_repeated_dynamics
+    auxjad.remove_repeated_time_signatures
+    auxjad.rests_to_multimeasure_rest
+    auxjad.simplified_time_signature_ratio
+    auxjad.sync_containers
+    auxjad.TenneysContainer
+    auxjad.underfull_duration
 
-ArtificialHarmonic
-------------------
-.. autoclass:: auxjad.ArtificialHarmonic
+Indices and tables
+==================
 
-
-CartographyContainer
---------------------
-.. autoclass:: auxjad.CartographyContainer
-
-
-close_container
----------------
-.. autofunction:: auxjad.close_container
-
-
-fill_with_rests
----------------
-.. autofunction:: auxjad.fill_with_rests
-
-
-HarmonicNote
-------------
-.. autoclass:: auxjad.HarmonicNote
-
-
-is_container_full
------------------
-.. autofunction:: auxjad.is_container_full
-
-
-LeafDynMaker
-------------
-.. autoclass:: auxjad.LeafDynMaker
-
-
-LeafShuffler
-------------
-.. autoclass:: auxjad.LeafShuffler
-
-
-LoopWindow
-----------
-.. autoclass:: auxjad.LoopWindow
-
-
-LoopWindowByElements
---------------------
-.. autoclass:: auxjad.LoopWindowByElements
-
-
-LoopWindowByList
-----------------
-.. autoclass:: auxjad.LoopWindowByList
-
-
-remove_repeated_dynamics
-------------------------
-.. autofunction:: auxjad.remove_repeated_dynamics
-
-
-remove_repeated_time_signatures
--------------------------------
-.. autofunction:: auxjad.remove_repeated_time_signatures
-
-
-rests_to_multimeasure_rest
---------------------------
-.. autofunction:: auxjad.rests_to_multimeasure_rest
-
-
-simplified_time_signature_ratio
--------------------------------
-.. autofunction:: auxjad.simplified_time_signature_ratio
-
-
-sync_containers
----------------
-.. autofunction:: auxjad.sync_containers
-
-
-TenneysContainer
-----------------
-.. autoclass:: auxjad.TenneysContainer
-
-
-underfull_duration
-------------------
-.. autofunction:: auxjad.underfull_duration
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

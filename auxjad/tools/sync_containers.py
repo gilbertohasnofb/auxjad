@@ -29,7 +29,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-        .. figure:: _images/image-sync_containers-1.png
+        .. figure:: ../_images/image-sync_containers-1.png
 
         >>> abjad.f(container2)
         {
@@ -37,7 +37,9 @@ def sync_containers(*containers: abjad.Container,
             c'1
         }
 
-        .. figure:: _images/image-sync_containers-2.png
+        .. figure:: ../_images/image-sync_containers-2.png
+
+    .. note::
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
@@ -53,9 +55,6 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
-
-        .. figure:: _images/image-sync_containers-3.png
-
         >>> staff = abjad.Staff([container1])
         >>> abjad.f(container1)
         {
@@ -63,8 +62,6 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
-
-        .. figure:: _images/image-sync_containers-4.png
 
     ..  container:: example
 
@@ -79,7 +76,7 @@ def sync_containers(*containers: abjad.Container,
             g'2.
         }
 
-        .. figure:: _images/image-sync_containers-5.png
+        .. figure:: ../_images/image-sync_containers-5.png
 
         >>> abjad.f(container2)
         {
@@ -87,7 +84,7 @@ def sync_containers(*containers: abjad.Container,
             c'2.
         }
 
-        .. figure:: _images/image-sync_containers-6.png
+        .. figure:: ../_images/image-sync_containers-6.png
 
     ..  container:: example
 
@@ -106,7 +103,7 @@ def sync_containers(*containers: abjad.Container,
             f'4
         }
 
-        .. figure:: _images/image-sync_containers-7.png
+        .. figure:: ../_images/image-sync_containers-7.png
 
         >>> abjad.f(container2)
         {
@@ -116,7 +113,7 @@ def sync_containers(*containers: abjad.Container,
             R1*1/4
         }
 
-        .. figure:: _images/image-sync_containers-8.png
+        .. figure:: ../_images/image-sync_containers-8.png
 
     ..  container:: example
 
@@ -137,7 +134,7 @@ def sync_containers(*containers: abjad.Container,
             f'4
         }
 
-        .. figure:: _images/image-sync_containers-9.png
+        .. figure:: ../_images/image-sync_containers-9.png
 
         >>> abjad.f(container2)
         {
@@ -147,7 +144,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-        .. figure:: _images/image-sync_containers-10.png
+        .. figure:: ../_images/image-sync_containers-10.png
 
     ..  container:: example
 
@@ -167,7 +164,7 @@ def sync_containers(*containers: abjad.Container,
             f'4
         }
 
-        .. figure:: _images/image-sync_containers-11.png
+        .. figure:: ../_images/image-sync_containers-11.png
 
         >>> abjad.f(container2)
         {
@@ -176,7 +173,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-        .. figure:: _images/image-sync_containers-12.png
+        .. figure:: ../_images/image-sync_containers-12.png
 
     ..  container:: example
 
@@ -200,7 +197,7 @@ def sync_containers(*containers: abjad.Container,
             r2
         }
 
-        .. figure:: _images/image-sync_containers-13.png
+        .. figure:: ../_images/image-sync_containers-13.png
 
         >>> abjad.f(container2)
         {
@@ -211,7 +208,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-        .. figure:: _images/image-sync_containers-14.png
+        .. figure:: ../_images/image-sync_containers-14.png
 
         >>> abjad.f(container3)
         {
@@ -221,7 +218,7 @@ def sync_containers(*containers: abjad.Container,
             g'2.
         }
 
-        .. figure:: _images/image-sync_containers-15.png
+        .. figure:: ../_images/image-sync_containers-15.png
 
         >>> abjad.f(container4)
         {
@@ -231,7 +228,7 @@ def sync_containers(*containers: abjad.Container,
             R1*3/4
         }
 
-        .. figure:: _images/image-sync_containers-16.png
+        .. figure:: ../_images/image-sync_containers-16.png
 
     ..  container:: example
 
@@ -258,7 +255,7 @@ def sync_containers(*containers: abjad.Container,
             R1*1/4
         }
 
-        .. figure:: _images/image-sync_containers-17.png
+        .. figure:: ../_images/image-sync_containers-17.png
 
         >>> abjad.f(container2)
         {
@@ -269,7 +266,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-        .. figure:: _images/image-sync_containers-18.png
+        .. figure:: ../_images/image-sync_containers-18.png
 
         >>> abjad.f(container3)
         {
@@ -279,7 +276,7 @@ def sync_containers(*containers: abjad.Container,
             g''4
         }
 
-        .. figure:: _images/image-sync_containers-19.png
+        .. figure:: ../_images/image-sync_containers-19.png
 
         >>> abjad.f(container4)
         {
@@ -290,7 +287,7 @@ def sync_containers(*containers: abjad.Container,
             R1*1/2
         }
 
-        .. figure:: _images/image-sync_containers-20.png
+        .. figure:: ../_images/image-sync_containers-20.png
 
         It's important to note that LilyPond does not support simultanoues
         staves with different time signatures (i.e. polymetric notation) by
@@ -393,9 +390,9 @@ def sync_containers(*containers: abjad.Container,
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: _images/image-sync_containers-21.png
+        .. figure:: ../_images/image-sync_containers-21.png
 
-    ..  container:: example
+    ..  warning::
 
         If one or more containers is malformed, i.e. it has an underfilled bar
         before a time signature change, the function raises a ``ValueError``

@@ -15,7 +15,7 @@ class HarmonicNote(abjad.Note):
         \tweak style #'harmonic
         c''4
 
-        .. figure:: _images/image-HarmonicNote-1.png
+        .. figure:: ../_images/image-HarmonicNote-1.png
 
         And similarly to ``abjad.Note``, pitch and duration can be input in
         many different ways:
@@ -38,7 +38,7 @@ class HarmonicNote(abjad.Note):
             c''4
         }
 
-        .. figure:: _images/image-HarmonicNote-2.png
+        .. figure:: ../_images/image-HarmonicNote-2.png
 
     ..  container:: example
 
@@ -54,7 +54,7 @@ class HarmonicNote(abjad.Note):
         \tweak style #'harmonic-mixed
         c''4
 
-        .. figure:: _images/image-HarmonicNote-3.png
+        .. figure:: ../_images/image-HarmonicNote-3.png
 
     ..  container:: example
 
@@ -69,7 +69,7 @@ class HarmonicNote(abjad.Note):
         \tweak style #'harmonic
         c''4 * 2/3
 
-        .. figure:: _images/image-HarmonicNote-4.png
+        .. figure:: ../_images/image-HarmonicNote-4.png
 
     ..  container:: example
 
@@ -111,7 +111,7 @@ class HarmonicNote(abjad.Note):
         c''1
         \flageolet
 
-        .. figure:: _images/image-HarmonicNote-5.png
+        .. figure:: ../_images/image-HarmonicNote-5.png
     """
 
     def __init__(self,

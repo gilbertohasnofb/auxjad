@@ -30,7 +30,7 @@ class LoopWindow(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindow-1.png
+        .. figure:: ../_images/image-LoopWindow-1.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -47,7 +47,7 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
-        .. figure:: _images/image-LoopWindow-2.png
+        .. figure:: ../_images/image-LoopWindow-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -67,7 +67,7 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
-        .. figure:: _images/image-LoopWindow-3.png
+        .. figure:: ../_images/image-LoopWindow-3.png
 
     ..  container:: example
 
@@ -96,7 +96,7 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
-        .. figure:: _images/image-LoopWindow-4.png
+        .. figure:: ../_images/image-LoopWindow-4.png
 
     ..  container:: example
 
@@ -120,7 +120,7 @@ class LoopWindow(_LoopWindowGeneric):
             d'2
         }
 
-        .. figure:: _images/image-LoopWindow-5.png
+        .. figure:: ../_images/image-LoopWindow-5.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -131,7 +131,7 @@ class LoopWindow(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindow-6.png
+        .. figure:: ../_images/image-LoopWindow-6.png
 
     ..  container:: example
 
@@ -181,7 +181,7 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
-        .. figure:: _images/image-LoopWindow-7.png
+        .. figure:: ../_images/image-LoopWindow-7.png
 
     ..  container:: example
 
@@ -279,7 +279,7 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
-        .. figure:: _images/image-LoopWindow-8.png
+        .. figure:: ../_images/image-LoopWindow-8.png
 
     ..  container:: example
 
@@ -317,7 +317,7 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
-        .. figure:: _images/image-LoopWindow-9.png
+        .. figure:: ../_images/image-LoopWindow-9.png
 
     ..  container:: example
 
@@ -346,7 +346,7 @@ class LoopWindow(_LoopWindowGeneric):
             f'4
         }
 
-        .. figure:: _images/image-LoopWindow-10.png
+        .. figure:: ../_images/image-LoopWindow-10.png
 
     .. container:: example
 
@@ -388,7 +388,7 @@ class LoopWindow(_LoopWindowGeneric):
             f'8
         }
 
-        .. figure:: _images/image-LoopWindow-11.png
+        .. figure:: ../_images/image-LoopWindow-11.png
 
         >>> looper.window_size = (3, 8)
         >>> staff = abjad.Staff()
@@ -407,7 +407,7 @@ class LoopWindow(_LoopWindowGeneric):
             d'4.
         }
 
-        .. figure:: _images/image-LoopWindow-12.png
+        .. figure:: ../_images/image-LoopWindow-12.png
 
         To disable time signatures altogether, initialise ``LoopWindow`` with
         the keyword argument ``omit_time_signature`` set to ``True`` (default
@@ -426,7 +426,7 @@ class LoopWindow(_LoopWindowGeneric):
             e'4
         }
 
-        .. figure:: _images/image-LoopWindow-13.png
+        .. figure:: ../_images/image-LoopWindow-13.png
 
     ..  container:: example
 
@@ -472,7 +472,7 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
-        .. figure:: _images/image-LoopWindow-14.png
+        .. figure:: ../_images/image-LoopWindow-14.png
 
     ..  container:: example
 
@@ -516,7 +516,7 @@ class LoopWindow(_LoopWindowGeneric):
             d'2
         }
 
-        .. figure:: _images/image-LoopWindow-15.png
+        .. figure:: ../_images/image-LoopWindow-15.png
     """
 
     def __init__(self,

@@ -68,7 +68,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container4)
         1/4
 
-    ..  container:: example
+    ..  warning::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

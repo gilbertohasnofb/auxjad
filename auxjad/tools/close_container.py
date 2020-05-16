@@ -30,7 +30,7 @@ def close_container(container: abjad.Container):
             f'4
         }
 
-        .. figure:: _images/image-close_container-1.png
+        .. figure:: ../_images/image-close_container-1.png
 
         >>> abjad.f(container2)
         {
@@ -40,7 +40,7 @@ def close_container(container: abjad.Container):
             e'4
         }
 
-        .. figure:: _images/image-close_container-2.png
+        .. figure:: ../_images/image-close_container-2.png
 
         >>> abjad.f(container3)
         {
@@ -52,7 +52,7 @@ def close_container(container: abjad.Container):
             c'4
         }
 
-        .. figure:: _images/image-close_container-3.png
+        .. figure:: ../_images/image-close_container-3.png
 
         >>> abjad.f(container4)
         {
@@ -66,7 +66,7 @@ def close_container(container: abjad.Container):
             f'4
         }
 
-        .. figure:: _images/image-close_container-4.png
+        .. figure:: ../_images/image-close_container-4.png
 
     ..  container:: example
 
@@ -89,7 +89,7 @@ def close_container(container: abjad.Container):
             g'4
         }
 
-        .. figure:: _images/image-close_container-5.png
+        .. figure:: ../_images/image-close_container-5.png
 
         >>> abjad.f(container2)
         {
@@ -99,7 +99,7 @@ def close_container(container: abjad.Container):
             c'4
         }
 
-        .. figure:: _images/image-close_container-6.png
+        .. figure:: ../_images/image-close_container-6.png
 
         >>> abjad.f(container3)
         {
@@ -111,7 +111,9 @@ def close_container(container: abjad.Container):
             af'2
         }
 
-        .. figure:: _images/image-close_container-7.png
+        .. figure:: ../_images/image-close_container-7.png
+
+    .. note::
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
@@ -142,8 +144,6 @@ def close_container(container: abjad.Container):
             g'4
         }
 
-        .. figure:: _images/image-close_container-9.png
-
     ..  container:: example
 
         Correctly handles partial time signatures.
@@ -164,9 +164,9 @@ def close_container(container: abjad.Container):
             g'4
         }
 
-        .. figure:: _images/image-close_container-10.png
+        .. figure:: ../_images/image-close_container-10.png
 
-    ..  container:: example
+    ..  warning::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

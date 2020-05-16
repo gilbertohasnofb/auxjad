@@ -256,7 +256,7 @@ class LoopWindowByList(_LoopWindowGeneric):
             }
         }
 
-        .. figure:: _images/image-LoopWindowByList-1.png
+        .. figure:: ../_images/image-LoopWindowByList-1.png
     """
 
     def __init__(self,

@@ -29,6 +29,9 @@ class LoopWindow(_LoopWindowGeneric):
             d'2
             e'4
         }
+
+        .. figure:: _images/image-LoopWindow-1.png
+
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -43,6 +46,8 @@ class LoopWindow(_LoopWindowGeneric):
             e'8.
             f'16
         }
+
+        .. figure:: _images/image-LoopWindow-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -61,6 +66,8 @@ class LoopWindow(_LoopWindowGeneric):
             e'8.
             f'16
         }
+
+        .. figure:: _images/image-LoopWindow-3.png
 
     ..  container:: example
 
@@ -89,6 +96,8 @@ class LoopWindow(_LoopWindowGeneric):
             f'16
         }
 
+        .. figure:: _images/image-LoopWindow-4.png
+
     ..  container:: example
 
         The optional arguments ``window_size`` and ``step_size`` can be used to
@@ -110,6 +119,9 @@ class LoopWindow(_LoopWindowGeneric):
             c'4
             d'2
         }
+
+        .. figure:: _images/image-LoopWindow-5.png
+
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -118,6 +130,8 @@ class LoopWindow(_LoopWindowGeneric):
             d'2
             e'4
         }
+
+        .. figure:: _images/image-LoopWindow-6.png
 
     ..  container:: example
 
@@ -131,61 +145,43 @@ class LoopWindow(_LoopWindowGeneric):
         ...                            window_size=(3, 4),
         ...                            step_size=(1, 8),
         ...                            )
+        >>> staff = abjad.Staff()
         >>> for window in looper:
-        ...     staff = abjad.Staff(window)
-        ...     abjad.f(staff)
+        ...     staff.append(window)
+        >>> abjad.f(staff)
         \new Staff
         {
             \time 3/4
             c'4
             d'2
-        }
-        \new Staff
-        {
             c'8
             d'8
             ~
             d'4.
             e'8
-        }
-        \new Staff
-        {
             d'2
             e'4
-        }
-        \new Staff
-        {
             d'4.
             e'8
             ~
             e'8
             r8
-        }
-        \new Staff
-        {
             d'4
             e'4
             r4
-        }
-        \new Staff
-        {
             d'8
             e'8
             ~
             e'8
             r4.
-        }
-        \new Staff
-        {
             e'4
             r2
-        }
-        \new Staff
-        {
             e'8
             r8
             r2
         }
+
+        .. figure:: _images/image-LoopWindow-7.png
 
     ..  container:: example
 
@@ -283,6 +279,8 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
+        .. figure:: _images/image-LoopWindow-8.png
+
     ..  container:: example
 
         When using ``output_all()``, set the keyword argument
@@ -319,6 +317,8 @@ class LoopWindow(_LoopWindowGeneric):
             r2
         }
 
+        .. figure:: _images/image-LoopWindow-9.png
+
     ..  container:: example
 
         To run through just part of the process and output it as a single
@@ -346,6 +346,8 @@ class LoopWindow(_LoopWindowGeneric):
             f'4
         }
 
+        .. figure:: _images/image-LoopWindow-10.png
+
     .. container:: example
 
         To change the size of the looping window after instantiation, use the
@@ -357,19 +359,17 @@ class LoopWindow(_LoopWindowGeneric):
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopWindow(input_music)
+        >>> staff = abjad.Staff()
         >>> for _ in range(3):
         ...     notes = looper()
-        ...     staff = abjad.Staff(notes)
-        ...     abjad.f(staff)
+        ...     staff.append(notes)
+        >>> abjad.f(staff)
         \new Staff
         {
             \time 4/4
             c'4
             d'2
             e'4
-        }
-        \new Staff
-        {
             c'8.
             d'16
             ~
@@ -378,9 +378,6 @@ class LoopWindow(_LoopWindowGeneric):
             ~
             e'8.
             f'16
-        }
-        \new Staff
-        {
             c'8
             d'8
             ~
@@ -390,11 +387,15 @@ class LoopWindow(_LoopWindowGeneric):
             e'8
             f'8
         }
+
+        .. figure:: _images/image-LoopWindow-11.png
+
         >>> looper.window_size = (3, 8)
+        >>> staff = abjad.Staff()
         >>> for _ in range(3):
         ...     notes = looper()
-        ...     staff = abjad.Staff(notes)
-        ...     abjad.f(staff)
+        ...     staff.append(notes)
+        >>> abjad.f(staff)
         \new Staff
         {
             \time 3/8
@@ -402,15 +403,11 @@ class LoopWindow(_LoopWindowGeneric):
             d'16
             ~
             d'4
-        }
-        \new Staff
-        {
+            d'4.
             d'4.
         }
-        \new Staff
-        {
-            d'4.
-        }
+
+        .. figure:: _images/image-LoopWindow-12.png
 
         To disable time signatures altogether, initialise ``LoopWindow`` with
         the keyword argument ``omit_time_signature`` set to ``True`` (default
@@ -429,6 +426,8 @@ class LoopWindow(_LoopWindowGeneric):
             e'4
         }
 
+        .. figure:: _images/image-LoopWindow-13.png
+
     ..  container:: example
 
         This class can handle dynamics and articulations too. When a leaf is
@@ -436,7 +435,7 @@ class LoopWindow(_LoopWindowGeneric):
         articulations are still applied to it.
 
         >>> input_music = abjad.Container(
-        ... r"c'4-.\pp\< d'2--\f e'4->\ppp f'2 ~ f'8")
+        ... r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
         >>> looper = auxjad.LoopWindow(input_music)
         >>> staff = abjad.Staff()
         >>> for _ in range(2):
@@ -447,7 +446,7 @@ class LoopWindow(_LoopWindowGeneric):
         {
             \time 4/4
             c'4
-            \pp
+            \p
             - \staccato
             \<
             d'2
@@ -457,7 +456,7 @@ class LoopWindow(_LoopWindowGeneric):
             \ppp
             - \accent
             c'8.
-            \pp
+            \p
             - \staccato
             \<
             d'16
@@ -472,6 +471,8 @@ class LoopWindow(_LoopWindowGeneric):
             e'8.
             f'16
         }
+
+        .. figure:: _images/image-LoopWindow-14.png
 
     ..  container:: example
 
@@ -514,6 +515,8 @@ class LoopWindow(_LoopWindowGeneric):
             ~
             d'2
         }
+
+        .. figure:: _images/image-LoopWindow-15.png
     """
 
     def __init__(self,

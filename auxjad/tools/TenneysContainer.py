@@ -9,7 +9,7 @@ class TenneysContainer():
     uses feedback in order to lower the weight of recently selected elements.
 
     This implementation is based on the paper: Polansky, L., A. Barnett, and
-    M. Winter (2011). `A Few More Words About James Tenney: Dissonant
+    M. Winter (2011). 'A Few More Words About James Tenney: Dissonant
     Counterpoint and Statistical Feedback'. In: Journal of Mathematics and
     Music 5(2). pp. 63--82.
 

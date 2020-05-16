@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'auxjad'
-copyright = '2019, Gilberto Agostinho'
+copyright = '2020, Gilberto Agostinho'
 author = 'Gilberto Agostinho'
 email = 'gilbertohasnofb@gmail.com'
 
@@ -126,7 +126,7 @@ latex_elements = {
 
     # Latex figure (float) alignment
     #
-    # 'figure_align': 'htbp',
+    'figure_align': 'H',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

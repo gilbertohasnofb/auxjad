@@ -348,7 +348,6 @@ def test_LeafShuffler_13():
                                    )
     music = shuffler()
     staff = abjad.Staff(music)
-    abjad.f(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff

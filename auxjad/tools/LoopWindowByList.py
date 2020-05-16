@@ -205,7 +205,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         >>> input_list = [
         ...     abjad.Container(r"c'4 d'4 e'4 f'4"),
         ...     abjad.Container(r"fs'1"),
-        ...     abjad.Container(r"r2 bf2"),
+        ...     abjad.Container(r"r2 bf4 c'4"),
         ...     abjad.Container(r"c''2. r4"),
         ... ]
         >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
@@ -226,14 +226,16 @@ class LoopWindowByList(_LoopWindowGeneric):
             }
             {
                 r2
-                bf2
+                bf4
+                c'4
             }
             {
                 fs'1
             }
             {
                 r2
-                bf2
+                bf4
+                c'4
             }
             {
                 c''2.
@@ -241,7 +243,8 @@ class LoopWindowByList(_LoopWindowGeneric):
             }
             {
                 r2
-                bf2
+                bf4
+                c'4
             }
             {
                 c''2.
@@ -252,6 +255,8 @@ class LoopWindowByList(_LoopWindowGeneric):
                 r4
             }
         }
+
+        .. figure:: _images/image-LoopWindowByList-1.png
     """
 
     def __init__(self,

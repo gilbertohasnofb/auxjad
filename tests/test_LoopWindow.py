@@ -60,7 +60,6 @@ def test_LoopWindow_02():
                                )
     notes = looper()
     staff = abjad.Staff(notes)
-    abjad.f(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff

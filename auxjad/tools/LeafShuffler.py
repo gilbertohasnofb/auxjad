@@ -29,6 +29,8 @@ class LeafShuffler:
             e'4
         }
 
+        .. figure:: _images/image-LeafShuffler-1.png
+
         To get the result of the last operation, use the property
         ``current_container``.
 
@@ -43,6 +45,8 @@ class LeafShuffler:
             f'4
             e'4
         }
+
+        .. figure:: _images/image-LeafShuffler-2.png
 
     ..  container:: example
 
@@ -62,6 +66,8 @@ class LeafShuffler:
             e'4
             d'4
         }
+
+        .. figure:: _images/image-LeafShuffler-3.png
 
     ..  container:: example
 
@@ -125,6 +131,8 @@ class LeafShuffler:
             c'4
         }
 
+        .. figure:: _images/image-LeafShuffler-4.png
+
     ..  container:: example
 
         If ``disable_rewrite_meter`` is set to ``True``, then the automatic
@@ -148,6 +156,8 @@ class LeafShuffler:
             c'16
             e'4
         }
+
+        .. figure:: _images/image-LeafShuffler-5.png
 
     ..  container:: example
 
@@ -175,6 +185,9 @@ class LeafShuffler:
             r8.
             c'16
         }
+
+        .. figure:: _images/image-LeafShuffler-6.png
+
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -191,6 +204,8 @@ class LeafShuffler:
             r16
             d'4..
         }
+
+        .. figure:: _images/image-LeafShuffler-7.png
 
         It is possible to force time signatures on every call using either
         optional keyword argument ``force_time_signatures``.
@@ -212,6 +227,9 @@ class LeafShuffler:
             f'2
             e'4
         }
+
+        .. figure:: _images/image-LeafShuffler-8.png
+
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -229,6 +247,8 @@ class LeafShuffler:
             r16
             d'4..
         }
+
+        .. figure:: _images/image-LeafShuffler-9.png
 
     ..  container:: example
 
@@ -257,6 +277,9 @@ class LeafShuffler:
             r8.
             c'16
         }
+
+        .. figure:: _images/image-LeafShuffler-10.png
+
         >>> shuffler.omit_time_signatures
         True
         >>> shuffler.omit_time_signatures = False
@@ -298,6 +321,8 @@ class LeafShuffler:
             e'8.
         }
 
+        .. figure:: _images/image-LeafShuffler-11.png
+
     ..  container:: example
 
         To shuffle only pitches, keeping the durations of the leaves as they
@@ -318,6 +343,8 @@ class LeafShuffler:
             d'8.
             f'16
         }
+
+        .. figure:: _images/image-LeafShuffler-12.png
 
     ..  container:: example
 
@@ -358,6 +385,8 @@ class LeafShuffler:
             e'8
         }
 
+        .. figure:: _images/image-LeafShuffler-13.png
+
     ..  container:: example
 
         To rotate pitches, use the ``rotate_pitches()`` method.
@@ -376,6 +405,8 @@ class LeafShuffler:
             f'8.
             c'16
         }
+
+        .. figure:: _images/image-LeafShuffler-14.png
 
     ..  container:: example
 
@@ -398,6 +429,8 @@ class LeafShuffler:
             c'8.
             d'16
         }
+
+        .. figure:: _images/image-LeafShuffler-15.png
 
     ..  container:: example
 
@@ -436,6 +469,8 @@ class LeafShuffler:
             d'4.
             e'8
         }
+
+        .. figure:: _images/image-LeafShuffler-16.png
     """
 
     def __init__(self,

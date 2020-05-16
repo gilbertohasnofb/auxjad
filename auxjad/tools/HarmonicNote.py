@@ -15,6 +15,8 @@ class HarmonicNote(abjad.Note):
         \tweak style #'harmonic
         c''4
 
+        .. figure:: _images/image-HarmonicNote-1.png
+
         And similarly to ``abjad.Note``, pitch and duration can be input in
         many different ways:
 
@@ -22,18 +24,21 @@ class HarmonicNote(abjad.Note):
         >>> note2 = auxjad.HarmonicNote("c''", 1/4)
         >>> note3 = auxjad.HarmonicNote(12, 0.25)
         >>> note4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
-        >>> abjad.f(note1)
-        \tweak style #'harmonic
-        c''4
-        >>> abjad.f(note2)
-        \tweak style #'harmonic
-        c''4
-        >>> abjad.f(note3)
-        \tweak style #'harmonic
-        c''4
-        >>> abjad.f(note4)
-        \tweak style #'harmonic
-        c''4
+        >>> staff = abjad.Staff([note1, note2, note3, note4])
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \tweak style #'harmonic
+            c''4
+            \tweak style #'harmonic
+            c''4
+            \tweak style #'harmonic
+            c''4
+            \tweak style #'harmonic
+            c''4
+        }
+
+        .. figure:: _images/image-HarmonicNote-2.png
 
     ..  container:: example
 
@@ -49,6 +54,8 @@ class HarmonicNote(abjad.Note):
         \tweak style #'harmonic-mixed
         c''4
 
+        .. figure:: _images/image-HarmonicNote-3.png
+
     ..  container:: example
 
         Similarly to ``abjad.Note``, ``HarmonicNote`` can take multipliers:
@@ -61,6 +68,8 @@ class HarmonicNote(abjad.Note):
         >>> abjad.f(note)
         \tweak style #'harmonic
         c''4 * 2/3
+
+        .. figure:: _images/image-HarmonicNote-4.png
 
     ..  container:: example
 
@@ -101,6 +110,8 @@ class HarmonicNote(abjad.Note):
         >>> abjad.f(note)
         c''1
         \flageolet
+
+        .. figure:: _images/image-HarmonicNote-5.png
     """
 
     def __init__(self,

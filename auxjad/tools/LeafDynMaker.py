@@ -41,6 +41,8 @@ class LeafDynMaker(abjad.LeafMaker):
             -\stopped
         }
 
+        .. figure:: _images/image-LeafDynMaker-1.png
+
     ..  container:: example
 
         Tuple elements in ``pitches`` result in chords. None-valued elements
@@ -64,6 +66,8 @@ class LeafDynMaker(abjad.LeafMaker):
             \f
             -\tenuto
         }
+
+        .. figure:: _images/image-LeafDynMaker-2.png
 
     ..  container:: example
 
@@ -96,6 +100,8 @@ class LeafDynMaker(abjad.LeafMaker):
             \p
         }
 
+        .. figure:: _images/image-LeafDynMaker-3.png
+
     ..  container:: example
 
         The lengths of both ``dynamics`` and ``articulations`` can be shorter
@@ -124,6 +130,8 @@ class LeafDynMaker(abjad.LeafMaker):
             g'4
             a'4
         }
+
+        .. figure:: _images/image-LeafDynMaker-4.png
 
     ..  container:: example
 
@@ -156,6 +164,8 @@ class LeafDynMaker(abjad.LeafMaker):
             -\staccato
         }
 
+        .. figure:: _images/image-LeafDynMaker-5.png
+
     ..  container:: example
 
         Similarly to Abjad's native classes, it accepts many types of elements
@@ -178,6 +188,7 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations)
         >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
         \new Staff
         {
             c'32
@@ -189,6 +200,8 @@ class LeafDynMaker(abjad.LeafMaker):
             g'32
             a'8.
         }
+
+        .. figure:: _images/image-LeafDynMaker-6.png
     """
 
     def __call__(self,

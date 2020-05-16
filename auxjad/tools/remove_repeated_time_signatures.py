@@ -25,6 +25,9 @@ def remove_repeated_time_signatures(container: abjad.Container
             c'4
             d'8
         }
+
+        .. figure:: _images/image-remove_repeated_time_signatures-1.png
+
         >>> staff = auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
@@ -35,6 +38,8 @@ def remove_repeated_time_signatures(container: abjad.Container
             c'4
             d'8
         }
+
+        .. figure:: _images/image-remove_repeated_time_signatures-2.png
 
     ..  container:: example
 
@@ -55,6 +60,9 @@ def remove_repeated_time_signatures(container: abjad.Container
             c'4
             d'8
         }
+
+        .. figure:: _images/image-remove_repeated_time_signatures-3.png
+
         >>> staff = auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
@@ -66,6 +74,8 @@ def remove_repeated_time_signatures(container: abjad.Container
             c'4
             d'8
         }
+
+        .. figure:: _images/image-remove_repeated_time_signatures-4.png
 
     ..  container:: example
 
@@ -91,6 +101,9 @@ def remove_repeated_time_signatures(container: abjad.Container
                 b2
             }
         }
+
+        .. figure:: _images/image-remove_repeated_time_signatures-5.png
+
         >>> staff = auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
@@ -104,6 +117,8 @@ def remove_repeated_time_signatures(container: abjad.Container
                 b2
             }
         }
+
+        .. figure:: _images/image-remove_repeated_time_signatures-6.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")

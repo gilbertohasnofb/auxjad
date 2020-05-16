@@ -28,11 +28,16 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
+
+        .. figure:: _images/image-sync_containers-1.png
+
         >>> abjad.f(container2)
         {
             %%% \time 4/4 %%%
             c'1
         }
+
+        .. figure:: _images/image-sync_containers-2.png
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
@@ -48,6 +53,9 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
+
+        .. figure:: _images/image-sync_containers-3.png
+
         >>> staff = abjad.Staff([container1])
         >>> abjad.f(container1)
         {
@@ -55,6 +63,8 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
+
+        .. figure:: _images/image-sync_containers-4.png
 
     ..  container:: example
 
@@ -68,11 +78,16 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 3/4 %%%
             g'2.
         }
+
+        .. figure:: _images/image-sync_containers-5.png
+
         >>> abjad.f(container2)
         {
             %%% \time 3/4 %%%
             c'2.
         }
+
+        .. figure:: _images/image-sync_containers-6.png
 
     ..  container:: example
 
@@ -90,6 +105,9 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 1/4 %%%
             f'4
         }
+
+        .. figure:: _images/image-sync_containers-7.png
+
         >>> abjad.f(container2)
         {
             %%% \time 4/4 %%%
@@ -97,6 +115,8 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 1/4 %%%
             R1*1/4
         }
+
+        .. figure:: _images/image-sync_containers-8.png
 
     ..  container:: example
 
@@ -116,6 +136,9 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 1/4 %%%
             f'4
         }
+
+        .. figure:: _images/image-sync_containers-9.png
+
         >>> abjad.f(container2)
         {
             %%% \time 4/4 %%%
@@ -123,6 +146,8 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 1/4 %%%
             r4
         }
+
+        .. figure:: _images/image-sync_containers-10.png
 
     ..  container:: example
 
@@ -141,12 +166,17 @@ def sync_containers(*containers: abjad.Container,
             g'1
             f'4
         }
+
+        .. figure:: _images/image-sync_containers-11.png
+
         >>> abjad.f(container2)
         {
             %%% \time 4/4 %%%
             c'1
             r4
         }
+
+        .. figure:: _images/image-sync_containers-12.png
 
     ..  container:: example
 
@@ -169,6 +199,9 @@ def sync_containers(*containers: abjad.Container,
             g'4
             r2
         }
+
+        .. figure:: _images/image-sync_containers-13.png
+
         >>> abjad.f(container2)
         {
             %%% \time 4/4 %%%
@@ -177,6 +210,9 @@ def sync_containers(*containers: abjad.Container,
             g'2
             r4
         }
+
+        .. figure:: _images/image-sync_containers-14.png
+
         >>> abjad.f(container3)
         {
             %%% \time 4/4 %%%
@@ -184,6 +220,9 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 3/4 %%%
             g'2.
         }
+
+        .. figure:: _images/image-sync_containers-15.png
+
         >>> abjad.f(container4)
         {
             %%% \time 4/4 %%%
@@ -191,6 +230,8 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 3/4 %%%
             R1*3/4
         }
+
+        .. figure:: _images/image-sync_containers-16.png
 
     ..  container:: example
 
@@ -216,6 +257,9 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 1/4 %%%
             R1*1/4
         }
+
+        .. figure:: _images/image-sync_containers-17.png
+
         >>> abjad.f(container2)
         {
             %%% \time 3/4 %%%
@@ -224,6 +268,9 @@ def sync_containers(*containers: abjad.Container,
             c'4
             r4
         }
+
+        .. figure:: _images/image-sync_containers-18.png
+
         >>> abjad.f(container3)
         {
             %%% \time 5/4 %%%
@@ -231,6 +278,9 @@ def sync_containers(*containers: abjad.Container,
             ~
             g''4
         }
+
+        .. figure:: _images/image-sync_containers-19.png
+
         >>> abjad.f(container4)
         {
             %%% \time 6/8 %%%
@@ -239,6 +289,8 @@ def sync_containers(*containers: abjad.Container,
             %%% \time 2/4 %%%
             R1*1/2
         }
+
+        .. figure:: _images/image-sync_containers-20.png
 
         It's important to note that LilyPond does not support simultanoues
         staves with different time signatures (i.e. polymetric notation) by
@@ -281,7 +333,67 @@ def sync_containers(*containers: abjad.Container,
         ...         \consists "Default_bar_line_engraver"
         ...     }
         ...     ''')
-        >>> abjad.show(lilypond_file)
+        >>> abjad.f(lilypond_file)
+        \score { %! abjad.LilyPondFile._get_formatted_blocks()
+            \new Score
+            <<
+                \new Staff
+                {
+                    {
+                        \time 4/4
+                        c'4
+                        d'4
+                        e'4
+                        f'4
+                        \time 1/4
+                        R1 * 1/4
+                    }
+                }
+                \new Staff
+                {
+                    {
+                        \time 3/4
+                        a2.
+                        \time 2/4
+                        c'4
+                        r4
+                    }
+                }
+                \new Staff
+                {
+                    {
+                        \time 5/4
+                        g''1
+                        ~
+                        g''4
+                    }
+                }
+                \new Staff
+                {
+                    {
+                        \time 6/8
+                        c'2
+                        r4
+                        \time 2/4
+                        R1 * 1/2
+                    }
+                }
+            >>
+            \layout {
+                \context {
+                    \Score
+                    \remove "Timing_translator"
+                    \remove "Default_bar_line_engraver"
+                }
+                \context {
+                    \Staff
+                    \consists "Timing_translator"
+                    \consists "Default_bar_line_engraver"
+                }
+            }
+        } %! abjad.LilyPondFile._get_formatted_blocks()
+
+        .. figure:: _images/image-sync_containers-21.png
 
     ..  container:: example
 

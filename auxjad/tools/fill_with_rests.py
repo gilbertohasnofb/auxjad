@@ -27,6 +27,9 @@ def fill_with_rests(container: abjad.Container):
             e'4
             f'4
         }
+
+        .. figure:: _images/image-fill_with_rests-1.png
+
         >>> abjad.f(container2)
         {
             c'4
@@ -34,6 +37,9 @@ def fill_with_rests(container: abjad.Container):
             e'4
             r4
         }
+
+        .. figure:: _images/image-fill_with_rests-2.png
+
         >>> abjad.f(container3)
         {
             c'4
@@ -43,6 +49,9 @@ def fill_with_rests(container: abjad.Container):
             c'4
             r2.
         }
+
+        .. figure:: _images/image-fill_with_rests-3.png
+
         >>> abjad.f(container4)
         {
             c'4
@@ -54,6 +63,8 @@ def fill_with_rests(container: abjad.Container):
             e'4
             f'4
         }
+
+        .. figure:: _images/image-fill_with_rests-4.png
 
     ..  container:: example
 
@@ -75,6 +86,9 @@ def fill_with_rests(container: abjad.Container):
             g'4
             r2.
         }
+
+        .. figure:: _images/image-fill_with_rests-5.png
+
         >>> abjad.f(container2)
         {
             %%% \time 3/4 %%%
@@ -83,6 +97,9 @@ def fill_with_rests(container: abjad.Container):
             c'4
             r4
         }
+
+        .. figure:: _images/image-fill_with_rests-6.png
+
         >>> abjad.f(container3)
         {
             %%% \time 5/4 %%%
@@ -93,6 +110,8 @@ def fill_with_rests(container: abjad.Container):
             af'2
             r2
         }
+
+        .. figure:: _images/image-fill_with_rests-7.png
 
         Notice that the time signatures in the output are commented out with
         ``%%%.`` This is because Abjad only applies time signatures to
@@ -142,6 +161,8 @@ def fill_with_rests(container: abjad.Container):
             g'4
             r2
         }
+
+        .. figure:: _images/image-fill_with_rests-10.png
 
     ..  container:: example
 

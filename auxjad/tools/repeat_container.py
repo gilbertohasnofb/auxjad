@@ -35,6 +35,8 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
+        .. figure:: _images/image-repeat_container-1.png
+
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
         containers that belong to a ``abjad.Staff``. The present function works
@@ -55,6 +57,9 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
+
+        .. figure:: _images/image-repeat_container-2.png
+
         >>> staff = abjad.Staff([output_container])
         >>> abjad.f(output_container)
         {
@@ -69,6 +74,8 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
+
+        .. figure:: _images/image-repeat_container-3.png
 
     ..  container:: example
 
@@ -95,6 +102,8 @@ def repeat_container(container: abjad.Container,
             g'2
         }
 
+        .. figure:: _images/image-repeat_container-4.png
+
     ..  container:: example
 
         It automatically closes a container if necessary.
@@ -116,6 +125,8 @@ def repeat_container(container: abjad.Container,
             %%% \time 2/4 %%%
             f'2
         }
+
+        .. figure:: _images/image-repeat_container-5.png
 
     ..  container:: example
 
@@ -140,6 +151,8 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
+
+        .. figure:: _images/image-repeat_container-6.png
 
     ..  container:: example
 
@@ -169,6 +182,8 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
+        .. figure:: _images/image-repeat_container-7.png
+
     ..  container:: example
 
         The input container can be of child classes such as ``abjad.Staff``,
@@ -190,6 +205,8 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
+
+        .. figure:: _images/image-repeat_container-8.png
 
     ..  container:: example
 

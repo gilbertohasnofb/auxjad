@@ -45,6 +45,9 @@ class LoopWindowByElements(_LoopWindowGeneric):
             d'2
             e'4
         }
+
+        .. figure:: _images/image-LoopWindowByElements-1.png
+
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -57,6 +60,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             ~
             f'8
         }
+
+        .. figure:: _images/image-LoopWindowByElements-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -73,6 +78,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             ~
             f'8
         }
+
+        .. figure:: _images/image-LoopWindowByElements-3.png
 
     ..  container:: example
 
@@ -100,6 +107,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
         }
 
+        .. figure:: _images/image-LoopWindowByElements-4.png
+
     ..  container:: example
 
         The instances of ``LoopWindowByElements`` can also be used as an
@@ -109,25 +118,22 @@ class LoopWindowByElements(_LoopWindowGeneric):
         >>> looper = auxjad.LoopWindowByElements(input_music,
         ...                                      window_size=2,
         ...                                      )
+        >>> staff = abjad.Staff()
         >>> for window in looper:
-        ...     staff = abjad.Staff(window)
-        ...     abjad.f(staff)
+        ...     staff.append(window)
+        >>> abjad.f(staff)
         \new Staff
         {
             \time 3/4
             c'4
             d'2
-        }
-        \new Staff
-        {
             d'2
             e'4
-        }
-        \new Staff
-        {
             \time 1/4
             e'4
         }
+
+        .. figure:: _images/image-LoopWindowByElements-5.png
 
         Notice how the second staff in the example above does not have a time
         signature. This is because consecutive identical time signatures are
@@ -232,6 +238,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
+        .. figure:: _images/image-LoopWindowByElements-6.png
+
     ..  container:: example
 
         The function ``len()`` can be used to get the total number of elements
@@ -271,6 +279,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             \time 1/4
             f'4
         }
+
+        .. figure:: _images/image-LoopWindowByElements-7.png
 
     ..  container:: example
 
@@ -326,6 +336,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             <e' g'>16
         }
 
+        .. figure:: _images/image-LoopWindowByElements-8.png
+
     ..  container:: example
 
         To run through just part of the process and output it as a single
@@ -351,6 +363,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             e'4
         }
 
+        .. figure:: _images/image-LoopWindowByElements-9.png
+
     .. container:: example
 
         To change the size of the looping window after instantiation, use the
@@ -374,6 +388,9 @@ class LoopWindowByElements(_LoopWindowGeneric):
             d'2
             e'4
         }
+
+        .. figure:: _images/image-LoopWindowByElements-10.png
+
         >>> looper.window_size = 4
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -388,6 +405,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
             f'8
             g'1
         }
+
+        .. figure:: _images/image-LoopWindowByElements-11.png
 
     ..  container:: example
 
@@ -432,6 +451,8 @@ class LoopWindowByElements(_LoopWindowGeneric):
                 g2
             }
         }
+
+        .. figure:: _images/image-LoopWindowByElements-12.png
     """
 
     def __init__(self,

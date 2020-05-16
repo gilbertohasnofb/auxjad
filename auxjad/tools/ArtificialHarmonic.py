@@ -19,6 +19,8 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
+        .. figure:: _images/image-ArtificialHarmonic-1.png
+
         And similarly to ``abjad.Chord``, pitch and duration can be input in
         many different ways:
 
@@ -26,30 +28,35 @@ class ArtificialHarmonic(abjad.Chord):
         >>> chord2 = auxjad.ArtificialHarmonic(["g", "c'"], 1/4)
         >>> chord3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
         >>> chord4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
-        >>> abjad.f(chord1)
-        <
-            g
-            \tweak style #'harmonic
-            c'
-        >4
-        >>> abjad.f(chord2)
-        <
-            g
-            \tweak style #'harmonic
-            c'
-        >4
-        >>> abjad.f(chord3)
-        <
-            g
-            \tweak style #'harmonic
-            c'
-        >4
-        >>> abjad.f(chord4)
-        <
-            g
-            \tweak style #'harmonic
-            c'
-        >4
+        >>> staff = abjad.Staff([chord1, chord2, chord3, chord4])
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4
+        }
+
+        .. figure:: _images/image-ArtificialHarmonic-2.png
+
+
 
     ..  container:: example
 
@@ -79,6 +86,8 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
+        .. figure:: _images/image-ArtificialHarmonic-3.png
+
     ..  container:: example
 
         To notate natural harmonics with a parenthesised pitch for the open
@@ -99,6 +108,8 @@ class ArtificialHarmonic(abjad.Chord):
             c'
         >4
 
+        .. figure:: _images/image-ArtificialHarmonic-4.png
+
     ..  container:: example
 
         Similarly to ``abjad.Chord``, ``ArtificialHarmonic`` can take
@@ -115,6 +126,8 @@ class ArtificialHarmonic(abjad.Chord):
             \tweak style #'harmonic
             c'
         >4 * 2/3
+
+        .. figure:: _images/image-ArtificialHarmonic-5.png
 
     ..  container:: example
 
@@ -185,6 +198,8 @@ class ArtificialHarmonic(abjad.Chord):
         g''4
         \pp
         - \staccato
+
+        .. figure:: _images/image-ArtificialHarmonic-6.png
 
     ..  container:: example
 

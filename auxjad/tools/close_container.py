@@ -29,6 +29,9 @@ def close_container(container: abjad.Container):
             e'4
             f'4
         }
+
+        .. figure:: _images/image-close_container-1.png
+
         >>> abjad.f(container2)
         {
             %%% \time 3/4 %%%
@@ -36,6 +39,9 @@ def close_container(container: abjad.Container):
             d'4
             e'4
         }
+
+        .. figure:: _images/image-close_container-2.png
+
         >>> abjad.f(container3)
         {
             c'4
@@ -45,6 +51,9 @@ def close_container(container: abjad.Container):
             %%% \time 1/4 %%%
             c'4
         }
+
+        .. figure:: _images/image-close_container-3.png
+
         >>> abjad.f(container4)
         {
             c'4
@@ -56,6 +65,8 @@ def close_container(container: abjad.Container):
             e'4
             f'4
         }
+
+        .. figure:: _images/image-close_container-4.png
 
     ..  container:: example
 
@@ -77,6 +88,9 @@ def close_container(container: abjad.Container):
             %%% \time 1/4 %%%
             g'4
         }
+
+        .. figure:: _images/image-close_container-5.png
+
         >>> abjad.f(container2)
         {
             %%% \time 3/4 %%%
@@ -84,6 +98,9 @@ def close_container(container: abjad.Container):
             %%% \time 1/4 %%%
             c'4
         }
+
+        .. figure:: _images/image-close_container-6.png
+
         >>> abjad.f(container3)
         {
             %%% \time 5/4 %%%
@@ -93,6 +110,8 @@ def close_container(container: abjad.Container):
             %%% \time 2/4 %%%
             af'2
         }
+
+        .. figure:: _images/image-close_container-7.png
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
@@ -123,6 +142,8 @@ def close_container(container: abjad.Container):
             g'4
         }
 
+        .. figure:: _images/image-close_container-9.png
+
     ..  container:: example
 
         Correctly handles partial time signatures.
@@ -142,6 +163,8 @@ def close_container(container: abjad.Container):
             %%% \time 1/4 %%%
             g'4
         }
+
+        .. figure:: _images/image-close_container-10.png
 
     ..  container:: example
 

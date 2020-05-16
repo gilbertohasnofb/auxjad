@@ -18,6 +18,8 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             R1
         }
 
+        .. figure:: _images/image-rests_to_multimeasure_rest-1.png
+
     ..  container:: example
 
         Works with measures with multiple regular rests.
@@ -29,6 +31,8 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             %%% \time 3/4 %%%
             R1 * 3/4
         }
+
+        .. figure:: _images/image-rests_to_multimeasure_rest-2.png
 
     ..  container:: example
 
@@ -51,6 +55,8 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             c'4
             R1 * 5/4
         }
+
+        .. figure:: _images/image-rests_to_multimeasure_rest-3.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")

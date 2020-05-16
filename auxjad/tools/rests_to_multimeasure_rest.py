@@ -34,6 +34,27 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-2.png
 
+    .. note::
+
+        Notice that the time signatures in the output are commented out with
+        ``%%%``. This is because Abjad only applies time signatures to
+        containers that belong to a ``abjad.Staff``. The present function works
+        with either ``abjad.Container`` and ``abjad.Staff``.
+
+        >>> container = abjad.Container(r"\time 3/4 r4 r8.. r32 r4")
+        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> abjad.f(container)
+        {
+            %%% \time 3/4 %%%
+            R1 * 3/4
+        }
+        >>> staff = abjad.Staff([container])
+        >>> abjad.f(container)
+        {
+            %%% \time 3/4 %%%
+            R1 * 3/4
+        }
+
     ..  container:: example
 
         Works with containers with multiple time signatures as well as notes.

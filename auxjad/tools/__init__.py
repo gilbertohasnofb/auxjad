@@ -14,6 +14,7 @@ from .LoopWindowByList import LoopWindowByList
 from .remove_repeated_dynamics import remove_repeated_dynamics
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
 from .repeat_container import repeat_container
+from .respell_chord import respell_chord
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 from .sync_containers import sync_containers

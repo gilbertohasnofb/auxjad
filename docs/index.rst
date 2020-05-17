@@ -6,49 +6,16 @@
 Welcome to auxjad's documentation!
 ==================================
 
+.. automodule:: auxjad
+
 .. toctree::
     :maxdepth: 2
     :caption: Contents
 
+    self
+    examples
+    contents
 
-The auxjad package
-==================
-
-.. automodule:: auxjad
-
-
-auxjad's contents
-=================
-
-Below is a table with all classes and functions included in ``auxjad``. Click
-on their their names or use the left side panel to navigate to the individual
-documentaion of each class and function.
-
-.. autosummary::
-    :toctree: members
-
-    auxjad.are_containers_equal
-    auxjad.are_leaves_tieable
-    auxjad.ArtificialHarmonic
-    auxjad.CartographyContainer
-    auxjad.close_container
-    auxjad.fill_with_rests
-    auxjad.HarmonicNote
-    auxjad.is_container_full
-    auxjad.LeafDynMaker
-    auxjad.LeafShuffler
-    auxjad.LoopWindow
-    auxjad.LoopWindowByElements
-    auxjad.LoopWindowByList
-    auxjad.remove_repeated_dynamics
-    auxjad.remove_repeated_time_signatures
-    auxjad.respell_container
-    auxjad.respell_chord
-    auxjad.rests_to_multimeasure_rest
-    auxjad.simplified_time_signature_ratio
-    auxjad.sync_containers
-    auxjad.TenneysContainer
-    auxjad.underfull_duration
 
 Indices and tables
 ==================

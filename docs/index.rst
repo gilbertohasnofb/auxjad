@@ -42,6 +42,7 @@ documentaion of each class and function.
     auxjad.LoopWindowByList
     auxjad.remove_repeated_dynamics
     auxjad.remove_repeated_time_signatures
+    auxjad.respell_container
     auxjad.respell_chord
     auxjad.rests_to_multimeasure_rest
     auxjad.simplified_time_signature_ratio

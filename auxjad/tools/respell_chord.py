@@ -12,8 +12,8 @@ def respell_chord(chord: abjad.Chord,
 
     ..  container:: example
 
-        To use this function, apply it to a chord that contains at least one
-        augmented unison.
+        To use this function, apply it to a chord that contains augmented
+        unisons.
 
         >>> chord = abjad.Chord("<c' cs'>4")
         >>> auxjad.respell_chord(chord)
@@ -180,7 +180,6 @@ def respell_chord(chord: abjad.Chord,
         }
 
         .. figure:: ../_images/image-respell_chord-8.png
-
     """
     if not isinstance(chord, abjad.Chord):
         raise TypeError("'chord' must be 'abjad.Chord'")

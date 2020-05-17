@@ -113,6 +113,8 @@ def fill_with_rests(container: abjad.Container):
 
         .. figure:: ../_images/image-fill_with_rests-7.png
 
+    ..  note::
+
         Notice that the time signatures in the output are commented out with
         ``%%%.`` This is because Abjad only applies time signatures to
         containers that belong to a ``abjad.Staff``. The present function works

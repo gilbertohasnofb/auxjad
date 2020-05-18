@@ -4,8 +4,8 @@
    contain the root `toctree` directive.
 
 
-The auxjad's API
-================
+auxjad API
+==========
 
 Below is a table with all classes and functions included in ``auxjad``. Click
 on their their names or use the left side panel to navigate to the individual

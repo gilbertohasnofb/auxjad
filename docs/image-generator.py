@@ -33,7 +33,8 @@ if querry.lower() in ('y', 'yes'):
     # header for lilypond file
     ly_header = '\\include "lilypond-book-preamble.ly"\n' + \
                 '\\language "english"\n\n'
-
+    
+    # generating lilypond files from docstrings
     for member in dir(auxjad):
         docstring = getattr(auxjad, member).__doc__
         if docstring:
@@ -62,6 +63,38 @@ if querry.lower() in ('y', 'yes'):
                               '-danti-alias-factor=1 '
                               + directory + filename)
 
+    # generating lilypond files from example-n.rst files
+    for read_file in os.listdir('../'):
+        if read_file.startswith('example-'):
+            with open('../' + read_file, 'r') as example_file:
+                matches = re.findall(pattern, example_file.read())
+                if matches:
+                    for n, match in enumerate(matches):
+                        directory = './lilypond-files/'
+                        filename = 'image-' + read_file.replace('.rst', '') \
+                                 + '-' +str(n + 1) + '.ly'
+                        with open(directory + filename, 'w+') as f:
+                            f.write(ly_header)
+                            # removing comments from time signatures
+                            match = match.replace(r'%%% ', '')
+                            match = match.replace(r'%%%', '')
+                            if r'\new Staff' in match:
+                                f.write(match)
+                            else:  # wrap in {} when not starting with
+                                   # \new Staff
+                                f.write('{\n')
+                                f.write(match)
+                                f.write('\n}')
+                        # compiling each newly created lilypond file
+                        os.system('lilypond '
+                                  '-ddelete-intermediate-files '
+                                  '$include --png '
+                                  '-dbackend=eps '
+                                  '-dresolution=150 '
+                                  '-danti-alias-factor=1 '
+                                  + directory + filename)
+
+    # deleting junk
     files_in_directory = os.listdir('./')
     for filename in files_in_directory:
         if any(filename.endswith(extension) for extension in ('.eps',

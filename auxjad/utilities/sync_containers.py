@@ -410,10 +410,10 @@ def sync_containers(*containers: abjad.Container,
                             "child class")
         try:
             is_container_full(container)
-        except:
+        except ValueError as err:
             raise ValueError("at least one 'container' is malformed, with an "
                              "underfull bar preceeding a time signature "
-                             "change")
+                             "change") from err
     durations = [abjad.inspect(container[:]).duration() for container
                  in containers]
     max_duration = max(durations)
@@ -445,7 +445,7 @@ def sync_containers(*containers: abjad.Container,
             else:
                 effective_time_signature = abjad.TimeSignature((4, 4))
             # creating new bars for any leftover duratin
-            if use_multimeasure_rests and (adjust_last_time_signature or \
+            if use_multimeasure_rests and (adjust_last_time_signature or
                     duration_difference == effective_time_signature.duration):
                 multiplier = duration_difference.pair
                 if multiplier[0] == multiplier[1]:  # avoiding R1 * 1

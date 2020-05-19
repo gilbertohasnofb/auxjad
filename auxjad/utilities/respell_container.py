@@ -217,7 +217,7 @@ def respell_container(container: abjad.Container,
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")
     for leaf in abjad.select(container).leaves():
-        if type(leaf) == abjad.Chord:
+        if isinstance(leaf, abjad.Chord):
             respell_chord(leaf,
                           include_multiples=include_multiples,
                           respell_by_pitch_class=respell_by_pitch_class,

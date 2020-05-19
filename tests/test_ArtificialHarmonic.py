@@ -119,7 +119,7 @@ def test_ArtificialHarmonic_08():
 
 
 def test_ArtificialHarmonic_09():
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         auxjad.ArtificialHarmonic("<g ef'>4").sounding_pitch()
 
 
@@ -152,5 +152,5 @@ def test_ArtificialHarmonic_11():
 
 
 def test_ArtificialHarmonic_12():
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         auxjad.ArtificialHarmonic("<g ef'>4").sounding_note()

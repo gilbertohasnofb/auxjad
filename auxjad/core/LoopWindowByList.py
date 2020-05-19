@@ -306,7 +306,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         while True:
             try:
                 dummy_container.extend(self.__call__())
-            except:
+            except RuntimeError:
                 break
         return dummy_container[:]
 

@@ -102,21 +102,20 @@ def are_containers_equal(container1: abjad.Container,
         return False
 
     for leaf1, leaf2 in zip(leaves1, leaves2):
-        if type(leaf1) != type(leaf2):
+        if type(leaf1) is not type(leaf2):
             return False
         if abjad.inspect(leaf1).duration() != abjad.inspect(leaf2).duration():
             return False
-        if type(leaf1) == abjad.Note:
-            if leaf1.written_pitch != leaf2.written_pitch:
-                return False
-        if type(leaf1) == abjad.Chord:
-            if leaf1.written_pitches != leaf2.written_pitches:
-                return False
-        if type(abjad.inspect(leaf1).before_grace_container()) != \
+        if isinstance(leaf1, abjad.Note) and \
+                leaf1.written_pitch != leaf2.written_pitch:
+            return False
+        if isinstance(leaf1, abjad.Chord) and \
+                leaf1.written_pitches != leaf2.written_pitches:
+            return False
+        if type(abjad.inspect(leaf1).before_grace_container()) is not \
                 type(abjad.inspect(leaf2).before_grace_container()):
             return False
-        if include_indicators:
-            if abjad.inspect(leaf1).indicators() != \
-                    abjad.inspect(leaf2).indicators():
-                return False
+        if include_indicators and abjad.inspect(leaf1).indicators() is not \
+                abjad.inspect(leaf2).indicators():
+            return False
     return True

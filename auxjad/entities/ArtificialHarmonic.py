@@ -231,8 +231,8 @@ class ArtificialHarmonic(abjad.Chord):
         self.is_parenthesized = self._is_parenthesized
 
     def sounding_pitch(self) -> abjad.Pitch:
-        interval = abs(self.note_heads[1].written_pitch \
-                   - self.note_heads[0].written_pitch).semitones
+        interval = abs(self.note_heads[1].written_pitch
+                       - self.note_heads[0].written_pitch).semitones
         sounding_pitch_dict = {1: 48,
                                2: 36,
                                3: 31,
@@ -249,9 +249,9 @@ class ArtificialHarmonic(abjad.Chord):
         try:
             sounding_pitch = self.note_heads[0].written_pitch \
                            + sounding_pitch_dict[interval]
-        except:
-            raise KeyError('cannot calculate sounding pitch for given '
-                           'interval')
+        except KeyError as err:
+            raise ValueError('cannot calculate sounding pitch for given '
+                             'interval') from err
         return sounding_pitch
 
     def sounding_note(self) -> abjad.Note:

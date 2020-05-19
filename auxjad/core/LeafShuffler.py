@@ -1,8 +1,12 @@
 import copy
 import random
 import abjad
-from ..utilities.remove_repeated_time_signatures import remove_repeated_time_signatures
-from ..utilities.simplified_time_signature_ratio import simplified_time_signature_ratio
+from ..utilities.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures
+)
+from ..utilities.simplified_time_signature_ratio import (
+    simplified_time_signature_ratio
+)
 
 
 class LeafShuffler:
@@ -536,16 +540,16 @@ class LeafShuffler:
         return self.current_container
 
     def rotate_pitches(self,
-                        *,
-                        n_rotations: int = 1,
-                        anticlockwise: bool = False,
-                        ) -> abjad.Selection:
+                       *,
+                       n_rotations: int = 1,
+                       anticlockwise: bool = False,
+                       ) -> abjad.Selection:
         if not isinstance(n_rotations, int):
-           raise TypeError("'n_rotations' must be 'int'")
+            raise TypeError("'n_rotations' must be 'int'")
         if n_rotations < 1:
-           raise ValueError("'n_rotations' must be greater than zero")
+            raise ValueError("'n_rotations' must be greater than zero")
         if not isinstance(anticlockwise, bool):
-           raise TypeError("'anticlockwise' must be 'bool'")
+            raise TypeError("'anticlockwise' must be 'bool'")
         if self._force_time_signatures:
             self._last_time_signature = None
         pitches = self._get_pitch_list()
@@ -758,7 +762,7 @@ class LeafShuffler:
                     time_signature = self._time_signatures[-1]
                 self._time_signatures.append(time_signature)
             duration += abjad.inspect(leaf).duration()
-        self._time_signatures_durations = [timesig.duration for timesig \
+        self._time_signatures_durations = [timesig.duration for timesig
                                            in self._time_signatures]
 
     def _update_current_container_logical_ties(self):
@@ -770,11 +774,11 @@ class LeafShuffler:
         for logical_tie in \
                 abjad.select(self._current_container).logical_ties():
             leaf = logical_tie[0]
-            if type(leaf) == abjad.Rest:
+            if isinstance(leaf, abjad.Rest):
                 pitches.append(None)
-            elif type(leaf) == abjad.Note:
+            elif isinstance(leaf, abjad.Note):
                 pitches.append(leaf.written_pitch)
-            elif type(leaf) == abjad.Chord:
+            elif isinstance(leaf, abjad.Chord):
                 pitches.append(leaf.written_pitches)
         return pitches
 
@@ -792,7 +796,7 @@ class LeafShuffler:
             for leaf in logical_tie:
                 if not pitch:
                     new_leaf = abjad.Rest(leaf.written_duration)
-                elif type(pitch) == abjad.PitchSegment:
+                elif isinstance(pitch, abjad.PitchSegment):
                     new_leaf = abjad.Chord(pitch, leaf.written_duration)
                 else:
                     new_leaf = abjad.Note(pitch, leaf.written_duration)

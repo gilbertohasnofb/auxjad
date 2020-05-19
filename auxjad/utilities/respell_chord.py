@@ -199,7 +199,7 @@ def respell_chord(chord: abjad.Chord,
             try:
                 p3 = chord.written_pitches[i + 2]
                 interval23 = p2 - p3
-            except:
+            except IndexError:
                 p3 = None
                 interval23 = None
             if interval12 == abjad.NamedInterval('+A1') \

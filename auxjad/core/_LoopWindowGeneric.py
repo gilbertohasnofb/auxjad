@@ -161,7 +161,7 @@ class _LoopWindowGeneric():
                     if are_leaves_tieable(leaf1, leaf2):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
-            except:
+            except RuntimeError:
                 break
         result = dummy_container[:]
         dummy_container[:] = []

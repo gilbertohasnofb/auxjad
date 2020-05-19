@@ -1,7 +1,7 @@
 import copy
 import random
 import abjad
-from .are_leaves_tieable import are_leaves_tieable
+from ..utilities.are_leaves_tieable import are_leaves_tieable
 
 
 class _LoopWindowGeneric():

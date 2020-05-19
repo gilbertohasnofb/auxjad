@@ -1,7 +1,7 @@
 import copy
 import abjad
 from ._LoopWindowGeneric import _LoopWindowGeneric
-from .simplified_time_signature_ratio import simplified_time_signature_ratio
+from ..utilities.simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 class LoopWindowByElements(_LoopWindowGeneric):

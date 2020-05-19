@@ -1,8 +1,8 @@
 import copy
 import random
 import abjad
-from .remove_repeated_time_signatures import remove_repeated_time_signatures
-from .simplified_time_signature_ratio import simplified_time_signature_ratio
+from ..utilities.remove_repeated_time_signatures import remove_repeated_time_signatures
+from ..utilities.simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 class LeafShuffler:

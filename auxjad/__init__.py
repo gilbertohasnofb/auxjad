@@ -13,7 +13,10 @@ Bugs can be reported through the project's Issue Tracker.
 This library is published under the MIT License.
 """
 
-from .tools import *
+from .core import *
+from .entities import *
+from .utilities import *
+
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
 __version__ = "0.6.2"

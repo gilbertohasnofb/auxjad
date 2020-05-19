@@ -1,11 +1,11 @@
 import copy
 import random
 import abjad
-from ..utilities.are_leaves_tieable import are_leaves_tieable
+from ..utilities.leaves_are_tieable import leaves_are_tieable
 
 
-class _LoopWindowGeneric():
-    r"""This is the parent class of all LoopWindow<...> classes. It implements
+class _LoopParent():
+    r"""This is the parent class of all LoopByWindow<...> classes. It implements
     all common methods and attributes, and initialises those using its @setter
     methods.
     """
@@ -158,7 +158,7 @@ class _LoopWindowGeneric():
                     new_window = self.__call__()
                     leaf1 = abjad.select(new_window).leaves()[0]
                     leaf2 = abjad.select(dummy_container).leaves()[-1]
-                    if are_leaves_tieable(leaf1, leaf2):
+                    if leaves_are_tieable(leaf1, leaf2):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
             except RuntimeError:
@@ -186,7 +186,7 @@ class _LoopWindowGeneric():
                 new_window = self.__call__()
                 leaf1 = abjad.select(new_window).leaves()[0]
                 leaf2 = abjad.select(dummy_container).leaves()[-1]
-                if are_leaves_tieable(leaf1, leaf2):
+                if leaves_are_tieable(leaf1, leaf2):
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)
         result = dummy_container[:]

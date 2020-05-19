@@ -1,8 +1,8 @@
-from ._LoopWindowGeneric import _LoopWindowGeneric
+from ._LoopParent import _LoopParent
 
 
-class LoopWindowByList(_LoopWindowGeneric):
-    r"""Similar to ``LoopWindowByList``, but instead of taking an
+class LoopByList(_LoopParent):
+    r"""Similar to ``LoopByList``, but instead of taking an
     ``abjad.Container`` input, it takes a list of arbitrary size. It then
     outputs the list elements, whatever they may be. The list elements can be
     ``abjad.Container``'s, but they can also be anything else, thus being more
@@ -32,7 +32,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         window forwards and output the result:
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper()
@@ -52,22 +52,22 @@ class LoopWindowByList(_LoopWindowGeneric):
         ``move_window_on_first_call`` set to ``True``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list,
-        ...                                  window_size=3,
-        ...                                  move_window_on_first_call=True,
-        ...                                  )
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=3,
+        ...                            move_window_on_first_call=True,
+        ...                            )
         >>> looper()
         ['B', 'C', 'D']
 
     ..  container:: example
 
-        The instances of ``LoopWindowByList`` can also be used as an iterator,
+        The instances of ``LoopByList`` can also be used as an iterator,
         which can then be used in a for loop to exhaust all windows.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list,
-        ...                                  window_size=3,
-        ...                                  )
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=3,
+        ...                            )
         >>> for window in looper:
         ...     print(window)
         ['A', 'B', 'C']
@@ -95,14 +95,14 @@ class LoopWindowByList(_LoopWindowGeneric):
         starting position of the looping window (default is 0).
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list,
-        ...                                  window_size=3,
-        ...                                  step_size=1,
-        ...                                  max_steps=2,
-        ...                                  repetition_chance=0.25,
-        ...                                  forward_bias=0.2,
-        ...                                  head_position=0,
-        ...                                  )
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=3,
+        ...                            step_size=1,
+        ...                            max_steps=2,
+        ...                            repetition_chance=0.25,
+        ...                            forward_bias=0.2,
+        ...                            head_position=0,
+        ...                            )
         >>> looper.window_size
         3
         >>> looper.step_size
@@ -143,7 +143,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         in the container.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> len(looper)
         6
 
@@ -154,7 +154,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         ``output_n()`` and pass the number of iterations as argument.
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> looper.output_n(2)
         ['A', 'B', 'C', 'B', 'C', 'D']
 
@@ -165,7 +165,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         element, use the method ``output_all()``.
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> looper.output_all()
         ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
 
@@ -180,7 +180,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper.window_size = 4
@@ -192,7 +192,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         It should be clear that the list can contain any types of elements:
 
         >>> input_list = [123, 'foo', (3, 4), 3.14]
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> looper()
         [123, 'foo', (3, 4)]
 
@@ -208,7 +208,7 @@ class LoopWindowByList(_LoopWindowGeneric):
         ...     abjad.Container(r"r2 bf4 c'4"),
         ...     abjad.Container(r"c''2. r4"),
         ... ]
-        >>> looper = auxjad.LoopWindowByList(input_list, window_size=3)
+        >>> looper = auxjad.LoopByList(input_list, window_size=3)
         >>> staff = abjad.Staff()
         >>> for element in looper.output_all():
         ...     staff.append(element)
@@ -256,7 +256,7 @@ class LoopWindowByList(_LoopWindowGeneric):
             }
         }
 
-        .. figure:: ../_images/image-LoopWindowByList-1.png
+        .. figure:: ../_images/image-LoopByList-1.png
     """
 
     def __init__(self,

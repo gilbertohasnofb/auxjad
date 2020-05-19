@@ -1,17 +1,17 @@
 import random
 
 
-class CartographyContainer():
-    r"""A container used to store, manipulate, and select objects using a
+class CartographySelector():
+    r"""A selector used to store, manipulate, and select objects using a
     decaying weighted function.
 
     ..  container:: example
 
-        The container should be initialised with a list of objects. The
-        contents of the list can be absolutely anything.
+        The selector should be initialised with a list of objects. The contents
+        of the list can be absolutely anything.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
 
         The default decay rate is 0.75; that is, the weight of any given
@@ -19,76 +19,91 @@ class CartographyContainer():
         weights are associated with the index position, not the elements
         themselves.
 
-        >>> container.weights
+        >>> selector.weights
         [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
 
-        Applying the ``len()`` function to the container will give the length
-        of the container.
+        Applying the ``len()`` function to the selector will give the length
+        of the input list.
 
-        >>> len(container)
+        >>> len(selector)
         5
 
-        Calling the container will output one of its elements, selected
+        Calling the selector will output one of its elements, selected
         according to its weight function.
 
-        >>> result = ''
-        >>> for _ in range(30):
-        ...     result += str(container())
-        >>> result
-        203001402200011111101400310140
+        >>> selector()
+        2
+
+        Alternatively, use the ``next()`` function or ``__next__()`` method to
+        get the next result.
+
+        >>> selector.__next__()
+        1
+        >>> next(selector)
+        0
 
     ..  container:: example
 
-        Calling the container with the optional keyword argument ``no_repeat``
+        By default, only the weight function (defined by the decay rate) is
+        taken into consideration when selecting an element. This means that
+        repeated elements can appear, as shown below.
+
+        >>> result = ''
+        >>> for _ in range(30):
+        ...     result += str(selector())
+        >>> result
+        203001402200011111101400310140
+
+        Calling the selector with the optional keyword argument ``no_repeat``
         set to ``True`` will forbid immediate repetitions among consecutive
         calls.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> result = ''
         >>> for _ in range(30):
-        ...     result += str(container(no_repeat=True))
+        ...     result += str(selector(no_repeat=True))
         >>> result
         210421021020304024230120241202
 
     ..  container:: example
 
         The keyword argument ``decay_rate`` can be used to set a different
-        decay rate when creating a container.
+        decay rate when creating a selector.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4],
-        ...                                         decay_rate=0.5,
-        ...                                         )
-        >>> cartography_container.weights
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4],
+        ...                                       decay_rate=0.5,
+        ...                                       )
+        >>> selector.weights
         [1.0, 0.5, 0.25, 0.125, 0.0625]
 
-        The decay rate can also be set after the creation of a container,
-        using the property ``decay_rate``.
+        The decay rate can also be set after the creation of a selector using,
+        the property ``decay_rate``.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.decay_rate = 0.2
-        >>> container.weights
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.decay_rate = 0.2
+        >>> selector.weights
         [1.0, 0.2, 0.04000000000000001, 0.008000000000000002,
         0.0016000000000000003]
         >>> result = ''
         >>> for _ in range(30):
-        ...     result += str(container())
+        ...     result += str(selector())
         >>> result
         '000001002100000201001030000100'
 
     ..  container:: example
 
-        Appending is a type of container transformation. It discards the first
-        element of the container, shifts all others leftwards, and then appends
-        the new element to the rightmost index.
+        Appending is a type of content transformation. It discards the first
+        element of the selector's contents, shifts all others leftwards, and
+        then appends the new element to the rightmost index.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.append(5)
-        >>> container.contents
+        >>> selector.append(5)
+        >>> selector.contents
         [1, 2, 3, 4, 5]
-        >>> container.append(42)
-        >>> container.contents
+        >>> selector.append(42)
+        >>> selector.contents
         [2, 3, 4, 5, 42]
 
     ..  container:: example
@@ -96,126 +111,126 @@ class CartographyContainer():
         The method ``append_keeping_n()`` is similar to ``append()``, but it
         keeps the first n indeces untouched. It thus discards the n+1-th
         element, shifts all the next ones lefwards and then appends the new
-        element at the end of the container.
+        element at the end of the selector's contents.
 
-        >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
+        >>> selector.contents
         [10, 7, 14, 31, 98]
-        >>> container.append_keeping_n(100, 2)
-        >>> container.contents
+        >>> selector.append_keeping_n(100, 2)
+        >>> selector.contents
         [10, 7, 31, 98, 100]
 
     ..  container:: example
 
-        Prepending is another type of container transformation. It discards the
-        last element of the container, shifts all others rightwards, and then
-        prepends the new element to the leftmost index.
+        Prepending is another type of content transformation. It discards the
+        last element of the selector's contents, shifts all others rightwards,
+        and then prepends the new element to the leftmost index.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.prepend(-1)
-        >>> container.contents
+        >>> selector.prepend(-1)
+        >>> selector.contents
         [-1, 0, 1, 2, 3]
-        >>> container.prepend(71)
-        >>> container.contents
+        >>> selector.prepend(71)
+        >>> selector.contents
         [71, -1, 0, 1, 2]
 
     ..  container:: example
 
-        Rotation is another type of container transformation. It rotates all
+        Rotation is another type of content transformation. It rotates all
         elements rightwards, while moving the rightmost element into the
         leftmost index. It can take the optional keyword argument anticlockwise
         which if set to ``True`` will rotate in the opposite direction.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.rotate()
-        >>> container.contents
+        >>> selector.rotate()
+        >>> selector.contents
         [1, 2, 3, 4, 0]
-        >>> container.rotate(anticlockwise=True)
-        >>> container.contents
+        >>> selector.rotate(anticlockwise=True)
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.rotate(anticlockwise=True)
-        >>> container.contents
+        >>> selector.rotate(anticlockwise=True)
+        >>> selector.contents
         [1, 2, 3, 4, 0]
 
     ..  container:: example
 
         It is also possible to mirror two elements around a pivot at the centre
-        of the container; given an element (selected by its index), this
-        operation will locate and swap it for its complementary element. The
-        complementary element is defined as that one which is at a same
+        of the selector's contents; given an element (selected by its index),
+        this operation will locate and swap it for its complementary element.
+        The complementary element is defined as that one which is at a same
         distance from the centre pivot but in the opposite direction.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.mirror(0)
-        >>> container.contents
+        >>> selector.mirror(0)
+        >>> selector.contents
         [4, 1, 2, 3, 0]
-        >>> container.mirror(0)
-        >>> container.contents
+        >>> selector.mirror(0)
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.mirror(3)
-        >>> container.contents
+        >>> selector.mirror(3)
+        >>> selector.contents
         [0, 3, 2, 1, 4]
-        >>> container.mirror(2)
-        >>> container.contents
+        >>> selector.mirror(2)
+        >>> selector.contents
         [0, 3, 2, 1, 4]
 
     ..  container:: example
 
         To mirror a random pair of complementary elements, use the
-        ``mirror_random()`` method. In case of a container with an odd number
+        ``mirror_random()`` method. In case of a selector with an odd number
         of elements, this method will never pick an element at the pivot point
         since the operation would not change the contents.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.mirror_random()
-        >>> container.contents
+        >>> selector.mirror_random()
+        >>> selector.contents
         [4, 1, 2, 3, 0]
-        >>> container.mirror_random()
-        >>> container.contents
+        >>> selector.mirror_random()
+        >>> selector.contents
         [4, 3, 2, 1, 0]
-        >>> container.mirror_random()
-        >>> container.contents
+        >>> selector.mirror_random()
+        >>> selector.contents
         [4, 1, 2, 3, 0]
 
     ..  container:: example
 
         The method ``randomise()`` will randomise the position of the elements
-        of a container.
+        of a selector's content.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4])
-        >>> container.contents
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> container.randomise()
-        >>> container.contents
+        >>> selector.randomise()
+        >>> selector.contents
         [1, 4, 3, 0, 2]
 
     ..  container:: example
 
-        The contents of a container can also be altered after it has been
-        initialised using the ``container`` property. The length of the
-        container can change as well.
+        The contents of a selector can also be altered after it has been
+        initialised using the ``contents`` property. The length of the
+        contents can change as well.
 
-        >>> container = auxjad.CartographyContainer([0, 1, 2, 3, 4],
-        ...                                         decay_rate=0.5,
-        ...                                         )
-        >>> len(container)
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4],
+        ...                                       decay_rate=0.5,
+        ...                                       )
+        >>> len(selector)
         5
-        >>> container.weights
+        >>> selector.weights
         [1.0, 0.5, 0.25, 0.125, 0.0625]
-        >>> container.contents = [10, 7, 14, 31, 98, 47, 32]
-        >>> container.contents
+        >>> selector.contents = [10, 7, 14, 31, 98, 47, 32]
+        >>> selector.contents
         [10, 7, 14, 31, 98, 47, 32]
-        >>> len(container)
+        >>> len(selector)
         7
-        >>> container.weights
+        >>> selector.weights
         [1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]
 
     ..  container:: example
@@ -223,24 +238,24 @@ class CartographyContainer():
         This class allows indecing and slicing just like regular lists. This
         can be used to both access and alter elements.
 
-        >>> container = auxjad.CartographyContainer([10, 7, 14, 31, 98])
-        >>> container[1]
+        >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
+        >>> selector[1]
         7
-        >>> container[1:4]
+        >>> selector[1:4]
         [7, 14, 31]
-        >>> container[:]
+        >>> selector[:]
         [10, 7, 14, 31, 98]
-        >>> container()
+        >>> selector()
         31
         >>> previous_index = container.previous_index
         >>> previous_index
         3
-        >>> container[previous_index]
+        >>> selector[previous_index]
         31
-        >>> container.contents
+        >>> selector.contents
         [10, 7, 14, 31, 98]
-        >>> container[2] = 100
-        >>> container.contents
+        >>> selector[2] = 100
+        >>> selector.contents
         [10, 7, 100, 31, 98]
     """
 
@@ -265,6 +280,8 @@ class CartographyContainer():
         return str(self._contents)
 
     def __call__(self, no_repeat=False):
+        if not isinstance(no_repeat, bool):
+            raise TypeError("'no_repeat' must be 'bool")
         if not no_repeat:
             new_index = random.choices(
                 [n for n in range(self.__len__())],
@@ -279,6 +296,9 @@ class CartographyContainer():
                     )[0]
         self.previous_index = new_index
         return self._contents[self.previous_index]
+
+    def __next__(self, no_repeat=False):
+        return self.__call__(no_repeat=no_repeat)
 
     def __len__(self) -> int:
         return len(self._contents)

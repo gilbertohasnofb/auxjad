@@ -10,33 +10,33 @@ First, we start by importing both ``abjad`` and ``auxjad``.
     >>> import abjad
     >>> import auxjad
 
-Let's start by deciding what random generator functions will be responsible for
-creating each parameter of the basic material. Let's use
-``auxjad.TenneysContainer`` for pitches, which is an implementation of Tenney's
+Let's start by deciding what random selectors will be responsible for
+generating each parameter of our basic material. Let's use
+``auxjad.TenneySelector`` for pitches, which is an implementation of Tenney's
 Dissonant Counterpoint Algorithm; at each call, this algorithm prioritises
 elements that haven't been select for the longest time. For the durations,
 dynamics, and articulations, the example will use
-``auxjad.CartographyContainer``. Each element in this type of container has a
-probability of being selected which is dependent on its position in the
-container. By default, the probability of consecutive elements decay with a
-rate of 0.75. For more information on both of these classes, check the
-``auxjad`` API page (link in the left panel).
+``auxjad.CartographySelector``. Each element input into this type of selector
+has a probability of being selected which is dependent on its index. By
+default, the probability of consecutive elements decay with a rate of 0.75. For
+more information on both of these classes, check the ``auxjad`` API page (link
+in the left panel).
 
-    >>> pitch_container = auxjad.TenneysContainer([0, 7, 8, 2, 3, 10])
-    >>> duration_container = auxjad.CartographyContainer([(2, 8),
-    ...                                                   (3, 8),
-    ...                                                   (5, 8),
-    ...                                                   ])
-    >>> dynamic_container = auxjad.CartographyContainer(['p', 'mp', 'mf', 'f'])
-    >>> articulation_container = auxjad.CartographyContainer([None, '-', '>'])
+    >>> pitch_selector = auxjad.TenneySelector([0, 7, 8, 2, 3, 10])
+    >>> duration_selector = auxjad.CartographySelector([(2, 8),
+    ...                                                 (3, 8),
+    ...                                                 (5, 8),
+    ...                                                 ])
+    >>> dynamic_selector = auxjad.CartographySelector(['p', 'mp', 'mf', 'f'])
+    >>> articulation_selector = auxjad.CartographySelector([None, '-', '>'])
 
 Let's now create eight random notes, each with four parameters randomly
 selected by the classes above.
 
-    >>> pitches = [pitch_container() for _ in range(8)]
-    >>> durations = [duration_container() for _ in range(8)]
-    >>> dynamics = [dynamic_container() for _ in range(8)]
-    >>> articulations = [articulation_container() for _ in range(8)]
+    >>> pitches = [pitch_selector() for _ in range(8)]
+    >>> durations = [duration_selector() for _ in range(8)]
+    >>> dynamics = [dynamic_selector() for _ in range(8)]
+    >>> articulations = [articulation_selector() for _ in range(8)]
 
 With these lists of pitches, durations, dynamics, and articulations, we can now
 use ``auxjad.LeafDynMaker`` to create the individual abjad leaves for us.
@@ -82,12 +82,12 @@ Let's now add a time signature of the length of the container.
 
 .. figure:: ./_images/image-example-2-1.png
 
-Let's now use ``auxjad.LoopWindow`` to output loops of windows of the material.
+Let's now use ``auxjad.LoopByWindow`` to output loops of windows of the material.
 By default, this class uses a window size of a 4/4 measure, and each step
 forward has the size of a sixteenth-note. These parameters are all adjustable,
 please refer to this library's API for more information.
 
-    >>> looper = auxjad.LoopWindow(container)
+    >>> looper = auxjad.LoopByWindow(container)
     >>> staff = abjad.Staff()
     >>> for _ in range(3):
     >>>     music = looper()
@@ -128,11 +128,11 @@ please refer to this library's API for more information.
 .. figure:: ./_images/image-example-2-2.png
 
 Let's now grab the last window output by the looper object above and use it as
-input for ``auxjad.LeafShuffler``. This will randomly shuffles the leaves of
+input for ``auxjad.Shuffler``. This will randomly shuffles the leaves of
 the input container.
 
     >>> container = abjad.Container(looper.current_window)
-    >>> shuffler = auxjad.LeafShuffler(container, omit_time_signatures=True)
+    >>> shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
     >>> for _ in range(3):
     >>>     music = shuffler()
     >>>     staff.append(music)
@@ -203,7 +203,7 @@ Let's use the last output of the shuffler above and feed it into a new looper.
 This time we will use a window of size 3/4.
 
     >>> container = abjad.Container(shuffler.current_container)
-    >>> looper = auxjad.LoopWindow(container,
+    >>> looper = auxjad.LoopByWindow(container,
     ...                            window_size=(3, 4),
     ...                            )
     >>> for _ in range(3):

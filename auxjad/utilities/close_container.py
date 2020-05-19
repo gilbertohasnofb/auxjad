@@ -1,5 +1,5 @@
 import abjad
-from .is_container_full import is_container_full
+from .container_is_full import container_is_full
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 from .underfull_duration import underfull_duration
 
@@ -178,7 +178,7 @@ def close_container(container: abjad.Container):
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")
-    if not is_container_full(container):
+    if not container_is_full(container):
         missing_duration = underfull_duration(container)
         leaves = abjad.select(container).leaves()
         for leaf in leaves[::-1]:

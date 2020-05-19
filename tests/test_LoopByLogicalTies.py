@@ -3,9 +3,9 @@ import pytest
 import auxjad
 
 
-def test_LoopWindowByElements_01():
+def test_LoopByLogicalTies_01():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=3)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=3)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -48,18 +48,18 @@ def test_LoopWindowByElements_01():
         ''')
 
 
-def test_LoopWindowByElements_02():
+def test_LoopByLogicalTies_02():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=3,
-                                         step_size=1,
-                                         max_steps=2,
-                                         repetition_chance=0.25,
-                                         forward_bias=0.2,
-                                         head_position=0,
-                                         omit_all_time_signatures=False,
-                                         force_identical_time_signatures=False,
-                                         )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=3,
+                                      step_size=1,
+                                      max_steps=2,
+                                      repetition_chance=0.25,
+                                      forward_bias=0.2,
+                                      head_position=0,
+                                      omit_all_time_signatures=False,
+                                      force_identical_time_signatures=False,
+                                      )
     assert looper.window_size == 3
     assert looper.step_size == 1
     assert looper.max_steps == 2
@@ -86,9 +86,9 @@ def test_LoopWindowByElements_02():
     assert looper.force_identical_time_signatures
 
 
-def test_LoopWindowByElements_03():
+def test_LoopByLogicalTies_03():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=3)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=3)
     assert looper.head_position == 0
     looper()
     assert looper.head_position == 0
@@ -98,15 +98,15 @@ def test_LoopWindowByElements_03():
     assert looper.head_position == 2
 
 
-def test_LoopWindowByElements_04():
+def test_LoopByLogicalTies_04():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=3)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=3)
     assert len(looper) == 5
 
 
-def test_LoopWindowByElements_05():
+def test_LoopByLogicalTies_05():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=2)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -126,9 +126,9 @@ def test_LoopWindowByElements_05():
         ''')
 
 
-def test_LoopWindowByElements_06():
+def test_LoopByLogicalTies_06():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=3)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=3)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -159,12 +159,12 @@ def test_LoopWindowByElements_06():
         ''')
 
 
-def test_LoopWindowByElements_07():
+def test_LoopByLogicalTies_07():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=3,
-                                         head_position=2,
-                                         )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=3,
+                                      head_position=2,
+                                      )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -181,9 +181,9 @@ def test_LoopWindowByElements_07():
         ''')
 
 
-def test_LoopWindowByElements_08():
+def test_LoopByLogicalTies_08():
     input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=2)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -219,9 +219,9 @@ def test_LoopWindowByElements_08():
         ''')
 
 
-def test_LoopWindowByElements_09():
+def test_LoopByLogicalTies_09():
     input_music = abjad.Container(r"c'4 d'2 e'4")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=2)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -257,12 +257,12 @@ def test_LoopWindowByElements_09():
         assert looper.__next__()
 
 
-def test_LoopWindowByElements_10():
+def test_LoopByLogicalTies_10():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=3,
-                                         omit_all_time_signatures=True,
-                                         )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=3,
+                                      omit_all_time_signatures=True,
+                                      )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -276,69 +276,69 @@ def test_LoopWindowByElements_10():
         ''')
 
 
-def test_LoopWindowByElements_11():
+def test_LoopByLogicalTies_11():
     wrong_type_input = 'foo'
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     with pytest.raises(TypeError):
-        assert auxjad.LoopWindowByElements(wrong_type_input, window_size=3)
-        assert auxjad.LoopWindowByElements(input_music, window_size='foobar')
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(wrong_type_input, window_size=3)
+        assert auxjad.LoopByLogicalTies(input_music, window_size='foobar')
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            step_size='foobar',
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            max_steps='foobar',
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            repetition_chance='foobar',
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            head_position='foobar',
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            omit_all_time_signatures='foobar',
                                            )
     with pytest.raises(ValueError):
-        assert auxjad.LoopWindowByElements(input_music, window_size=100)
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music, window_size=100)
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            step_size=-1,
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            step_size=100,
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            max_steps=-1,
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            repetition_chance=-0.3,
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            repetition_chance=1.4,
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            head_position=-1,
                                            )
-        assert auxjad.LoopWindowByElements(input_music,
+        assert auxjad.LoopByLogicalTies(input_music,
                                            window_size=3,
                                            head_position=100,
                                            )
 
 
-def test_LoopWindowByElements_12():
+def test_LoopByLogicalTies_12():
     input_music = abjad.Container(r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=4,
-                                         )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=4,
+                                      )
     music = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
@@ -385,9 +385,9 @@ def test_LoopWindowByElements_12():
         ''')
 
 
-def test_LoopWindowByElements_13():
+def test_LoopByLogicalTies_13():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=2)
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -403,9 +403,9 @@ def test_LoopWindowByElements_13():
         ''')
 
 
-def test_LoopWindowByElements_14():
+def test_LoopByLogicalTies_14():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=2)
     notes = looper.output_n(2, tie_identical_pitches=True)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -422,19 +422,19 @@ def test_LoopWindowByElements_14():
         ''')
 
 
-def test_LoopWindowByElements_15():
+def test_LoopByLogicalTies_15():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music, window_size=2)
+    looper = auxjad.LoopByLogicalTies(input_music, window_size=2)
     with pytest.raises(RuntimeError):
         looper.output_n(100)
 
 
-def test_LoopWindowByElements_16():
+def test_LoopByLogicalTies_16():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=2,
-                                         head_position=2,
-                                         forward_bias=0.0
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=2,
+                                      head_position=2,
+                                      forward_bias=0.0
                                          )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
@@ -453,13 +453,13 @@ def test_LoopWindowByElements_16():
         ''')
 
 
-def test_LoopWindowByElements_16():
+def test_LoopByLogicalTies_16():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                     window_size=2,
-                                     head_position=0,
-                                     forward_bias=0.0
-                                     )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=2,
+                                      head_position=0,
+                                      forward_bias=0.0
+                                         )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -473,12 +473,12 @@ def test_LoopWindowByElements_16():
     ''')
 
 
-def test_LoopWindowByElements_17():
+def test_LoopByLogicalTies_17():
     input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=2,
-                                         force_identical_time_signatures=True,
-                                         )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=2,
+                                      force_identical_time_signatures=True,
+                                      )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -500,12 +500,12 @@ def test_LoopWindowByElements_17():
         ''')
 
 
-def test_LoopWindowByElements_18():
+def test_LoopByLogicalTies_18():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopWindowByElements(input_music,
-                                         window_size=3,
-                                         move_window_on_first_call=True,
-                                         )
+    looper = auxjad.LoopByLogicalTies(input_music,
+                                      window_size=3,
+                                      move_window_on_first_call=True,
+                                      )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(

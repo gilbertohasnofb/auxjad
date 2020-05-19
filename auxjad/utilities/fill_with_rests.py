@@ -1,5 +1,5 @@
 import abjad
-from .is_container_full import is_container_full
+from .container_is_full import container_is_full
 from .underfull_duration import underfull_duration
 
 
@@ -178,7 +178,7 @@ def fill_with_rests(container: abjad.Container):
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")
-    if not is_container_full(container):
+    if not container_is_full(container):
         underfull_rests = abjad.LeafMaker()(None,
                                             underfull_duration(container),
                                             )

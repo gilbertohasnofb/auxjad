@@ -14,28 +14,30 @@ documentaion of each class and function.
 .. autosummary::
    :toctree: members
 
-   auxjad.are_containers_equal
-   auxjad.are_leaves_tieable
    auxjad.ArtificialHarmonic
-   auxjad.CartographyContainer
+   auxjad.CartographySelector
    auxjad.close_container
+   auxjad.container_is_full
+   auxjad.containers_are_equal
    auxjad.fill_with_rests
    auxjad.HarmonicNote
-   auxjad.is_container_full
    auxjad.LeafDynMaker
-   auxjad.LeafShuffler
-   auxjad.LoopWindow
-   auxjad.LoopWindowByElements
-   auxjad.LoopWindowByList
+   auxjad.leaves_are_tieable
+   auxjad.LoopByList
+   auxjad.LoopByLogicalTies
+   auxjad.LoopByWindow
    auxjad.remove_repeated_dynamics
    auxjad.remove_repeated_time_signatures
    auxjad.respell_container
    auxjad.respell_chord
    auxjad.rests_to_multimeasure_rest
+   auxjad.Shuffler
    auxjad.simplified_time_signature_ratio
    auxjad.sync_containers
-   auxjad.TenneysContainer
+   auxjad.TenneySelector
    auxjad.underfull_duration
+
+
 
 Indices and tables
 ==================

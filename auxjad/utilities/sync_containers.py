@@ -1,6 +1,6 @@
 import abjad
 from .close_container import close_container
-from .is_container_full import is_container_full
+from .container_is_full import container_is_full
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 from .underfull_duration import underfull_duration
 
@@ -409,7 +409,7 @@ def sync_containers(*containers: abjad.Container,
             raise TypeError("all 'containers' must be 'abjad.Container' or "
                             "child class")
         try:
-            is_container_full(container)
+            container_is_full(container)
         except ValueError as err:
             raise ValueError("at least one 'container' is malformed, with an "
                              "underfull bar preceeding a time signature "
@@ -421,7 +421,7 @@ def sync_containers(*containers: abjad.Container,
         duration_difference = max_duration - duration
         if duration_difference > abjad.Duration(0):
             # handling duration left in the last bar, if any
-            if not is_container_full(container):
+            if not container_is_full(container):
                 duration_left = underfull_duration(container)
                 underfull_rests_duration = min(duration_difference,
                                                duration_left,
@@ -462,5 +462,5 @@ def sync_containers(*containers: abjad.Container,
             container.extend(rests)
         else:
             # closing longest container if necessary
-            if adjust_last_time_signature and not is_container_full(container):
+            if adjust_last_time_signature and not container_is_full(container):
                 close_container(container)

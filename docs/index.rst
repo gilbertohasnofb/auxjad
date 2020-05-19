@@ -10,7 +10,7 @@ Welcome to auxjad's documentation!
 `PyPI`_ |
 `Documentation <https://gilbertohasnofb.github.io/auxjad-docs/>`_ |
 `Issue Tracker <https://github.com/gilbertohasnofb/auxjad/issues>`_ |
-`Travis-CI <https://travis-ci.org/gilbertohasnofb/auxjad>`_ 
+`Travis-CI <https://travis-ci.org/gilbertohasnofb/auxjad>`_
 
 ..  _GitHub: https://github.com/gilbertohasnofb/auxjad
 ..  _PyPI: https://pypi.python.org/pypi/auxjad
@@ -59,7 +59,7 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
 
     self
     examples-main
-    contents
+    api
 
 
 

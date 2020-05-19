@@ -9,7 +9,7 @@ from ..utilities.simplified_time_signature_ratio import (
 )
 
 
-class LeafShuffler:
+class Shuffler:
     r"""Takes an input ``abjad.Container`` and shuffles its leaves. It can
     shuffle both leaves as well as pitches; it also can roate pitches. When
     shuffling or rotating pitches only, tuplets are allowed. Tuplets are not
@@ -20,7 +20,7 @@ class LeafShuffler:
         Calling the object will output a shuffled container.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -33,7 +33,7 @@ class LeafShuffler:
             e'4
         }
 
-        .. figure:: ../_images/image-LeafShuffler-1.png
+        .. figure:: ../_images/image-Shuffler-1.png
 
         To get the result of the last operation, use the property
         ``current_container``.
@@ -50,7 +50,7 @@ class LeafShuffler:
             e'4
         }
 
-        .. figure:: ../_images/image-LeafShuffler-2.png
+        .. figure:: ../_images/image-Shuffler-2.png
 
     ..  container:: example
 
@@ -58,7 +58,7 @@ class LeafShuffler:
         ``shuffle_leaves()``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.shuffle_leaves()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -71,7 +71,7 @@ class LeafShuffler:
             d'4
         }
 
-        .. figure:: ../_images/image-LeafShuffler-3.png
+        .. figure:: ../_images/image-Shuffler-3.png
 
     ..  container:: example
 
@@ -82,12 +82,12 @@ class LeafShuffler:
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 |"
         ...                             r"\time 2/4 f'4 g'4 |"
         ...                             )
-        >>> shuffler = auxjad.LeafShuffler(container,
-        ...                                output_single_measure=False,
-        ...                                disable_rewrite_meter=False,
-        ...                                force_time_signatures=False,
-        ...                                omit_time_signatures=False,
-        ...                                )
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            output_single_measure=False,
+        ...                            disable_rewrite_meter=False,
+        ...                            force_time_signatures=False,
+        ...                            omit_time_signatures=False,
+        ...                            )
         >>> shuffler.output_single_measure
         False
         >>> shuffler.disable_rewrite_meter
@@ -119,9 +119,9 @@ class LeafShuffler:
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 |"
         ...                             r"\time 2/4 f'4 g'4"
         ...                             )
-        >>> shuffler = auxjad.LeafShuffler(container,
-        ...                                output_single_measure=True,
-        ...                                )
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            output_single_measure=True,
+        ...                            )
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -135,7 +135,7 @@ class LeafShuffler:
             c'4
         }
 
-        .. figure:: ../_images/image-LeafShuffler-4.png
+        .. figure:: ../_images/image-Shuffler-4.png
 
     ..  container:: example
 
@@ -145,10 +145,10 @@ class LeafShuffler:
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 |"
         ...                             r"\time 2/4 f'2"
         ...                             )
-        >>> shuffler = auxjad.LeafShuffler(container,
-        ...                                output_single_measure=True,
-        ...                                disable_rewrite_meter=True,
-        ...                                )
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            output_single_measure=True,
+        ...                            disable_rewrite_meter=True,
+        ...                            )
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -161,7 +161,7 @@ class LeafShuffler:
             e'4
         }
 
-        .. figure:: ../_images/image-LeafShuffler-5.png
+        .. figure:: ../_images/image-Shuffler-5.png
 
     ..  container:: example
 
@@ -171,7 +171,7 @@ class LeafShuffler:
         container.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -190,7 +190,7 @@ class LeafShuffler:
             c'16
         }
 
-        .. figure:: ../_images/image-LeafShuffler-6.png
+        .. figure:: ../_images/image-Shuffler-6.png
 
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
@@ -209,15 +209,15 @@ class LeafShuffler:
             d'4..
         }
 
-        .. figure:: ../_images/image-LeafShuffler-7.png
+        .. figure:: ../_images/image-Shuffler-7.png
 
         It is possible to force time signatures on every call using either
         optional keyword argument ``force_time_signatures``.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
-        >>> shuffler = auxjad.LeafShuffler(container,
-        ...                                force_time_signatures=True,
-        ...                                )
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            force_time_signatures=True,
+        ...                            )
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -232,7 +232,7 @@ class LeafShuffler:
             e'4
         }
 
-        .. figure:: ../_images/image-LeafShuffler-8.png
+        .. figure:: ../_images/image-Shuffler-8.png
 
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
@@ -252,7 +252,7 @@ class LeafShuffler:
             d'4..
         }
 
-        .. figure:: ../_images/image-LeafShuffler-9.png
+        .. figure:: ../_images/image-Shuffler-9.png
 
     ..  container:: example
 
@@ -262,9 +262,9 @@ class LeafShuffler:
         initialisation.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
-        >>> shuffler = auxjad.LeafShuffler(container,
-        ...                                omit_time_signatures=True,
-        ...                                )
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            omit_time_signatures=True,
+        ...                            )
         >>> music = shuffler()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -282,7 +282,7 @@ class LeafShuffler:
             c'16
         }
 
-        .. figure:: ../_images/image-LeafShuffler-10.png
+        .. figure:: ../_images/image-Shuffler-10.png
 
         >>> shuffler.omit_time_signatures
         True
@@ -296,7 +296,7 @@ class LeafShuffler:
         method, inputting the desired number of iterations.
 
         >>> container = abjad.Container(r"\time 2/4 c'16 d'4.. | r4 e'8. f'16")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.output_n(3)
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -325,7 +325,7 @@ class LeafShuffler:
             e'8.
         }
 
-        .. figure:: ../_images/image-LeafShuffler-11.png
+        .. figure:: ../_images/image-Shuffler-11.png
 
     ..  container:: example
 
@@ -334,7 +334,7 @@ class LeafShuffler:
         chords. Rests will remain at their current location.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. | r4 e'8. f'16")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.shuffle_pitches()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -348,7 +348,7 @@ class LeafShuffler:
             f'16
         }
 
-        .. figure:: ../_images/image-LeafShuffler-12.png
+        .. figure:: ../_images/image-Shuffler-12.png
 
     ..  container:: example
 
@@ -359,7 +359,7 @@ class LeafShuffler:
         >>> container = abjad.Container(r"\times 2/3 {\time 5/4 c'4 d'2}"
         ...                             r"r4 e'4. f'8"
         ...                             )
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.output_n_shuffled_pitches(3)
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -389,14 +389,14 @@ class LeafShuffler:
             e'8
         }
 
-        .. figure:: ../_images/image-LeafShuffler-13.png
+        .. figure:: ../_images/image-Shuffler-13.png
 
     ..  container:: example
 
         To rotate pitches, use the ``rotate_pitches()`` method.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. | r4 e'8. f'16")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.rotate_pitches()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -410,7 +410,7 @@ class LeafShuffler:
             c'16
         }
 
-        .. figure:: ../_images/image-LeafShuffler-14.png
+        .. figure:: ../_images/image-Shuffler-14.png
 
     ..  container:: example
 
@@ -420,7 +420,7 @@ class LeafShuffler:
         the number of rotations applied.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. | r4 e'8. f'16")
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -434,7 +434,7 @@ class LeafShuffler:
             d'16
         }
 
-        .. figure:: ../_images/image-LeafShuffler-15.png
+        .. figure:: ../_images/image-Shuffler-15.png
 
     ..  container:: example
 
@@ -444,7 +444,7 @@ class LeafShuffler:
         >>> container = abjad.Container(r"\times 2/3 {\time 5/4 c'4 d'2}"
         ...                             r"r4 e'4. f'8"
         ...                             )
-        >>> shuffler = auxjad.LeafShuffler(container)
+        >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.output_n_rotated_pitches(3)
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -474,7 +474,7 @@ class LeafShuffler:
             e'8
         }
 
-        .. figure:: ../_images/image-LeafShuffler-16.png
+        .. figure:: ../_images/image-Shuffler-16.png
     """
 
     def __init__(self,

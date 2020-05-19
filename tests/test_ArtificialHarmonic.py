@@ -143,7 +143,7 @@ def test_ArtificialHarmonic_10():
 
 def test_ArtificialHarmonic_11():
     note = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
-    assert format(note.sounding_note()) ==  abjad.String.normalize(
+    assert format(note.sounding_note()) == abjad.String.normalize(
     r'''
     g''4
     \pp

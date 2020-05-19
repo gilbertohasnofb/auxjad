@@ -98,13 +98,13 @@ using either ``auxjad.respell_chord`` or ``auxjad.respell_container``.
 
 .. figure:: ./_images/image-example-1-2.png
 
-Let's now use this material as input for ``auxjad.LoopWindowByElements``. This
+Let's now use this material as input for ``auxjad.LoopByLogicalTies``. This
 is one of the many loopers included in ``auxjad``. It works by selecting groups
 of _n_ elements (given by the argument ``window_size``). With ``window_size``
 set to 4, this looper will first output the first four elements, then output
 elements 2 through 5, then 3 through 6, and so on.
 
-    >>> looper = auxjad.LoopWindowByElements(container, window_size=4)
+    >>> looper = auxjad.LoopByLogicalTies(container, window_size=4)
     >>> staff = abjad.Staff()
     >>> for _ in range(3):
     ...     music = looper()
@@ -168,11 +168,11 @@ elements 2 through 5, then 3 through 6, and so on.
 .. figure:: ./_images/image-example-1-3.png
 
 Let's now grab the last window output by the looper object above and use it as
-input for ``auxjad.LeafShuffler``. This will randomly shuffles the leaves of
+input for ``auxjad.Shuffler``. This will randomly shuffles the leaves of
 the input container.
 
     >>> container = abjad.Container(looper.current_window)
-    >>> shuffler = auxjad.LeafShuffler(container, omit_time_signatures=True)
+    >>> shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
     >>> for _ in range(3):
     ...     music = shuffler()
     ...     staff.append(music)

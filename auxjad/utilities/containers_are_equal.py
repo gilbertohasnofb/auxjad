@@ -1,7 +1,7 @@
 import abjad
 
 
-def are_containers_equal(container1: abjad.Container,
+def containers_are_equal(container1: abjad.Container,
                          container2: abjad.Container,
                          *,
                          include_indicators: bool = False,
@@ -16,7 +16,7 @@ def are_containers_equal(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         True
 
     ..  container:: example
@@ -29,7 +29,7 @@ def are_containers_equal(container1: abjad.Container,
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         False
 
     ..  container:: example
@@ -39,7 +39,7 @@ def are_containers_equal(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         True
 
     ..  container:: example
@@ -51,7 +51,7 @@ def are_containers_equal(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1,
+        >>> auxjad.containers_are_equal(container1,
         ...                             container2,
         ...                             include_indicators=True,
         ...                             )
@@ -63,27 +63,27 @@ def are_containers_equal(container1: abjad.Container,
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Staff(r"c'4 \grace{d'4} d'4 e'4 f'4")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         False
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.are_containers_equal(container1, container2)
+        >>> auxjad.containers_are_equal(container1, container2)
         True
     """
     if not isinstance(container1, abjad.Container):
@@ -115,7 +115,7 @@ def are_containers_equal(container1: abjad.Container,
         if type(abjad.inspect(leaf1).before_grace_container()) is not \
                 type(abjad.inspect(leaf2).before_grace_container()):
             return False
-        if include_indicators and abjad.inspect(leaf1).indicators() is not \
+        if include_indicators and abjad.inspect(leaf1).indicators() != \
                 abjad.inspect(leaf2).indicators():
             return False
     return True

@@ -1,8 +1,8 @@
 import random
 
 
-class TenneysContainer():
-    r"""TenneysContainer in an implementation of the Dissonant Counterpoint
+class TenneySelector():
+    r"""TenneySelector in an implementation of the Dissonant Counterpoint
     Algorithm by James Tenney. This class can be used to randomly select
     elements from an input list, giving more weight to elements which have not
     been selected in recent iterations. In other words, Tenney's algorithm
@@ -15,17 +15,17 @@ class TenneysContainer():
 
     ..  container:: example
 
-        The container should be initialised with a list of objects. The
-        contents of the list can be absolutely anything.
+        The selector should be initialised with a list of objects. The contents
+        of the list can be absolutely anything.
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
-        >>> container.contents
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
 
-        Applying the ``len()`` function to the container will give the length
-        of the container.
+        Applying the ``len()`` function to the selector will give the length
+        of the input list.
 
-        >>> len(container)
+        >>> len(selector)
         6
 
         When no other keyword arguments are used, the default probabilities of
@@ -33,22 +33,34 @@ class TenneysContainer():
         the previous_index attribute to check the previously selected index
         (default is None).
 
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.previous_index
+        >>> selector.previous_index
         None
 
-        Calling the container will output one of its elements, selected
-        according to the current probability values. After each call, the
-        object updates all probability values, setting the previously selected
-        element's probability at 0.0 and raising all other probabilities
-        according to a growth function (more on this below).
+        Calling the selector will output one of its elements, selected
+        according to the current probability values.
+
+        >>> selector()
+        C
+
+        Alternatively, use the ``next()`` function or ``__next__()`` method to
+        get the next result.
+
+        >>> selector.__next__()
+        A
+        >>> next(selector)
+        D
+
+        After each call, the object updates all probability values, setting the
+        previously selected element's probability at 0.0 and raising all other
+        probabilities according to a growth function (more on this below).
 
         >>> result = ''
         >>> for _ in range(30):
-        ...     result += container()
+        ...     result += selector()
         >>> result
-        'EDFACEABAFDCEDAFADCBFEDABEDFEC'
+        EDFACEABAFDCEDAFADCBFEDABEDFEC
 
         From the result above it is possible to see that there are no immediate
         repetitions of elements (since once selected, their probability is
@@ -56,9 +68,9 @@ class TenneysContainer():
         non-zero value). Checking the probabilities and previous_index
         attributes will give us their current values.
 
-        >>> container.probabilities
+        >>> selector.probabilities
         [6.0, 5.0, 0.0, 3.0, 1.0, 2.0]
-        >>> container.previous_index
+        >>> selector.previous_index
         2
 
     ..  container:: example
@@ -87,42 +99,42 @@ class TenneysContainer():
 
         With linear curvature (default value of 1.0):
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
-        >>> container.curvature
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector.curvature
         1.0
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container()
+        >>> selector()
         'B'
-        >>> container.curvature
+        >>> selector.curvature
         1.0
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [2.0, 0.0, 2.0, 2.0, 2.0, 2.0]
 
     ..  container:: example
 
         Using a convex curvature:
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'],
-        ...                                     curvature=0.2,
-        ...                                     )
-        >>> container.curvature
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
+        ...                                  curvature=0.2,
+        ...                                  )
+        >>> selector.curvature
         0.2
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container()
+        >>> selector()
         'C'
-        >>> container.curvature
+        >>> selector.curvature
         0.2
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.148698354997035, 1.148698354997035, 0.0, 1.148698354997035,
         1.148698354997035, 1.148698354997035]
 
@@ -137,13 +149,13 @@ class TenneysContainer():
 
         >>> result = ''
         >>> for _ in range(30):
-        ...     result += container()
+        ...     result += selector()
         >>> result
-        'DACBEDFACABDACECBEFAEDBAFBABFD'
+        DACBEDFACABDACECBEFAEDBAFBABFD
 
         Checking the probability values at this point outputs:
 
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.2457309396155174, 1.148698354997035, 1.6952182030724354, 0.0,
         1.5518455739153598, 1.0]
 
@@ -155,22 +167,22 @@ class TenneysContainer():
 
         Using a concave curvature:
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'],
-        ...                                     curvature=15.2,
-        ...                                     )
-        >>> container.curvature
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
+        ...                                  curvature=15.2,
+        ...                                  )
+        >>> selector.curvature
         0.2
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container()
+        >>> selector()
         'C'
-        >>> container.curvature
+        >>> selector.curvature
         0.2
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [37640.547696542824, 37640.547696542824, 37640.547696542824, 0.0,
         37640.547696542824, 37640.547696542824]
 
@@ -185,13 +197,13 @@ class TenneysContainer():
 
         >>> result = ''
         >>> for _ in range(30):
-        ...     result += container()
+        ...     result += selector()
         >>> result
-        'DFAECBDFAECBDFAECBDFAECBDFAECB'
+        DFAECBDFAECBDFAECBDFAECBDFAECB
 
         Checking the probability values at this point outputs:
 
-        >>> container.probabilities
+        >>> selector.probabilities
         [17874877.39956566, 0.0, 1.0, 42106007735.02238,
         37640.547696542824, 1416810830.8957152]
 
@@ -205,22 +217,22 @@ class TenneysContainer():
         affect the probability calculation. The example below uses the default
         linear curvature.
 
-        >>> container = auxjad.TenneysContainer(
+        >>> selector = auxjad.TenneySelector(
         ...     ['A', 'B', 'C', 'D', 'E', 'F'],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
         >>> )
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
         >>> result = ''
         >>> for _ in range(30):
-        ...     result += container()
+        ...     result += selector()
         >>> result
-        'FBEFECFDEADFEDFEDBFECDAFCEDCFE'
-        >>> container.weights
+        FBEFECFDEADFEDFEDBFECDAFCEDCFE
+        >>> selector.weights
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [7.0, 12.0, 10.0, 15.0, 0.0, 20.0]
 
     ..  container:: example
@@ -228,69 +240,69 @@ class TenneysContainer():
         To reset the probability to its initial value, use the method
         ``reset_probabilities()``.
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
-        ...     container()
-        >>> container.probabilities
+        ...     selector()
+        >>> selector.probabilities
         [4.0, 3.0, 1.0, 0.0, 5.0, 2.0]
-        >>> container.reset_probabilities()
-        >>> container.probabilities
+        >>> selector.reset_probabilities()
+        >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
     ..  container:: example
 
-        This class allows slicing to get and set values in the container. This
-        will not affect the current probability vector, and the new element
-        will have the same probability as the one it replaced.
+        This class allows slicing to get and set values of contents of the
+        selector. This will not affect the current probability vector, and the
+        new element will have the same probability as the one it replaced.
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
-        ...     container()
-        >>> container.probabilities
+        ...     selector()
+        >>> selector.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
-        >>> container[2]
+        >>> selector[2]
         'C'
-        >>> container[1:4]
+        >>> selector[1:4]
         ['B', 'C', 'D']
-        >>> container[2] = 'foo'
-        >>> container.contents
+        >>> selector[2] = 'foo'
+        >>> selector.contents
         ['A', 'B', 'foo', 'D', 'E', 'F']
-        >>> container[:] = ['foo', 'bar', 'X', 'Y', 'Z', '...']
-        >>> container.contents
+        >>> selector[:] = ['foo', 'bar', 'X', 'Y', 'Z', '...']
+        >>> selector.contents
         ['foo', 'bar', 'X', 'Y', 'Z', '...']
-        >>> container.probabilities
+        >>> selector.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
 
-        You cna also check if the object contains a specific element. In the
-        case of the container above, we have:
+        You can also check if the instance contains a specific element. In the
+        case of the selector above, we have:
 
-        >>> 'foo' in container
+        >>> 'foo' in selector
         True
-        >>> 'A' in container
+        >>> 'A' in selector
         False
 
     ..  container:: example
 
-        A new container of an arbitrary length can be set at any point using
-        the property ``contents``. Do notice that the probabilities will be
-        reset at that point. This method can take the optional keyword argument
+        A new list of an arbitrary length can be set at any point using the
+        property ``contents``. Do notice that the probabilities will be reset
+        at that point. This method can take the optional keyword argument
         weights similarly to when instantiating the class.
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
-        ...     container()
-        >>> container.probabilities
+        ...     selector()
+        >>> selector.probabilities
         [2.0, 1.0, 4.0, 3.0, 0.0, 5.0]
-        >>> container.contents
+        >>> selector.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> container.contents = [2, 4, 6, 8]
-        >>> container.contents
+        >>> selector.contents = [2, 4, 6, 8]
+        >>> selector.contents
         [2, 4, 6, 8]
-        >>> len(container)
+        >>> len(selector)
         4
-        >>> container.weights
+        >>> selector.weights
         [1.0, 1.0, 1.0, 1.0]
-        >>> container.probabilities
+        >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0]
 
     ..  container:: example
@@ -298,11 +310,11 @@ class TenneysContainer():
         To change the curvature value at any point, simply set the property
         ``curvature`` to a different value.
 
-        >>> container = auxjad.TenneysContainer(['A', 'B', 'C', 'D', 'E', 'F'])
-        >>> container.curvature
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector.curvature
         1.0
-        >>> container.curvature = 0.25
-        >>> container.curvature
+        >>> selector.curvature = 0.25
+        >>> selector.curvature
         0.25
     """
 
@@ -350,6 +362,9 @@ class TenneysContainer():
         self._regenerate_counts()
         self._generate_probabilities()
         return self._contents[self.previous_index]
+
+    def __next__(self):
+        return self.__call__()
 
     def __len__(self) -> int:
         return len(self._contents)

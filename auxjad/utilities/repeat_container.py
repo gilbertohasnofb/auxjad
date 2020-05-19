@@ -1,7 +1,7 @@
 import copy
 import abjad
 from .close_container import close_container
-from .is_container_full import is_container_full
+from .container_is_full import container_is_full
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
 
 
@@ -217,7 +217,7 @@ def repeat_container(container: abjad.Container,
     if not isinstance(container, abjad.Container):
         raise TypeError("'container' must be 'abjad.Container' or child class")
     container_ = copy.deepcopy(container)
-    if not is_container_full(container_):
+    if not container_is_full(container_):
         close_container(container_)
     output_container = type(container_)()
     for _ in range(n):

@@ -52,14 +52,14 @@ def test_complex_music_example_02():
         }
         ''')
     # Using a looping window by elements 3 times
-    looper = auxjad.LoopWindowByElements(container, window_size=4)
+    looper = auxjad.LoopByLogicalTies(container, window_size=4)
     staff = abjad.Staff()
     for _ in range(3):
         music = looper()
         staff.append(music)
     # shuffling the last output container by the looping window 3 times
     container = abjad.Container(looper.current_window)
-    shuffler = auxjad.LeafShuffler(container, omit_time_signatures=True)
+    shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
     for _ in range(3):
         music = shuffler()
         staff.append(music)
@@ -208,16 +208,16 @@ def test_complex_music_example_02():
 
 def test_complex_music_example_02():
     random.seed(1242)
-    # containers of raw materials
-    pitch_container = auxjad.TenneysContainer([0, 7, 8, 2, 3, 10])
-    duration_container = auxjad.CartographyContainer([(2, 8), (3, 8), (5, 8)])
-    dynamic_container = auxjad.CartographyContainer(['p', 'mp', 'mf', 'f'])
-    articulation_container = auxjad.CartographyContainer([None, '-', '>'])
+    # selectors of raw materials
+    pitch_selector = auxjad.TenneySelector([0, 7, 8, 2, 3, 10])
+    duration_selector = auxjad.CartographySelector([(2, 8), (3, 8), (5, 8)])
+    dynamic_selector = auxjad.CartographySelector(['p', 'mp', 'mf', 'f'])
+    articulation_selector = auxjad.CartographySelector([None, '-', '>'])
     # creating notes
-    pitches = [pitch_container() for _ in range(8)]
-    durations = [duration_container() for _ in range(8)]
-    dynamics = [dynamic_container() for _ in range(8)]
-    articulations = [articulation_container() for _ in range(8)]
+    pitches = [pitch_selector() for _ in range(8)]
+    durations = [duration_selector() for _ in range(8)]
+    dynamics = [dynamic_selector() for _ in range(8)]
+    articulations = [articulation_selector() for _ in range(8)]
     leaf_dyn_maker = auxjad.LeafDynMaker()
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     container = abjad.Staff(notes)
@@ -257,21 +257,21 @@ def test_complex_music_example_02():
         }
         ''')
     # Using a looping window 3 times with the container created above as input
-    looper = auxjad.LoopWindow(container)
+    looper = auxjad.LoopByWindow(container)
     staff = abjad.Staff()
     for _ in range(3):
         music = looper()
         staff.append(music)
     # shuffling the last output container by the looping window 3 times
     container = abjad.Container(looper.current_window)
-    shuffler = auxjad.LeafShuffler(container, omit_time_signatures=True)
+    shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
     for _ in range(3):
         music = shuffler()
         staff.append(music)
     # continuing with the looping process 3 more times using the last shuffled
     # container
     container = abjad.Container(shuffler.current_container)
-    looper = auxjad.LoopWindow(container, window_size=(3, 4))
+    looper = auxjad.LoopByWindow(container, window_size=(3, 4))
     for _ in range(3):
         music = looper()
         staff.append(music)

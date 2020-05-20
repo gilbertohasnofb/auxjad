@@ -10,8 +10,8 @@ from ..utilities.simplified_time_signature_ratio import (
 
 
 class Shuffler:
-    r"""Takes an input ``abjad.Container`` and shuffles its leaves. It can
-    shuffle both leaves as well as pitches; it also can roate pitches. When
+    r"""Shuffler takes an input ``abjad.Container`` and shuffles its logical
+    ties. It can also shuffle only pitches, as well as rotate them. When
     shuffling or rotating pitches only, tuplets are allowed. Tuplets are not
     supported when shuffling leaves.
 

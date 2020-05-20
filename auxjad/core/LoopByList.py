@@ -2,15 +2,15 @@ from ._LoopParent import _LoopParent
 
 
 class LoopByList(_LoopParent):
-    r"""Similar to ``LoopByList``, but instead of taking an
-    ``abjad.Container`` input, it takes a list of arbitrary size. It then
-    outputs the list elements, whatever they may be. The list elements can be
-    ``abjad.Container``'s, but they can also be anything else, thus being more
-    general. Takes a list as input as well as an integer representing the
-    number of elements per looping window, then outputs individual elements
-    with according to the looping process. For instance, if the initial list
-    had the elements ``[A, B, C, D, E, F]`` and the looping window was size
-    three, the output would be:
+    r"""This class can be used to output slices of a ``list`` using the 
+    metaphor of a looping window of a variable size. This size is given by
+    the argument ``window_size``, which is an ``int`` representing how many
+    elements are to be included in each slice.
+
+    For instance, if the initial container had the logical ties
+    ``[A, B, C, D, E, F]`` (where each letter represents one elemnt of an
+    arbitrary  type) and the looping window was size ``3``, the output would
+    be:
 
     ``A B C B C D C D E D E F E F F``
 

@@ -4,7 +4,9 @@ from .underfull_duration import underfull_duration
 
 
 def fill_with_rests(container: abjad.Container):
-    r"""Fills an ``abjad.Container`` with rests in order to make it full.
+    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    in place and has no return value. This function fills a container with
+    rests in order to make it full.
 
     ..  container:: example
 

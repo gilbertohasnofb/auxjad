@@ -7,11 +7,10 @@ def respell_container(container: abjad.Container,
                       include_multiples: bool = False,
                       respell_by_pitch_class: bool = False,
                       ):
-    r"""Applies ``auxjad.respell_chord`` to all ``abjad.Chord`` of an
-    ``abjad.Container``. This will changes the accidentals of individual
-    pitches of an ``abjad.Chord`` in order to avoid augmented unisons. Keyword
-    arguments can be used to consider multiple octaves (i.e. augmented unisons,
-    octaves, fifteenths, etc.)
+    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    in place and has no return value. This function changes the accidentals of
+    individual pitches of all chords in a container in order to avoid augmented
+    unisons.
 
     ..  container:: example
 

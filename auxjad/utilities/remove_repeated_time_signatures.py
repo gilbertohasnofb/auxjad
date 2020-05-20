@@ -1,11 +1,10 @@
 import abjad
 
 
-def remove_repeated_time_signatures(container: abjad.Container
-                                    ) -> abjad.Container:
-    r"""A function which removes all unecessary time signatures. It removes
-    consecutive effective time signatures, even if separated by any number of
-    bars with no time signature.
+def remove_repeated_time_signatures(container: abjad.Container):
+    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    in place and has no return value. This function removes all consecutive
+    repeated time signatures.
 
     ..  container:: example
 
@@ -28,7 +27,7 @@ def remove_repeated_time_signatures(container: abjad.Container
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-1.png
 
-        >>> staff = auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -63,7 +62,7 @@ def remove_repeated_time_signatures(container: abjad.Container
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-3.png
 
-        >>> staff = auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -104,7 +103,7 @@ def remove_repeated_time_signatures(container: abjad.Container
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-5.png
 
-        >>> staff = auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -135,5 +134,3 @@ def remove_repeated_time_signatures(container: abjad.Container
             abjad.detach(abjad.TimeSignature, measure[0])
         if time_signature:
             previous_time_signature = time_signature
-
-    return container

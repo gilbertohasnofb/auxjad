@@ -2,7 +2,8 @@ import abjad
 
 
 class HarmonicNote(abjad.Note):
-    r"""Creates an ``abjad.Note`` with tweaked notehead for harmonics.
+    r"""Creates a note with tweaked notehead for harmonics. This is a child
+    class of ``abjad.Note``.
 
     ..  container:: example
 

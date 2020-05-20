@@ -18,7 +18,7 @@ def test_remove_repeated_time_signatures_01():
             d'8
         }
         ''')
-    staff = auxjad.remove_repeated_time_signatures(staff)
+    auxjad.remove_repeated_time_signatures(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff
@@ -49,7 +49,7 @@ def test_remove_repeated_time_signatures_02():
             d'8
         }
         ''')
-    staff = auxjad.remove_repeated_time_signatures(staff)
+    auxjad.remove_repeated_time_signatures(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff
@@ -86,7 +86,7 @@ def test_remove_repeated_time_signatures_03():
             }
         }
         ''')
-    staff = auxjad.remove_repeated_time_signatures(staff)
+    auxjad.remove_repeated_time_signatures(staff)
     assert format(staff) == abjad.String.normalize(
         r'''
         \new Staff

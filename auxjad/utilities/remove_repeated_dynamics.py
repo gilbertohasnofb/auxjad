@@ -6,16 +6,9 @@ def remove_repeated_dynamics(container: abjad.Container,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
                              ):
-    r"""A function which removes all consecutive repeated dynamics. It removes
-    consecutive effective dynamics, even if separated by any number of
-    notes without one. It resets its memory of what was the previous dynamic
-    every time it finds a hairpin, since notation such as ``"c'4\f\> c'4\f\>"``
-    is quite common; this behaviour can be toggled off using the
-    ``ignore_hairpins`` keyword argument. By default, it remembers the previous
-    dynamic even with notes separated by rests; this can be toggled off using
-    ``reset_after_rests=True``. To set a maximum length of silence after which
-    dynamics are restated, set ``reset_after_rests`` to a duration using
-    ``abjad.Duration()`` or any other duration format accepted by Abjad.
+    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    in place and has no return value. This function removes all consecutive
+    repeated dynamic markings.
 
     ..  container:: example
 

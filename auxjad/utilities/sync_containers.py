@@ -9,10 +9,11 @@ def sync_containers(*containers: abjad.Container,
                     use_multimeasure_rests: bool = True,
                     adjust_last_time_signature: bool = True,
                     ):
-    r"""Takes an arbitrary number of ``abjad.Container``'s (or child classes),
-    finds the longest one and adds rests to all the shorter ones, making them
-    the same length. By default, it rewrites the last time signature if
-    necessary, and uses multi-measure rests whenever possible.
+    r"""Mutates two or more input containers (of type ``abjad.Container`` or
+    child class) in place and has no return value. This function finds the
+    longest container among the inputs and adds rests to all the shorter ones,
+    making them the same length. By default, it rewrites the last time signature
+    if necessary, and uses multi-measure rests whenever possible.
 
     ..  container:: example
 

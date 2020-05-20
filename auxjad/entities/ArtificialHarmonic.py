@@ -2,8 +2,8 @@ import abjad
 
 
 class ArtificialHarmonic(abjad.Chord):
-    r"""Creates an ``abjad.Chord`` with a tweaked top note head for notating
-    artificial harmonics.
+    r"""Creates an chord with a tweaked top note head for notating artificial
+    harmonics. This is a child class of ``abjad.Chord``. 
 
     ..  container:: example
 

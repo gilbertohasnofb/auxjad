@@ -11,8 +11,8 @@ def repeat_container(container: abjad.Container,
                      omit_all_time_signatures: bool = False,
                      force_identical_time_signatures: bool = False,
                      ) -> abjad.Container:
-    r"""Returns an ``abjad.Container`` with n repetitions of an input
-    container.
+    r"""This Returns an ``abjad.Container`` with n repetitions of an input
+    container (of type ``abjad.Container`` or child class).
 
     ..  container:: example
 

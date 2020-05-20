@@ -2,8 +2,10 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""An extension of ``abjad.LeafMaker`` which can also take optional lists
-    of dynamics and articulations.
+    r"""This class can be used to create leaves and logical ties from input
+    lists of pitches, durations, dynamics, and articulations. It is an
+    extension of ``abjad.LeafMaker`` which can take optional lists of dynamics
+    and articulations.
 
     ..  container:: example
 

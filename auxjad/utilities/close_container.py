@@ -5,8 +5,9 @@ from .underfull_duration import underfull_duration
 
 
 def close_container(container: abjad.Container):
-    r"""Changes the time signature of the last bar of an underfull
-    ``abjad.Container`` in order to make it full, if necessary.
+    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    in place and has no return value. This function changes the time signature
+    of the last bar of an underfull in order to make it full.
 
     ..  container:: example
 

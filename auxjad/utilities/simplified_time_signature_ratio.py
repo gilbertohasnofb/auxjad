@@ -7,9 +7,14 @@ def simplified_time_signature_ratio(ratio: (tuple,
                                             ),
                                     *,
                                     min_denominator: int = 4,
-                                    ) -> tuple:
-    r"""A function simplifies the ratio of a given time signature respecting a
-    minimum denominator value. Input is a tuple of two integers.
+                                    ) -> (tuple,
+                                          abjad.Duration,
+                                          abjad.TimeSignature,
+                                          ):
+    r"""Returns the simplified ratio of an input object (which can be a
+    ``tuple`` of ``int``, an ``abjad.Duration``, or an ``abjad.TimeSignature``)
+    according to a minimum denominator value. The return value;s type will
+    match the type of the input.
 
     ..  container:: example
 

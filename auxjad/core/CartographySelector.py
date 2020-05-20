@@ -3,7 +3,14 @@ import random
 
 class CartographySelector():
     r"""A selector used to store, manipulate, and select objects using a
-    decaying weighted function.
+    weighted function constructed with a fixed decay rate. The decay rate
+    represents the ratio of probabilities of any index given the preceeding
+    one. For instance, if the decay rate is set to ``0.75`` (which is its
+    default value), the probability of the element in index 1 of the input list
+    being selected is 0.75 the probability of the element in index 0, and the
+    probability of the element in index 2 is 0.5625 (0.75^2) the probability of
+    the element in index 0. This is the selector used in my _Cartography_
+    series of compositions.
 
     ..  container:: example
 

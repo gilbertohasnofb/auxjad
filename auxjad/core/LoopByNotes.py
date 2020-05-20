@@ -7,11 +7,15 @@ from ..utilities.simplified_time_signature_ratio import (
 
 
 class LoopByNotes(_LoopParent):
-    r"""Takes an ``abjad.Container`` as input as well as an integer
-    representing the number of elements per looping window, then outputs a
-    container with the elements processed in the looping process. For instance,
-    if the initial container had the leaves ``[A, B, C, D, E, F]`` and the
-    looping window was size three, the output would be:
+    r"""This class can be used to output slices of an ``abjad.Container`` using
+    the metaphor of a looping window of a variable size. This size is given by
+    the argument ``window_size``, which is an ``int`` representing how many
+    notes are to be included in each slice. The duration of the slice will be
+    the sum of the duration of these notes.
+
+    For instance, if the initial container had the logical ties
+    ``[A, B, C, D, E, F]`` (where each letter represents one logical tie) and
+    the looping window was size ``3``, the output would be:
 
     ``A B C B C D C D E D E F E F F``
 

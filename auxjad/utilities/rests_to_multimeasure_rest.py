@@ -3,8 +3,9 @@ from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 def rests_to_multimeasure_rest(container: abjad.Container):
-    r"""Takes an ``abjad.Container`` and converts all rests into
-    ``abjad.MultimeasureRest``'s when possible.
+    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    in place and has no return value. This function looks for bars filled with
+    regular rests and converts them into an ``abjad.MultimeasureRest``.
 
     ..  container:: example
 

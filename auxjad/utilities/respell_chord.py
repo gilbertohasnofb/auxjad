@@ -6,9 +6,9 @@ def respell_chord(chord: abjad.Chord,
                   include_multiples: bool = False,
                   respell_by_pitch_class: bool = False,
                   ):
-    r"""Changes the accidentals of individual pitches of an ``abjad.Chord`` in
-    order to avoid augmented unisons. Keyword arguments can be used to consider
-    multiple octaves (i.e. augmented unisons, octaves, fifteenths, etc.)
+    r"""Mutates an input chord (of type ``abjad.Chord`` or child class) in
+    place and has no return value. This function changes the accidentals of
+    individual pitches of a chord in order to avoid augmented unisons.
 
     ..  container:: example
 

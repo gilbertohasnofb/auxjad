@@ -3,8 +3,9 @@ from .underfull_duration import underfull_duration
 
 
 def container_is_full(container: abjad.Container) -> bool:
-    r"""Checks if an ``abjad.Container`` is full. Based on
-    ``auxjad.underfull_duration``.
+    r"""Returns a ``bool`` representing whether an input container (of type
+    ``abjad.Container`` or child class) has its last bar is fully filled in or 
+    not.
 
     ..  container:: example
 

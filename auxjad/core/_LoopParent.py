@@ -5,8 +5,8 @@ from ..utilities.leaves_are_tieable import leaves_are_tieable
 
 
 class _LoopParent():
-    r"""This is the parent class of all LoopByWindow<...> classes. It implements
-    all common methods and attributes, and initialises those using its @setter
+    r"""This is the parent class of all LoopByXxxx classes. It implements all
+    common methods and attributes, and initialises those using its @setter
     methods.
     """
 

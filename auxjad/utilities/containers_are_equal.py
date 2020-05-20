@@ -6,8 +6,8 @@ def containers_are_equal(container1: abjad.Container,
                          *,
                          include_indicators: bool = False,
                          ) -> bool:
-    r"""A comparator function returning ``True`` when two containers are
-    identical and ``False`` when they are not.
+    r"""Returns a ``bool`` representing whether two input containers (of type 
+    ``abjad.Container`` or child class) are identical or not.
 
     ..  container:: example
 

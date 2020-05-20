@@ -52,7 +52,7 @@ def test_complex_music_example_02():
         }
         ''')
     # Using a looping window by elements 3 times
-    looper = auxjad.LoopByLogicalTies(container, window_size=4)
+    looper = auxjad.LoopByNotes(container, window_size=4)
     staff = abjad.Staff()
     for _ in range(3):
         music = looper()

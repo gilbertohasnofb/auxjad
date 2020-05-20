@@ -6,7 +6,7 @@ from ..utilities.simplified_time_signature_ratio import (
 )
 
 
-class LoopByLogicalTies(_LoopParent):
+class LoopByNotes(_LoopParent):
     r"""Takes an ``abjad.Container`` as input as well as an integer
     representing the number of elements per looping window, then outputs a
     container with the elements processed in the looping process. For instance,
@@ -34,9 +34,9 @@ class LoopByLogicalTies(_LoopParent):
         move the window forwards and output the result.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=3,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=3,
+        ...                             )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -48,7 +48,7 @@ class LoopByLogicalTies(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-1.png
+        .. figure:: ../_images/image-LoopByNotes-1.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -63,7 +63,7 @@ class LoopByLogicalTies(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-2.png
+        .. figure:: ../_images/image-LoopByNotes-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -81,7 +81,7 @@ class LoopByLogicalTies(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-3.png
+        .. figure:: ../_images/image-LoopByNotes-3.png
 
     ..  container:: example
 
@@ -91,7 +91,7 @@ class LoopByLogicalTies(_LoopParent):
         ``move_window_on_first_call`` set to ``True``.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByLogicalTies(
+        >>> looper = auxjad.LoopByNotes(
         ...     input_music,
         ...     window_size=3,
         ...     move_window_on_first_call=True,
@@ -109,17 +109,17 @@ class LoopByLogicalTies(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-4.png
+        .. figure:: ../_images/image-LoopByNotes-4.png
 
     ..  container:: example
 
-        The instances of ``LoopByLogicalTies`` can also be used as an
-        iterator, which can then be used in a for loop to exhaust all windows.
+        The instances of ``LoopByNotes`` can also be used as an iterator, which
+        can then be used in a for loop to exhaust all windows.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=2,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=2,
+        ...                             )
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
@@ -135,7 +135,7 @@ class LoopByLogicalTies(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-5.png
+        .. figure:: ../_images/image-LoopByNotes-5.png
 
         Notice how the second staff in the example above does not have a time
         signature. This is because consecutive identical time signatures are
@@ -163,17 +163,16 @@ class LoopByLogicalTies(_LoopParent):
         default value is 0.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByLogicalTies(
-        ...     input_music,
-        ...     window_size=3,
-        ...     step_size=1,
-        ...     max_steps=2,
-        ...     repetition_chance=0.25,
-        ...     forward_bias=0.2,
-        ...     head_position=0,
-        ...     omit_all_time_signatures=False,
-        ...     force_identical_time_signatures=False,
-        ... )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=3,
+        ...                             step_size=1,
+        ...                             max_steps=2,
+        ...                             repetition_chance=0.25,
+        ...                             forward_bias=0.2,
+        ...                             head_position=0,
+        ...                             omit_all_time_signatures=False,
+        ...                             force_identical_time_signatures=False,
+        ...                             )
         >>> looper.window_size
         3
         >>> looper.step_size
@@ -220,16 +219,16 @@ class LoopByLogicalTies(_LoopParent):
 
     ..  container:: example
 
-        To disable time signatures altogether, initialise
-        ``LoopByLogicalTies`` with the keyword argument
-        ``omit_all_time_signatures`` set to ``True`` (default is ``False``), or
-        use the ``omit_time_signature`` property after initialisation.
+        To disable time signatures altogether, initialise ``LoopByNotes`` with
+        the keyword argument ``omit_all_time_signatures`` set to ``True``
+        (default is ``False``), or use the ``omit_time_signature`` property
+        after initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=3,
-        ...                                   omit_all_time_signatures=True,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=3,
+        ...                             omit_all_time_signatures=True,
+        ...                             )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -240,7 +239,7 @@ class LoopByLogicalTies(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-6.png
+        .. figure:: ../_images/image-LoopByNotes-6.png
 
     ..  container:: example
 
@@ -248,9 +247,9 @@ class LoopByLogicalTies(_LoopParent):
         in the container.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=3,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=3,
+        ...                             )
         >>> len(looper)
         5
 
@@ -261,9 +260,9 @@ class LoopByLogicalTies(_LoopParent):
         last element, use the method ``output_all()``.
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=2,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=2,
+        ...                             )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
         >>> abjad.f(staff)
@@ -282,7 +281,7 @@ class LoopByLogicalTies(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-7.png
+        .. figure:: ../_images/image-LoopByNotes-7.png
 
     ..  container:: example
 
@@ -292,9 +291,9 @@ class LoopByLogicalTies(_LoopParent):
 
         >>> input_music = abjad.Container(r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. "
         ...                               "<e' g'>16")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=4,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=4,
+        ...                             )
         >>> music = looper.output_all(tie_identical_pitches=True)
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
@@ -338,7 +337,7 @@ class LoopByLogicalTies(_LoopParent):
             <e' g'>16
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-8.png
+        .. figure:: ../_images/image-LoopByNotes-8.png
 
     ..  container:: example
 
@@ -349,9 +348,9 @@ class LoopByLogicalTies(_LoopParent):
         available for tying pitches.
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=2,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=2,
+        ...                             )
         >>> window = looper.output_n(2)
         >>> staff = abjad.Staff(window)
         >>> abjad.f(staff)
@@ -365,7 +364,7 @@ class LoopByLogicalTies(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-9.png
+        .. figure:: ../_images/image-LoopByNotes-9.png
 
     .. container:: example
 
@@ -377,9 +376,9 @@ class LoopByLogicalTies(_LoopParent):
         thus outputting the second, third, fourth, and fifth leaves.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=3,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=3,
+        ...                             )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -391,7 +390,7 @@ class LoopByLogicalTies(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-10.png
+        .. figure:: ../_images/image-LoopByNotes-10.png
 
         >>> looper.window_size = 4
         >>> notes = looper()
@@ -408,7 +407,7 @@ class LoopByLogicalTies(_LoopParent):
             g'1
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-11.png
+        .. figure:: ../_images/image-LoopByNotes-11.png
 
     ..  container:: example
 
@@ -419,9 +418,9 @@ class LoopByLogicalTies(_LoopParent):
         will have the ratio printed above it.
 
         >>> input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
-        >>> looper = auxjad.LoopByLogicalTies(input_music,
-        ...                                   window_size=2,
-        ...                                   )
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=2,
+        ...                             )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
         >>> abjad.f(staff)
@@ -454,7 +453,7 @@ class LoopByLogicalTies(_LoopParent):
             }
         }
 
-        .. figure:: ../_images/image-LoopByLogicalTies-12.png
+        .. figure:: ../_images/image-LoopByNotes-12.png
     """
 
     def __init__(self,

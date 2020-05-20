@@ -504,8 +504,7 @@ class Shuffler:
         return len(self._current_container_logical_ties)
 
     def __call__(self) -> abjad.Selection:
-        self._shuffle_leaves()
-        return self.current_container
+        return self.shuffle_leaves()
 
     @property
     def current_container(self) -> abjad.Selection:
@@ -516,8 +515,125 @@ class Shuffler:
                         abjad.detach(indicator, leaf)
         return copy.deepcopy(self._current_container)
 
-    def shuffle_leaves(self):
-        return self.__call__()
+    @property
+    def output_single_measure(self) -> bool:
+        return self._output_single_measure
+
+    @output_single_measure.setter
+    def output_single_measure(self,
+                              output_single_measure: bool,
+                              ):
+        if not isinstance(output_single_measure, bool):
+            raise TypeError("'output_single_measure' must be 'bool'")
+        self._output_single_measure = output_single_measure
+
+    @property
+    def disable_rewrite_meter(self) -> bool:
+        return self._disable_rewrite_meter
+
+    @disable_rewrite_meter.setter
+    def disable_rewrite_meter(self,
+                              disable_rewrite_meter: bool,
+                              ):
+        if not isinstance(disable_rewrite_meter, bool):
+            raise TypeError("'disable_rewrite_meter' must be 'bool'")
+        self._disable_rewrite_meter = disable_rewrite_meter
+
+    @property
+    def force_time_signatures(self) -> bool:
+        return self._force_time_signatures
+
+    @force_time_signatures.setter
+    def force_time_signatures(self,
+                              force_time_signatures: bool,
+                              ):
+        if not isinstance(force_time_signatures, bool):
+            raise TypeError("'force_time_signatures' must be 'bool'")
+        self._force_time_signatures = force_time_signatures
+
+    @property
+    def omit_time_signatures(self) -> bool:
+        return self._omit_time_signatures
+
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                             omit_time_signatures: bool,
+                             ):
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self._omit_time_signatures = omit_time_signatures
+
+    def shuffle_leaves(self) -> abjad.Selection:
+        if self._force_time_signatures:
+            self._last_time_signature = None
+        dummy_container = abjad.Container()
+        indeces = list(range(self.__len__()))
+        random.shuffle(indeces)
+        for index in indeces:
+            logical_tie = copy.deepcopy(
+                self._current_container_logical_ties[index])
+            dummy_container.append(logical_tie)
+            for leaf in logical_tie:
+                if abjad.inspect(leaf).effective(abjad.TimeSignature):
+                    abjad.detach(abjad.TimeSignature, leaf)
+        if not self._output_single_measure:
+            # splitting leaves at bar line points
+            abjad.mutate(dummy_container[:]).split(
+                self._time_signatures_durations,
+                cyclic=True,
+            )
+            # attaching time signature structure
+            time_signature = self._time_signatures[0]
+            if not self._last_time_signature \
+                    or time_signature != self._last_time_signature:
+                abjad.attach(time_signature, dummy_container[0])
+                self._last_time_signature = time_signature
+            duration = abjad.inspect(dummy_container[0]).duration()
+            index = 1
+            for leaf in abjad.select(dummy_container).leaves()[1:]:
+                if duration % self._time_signatures[index - 1].duration == 0:
+                    time_signature = self._time_signatures[index]
+                    if time_signature != self._last_time_signature:
+                        abjad.attach(time_signature, leaf)
+                        self._last_time_signature = time_signature
+                    if index + 1 < len(self._time_signatures):
+                        index += 1
+                        duration = abjad.Duration(0)
+                    else:
+                        break
+                duration += abjad.inspect(leaf).duration()
+            remove_repeated_time_signatures(dummy_container)
+            self._last_time_signature = self._time_signatures[-1]
+        else:
+            time_signature = abjad.TimeSignature(
+                abjad.inspect(dummy_container).duration())
+            time_signature = simplified_time_signature_ratio(time_signature)
+            if not self._last_time_signature \
+                    or time_signature != self._last_time_signature:
+                abjad.attach(time_signature, dummy_container[0])
+            self._last_time_signature = time_signature
+        # rewrite meter
+        if not self._disable_rewrite_meter:
+            start = 0
+            duration = abjad.Duration(0)
+            index = 0
+            dummy_container_leaves = abjad.select(dummy_container).leaves()
+            for leaf_n in range(len(dummy_container_leaves)):
+                duration = abjad.inspect(
+                    dummy_container_leaves[start : leaf_n+1]).duration()
+                if duration == self._time_signatures_durations[index]:
+                    abjad.mutate(
+                        dummy_container_leaves[start : leaf_n+1]
+                    ).rewrite_meter(self._time_signatures[index])
+                    if index + 1 < len(self._time_signatures):
+                        index += 1
+                        start = leaf_n + 1
+                    else:
+                        break
+        # output
+        self._current_container = dummy_container[:]
+        dummy_container[:] = []
+        return self.current_container
 
     def shuffle_pitches(self) -> abjad.Selection:
         if self._force_time_signatures:
@@ -622,125 +738,6 @@ class Shuffler:
         result = dummy_container[:]
         dummy_container[:] = []
         return result
-
-    @property
-    def output_single_measure(self) -> bool:
-        return self._output_single_measure
-
-    @output_single_measure.setter
-    def output_single_measure(self,
-                              output_single_measure: bool,
-                              ):
-        if not isinstance(output_single_measure, bool):
-            raise TypeError("'output_single_measure' must be 'bool'")
-        self._output_single_measure = output_single_measure
-
-    @property
-    def disable_rewrite_meter(self) -> bool:
-        return self._disable_rewrite_meter
-
-    @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ):
-        if not isinstance(disable_rewrite_meter, bool):
-            raise TypeError("'disable_rewrite_meter' must be 'bool'")
-        self._disable_rewrite_meter = disable_rewrite_meter
-
-    @property
-    def force_time_signatures(self) -> bool:
-        return self._force_time_signatures
-
-    @force_time_signatures.setter
-    def force_time_signatures(self,
-                              force_time_signatures: bool,
-                              ):
-        if not isinstance(force_time_signatures, bool):
-            raise TypeError("'force_time_signatures' must be 'bool'")
-        self._force_time_signatures = force_time_signatures
-
-    @property
-    def omit_time_signatures(self) -> bool:
-        return self._omit_time_signatures
-
-    @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ):
-        if not isinstance(omit_time_signatures, bool):
-            raise TypeError("'omit_time_signatures' must be 'bool'")
-        self._omit_time_signatures = omit_time_signatures
-
-    def _shuffle_leaves(self):
-        if self._force_time_signatures:
-            self._last_time_signature = None
-        dummy_container = abjad.Container()
-        indeces = list(range(self.__len__()))
-        random.shuffle(indeces)
-        for index in indeces:
-            logical_tie = copy.deepcopy(
-                self._current_container_logical_ties[index])
-            dummy_container.append(logical_tie)
-            for leaf in logical_tie:
-                if abjad.inspect(leaf).effective(abjad.TimeSignature):
-                    abjad.detach(abjad.TimeSignature, leaf)
-        if not self._output_single_measure:
-            # splitting leaves at bar line points
-            abjad.mutate(dummy_container[:]).split(
-                self._time_signatures_durations,
-                cyclic=True,
-            )
-            # attaching time signature structure
-            time_signature = self._time_signatures[0]
-            if not self._last_time_signature \
-                    or time_signature != self._last_time_signature:
-                abjad.attach(time_signature, dummy_container[0])
-                self._last_time_signature = time_signature
-            duration = abjad.inspect(dummy_container[0]).duration()
-            index = 1
-            for leaf in abjad.select(dummy_container).leaves()[1:]:
-                if duration % self._time_signatures[index - 1].duration == 0:
-                    time_signature = self._time_signatures[index]
-                    if time_signature != self._last_time_signature:
-                        abjad.attach(time_signature, leaf)
-                        self._last_time_signature = time_signature
-                    if index + 1 < len(self._time_signatures):
-                        index += 1
-                        duration = abjad.Duration(0)
-                    else:
-                        break
-                duration += abjad.inspect(leaf).duration()
-            remove_repeated_time_signatures(dummy_container)
-            self._last_time_signature = self._time_signatures[-1]
-        else:
-            time_signature = abjad.TimeSignature(
-                abjad.inspect(dummy_container).duration())
-            time_signature = simplified_time_signature_ratio(time_signature)
-            if not self._last_time_signature \
-                    or time_signature != self._last_time_signature:
-                abjad.attach(time_signature, dummy_container[0])
-            self._last_time_signature = time_signature
-        # rewrite meter
-        if not self._disable_rewrite_meter:
-            start = 0
-            duration = abjad.Duration(0)
-            index = 0
-            dummy_container_leaves = abjad.select(dummy_container).leaves()
-            for leaf_n in range(len(dummy_container_leaves)):
-                duration = abjad.inspect(
-                    dummy_container_leaves[start : leaf_n+1]).duration()
-                if duration == self._time_signatures_durations[index]:
-                    abjad.mutate(
-                        dummy_container_leaves[start : leaf_n+1]
-                    ).rewrite_meter(self._time_signatures[index])
-                    if index + 1 < len(self._time_signatures):
-                        index += 1
-                        start = leaf_n + 1
-                    else:
-                        break
-        # output
-        self._current_container = dummy_container[:]
-        dummy_container[:] = []
 
     def _find_time_signatures(self):
         self._time_signatures = []

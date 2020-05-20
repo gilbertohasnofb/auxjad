@@ -12,7 +12,7 @@ on their their names or use the left side panel to navigate to the individual
 documentaion of each class and function.
 
 .. autosummary::
-   :toctree: members
+   :toctree: _api_members
 
    auxjad.ArtificialHarmonic
    auxjad.CartographySelector
@@ -24,7 +24,7 @@ documentaion of each class and function.
    auxjad.LeafDynMaker
    auxjad.leaves_are_tieable
    auxjad.LoopByList
-   auxjad.LoopByLogicalTies
+   auxjad.LoopByNotes
    auxjad.LoopByWindow
    auxjad.remove_repeated_dynamics
    auxjad.remove_repeated_time_signatures

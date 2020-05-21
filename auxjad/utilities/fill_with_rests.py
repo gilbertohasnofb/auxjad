@@ -179,7 +179,7 @@ def fill_with_rests(container: abjad.Container):
         a time signature change
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
     if not container_is_full(container):
         underfull_rests = abjad.LeafMaker()(None,
                                             underfull_duration(container),

@@ -35,19 +35,19 @@ if querry.lower() in ('y', 'yes'):
         os.makedirs('./lilypond-files')
 
     # header for lilypond file
-    ly_header = '\\include "lilypond-book-preamble.ly"\n' + \
-                '\\language "english"\n\n' + \
-                '\\layout{\n' + \
-                '    indent = 0\n' + \
-                '    \\numericTimeSignature\n' + \
-                '    \\override Flag.stencil = #flat-flag\n' + \
-                '    \\context {\n' + \
-                '      \\Score\n' + \
-                '      \\override SpacingSpanner.base-shortest-duration = ' + \
-                '#(ly:make-moment 1/32)\n' + \
-                '      \\omit BarNumber\n' + \
-                '    }\n' + \
-                '}\n'
+    ly_header = ('\\include "lilypond-book-preamble.ly"\n'
+                 '\\language "english"\n\n'
+                 '\\layout{\n'
+                 '    indent = 0\n'
+                 '    \\numericTimeSignature\n'
+                 '    \\override Flag.stencil = #flat-flag\n'
+                 '    \\context {\n'
+                 '      \\Score\n'
+                 '      \\override SpacingSpanner.base-shortest-duration = '
+                 '#(ly:make-moment 1/32)\n'
+                 '      \\omit BarNumber\n'
+                 '    }\n'
+                 '}\n')
 
     # generating lilypond files from docstrings
     for member in dir(auxjad):
@@ -57,8 +57,8 @@ if querry.lower() in ('y', 'yes'):
             if matches:
                 for n, match in enumerate(matches):
                     directory = './lilypond-files/'
-                    filename = 'image-' + str(member) + '-' + \
-                               str(n + 1) + '.ly'
+                    filename = ('image-' + str(member) + '-'
+                                + str(n + 1) + '.ly')
                     with open(directory + filename, 'w+') as f:
                         f.write(ly_header)
                         # removing comments from time signatures
@@ -87,8 +87,8 @@ if querry.lower() in ('y', 'yes'):
                 if matches:
                     for n, match in enumerate(matches):
                         directory = './lilypond-files/'
-                        filename = 'image-' + read_file.replace('.rst', '') \
-                                   + '-' + str(n + 1) + '.ly'
+                        filename = ('image-' + read_file.replace('.rst', '') 
+                                    + '-' + str(n + 1) + '.ly')
                         with open(directory + filename, 'w+') as f:
                             f.write(ly_header)
                             # removing comments from time signatures

@@ -63,23 +63,24 @@ def leaves_are_tieable(leaf1: abjad.Leaf,
         False
     """
     if not isinstance(leaf1, abjad.Leaf):
-        raise TypeError("'leaf1' must be 'abjad.Leaf' or child class")
+        raise TypeError("first positional argument must be 'abjad.Leaf' or "
+                        "child class")
     if not isinstance(leaf2, abjad.Leaf):
-        raise TypeError("'leaf2' must be 'abjad.Leaf' or child class")
-
+        raise TypeError("second positional argument must be 'abjad.Leaf' or "
+                        "child class")
     if type(leaf1) is not type(leaf2):
         return False
     if isinstance(leaf1, abjad.Rest):
         return False
     if isinstance(leaf1, abjad.MultimeasureRest):
         return False
-    if isinstance(leaf1, abjad.Note) and \
-            leaf1.written_pitch != leaf2.written_pitch:
+    if (isinstance(leaf1, abjad.Note) and 
+            leaf1.written_pitch != leaf2.written_pitch):
         return False
-    if isinstance(leaf1, abjad.Chord) and \
-            leaf1.written_pitches != leaf2.written_pitches:
+    if (isinstance(leaf1, abjad.Chord) and 
+            leaf1.written_pitches != leaf2.written_pitches):
         return False
-    if type(abjad.inspect(leaf1).before_grace_container()) is not \
-            type(abjad.inspect(leaf2).before_grace_container()):
+    if (type(abjad.inspect(leaf1).before_grace_container()) is not 
+            type(abjad.inspect(leaf2).before_grace_container())):
         return False
     return True

@@ -316,7 +316,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         .. figure:: ../_images/image-remove_repeated_dynamics-15.png
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
     if not isinstance(ignore_hairpins, bool):
         raise TypeError("'ignore_hairpins' must be 'bool'")
     if not isinstance(reset_after_rests,
@@ -335,8 +335,8 @@ def remove_repeated_dynamics(container: abjad.Container,
                 previous_dynamic = None
             elif reset_after_rests:
                 duration_since_last_note += leaf.written_duration
-                if duration_since_last_note >= \
-                        abjad.Duration(reset_after_rests):
+                if (duration_since_last_note
+                        >= abjad.Duration(reset_after_rests)):
                     previous_dynamic = None
         else:
             duration_since_last_note = abjad.Duration(0)

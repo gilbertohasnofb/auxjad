@@ -215,7 +215,15 @@ def repeat_container(container: abjad.Container,
         a time signature change
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("first positional argument must be 'abjad.Container' "
+                        "or child class")
+    if not isinstance(n, int):
+        raise TypeError("second positional argument must be 'int'")
+    if not isinstance(omit_all_time_signatures, bool):
+        raise TypeError("'omit_all_time_signatures' must be 'bool'")
+    if not isinstance(force_identical_time_signatures, bool):
+        raise TypeError("'force_identical_time_signatures' must be 'bool'")
+
     container_ = copy.deepcopy(container)
     if not container_is_full(container_):
         close_container(container_)

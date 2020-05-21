@@ -220,22 +220,25 @@ class LeafDynMaker(abjad.LeafMaker):
             for dynamic in dynamics:
                 if dynamic is not None:
                     if not isinstance(dynamic, (str, abjad.Dynamic)):
-                        raise TypeError("'dynamic' must be 'str' or "
+                        raise TypeError("dynamics must be 'str' or "
                                         "'abjad.Dynamic'")
         if articulations:
             for articulation in articulations:
                 if articulation is not None:
                     if not isinstance(articulation, (str, abjad.Articulation)):
-                        raise TypeError("'articulation' must be 'str' or "
+                        raise TypeError("articulations must be 'str' or "
                                         "'abjad.Articulation'")
 
         leaves = super().__call__(pitches, durations)
         dummy_container = abjad.Container(leaves)
         logical_ties = leaves.logical_ties()
 
+        pitches_ = self._listify(pitches)
+        durations_ =  self._listify(durations)
         dynamics_ = self._listify(dynamics)
         articulations_ = self._listify(articulations)
-        greatest_len = max(len(pitches), len(durations))
+
+        greatest_len = max(len(pitches_), len(durations_))
         self._fill_list(dynamics_, greatest_len)
         self._fill_list(articulations_,
                         greatest_len,

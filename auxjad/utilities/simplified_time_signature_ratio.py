@@ -117,10 +117,12 @@ def simplified_time_signature_ratio(ratio: (tuple,
     """
     if not isinstance(ratio, (tuple, abjad.TimeSignature,
                               abjad.Duration, abjad.Meter)):
-        raise TypeError("'ratio' must be 'tuple', 'abjad.Duration', or "
+        raise TypeError("argument must be 'tuple', 'abjad.Duration', or "
                         "'abjad.TimeSignature'")
     if not isinstance(min_denominator, int):
         raise TypeError("'min_denominator' must be 'int'")
+    if not isinstance(output_pair_of_int, bool):
+        raise TypeError("'output_pair_of_int' must be 'bool'")
 
     if isinstance(ratio, (abjad.TimeSignature, abjad.Duration, abjad.Meter)):
         numerator, denominator = ratio.pair
@@ -135,8 +137,8 @@ def simplified_time_signature_ratio(ratio: (tuple,
         numerator *= 2
         denominator *= 2
     while True:
-        if numerator % 2 == 0 and denominator % 2 == 0 and \
-                denominator >= 2 * min_denominator:
+        if (numerator % 2 == 0 and denominator % 2 == 0
+                and denominator >= 2 * min_denominator):
             numerator /= 2
             denominator /= 2
         else:

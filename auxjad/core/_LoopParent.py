@@ -10,7 +10,7 @@ class _LoopParent():
     methods.
     """
 
-    ### INITIALIZER ###
+    ### INITIALISER ###
 
     def __init__(self,
                  head_position,
@@ -58,22 +58,22 @@ class _LoopParent():
                    ) -> abjad.Selection:
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")
-        dummy_contents = abjad.Container()
+        dummy_container = abjad.Container()
         while True:
             try:
-                if not tie_identical_pitches or len(dummy_contents) == 0:
-                    dummy_contents.append(self.__call__())
+                if not tie_identical_pitches or len(dummy_container) == 0:
+                    dummy_container.append(self.__call__())
                 else:
                     new_window = self.__call__()
                     leaf1 = abjad.select(new_window).leaves()[0]
-                    leaf2 = abjad.select(dummy_contents).leaves()[-1]
+                    leaf2 = abjad.select(dummy_container).leaves()[-1]
                     if leaves_are_tieable(leaf1, leaf2):
-                        abjad.attach(abjad.Tie(), dummy_contents[-1])
-                    dummy_contents.append(new_window)
+                        abjad.attach(abjad.Tie(), dummy_container[-1])
+                    dummy_container.append(new_window)
             except RuntimeError:
                 break
-        result = dummy_contents[:]
-        dummy_contents[:] = []
+        result = dummy_container[:]
+        dummy_container[:] = []
         return result
 
     def output_n(self,
@@ -82,32 +82,33 @@ class _LoopParent():
                  tie_identical_pitches: bool = False,
                  ) -> abjad.Selection:
         if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
+            raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("'n' must be greater than zero")
+            raise ValueError("first positional argument must be a positive "
+                             "'int'")
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")
-        dummy_contents = abjad.Container()
+        dummy_container = abjad.Container()
         for _ in range(n):
-            if not tie_identical_pitches or len(dummy_contents) == 0:
-                dummy_contents.append(self.__call__())
+            if not tie_identical_pitches or len(dummy_container) == 0:
+                dummy_container.append(self.__call__())
             else:
                 new_window = self.__call__()
                 leaf1 = abjad.select(new_window).leaves()[0]
-                leaf2 = abjad.select(dummy_contents).leaves()[-1]
+                leaf2 = abjad.select(dummy_container).leaves()[-1]
                 if leaves_are_tieable(leaf1, leaf2):
-                    abjad.attach(abjad.Tie(), dummy_contents[-1])
-                dummy_contents.append(new_window)
-        result = dummy_contents[:]
-        dummy_contents[:] = []
+                    abjad.attach(abjad.Tie(), dummy_container[-1])
+                dummy_container.append(new_window)
+        result = dummy_container[:]
+        dummy_container[:] = []
         return result
 
     ### PRIVATE METHODS ###
 
     def _move_head(self):
-        if not self._is_first_window:  # first window always at initial position
-            if self._repetition_chance == 0.0 \
-                    or random.random() > self._repetition_chance:
+        if not self._is_first_window:  # 1st window always at initial position
+            if (self._repetition_chance == 0.0
+                    or random.random() > self._repetition_chance):
                 step = self._step_size * random.randint(1, self._max_steps)
                 diretion = self._biased_choice(self._forward_bias)
                 self._head_position += step * diretion
@@ -115,8 +116,8 @@ class _LoopParent():
             self._is_first_window = False
 
     def _done(self) -> bool:
-        return self._head_position >= self._contents.__len__() or \
-            self._head_position < 0
+        return (self._head_position >= self._contents.__len__()
+            or self._head_position < 0)
 
     def _slice_contents(self):
         pass

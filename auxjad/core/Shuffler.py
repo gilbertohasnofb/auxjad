@@ -17,7 +17,8 @@ class Shuffler:
 
     ..  container:: example
 
-        Calling the object will output a shuffled container.
+        Calling the object will output a shuffled selection of the input
+        container.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
@@ -36,9 +37,9 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-1.png
 
         To get the result of the last operation, use the property
-        ``current_container``.
+        ``current_window``.
 
-        >>> music = shuffler.current_container
+        >>> music = shuffler.current_window
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
         \new Staff
@@ -475,23 +476,60 @@ class Shuffler:
         }
 
         .. figure:: ../_images/image-Shuffler-16.png
+
+    ..  container:: example
+
+        Use the property ``contents`` to get the input container upon which the
+        shuffler operates. Notice that ``contents`` remains invariant after
+        any shuffling or rotation operations (use ``current_window`` for the
+        transformed selection of music). ``contents`` can be used to change the
+        ``abjad.Container`` to be shuffled.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> abjad.f(shuffler.contents)
+        {
+            c'4
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-Shuffler-17.png
+
+        >>> shuffler()
+        >>> abjad.f(shuffler.contents)
+        {
+            c'4
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-Shuffler-18.png
+
+        >>> shuffler.contents = abjad.Container(r"cs2 ds2")
+        >>> abjad.f(shuffler.contents)
+        {
+            cs2
+            ds2
+        }
+
+        .. figure:: ../_images/image-Shuffler-19.png
     """
 
-    ### INITIALIZER ###
+    ### INITIALISER ###
 
     def __init__(self,
-                 container: abjad.Container,
+                 contents: abjad.Container,
                  *,
                  output_single_measure: bool = False,
                  disable_rewrite_meter: bool = False,
                  force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
                  ):
-        if not isinstance(container, abjad.Container):
-            raise TypeError("'container' must be 'abjad.Container' or child "
-                            "class")
-        self._current_container = copy.deepcopy(container)
-        self._update_current_container_logical_ties()
+        self.contents = contents
+        self._update_logical_ties()
         self._find_time_signatures()
         self.output_single_measure = output_single_measure
         self.disable_rewrite_meter = disable_rewrite_meter
@@ -502,10 +540,10 @@ class Shuffler:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        return str(abjad.f(self._current_container))
+        return str(abjad.f(self._current_window))
 
     def __len__(self) -> int:
-        return len(self._current_container_logical_ties)
+        return len(self._logical_ties)
 
     def __call__(self) -> abjad.Selection:
         return self.shuffle_leaves()
@@ -520,7 +558,7 @@ class Shuffler:
         random.shuffle(indeces)
         for index in indeces:
             logical_tie = copy.deepcopy(
-                self._current_container_logical_ties[index])
+                self._logical_ties[index])
             dummy_container.append(logical_tie)
             for leaf in logical_tie:
                 if abjad.inspect(leaf).effective(abjad.TimeSignature):
@@ -533,8 +571,8 @@ class Shuffler:
             )
             # attaching time signature structure
             time_signature = self._time_signatures[0]
-            if not self._last_time_signature \
-                    or time_signature != self._last_time_signature:
+            if (not self._last_time_signature
+                    or time_signature != self._last_time_signature):
                 abjad.attach(time_signature, dummy_container[0])
                 self._last_time_signature = time_signature
             duration = abjad.inspect(dummy_container[0]).duration()
@@ -557,8 +595,8 @@ class Shuffler:
             time_signature = abjad.TimeSignature(
                 abjad.inspect(dummy_container).duration())
             time_signature = simplified_time_signature_ratio(time_signature)
-            if not self._last_time_signature \
-                    or time_signature != self._last_time_signature:
+            if (not self._last_time_signature
+                    or time_signature != self._last_time_signature):
                 abjad.attach(time_signature, dummy_container[0])
             self._last_time_signature = time_signature
         # rewrite meter
@@ -580,9 +618,9 @@ class Shuffler:
                     else:
                         break
         # output
-        self._current_container = dummy_container[:]
+        self._current_window = dummy_container[:]
         dummy_container[:] = []
-        return self.current_container
+        return self.current_window
 
     def shuffle_pitches(self) -> abjad.Selection:
         if self._force_time_signatures:
@@ -600,9 +638,9 @@ class Shuffler:
         # rewriting leaves
         self._rewrite_pitches(pitches)
         self._last_time_signature = self._time_signatures[-1]
-        self._update_current_container_logical_ties()
+        self._update_logical_ties()
         # updating logical ties
-        return self.current_container
+        return self.current_window
 
     def rotate_pitches(self,
                        *,
@@ -635,7 +673,7 @@ class Shuffler:
         self._rewrite_pitches(pitches)
         self._last_time_signature = self._time_signatures[-1]
         # updating logical ties
-        return self.current_container
+        return self.current_window
 
     def output_n(self,
                  n: int,
@@ -692,7 +730,7 @@ class Shuffler:
 
     def _find_time_signatures(self):
         self._time_signatures = []
-        leaves = abjad.select(self._current_container).leaves()
+        leaves = abjad.select(self._current_window).leaves()
         duration = abjad.Duration(0)
         time_signature = abjad.inspect(
             leaves[0]).effective(abjad.TimeSignature)
@@ -713,14 +751,12 @@ class Shuffler:
         self._time_signatures_durations = [timesig.duration for timesig
                                            in self._time_signatures]
 
-    def _update_current_container_logical_ties(self):
-        self._current_container_logical_ties = abjad.select(
-            self._current_container).logical_ties()
+    def _update_logical_ties(self):
+        self._logical_ties = abjad.select(self._current_window).logical_ties()
 
     def _get_pitch_list(self) -> list:
         pitches = []
-        for logical_tie in \
-                abjad.select(self._current_container).logical_ties():
+        for logical_tie in abjad.select(self._current_window).logical_ties():
             leaf = logical_tie[0]
             if isinstance(leaf, abjad.Rest):
                 pitches.append(None)
@@ -735,12 +771,10 @@ class Shuffler:
                          ):
         index = 0
         dummy_container = abjad.Container(
-            abjad.mutate(self._current_container[:]).copy()
+            abjad.mutate(self._current_window[:]).copy()
         )
-        for pitch, logical_tie in \
-                zip(pitches,
-                    abjad.select(dummy_container).logical_ties(),
-                    ):
+        logical_ties = abjad.select(dummy_container).logical_ties()
+        for pitch, logical_tie in zip(pitches, logical_ties):
             for leaf in logical_tie:
                 if not pitch:
                     new_leaf = abjad.Rest(leaf.written_duration)
@@ -754,30 +788,45 @@ class Shuffler:
                                                             )):
                         continue
                     if isinstance(indicator, abjad.TimeSignature):
-                        if not self._last_time_signature \
-                                or indicator != self._last_time_signature:
+                        if (not self._last_time_signature
+                                or indicator != self._last_time_signature):
                             abjad.attach(indicator, new_leaf)
                             self._last_time_signature = indicator
                     else:
                         abjad.attach(indicator, new_leaf)
-                abjad.mutate(abjad.select(dummy_container).leaf(index)) \
-                    .replace(new_leaf)
+                selection = abjad.select(dummy_container).leaf(index)
+                abjad.mutate(selection).replace(new_leaf)
                 index += 1
         # output
-        self._current_container = dummy_container[:]
+        self._current_window = dummy_container[:]
         dummy_container[:] = []
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def current_container(self) -> abjad.Selection:
+    def contents(self) -> abjad.Container:
+        r'The ``abjad.Container`` to be shuffled.'
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 contents: abjad.Container
+                 ):
+        if not isinstance(contents, abjad.Container):
+            raise TypeError("'contents' must be 'abjad.Container' or child "
+                            "class")
+        self._contents = copy.deepcopy(contents)
+        self._current_window = copy.deepcopy(contents)
+
+    @property
+    def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the result of the last operation.'
         if self._omit_time_signatures:
-            for leaf in abjad.select(self._current_container).leaves():
+            for leaf in abjad.select(self._current_window).leaves():
                 for indicator in abjad.inspect(leaf).indicators():
                     if isinstance(indicator, abjad.TimeSignature):
                         abjad.detach(indicator, leaf)
-        return copy.deepcopy(self._current_container)
+        return copy.deepcopy(self._current_window)
 
     @property
     def output_single_measure(self) -> bool:

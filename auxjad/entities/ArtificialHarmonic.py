@@ -3,16 +3,16 @@ import abjad
 
 class ArtificialHarmonic(abjad.Chord):
     r"""Creates an chord with a tweaked top note head for notating artificial
-    harmonics. This is a child class of ``abjad.Chord``. 
+    harmonics. This is a child class of ``abjad.Chord``.
 
     ..  container:: example
 
         Usage is similar to ``abjad.Chord``:
 
-        >>> chord = auxjad.ArtificialHarmonic("<g c'>4")
-        >>> chord.style
+        >>> harm = auxjad.ArtificialHarmonic("<g c'>4")
+        >>> harm.style
         'harmonic'
-        >>> abjad.f(chord)
+        >>> abjad.f(harm)
         <
             g
             \tweak style #'harmonic
@@ -24,11 +24,11 @@ class ArtificialHarmonic(abjad.Chord):
         And similarly to ``abjad.Chord``, pitch and duration can be input in
         many different ways:
 
-        >>> chord1 = auxjad.ArtificialHarmonic("<g c'>4")
-        >>> chord2 = auxjad.ArtificialHarmonic(["g", "c'"], 1/4)
-        >>> chord3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
-        >>> chord4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
-        >>> staff = abjad.Staff([chord1, chord2, chord3, chord4])
+        >>> harm1 = auxjad.ArtificialHarmonic("<g c'>4")
+        >>> harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1/4)
+        >>> harm3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
+        >>> harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
+        >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])
         >>> abjad.f(staff)
         \new Staff
         {
@@ -71,15 +71,15 @@ class ArtificialHarmonic(abjad.Chord):
     ..  container:: example
 
         When creating an ``ArtificialHarmonic``, use the keyword argument
-        ``style`` to set a different type of chord head for the top note, such
+        ``style`` to set a different type of note head for the top note, such
         as ``'harmonic-mixed'``:
 
-        >>> chord = auxjad.ArtificialHarmonic("<g c'>4",
-        ...                                   style='harmonic-mixed',
-        ...                                   )
-        >>> chord.style
+        >>> harm = auxjad.ArtificialHarmonic("<g c'>4",
+        ...                                  style='harmonic-mixed',
+        ...                                  )
+        >>> harm.style
         'harmonic-mixed'
-        >>> abjad.f(chord)
+        >>> abjad.f(harm)
         <
             g
             \tweak style #'harmonic-mixed
@@ -94,12 +94,12 @@ class ArtificialHarmonic(abjad.Chord):
         string at the bottom of the interval, set the keyword
         ``is_parenthesized`` to ``True``.
 
-        >>> chord = auxjad.ArtificialHarmonic("<g c'>4",
-        ...                                   is_parenthesized=True,
-        ...                                   )
-        >>> chord.is_parenthesized
+        >>> harm = auxjad.ArtificialHarmonic("<g c'>4",
+        ...                                  is_parenthesized=True,
+        ...                                  )
+        >>> harm.is_parenthesized
         True
-        >>> abjad.f(chord)
+        >>> abjad.f(harm)
         <
             \parenthesize
             \tweak ParenthesesItem.font-size #-4
@@ -115,12 +115,12 @@ class ArtificialHarmonic(abjad.Chord):
         Similarly to ``abjad.Chord``, ``ArtificialHarmonic`` can take
         multipliers:
 
-        >>> chord = auxjad.ArtificialHarmonic("<g c'>4",
-        ...                                   multiplier=(2, 3),
-        ...                                   )
-        >>> chord.multiplier
+        >>> harm = auxjad.ArtificialHarmonic("<g c'>4",
+        ...                                  multiplier=(2, 3),
+        ...                                  )
+        >>> harm.multiplier
         abjad.Multiplier(2, 3)
-        >>> abjad.f(chord)
+        >>> abjad.f(harm)
         <
             g
             \tweak style #'harmonic
@@ -135,30 +135,30 @@ class ArtificialHarmonic(abjad.Chord):
         class also includes two new properties named ``style`` and
         ``is_parenthesized``:
 
-        >>> chord = auxjad.ArtificialHarmonic("<g c'>4")
-        >>> chord.written_pitches
+        >>> harm = auxjad.ArtificialHarmonic("<g c'>4")
+        >>> harm.written_pitches
         "g c'"
-        >>> chord.written_duration
+        >>> harm.written_duration
         1/4
-        >>> chord.style
+        >>> harm.style
         'harmonic'
-        >>> chord.is_parenthesized
+        >>> harm.is_parenthesized
         False
 
         All these properties can be set to different values after
         initialisation:
 
-        >>> chord.written_pitches = [-5, 2]
-        >>> chord.written_duration = abjad.Duration(1, 8)
-        >>> chord.style = 'harmonic-mixed'
-        >>> chord.is_parenthesized = True
-        >>> chord.written_pitches
+        >>> harm.written_pitches = [-5, 2]
+        >>> harm.written_duration = abjad.Duration(1, 8)
+        >>> harm.style = 'harmonic-mixed'
+        >>> harm.is_parenthesized = True
+        >>> harm.written_pitches
         "g d'"
-        >>> chord.written_duration
+        >>> harm.written_duration
         1/8
-        >>> chord.style
+        >>> harm.style
         'harmonic-mixed'
-        >>> chord.is_parenthesized
+        >>> harm.is_parenthesized
         True
 
     ..  container:: example
@@ -193,8 +193,8 @@ class ArtificialHarmonic(abjad.Chord):
         The note created by ``sounding_note()`` inherits all indicators from
         the ``ArtificialHarmonic``.
 
-        >>> note = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
-        >>> abjad.f(note.sounding_note())
+        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
+        >>> abjad.f(harm.sounding_note())
         g''4
         \pp
         - \staccato
@@ -214,6 +214,8 @@ class ArtificialHarmonic(abjad.Chord):
 
     """
 
+    ### INITIALISER ###
+
     def __init__(self,
                  *arguments,
                  multiplier: abjad.typings.DurationTyping = None,
@@ -225,10 +227,10 @@ class ArtificialHarmonic(abjad.Chord):
         if len(self.note_heads) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "
                              "'note_heads' for initialisation")
-        self._style = style
-        self.style = self._style
-        self._is_parenthesized = is_parenthesized
-        self.is_parenthesized = self._is_parenthesized
+        self.style = style
+        self.is_parenthesized = is_parenthesized
+
+    ### PUBLIC METHODS ###
 
     def sounding_pitch(self) -> abjad.Pitch:
         interval = abs(self.note_heads[1].written_pitch
@@ -247,8 +249,8 @@ class ArtificialHarmonic(abjad.Chord):
                                28: 28,
                                }
         try:
-            sounding_pitch = self.note_heads[0].written_pitch \
-                           + sounding_pitch_dict[interval]
+            sounding_pitch = (self.note_heads[0].written_pitch
+                              + sounding_pitch_dict[interval])
         except KeyError as err:
             raise ValueError('cannot calculate sounding pitch for given '
                              'interval') from err
@@ -260,8 +262,11 @@ class ArtificialHarmonic(abjad.Chord):
             abjad.attach(indicator, note)
         return note
 
+    ### PUBLIC PROPERTIES ###
+
     @property
     def written_pitches(self) -> abjad.pitch.PitchSegment:
+        r'The written pitches of the two note heads.'
         return abjad.pitch.PitchSegment(
             items=(note_head.written_pitch for note_head in self.note_heads),
             item_class=abjad.pitch.NamedPitch,
@@ -269,35 +274,41 @@ class ArtificialHarmonic(abjad.Chord):
 
     @written_pitches.setter
     def written_pitches(self,
-                        pitches,
+                        written_pitches,
                         ):
-        for i, pitch in enumerate(pitches):
+        written_pitches_ = abjad.PitchSegment(written_pitches)
+        if len(written_pitches_) != 2:
+            raise ValueError("'ArtificialHarmonic' requires exactly two "
+                             "pitches")
+        for i, pitch in enumerate(written_pitches_):
             self.note_heads[i].written_pitch = pitch
 
     @property
     def style(self) -> str:
+        r'The style of the upper note head.'
         return self._style
 
     @style.setter
     def style(self,
-              style_string: str,
+              style: str,
               ):
-        if not isinstance(style_string, str):
-            raise TypeError("'style_string' must be 'str'")
-        self._style = style_string
+        if not isinstance(style, str):
+            raise TypeError("'style' must be 'str'")
+        self._style = style
         abjad.tweak(self.note_heads[1]).style = self._style
 
     @property
     def is_parenthesized(self) -> bool:
+        r'Whether the bottom note head is parenthesised or not.'
         return self._is_parenthesized
 
     @is_parenthesized.setter
     def is_parenthesized(self,
-                         parenthesized_bool: bool,
+                         is_parenthesized: bool,
                          ):
-        if not isinstance(parenthesized_bool, bool):
-            raise TypeError("'parenthesized_bool' must be 'bool'")
-        self._is_parenthesized = parenthesized_bool
+        if not isinstance(is_parenthesized, bool):
+            raise TypeError("'is_parenthesized' must be 'bool'")
+        self._is_parenthesized = is_parenthesized
         self.note_heads[0].is_parenthesized = self._is_parenthesized
         if self._is_parenthesized:
             abjad.tweak(self.note_heads[0]).ParenthesesItem__font_size = -4

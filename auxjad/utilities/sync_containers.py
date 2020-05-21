@@ -12,8 +12,8 @@ def sync_containers(*containers: abjad.Container,
     r"""Mutates two or more input containers (of type ``abjad.Container`` or
     child class) in place and has no return value. This function finds the
     longest container among the inputs and adds rests to all the shorter ones,
-    making them the same length. By default, it rewrites the last time signature
-    if necessary, and uses multi-measure rests whenever possible.
+    making them the same length. By default, it rewrites the last time
+    signature if necessary, and uses multi-measure rests whenever possible.
 
     ..  container:: example
 
@@ -407,14 +407,19 @@ def sync_containers(*containers: abjad.Container,
     """
     for container in containers:
         if not isinstance(container, abjad.Container):
-            raise TypeError("all 'containers' must be 'abjad.Container' or "
-                            "child class")
+            raise TypeError("positional arguments must be 'abjad.Container' "
+                            "or child class")
         try:
             container_is_full(container)
         except ValueError as err:
-            raise ValueError("at least one 'container' is malformed, with an "
+            raise ValueError("at least one container is malformed, with an "
                              "underfull bar preceeding a time signature "
                              "change") from err
+    if not isinstance(use_multimeasure_rests, bool):
+        raise TypeError("'use_multimeasure_rests' must be 'bool'")
+    if not isinstance(adjust_last_time_signature, bool):
+        raise TypeError("'adjust_last_time_signature' must be 'bool'")
+
     durations = [abjad.inspect(container[:]).duration() for container
                  in containers]
     max_duration = max(durations)
@@ -432,8 +437,8 @@ def sync_containers(*containers: abjad.Container,
                                                     )
                 duration_difference -= underfull_rests_duration
                 container.extend(underfull_rests)
-                if adjust_last_time_signature and duration_difference == \
-                        abjad.Duration(0):
+                if (adjust_last_time_signature and duration_difference
+                        == abjad.Duration(0)):
                     close_container(container)
                 if duration_difference == abjad.Duration(0):
                     continue

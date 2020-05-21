@@ -81,7 +81,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
         .. figure:: ../_images/image-rests_to_multimeasure_rest-5.png
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
     leaves = abjad.select(container).leaves()
     for measure in leaves.group_by_measure():
         if all([isinstance(leaf, abjad.Rest) for leaf in measure]):

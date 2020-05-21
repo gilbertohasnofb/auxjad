@@ -22,9 +22,9 @@ def test_Shuffler_01():
             e'4
         }
         """)
-    music = shuffler.current_container
+    music = shuffler.current_window
     with pytest.raises(AttributeError):
-        shuffler.current_container = abjad.Container(r"c''2 e''2")
+        shuffler.current_window = abjad.Container(r"c''2 e''2")
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -370,3 +370,37 @@ def test_Shuffler_13():
     assert shuffler.omit_time_signatures
     shuffler.omit_time_signatures = False
     assert not shuffler.omit_time_signatures
+
+
+
+def test_Shuffler_12():
+    random.seed(47621)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    shuffler = auxjad.Shuffler(container)
+    assert format(shuffler.contents) == abjad.String.normalize(
+        r"""
+        {
+            c'4
+            d'4
+            e'4
+            f'4
+        }
+        """)
+    shuffler()
+    assert format(shuffler.contents) == abjad.String.normalize(
+        r"""
+        {
+            c'4
+            d'4
+            e'4
+            f'4
+        }
+        """)
+    shuffler.contents = abjad.Container(r"cs2 ds2")
+    assert format(shuffler.contents) == abjad.String.normalize(
+        r"""
+        {
+            cs2
+            ds2
+        }
+        """)

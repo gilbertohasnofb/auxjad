@@ -522,7 +522,7 @@ class LoopByNotes(_LoopParent):
         .. figure:: ../_images/image-LoopByNotes-16.png
     """
 
-    ### INITIALIZER ###
+    ### INITIALISER ###
 
     def __init__(self,
                  contents: abjad.Container,
@@ -564,26 +564,26 @@ class LoopByNotes(_LoopParent):
         start = self.head_position
         end = self.head_position + self.window_size
         logical_ties = self._contents[start:end]
-        dummy_contents = abjad.Container()
+        dummy_container = abjad.Container()
         time_signature_duration = 0
         for logical_tie in logical_ties:
             effective_duration = abjad.inspect(logical_tie).duration()
             logical_tie_ = copy.deepcopy(logical_tie)
-            dummy_contents.append(logical_tie_)
+            dummy_container.append(logical_tie_)
             multiplier = effective_duration / logical_tie_.written_duration
             logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
             time_signature_duration += effective_duration
         if len(logical_ties) > 0 and not self._omit_all_time_signatures:
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
-            if time_signature != self._last_time_signature or \
-                    self._force_identical_time_signatures:
+            if (time_signature != self._last_time_signature 
+                    or self._force_identical_time_signatures):
                 abjad.attach(time_signature,
-                             abjad.select(dummy_contents).leaves()[0],
+                             abjad.select(dummy_container).leaves()[0],
                              )
             self._last_time_signature = time_signature
-        self._current_window = dummy_contents[:]
-        dummy_contents[:] = []
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
 
     ### PUBLIC PROPERTIES ###
 
@@ -594,12 +594,12 @@ class LoopByNotes(_LoopParent):
 
     @contents.setter
     def contents(self,
-                 new_contents: abjad.Container,
+                 contents: abjad.Container,
                  ):
-        if not isinstance(new_contents, abjad.Container):
-            raise TypeError("'new_contents' must be 'abjad.Container' or "
+        if not isinstance(contents, abjad.Container):
+            raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
-        contents_ = copy.deepcopy(new_contents)
+        contents_ = copy.deepcopy(contents)
         self._remove_all_time_signatures(contents_)
         self._contents = abjad.select(contents_).logical_ties()
 

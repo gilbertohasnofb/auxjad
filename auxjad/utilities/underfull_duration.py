@@ -79,7 +79,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         a time signature change
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
     leaves = abjad.select(container).leaves()
     # handling first leaf
     leaf = leaves[0]
@@ -91,8 +91,8 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
     duration = abjad.inspect(leaf).duration()
     # handling partial time signatures
     if effective_time_signature.partial:
-        duration += effective_time_signature.duration \
-                  - effective_time_signature.partial
+        duration += effective_time_signature.duration
+        duration -= effective_time_signature.partial
     # all other leaves
     for leaf in leaves[1:]:
         time_signature = abjad.inspect(leaf).effective(abjad.TimeSignature)

@@ -242,6 +242,20 @@ class CartographySelector():
 
     ..  container:: example
 
+        Use the read-only properties ``previous_result`` and ``previous_index``
+        to output the previous result and its index.
+
+        >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
+        >>> selector()
+        14
+        >>> previous_index = selector.previous_index
+        >>> previous_index
+        2
+        >>> selector.previous_result
+        14
+
+    ..  container:: example
+
         This class allows indecing and slicing just like regular lists. This
         can be used to both access and alter elements.
 
@@ -254,7 +268,7 @@ class CartographySelector():
         [10, 7, 14, 31, 98]
         >>> selector()
         31
-        >>> previous_index = container.previous_index
+        >>> previous_index = selector.previous_index
         >>> previous_index
         3
         >>> selector[previous_index]
@@ -266,7 +280,7 @@ class CartographySelector():
         [10, 7, 100, 31, 98]
     """
 
-    ### INITIALIZER ###
+    ### INITIALISER ###
 
     def __init__(self,
                  contents: list,
@@ -290,25 +304,31 @@ class CartographySelector():
     def __repr__(self) -> str:
         return str(self._contents)
 
-    def __call__(self, no_repeat=False):
+    def __call__(self,
+                 *,
+                 no_repeat: bool = False,
+                 ):
         if not isinstance(no_repeat, bool):
             raise TypeError("'no_repeat' must be 'bool")
         if not no_repeat:
             new_index = random.choices(
                 [n for n in range(self.__len__())],
                 weights=self.weights,
-                )[0]
+            )[0]
         else:
             new_index = self._previous_index
             while (new_index == self._previous_index):
                 new_index = random.choices(
                     [n for n in range(self.__len__())],
                     weights=self.weights,
-                    )[0]
+                )[0]
         self._previous_index = new_index
         return self._contents[self._previous_index]
 
-    def __next__(self, no_repeat=False):
+    def __next__(self,
+                 *,
+                 no_repeat: bool = False,
+                 ):
         return self.__call__(no_repeat=no_repeat)
 
     def __len__(self) -> int:
@@ -326,9 +346,9 @@ class CartographySelector():
         self._contents = self._contents[1:] + [new_element]
 
     def append_keeping_n(self, new_element, n: int):
-        self._contents = self._contents[:n] \
-                      + self._contents[n+1:] \
-                      + [new_element]
+        self._contents = (self._contents[:n]
+                          + self._contents[n+1:]
+                          + [new_element])
 
     def prepend(self, new_element):
         self._contents = [new_element] + self._contents[:-1]
@@ -367,11 +387,11 @@ class CartographySelector():
 
     @contents.setter
     def contents(self,
-                 new_contents: list
+                 contents: list
                  ):
-        if not isinstance(new_contents, list):
-            raise TypeError("'new_contents' must be 'list")
-        self._contents = new_contents[:]
+        if not isinstance(contents, list):
+            raise TypeError("'contents' must be 'list")
+        self._contents = contents[:]
         self._generate_weights()
 
     @property
@@ -388,13 +408,13 @@ class CartographySelector():
 
     @decay_rate.setter
     def decay_rate(self,
-                   new_decay_rate: float):
-        if not isinstance(new_decay_rate, float):
-            raise TypeError("'new_decay_rate' must be float")
-        if new_decay_rate <= 0.0 or new_decay_rate > 1.0:
-            raise ValueError("'new_decay_rate' must be larger than 0.0 and "
-                             "less than or equal to 1.0")
-        self._decay_rate = new_decay_rate
+                   decay_rate: float):
+        if not isinstance(decay_rate, float):
+            raise TypeError("'decay_rate' must be float")
+        if decay_rate <= 0.0 or decay_rate > 1.0:
+            raise ValueError("'decay_rate' must be larger than 0.0 and less "
+                             "than or equal to 1.0")
+        self._decay_rate = decay_rate
         self._generate_weights()
 
     @property
@@ -402,3 +422,8 @@ class CartographySelector():
         r"""Read-only property, returns the index of the previously output
         element."""
         return self._previous_index
+
+    @property
+    def previous_result(self):
+        r'Read-only property, returns the previously output element.'
+        return self._contents[self._previous_index]

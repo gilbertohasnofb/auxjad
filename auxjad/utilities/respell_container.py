@@ -214,7 +214,11 @@ def respell_container(container: abjad.Container,
         .. figure:: ../_images/image-respell_container-8.png
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
+    if not isinstance(respell_by_pitch_class, bool):
+        raise TypeError("'respell_by_pitch_class' must be 'bool'")
+    if not isinstance(include_multiples, bool):
+        raise TypeError("'include_multiples' must be 'bool'")
     for leaf in abjad.select(container).leaves():
         if isinstance(leaf, abjad.Chord):
             respell_chord(leaf,

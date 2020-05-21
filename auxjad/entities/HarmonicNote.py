@@ -115,6 +115,8 @@ class HarmonicNote(abjad.Note):
         .. figure:: ../_images/image-HarmonicNote-5.png
     """
 
+    ### INITIALISER ###
+
     def __init__(self,
                  *arguments,
                  multiplier: abjad.typings.DurationTyping = None,
@@ -122,20 +124,22 @@ class HarmonicNote(abjad.Note):
                  style: str = 'harmonic',
                  ):
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
-        self._style = style
-        self.style = self._style
+        self.style = style
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def style(self) -> str:
+        r'The style of the harmonic note head.'
         return self._style
 
     @style.setter
     def style(self,
-              style_string: str,
+              style: str,
               ):
-        if not isinstance(style_string, str):
-            raise TypeError("'style_string' must be 'str'")
-        self._style = style_string
+        if not isinstance(style, str):
+            raise TypeError("'style' must be 'str'")
+        self._style = style
         if not self._style == 'flageolet':
             abjad.tweak(self.note_head).style = self._style
         else:

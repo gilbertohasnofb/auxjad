@@ -284,7 +284,7 @@ class LoopByList(_LoopParent):
         .. figure:: ../_images/image-LoopByList-1.png
     """
 
-    ### INITIALIZER ###
+    ### INITIALISER ###
 
     def __init__(self,
                  contents: list,
@@ -327,43 +327,30 @@ class LoopByList(_LoopParent):
 
     ### PUBLIC METHODS ###
 
-    @property
-    def contents(self):
-        r'The ``list`` which serves as the basis for the slices of the looper.'
-        return self._contents
-
-    @contents.setter
-    def contents(self,
-                 new_contents: list,
-                 ):
-        if not isinstance(new_contents, list):
-            raise TypeError("'new_contents' must be 'list")
-        self._contents = new_contents[:]
-
     def output_all(self) -> list:
         r"""Custom output_all() method since parent's method outputs an
         ``abjad.Selection``.
         """
-        dummy_contents = []
+        dummy_container = []
         while True:
             try:
-                dummy_contents.extend(self.__call__())
+                dummy_container.extend(self.__call__())
             except RuntimeError:
                 break
-        return dummy_contents[:]
+        return dummy_container[:]
 
     def output_n(self, n: int) -> list:
         r"""Custom output_n() method since parent's method outputs an
         ``abjad.Selection``.
         """
         if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
+            raise TypeError("argument must be 'int'")
         if n < 0:
-            raise ValueError("'n' must be a positive 'int'")
-        dummy_contents = []
+            raise ValueError("argument must be a positive 'int'")
+        dummy_container = []
         for _ in range(n):
-            dummy_contents.extend(self.__call__())
-        return dummy_contents[:]
+            dummy_container.extend(self.__call__())
+        return dummy_container[:]
 
     ### PRIVATE METHODS ###
 
@@ -371,3 +358,18 @@ class LoopByList(_LoopParent):
         start = self.head_position
         end = self.head_position + self.window_size
         self._current_window = self._contents[start:end]
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def contents(self):
+        r'The ``list`` which serves as the basis for the slices of the looper.'
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 contents: list,
+                 ):
+        if not isinstance(contents, list):
+            raise TypeError("'contents' must be 'list")
+        self._contents = contents[:]

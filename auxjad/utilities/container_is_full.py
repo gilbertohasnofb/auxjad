@@ -4,7 +4,7 @@ from .underfull_duration import underfull_duration
 
 def container_is_full(container: abjad.Container) -> bool:
     r"""Returns a ``bool`` representing whether an input container (of type
-    ``abjad.Container`` or child class) has its last bar is fully filled in or 
+    ``abjad.Container`` or child class) has its last bar is fully filled in or
     not.
 
     ..  container:: example
@@ -81,5 +81,5 @@ def container_is_full(container: abjad.Container) -> bool:
         a time signature change
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
     return underfull_duration(container) == abjad.Duration(0)

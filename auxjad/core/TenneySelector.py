@@ -318,7 +318,7 @@ class TenneySelector():
         0.25
     """
 
-    ### INITIALIZER ###
+    ### INITIALISER ###
 
     def __init__(self,
                  contents: list,
@@ -415,11 +415,11 @@ class TenneySelector():
 
     @contents.setter
     def contents(self,
-                 new_contents: list,
+                 contents: list,
                  ):
-        if not isinstance(new_contents, list):
-            raise TypeError("'new_contents' must be 'list")
-        self._contents = new_contents[:]
+        if not isinstance(contents, list):
+            raise TypeError("'contents' must be 'list")
+        self._contents = contents[:]
         self.weights = [1.0 for _ in range(self.__len__())]
 
     @property

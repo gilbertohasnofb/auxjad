@@ -178,7 +178,7 @@ def close_container(container: abjad.Container):
         a time signature change
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("'container' must be 'abjad.Container' or child class")
+        raise TypeError("argument must be 'abjad.Container' or child class")
     if not container_is_full(container):
         missing_duration = underfull_duration(container)
         leaves = abjad.select(container).leaves()

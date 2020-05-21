@@ -182,7 +182,7 @@ def respell_chord(chord: abjad.Chord,
         .. figure:: ../_images/image-respell_chord-8.png
     """
     if not isinstance(chord, abjad.Chord):
-        raise TypeError("'chord' must be 'abjad.Chord'")
+        raise TypeError("argument must be 'abjad.Chord'")
     if not isinstance(respell_by_pitch_class, bool):
         raise TypeError("'respell_by_pitch_class' must be 'bool'")
     if not isinstance(include_multiples, bool):
@@ -202,9 +202,9 @@ def respell_chord(chord: abjad.Chord,
             except IndexError:
                 p3 = None
                 interval23 = None
-            if interval12 == abjad.NamedInterval('+A1') \
-                    and interval23 != abjad.NamedInterval('+A1') \
-                    and interval23 != abjad.NamedInterval('+m2'):
+            if (interval12 == abjad.NamedInterval('+A1')
+                    and interval23 != abjad.NamedInterval('+A1')
+                    and interval23 != abjad.NamedInterval('+m2')):
                 if not respell_by_pitch_class:
                     # respelling only one single note
                     if p1.accidental == abjad.Accidental('f'):
@@ -230,8 +230,8 @@ def respell_chord(chord: abjad.Chord,
                 p1 = chord.written_pitches[i]
                 p2 = chord.written_pitches[j]
                 interval = abjad.NamedIntervalClass(p1 - p2)
-                if interval == abjad.NamedIntervalClass('+A1') or \
-                        interval == abjad.NamedIntervalClass('-d1'):
+                if (interval == abjad.NamedIntervalClass('+A1')
+                        or interval == abjad.NamedIntervalClass('-d1')):
                     # no need for respell_by_pitch_class since this will go
                     # through all notes in the chord anyway
                     if p1.accidental == abjad.Accidental('f'):

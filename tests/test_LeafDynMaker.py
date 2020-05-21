@@ -180,3 +180,17 @@ def test_LeafDynMaker_06():
             a'8.
         }
         """)
+
+def test_LeafDynMaker_07():
+    leaf_dyn_maker = auxjad.LeafDynMaker()
+    note = leaf_dyn_maker(0, (1, 4), 'p', '-')
+    staff = abjad.Staff([note])
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            \p
+            - \tenuto
+        }
+        """)

@@ -6,7 +6,7 @@ def containers_are_equal(container1: abjad.Container,
                          *,
                          include_indicators: bool = False,
                          ) -> bool:
-    r"""Returns a ``bool`` representing whether two input containers (of type 
+    r"""Returns a ``bool`` representing whether two input containers (of type
     ``abjad.Container`` or child class) are identical or not.
 
     ..  container:: example
@@ -87,11 +87,11 @@ def containers_are_equal(container1: abjad.Container,
         True
     """
     if not isinstance(container1, abjad.Container):
-        raise TypeError("'container1' must be 'abjad.Container' or "
-                        "child class")
+        raise TypeError("first positional argument must be 'abjad.Container' "
+                        "or child class")
     if not isinstance(container2, abjad.Container):
-        raise TypeError("'container2' must be 'abjad.Container' or "
-                        "child class")
+        raise TypeError("second positional argument must be 'abjad.Container' "
+                        "or child class")
     if not isinstance(include_indicators, bool):
         raise TypeError("'include_indicators' must be 'bool'")
 
@@ -106,16 +106,16 @@ def containers_are_equal(container1: abjad.Container,
             return False
         if abjad.inspect(leaf1).duration() != abjad.inspect(leaf2).duration():
             return False
-        if isinstance(leaf1, abjad.Note) and \
-                leaf1.written_pitch != leaf2.written_pitch:
+        if (isinstance(leaf1, abjad.Note) and
+                 leaf1.written_pitch != leaf2.written_pitch):
             return False
-        if isinstance(leaf1, abjad.Chord) and \
-                leaf1.written_pitches != leaf2.written_pitches:
+        if (isinstance(leaf1, abjad.Chord) and
+                leaf1.written_pitches != leaf2.written_pitches):
             return False
-        if type(abjad.inspect(leaf1).before_grace_container()) is not \
-                type(abjad.inspect(leaf2).before_grace_container()):
+        if (type(abjad.inspect(leaf1).before_grace_container()) is not
+                type(abjad.inspect(leaf2).before_grace_container())):
             return False
-        if include_indicators and abjad.inspect(leaf1).indicators() != \
-                abjad.inspect(leaf2).indicators():
+        if (include_indicators and abjad.inspect(leaf1).indicators() != 
+                abjad.inspect(leaf2).indicators()):
             return False
     return True

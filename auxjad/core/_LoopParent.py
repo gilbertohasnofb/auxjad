@@ -6,7 +6,7 @@ from ..utilities.leaves_are_tieable import leaves_are_tieable
 
 class _LoopParent():
     r"""This is the parent class of all LoopByXxxx classes. It implements all
-    common methods and attributes, and initialises those using its @setter
+    common methods and properties, and initialises those using their @setter
     methods.
     """
 
@@ -34,21 +34,28 @@ class _LoopParent():
     ### SPECIAL METHODS ###
 
     def __call__(self) -> abjad.Selection:
+        r"""Calls the looping process for one iteration, returning an
+        ``abjad.Selection``.
+        """
         self._move_head()
-        if self._done():
+        if self._done:
             raise RuntimeError("'contents' has been exhausted")
         self._slice_contents()
         return self.current_window
 
     def __iter__(self):
+        r'Allows instances to be used as iterators.'
         return self
 
     def __next__(self) -> abjad.Selection:
+        r"""Calls the looping process for one iteration, returning an
+        ``abjad.Selection``.
+        """
         self._move_head()
-        if self._done():
+        if self._done:
             raise StopIteration
         self._slice_contents()
-        return copy.deepcopy(self._current_window)
+        return self._current_window
 
     ### PUBLIC METHODS ###
 
@@ -56,6 +63,9 @@ class _LoopParent():
                    *,
                    tie_identical_pitches: bool = False,
                    ) -> abjad.Selection:
+        r"""Goes through the whole looping process and outputs a single
+        ``abjad.Selection``.
+        """
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")
         dummy_container = abjad.Container()
@@ -81,6 +91,9 @@ class _LoopParent():
                  *,
                  tie_identical_pitches: bool = False,
                  ) -> abjad.Selection:
+        r"""Goes through ``n`` iterations of the looping process and outputs a
+        single ``abjad.Selection``.
+        """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
         if n < 1:
@@ -106,6 +119,9 @@ class _LoopParent():
     ### PRIVATE METHODS ###
 
     def _move_head(self):
+        r"""Moves the head by a certain number of steps of fixed size, either
+        forwards or backwards according to the forward bias
+        """
         if not self._is_first_window:  # 1st window always at initial position
             if (self._repetition_chance == 0.0
                     or random.random() > self._repetition_chance):
@@ -114,10 +130,6 @@ class _LoopParent():
                 self._head_position += step * diretion
         else:
             self._is_first_window = False
-
-    def _done(self) -> bool:
-        return (self._head_position >= self._contents.__len__()
-            or self._head_position < 0)
 
     def _slice_contents(self):
         pass
@@ -136,6 +148,7 @@ class _LoopParent():
 
     @property
     def head_position(self) -> int:
+        r'The position of the head at the start of a looping window.'
         return self._head_position
 
     @head_position.setter
@@ -154,6 +167,7 @@ class _LoopParent():
 
     @property
     def window_size(self) -> int:
+        r'The length of the looping window.'
         return self._window_size
 
     @window_size.setter
@@ -171,6 +185,7 @@ class _LoopParent():
 
     @property
     def step_size(self) -> int:
+        r'The size of each step when moving the head.'
         return self._step_size
 
     @step_size.setter
@@ -188,6 +203,7 @@ class _LoopParent():
 
     @property
     def max_steps(self) -> int:
+        r'The maximum number of steps per operation.'
         return self._max_steps
 
     @max_steps.setter
@@ -202,6 +218,7 @@ class _LoopParent():
 
     @property
     def repetition_chance(self) -> float:
+        r'The chance of the head not moving, thus repeating the output.'
         return self._repetition_chance
 
     @repetition_chance.setter
@@ -216,6 +233,11 @@ class _LoopParent():
 
     @property
     def forward_bias(self) -> float:
+        r"""The chance of the window moving forward instead of backwards. It
+        should range from 0.0 to 1.0 (default 1.0, which means the window can
+        only move forwards. A value of 0.5 gives 50% chance of moving forwards
+        while a value of 0.0 will move the window only backwards).
+        """
         return self._forward_bias
 
     @forward_bias.setter
@@ -231,5 +253,16 @@ class _LoopParent():
     @property
     def current_window(self) -> (list, abjad.Selection):
         r"""Read-only property, returns the window at the current head
-        position."""
+        position.
+        """
         return copy.deepcopy(self._current_window)
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _done(self) -> bool:
+        r"""Boolean indicating whether the process is done (i.e. whether the
+        head position has overtaken the ``contents`` length).
+        """
+        return (self._head_position >= self._contents.__len__()
+            or self._head_position < 0)

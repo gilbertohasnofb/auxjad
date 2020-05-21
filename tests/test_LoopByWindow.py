@@ -745,3 +745,20 @@ def test_LoopByWindow_20():
             g'2.
         }
         """)
+
+
+def test_LoopByWindow_21():
+    input_music = abjad.Container(r"c'1")
+    looper = auxjad.LoopByWindow(input_music)
+    assert len(looper) == 16
+    input_music = abjad.Container(r"c'1")
+    looper = auxjad.LoopByWindow(input_music,
+                                 step_size=(1, 4),
+                                 )
+    assert len(looper) == 4
+    input_music = abjad.Container(r"c'2..")
+    looper = auxjad.LoopByWindow(input_music,
+                                 step_size=(1, 4),
+                                 window_size=(2, 4),
+                                 )
+    assert len(looper) == 4

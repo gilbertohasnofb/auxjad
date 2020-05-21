@@ -248,7 +248,7 @@ class LoopByNotes(_LoopParent):
     ..  container:: example
 
         The function ``len()`` can be used to get the total number of elements
-        in the container.
+        in the contents.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByNotes(input_music,
@@ -553,14 +553,19 @@ class LoopByNotes(_LoopParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
+        r'Outputs the representation of ``contents``.'
         return str(self._contents)
 
     def __len__(self) -> int:
+        r'Outputs the number of logical ties of ``contents``.'
         return len(self._contents)
 
     ### PRIVATE METHODS ###
 
     def _slice_contents(self):
+        r"""This method takes a slice with ``window_size`` number of logical
+        ties out of the contents starting at the current ``head_position``.
+        """
         start = self.head_position
         end = self.head_position + self.window_size
         logical_ties = self._contents[start:end]
@@ -576,7 +581,7 @@ class LoopByNotes(_LoopParent):
         if len(logical_ties) > 0 and not self._omit_all_time_signatures:
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
-            if (time_signature != self._last_time_signature 
+            if (time_signature != self._last_time_signature
                     or self._force_identical_time_signatures):
                 abjad.attach(time_signature,
                              abjad.select(dummy_container).leaves()[0],
@@ -605,6 +610,7 @@ class LoopByNotes(_LoopParent):
 
     @property
     def omit_all_time_signatures(self) -> list:
+        r'When ``True``, the output will contain no time signatures.'
         return self._omit_all_time_signatures
 
     @omit_all_time_signatures.setter
@@ -617,6 +623,9 @@ class LoopByNotes(_LoopParent):
 
     @property
     def force_identical_time_signatures(self) -> list:
+        r"""When ``True``, identical time signatures will not be removed from
+        the output.
+        """
         return self._force_identical_time_signatures
 
     @force_identical_time_signatures.setter

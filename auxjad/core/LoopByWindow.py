@@ -1,4 +1,5 @@
 import copy
+from math import ceil
 import abjad
 from ._LoopParent import _LoopParent
 
@@ -249,6 +250,29 @@ class LoopByWindow(_LoopParent):
         0
         >>> looper.omit_time_signature
         True
+
+    ..  container:: example
+
+        The function ``len()`` can be used to get the total number of steps
+        in the contents (always rounded up).
+
+        >>> input_music = abjad.Container(r"c'1")
+        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> len(looper)
+        16
+        >>> input_music = abjad.Container(r"c'1")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              step_size=(1, 4),
+        ...                              )
+        >>> len(looper)
+        4
+        >>> input_music = abjad.Container(r"c'2..")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              step_size=(1, 4),
+        ...                              window_size=(2, 4),
+        ...                              )
+        >>> len(looper)
+        4
 
     ..  container:: example
 
@@ -620,19 +644,19 @@ class LoopByWindow(_LoopParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
+        r'Outputs the representation of ``contents``.'
         return str(abjad.f(self._contents))
+
+    def __len__(self) -> int:
+        r'Outputs the length of ``contents`` in terms of ``step_size``.'
+        return ceil(abjad.inspect(self._contents).duration() / self._step_size)
 
     ### PRIVATE METHODS ###
 
-    def _done(self) -> bool:
-        r"""Custom ``_done`` method since parent's method uses the ``__len__``
-        method, which cannot be used for non-integer values such as
-        ``abjad.Duration``.
-        """
-        return (self._head_position >= self._contents_length
-            or self._head_position < 0)
-
     def _slice_contents(self):
+        r"""This method takes a slice of size ``window_size`` out of the
+        contents starting at the current ``head_position``.
+        """
         head = self._head_position
         window_size = self._window_size
         dummy_container = copy.deepcopy(self._contents)
@@ -707,14 +731,15 @@ class LoopByWindow(_LoopParent):
 
     @property
     def head_position(self) -> abjad.Duration:
+        r'The position of the head at the start of a looping window.'
         return self._head_position
 
     @head_position.setter
     def head_position(self,
                       head_position: (tuple, abjad.Duration),
                       ):
-        r"""Custom setter method since parent's method uses integers as input,
-        intead of tuples or ``abjad.Duration``.
+        r"""This setter method replaces the paren'ts one since the parent's 
+        method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
@@ -729,14 +754,15 @@ class LoopByWindow(_LoopParent):
 
     @property
     def window_size(self) -> abjad.Meter:
+        r'The length of the looping window.'
         return self._window_size
 
     @window_size.setter
     def window_size(self,
                     window_size: (int, float, tuple, abjad.Meter),
                     ):
-        r"""Custom setter method since parent's method uses integers as input,
-        intead of tuples or abjad.Duration.
+        r"""This setter method replaces the paren'ts one since the parent's
+        method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(window_size,
                           (int, float, tuple, str, abjad.Meter),
@@ -753,14 +779,15 @@ class LoopByWindow(_LoopParent):
 
     @property
     def step_size(self) -> abjad.Duration:
+        r'The size of each step when moving the head.'
         return self._step_size
 
     @step_size.setter
     def step_size(self,
                   step_size: (tuple, abjad.Duration),
                   ):
-        r"""Custom setter method since parent's method uses integers as input,
-        intead of tuples or ``abjad.Duration``.
+        r"""This setter method replaces the paren'ts one since the parent's
+        method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
@@ -771,6 +798,7 @@ class LoopByWindow(_LoopParent):
 
     @property
     def omit_time_signature(self) -> list:
+        r'When ``True``, the output will contain no time signatures.'
         return self._omit_time_signature
 
     @omit_time_signature.setter
@@ -780,3 +808,16 @@ class LoopByWindow(_LoopParent):
         if not isinstance(omit_time_signature, bool):
             raise TypeError("'omit_time_signature' must be 'bool'")
         self._omit_time_signature = omit_time_signature
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _done(self) -> bool:
+        r"""Boolean indicating whether the process is done (i.e. whether the
+        head position has overtaken the ``contents`` length).
+
+        This property replaces the parent's one since the parent's property
+        uses the number of indeces of ``contents``.
+        """
+        return (self._head_position >= self._contents_length
+            or self._head_position < 0)

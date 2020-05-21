@@ -56,11 +56,11 @@ class Shuffler:
     ..  container:: example
 
         Calling the object outputs the same result as using the method
-        ``shuffle_leaves()``.
+        ``shuffle()``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.shuffle_leaves()
+        >>> music = shuffler.shuffle()
         >>> staff = abjad.Staff(music)
         >>> abjad.f(staff)
         \new Staff
@@ -540,17 +540,21 @@ class Shuffler:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
+        r'Outputs the representation of ``contents``.'
         return str(abjad.f(self._current_window))
 
     def __len__(self) -> int:
+        r'Outputs the number of logical ties of ``contents``.'
         return len(self._logical_ties)
 
     def __call__(self) -> abjad.Selection:
-        return self.shuffle_leaves()
+        r'Calls the shuffling process, returning an ``abjad.Container``'
+        return self.shuffle()
 
     ### PUBLIC METHODS ###
 
-    def shuffle_leaves(self) -> abjad.Selection:
+    def shuffle(self) -> abjad.Selection:
+        r'Shuffles the logical ties of ``contents``.'
         if self._force_time_signatures:
             self._last_time_signature = None
         dummy_container = abjad.Container()
@@ -623,6 +627,7 @@ class Shuffler:
         return self.current_window
 
     def shuffle_pitches(self) -> abjad.Selection:
+        r'Shuffles only the pitches of ``contents``.'
         if self._force_time_signatures:
             self._last_time_signature = None
         pitches = self._get_pitch_list()
@@ -647,6 +652,7 @@ class Shuffler:
                        n_rotations: int = 1,
                        anticlockwise: bool = False,
                        ) -> abjad.Selection:
+        r'Rotates the pitches of ``contents``.'
         if not isinstance(n_rotations, int):
             raise TypeError("'n_rotations' must be 'int'")
         if n_rotations < 1:
@@ -678,10 +684,13 @@ class Shuffler:
     def output_n(self,
                  n: int,
                  ) -> abjad.Selection:
+        r"""Goes through ``n`` iterations of the shuffling process and outputs
+        a single ``abjad.Selection``.
+        """
         if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
+            raise TypeError("argument must be 'int'")
         if n < 1:
-            raise ValueError("'n' must be greater than zero")
+            raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
@@ -693,10 +702,13 @@ class Shuffler:
     def output_n_shuffled_pitches(self,
                                   n: int,
                                   ) -> abjad.Selection:
+        r"""Goes through ``n`` iterations of the pitch shuffling process and
+        outputs a single ``abjad.Selection``.
+        """
         if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
+            raise TypeError("argument must be 'int'")
         if n < 1:
-            raise ValueError("'n' must be greater than zero")
+            raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.shuffle_pitches())
@@ -711,10 +723,18 @@ class Shuffler:
                                  n_rotations: int = 1,
                                  anticlockwise: bool = False,
                                  ) -> abjad.Selection:
+        r"""Goes through ``n`` iterations of the pitch rotation process and
+        outputs a single ``abjad.Selection``.
+        """
         if not isinstance(n, int):
-            raise TypeError("'n' must be 'int'")
+            raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("'n' must be greater than zero")
+            raise ValueError("first positional argument must be a positive "
+                             "'int'")
+        if not isinstance(n_rotations, int):
+            raise TypeError("'n_rotations' must be 'int'")
+        if not isinstance(anticlockwise, bool):
+            raise TypeError("'anticlockwise' must be 'bool'")
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.rotate_pitches(
@@ -729,6 +749,9 @@ class Shuffler:
     ### PRIVATE METHODS ###
 
     def _find_time_signatures(self):
+        r"""Creates a list of all time signatures for all measures of
+        ``contents``.
+        """
         self._time_signatures = []
         leaves = abjad.select(self._current_window).leaves()
         duration = abjad.Duration(0)
@@ -752,9 +775,11 @@ class Shuffler:
                                            in self._time_signatures]
 
     def _update_logical_ties(self):
+        r'Updates the selection of logical ties of ``contents``.'
         self._logical_ties = abjad.select(self._current_window).logical_ties()
 
     def _get_pitch_list(self) -> list:
+        r'Creates a list of all pitches in ``contents``.'
         pitches = []
         for logical_tie in abjad.select(self._current_window).logical_ties():
             leaf = logical_tie[0]
@@ -769,6 +794,7 @@ class Shuffler:
     def _rewrite_pitches(self,
                          pitches: list,
                          ):
+        r'Rewrites the pitches of all logical ties given a list of pitches.'
         index = 0
         dummy_container = abjad.Container(
             abjad.mutate(self._current_window[:]).copy()
@@ -819,17 +845,10 @@ class Shuffler:
         self._current_window = copy.deepcopy(contents)
 
     @property
-    def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the result of the last operation.'
-        if self._omit_time_signatures:
-            for leaf in abjad.select(self._current_window).leaves():
-                for indicator in abjad.inspect(leaf).indicators():
-                    if isinstance(indicator, abjad.TimeSignature):
-                        abjad.detach(indicator, leaf)
-        return copy.deepcopy(self._current_window)
-
-    @property
     def output_single_measure(self) -> bool:
+        r"""When ``True``, the output will be a single measure even if the
+        contents of the shuffler are several measures.
+        """
         return self._output_single_measure
 
     @output_single_measure.setter
@@ -842,6 +861,9 @@ class Shuffler:
 
     @property
     def disable_rewrite_meter(self) -> bool:
+        r"""When ``True``, the durations of the notes in the output will not be
+        rewritten by the ``rewrite_meter`` mutation.
+        """
         return self._disable_rewrite_meter
 
     @disable_rewrite_meter.setter
@@ -854,6 +876,9 @@ class Shuffler:
 
     @property
     def force_time_signatures(self) -> bool:
+        r"""When ``True``, every call will output a selection with a time
+        signature.
+        """
         return self._force_time_signatures
 
     @force_time_signatures.setter
@@ -866,6 +891,7 @@ class Shuffler:
 
     @property
     def omit_time_signatures(self) -> bool:
+        r'When ``True``, the output will contain no time signatures.'
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -875,3 +901,13 @@ class Shuffler:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
+
+    @property
+    def current_window(self) -> abjad.Selection:
+        r'Read-only property, returns the result of the last operation.'
+        if self._omit_time_signatures:
+            for leaf in abjad.select(self._current_window).leaves():
+                for indicator in abjad.inspect(leaf).indicators():
+                    if isinstance(indicator, abjad.TimeSignature):
+                        abjad.detach(indicator, leaf)
+        return copy.deepcopy(self._current_window)

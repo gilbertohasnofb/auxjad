@@ -100,8 +100,8 @@ class CartographySelector():
     ..  container:: example
 
         Appending is a type of content transformation. It discards the first
-        element of the selector's contents, shifts all others leftwards, and
-        then appends the new element to the rightmost index.
+        element of the selector's ``contents``, shifts all others leftwards,
+        and then appends the new element to the last index.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
@@ -116,9 +116,9 @@ class CartographySelector():
     ..  container:: example
 
         The method ``append_keeping_n()`` is similar to ``append()``, but it
-        keeps the first n indeces untouched. It thus discards the n+1-th
-        element, shifts all the next ones lefwards and then appends the new
-        element at the end of the selector's contents.
+        keeps the first ``n`` elements of ``contents`` untouched. It thus
+        discards the n+1-th element, shifts all the next elements one position
+        lefwards, and finally appends the new element at the last index.
 
         >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
         >>> selector.contents
@@ -130,8 +130,8 @@ class CartographySelector():
     ..  container:: example
 
         Prepending is another type of content transformation. It discards the
-        last element of the selector's contents, shifts all others rightwards,
-        and then prepends the new element to the leftmost index.
+        last element of the ``contents``, shifts all others rightwards, and
+        then prepends the new element to the first index.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
@@ -146,9 +146,9 @@ class CartographySelector():
     ..  container:: example
 
         Rotation is another type of content transformation. It rotates all
-        elements rightwards, while moving the rightmost element into the
-        leftmost index. It can take the optional keyword argument anticlockwise
-        which if set to ``True`` will rotate in the opposite direction.
+        elements rightwards, moving the last element to the first index. If the
+        optional keyword argument ``anticlockwise`` is set to ``True``, the
+        rotation will be in the opposite direction.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
@@ -165,11 +165,11 @@ class CartographySelector():
 
     ..  container:: example
 
-        It is also possible to mirror two elements around a pivot at the centre
-        of the selector's contents; given an element (selected by its index),
-        this operation will locate and swap it for its complementary element.
-        The complementary element is defined as that one which is at a same
-        distance from the centre pivot but in the opposite direction.
+        The mirror transformation swaps the element of the input index with its
+        complementary element. Complementary elements are defined as the pair
+        of elements which share the same distance from the centre of the
+        ``contents`` (in terms of number of indeces), and are located at either
+        side.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
@@ -210,7 +210,7 @@ class CartographySelector():
     ..  container:: example
 
         The method ``randomise()`` will randomise the position of the elements
-        of a selector's content.
+        of a selector's ``contents``.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
@@ -302,12 +302,14 @@ class CartographySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
+        r'Outputs the representation of ``contents``.'
         return str(self._contents)
 
     def __call__(self,
                  *,
                  no_repeat: bool = False,
                  ):
+        r'Call the selection process and outputs one element of ``contents``.'
         if not isinstance(no_repeat, bool):
             raise TypeError("'no_repeat' must be 'bool")
         if not no_repeat:
@@ -329,51 +331,93 @@ class CartographySelector():
                  *,
                  no_repeat: bool = False,
                  ):
+        r'Call the selection process and outputs one element of ``contents``.'
         return self.__call__(no_repeat=no_repeat)
 
     def __len__(self) -> int:
+        r'Outputs the length of ``contents``.'
         return len(self._contents)
 
     def __getitem__(self, key: int):
+        r"""Implements reading elements of ``contents`` through indexing or
+        slicing of instance.
+        """
         return self._contents[key]
 
     def __setitem__(self, key, value):
+        r"""Implements writing elements into ``contents`` through indexing or
+        slicing of instance.
+        """
         self._contents[key] = value
 
     ### PUBLIC METHODS ###
 
     def append(self, new_element):
+        r"""A type of content transformation, it discards the first element of
+        the ``contents``, shifts all others leftwards, and then appends the new
+        element to the last index.
+        """
         self._contents = self._contents[1:] + [new_element]
 
     def append_keeping_n(self, new_element, n: int):
+        r"""A type of content transformation similar to ``append()``, it keeps
+        the first ``n`` elements of ``contents`` untouched, it then discards
+        the n+1-th element, shifts all the next elements one position lefwards,
+        and finally appends the new element at the last index.
+        """
         self._contents = (self._contents[:n]
                           + self._contents[n+1:]
                           + [new_element])
 
     def prepend(self, new_element):
+        r"""A type of content transformation, it discards the last element of
+        the ``contents``, shifts all others rightwards, and then prepends the
+        new element to the first index.
+        """
         self._contents = [new_element] + self._contents[:-1]
 
     def rotate(self, anticlockwise=False):
+        r"""A type of content transformation, it rotates all elements
+        rightwards, moving the last element to the first index. If the optional
+        keyword argument ``anticlockwise`` is set to ``True``, the rotation
+        will be in the opposite direction.
+        """
         if not anticlockwise:
             self._contents = self._contents[1:] + self._contents[:1]
         else:
             self._contents = self._contents[-1:] + self._contents[:-1]
 
     def mirror(self, index: int):
+        r"""A type of content transformation which swaps the element of the
+        input index with its complementary element. Complementary elements are
+        defined as the pair of elements which share the same distance from the
+        centre of the ``contents`` (in terms of number of indeces), and are
+        located at either side.
+        """
         aux = self._contents[index]
         self._contents[index] = self._contents[-1 - index]
         self._contents[-1 - index] = aux
 
     def mirror_random(self):
+        r"""A type of content transformation which swaps the element of a
+        random index with its complementary element. Complementary elements are
+        defined as the pair of elements which share the same distance from the
+        centre of the ``contents`` (in terms of number of indeces), and are
+        located at either side.
+        """
         max_index = self.__len__() // 2 - 1
         self.mirror(random.randint(0, max_index))
 
     def randomise(self):
+        r'Randomises the position of the elements of ``contents``.'
         random.shuffle(self._contents)
 
     ### PRIVATE METHODS ###
 
     def _generate_weights(self):
+        r"""Given a decay rate, this method generates the weights of individual
+        indeces.
+        """
         self.weights = []
         for n in range(self.__len__()):
             self.weights.append(self._decay_rate ** n)
@@ -420,7 +464,8 @@ class CartographySelector():
     @property
     def previous_index(self):
         r"""Read-only property, returns the index of the previously output
-        element."""
+        element.
+        """
         return self._previous_index
 
     @property

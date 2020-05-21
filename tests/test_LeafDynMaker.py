@@ -69,7 +69,7 @@ def test_LeafDynMaker_03():
     notes = leaf_dyn_maker(pitches,
                            durations,
                            dynamics,
-                           no_repeat=True,
+                           omit_repeated_dynamics=True,
                            )
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -122,10 +122,79 @@ def test_LeafDynMaker_04():
 def test_LeafDynMaker_05():
     pitches = [0, 2, 4, 5, 7, 9]
     durations = (1, 4)
+    dynamics = ['p', 'f', 'ff']
+    articulations = ['.', '>']
+    leaf_dyn_maker = auxjad.LeafDynMaker()
+    notes = leaf_dyn_maker(pitches,
+                           durations,
+                           dynamics,
+                           articulations,
+                           cyclic_dynamics=True,
+                           cyclic_articulations=True,
+                           )
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            \p
+            - \staccato
+            d'4
+            \f
+            - \accent
+            e'4
+            \ff
+            - \staccato
+            f'4
+            \p
+            - \accent
+            g'4
+            \f
+            - \staccato
+            a'4
+            \ff
+            - \accent
+        }
+        """)
+
+
+def test_LeafDynMaker_06():
+    pitches = [0, 2, 4, 5, 7, 9]
+    durations = (1, 4)
     dynamics = 'p'
     articulations = '.'
     leaf_dyn_maker = auxjad.LeafDynMaker()
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            \p
+            - \staccato
+            d'4
+            e'4
+            f'4
+            g'4
+            a'4
+        }
+        """)
+
+
+def test_LeafDynMaker_07():
+    pitches = [0, 2, 4, 5, 7, 9]
+    durations = (1, 4)
+    dynamics = 'p'
+    articulations = '.'
+    leaf_dyn_maker = auxjad.LeafDynMaker()
+    notes = leaf_dyn_maker(pitches,
+                           durations,
+                           dynamics,
+                           articulations,
+                           cyclic_articulations=True,
+                           )
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -148,7 +217,7 @@ def test_LeafDynMaker_05():
         """)
 
 
-def test_LeafDynMaker_06():
+def test_LeafDynMaker_08():
     pitches = [0,
                "d'",
                'E4',
@@ -163,16 +232,28 @@ def test_LeafDynMaker_06():
                  abjad.Duration(5, 32),
                  abjad.Duration(6/32),
                  ]
+    dynamics = ['p',
+                abjad.Dynamic('f'),
+                ]
+    articulations = ['>',
+                    abjad.Articulation('-'),
+                    abjad.Staccato(),
+                    ]
     leaf_dyn_maker = auxjad.LeafDynMaker()
-    notes = leaf_dyn_maker(pitches, durations)
+    notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
             c'32
+            \p
+            - \accent
             d'16
+            \f
+            - \tenuto
             e'16.
+            \staccato
             f'8
             g'8
             ~
@@ -181,7 +262,7 @@ def test_LeafDynMaker_06():
         }
         """)
 
-def test_LeafDynMaker_07():
+def test_LeafDynMaker_09():
     leaf_dyn_maker = auxjad.LeafDynMaker()
     note = leaf_dyn_maker(0, (1, 4), 'p', '-')
     staff = abjad.Staff([note])

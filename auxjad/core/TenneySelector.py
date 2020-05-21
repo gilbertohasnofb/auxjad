@@ -237,7 +237,8 @@ class TenneySelector():
 
     ..  container:: example
 
-        To reset the probability to its initial value, use the method
+        To reset the probability distribution of all elements to its initial
+        value (an uniform distribution), use the method
         ``reset_probabilities()``.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
@@ -356,9 +357,11 @@ class TenneySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
+        r'Outputs the representation of ``contents``.'
         return str(self._contents)
 
     def __call__(self):
+        r'Call the selection process and outputs one element of ``contents``.'
         self._previous_index = random.choices(
             [n for n in range(self.__len__())],
             weights=self.probabilities,
@@ -368,26 +371,40 @@ class TenneySelector():
         return self._contents[self._previous_index]
 
     def __next__(self):
+        r'Call the selection process and outputs one element of ``contents``.'
         return self.__call__()
 
     def __len__(self) -> int:
+        r'Outputs the length of ``contents``.'
         return len(self._contents)
 
     def __getitem__(self, key: int):
+        r"""Implements reading elements of ``contents`` through indexing or
+        slicing of instance.
+        """
         return self._contents[key]
 
     def __setitem__(self, key, value):
+        r"""Implements writing elements into ``contents`` through indexing or
+        slicing of instance.
+        """
         self._contents[key] = value
 
     ### PUBLIC METHODS ###
 
     def reset_probabilities(self):
+        r"""Resets the probability distribution of all elements to an uniform
+        distribution.
+        """
         self._counter = [1 for _ in range(self.__len__())]
         self._generate_probabilities()
 
     ### PRIVATE METHODS ###
 
     def _regenerate_counts(self):
+        r"""Increases the count of all elements except for the previously
+        selected one, whose count is reset to zero.
+        """
         for i in range(self.__len__()):
             if i == self._previous_index:
                 self._counter[i] = 0
@@ -397,6 +414,9 @@ class TenneySelector():
     def _generate_probabilities(self,
                                 reset: bool = False,
                                 ):
+        r"""Generates the probabilities given the weights of the elements as
+        well as their count numbers (which are fed into the growth function).
+        """
         if reset:
             self._counter = [1 for _ in range(self.__len__())]
         self.probabilities = []
@@ -404,6 +424,7 @@ class TenneySelector():
             self.probabilities.append(weight * self._growth_function(count))
 
     def _growth_function(self, count):
+        r'Applies the growth exponent given a number of counts.'
         return count ** self._curvature
 
     ### PUBLIC PROPERTIES ###
@@ -462,5 +483,6 @@ class TenneySelector():
     @property
     def previous_index(self):
         r"""Read-only property, returns the index of the previously output
-        element."""
+        element.
+        """
         return self._previous_index

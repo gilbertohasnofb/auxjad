@@ -310,17 +310,33 @@ class LoopByList(_LoopParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
+        r'Outputs the representation of ``contents``.'
         return str(self._contents)
 
     def __len__(self) -> int:
+        r'Outputs a length of ``contents``.'
         return len(self._contents)
 
-    def __next__(self) -> list:
-        r"""Custom __next__ dunder method since parent's method outputs an
-        ``abjad.Selection``.
+    def __call__(self) -> list:
+        r"""Calls the looping process for one iteration, returning a ``list``.
+
+        This method replaces the parent's one since the parent's method outputs
+        an ``abjad.Selection``.
         """
         self._move_head()
-        if self._done():
+        if self._done:
+            raise RuntimeError("'contents' has been exhausted")
+        self._slice_contents()
+        return self.current_window[:]
+
+    def __next__(self) -> list:
+        r"""Calls the looping process for one iteration, returning a ``list``.
+
+        This method replaces the parent's one since the parent's method outputs
+        an ``abjad.Selection``.
+        """
+        self._move_head()
+        if self._done:
             raise StopIteration
         self._slice_contents()
         return self._current_window[:]
@@ -328,8 +344,9 @@ class LoopByList(_LoopParent):
     ### PUBLIC METHODS ###
 
     def output_all(self) -> list:
-        r"""Custom output_all() method since parent's method outputs an
-        ``abjad.Selection``.
+        r"""Goes through the whole looping process and outputs a single list.
+        This method replaces the parent's one since the parent's method outputs
+        an ``abjad.Selection``.
         """
         dummy_container = []
         while True:
@@ -340,8 +357,9 @@ class LoopByList(_LoopParent):
         return dummy_container[:]
 
     def output_n(self, n: int) -> list:
-        r"""Custom output_n() method since parent's method outputs an
-        ``abjad.Selection``.
+        r"""Goes through ``n`` iterations of the looping process and outputs a
+        single list. This method replaces the parent's one since the parent's
+        method outputs an ``abjad.Selection``.
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
@@ -355,6 +373,9 @@ class LoopByList(_LoopParent):
     ### PRIVATE METHODS ###
 
     def _slice_contents(self):
+        r"""This method takes a slice with ``window_size`` number of elements
+        out of the contents starting at the current ``head_position``.
+        """
         start = self.head_position
         end = self.head_position + self.window_size
         self._current_window = self._contents[start:end]

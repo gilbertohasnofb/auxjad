@@ -1,7 +1,8 @@
 import abjad
+from ._HarmonicParent import _HarmonicParent
 
 
-class ArtificialHarmonic(abjad.Chord):
+class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     r"""Creates an chord with a tweaked top note head for notating artificial
     harmonics. This is a child class of ``abjad.Chord``.
 
@@ -190,6 +191,68 @@ class ArtificialHarmonic(abjad.Chord):
 
     ..  container:: example
 
+        To add a markup expression to the harmonic note, use the markup:
+
+        >>> harm1 = auxjad.ArtificialHarmonic("<a d'>1")
+        >>> harm2 = auxjad.ArtificialHarmonic("<a d'>1",
+        ...                                   markup='I.',
+        ...                                   )
+        >>> harm3 = auxjad.ArtificialHarmonic("<a d'>1",
+        ...                                   markup='I.',
+        ...                                   direction=abjad.Down)
+        >>> staff = abjad.Staff([harm1, harm2, harm3])
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
+            ^ \markup { I. }
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
+            _ \markup { I. }
+        }
+
+        .. figure:: ../_images/image-ArtificialHarmonic-6.png
+
+        Setting ``markup`` to ``None`` will remove the markup from the note.
+
+        >>> harm = auxjad.ArtificialHarmonic("<a d'>1",
+        ...                                  markup='I.',
+        ...                                  )
+        >>> harm.markup = None
+        >>> abjad.f(harm)
+        <
+            a
+            \tweak style #'harmonic
+            d'
+        >1
+
+        .. figure:: ../_images/image-ArtificialHarmonic-7.png
+
+    ..  warning::
+
+        If another markup is attached to the harmonic note, trying to set the
+        ``markup`` to ``None`` will raise an Exception:
+
+        >>> harm = auxjad.ArtificialHarmonic("<a d'>1")
+        >>> abjad.attach(abjad.Markup('test'), harm)
+        >>> harm.markup = 'I.'
+        >>> harm.markup = None
+        Exception: multiple indicators attached to client.
+
+    ..  container:: example
+
         The note created by ``sounding_note()`` inherits all indicators from
         the ``ArtificialHarmonic``.
 
@@ -199,9 +262,9 @@ class ArtificialHarmonic(abjad.Chord):
         \pp
         - \staccato
 
-        .. figure:: ../_images/image-ArtificialHarmonic-6.png
+        .. figure:: ../_images/image-ArtificialHarmonic-8.png
 
-    ..  container:: example
+    ..  warning::
 
         Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
         ValueError exception when it cannot calculate the sounding pitch for
@@ -211,7 +274,6 @@ class ArtificialHarmonic(abjad.Chord):
         ValueError: cannot calculate sounding pitch for given interval
         >>> ArtificialHarmonic("<g ef'>4").sounding_note()
         ValueError: cannot calculate sounding pitch for given interval
-
     """
 
     ### INITIALISER ###
@@ -222,6 +284,8 @@ class ArtificialHarmonic(abjad.Chord):
                  tag: abjad.Tag = None,
                  style: str = 'harmonic',
                  is_parenthesized: bool = False,
+                 markup: str = None,
+                 direction: (str, abjad.enums.VerticalAlignment) = 'up',
                  ):
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         if len(self.note_heads) != 2:
@@ -229,10 +293,13 @@ class ArtificialHarmonic(abjad.Chord):
                              "'note_heads' for initialisation")
         self.style = style
         self.is_parenthesized = is_parenthesized
+        self._direction = direction
+        self.markup = markup
 
     ### PUBLIC METHODS ###
 
     def sounding_pitch(self) -> abjad.Pitch:
+        r'Returns the sounding pitch of the harmonic as an ``abjad.Pitch``.'
         interval = abs(self.note_heads[1].written_pitch
                        - self.note_heads[0].written_pitch).semitones
         sounding_pitch_dict = {1: 48,
@@ -257,6 +324,7 @@ class ArtificialHarmonic(abjad.Chord):
         return sounding_pitch
 
     def sounding_note(self) -> abjad.Note:
+        r'Returns the sounding note of the harmonic as an ``abjad.Note``.'
         note = abjad.Note(self.sounding_pitch(), self.written_duration)
         for indicator in abjad.inspect(self).indicators():
             abjad.attach(indicator, note)

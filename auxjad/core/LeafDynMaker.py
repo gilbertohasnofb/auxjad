@@ -73,7 +73,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ..  container:: example
 
-        Can omit repeated dynamics with the keyword argument ``no_repeat``:
+        Can omit repeated dynamics with the keyword argument
+        ``omit_repeated_dynamics``:
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = [(1, 32), (2, 32), (3, 32), (4, 32), (5, 32), (6, 32)]
@@ -82,7 +83,7 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> notes = leaf_dyn_maker(pitches,
         ...                        durations,
         ...                        dynamics,
-        ...                        no_repeat=True,
+        ...                        omit_repeated_dynamics=True,
         ...                        )
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -106,9 +107,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ..  container:: example
 
-        The lengths of both ``dynamics`` and ``articulations`` can be shorter
-        than the lengths of ``pitches`` and ``durations`` (whatever is the
-        greatest):
+        The lengths ``dynamics`` and ``articulations`` can be shorter than the
+        lengths of ``pitches`` and ``durations`` (whatever is the greatest):
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = (1, 4)
@@ -137,9 +137,53 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ..  container:: example
 
-        If the length of ``articulations`` is 1, it will apply to all elements.
-        If the length of ``dynamics`` is 1, it will apply to the first element
-        only:
+        If the lengths of either ``dynamics`` and ``articulations`` are shorter
+        than the lengths of ``pitches`` and ``durations`` (whatever is the
+        greatest), use the optional keyword arguments ``cyclic_dynamics`` and
+        ``cyclic_articulations`` to apply those parameters cyclically:
+
+        >>> pitches = [0, 2, 4, 5, 7, 9]
+        >>> durations = (1, 4)
+        >>> dynamics = ['p', 'f', 'ff']
+        >>> articulations = ['.', '>']
+        >>> leaf_dyn_maker = auxjad.LeafDynMaker()
+        >>> notes = leaf_dyn_maker(pitches,
+        ...                        durations,
+        ...                        dynamics,
+        ...                        articulations,
+        ...                        cyclic_dynamics=True,
+        ...                        cyclic_articulations=True,
+        ...                        )
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            \p
+            - \staccato
+            d'4
+            \f
+            - \accent
+            e'4
+            \ff
+            - \staccato
+            f'4
+            \p
+            - \accent
+            g'4
+            \f
+            - \staccato
+            a'4
+            \ff
+            - \accent
+        }
+
+        .. figure:: ../_images/image-LeafDynMaker-5.png
+
+    ..  container:: example
+
+        If the length of ``articulations`` or ``dynamics`` is 1, they will be
+        applied only to the first element.
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = (1, 4)
@@ -147,6 +191,38 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> articulations = '.'
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            \p
+            -\staccato
+            d'4
+            e'4
+            f'4
+            g'4
+            a'4
+        }
+
+        .. figure:: ../_images/image-LeafDynMaker-6.png
+
+    ..  container:: example
+
+        To apply them to all elements, use the ``cyclic_dynamics`` and
+        ``cyclic_articulations`` optioanl keywords.
+
+        >>> pitches = [0, 2, 4, 5, 7, 9]
+        >>> durations = (1, 4)
+        >>> dynamics = 'p'
+        >>> articulations = '.'
+        >>> leaf_dyn_maker = auxjad.LeafDynMaker()
+        >>> notes = leaf_dyn_maker(pitches,
+        ...                        durations,
+        ...                        dynamics,
+        ...                        articulations,
+        ...                        cyclic_articulations=True,
+        ...                        )
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
@@ -166,7 +242,7 @@ class LeafDynMaker(abjad.LeafMaker):
             -\staccato
         }
 
-        .. figure:: ../_images/image-LeafDynMaker-5.png
+        .. figure:: ../_images/image-LeafDynMaker-7.png
 
     ..  container:: example
 
@@ -187,15 +263,27 @@ class LeafDynMaker(abjad.LeafMaker):
         ...              abjad.Duration(5, 32),
         ...              abjad.Duration(6/32),
         ...              ]
+        >>> dynamics = ['p',
+        ...             abjad.Dynamic('f'),
+        ...             ]
+        >>> articulations = ['>',
+        ...                 abjad.Articulation('-'),
+        ...                 abjad.Staccato(),
+        ...                 ]
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
-        >>> notes = leaf_dyn_maker(pitches, durations)
+        >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
             c'32
+            \p
+            - \accent
             d'16
+            \f
+            - \tenuto
             e'16.
+            \staccato
             f'8
             g'8
             ~
@@ -203,7 +291,7 @@ class LeafDynMaker(abjad.LeafMaker):
             a'8.
         }
 
-        .. figure:: ../_images/image-LeafDynMaker-6.png
+        .. figure:: ../_images/image-LeafDynMaker-8.png
     """
 
     ### SPECIAL METHODS ###
@@ -214,8 +302,14 @@ class LeafDynMaker(abjad.LeafMaker):
                  dynamics=None,
                  articulations=None,
                  *,
-                 no_repeat=False
+                 omit_repeated_dynamics=False,
+                 cyclic_dynamics=False,
+                 cyclic_articulations=False,
                  ) -> abjad.Selection:
+
+        r"""Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
+        and ``articulations``, returning an ``abjad.Selection``.
+        """
         if dynamics:
             for dynamic in dynamics:
                 if dynamic is not None:
@@ -225,9 +319,19 @@ class LeafDynMaker(abjad.LeafMaker):
         if articulations:
             for articulation in articulations:
                 if articulation is not None:
-                    if not isinstance(articulation, (str, abjad.Articulation)):
+                    if not isinstance(articulation, (str,
+                                                     abjad.Articulation,
+                                                     abjad.Staccatissimo,
+                                                     abjad.Staccato,
+                                                     )):
                         raise TypeError("articulations must be 'str' or "
                                         "'abjad.Articulation'")
+        if not isinstance(omit_repeated_dynamics, bool):
+            raise TypeError("'omit_repeated_dynamics' must be 'bool")
+        if not isinstance(cyclic_dynamics, bool):
+            raise TypeError("'cyclic_dynamics' must be 'bool")
+        if not isinstance(cyclic_articulations, bool):
+            raise TypeError("'cyclic_articulations' must be 'bool")
 
         leaves = super().__call__(pitches, durations)
         dummy_container = abjad.Container(leaves)
@@ -239,23 +343,29 @@ class LeafDynMaker(abjad.LeafMaker):
         articulations_ = self._listify(articulations)
 
         greatest_len = max(len(pitches_), len(durations_))
-        self._fill_list(dynamics_, greatest_len)
+        self._fill_list(dynamics_,
+                        greatest_len,
+                        cyclic=cyclic_dynamics,
+                        )
         self._fill_list(articulations_,
                         greatest_len,
-                        default=self._single_element_or_none(articulations_),
+                        cyclic=cyclic_articulations,
                         )
 
         previous_dynamic = None
         for logical_tie, dynamic, articulation in zip(logical_ties,
                                                       dynamics_,
                                                       articulations_):
-            if (not no_repeat or dynamic != previous_dynamic) and dynamic:
+            if (dynamic and (not omit_repeated_dynamics
+                    or dynamic != previous_dynamic)):
                 abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic
-            if articulation:
+            if articulation and isinstance(articulation, str):
                 abjad.attach(abjad.Articulation(articulation),
                              logical_tie.head,
                              )
+            elif articulation:
+                abjad.attach(articulation, logical_tie.head)
 
         result = dummy_container[:]
         dummy_container[:] = []
@@ -266,6 +376,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
     @staticmethod
     def _listify(argument):
+        r'Returns a list if argument is not a list.'
         if argument:
             if isinstance(argument, list):
                 return argument
@@ -275,13 +386,19 @@ class LeafDynMaker(abjad.LeafMaker):
             return []
 
     @staticmethod
-    def _single_element_or_none(input_list):
-        if len(input_list) == 1:
-            return input_list[0]
+    def _fill_list(input_list,
+                   length: int,
+                   cyclic: bool = False,
+                   default=None):
+        r"""Extends a list to a certain length, filling it with a default
+        value. If ``cyclic`` is ``True``, then it fills the list by cycling the
+        original ``input_list``.
+        """
+        if not cyclic:
+            while len(input_list) < length:
+                input_list.append(default)
         else:
-            return None
-
-    @staticmethod
-    def _fill_list(input_list, length, default=None):
-        while len(input_list) < length:
-            input_list.append(default)
+            original_length = len(input_list)
+            while len(input_list) < length:
+                current_length = len(input_list)
+                input_list.append(input_list[current_length % original_length])

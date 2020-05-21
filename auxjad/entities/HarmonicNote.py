@@ -1,7 +1,8 @@
 import abjad
+from ._HarmonicParent import _HarmonicParent
 
 
-class HarmonicNote(abjad.Note):
+class HarmonicNote(abjad.Note, _HarmonicParent):
     r"""Creates a note with tweaked notehead for harmonics. This is a child
     class of ``abjad.Note``.
 
@@ -9,10 +10,10 @@ class HarmonicNote(abjad.Note):
 
         Usage is similar to ``abjad.Note``:
 
-        >>> note = auxjad.HarmonicNote("c''4")
-        >>> note.style
+        >>> harm = auxjad.HarmonicNote("c''4")
+        >>> harm.style
         'harmonic'
-        >>> abjad.f(note)
+        >>> abjad.f(harm)
         \tweak style #'harmonic
         c''4
 
@@ -21,11 +22,11 @@ class HarmonicNote(abjad.Note):
         And similarly to ``abjad.Note``, pitch and duration can be input in
         many different ways:
 
-        >>> note1 = auxjad.HarmonicNote("c''4")
-        >>> note2 = auxjad.HarmonicNote("c''", 1/4)
-        >>> note3 = auxjad.HarmonicNote(12, 0.25)
-        >>> note4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
-        >>> staff = abjad.Staff([note1, note2, note3, note4])
+        >>> harm1 = auxjad.HarmonicNote("c''4")
+        >>> harm2 = auxjad.HarmonicNote("c''", 1/4)
+        >>> harm3 = auxjad.HarmonicNote(12, 0.25)
+        >>> harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
+        >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])
         >>> abjad.f(staff)
         \new Staff
         {
@@ -46,12 +47,12 @@ class HarmonicNote(abjad.Note):
         When creating an ``HarmonicNote``, use the keyword argument ``style``
         to set a different type of note head, such as ``'harmonic-mixed'``:
 
-        >>> note = auxjad.HarmonicNote("c''4",
+        >>> harm = auxjad.HarmonicNote("c''4",
         ...                            style='harmonic-mixed',
         ...                            )
-        >>> note.style
+        >>> harm.style
         'harmonic-mixed'
-        >>> abjad.f(note)
+        >>> abjad.f(harm)
         \tweak style #'harmonic-mixed
         c''4
 
@@ -61,12 +62,12 @@ class HarmonicNote(abjad.Note):
 
         Similarly to ``abjad.Note``, ``HarmonicNote`` can take multipliers:
 
-        >>> note = auxjad.HarmonicNote("c''4",
+        >>> harm = auxjad.HarmonicNote("c''4",
         ...                            multiplier=(2, 3),
         ...                            )
-        >>> note.multiplier
+        >>> harm.multiplier
         abjad.Multiplier(2, 3)
-        >>> abjad.f(note)
+        >>> abjad.f(harm)
         \tweak style #'harmonic
         c''4 * 2/3
 
@@ -77,42 +78,92 @@ class HarmonicNote(abjad.Note):
         All properties of ``abjad.Note`` are also available to be read. This
         class also includes a new property named ``style``:
 
-        >>> note = auxjad.HarmonicNote("c''4")
-        >>> note.written_pitch
+        >>> harm = auxjad.HarmonicNote("c''4")
+        >>> harm.written_pitch
         "c''"
-        >>> note.written_duration
+        >>> harm.written_duration
         1/4
-        >>> note.style
+        >>> harm.style
         'harmonic'
 
         All these properties can be set to different values after
         initialisation:
 
-        >>> note.written_pitch = 18
-        >>> note.written_duration = abjad.Duration(1, 8)
-        >>> note.style = 'harmonic-mixed'
-        >>> note.written_pitch
+        >>> harm.written_pitch = 18
+        >>> harm.written_duration = abjad.Duration(1, 8)
+        >>> harm.style = 'harmonic-mixed'
+        >>> harm.written_pitch
         "fs''"
-        >>> note.written_duration
+        >>> harm.written_duration
         1/8
-        >>> note.style
+        >>> harm.style
         'harmonic-mixed'
 
     ..  container:: example
 
-        To create a note with a regular note head and with a flageolet circle
-        above it, use the style ``'flageolet'``:
+        To create a harmonic note with a regular note head and with a flageolet
+        circle above it, use the style ``'flageolet'``:
 
-        >>> note = auxjad.HarmonicNote("c''1",
+        >>> harm = auxjad.HarmonicNote("c''1",
         ...                            style='flageolet',
         ...                            )
-        >>> note.style
+        >>> harm.style
         'flageolet'
-        >>> abjad.f(note)
+        >>> abjad.f(harm)
         c''1
         \flageolet
 
         .. figure:: ../_images/image-HarmonicNote-5.png
+
+    ..  container:: example
+
+        To add a markup expression to the harmonic note, use the markup:
+
+        >>> harm1 = auxjad.HarmonicNote("d''1")
+        >>> harm2 = auxjad.HarmonicNote("d''1",
+        ...                             markup='III.',
+        ...                             )
+        >>> harm3 = auxjad.HarmonicNote("d''1",
+        ...                             markup='III.',
+        ...                             direction=abjad.Down)
+        >>> staff = abjad.Staff([harm1, harm2, harm3])
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \tweak style #'harmonic
+            d''1
+            \tweak style #'harmonic
+            d''1
+            ^ \markup { III. }
+            \tweak style #'harmonic
+            d''1
+            _ \markup { III. }
+        }
+
+        .. figure:: ../_images/image-HarmonicNote-6.png
+
+        Setting ``markup`` to ``None`` will remove the markup from the note.
+
+        >>> harm = auxjad.HarmonicNote("d''1",
+        ...                            markup='III.',
+        ...                            )
+        >>> harm.markup = None
+        >>> abjad.f(harm)
+        \tweak style #'harmonic
+        d''1
+
+        .. figure:: ../_images/image-HarmonicNote-7.png
+
+    ..  warning::
+
+        If another markup is attached to the harmonic note, trying to set the
+        ``markup`` to ``None`` will raise an Exception:
+
+        >>> harm = auxjad.HarmonicNote("d''1")
+        >>> abjad.attach(abjad.Markup('test'), harm)
+        >>> harm.markup = 'III.'
+        >>> harm.markup = None
+        Exception: multiple indicators attached to client.
     """
 
     ### INITIALISER ###
@@ -122,9 +173,13 @@ class HarmonicNote(abjad.Note):
                  multiplier: abjad.typings.DurationTyping = None,
                  tag: abjad.Tag = None,
                  style: str = 'harmonic',
+                 markup: str = None,
+                 direction: (str, abjad.enums.VerticalAlignment) = 'up',
                  ):
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
+        self._direction = direction
+        self.markup = markup
 
     ### PUBLIC PROPERTIES ###
 

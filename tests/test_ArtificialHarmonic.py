@@ -7,13 +7,13 @@ def test_ArtificialHarmonic_01():
     harm = auxjad.ArtificialHarmonic("<g c'>4")
     assert harm.style == 'harmonic'
     assert format(harm) == abjad.String.normalize(
-    r"""
-    <
-        g
-        \tweak style #'harmonic
-        c'
-    >4
-    """)
+        r"""
+        <
+            g
+            \tweak style #'harmonic
+            c'
+        >4
+        """)
 
 
 def test_ArtificialHarmonic_02():
@@ -24,13 +24,13 @@ def test_ArtificialHarmonic_02():
     harms = [harm1, harm2, harm3, harm4]
     for harm in harms:
         assert format(harm) == abjad.String.normalize(
-        r"""
-        <
-            g
-            \tweak style #'harmonic
-            c'
-        >4
-        """)
+            r"""
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4
+            """)
 
 
 def test_ArtificialHarmonic_03():
@@ -39,13 +39,13 @@ def test_ArtificialHarmonic_03():
                                      )
     assert harm.style == 'harmonic-mixed'
     assert format(harm) == abjad.String.normalize(
-    r"""
-    <
-        g
-        \tweak style #'harmonic-mixed
-        c'
-    >4
-    """)
+        r"""
+        <
+            g
+            \tweak style #'harmonic-mixed
+            c'
+        >4
+        """)
 
 
 def test_ArtificialHarmonic_04():
@@ -54,15 +54,15 @@ def test_ArtificialHarmonic_04():
                                      )
     assert harm.is_parenthesized
     assert format(harm) == abjad.String.normalize(
-    r"""
-    <
-        \parenthesize
-        \tweak ParenthesesItem.font-size #-4
-        g
-        \tweak style #'harmonic
-        c'
-    >4
-    """)
+        r"""
+        <
+            \parenthesize
+            \tweak ParenthesesItem.font-size #-4
+            g
+            \tweak style #'harmonic
+            c'
+        >4
+        """)
 
 
 def test_ArtificialHarmonic_05():
@@ -71,13 +71,13 @@ def test_ArtificialHarmonic_05():
                                      )
     assert harm.multiplier == abjad.Multiplier(2, 3)
     assert format(harm) == abjad.String.normalize(
-    r"""
-    <
-        g
-        \tweak style #'harmonic
-        c'
-    >4 * 2/3
-    """)
+        r"""
+        <
+            g
+            \tweak style #'harmonic
+            c'
+        >4 * 2/3
+        """)
 
 
 def test_ArtificialHarmonic_06():
@@ -98,7 +98,7 @@ def test_ArtificialHarmonic_06():
 
 def test_ArtificialHarmonic_07():
     with pytest.raises(ValueError):
-        assert auxjad.ArtificialHarmonic("<g c' d'>4")
+        auxjad.ArtificialHarmonic("<g c' d'>4")
 
 
 def test_ArtificialHarmonic_08():
@@ -144,11 +144,11 @@ def test_ArtificialHarmonic_10():
 def test_ArtificialHarmonic_11():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
     assert format(harm.sounding_note()) == abjad.String.normalize(
-    r"""
-    g''4
-    \pp
-    - \staccato
-    """)
+        r"""
+        g''4
+        \pp
+        - \staccato
+        """)
 
 
 def test_ArtificialHarmonic_12():
@@ -163,3 +163,61 @@ def test_ArtificialHarmonic_13():
     assert harm.written_pitches == abjad.PitchSegment("a d'")
     with pytest.raises(ValueError):
         harm.written_pitches = r"a d' e'"
+
+
+def test_ArtificialHarmonic_14():
+    harm1 = auxjad.ArtificialHarmonic("<a d'>1")
+    harm2 = auxjad.ArtificialHarmonic("<a d'>1",
+                                      markup='I.',
+                                      )
+    harm3 = auxjad.ArtificialHarmonic("<a d'>1",
+                                      markup='I.',
+                                      direction=abjad.Down)
+    staff = abjad.Staff([harm1, harm2, harm3])
+    abjad.f(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
+            ^ \markup { I. }
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
+            _ \markup { I. }
+        }
+        """)
+
+
+def test_ArtificialHarmonic_15():
+    harm = auxjad.ArtificialHarmonic("<a d'>1",
+                                     markup='I.',
+                                     )
+    harm.markup = None
+    assert format(harm) == abjad.String.normalize(
+        r"""
+        <
+            a
+            \tweak style #'harmonic
+            d'
+        >1
+        """)
+
+
+def test_ArtificialHarmonic_16():
+    harm = auxjad.ArtificialHarmonic("<a d'>1")
+    abjad.attach(abjad.Markup('test'), harm)
+    harm.markup = 'I.'
+    with pytest.raises(Exception):
+        harm.markup = None

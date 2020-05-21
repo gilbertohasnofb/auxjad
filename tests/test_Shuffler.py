@@ -1,5 +1,6 @@
 import random
 import abjad
+import pytest
 import auxjad
 
 
@@ -11,7 +12,7 @@ def test_Shuffler_01():
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
@@ -20,11 +21,13 @@ def test_Shuffler_01():
             f'4
             e'4
         }
-        ''')
+        """)
     music = shuffler.current_container
+    with pytest.raises(AttributeError):
+        shuffler.current_container = abjad.Container(r"c''2 e''2")
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
@@ -33,7 +36,7 @@ def test_Shuffler_01():
             f'4
             e'4
         }
-        ''')
+        """)
 
 
 def test_Shuffler_02():
@@ -63,7 +66,7 @@ def test_Shuffler_03():
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 5/4
@@ -73,7 +76,7 @@ def test_Shuffler_03():
             g'4
             c'4
         }
-        ''')
+        """)
 
 
 def test_Shuffler_04():
@@ -86,7 +89,7 @@ def test_Shuffler_04():
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 5/4
@@ -95,7 +98,7 @@ def test_Shuffler_04():
             c'16
             e'4
         }
-        ''')
+        """)
 
 
 def test_Shuffler_05():
@@ -105,7 +108,7 @@ def test_Shuffler_05():
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -120,11 +123,11 @@ def test_Shuffler_05():
             r8.
             c'16
         }
-        ''')
+        """)
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'16
@@ -138,12 +141,12 @@ def test_Shuffler_05():
             r16
             d'4..
         }
-        ''')
+        """)
     shuffler.force_time_signatures = True
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -154,7 +157,7 @@ def test_Shuffler_05():
             f'2
             e'4
         }
-        ''')
+        """)
 
 
 def test_Shuffler_06():
@@ -164,7 +167,7 @@ def test_Shuffler_06():
     music = shuffler.output_n(3)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 2/4
@@ -189,7 +192,7 @@ def test_Shuffler_06():
             c'16
             e'8.
         }
-        ''')
+        """)
 
 
 def test_Shuffler_07():
@@ -199,7 +202,7 @@ def test_Shuffler_07():
     music = shuffler.shuffle_pitches()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 3/4
@@ -209,7 +212,7 @@ def test_Shuffler_07():
         d'8.
         f'16
     }
-    ''')
+    """)
 
 
 def test_Shuffler_08():
@@ -219,7 +222,7 @@ def test_Shuffler_08():
     music = shuffler.output_n_shuffled_pitches(3)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \times 2/3 {
@@ -245,7 +248,7 @@ def test_Shuffler_08():
         c'4.
         e'8
     }
-    ''')
+    """)
 
 
 def test_Shuffler_09():
@@ -254,7 +257,7 @@ def test_Shuffler_09():
     music = shuffler.rotate_pitches()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 3/4
@@ -264,7 +267,7 @@ def test_Shuffler_09():
         f'8.
         c'16
     }
-    ''')
+    """)
 
 
 def test_Shuffler_10():
@@ -273,7 +276,7 @@ def test_Shuffler_10():
     music = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 3/4
@@ -283,7 +286,7 @@ def test_Shuffler_10():
         c'8.
         d'16
     }
-    ''')
+    """)
 
 
 def test_Shuffler_11():
@@ -292,7 +295,7 @@ def test_Shuffler_11():
     music = shuffler.output_n_rotated_pitches(3)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \times 2/3 {
@@ -318,7 +321,7 @@ def test_Shuffler_11():
         d'4.
         e'8
     }
-    ''')
+    """)
 
 
 def test_Shuffler_12():
@@ -328,7 +331,7 @@ def test_Shuffler_12():
     music = shuffler.shuffle_leaves()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
@@ -337,7 +340,7 @@ def test_Shuffler_12():
             f'4
             e'4
         }
-        ''')
+        """)
 
 
 def test_Shuffler_13():
@@ -349,7 +352,7 @@ def test_Shuffler_13():
     music = shuffler()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'4..
@@ -363,7 +366,7 @@ def test_Shuffler_13():
             r8.
             c'16
         }
-        ''')
+        """)
     assert shuffler.omit_time_signatures
     shuffler.omit_time_signatures = False
     assert not shuffler.omit_time_signatures

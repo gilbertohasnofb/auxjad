@@ -9,7 +9,7 @@ def test_LoopByWindow_01():
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
@@ -17,11 +17,11 @@ def test_LoopByWindow_01():
             d'2
             e'4
         }
-        ''')
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'8.
@@ -33,11 +33,11 @@ def test_LoopByWindow_01():
             e'8.
             f'16
         }
-        ''')
+        """)
     notes = looper.current_window
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'8.
@@ -49,7 +49,7 @@ def test_LoopByWindow_01():
             e'8.
             f'16
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_02():
@@ -61,24 +61,24 @@ def test_LoopByWindow_02():
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
             c'4
             d'2
         }
-        ''')
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'2
             e'4
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_03():
@@ -90,18 +90,18 @@ def test_LoopByWindow_03():
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
             c'4
             d'2
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'8
@@ -110,21 +110,21 @@ def test_LoopByWindow_03():
             d'4.
             e'8
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'2
             e'4
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'4.
@@ -133,22 +133,22 @@ def test_LoopByWindow_03():
             e'8
             r8
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'4
             e'4
             r4
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'8
@@ -157,28 +157,28 @@ def test_LoopByWindow_03():
             e'8
             r4.
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             e'4
             r2
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             e'8
             r8
             r2
         }
-        ''')
+        """)
     with pytest.raises(StopIteration):
         assert looper.__next__()
 
@@ -226,7 +226,7 @@ def test_LoopByWindow_05():
     music = looper.output_all()
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -242,7 +242,7 @@ def test_LoopByWindow_05():
             f'4
             r2
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_06():
@@ -251,7 +251,7 @@ def test_LoopByWindow_06():
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
@@ -259,11 +259,11 @@ def test_LoopByWindow_06():
             d'2
             e'4
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'8.
@@ -275,11 +275,11 @@ def test_LoopByWindow_06():
             e'8.
             f'16
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'8
@@ -291,12 +291,12 @@ def test_LoopByWindow_06():
             e'8
             f'8
         }
-        ''')
+        """)
     looper.window_size = (3, 8)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/8
@@ -305,25 +305,25 @@ def test_LoopByWindow_06():
             ~
             d'4
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'4.
         }
-        ''')
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'4.
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_07():
@@ -336,7 +336,7 @@ def test_LoopByWindow_07():
         window = looper()
         staff.append(window)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \times 2/3 {
@@ -364,7 +364,7 @@ def test_LoopByWindow_07():
             ~
             d'2
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_08():
@@ -373,14 +373,14 @@ def test_LoopByWindow_08():
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
             d'2
             e'4
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_09():
@@ -410,7 +410,7 @@ def test_LoopByWindow_10():
     music = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -430,7 +430,7 @@ def test_LoopByWindow_10():
             f'4
             r2
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_11():
@@ -442,7 +442,7 @@ def test_LoopByWindow_11():
     music = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -464,7 +464,7 @@ def test_LoopByWindow_11():
             f'4
             r2
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_12():
@@ -476,7 +476,7 @@ def test_LoopByWindow_12():
     music = looper.output_n(2)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -487,7 +487,7 @@ def test_LoopByWindow_12():
             e'4
             f'4
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_13():
@@ -499,7 +499,7 @@ def test_LoopByWindow_13():
     music = looper.output_n(2, tie_identical_pitches=True)
     staff = abjad.Staff(music)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -509,7 +509,7 @@ def test_LoopByWindow_13():
             d'2
             e'4
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_14():
@@ -533,7 +533,7 @@ def test_LoopByWindow_15():
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/4
@@ -541,29 +541,29 @@ def test_LoopByWindow_15():
             g'4
             a'4
         }
-        ''')
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             e'4
             f'4
             g'4
         }
-        ''')
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             d'4
             e'4
             f'4
         }
-        ''')
+        """)
 
 
 def test_LoopByWindow_16():
@@ -577,7 +577,7 @@ def test_LoopByWindow_16():
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 3/4
@@ -594,7 +594,7 @@ def test_LoopByWindow_16():
         d'4
         e'4
     }
-    ''')
+    """)
 
 
 def test_LoopByWindow_17():
@@ -607,7 +607,7 @@ def test_LoopByWindow_17():
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 3/4
@@ -615,7 +615,7 @@ def test_LoopByWindow_17():
         d'4
         e'4
     }
-    ''')
+    """)
 
 
 def test_LoopByWindow_18():
@@ -626,7 +626,7 @@ def test_LoopByWindow_18():
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 4/4
@@ -639,7 +639,7 @@ def test_LoopByWindow_18():
         e'8.
         f'16
     }
-    ''')
+    """)
 
 
 def test_LoopByWindow_19():
@@ -650,7 +650,7 @@ def test_LoopByWindow_19():
         music = looper()
         staff.append(music)
     assert format(staff) == abjad.String.normalize(
-    r'''
+    r"""
     \new Staff
     {
         \time 4/4
@@ -680,4 +680,68 @@ def test_LoopByWindow_19():
         e'8.
         f'16
     }
-    ''')
+    """)
+
+
+def test_LoopByWindow_20():
+    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(input_music)
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'2
+            e'4
+        }
+        """)
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'8.
+            d'16
+            ~
+            d'4..
+            e'16
+            ~
+            e'8.
+            f'16
+        }
+        """)
+    looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. | a'1")
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            e'16
+            f'16
+            g'8
+            ~
+            g'2
+            ~
+            g'8
+            a'8
+        }
+        """)
+    looper.head_position = 0
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'16
+            d'16
+            e'16
+            f'16
+            g'2.
+        }
+        """)

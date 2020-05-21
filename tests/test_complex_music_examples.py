@@ -19,7 +19,7 @@ def test_complex_music_example_02():
     # respelling augmented unisons
     auxjad.respell_container(container)
     assert format(container) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 37/16
@@ -50,7 +50,7 @@ def test_complex_music_example_02():
                 a'
             >2.
         }
-        ''')
+        """)
     # Using a looping window by elements 3 times
     looper = auxjad.LoopByNotes(container, window_size=4)
     staff = abjad.Staff()
@@ -66,7 +66,7 @@ def test_complex_music_example_02():
     # adding initial dynamics
     abjad.attach(abjad.Dynamic('ppp'), staff[0])
     assert format(container) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 23/16
@@ -203,7 +203,7 @@ def test_complex_music_example_02():
             >4.
             r4
         }
-        ''')
+        """)
 
 
 def test_complex_music_example_02():
@@ -225,7 +225,7 @@ def test_complex_music_example_02():
     container_length = abjad.inspect(container).duration()
     abjad.attach(abjad.TimeSignature(container_length), container[0])
     assert format(container) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 13/4
@@ -255,7 +255,7 @@ def test_complex_music_example_02():
             \mp
             - \accent
         }
-        ''')
+        """)
     # Using a looping window 3 times with the container created above as input
     looper = auxjad.LoopByWindow(container)
     staff = abjad.Staff()
@@ -278,7 +278,7 @@ def test_complex_music_example_02():
     # removing repeated dynamics
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
@@ -354,4 +354,4 @@ def test_complex_music_example_02():
             - \tenuto
             af'4
         }
-        ''')
+        """)

@@ -7,9 +7,9 @@ def test_respell_chord_01():
     chord = abjad.Chord("<c' cs'>4")
     auxjad.respell_chord(chord)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <c' df'>4
-        ''')
+        """)
 
 
 def test_respell_chord_02():
@@ -19,7 +19,7 @@ def test_respell_chord_02():
         auxjad.respell_chord(chord)
         staff.append(chord)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             <c' df'>16
@@ -35,51 +35,51 @@ def test_respell_chord_02():
             <as' b'>16
             <b' c''>16
         }
-        ''')
+        """)
 
 
 def test_respell_chord_03():
     chord = abjad.Chord(r"<a c' cs' f'>1")
     auxjad.respell_chord(chord)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <a c' df' f'>1
-        ''')
+        """)
 
 
 def test_respell_chord_04():
     chord = abjad.Chord(r"<e' cs' g' ef'>1")
     auxjad.respell_chord(chord)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <cs' ds' e' g'>1
-        ''')
+        """)
 
 
 def test_respell_chord_05():
     chord = abjad.Chord(r"<c' cs''>1")
     auxjad.respell_chord(chord)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <c' cs''>1
-        ''')
+        """)
     auxjad.respell_chord(chord, include_multiples=True)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <c' df''>1
-        ''')
+        """)
 
 
 def test_respell_chord_06():
     chord = abjad.Chord(r"<c' cs' cs''>1")
     auxjad.respell_chord(chord)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <c' df' cs''>1
-        ''')
+        """)
     chord = abjad.Chord(r"<c' cs' cs''>1")
     auxjad.respell_chord(chord, respell_by_pitch_class=True)
     assert format(chord) == abjad.String.normalize(
-        r'''
+        r"""
         <c' df' df''>1
-        ''')
+        """)

@@ -10,20 +10,20 @@ def test_sync_containers_01():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             g'2.
             r4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
         }
-        ''')
+        """)
 
 
 def test_sync_containers_02():
@@ -33,23 +33,23 @@ def test_sync_containers_02():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             g'1
             %%% \time 1/4 %%%
             f'4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             %%% \time 1/4 %%%
             R1 * 1/4
         }
-        ''')
+        """)
 
 
 def test_sync_containers_03():
@@ -59,22 +59,22 @@ def test_sync_containers_03():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             g'1
             f'4
             r2.
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             d'1
         }
-        ''')
+        """)
 
 
 def test_sync_containers_04():
@@ -84,21 +84,21 @@ def test_sync_containers_04():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             g'1
             R1
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             d'1
         }
-        ''')
+        """)
 
 
 def test_sync_containers_05():
@@ -111,21 +111,21 @@ def test_sync_containers_05():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             g'1
             r1
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             d'1
         }
-        ''')
+        """)
 
 
 def test_sync_containers_06():
@@ -135,21 +135,21 @@ def test_sync_containers_06():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             g'2.
             R1 * 3/4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             c'2.
             d'2.
         }
-        ''')
+        """)
 
 
 def test_sync_containers_07():
@@ -163,7 +163,7 @@ def test_sync_containers_07():
         == abjad.inspect(container3).duration() \
         == abjad.inspect(container4).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
@@ -171,9 +171,9 @@ def test_sync_containers_07():
             g'4
             r2
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
@@ -181,25 +181,25 @@ def test_sync_containers_07():
             g'2
             r4
         }
-        ''')
+        """)
     assert format(container3) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             %%% \time 3/4 %%%
             g'2.
         }
-        ''')
+        """)
     assert format(container4) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             %%% \time 3/4 %%%
             R1 * 3/4
         }
-        ''')
+        """)
 
 
 def test_sync_containers_08():
@@ -218,7 +218,7 @@ def test_sync_containers_08():
         == abjad.inspect(container3).duration() \
         == abjad.inspect(container4).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
@@ -226,9 +226,9 @@ def test_sync_containers_08():
             g'4
             r2
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
@@ -236,25 +236,25 @@ def test_sync_containers_08():
             g'2
             r4
         }
-        ''')
+        """)
     assert format(container3) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             %%% \time 3/4 %%%
             g'2.
         }
-        ''')
+        """)
     assert format(container4) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             %%% \time 3/4 %%%
             r2.
         }
-        ''')
+        """)
 
 
 def test_sync_containers_09():
@@ -273,39 +273,39 @@ def test_sync_containers_09():
         == abjad.inspect(container3).duration() \
         == abjad.inspect(container4).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             g'4
             r2
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             g'2
             r4
         }
-        ''')
+        """)
     assert format(container3) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             g'2.
         }
-        ''')
+        """)
     assert format(container4) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'1
             r2.
         }
-        ''')
+        """)
 
 
 def test_sync_containers_10():
@@ -319,7 +319,7 @@ def test_sync_containers_10():
         == abjad.inspect(container3).duration() \
         == abjad.inspect(container4).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'4
@@ -329,9 +329,9 @@ def test_sync_containers_10():
             %%% \time 1/4 %%%
             R1 * 1/4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             a2.
@@ -339,18 +339,18 @@ def test_sync_containers_10():
             c'4
             r4
         }
-        ''')
+        """)
     assert format(container3) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 5/4 %%%
             g''1
             ~
             g''4
         }
-        ''')
+        """)
     assert format(container4) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 6/8 %%%
             c'2
@@ -358,7 +358,7 @@ def test_sync_containers_10():
             %%% \time 2/4 %%%
             R1 * 1/2
         }
-        ''')
+        """)
 
 
 def test_sync_containers_11():
@@ -375,22 +375,22 @@ def test_sync_containers_12():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
             g'2.
             r4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 4/4
             c'1
         }
-        ''')
+        """)
 
 
 def test_sync_containers_13():
@@ -400,19 +400,19 @@ def test_sync_containers_13():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             g'2.
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             c'2.
         }
-        ''')
+        """)
 
 
 def test_sync_containers_14():
@@ -422,7 +422,7 @@ def test_sync_containers_14():
     assert abjad.inspect(container1).duration() \
         == abjad.inspect(container2).duration()
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 5/4 %%%
             g'1
@@ -430,13 +430,13 @@ def test_sync_containers_14():
             g'4
             R1 * 5/4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 5/4 %%%
             c'2.
             r2
             R1 * 5/4
         }
-        ''')
+        """)

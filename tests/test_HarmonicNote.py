@@ -7,10 +7,10 @@ def test_HarmonicNote_01():
     note = auxjad.HarmonicNote("c''4")
     assert note.style == 'harmonic'
     assert format(note) == abjad.String.normalize(
-    r'''
+    r"""
     \tweak style #'harmonic
     c''4
-    ''')
+    """)
 
 
 def test_HarmonicNote_02():
@@ -21,10 +21,10 @@ def test_HarmonicNote_02():
     notes = [note1, note2, note3, note4]
     for note in notes:
         assert format(note) == abjad.String.normalize(
-        r'''
+        r"""
         \tweak style #'harmonic
         c''4
-        ''')
+        """)
 
 
 def test_HarmonicNote_03():
@@ -33,10 +33,10 @@ def test_HarmonicNote_03():
                                )
     assert note.style == 'harmonic-mixed'
     assert format(note) == abjad.String.normalize(
-    r'''
+    r"""
     \tweak style #'harmonic-mixed
     c''4
-    ''')
+    """)
 
 
 def test_HarmonicNote_04():
@@ -45,10 +45,10 @@ def test_HarmonicNote_04():
                                )
     assert note.multiplier == abjad.Multiplier(2, 3)
     assert format(note) == abjad.String.normalize(
-    r'''
+    r"""
     \tweak style #'harmonic
     c''4 * 2/3
-    ''')
+    """)
 
 
 def test_HarmonicNote_05():
@@ -70,7 +70,7 @@ def test_HarmonicNote_06():
                                )
     assert note.style == 'flageolet'
     assert format(note) == abjad.String.normalize(
-    r'''
+    r"""
     c''1
     \flageolet
-    ''')
+    """)

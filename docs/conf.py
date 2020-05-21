@@ -28,7 +28,7 @@ import auxjad
 import re
 
 # The short X.Y version
-version = re.search(r'(\d+\.\d+)\..*', auxjad.__version__).group(1)
+version = re.search(r'(\d+\.\d+).*', auxjad.__version__).group(1)
 # The full version, including alpha/beta/rc tags
 release = auxjad.__version__
 

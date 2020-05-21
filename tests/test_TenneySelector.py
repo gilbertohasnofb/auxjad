@@ -1,5 +1,6 @@
 import random
 import abjad
+import pytest
 import auxjad
 
 
@@ -18,6 +19,8 @@ def test_TenneySelector_01():
         result += selector()
     assert result == 'BDAFCBEFCDFDBAEDFCABDEABCDEBFE'
     assert selector.previous_index == 4
+    with pytest.raises(AttributeError):
+        selector.previous_index = 3
     assert selector.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert selector.probabilities == [7.0, 2.0, 5.0, 4.0, 0.0, 1.0]
 

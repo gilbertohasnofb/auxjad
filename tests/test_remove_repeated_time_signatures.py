@@ -7,7 +7,7 @@ def test_remove_repeated_time_signatures_01():
     abjad.attach(abjad.TimeSignature((3, 8)), staff[0])
     abjad.attach(abjad.TimeSignature((3, 8)), staff[2])
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/8
@@ -17,10 +17,10 @@ def test_remove_repeated_time_signatures_01():
             c'4
             d'8
         }
-        ''')
+        """)
     auxjad.remove_repeated_time_signatures(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/8
@@ -29,7 +29,7 @@ def test_remove_repeated_time_signatures_01():
             c'4
             d'8
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_time_signatures_02():
@@ -37,7 +37,7 @@ def test_remove_repeated_time_signatures_02():
     abjad.attach(abjad.TimeSignature((3, 8)), staff[0])
     abjad.attach(abjad.TimeSignature((3, 8)), staff[3])
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/8
@@ -48,10 +48,10 @@ def test_remove_repeated_time_signatures_02():
             c'4
             d'8
         }
-        ''')
+        """)
     auxjad.remove_repeated_time_signatures(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 3/8
@@ -61,7 +61,7 @@ def test_remove_repeated_time_signatures_02():
             c'4
             d'8
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_time_signatures_03():
@@ -72,7 +72,7 @@ def test_remove_repeated_time_signatures_03():
     abjad.attach(abjad.TimeSignature((2, 2)), staff[0])
     abjad.attach(abjad.TimeSignature((2, 2)), staff[2][0])
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 2/2
@@ -85,10 +85,10 @@ def test_remove_repeated_time_signatures_03():
                 b2
             }
         }
-        ''')
+        """)
     auxjad.remove_repeated_time_signatures(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             \time 2/2
@@ -100,4 +100,4 @@ def test_remove_repeated_time_signatures_03():
                 b2
             }
         }
-        ''')
+        """)

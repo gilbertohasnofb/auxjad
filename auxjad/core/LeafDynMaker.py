@@ -206,6 +206,8 @@ class LeafDynMaker(abjad.LeafMaker):
         .. figure:: ../_images/image-LeafDynMaker-6.png
     """
 
+    ### SPECIAL METHODS ###
+
     def __call__(self,
                  pitches,
                  durations,
@@ -256,6 +258,8 @@ class LeafDynMaker(abjad.LeafMaker):
         dummy_container[:] = []
 
         return result
+
+    ### PRIVATE METHODS ###
 
     @staticmethod
     def _listify(argument):

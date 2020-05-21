@@ -5,7 +5,7 @@ import auxjad
 def test_remove_repeated_dynamics_01():
     staff = abjad.Staff(r"c'4\pp d'8\pp | c'4\f d'8\f")
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -17,10 +17,10 @@ def test_remove_repeated_dynamics_01():
             d'8
             \f
         }
-        ''')
+        """)
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -30,13 +30,13 @@ def test_remove_repeated_dynamics_01():
             \f
             d'8
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_02():
     staff = abjad.Staff(r"c'4\p d'8 | e'4.\p | c'4\p d'8\f")
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -49,10 +49,10 @@ def test_remove_repeated_dynamics_02():
             d'8
             \f
         }
-        ''')
+        """)
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -63,7 +63,7 @@ def test_remove_repeated_dynamics_02():
             d'8
             \f
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_03():
@@ -75,7 +75,7 @@ def test_remove_repeated_dynamics_03():
     abjad.attach(abjad.Dynamic('ppp'), staff[1])
     abjad.attach(abjad.Dynamic('ppp'), staff[2][0])
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'2
@@ -89,10 +89,10 @@ def test_remove_repeated_dynamics_03():
                 b2
             }
         }
-        ''')
+        """)
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'2
@@ -104,13 +104,13 @@ def test_remove_repeated_dynamics_03():
                 b2
             }
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_04():
     staff = abjad.Staff(r"c'4\pp\< d'8\f\> | c'4\f d'8\f")
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -124,10 +124,10 @@ def test_remove_repeated_dynamics_04():
             d'8
             \f
         }
-        ''')
+        """)
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -140,13 +140,13 @@ def test_remove_repeated_dynamics_04():
             \f
             d'8
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_05():
     staff = abjad.Staff(r"c'4\pp\< d'8\f\> | c'4\f d'8\f")
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -160,10 +160,10 @@ def test_remove_repeated_dynamics_05():
             d'8
             \f
         }
-        ''')
+        """)
     auxjad.remove_repeated_dynamics(staff, ignore_hairpins=True)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -175,14 +175,14 @@ def test_remove_repeated_dynamics_05():
             c'4
             d'8
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_06():
     staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -190,11 +190,11 @@ def test_remove_repeated_dynamics_06():
             r2.
             c'4
         }
-        ''')
+        """)
     staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=True)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -203,14 +203,14 @@ def test_remove_repeated_dynamics_06():
             c'4
             \pp
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_07():
     staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=(4, 4))
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -218,11 +218,11 @@ def test_remove_repeated_dynamics_07():
             r2.
             c'4
         }
-        ''')
+        """)
     staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=2/4)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -231,7 +231,7 @@ def test_remove_repeated_dynamics_07():
             c'4
             \pp
         }
-        ''')
+        """)
 
 
 def test_remove_repeated_dynamics_08():
@@ -240,7 +240,7 @@ def test_remove_repeated_dynamics_08():
                                     reset_after_rests=abjad.Duration(4, 4),
                                     )
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -250,11 +250,11 @@ def test_remove_repeated_dynamics_08():
             c'4
             \pp
         }
-        ''')
+        """)
     staff = abjad.Staff(r"c'4\pp r2. | R1 | c'4\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=2)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -263,4 +263,4 @@ def test_remove_repeated_dynamics_08():
             R1
             c'4
         }
-        ''')
+        """)

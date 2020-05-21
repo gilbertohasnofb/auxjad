@@ -91,7 +91,7 @@ def test_LoopByList_08():
     for element in looper.output_all():
         staff.append(element)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             {
@@ -131,7 +131,7 @@ def test_LoopByList_08():
                 r4
             }
         }
-        ''')
+        """)
 
 
 def test_LoopByList_09():
@@ -232,3 +232,18 @@ def test_LoopByList_15():
                                move_window_on_first_call=True,
                                )
     assert looper() == ['B', 'C', 'D']
+
+
+def test_LoopByList_16():
+    input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+    looper = auxjad.LoopByList(input_list,
+                               window_size=3,
+                               )
+    assert looper.contents == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert looper() == ['A', 'B', 'C']
+    assert looper() == ['B', 'C', 'D']
+    looper.contents = [0, 1, 2, 3, 4]
+    assert looper.contents == [0, 1, 2, 3, 4]
+    assert looper() == [2, 3, 4]
+    looper.head_position = 0
+    assert looper() == [0, 1, 2]

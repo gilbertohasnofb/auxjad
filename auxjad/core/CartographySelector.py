@@ -4,13 +4,13 @@ import random
 class CartographySelector():
     r"""A selector used to store, manipulate, and select objects using a
     weighted function constructed with a fixed decay rate. The decay rate
-    represents the ratio of probabilities of any index given the preceeding
-    one. For instance, if the decay rate is set to ``0.75`` (which is its
-    default value), the probability of the element in index 1 of the input list
-    being selected is 0.75 the probability of the element in index 0, and the
-    probability of the element in index 2 is 0.5625 (0.75^2) the probability of
-    the element in index 0. This is the selector used in my _Cartography_
-    series of compositions.
+    represents the ratio of probabilities of any index given the probability of
+    the preceeding one. For instance, if the decay rate is set to ``0.75``
+    (which is its default value), the probability of the element in index 1 of
+    the input list being selected is 0.75 the probability of the element in
+    index 0, and the probability of the element in index 2 is 0.5625 (0.75^2)
+    the probability of the element in index 0. This is the selector used in my
+    *Cartography* series of compositions.
 
     ..  container:: example
 
@@ -266,22 +266,26 @@ class CartographySelector():
         [10, 7, 100, 31, 98]
     """
 
+    ### INITIALIZER ###
+
     def __init__(self,
-                 container: list,
+                 contents: list,
                  *,
                  decay_rate: float = 0.75,
                  ):
-        if not isinstance(container, list):
-            raise TypeError("'container' must be 'list'")
+        if not isinstance(contents, list):
+            raise TypeError("'contents' must be 'list'")
         if not isinstance(decay_rate, float):
             raise TypeError("'decay_rate' must be 'float'")
         if decay_rate <= 0.0 or decay_rate > 1.0:
             raise ValueError("'decay_rate' must be larger than 0.0 and "
                              "less than or equal to 1.0")
-        self._contents = container[:]
-        self.previous_index = None
+        self._contents = contents[:]
+        self._previous_index = None
         self._decay_rate = decay_rate
         self._generate_weights()
+
+    ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
         return str(self._contents)
@@ -295,14 +299,14 @@ class CartographySelector():
                 weights=self.weights,
                 )[0]
         else:
-            new_index = self.previous_index
-            while (new_index == self.previous_index):
+            new_index = self._previous_index
+            while (new_index == self._previous_index):
                 new_index = random.choices(
                     [n for n in range(self.__len__())],
                     weights=self.weights,
                     )[0]
-        self.previous_index = new_index
-        return self._contents[self.previous_index]
+        self._previous_index = new_index
+        return self._contents[self._previous_index]
 
     def __next__(self, no_repeat=False):
         return self.__call__(no_repeat=no_repeat)
@@ -316,33 +320,7 @@ class CartographySelector():
     def __setitem__(self, key, value):
         self._contents[key] = value
 
-    @property
-    def contents(self) -> list:
-        return self._contents
-
-    @contents.setter
-    def contents(self,
-                 new_container: list
-                 ):
-        if not isinstance(new_container, list):
-            raise TypeError("'new_container' must be 'list")
-        self._contents = new_container[:]
-        self._generate_weights()
-
-    @property
-    def decay_rate(self) -> float:
-        return self._decay_rate
-
-    @decay_rate.setter
-    def decay_rate(self,
-                   new_decay_rate: float):
-        if not isinstance(new_decay_rate, float):
-            raise TypeError("'new_decay_rate' must be float")
-        if new_decay_rate <= 0.0 or new_decay_rate > 1.0:
-            raise ValueError("'new_decay_rate' must be larger than 0.0 and "
-                             "less than or equal to 1.0")
-        self._decay_rate = new_decay_rate
-        self._generate_weights()
+    ### PUBLIC METHODS ###
 
     def append(self, new_element):
         self._contents = self._contents[1:] + [new_element]
@@ -373,7 +351,54 @@ class CartographySelector():
     def randomise(self):
         random.shuffle(self._contents)
 
+    ### PRIVATE METHODS ###
+
     def _generate_weights(self):
         self.weights = []
         for n in range(self.__len__()):
             self.weights.append(self._decay_rate ** n)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def contents(self) -> list:
+        r'The ``list`` from which the selector picks elements.'
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 new_contents: list
+                 ):
+        if not isinstance(new_contents, list):
+            raise TypeError("'new_contents' must be 'list")
+        self._contents = new_contents[:]
+        self._generate_weights()
+
+    @property
+    def decay_rate(self) -> float:
+        r"""The decay rate represents the ratio of probabilities of any index
+        given the probability of the preceeding one. For instance, if the decay
+        rate is set to ``0.75`` (which is its default value), the probability
+        of the element in index 1 of the input list being selected is 0.75 the
+        probability of the element in index 0, and the probability of the
+        element in index 2 is 0.5625 (0.75^2) the probability of the element in
+        index 0.
+        """
+        return self._decay_rate
+
+    @decay_rate.setter
+    def decay_rate(self,
+                   new_decay_rate: float):
+        if not isinstance(new_decay_rate, float):
+            raise TypeError("'new_decay_rate' must be float")
+        if new_decay_rate <= 0.0 or new_decay_rate > 1.0:
+            raise ValueError("'new_decay_rate' must be larger than 0.0 and "
+                             "less than or equal to 1.0")
+        self._decay_rate = new_decay_rate
+        self._generate_weights()
+
+    @property
+    def previous_index(self):
+        r"""Read-only property, returns the index of the previously output
+        element."""
+        return self._previous_index

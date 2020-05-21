@@ -413,6 +413,68 @@ class LoopByNotes(_LoopParent):
 
         .. figure:: ../_images/image-LoopByNotes-11.png
 
+    .. container:: example
+
+        Use the ``contents`` property to read as well as overwrite the contents
+        of the looper. Notice that the ``head_position`` will remain on its
+        previous value and must be reset to ``0`` if that's required.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+        >>> looper = auxjad.LoopByNotes(input_music,
+        >>>                             window_size=3,
+        >>>                             )
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-12.png
+
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-13.png
+
+        >>> looper.contents = abjad.Container(r"c'''4 r4 d'''4 r4 "
+        ...                                   "e'''4 r4 f'''4 r4")
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            d'''4
+            r4
+            e'''4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-14.png
+
+        >>> looper.head_position = 0
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'''4
+            r4
+            d'''4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-15.png
+
     ..  container:: example
 
         This class can handle tuplets, but the output is not ideal and so this
@@ -457,11 +519,13 @@ class LoopByNotes(_LoopParent):
             }
         }
 
-        .. figure:: ../_images/image-LoopByNotes-12.png
+        .. figure:: ../_images/image-LoopByNotes-16.png
     """
 
+    ### INITIALIZER ###
+
     def __init__(self,
-                 container: abjad.Container,
+                 contents: abjad.Container,
                  *,
                  window_size: int,
                  step_size: int = 1,
@@ -473,12 +537,7 @@ class LoopByNotes(_LoopParent):
                  force_identical_time_signatures: bool = False,
                  move_window_on_first_call: bool = False,
                  ):
-        if not isinstance(container, abjad.Container):
-            raise TypeError("'container' must be 'abjad.Container' or child "
-                            "class")
-        container_ = copy.deepcopy(container)
-        self._remove_all_time_signatures(container_)
-        self._container = abjad.select(container_).logical_ties()
+        self.contents = contents
         self._omit_all_time_signatures = omit_all_time_signatures
         self._force_identical_time_signatures = force_identical_time_signatures
         self._last_time_signature = None
@@ -491,11 +550,58 @@ class LoopByNotes(_LoopParent):
                          move_window_on_first_call,
                          )
 
+    ### SPECIAL METHODS ###
+
     def __repr__(self) -> str:
-        return str(self._container)
+        return str(self._contents)
 
     def __len__(self) -> int:
-        return len(self._container)
+        return len(self._contents)
+
+    ### PRIVATE METHODS ###
+
+    def _slice_contents(self):
+        start = self.head_position
+        end = self.head_position + self.window_size
+        logical_ties = self._contents[start:end]
+        dummy_contents = abjad.Container()
+        time_signature_duration = 0
+        for logical_tie in logical_ties:
+            effective_duration = abjad.inspect(logical_tie).duration()
+            logical_tie_ = copy.deepcopy(logical_tie)
+            dummy_contents.append(logical_tie_)
+            multiplier = effective_duration / logical_tie_.written_duration
+            logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
+            time_signature_duration += effective_duration
+        if len(logical_ties) > 0 and not self._omit_all_time_signatures:
+            time_signature = abjad.TimeSignature(time_signature_duration)
+            time_signature = simplified_time_signature_ratio(time_signature)
+            if time_signature != self._last_time_signature or \
+                    self._force_identical_time_signatures:
+                abjad.attach(time_signature,
+                             abjad.select(dummy_contents).leaves()[0],
+                             )
+            self._last_time_signature = time_signature
+        self._current_window = dummy_contents[:]
+        dummy_contents[:] = []
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def contents(self):
+        r'The ``list`` which serves as the basis for the slices of the looper.'
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 new_contents: abjad.Container,
+                 ):
+        if not isinstance(new_contents, abjad.Container):
+            raise TypeError("'new_contents' must be 'abjad.Container' or "
+                            "child class")
+        contents_ = copy.deepcopy(new_contents)
+        self._remove_all_time_signatures(contents_)
+        self._contents = abjad.select(contents_).logical_ties()
 
     @property
     def omit_all_time_signatures(self) -> list:
@@ -520,28 +626,3 @@ class LoopByNotes(_LoopParent):
         if not isinstance(force_identical_time_signatures, bool):
             raise TypeError("'force_identical_time_signatures' must be 'bool'")
         self._force_identical_time_signatures = force_identical_time_signatures
-
-    def _slice_container(self):
-        start = self.head_position
-        end = self.head_position + self.window_size
-        logical_ties = self._container[start:end]
-        dummy_container = abjad.Container()
-        time_signature_duration = 0
-        for logical_tie in logical_ties:
-            effective_duration = abjad.inspect(logical_tie).duration()
-            logical_tie_ = copy.deepcopy(logical_tie)
-            dummy_container.append(logical_tie_)
-            multiplier = effective_duration / logical_tie_.written_duration
-            logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
-            time_signature_duration += effective_duration
-        if len(logical_ties) > 0 and not self._omit_all_time_signatures:
-            time_signature = abjad.TimeSignature(time_signature_duration)
-            time_signature = simplified_time_signature_ratio(time_signature)
-            if time_signature != self._last_time_signature or \
-                    self._force_identical_time_signatures:
-                abjad.attach(time_signature,
-                             abjad.select(dummy_container).leaves()[0],
-                             )
-            self._last_time_signature = time_signature
-        self._current_window = dummy_container[:]
-        dummy_container[:] = []

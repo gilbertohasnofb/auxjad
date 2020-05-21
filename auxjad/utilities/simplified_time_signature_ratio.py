@@ -2,19 +2,18 @@ import abjad
 
 
 def simplified_time_signature_ratio(ratio: (tuple,
-                                            abjad.Duration,
                                             abjad.TimeSignature,
+                                            abjad.Duration,
+                                            abjad.Meter,
                                             ),
                                     *,
                                     min_denominator: int = 4,
-                                    ) -> (tuple,
-                                          abjad.Duration,
-                                          abjad.TimeSignature,
-                                          ):
-    r"""Returns the simplified ratio of an input object (which can be a
-    ``tuple`` of ``int``, an ``abjad.Duration``, or an ``abjad.TimeSignature``)
-    according to a minimum denominator value. The return value;s type will
-    match the type of the input.
+                                    output_pair_of_int: bool = False,
+                                    ) -> (abjad.TimeSignature, tuple):
+    r"""Returns an ``abjad.TimeSignature`` with the simplified ratio of an
+    input ratio according to a minimum denominator value. The input ratio can
+    be a ``tuple`` of integers, an ``abjad.TimeSignature``, ``abjad.Duration``,
+    or an ``abjad.Meter``).
 
     ..  container:: example
 
@@ -24,52 +23,106 @@ def simplified_time_signature_ratio(ratio: (tuple,
         representation of the ratio (4, 8) with a denominator equal to or
         larger than 4.
 
-        >>> ratio = auxjad.simplified_time_signature_ratio((4, 8))
-        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> time_signature = auxjad.simplified_time_signature_ratio((4, 8))
         >>> format(time_signature)
         abjad.TimeSignature((2, 4))
-        >>> ratio = auxjad.simplified_time_signature_ratio((1, 1))
-        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> time_signature = auxjad.simplified_time_signature_ratio((1, 1))
         >>> format(time_signature)
         abjad.TimeSignature((4, 4))
 
-        If a ratio cannot be simplified at all, the function returns the
-        original values.
+        If a ratio cannot be simplified at all, the function returns a time
+        signature with the original ratio.
 
-        >>> ratio = auxjad.simplified_time_signature_ratio((7, 8))
-        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> time_signature = auxjad.simplified_time_signature_ratio((7, 8))
         >>> format(time_signature)
         abjad.TimeSignature((7, 8))
 
         The ``min_denominator`` can be set to values other than 4. If set to 2,
         the simplest representaion of the ratio (4, 8) becomes (1, 2).
 
-        >>> ratio = auxjad.simplified_time_signature_ratio((4, 8),
-        ...                                                min_denominator=2
-        ...                                                )
-        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> time_signature = auxjad.simplified_time_signature_ratio(
+        ...     (4, 8),
+        ...     min_denominator=2,
+        ... )
         >>> format(time_signature)
         abjad.TimeSignature((1, 2))
-        >>> ratio = auxjad.simplified_time_signature_ratio((1, 1),
-        ...                                                min_denominator=1
-        ...                                                )
-        >>> time_signature = abjad.TimeSignature(ratio)
+        >>> time_signature = auxjad.simplified_time_signature_ratio(
+        ...     (1, 1),
+        ...     min_denominator=1,
+        ... )
         >>> format(time_signature)
         abjad.TimeSignature((1, 1))
+
+    ..  container:: example
+
+        By default, the function returns an ``abjad.TimeSignature`` for
+        whatever type of argument it receives (which can be a ``tuple`` of
+        integers, an ``abjad.TimeSignature``, an ``abjad.Duration``, or an
+        ``abjad.Meter``).
+
+        >>> arg = (4, 8)
+        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> format(time_signature)
+        abjad.TimeSignature((2, 4))
+
+        >>> arg = abjad.Duration((4, 8))
+        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> format(time_signature)
+        abjad.TimeSignature((2, 4))
+
+        >>> arg = abjad.Meter((4, 8))
+        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> format(time_signature)
+        abjad.TimeSignature((2, 4))
+
+        >>> arg = abjad.TimeSignature((4, 8))
+        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> format(time_signature)
+        abjad.TimeSignature((2, 4))
+
+        Call the function with the keyword argument ``output_pair_of_int`` set
+        to ``True`` and the output will be a ``tuple`` of integers, regardless
+        of the input argument.
+
+        >>> arg = (4, 8)
+        >>> pair = auxjad.simplified_time_signature_ratio(
+        ...     arg,
+        ...     output_pair_of_int=True,
+        ... )
+        >>> pair
+        (2, 4)
+
+        >>> arg = abjad.Duration((4, 8))
+        >>> pair = auxjad.simplified_time_signature_ratio(
+        ...     arg,
+        ...     output_pair_of_int=True,
+        ... )
+        >>> assert pair == (2, 4)
+
+        arg = abjad.Meter((4, 8))
+        >>> pair = auxjad.simplified_time_signature_ratio(
+        ...     arg,
+        ...     output_pair_of_int=True,
+        ... )
+        >>> pair
+        (2, 4)
+
+        arg = abjad.TimeSignature((4, 8))
+        >>> pair = auxjad.simplified_time_signature_ratio(
+        ...     arg,
+        ...     output_pair_of_int=True,
+        ... )
+        >>> pair
+        (2, 4)
     """
-    if not isinstance(ratio, (tuple, abjad.Duration, abjad.TimeSignature)):
+    if not isinstance(ratio, (tuple, abjad.TimeSignature,
+                              abjad.Duration, abjad.Meter)):
         raise TypeError("'ratio' must be 'tuple', 'abjad.Duration', or "
                         "'abjad.TimeSignature'")
     if not isinstance(min_denominator, int):
         raise TypeError("'min_denominator' must be 'int'")
 
-    abjad_duration = False
-    abjad_time_signature = False
-    if isinstance(ratio, abjad.Duration):
-        abjad_duration = True
-        numerator, denominator = ratio.pair
-    elif isinstance(ratio, abjad.TimeSignature):
-        abjad_time_signature = True
+    if isinstance(ratio, (abjad.TimeSignature, abjad.Duration, abjad.Meter)):
         numerator, denominator = ratio.pair
     else:
         numerator, denominator = ratio
@@ -87,9 +140,7 @@ def simplified_time_signature_ratio(ratio: (tuple,
             numerator /= 2
             denominator /= 2
         else:
-            if abjad_duration:
-                return abjad.Duration(int(numerator), int(denominator))
-            elif abjad_time_signature:
+            if not output_pair_of_int:
                 return abjad.TimeSignature((int(numerator), int(denominator)))
             else:
                 return int(numerator), int(denominator)

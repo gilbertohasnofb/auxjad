@@ -475,6 +475,77 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-14.png
 
+    .. container:: example
+
+        Use the ``contents`` property to read as well as overwrite the contents
+        of the looper. Notice that the ``head_position`` will remain on its
+        previous value and must be reset to ``0`` if that's required.
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'2
+            e'4
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-15.png
+
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'8.
+            d'16
+            ~
+            d'4..
+            e'16
+            ~
+            e'8.
+            f'16
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-16.png
+
+        >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            e'16
+            f'16
+            g'8
+            ~
+            g'2
+            ~
+            g'8
+            a'8
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-17.png
+
+        >>> looper.head_position = 0
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'16
+            d'16
+            e'16
+            f'16
+            g'2.
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-18.png
+
     ..  container:: example
 
         This class can handle tuplets, but this functionality should be
@@ -517,11 +588,13 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-15.png
+        .. figure:: ../_images/image-LoopByWindow-19.png
     """
 
+    ### INITIALIZER ###
+
     def __init__(self,
-                 container: abjad.Container,
+                 contents: abjad.Container,
                  *,
                  window_size: (tuple, abjad.Meter) = (4, 4),
                  step_size: (int, float, tuple, str, abjad.Duration) = (1, 16),
@@ -532,12 +605,7 @@ class LoopByWindow(_LoopParent):
                  omit_time_signature: bool = False,
                  move_window_on_first_call: bool = False,
                  ):
-        if not isinstance(container, abjad.Container):
-            raise TypeError("'container' must be 'abjad.Container' or child "
-                            "class")
-        self._container = copy.deepcopy(container)
-        self._remove_all_time_signatures(self._container)
-        self._container_length = abjad.inspect(container[:]).duration()
+        self.contents = contents
         self._new_time_signature = True
         self.omit_time_signature = omit_time_signature
         super().__init__(head_position,
@@ -549,8 +617,93 @@ class LoopByWindow(_LoopParent):
                          move_window_on_first_call,
                          )
 
+    ### SPECIAL METHODS ###
+
     def __repr__(self) -> str:
-        return str(abjad.f(self._container))
+        return str(abjad.f(self._contents))
+
+    ### PRIVATE METHODS ###
+
+    def _done(self) -> bool:
+        r"""Custom ``_done`` method since parent's method uses the ``__len__``
+        method, which cannot be used for non-integer values such as
+        ``abjad.Duration``.
+        """
+        return self._head_position >= self._contents_length or \
+            self._head_position < 0
+
+    def _slice_contents(self):
+        head = self._head_position
+        window_size = self._window_size
+        dummy_contents = copy.deepcopy(self._contents)
+        # splitting leaves at both slicing points
+        if head > abjad.Duration(0):
+            abjad.mutate(dummy_contents[:]).split([head,
+                                                    window_size.duration,
+                                                    ])
+        else:
+            abjad.mutate(dummy_contents[:]).split([window_size.duration])
+        # finding start and end indeces for the window
+        for start in range(len(dummy_contents)):
+            if abjad.inspect(dummy_contents[:start + 1]).duration() > head:
+                break
+        for end in range(start + 1, len(dummy_contents)):
+            if abjad.inspect(dummy_contents[start : end]).duration() == \
+                    window_size.duration:
+                break
+        else:
+            end = len(dummy_contents)
+        # passing on indicators from the head of an initial splitted leaf
+        for index in range(start - 1, -1, -1):
+            if abjad.inspect(dummy_contents[index]).indicator(abjad.Tie):
+                inspect_contents = abjad.inspect(dummy_contents[index - 1])
+                if index == 0 or not inspect_contents.indicator(abjad.Tie):
+                    inspect_contents = abjad.inspect(dummy_contents[index])
+                    for indicator in inspect_contents.indicators():
+                        if not isinstance(indicator,
+                                          (abjad.TimeSignature, abjad.Tie),
+                                          ):
+                            abjad.attach(indicator, dummy_contents[start])
+        # removing ties generated by the split mutation
+        abjad.detach(abjad.Tie(), dummy_contents[start - 1])
+        abjad.detach(abjad.Tie(), dummy_contents[end - 1])
+        # appending rests if necessary
+        contents_dur = abjad.inspect(dummy_contents[start : end]).duration()
+        if contents_dur < window_size.duration:
+            missing_dur = window_size.duration - contents_dur
+            rests = abjad.LeafMaker()(None, missing_dur)
+            dummy_contents.extend(rests)
+            end += len(rests)
+        # transforming abjad.Selection -> abjad.Container for rewrite_meter
+        dummy_contents = abjad.Container(
+            abjad.mutate(dummy_contents[start : end]).copy()
+        )
+        abjad.mutate(dummy_contents[:]).rewrite_meter(window_size)
+        if self._new_time_signature and not self._omit_time_signature:
+            abjad.attach(abjad.TimeSignature(window_size),
+                         abjad.select(dummy_contents).leaves()[0],
+                         )
+            self._new_time_signature = False
+        self._current_window = dummy_contents[:]
+        dummy_contents[:] = []
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def contents(self):
+        r'The ``list`` which serves as the basis for the slices of the looper.'
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 new_contents: abjad.Container,
+                 ):
+        if not isinstance(new_contents, abjad.Container):
+            raise TypeError("'new_contents' must be 'abjad.Container' or "
+                            "child class")
+        self._contents = copy.deepcopy(new_contents)
+        self._remove_all_time_signatures(self._contents)
+        self._contents_length = abjad.inspect(new_contents[:]).duration()
 
     @property
     def head_position(self) -> abjad.Duration:
@@ -568,9 +721,10 @@ class LoopByWindow(_LoopParent):
                           ):
             raise TypeError("'head_position' must be a number or "
                             "'abjad.Duration'")
-        if abjad.Duration(head_position) >= self._container_length:
+        if abjad.Duration(head_position) >= self._contents_length:
             raise ValueError("'head_position' must be smaller than the "
-                             "length of 'container'")
+                             "length of 'contents'")
+        self._is_first_window = True
         self._head_position = abjad.Duration(head_position)
 
     @property
@@ -588,11 +742,11 @@ class LoopByWindow(_LoopParent):
                           (int, float, tuple, str, abjad.Meter),
                           ):
             raise TypeError("'window_size' must be 'tuple' or 'abjad.Meter'")
-        if abjad.Meter(window_size).duration > self._container_length \
+        if abjad.Meter(window_size).duration > self._contents_length \
                 - self._head_position:
             raise ValueError("'window_size' must be smaller than or equal "
-                             "to the length of 'container'")
-        if self._first_window or self._window_size.duration \
+                             "to the length of 'contents'")
+        if self._is_first_window or self._window_size.duration \
                 != abjad.Meter(window_size).duration:
             self._window_size = abjad.Meter(window_size)
             self._new_time_signature = True
@@ -626,66 +780,3 @@ class LoopByWindow(_LoopParent):
         if not isinstance(omit_time_signature, bool):
             raise TypeError("'omit_time_signature' must be 'bool'")
         self._omit_time_signature = omit_time_signature
-
-    def _done(self) -> bool:
-        r"""Custom ``_done`` method since parent's method uses the ``__len__``
-        method, which cannot be used for non-integer values such as
-        ``abjad.Duration``.
-        """
-        return self._head_position >= self._container_length or \
-            self._head_position < 0
-
-    def _slice_container(self):
-        head = self._head_position
-        window_size = self._window_size
-        dummy_container = copy.deepcopy(self._container)
-        # splitting leaves at both slicing points
-        if head > abjad.Duration(0):
-            abjad.mutate(dummy_container[:]).split([head,
-                                                    window_size.duration,
-                                                    ])
-        else:
-            abjad.mutate(dummy_container[:]).split([window_size.duration])
-        # finding start and end indeces for the window
-        for start in range(len(dummy_container)):
-            if abjad.inspect(dummy_container[:start + 1]).duration() > head:
-                break
-        for end in range(start + 1, len(dummy_container)):
-            if abjad.inspect(dummy_container[start : end]).duration() == \
-                    window_size.duration:
-                break
-        else:
-            end = len(dummy_container)
-        # passing on indicators from the head of an initial splitted leaf
-        for index in range(start - 1, -1, -1):
-            if abjad.inspect(dummy_container[index]).indicator(abjad.Tie):
-                inspect_container = abjad.inspect(dummy_container[index - 1])
-                if index == 0 or not inspect_container.indicator(abjad.Tie):
-                    inspect_container = abjad.inspect(dummy_container[index])
-                    for indicator in inspect_container.indicators():
-                        if not isinstance(indicator,
-                                          (abjad.TimeSignature, abjad.Tie),
-                                          ):
-                            abjad.attach(indicator, dummy_container[start])
-        # removing ties generated by the split mutation
-        abjad.detach(abjad.Tie(), dummy_container[start - 1])
-        abjad.detach(abjad.Tie(), dummy_container[end - 1])
-        # appending rests if necessary
-        container_dur = abjad.inspect(dummy_container[start : end]).duration()
-        if container_dur < window_size.duration:
-            missing_dur = window_size.duration - container_dur
-            rests = abjad.LeafMaker()(None, missing_dur)
-            dummy_container.extend(rests)
-            end += len(rests)
-        # transforming abjad.Selection -> abjad.Container for rewrite_meter
-        dummy_container = abjad.Container(
-            abjad.mutate(dummy_container[start : end]).copy()
-        )
-        abjad.mutate(dummy_container[:]).rewrite_meter(window_size)
-        if self._new_time_signature and not self._omit_time_signature:
-            abjad.attach(abjad.TimeSignature(window_size),
-                         abjad.select(dummy_container).leaves()[0],
-                         )
-            self._new_time_signature = False
-        self._current_window = dummy_container[:]
-        dummy_container[:] = []

@@ -13,25 +13,25 @@ def test_close_container_01():
     auxjad.close_container(container3)
     auxjad.close_container(container4)
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             c'4
             d'4
             e'4
             f'4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             c'4
             d'4
             e'4
         }
-        ''')
+        """)
     assert format(container3) == abjad.String.normalize(
-        r'''
+        r"""
         {
             c'4
             d'4
@@ -40,9 +40,9 @@ def test_close_container_01():
             %%% \time 1/4 %%%
             c'4
         }
-        ''')
+        """)
     assert format(container4) == abjad.String.normalize(
-        r'''
+        r"""
         {
             c'4
             d'4
@@ -53,7 +53,7 @@ def test_close_container_01():
             e'4
             f'4
         }
-        ''')
+        """)
 
 
 def test_close_container_02():
@@ -64,7 +64,7 @@ def test_close_container_02():
     auxjad.close_container(container2)
     auxjad.close_container(container3)
     assert format(container1) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'4
@@ -74,18 +74,18 @@ def test_close_container_02():
             %%% \time 1/4 %%%
             g'4
         }
-        ''')
+        """)
     assert format(container2) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 3/4 %%%
             a2.
             %%% \time 1/4 %%%
             c'4
         }
-        ''')
+        """)
     assert format(container3) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 5/4 %%%
             g1
@@ -94,14 +94,14 @@ def test_close_container_02():
             %%% \time 2/4 %%%
             af'2
         }
-        ''')
+        """)
 
 
 def test_close_container_03():
     container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
     auxjad.close_container(container)
     assert format(container) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \time 4/4 %%%
             c'4
@@ -111,10 +111,10 @@ def test_close_container_03():
             %%% \time 1/4 %%%
             g'4
         }
-        ''')
+        """)
     staff = abjad.Staff([container])
     assert format(container) == abjad.String.normalize(
-        r'''
+        r"""
         {
             \time 4/4
             c'4
@@ -124,7 +124,7 @@ def test_close_container_03():
             \time 1/4
             g'4
         }
-        ''')
+        """)
 
 
 def test_close_container_04():
@@ -133,7 +133,7 @@ def test_close_container_04():
     abjad.attach(time_signature, container[0])
     auxjad.close_container(container)
     assert format(container) == abjad.String.normalize(
-        r'''
+        r"""
         {
             %%% \partial 4 %%%
             %%% \time 3/4 %%%
@@ -144,7 +144,7 @@ def test_close_container_04():
             %%% \time 1/4 %%%
             g'4
         }
-        ''')
+        """)
 
 
 def test_close_container_05():

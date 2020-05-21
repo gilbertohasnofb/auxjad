@@ -477,6 +477,8 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-16.png
     """
 
+    ### INITIALIZER ###
+
     def __init__(self,
                  container: abjad.Container,
                  *,
@@ -497,6 +499,8 @@ class Shuffler:
         self.omit_time_signatures = omit_time_signatures
         self._last_time_signature = None
 
+    ### SPECIAL METHODS ###
+
     def __repr__(self) -> str:
         return str(abjad.f(self._current_container))
 
@@ -506,62 +510,7 @@ class Shuffler:
     def __call__(self) -> abjad.Selection:
         return self.shuffle_leaves()
 
-    @property
-    def current_container(self) -> abjad.Selection:
-        if self._omit_time_signatures:
-            for leaf in abjad.select(self._current_container).leaves():
-                for indicator in abjad.inspect(leaf).indicators():
-                    if isinstance(indicator, abjad.TimeSignature):
-                        abjad.detach(indicator, leaf)
-        return copy.deepcopy(self._current_container)
-
-    @property
-    def output_single_measure(self) -> bool:
-        return self._output_single_measure
-
-    @output_single_measure.setter
-    def output_single_measure(self,
-                              output_single_measure: bool,
-                              ):
-        if not isinstance(output_single_measure, bool):
-            raise TypeError("'output_single_measure' must be 'bool'")
-        self._output_single_measure = output_single_measure
-
-    @property
-    def disable_rewrite_meter(self) -> bool:
-        return self._disable_rewrite_meter
-
-    @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ):
-        if not isinstance(disable_rewrite_meter, bool):
-            raise TypeError("'disable_rewrite_meter' must be 'bool'")
-        self._disable_rewrite_meter = disable_rewrite_meter
-
-    @property
-    def force_time_signatures(self) -> bool:
-        return self._force_time_signatures
-
-    @force_time_signatures.setter
-    def force_time_signatures(self,
-                              force_time_signatures: bool,
-                              ):
-        if not isinstance(force_time_signatures, bool):
-            raise TypeError("'force_time_signatures' must be 'bool'")
-        self._force_time_signatures = force_time_signatures
-
-    @property
-    def omit_time_signatures(self) -> bool:
-        return self._omit_time_signatures
-
-    @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ):
-        if not isinstance(omit_time_signatures, bool):
-            raise TypeError("'omit_time_signatures' must be 'bool'")
-        self._omit_time_signatures = omit_time_signatures
+    ### PUBLIC METHODS ###
 
     def shuffle_leaves(self) -> abjad.Selection:
         if self._force_time_signatures:
@@ -739,6 +688,8 @@ class Shuffler:
         dummy_container[:] = []
         return result
 
+    ### PRIVATE METHODS ###
+
     def _find_time_signatures(self):
         self._time_signatures = []
         leaves = abjad.select(self._current_container).leaves()
@@ -815,3 +766,63 @@ class Shuffler:
         # output
         self._current_container = dummy_container[:]
         dummy_container[:] = []
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def current_container(self) -> abjad.Selection:
+        r'Read-only property, returns the result of the last operation.'
+        if self._omit_time_signatures:
+            for leaf in abjad.select(self._current_container).leaves():
+                for indicator in abjad.inspect(leaf).indicators():
+                    if isinstance(indicator, abjad.TimeSignature):
+                        abjad.detach(indicator, leaf)
+        return copy.deepcopy(self._current_container)
+
+    @property
+    def output_single_measure(self) -> bool:
+        return self._output_single_measure
+
+    @output_single_measure.setter
+    def output_single_measure(self,
+                              output_single_measure: bool,
+                              ):
+        if not isinstance(output_single_measure, bool):
+            raise TypeError("'output_single_measure' must be 'bool'")
+        self._output_single_measure = output_single_measure
+
+    @property
+    def disable_rewrite_meter(self) -> bool:
+        return self._disable_rewrite_meter
+
+    @disable_rewrite_meter.setter
+    def disable_rewrite_meter(self,
+                              disable_rewrite_meter: bool,
+                              ):
+        if not isinstance(disable_rewrite_meter, bool):
+            raise TypeError("'disable_rewrite_meter' must be 'bool'")
+        self._disable_rewrite_meter = disable_rewrite_meter
+
+    @property
+    def force_time_signatures(self) -> bool:
+        return self._force_time_signatures
+
+    @force_time_signatures.setter
+    def force_time_signatures(self,
+                              force_time_signatures: bool,
+                              ):
+        if not isinstance(force_time_signatures, bool):
+            raise TypeError("'force_time_signatures' must be 'bool'")
+        self._force_time_signatures = force_time_signatures
+
+    @property
+    def omit_time_signatures(self) -> bool:
+        return self._omit_time_signatures
+
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                             omit_time_signatures: bool,
+                             ):
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self._omit_time_signatures = omit_time_signatures

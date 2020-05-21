@@ -2,7 +2,7 @@ from ._LoopParent import _LoopParent
 
 
 class LoopByList(_LoopParent):
-    r"""This class can be used to output slices of a ``list`` using the 
+    r"""This class can be used to output slices of a ``list`` using the
     metaphor of a looping window of a variable size. This size is given by
     the argument ``window_size``, which is an ``int`` representing how many
     elements are to be included in each slice.
@@ -189,6 +189,31 @@ class LoopByList(_LoopParent):
 
     .. container:: example
 
+        Use the ``contents`` property to read as well as overwrite the contents
+        of the looper. Notice that the ``head_position`` will remain on its
+        previous value and must be reset to ``0`` if that's required.
+
+        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=3,
+        ...                            )
+        >>> looper.contents
+        ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> looper()
+        ['A', 'B', 'C']
+        >>> looper()
+        ['B', 'C', 'D']
+        >>> looper.contents = [0, 1, 2, 3, 4]
+        >>> looper.contents
+        [0, 1, 2, 3, 4]
+        >>> looper()
+        [2, 3, 4]
+        >>> looper.head_position = 0
+        >>> looper()
+        [0, 1, 2]
+
+    .. container:: example
+
         It should be clear that the list can contain any types of elements:
 
         >>> input_list = [123, 'foo', (3, 4), 3.14]
@@ -259,8 +284,10 @@ class LoopByList(_LoopParent):
         .. figure:: ../_images/image-LoopByList-1.png
     """
 
+    ### INITIALIZER ###
+
     def __init__(self,
-                 container: list,
+                 contents: list,
                  *,
                  window_size: int,
                  step_size: int = 1,
@@ -270,9 +297,7 @@ class LoopByList(_LoopParent):
                  head_position: int = 0,
                  move_window_on_first_call: bool = False,
                  ):
-        if not isinstance(container, list):
-            raise TypeError("'container' must be 'list'")
-        self._container = container[:]
+        self.contents = contents
         super().__init__(head_position,
                          window_size,
                          step_size,
@@ -282,11 +307,13 @@ class LoopByList(_LoopParent):
                          move_window_on_first_call,
                          )
 
+    ### SPECIAL METHODS ###
+
     def __repr__(self) -> str:
-        return str(self._container)
+        return str(self._contents)
 
     def __len__(self) -> int:
-        return len(self._container)
+        return len(self._contents)
 
     def __next__(self) -> list:
         r"""Custom __next__ dunder method since parent's method outputs an
@@ -295,20 +322,35 @@ class LoopByList(_LoopParent):
         self._move_head()
         if self._done():
             raise StopIteration
-        self._slice_container()
+        self._slice_contents()
         return self._current_window[:]
+
+    ### PUBLIC METHODS ###
+
+    @property
+    def contents(self):
+        r'The ``list`` which serves as the basis for the slices of the looper.'
+        return self._contents
+
+    @contents.setter
+    def contents(self,
+                 new_contents: list,
+                 ):
+        if not isinstance(new_contents, list):
+            raise TypeError("'new_contents' must be 'list")
+        self._contents = new_contents[:]
 
     def output_all(self) -> list:
         r"""Custom output_all() method since parent's method outputs an
         ``abjad.Selection``.
         """
-        dummy_container = []
+        dummy_contents = []
         while True:
             try:
-                dummy_container.extend(self.__call__())
+                dummy_contents.extend(self.__call__())
             except RuntimeError:
                 break
-        return dummy_container[:]
+        return dummy_contents[:]
 
     def output_n(self, n: int) -> list:
         r"""Custom output_n() method since parent's method outputs an
@@ -318,12 +360,14 @@ class LoopByList(_LoopParent):
             raise TypeError("'n' must be 'int'")
         if n < 0:
             raise ValueError("'n' must be a positive 'int'")
-        dummy_container = []
+        dummy_contents = []
         for _ in range(n):
-            dummy_container.extend(self.__call__())
-        return dummy_container[:]
+            dummy_contents.extend(self.__call__())
+        return dummy_contents[:]
 
-    def _slice_container(self):
+    ### PRIVATE METHODS ###
+
+    def _slice_contents(self):
         start = self.head_position
         end = self.head_position + self.window_size
-        self._current_window = self._container[start:end]
+        self._current_window = self._contents[start:end]

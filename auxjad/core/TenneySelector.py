@@ -318,20 +318,22 @@ class TenneySelector():
         0.25
     """
 
+    ### INITIALIZER ###
+
     def __init__(self,
-                 container: list,
+                 contents: list,
                  *,
                  weights: list = None,
                  curvature: float = 1.0,
                  ):
-        if not isinstance(container, list):
-            raise TypeError("'container' must be 'list'")
+        if not isinstance(contents, list):
+            raise TypeError("'contents' must be 'list'")
         if weights:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
-            if not len(container) == len(weights):
+            if not len(contents) == len(weights):
                 raise ValueError("'weights' must have the same length "
-                                 "as 'container'")
+                                 "as 'contents'")
             if not all(isinstance(weight, (int, float))
                        for weight in weights):
                 raise TypeError("'weights' elements must be "
@@ -341,7 +343,7 @@ class TenneySelector():
         if curvature < 0.0:
             raise ValueError("'curvature' must be larger than 0.0")
 
-        self._contents = container[:]
+        self._contents = contents[:]
         if weights:
             self._weights = weights[:]
         else:
@@ -349,19 +351,21 @@ class TenneySelector():
         self._curvature = curvature
         self._counter = [1 for _ in range(self.__len__())]
         self._generate_probabilities()
-        self.previous_index = None
+        self._previous_index = None
+
+    ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
         return str(self._contents)
 
     def __call__(self):
-        self.previous_index = random.choices(
+        self._previous_index = random.choices(
             [n for n in range(self.__len__())],
             weights=self.probabilities,
             )[0]
         self._regenerate_counts()
         self._generate_probabilities()
-        return self._contents[self.previous_index]
+        return self._contents[self._previous_index]
 
     def __next__(self):
         return self.__call__()
@@ -375,21 +379,52 @@ class TenneySelector():
     def __setitem__(self, key, value):
         self._contents[key] = value
 
+    ### PUBLIC METHODS ###
+
+    def reset_probabilities(self):
+        self._counter = [1 for _ in range(self.__len__())]
+        self._generate_probabilities()
+
+    ### PRIVATE METHODS ###
+
+    def _regenerate_counts(self):
+        for i in range(self.__len__()):
+            if i == self._previous_index:
+                self._counter[i] = 0
+            else:
+                self._counter[i] += 1
+
+    def _generate_probabilities(self,
+                                reset: bool = False,
+                                ):
+        if reset:
+            self._counter = [1 for _ in range(self.__len__())]
+        self.probabilities = []
+        for weight, count in zip(self._weights, self._counter):
+            self.probabilities.append(weight * self._growth_function(count))
+
+    def _growth_function(self, count):
+        return count ** self._curvature
+
+    ### PUBLIC PROPERTIES ###
+
     @property
     def contents(self) -> list:
+        r'The ``list`` from which the selector picks elements.'
         return self._contents
 
     @contents.setter
     def contents(self,
-                 new_container: list,
+                 new_contents: list,
                  ):
-        if not isinstance(new_container, list):
-            raise TypeError("'new_container' must be 'list")
-        self._contents = new_container[:]
+        if not isinstance(new_contents, list):
+            raise TypeError("'new_contents' must be 'list")
+        self._contents = new_contents[:]
         self.weights = [1.0 for _ in range(self.__len__())]
 
     @property
     def weights(self) -> list:
+        r'The ``list`` with weights for each element of ``contents``.'
         return self._weights
 
     @weights.setter
@@ -410,6 +445,7 @@ class TenneySelector():
 
     @property
     def curvature(self) -> list:
+        r'The exponent of the growth function.'
         return self._curvature
 
     @curvature.setter
@@ -423,25 +459,8 @@ class TenneySelector():
         self._curvature = curvature
         self._generate_probabilities()
 
-    def reset_probabilities(self):
-        self._counter = [1 for _ in range(self.__len__())]
-        self._generate_probabilities()
-
-    def _regenerate_counts(self):
-        for i in range(self.__len__()):
-            if i == self.previous_index:
-                self._counter[i] = 0
-            else:
-                self._counter[i] += 1
-
-    def _generate_probabilities(self,
-                                reset: bool = False,
-                                ):
-        if reset:
-            self._counter = [1 for _ in range(self.__len__())]
-        self.probabilities = []
-        for weight, count in zip(self._weights, self._counter):
-            self.probabilities.append(weight * self._growth_function(count))
-
-    def _growth_function(self, count):
-        return count ** self._curvature
+    @property
+    def previous_index(self):
+        r"""Read-only property, returns the index of the previously output
+        element."""
+        return self._previous_index

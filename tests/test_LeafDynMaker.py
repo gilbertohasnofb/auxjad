@@ -11,7 +11,7 @@ def test_LeafDynMaker_01():
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'32
@@ -35,7 +35,7 @@ def test_LeafDynMaker_01():
             \ff
             - \stopped
         }
-        ''')
+        """)
 
 
 def test_LeafDynMaker_02():
@@ -47,7 +47,7 @@ def test_LeafDynMaker_02():
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             f'4
@@ -58,7 +58,7 @@ def test_LeafDynMaker_02():
             \f
             - \tenuto
         }
-        ''')
+        """)
 
 
 def test_LeafDynMaker_03():
@@ -73,7 +73,7 @@ def test_LeafDynMaker_03():
                            )
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'32
@@ -89,7 +89,7 @@ def test_LeafDynMaker_03():
             a'8.
             \p
         }
-        ''')
+        """)
 
 
 def test_LeafDynMaker_04():
@@ -101,7 +101,7 @@ def test_LeafDynMaker_04():
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -116,7 +116,7 @@ def test_LeafDynMaker_04():
             g'4
             a'4
         }
-        ''')
+        """)
 
 
 def test_LeafDynMaker_05():
@@ -128,7 +128,7 @@ def test_LeafDynMaker_05():
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'4
@@ -145,7 +145,7 @@ def test_LeafDynMaker_05():
             a'4
             - \staccato
         }
-        ''')
+        """)
 
 
 def test_LeafDynMaker_06():
@@ -167,7 +167,7 @@ def test_LeafDynMaker_06():
     notes = leaf_dyn_maker(pitches, durations)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-        r'''
+        r"""
         \new Staff
         {
             c'32
@@ -179,4 +179,4 @@ def test_LeafDynMaker_06():
             g'32
             a'8.
         }
-        ''')
+        """)

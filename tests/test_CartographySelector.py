@@ -1,5 +1,6 @@
 import random
 import abjad
+import pytest
 import auxjad
 
 
@@ -14,6 +15,9 @@ def test_CartographySelector_01():
     for _ in range(30):
         result += str(selector())
     assert result == '203001402200011111101400310140'
+    assert selector.previous_index == 0
+    with pytest.raises(AttributeError):
+        selector.previous_index = 3
 
 
 def test_CartographySelector_02():

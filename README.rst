@@ -1,7 +1,7 @@
 auxjad
 ======
 
-|PyPI| |Build| |Python versions| |License|  |Bug report|
+|PyPI| |Build| |Python versions| |License| |Bug report| |Documentation|
 
 ``auxjad`` is a library of auxiliary functions and classes for Abjad 3.1. All
 classes and functions have a __doc__ attribute with usage instructions.
@@ -39,6 +39,9 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
    :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 .. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg
    :target: https://github.com/gilbertohasnofb/auxjad/issues
+.. |Documentation| image:: https://img.shields.io/badge/docs-auxjad.docs-yellow
+   :target: https://gilbertohasnofb.github.io/auxjad-docs/
+
 ..  _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
 ..  _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 ..  _pip: https://pip.pypa.io/en/stable/

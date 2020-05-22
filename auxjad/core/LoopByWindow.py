@@ -187,6 +187,63 @@ class LoopByWindow(_LoopParent):
 
     ..  container:: example
 
+        To not fill the container with rests and thus stopping the process when
+        the end of the looping window matches the end of the container, set the
+        optional keyword argument ``fill_with_rests`` to ``True``. Compare the
+        two approaches below.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 4),
+        ...                              )
+        >>> staff = abjad.Staff()
+        >>> for window in looper:
+        ...     staff.append(window)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            d'4
+            e'4
+            f'4
+            e'4
+            f'4
+            r4
+            f'4
+            r2
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-8.png
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 4),
+        ...                              fill_with_rests=False,
+        ...                              )
+        >>> staff = abjad.Staff()
+        >>> for window in looper:
+        ...     staff.append(window)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-9.png
+
+    ..  container:: example
+
         This class can take many optional keyword arguments during its
         creation, besides ``window_size`` and ``step_size``. ``max_steps`` sets
         the maximum number of steps that the window can advance when the object
@@ -278,7 +335,10 @@ class LoopByWindow(_LoopParent):
 
         To run through the whole process and output it as a single container,
         from the initial head position until the process outputs the single
-        last element, use the method ``output_all()``.
+        last element, use the method ``output_all()``. As shown above, set the
+        optional keyword argument ``fill_with_rests`` to ``False`` if the
+        process is to be stopped when the end of the looping window reaches the
+        end of the contents (thus not appending rests).
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.LoopByWindow(input_music,
@@ -304,7 +364,7 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-8.png
+        .. figure:: ../_images/image-LoopByWindow-10.png
 
     ..  container:: example
 
@@ -342,15 +402,15 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-9.png
+        .. figure:: ../_images/image-LoopByWindow-11.png
 
     ..  container:: example
 
         To run through just part of the process and output it as a single
         container, starting from the initial head position, use the method
         ``output_n()`` and pass the number of iterations as argument. Similarly
-        to ``output_all()``, the keyword argument ``tie_identical_pitches`` is
-        available for tying pitches.
+        to ``output_all()``, the optional keyword arguments
+        ``tie_identical_pitches`` and ``fill_with_rests`` are available.
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.LoopByWindow(input_music,
@@ -371,7 +431,7 @@ class LoopByWindow(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-10.png
+        .. figure:: ../_images/image-LoopByWindow-12.png
 
     .. container:: example
 
@@ -413,7 +473,7 @@ class LoopByWindow(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-11.png
+        .. figure:: ../_images/image-LoopByWindow-13.png
 
         >>> looper.window_size = (3, 8)
         >>> staff = abjad.Staff()
@@ -432,7 +492,7 @@ class LoopByWindow(_LoopParent):
             d'4.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-12.png
+        .. figure:: ../_images/image-LoopByWindow-14.png
 
         To disable time signatures altogether, initialise ``LoopByWindow`` with
         the keyword argument ``omit_time_signature`` set to ``True`` (default
@@ -451,7 +511,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-13.png
+        .. figure:: ../_images/image-LoopByWindow-15.png
 
     ..  container:: example
 
@@ -497,7 +557,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-14.png
+        .. figure:: ../_images/image-LoopByWindow-16.png
 
     .. container:: example
 
@@ -518,7 +578,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-15.png
+        .. figure:: ../_images/image-LoopByWindow-17.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -535,7 +595,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-16.png
+        .. figure:: ../_images/image-LoopByWindow-18.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
@@ -553,7 +613,7 @@ class LoopByWindow(_LoopParent):
             a'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-17.png
+        .. figure:: ../_images/image-LoopByWindow-19.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -568,7 +628,7 @@ class LoopByWindow(_LoopParent):
             g'2.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-18.png
+        .. figure:: ../_images/image-LoopByWindow-20.png
 
     ..  note::
 
@@ -612,7 +672,7 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-19.png
+        .. figure:: ../_images/image-LoopByWindow-21.png
     """
 
     ### INITIALISER ###
@@ -628,11 +688,13 @@ class LoopByWindow(_LoopParent):
                  head_position: (int, float, tuple, str, abjad.Duration) = 0,
                  omit_time_signature: bool = False,
                  move_window_on_first_call: bool = False,
+                 fill_with_rests: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
         self._new_time_signature = True
         self.omit_time_signature = omit_time_signature
+        self.fill_with_rests = fill_with_rests
         super().__init__(head_position,
                          window_size,
                          step_size,
@@ -810,6 +872,19 @@ class LoopByWindow(_LoopParent):
             raise TypeError("'omit_time_signature' must be 'bool'")
         self._omit_time_signature = omit_time_signature
 
+    @property
+    def fill_with_rests(self) -> list:
+        r'When ``True``, the output will contain no time signatures.'
+        return self._fill_with_rests
+
+    @fill_with_rests.setter
+    def fill_with_rests(self,
+                        fill_with_rests: bool,
+                        ):
+        if not isinstance(fill_with_rests, bool):
+            raise TypeError("'fill_with_rests' must be 'bool'")
+        self._fill_with_rests = fill_with_rests
+
     ### PRIVATE PROPERTIES ###
 
     @property
@@ -820,5 +895,9 @@ class LoopByWindow(_LoopParent):
         This property replaces the parent's one since the parent's property
         uses the number of indeces of ``contents``.
         """
-        return (self._head_position >= self._contents_length
-            or self._head_position < 0)
+        if self._fill_with_rests:
+            return (self._head_position >= self._contents_length
+                or self._head_position < 0)
+        else:
+            return (self._head_position >= self._contents_length
+                - self._head_position or self._head_position < 0)

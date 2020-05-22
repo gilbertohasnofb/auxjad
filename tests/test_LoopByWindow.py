@@ -193,6 +193,7 @@ def test_LoopByWindow_04():
                                  forward_bias=0.2,
                                  head_position=(2, 8),
                                  omit_time_signature=False,
+                                 fill_with_rests=False,
                                  )
     assert looper.window_size == abjad.Meter((3, 4))
     assert looper.step_size == abjad.Duration((5, 8))
@@ -201,6 +202,7 @@ def test_LoopByWindow_04():
     assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_time_signature
+    assert not looper.fill_with_rests
     looper.window_size = (5, 4)
     looper.step_size = (1, 4)
     looper.max_steps = 3
@@ -208,6 +210,7 @@ def test_LoopByWindow_04():
     looper.forward_bias = 0.8
     looper.head_position = 0
     looper.omit_time_signature = True
+    looper.fill_with_rests = True
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
@@ -215,6 +218,7 @@ def test_LoopByWindow_04():
     assert looper.forward_bias == 0.8
     assert looper.head_position == abjad.Duration(0)
     assert looper.omit_time_signature
+    assert looper.fill_with_rests
 
 
 def test_LoopByWindow_05():
@@ -762,3 +766,28 @@ def test_LoopByWindow_21():
                                  window_size=(2, 4),
                                  )
     assert len(looper) == 4
+
+
+def test_LoopByWindow_22():
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByWindow(input_music,
+                                 window_size=(3, 4),
+                                 step_size=(1, 4),
+                                 fill_with_rests=False,
+                                 )
+    staff = abjad.Staff()
+    for window in looper:
+        staff.append(window)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            d'4
+            e'4
+            f'4
+        }
+        """)

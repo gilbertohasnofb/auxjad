@@ -26,6 +26,7 @@ auxjad.LoopByWindow
 
       ~LoopByWindow.contents
       ~LoopByWindow.current_window
+      ~LoopByWindow.fill_with_rests
       ~LoopByWindow.forward_bias
       ~LoopByWindow.head_position
       ~LoopByWindow.max_steps

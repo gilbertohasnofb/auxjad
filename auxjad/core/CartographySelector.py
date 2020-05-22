@@ -14,8 +14,8 @@ class CartographySelector():
 
     ..  container:: example
 
-        The selector should be initialised with a list of objects. The contents
-        of the list can be absolutely anything.
+        The selector should be initialised with a list of objects. The elements
+        of this list can be of any type.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents

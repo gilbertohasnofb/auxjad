@@ -15,8 +15,8 @@ class TenneySelector():
 
     ..  container:: example
 
-        The selector should be initialised with a list of objects. The contents
-        of the list can be absolutely anything.
+        The selector should be initialised with a list of objects. The elements
+        of this list can be of any type.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> selector.contents

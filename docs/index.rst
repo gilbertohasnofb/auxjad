@@ -19,9 +19,7 @@ Welcome to auxjad's documentation!
 ``auxjad`` is a library of auxiliary functions and classes for Abjad 3.1. All
 classes and functions have a __doc__ attribute with usage instructions.
 
-Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/. A
-pdf version of the documentation is also available in the ``/docs`` directory
-of the repository.
+Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
 
 Bugs can be reported through the project's `Issue Tracker`_.
 

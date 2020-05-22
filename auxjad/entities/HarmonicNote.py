@@ -117,7 +117,11 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     ..  container:: example
 
-        To add a markup expression to the harmonic note, use the markup:
+        To add a markup expression to the harmonic note, use the ``markup``
+        optional keyword argument, which takes strings. By default, the markup
+        position is above the harmonic note, but this can be overridden using
+        the keyword ``direction``, which can take strings as well as
+        ``abjad.Up`` and ``abjad.Down``:
 
         >>> harm1 = auxjad.HarmonicNote("d''1")
         >>> harm2 = auxjad.HarmonicNote("d''1",
@@ -176,6 +180,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                  markup: str = None,
                  direction: (str, abjad.enums.VerticalAlignment) = 'up',
                  ):
+        r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
         self._direction = direction

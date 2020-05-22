@@ -252,9 +252,12 @@ class TenneySelector():
 
     ..  container:: example
 
-        This class allows slicing to get and set values of contents of the
-        selector. This will not affect the current probability vector, and the
-        new element will have the same probability as the one it replaced.
+        The ``contents`` of instances of this class can be indexed and sliced.
+        This allows reading, assigning, or deleting values from ``contents``.
+        Replacing elements by assignment will not affect the ``probabilities``
+        property, and the new elements will have the same probability as the
+        ones it replaced. Deleting element will delete the probability of that
+        index.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
@@ -273,11 +276,16 @@ class TenneySelector():
         ['foo', 'bar', 'X', 'Y', 'Z', '...']
         >>> selector.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
+        >>> del selector[0:2]
+        >>> selector.contents
+        ['X', 'Y', 'Z', '...']
+        >>> selector.probabilities
+        [1.0, 7.0, 5.0, 0.0]
 
         You can also check if the instance contains a specific element. In the
         case of the selector above, we have:
 
-        >>> 'foo' in selector
+        >>> 'X' in selector
         True
         >>> 'A' in selector
         False
@@ -285,22 +293,28 @@ class TenneySelector():
     ..  container:: example
 
         A new list of an arbitrary length can be set at any point using the
-        property ``contents``. Do notice that the probabilities will be reset
-        at that point. This method can take the optional keyword argument
-        weights similarly to when instantiating the class.
+        property ``contents``. Do notice that both ``probabilities`` and
+        ``weights`` will be reset at that point.
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(
+        ...     ['A', 'B', 'C', 'D', 'E', 'F'],
+        ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
+        >>> )
         >>> for _ in range(30):
         ...     selector()
-        >>> selector.probabilities
-        [2.0, 1.0, 4.0, 3.0, 0.0, 5.0]
+        >>> len(selector)
+        6
         >>> selector.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> selector.weights
+        [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
+        >>> selector.probabilities
+        [8.0, 2.0, 5.0, 15.0, 50.0, 0.0]
         >>> selector.contents = [2, 4, 6, 8]
-        >>> selector.contents
-        [2, 4, 6, 8]
         >>> len(selector)
         4
+        >>> selector.contents
+        [2, 4, 6, 8]
         >>> selector.weights
         [1.0, 1.0, 1.0, 1.0]
         >>> selector.probabilities
@@ -327,6 +341,7 @@ class TenneySelector():
                  weights: list = None,
                  curvature: float = 1.0,
                  ):
+        r'Initialises self.'
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if weights:
@@ -357,11 +372,15 @@ class TenneySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Outputs the representation of ``contents``.'
+        r'Returns interpret representation of ``contents``.'
         return str(self._contents)
 
+    def __len__(self) -> int:
+        r'Returns the length of ``contents``.'
+        return len(self._contents)
+
     def __call__(self):
-        r'Call the selection process and outputs one element of ``contents``.'
+        r'Calls the selection process and outputs one element of ``contents``.'
         self._previous_index = random.choices(
             [n for n in range(self.__len__())],
             weights=self.probabilities,
@@ -371,24 +390,29 @@ class TenneySelector():
         return self._contents[self._previous_index]
 
     def __next__(self):
-        r'Call the selection process and outputs one element of ``contents``.'
+        r'Calls the selection process and outputs one element of ``contents``.'
         return self.__call__()
 
-    def __len__(self) -> int:
-        r'Outputs the length of ``contents``.'
-        return len(self._contents)
-
     def __getitem__(self, key: int):
-        r"""Implements reading elements of ``contents`` through indexing or
-        slicing of instance.
+        r"""Returns one or more elements of ``contents`` through indexing or
+        slicing.
         """
         return self._contents[key]
 
     def __setitem__(self, key, value):
-        r"""Implements writing elements into ``contents`` through indexing or
-        slicing of instance.
+        r"""Assigns values to one or more elements of ``contents`` through
+        indexing or slicing.
         """
         self._contents[key] = value
+
+    def __delitem__(self, key):
+        r"""Deletes one or more elements of ``contents`` through indexing or
+        slicing.
+        """
+        del self._contents[key]
+        del self.weights[key]
+        del self.probabilities[key]
+        del self._counter[key]
 
     ### PUBLIC METHODS ###
 

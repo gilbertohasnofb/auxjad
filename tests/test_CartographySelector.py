@@ -69,10 +69,12 @@ def test_CartographySelector_07():
 def test_CartographySelector_08():
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4], decay_rate=0.5)
     assert len(selector) == 5
+    selector.contents = [0, 1, 2, 3, 4]
     assert selector.weights == [1.0, 0.5, 0.25, 0.125, 0.0625]
+
     selector.contents = [10, 7, 14, 31, 98, 47, 32]
-    assert selector.contents == [10, 7, 14, 31, 98, 47, 32]
     assert len(selector) == 7
+    assert selector.contents == [10, 7, 14, 31, 98, 47, 32]
     assert selector.weights == [1.0,
                                 0.5,
                                 0.25,
@@ -115,6 +117,8 @@ def test_CartographySelector_11():
     n = selector.previous_index
     assert n == 3
     assert selector[n] == 31
+    del selector[2:4]
+    assert selector.contents == [10, 7, 98]
 
 
 def test_CartographySelector_12():

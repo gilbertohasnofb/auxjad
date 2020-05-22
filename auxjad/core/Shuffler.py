@@ -528,6 +528,7 @@ class Shuffler:
                  force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
                  ):
+        r'Initialises self.'
         self.contents = contents
         self._update_logical_ties()
         self._find_time_signatures()
@@ -540,11 +541,11 @@ class Shuffler:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Outputs the representation of ``contents``.'
+        r'Returns interpret representation of ``contents``.'
         return str(abjad.f(self._current_window))
 
     def __len__(self) -> int:
-        r'Outputs the number of logical ties of ``contents``.'
+        r'Returns the number of logical ties of ``contents``.'
         return len(self._logical_ties)
 
     def __call__(self) -> abjad.Selection:

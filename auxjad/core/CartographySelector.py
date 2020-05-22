@@ -256,8 +256,8 @@ class CartographySelector():
 
     ..  container:: example
 
-        This class allows indecing and slicing just like regular lists. This
-        can be used to both access and alter elements.
+        The ``contents`` of instances of this class can be indexed and sliced.
+        This allows reading, assigning, or deleting values from ``contents``.
 
         >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
         >>> selector[1]
@@ -278,6 +278,9 @@ class CartographySelector():
         >>> selector[2] = 100
         >>> selector.contents
         [10, 7, 100, 31, 98]
+        >>> del selector[2:4]
+        >>> selector.contents
+        [10, 7, 98]
     """
 
     ### INITIALISER ###
@@ -287,6 +290,7 @@ class CartographySelector():
                  *,
                  decay_rate: float = 0.75,
                  ):
+        r'Initialises self.'
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if not isinstance(decay_rate, float):
@@ -302,14 +306,18 @@ class CartographySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Outputs the representation of ``contents``.'
+        r'Returns interpret representation of ``contents``.'
         return str(self._contents)
+
+    def __len__(self) -> int:
+        r'Returns the length of ``contents``.'
+        return len(self._contents)
 
     def __call__(self,
                  *,
                  no_repeat: bool = False,
                  ):
-        r'Call the selection process and outputs one element of ``contents``.'
+        r'Calls the selection process and outputs one element of ``contents``.'
         if not isinstance(no_repeat, bool):
             raise TypeError("'no_repeat' must be 'bool")
         if not no_repeat:
@@ -331,24 +339,27 @@ class CartographySelector():
                  *,
                  no_repeat: bool = False,
                  ):
-        r'Call the selection process and outputs one element of ``contents``.'
+        r'Calls the selection process and outputs one element of ``contents``.'
         return self.__call__(no_repeat=no_repeat)
 
-    def __len__(self) -> int:
-        r'Outputs the length of ``contents``.'
-        return len(self._contents)
-
     def __getitem__(self, key: int):
-        r"""Implements reading elements of ``contents`` through indexing or
-        slicing of instance.
+        r"""Returns one or more elements of ``contents`` through indexing or
+        slicing.
         """
         return self._contents[key]
 
     def __setitem__(self, key, value):
-        r"""Implements writing elements into ``contents`` through indexing or
-        slicing of instance.
+        r"""Assigns values to one or more elements of ``contents`` through
+        indexing or slicing.
         """
         self._contents[key] = value
+
+    def __delitem__(self, key):
+        r"""Deletes one or more elements of ``contents`` through indexing or
+        slicing.
+        """
+        del self._contents[key]
+        self._generate_weights()
 
     ### PUBLIC METHODS ###
 

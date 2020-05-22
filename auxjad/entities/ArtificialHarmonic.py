@@ -3,7 +3,7 @@ from ._HarmonicParent import _HarmonicParent
 
 
 class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
-    r"""Creates an chord with a tweaked top note head for notating artificial
+    r"""Creates a chord with a tweaked top note head for notating artificial
     harmonics. This is a child class of ``abjad.Chord``.
 
     ..  container:: example
@@ -191,7 +191,11 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     ..  container:: example
 
-        To add a markup expression to the harmonic note, use the markup:
+        To add a markup expression to the artificial harmonic, use the
+        ``markup`` optional keyword argument, which takes strings. By default,
+        the markup position is above the harmonic note, but this can be
+        overridden using the keyword ``direction``, which can take strings as
+        well as ``abjad.Up`` and ``abjad.Down``:
 
         >>> harm1 = auxjad.ArtificialHarmonic("<a d'>1")
         >>> harm2 = auxjad.ArtificialHarmonic("<a d'>1",
@@ -287,6 +291,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                  markup: str = None,
                  direction: (str, abjad.enums.VerticalAlignment) = 'up',
                  ):
+        r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         if len(self.note_heads) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "

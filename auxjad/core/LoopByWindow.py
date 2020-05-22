@@ -570,7 +570,7 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-18.png
 
-    ..  container:: example
+    ..  note::
 
         This class can handle tuplets, but this functionality should be
         considered experimental.
@@ -629,6 +629,7 @@ class LoopByWindow(_LoopParent):
                  omit_time_signature: bool = False,
                  move_window_on_first_call: bool = False,
                  ):
+        r'Initialises self.'
         self.contents = contents
         self._new_time_signature = True
         self.omit_time_signature = omit_time_signature
@@ -644,11 +645,11 @@ class LoopByWindow(_LoopParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Outputs the representation of ``contents``.'
+        r'Returns interpret representation of  ``contents``.'
         return str(abjad.f(self._contents))
 
     def __len__(self) -> int:
-        r'Outputs the length of ``contents`` in terms of ``step_size``.'
+        r'Returns the length of ``contents`` in terms of ``step_size``.'
         return ceil(abjad.inspect(self._contents).duration() / self._step_size)
 
     ### PRIVATE METHODS ###
@@ -738,7 +739,7 @@ class LoopByWindow(_LoopParent):
     def head_position(self,
                       head_position: (tuple, abjad.Duration),
                       ):
-        r"""This setter method replaces the paren'ts one since the parent's 
+        r"""This setter method replaces the paren'ts one since the parent's
         method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(head_position,

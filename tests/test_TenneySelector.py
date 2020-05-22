@@ -90,21 +90,32 @@ def test_TenneySelector_05():
     selector[:] = ['foo', 'bar', 'X', 'Y', 'Z', '...']
     assert selector.contents == ['foo', 'bar', 'X', 'Y', 'Z', '...']
     assert selector.probabilities == [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
-    assert 'foo' in selector
+    del selector[0:2]
+    assert selector.contents == ['X', 'Y', 'Z', '...']
+    assert selector.probabilities == [1.0, 7.0, 5.0, 0.0]
+    assert 'X' in selector
     assert 'A' not in selector
 
 
 def test_TenneySelector_06():
     random.seed(54267)
-    selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+    selector = auxjad.TenneySelector(
+        ['A', 'B', 'C', 'D', 'E', 'F'],
+        weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
+    )
     for _ in range(30):
         selector()
-    assert selector.probabilities == [2.0, 1.0, 4.0, 3.0, 0.0, 5.0]
+    assert len(selector) == 6
+    assert selector.contents == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert selector.weights == [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
+    assert selector.probabilities == [8.0, 2.0, 5.0, 15.0, 50.0, 0.0]
+
     selector.contents = [2, 4, 6, 8]
-    assert selector.contents == [2, 4, 6, 8]
     assert len(selector) == 4
+    assert selector.contents == [2, 4, 6, 8]
     assert selector.weights == [1.0, 1.0, 1.0, 1.0]
     assert selector.probabilities == [1.0, 1.0, 1.0, 1.0]
+
     selector.weights = [1.2, 3.0, 2.5, 1.3]
     assert selector.weights == [1.2, 3.0, 2.5, 1.3]
 

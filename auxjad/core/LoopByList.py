@@ -297,6 +297,7 @@ class LoopByList(_LoopParent):
                  head_position: int = 0,
                  move_window_on_first_call: bool = False,
                  ):
+        r'Initialises self.'
         self.contents = contents
         super().__init__(head_position,
                          window_size,
@@ -310,11 +311,11 @@ class LoopByList(_LoopParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Outputs the representation of ``contents``.'
+        r'Returns interpret representation of ``contents``.'
         return str(self._contents)
 
     def __len__(self) -> int:
-        r'Outputs a length of ``contents``.'
+        r'Returns a length of ``contents``.'
         return len(self._contents)
 
     def __call__(self) -> list:
@@ -345,6 +346,7 @@ class LoopByList(_LoopParent):
 
     def output_all(self) -> list:
         r"""Goes through the whole looping process and outputs a single list.
+        
         This method replaces the parent's one since the parent's method outputs
         an ``abjad.Selection``.
         """

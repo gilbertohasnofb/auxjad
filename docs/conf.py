@@ -47,7 +47,9 @@ extensions = [
     'sphinx.ext.autosummary',
 ]
 
-autosummary_generate = True
+# autosummary_generate = True  # not needed since I am manually creating rst
+#                              # files for each API member
+autosummary_imported_members = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

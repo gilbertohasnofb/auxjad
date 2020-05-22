@@ -99,7 +99,7 @@ def simplified_time_signature_ratio(ratio: (tuple,
         ... )
         >>> assert pair == (2, 4)
 
-        arg = abjad.Meter((4, 8))
+        >>> arg = abjad.Meter((4, 8))
         >>> pair = auxjad.simplified_time_signature_ratio(
         ...     arg,
         ...     output_pair_of_int=True,
@@ -107,7 +107,7 @@ def simplified_time_signature_ratio(ratio: (tuple,
         >>> pair
         (2, 4)
 
-        arg = abjad.TimeSignature((4, 8))
+        >>> arg = abjad.TimeSignature((4, 8))
         >>> pair = auxjad.simplified_time_signature_ratio(
         ...     arg,
         ...     output_pair_of_int=True,

@@ -12,7 +12,7 @@ on their their names or use the left side panel to navigate to the individual
 documentaion of each class and function.
 
 .. autosummary::
-    :toctree: _api_members
+    :toctree: api_members
 
     auxjad.ArtificialHarmonic
     auxjad.CartographySelector

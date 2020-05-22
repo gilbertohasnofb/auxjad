@@ -21,6 +21,7 @@ class _LoopParent():
                  forward_bias,
                  move_window_on_first_call,
                  ):
+        r'Initialises self.'
         if not isinstance(move_window_on_first_call, bool):
             raise TypeError("'move_window_on_first_call' must be 'bool'")
         self.head_position = head_position
@@ -43,10 +44,6 @@ class _LoopParent():
         self._slice_contents()
         return self.current_window
 
-    def __iter__(self):
-        r'Allows instances to be used as iterators.'
-        return self
-
     def __next__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
         ``abjad.Selection``.
@@ -56,6 +53,10 @@ class _LoopParent():
             raise StopIteration
         self._slice_contents()
         return self._current_window
+
+    def __iter__(self):
+        r'Returns an iterator, allowing instances to be used as iterators.'
+        return self
 
     ### PUBLIC METHODS ###
 

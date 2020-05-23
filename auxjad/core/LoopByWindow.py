@@ -110,7 +110,7 @@ class LoopByWindow(_LoopParent):
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(input_music,
         ...                              window_size=(3, 4),
-        ...                              step_size=(1, 4),
+        ...                              step_size=(1, 8),
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -125,12 +125,18 @@ class LoopByWindow(_LoopParent):
         .. figure:: ../_images/image-LoopByWindow-5.png
 
         >>> notes = looper()
-        >>> staff = abjad.Staff(notes)
+        >>> staff.append(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 3/4
+            c'4
             d'2
-            e'4
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
         }
 
         .. figure:: ../_images/image-LoopByWindow-6.png
@@ -187,10 +193,10 @@ class LoopByWindow(_LoopParent):
 
     ..  container:: example
 
-        To not fill the container with rests and thus stopping the process when
-        the end of the looping window matches the end of the container, set the
-        optional keyword argument ``fill_with_rests`` to ``True``. Compare the
-        two approaches below.
+        In order to stop the process when the end of the looping window matches
+        the end of the ``contents`` (and thus appending rests to the output),
+        set the optional keyword argument ``fill_with_rests`` to ``True``.
+        Compare the two approaches below.
 
         >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.LoopByWindow(input_music,
@@ -267,7 +273,7 @@ class LoopByWindow(_LoopParent):
         ...                              repetition_chance=0.25,
         ...                              forward_bias=0.2,
         ...                              head_position=(2, 8),
-        ...                              omit_time_signature=False,
+        ...                              omit_all_time_signatures=False,
         ...                              )
         >>> looper.window_size
         3/4
@@ -281,7 +287,7 @@ class LoopByWindow(_LoopParent):
         2
         >>> looper.head_position
         1/4
-        >>> looper.omit_time_signature
+        >>> looper.omit_all_time_signatures
         False
 
         Use the properties below to change these values after initialisation.
@@ -292,7 +298,7 @@ class LoopByWindow(_LoopParent):
         >>> looper.repetition_chance = 0.1
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 0
-        >>> looper.omit_time_signature = True
+        >>> looper.omit_all_time_signatures = True
         >>> looper.window_size
         5/4
         >>> looper.step_size
@@ -305,7 +311,7 @@ class LoopByWindow(_LoopParent):
         0.8
         >>> looper.head_position
         0
-        >>> looper.omit_time_signature
+        >>> looper.omit_all_time_signatures
         True
 
     ..  container:: example
@@ -495,12 +501,14 @@ class LoopByWindow(_LoopParent):
         .. figure:: ../_images/image-LoopByWindow-14.png
 
         To disable time signatures altogether, initialise ``LoopByWindow`` with
-        the keyword argument ``omit_time_signature`` set to ``True`` (default
-        is ``False``), or use the ``omit_time_signature`` property after
-        initialisation.
+        the keyword argument ``omit_all_time_signatures`` set to ``True``
+        (default is ``False``), or use the ``omit_all_time_signatures``
+        property after initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music, omit_time_signature=True)
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              omit_all_time_signatures=True,
+        ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -512,6 +520,54 @@ class LoopByWindow(_LoopParent):
         }
 
         .. figure:: ../_images/image-LoopByWindow-15.png
+
+    ..  container:: example
+
+        By default, only the first output bar will contain a time signature,
+        and all subsequent bars won't have one. Use the optional keyword
+        argument ``force_time_signature`` when calling the looper in order to
+        force it. Compare the two cases below:
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 8),
+        ...                              )
+        >>> notes1 = looper()
+        >>> notes2 = looper()
+        >>> staff = abjad.Staff(notes2)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-16.png
+
+        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 8),
+        ...                              )
+        >>> notes1 = looper()
+        >>> notes2 = looper(force_time_signature=True)
+        >>> staff = abjad.Staff(notes2)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-17.png
 
     ..  container:: example
 
@@ -557,7 +613,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-16.png
+        .. figure:: ../_images/image-LoopByWindow-18.png
 
     .. container:: example
 
@@ -578,7 +634,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-17.png
+        .. figure:: ../_images/image-LoopByWindow-19.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -595,7 +651,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-18.png
+        .. figure:: ../_images/image-LoopByWindow-20.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
@@ -613,7 +669,7 @@ class LoopByWindow(_LoopParent):
             a'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-19.png
+        .. figure:: ../_images/image-LoopByWindow-21.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -628,7 +684,7 @@ class LoopByWindow(_LoopParent):
             g'2.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-20.png
+        .. figure:: ../_images/image-LoopByWindow-22.png
 
     ..  note::
 
@@ -672,7 +728,7 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-21.png
+        .. figure:: ../_images/image-LoopByWindow-23.png
     """
 
     ### INITIALISER ###
@@ -686,14 +742,14 @@ class LoopByWindow(_LoopParent):
                  repetition_chance: float = 0.0,
                  forward_bias: float = 1.0,
                  head_position: (int, float, tuple, str, abjad.Duration) = 0,
-                 omit_time_signature: bool = False,
+                 omit_all_time_signatures: bool = False,
                  move_window_on_first_call: bool = False,
                  fill_with_rests: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
         self._new_time_signature = True
-        self.omit_time_signature = omit_time_signature
+        self.omit_all_time_signatures = omit_all_time_signatures
         self.fill_with_rests = fill_with_rests
         super().__init__(head_position,
                          window_size,
@@ -713,6 +769,34 @@ class LoopByWindow(_LoopParent):
     def __len__(self) -> int:
         r'Returns the length of ``contents`` in terms of ``step_size``.'
         return ceil(abjad.inspect(self._contents).duration() / self._step_size)
+
+    def __call__(self,
+                 *,
+                 force_time_signature: bool = False,
+                 ) -> abjad.Selection:
+        r"""Calls the looping process for one iteration, returning an
+        ``abjad.Selection``.
+
+        This method extends the parent's one since as to allow the optional
+        keyword argument ``force_time_signature``.
+        """
+        if force_time_signature:
+            self._new_time_signature = True
+        return super().__call__()
+
+    def __next__(self,
+                 *,
+                 force_time_signature: bool = False,
+                 ) -> abjad.Selection:
+        r"""Calls the looping process for one iteration, returning an
+        ``abjad.Selection``.
+
+        This method extends the parent's one since as to allow the optional
+        keyword argument ``force_time_signature``.
+        """
+        if force_time_signature:
+            self._new_time_signature = True
+        return super().__next__()
 
     ### PRIVATE METHODS ###
 
@@ -766,7 +850,7 @@ class LoopByWindow(_LoopParent):
             abjad.mutate(dummy_container[start : end]).copy()
         )
         abjad.mutate(dummy_container[:]).rewrite_meter(window_size)
-        if self._new_time_signature and not self._omit_time_signature:
+        if self._new_time_signature and not self._omit_all_time_signatures:
             abjad.attach(abjad.TimeSignature(window_size),
                          abjad.select(dummy_container).leaves()[0],
                          )
@@ -860,17 +944,17 @@ class LoopByWindow(_LoopParent):
         self._step_size = abjad.Duration(step_size)
 
     @property
-    def omit_time_signature(self) -> list:
+    def omit_all_time_signatures(self) -> list:
         r'When ``True``, the output will contain no time signatures.'
-        return self._omit_time_signature
+        return self._omit_all_time_signatures
 
-    @omit_time_signature.setter
-    def omit_time_signature(self,
-                            omit_time_signature: bool,
+    @omit_all_time_signatures.setter
+    def omit_all_time_signatures(self,
+                            omit_all_time_signatures: bool,
                             ):
-        if not isinstance(omit_time_signature, bool):
-            raise TypeError("'omit_time_signature' must be 'bool'")
-        self._omit_time_signature = omit_time_signature
+        if not isinstance(omit_all_time_signatures, bool):
+            raise TypeError("'omit_all_time_signatures' must be 'bool'")
+        self._omit_all_time_signatures = omit_all_time_signatures
 
     @property
     def fill_with_rests(self) -> list:

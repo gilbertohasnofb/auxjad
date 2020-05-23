@@ -56,7 +56,7 @@ def test_LoopByWindow_02():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopByWindow(input_music,
                                  window_size=(3, 4),
-                                 step_size=(1, 4),
+                                 step_size=(1, 8),
                                  )
     notes = looper()
     staff = abjad.Staff(notes)
@@ -70,13 +70,19 @@ def test_LoopByWindow_02():
         }
         """)
     notes = looper()
-    staff = abjad.Staff(notes)
+    staff.append(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
+            \time 3/4
+            c'4
             d'2
-            e'4
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
         }
         """)
 
@@ -192,7 +198,7 @@ def test_LoopByWindow_04():
                                  repetition_chance=0.25,
                                  forward_bias=0.2,
                                  head_position=(2, 8),
-                                 omit_time_signature=False,
+                                 omit_all_time_signatures=False,
                                  fill_with_rests=False,
                                  )
     assert looper.window_size == abjad.Meter((3, 4))
@@ -201,7 +207,7 @@ def test_LoopByWindow_04():
     assert looper.repetition_chance == 0.25
     assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
-    assert not looper.omit_time_signature
+    assert not looper.omit_all_time_signatures
     assert not looper.fill_with_rests
     looper.window_size = (5, 4)
     looper.step_size = (1, 4)
@@ -209,7 +215,7 @@ def test_LoopByWindow_04():
     looper.repetition_chance = 0.1
     looper.forward_bias = 0.8
     looper.head_position = 0
-    looper.omit_time_signature = True
+    looper.omit_all_time_signatures = True
     looper.fill_with_rests = True
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
@@ -217,7 +223,7 @@ def test_LoopByWindow_04():
     assert looper.repetition_chance == 0.1
     assert looper.forward_bias == 0.8
     assert looper.head_position == abjad.Duration(0)
-    assert looper.omit_time_signature
+    assert looper.omit_all_time_signatures
     assert looper.fill_with_rests
 
 
@@ -373,7 +379,7 @@ def test_LoopByWindow_07():
 
 def test_LoopByWindow_08():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music, omit_time_signature=True)
+    looper = auxjad.LoopByWindow(input_music, omit_all_time_signatures=True)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -393,10 +399,10 @@ def test_LoopByWindow_09():
     with pytest.raises(TypeError):
         assert auxjad.LoopByWindow(wrong_type_input)
         assert auxjad.LoopByWindow(input_music, window_size=17j)
-        assert auxjad.LoopByWindow(input_music, max_steps='foobar')
-        assert auxjad.LoopByWindow(input_music, repetition_chance='foobar')
+        assert auxjad.LoopByWindow(input_music, max_steps='foo')
+        assert auxjad.LoopByWindow(input_music, repetition_chance='bar')
         assert auxjad.LoopByWindow(input_music, head_position=62.3j)
-        assert auxjad.LoopByWindow(input_music, omit_time_signature='foobar')
+        assert auxjad.LoopByWindow(input_music, omit_all_time_signatures='xyz')
     with pytest.raises(ValueError):
         assert auxjad.LoopByWindow(input_music, window_size=(100, 1))
         assert auxjad.LoopByWindow(input_music, max_steps=-1)
@@ -789,5 +795,28 @@ def test_LoopByWindow_22():
             d'4
             e'4
             f'4
+        }
+        """)
+
+
+def test_LoopByWindow_23():
+    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(input_music,
+                                 window_size=(3, 4),
+                                 step_size=(1, 8),
+                                 )
+    notes1 = looper()
+    notes2 = looper(force_time_signature=True)
+    staff = abjad.Staff(notes2)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
         }
         """)

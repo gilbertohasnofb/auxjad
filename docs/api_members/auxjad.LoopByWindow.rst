@@ -30,7 +30,7 @@ auxjad.LoopByWindow
       ~LoopByWindow.forward_bias
       ~LoopByWindow.head_position
       ~LoopByWindow.max_steps
-      ~LoopByWindow.omit_time_signature
+      ~LoopByWindow.omit_all_time_signatures
       ~LoopByWindow.repetition_chance
       ~LoopByWindow.step_size
       ~LoopByWindow.window_size

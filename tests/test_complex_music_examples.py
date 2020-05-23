@@ -3,7 +3,7 @@ import abjad
 import random
 
 
-def test_complex_music_example_02():
+def test_complex_music_example_01():
     random.seed(87435)
     container = abjad.Staff([
         auxjad.ArtificialHarmonic("<ds' gs'>4"),
@@ -65,7 +65,7 @@ def test_complex_music_example_02():
         staff.append(music)
     # adding initial dynamics
     abjad.attach(abjad.Dynamic('ppp'), staff[0])
-    assert format(container) == abjad.String.normalize(
+    assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

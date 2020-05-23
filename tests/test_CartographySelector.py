@@ -157,7 +157,7 @@ def test_CartographySelector_14():
     assert selector.contents == [4, 1, 2, 3, 0]
 
 
-def test_TenneySelector_09():
+def test_CartographySelector_15():
     random.seed(12387)
     selector = auxjad.CartographySelector(['A', 'B', 'C', 'D', 'E', 'F'])
     result = ''

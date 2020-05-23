@@ -225,8 +225,8 @@ class LoopByNotes(_LoopParent):
 
         To disable time signatures altogether, initialise ``LoopByNotes`` with
         the keyword argument ``omit_all_time_signatures`` set to ``True``
-        (default is ``False``), or use the ``omit_time_signature`` property
-        after initialisation.
+        (default is ``False``), or use the ``omit_all_time_signatures``
+        property after initialisation.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByNotes(input_music,

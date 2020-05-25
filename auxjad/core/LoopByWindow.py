@@ -526,7 +526,13 @@ class LoopByWindow(_LoopParent):
         By default, only the first output bar will contain a time signature,
         and all subsequent bars won't have one. Use the optional keyword
         argument ``force_time_signature`` when calling the looper in order to
-        force it. Compare the two cases below:
+        force it. Compare the two cases below; in the first, the variable
+        ``notes2`` won't have a time signature appended to its first leaf
+        because the looper had been called before (though LilyPond will
+        fallback to a default 4/4 time signature when none is found in the
+        source file). In the second, ``force_time_signature`` is set to
+        ``True``, and the output of ``abjad.f(staff)`` now includes
+        ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(input_music,

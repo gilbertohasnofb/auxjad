@@ -209,13 +209,13 @@ class CartographySelector():
 
     ..  container:: example
 
-        The method ``randomise()`` will randomise the position of the elements
-        of a selector's ``contents``.
+        The method ``shuffle()`` will shuffle the position of the elements of 
+        the selector's ``contents``.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> selector.randomise()
+        >>> selector.shuffle()
         >>> selector.contents
         [1, 4, 3, 0, 2]
 
@@ -419,8 +419,8 @@ class CartographySelector():
         max_index = self.__len__() // 2 - 1
         self.mirror(random.randint(0, max_index))
 
-    def randomise(self):
-        r'Randomises the position of the elements of ``contents``.'
+    def shuffle(self):
+        r'Shuffles the position of the elements of ``contents``.'
         random.shuffle(self._contents)
 
     ### PRIVATE METHODS ###

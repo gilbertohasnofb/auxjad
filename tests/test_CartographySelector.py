@@ -62,7 +62,7 @@ def test_CartographySelector_06():
 def test_CartographySelector_07():
     random.seed(15424)
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    selector.randomise()
+    selector.shuffle()
     assert selector.contents == [1, 4, 3, 0, 2]
 
 

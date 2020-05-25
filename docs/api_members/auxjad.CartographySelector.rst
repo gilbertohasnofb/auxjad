@@ -22,8 +22,8 @@ auxjad.CartographySelector
       ~CartographySelector.mirror
       ~CartographySelector.mirror_random
       ~CartographySelector.prepend
-      ~CartographySelector.randomise
       ~CartographySelector.rotate
+      ~CartographySelector.shuffle
 
 
 

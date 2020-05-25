@@ -10,6 +10,19 @@ class _LoopParent():
     methods.
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_contents',
+                 '_head_position',
+                 '_window_size',
+                 '_step_size',
+                 '_max_steps',
+                 '_repetition_chance',
+                 '_forward_bias',
+                 '_current_window',
+                 '_is_first_window',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

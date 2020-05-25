@@ -737,6 +737,14 @@ class LoopByWindow(_LoopParent):
         .. figure:: ../_images/image-LoopByWindow-23.png
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_omit_all_time_signatures',
+                 '_fill_with_rests',
+                 '_new_time_signature',
+                 '_contents_length',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

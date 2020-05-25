@@ -333,6 +333,16 @@ class TenneySelector():
         0.25
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_contents',
+                 '_weights',
+                 '_curvature',
+                 '_counter',
+                 '_previous_index',
+                 'probabilities',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

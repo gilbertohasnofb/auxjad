@@ -518,6 +518,20 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-19.png
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_contents',
+                 '_output_single_measure',
+                 '_disable_rewrite_meter',
+                 '_force_time_signatures',
+                 '_omit_time_signatures',
+                 '_current_window',
+                 '_logical_ties',
+                 '_time_signatures',
+                 '_time_signatures_durations',
+                 '_last_time_signature',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

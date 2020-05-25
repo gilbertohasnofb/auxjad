@@ -284,6 +284,10 @@ class LoopByList(_LoopParent):
         .. figure:: ../_images/image-LoopByList-1.png
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
     ### INITIALISER ###
 
     def __init__(self,

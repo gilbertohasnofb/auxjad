@@ -170,6 +170,13 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         Exception: multiple indicators attached to client.
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_style',
+                 '_direction',
+                 '_markup',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

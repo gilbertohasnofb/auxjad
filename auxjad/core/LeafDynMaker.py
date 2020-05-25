@@ -294,6 +294,13 @@ class LeafDynMaker(abjad.LeafMaker):
         .. figure:: ../_images/image-LeafDynMaker-8.png
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_omit_repeated_dynamics',
+                 '_cyclic_dynamics',
+                 '_cyclic_articulations',
+                 )
+
     ### SPECIAL METHODS ###
 
     def __call__(self,

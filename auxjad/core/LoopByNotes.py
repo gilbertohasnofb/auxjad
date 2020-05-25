@@ -523,6 +523,13 @@ class LoopByNotes(_LoopParent):
         .. figure:: ../_images/image-LoopByNotes-16.png
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_omit_all_time_signatures',
+                 '_force_identical_time_signatures',
+                 '_last_time_signature',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

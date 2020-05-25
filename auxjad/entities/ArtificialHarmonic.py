@@ -280,6 +280,14 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ValueError: cannot calculate sounding pitch for given interval
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_style',
+                 '_is_parenthesized',
+                 '_direction',
+                 '_markup',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

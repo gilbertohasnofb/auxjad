@@ -283,6 +283,14 @@ class CartographySelector():
         [10, 7, 98]
     """
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ('_contents',
+                 '_decay_rate',
+                 '_previous_index',
+                 'weights',
+                 )
+
     ### INITIALISER ###
 
     def __init__(self,

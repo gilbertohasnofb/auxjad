@@ -778,7 +778,7 @@ class LoopByWindow(_LoopParent):
 
     def __repr__(self) -> str:
         r'Returns interpret representation of  ``contents``.'
-        return str(abjad.f(self._contents))
+        return format(self._contents)
 
     def __len__(self) -> int:
         r'Returns the length of ``contents`` in terms of ``step_size``.'

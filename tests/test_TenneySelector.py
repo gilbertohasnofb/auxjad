@@ -8,7 +8,7 @@ def test_TenneySelector_01():
     random.seed(43714)
     selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
     assert selector.contents == ['A', 'B', 'C', 'D', 'E', 'F']
-    assert repr(selector) == "['A', 'B', 'C', 'D', 'E', 'F']"
+    assert format(selector) == "['A', 'B', 'C', 'D', 'E', 'F']"
     assert selector.curvature == 1.0
     assert selector.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert selector.probabilities == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]

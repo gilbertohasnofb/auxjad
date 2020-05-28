@@ -6,6 +6,7 @@ import auxjad
 def test_LoopByList_01():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
     looper = auxjad.LoopByList(input_list, window_size=3)
+    assert format(looper) == "['A', 'B', 'C', 'D', 'E', 'F']"
     assert looper() == ['A', 'B', 'C']
     assert looper() == ['B', 'C', 'D']
     assert looper.current_window == ['B', 'C', 'D']

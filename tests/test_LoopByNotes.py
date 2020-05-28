@@ -6,6 +6,18 @@ import auxjad
 def test_LoopByNotes_01():
     input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopByNotes(input_music, window_size=3)
+    assert format(looper) == abjad.String.normalize(
+        r"""
+        {
+            c'4
+            d'2
+            e'4
+            f'2
+            ~
+            f'8
+            g'1
+        }
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(

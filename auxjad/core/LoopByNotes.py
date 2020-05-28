@@ -528,6 +528,7 @@ class LoopByNotes(_LoopParent):
     __slots__ = ('_omit_all_time_signatures',
                  '_force_identical_time_signatures',
                  '_last_time_signature',
+                 '_contents_container'
                  )
 
     ### INITIALISER ###
@@ -563,7 +564,7 @@ class LoopByNotes(_LoopParent):
 
     def __repr__(self) -> str:
         r'Returns interpret representation of ``contents``.'
-        return str(self._contents)
+        return format(self._contents_container)
 
     def __len__(self) -> int:
         r'Returns the number of logical ties of ``contents``.'
@@ -613,9 +614,9 @@ class LoopByNotes(_LoopParent):
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
-        contents_ = copy.deepcopy(contents)
-        self._remove_all_time_signatures(contents_)
-        self._contents = abjad.select(contents_).logical_ties()
+        self._contents_container = copy.deepcopy(contents)
+        self._remove_all_time_signatures(self._contents_container)
+        self._contents = abjad.select(self._contents_container).logical_ties()
 
     @property
     def omit_all_time_signatures(self) -> list:

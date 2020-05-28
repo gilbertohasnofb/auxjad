@@ -22,7 +22,7 @@ class TenneySelector():
         >>> selector.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
 
-        Applying the ``len()`` function to the selector will give the length
+        Applying the ``len()`` function to the selector will return the length
         of the input list.
 
         >>> len(selector)
@@ -65,8 +65,8 @@ class TenneySelector():
         From the result above it is possible to see that there are no immediate
         repetitions of elements (since once selected, their probability is
         always set to 0.0 and will take at least one iteration to grow to a
-        non-zero value). Checking the probabilities and previous_index
-        attributes will give us their current values.
+        non-zero value). Checking the ``probabilities`` and ``previous_index``
+        properties will return us their current values.
 
         >>> selector.probabilities
         [6.0, 5.0, 0.0, 3.0, 1.0, 2.0]

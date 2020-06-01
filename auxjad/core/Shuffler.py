@@ -538,7 +538,6 @@ class Shuffler:
                  '_current_window',
                  '_logical_ties',
                  '_time_signatures',
-                 '_time_signatures_durations',
                  '_last_time_signature',
                  )
 
@@ -593,7 +592,7 @@ class Shuffler:
         if not self._output_single_measure:
             # splitting leaves at bar line points
             abjad.mutate(dummy_container[:]).split(
-                self._time_signatures_durations,
+                [ts.duration for ts in self._time_signatures],
                 cyclic=True,
             )
             # attaching time signature structure
@@ -635,7 +634,7 @@ class Shuffler:
             for leaf_n in range(len(dummy_container_leaves)):
                 duration = abjad.inspect(
                     dummy_container_leaves[start : leaf_n+1]).duration()
-                if duration == self._time_signatures_durations[index]:
+                if duration == self._time_signatures[index].duration:
                     abjad.mutate(
                         dummy_container_leaves[start : leaf_n+1]
                     ).rewrite_meter(self._time_signatures[index])
@@ -794,8 +793,6 @@ class Shuffler:
                     time_signature = self._time_signatures[-1]
                 self._time_signatures.append(time_signature)
             duration += abjad.inspect(leaf).duration()
-        self._time_signatures_durations = [timesig.duration for timesig
-                                           in self._time_signatures]
 
     def _update_logical_ties(self):
         r'Updates the selection of logical ties of ``contents``.'

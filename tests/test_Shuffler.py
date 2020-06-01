@@ -381,7 +381,6 @@ def test_Shuffler_13():
 
 
 def test_Shuffler_12():
-    random.seed(47621)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     shuffler = auxjad.Shuffler(container)
     assert format(shuffler.contents) == abjad.String.normalize(

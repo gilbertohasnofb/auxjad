@@ -77,7 +77,7 @@ class Shuffler:
     ..  container:: example
 
         Applying the ``len()`` function to the shuffler will return the number
-        of logical ties of ``contents``
+        of logical ties of ``contents``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 ~ | f'2 g'2")
         >>> shuffler = auxjad.Shuffler(container)
@@ -563,7 +563,7 @@ class Shuffler:
 
     def __repr__(self) -> str:
         r'Returns interpret representation of ``contents``.'
-        return format(self._current_window)
+        return format(self._contents)
 
     def __len__(self) -> int:
         r'Returns the number of logical ties of ``contents``.'

@@ -58,7 +58,7 @@ Let's now add a time signature of the length of the container.
         >2.
     }
 
-.. figure:: ./_images/image-example-1-1.png
+.. figure:: ../_images/image-example-1-1.png
 
 The spelling of the chord ``<c' cs' g'>`` could be improved. This can be done
 using either ``auxjad.respell_chord`` or ``auxjad.respell_container``.
@@ -96,7 +96,7 @@ using either ``auxjad.respell_chord`` or ``auxjad.respell_container``.
         >2.
     }
 
-.. figure:: ./_images/image-example-1-2.png
+.. figure:: ../_images/image-example-1-2.png
 
 Let's now use this material as input for ``auxjad.LoopByNotes``. This
 is one of the many loopers included in ``auxjad``. It works by selecting groups
@@ -165,7 +165,7 @@ elements 2 through 5, then 3 through 6, and so on.
         >2.
     }
 
-.. figure:: ./_images/image-example-1-3.png
+.. figure:: ../_images/image-example-1-3.png
 
 Let's now grab the last window output by the looper object above and use it as
 input for ``auxjad.Shuffler``. This will randomly shuffles the leaves of
@@ -313,7 +313,7 @@ the input container.
         r4
     }
 
-.. figure:: ./_images/image-example-1-4.png
+.. figure:: ../_images/image-example-1-4.png
 
 To finalise the score, let's add an initial dynamic to the first leaf of the
 staff.
@@ -457,4 +457,4 @@ staff.
         r4
     }
 
-.. figure:: ./_images/image-example-1-5.png
+.. figure:: ../_images/image-example-1-5.png

@@ -64,7 +64,8 @@ if querry.lower() in ('y', 'yes'):
                         # removing comments from time signatures
                         match = match.replace(r'%%% ', '')
                         match = match.replace(r'%%%', '')
-                        if r'\new Staff' in match:
+                        if (r'\new Staff' in match
+                                or r'\new Score' in match):
                             f.write(match)
                         else:  # wrap in {} when not starting with \new Staff
                             f.write('{\n')
@@ -80,21 +81,22 @@ if querry.lower() in ('y', 'yes'):
                               + directory + filename)
 
     # generating lilypond files from example-n.rst files
-    for read_file in os.listdir('../'):
+    for read_file in os.listdir('../examples'):
         if read_file.startswith('example-'):
-            with open('../' + read_file, 'r') as example_file:
+            with open('../examples/' + read_file, 'r') as example_file:
                 matches = re.findall(pattern, example_file.read())
                 if matches:
                     for n, match in enumerate(matches):
                         directory = './lilypond-files/'
-                        filename = ('image-' + read_file.replace('.rst', '') 
+                        filename = ('image-' + read_file.replace('.rst', '')
                                     + '-' + str(n + 1) + '.ly')
                         with open(directory + filename, 'w+') as f:
                             f.write(ly_header)
                             # removing comments from time signatures
                             match = match.replace(r'%%% ', '')
                             match = match.replace(r'%%%', '')
-                            if r'\new Staff' in match:
+                            if (r'\new Staff' in match
+                                    or r'\new Score' in match):
                                 f.write(match)
                             else:
                                 # wrap in {} when not starting with \new Staff

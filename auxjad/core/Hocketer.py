@@ -171,6 +171,7 @@ class Hocketer():
         >>> music = hocketer()
         >>> score = abjad.Score(music)
         >>> abjad.f(score)
+        >>> abjad.f(score)
         \new Score
         <<
             \new Staff
@@ -194,7 +195,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-5.png
+        .. figure:: ../_images/image-Hocketer-4.png
 
         Use the method ``reset_weights()`` to reset the weights back to their
         default values.
@@ -221,7 +222,7 @@ class Hocketer():
         >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=2)
         >>> music = hocketer()
         >>> score = abjad.Score(music)
-        >>> abjad.show(score)
+        >>> abjad.f(score)
         \new Score
         <<
             \new Staff

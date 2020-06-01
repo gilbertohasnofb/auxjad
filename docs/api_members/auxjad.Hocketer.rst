@@ -9,12 +9,12 @@ auxjad.Hocketer
 
    .. autosummary::
 
-      ~Shuffler.__init__
-      ~Shuffler.__repr__
-      ~Shuffler.__len__
-      ~Shuffler.__call__
-      ~Shuffler.__getitem__
-      ~Shuffler.reset_weights
+      ~Hocketer.__init__
+      ~Hocketer.__repr__
+      ~Hocketer.__len__
+      ~Hocketer.__call__
+      ~Hocketer.__getitem__
+      ~Hocketer.reset_weights
 
 
 
@@ -22,10 +22,10 @@ auxjad.Hocketer
 
    .. autosummary::
 
-      ~Shuffler.contents
-      ~Shuffler.current_window
-      ~Shuffler.n_voices
-      ~Shuffler.weights
-      ~Shuffler.k
-      ~Shuffler.disable_rewrite_meter
-      ~Shuffler.use_multimeasure_rests
+      ~Hocketer.contents
+      ~Hocketer.current_window
+      ~Hocketer.n_voices
+      ~Hocketer.weights
+      ~Hocketer.k
+      ~Hocketer.disable_rewrite_meter
+      ~Hocketer.use_multimeasure_rests

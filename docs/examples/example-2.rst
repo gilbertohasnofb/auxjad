@@ -80,7 +80,7 @@ Let's now add a time signature of the length of the container.
         - \accent
     }
 
-.. figure:: ./_images/image-example-2-1.png
+.. figure:: ../_images/image-example-2-1.png
 
 Let's now use ``auxjad.LoopByWindow`` to output loops of windows of the material.
 By default, this class uses a window size of a 4/4 measure, and each step
@@ -125,7 +125,7 @@ please refer to this library's API for more information.
         - \tenuto
     }
 
-.. figure:: ./_images/image-example-2-2.png
+.. figure:: ../_images/image-example-2-2.png
 
 Let's now grab the last window output by the looper object above and use it as
 input for ``auxjad.Shuffler``. This will randomly shuffles the leaves of
@@ -197,7 +197,7 @@ the input container.
         \mp
     }
 
-.. figure:: ./_images/image-example-2-3.png
+.. figure:: ../_images/image-example-2-3.png
 
 Let's use the last output of the shuffler above and feed it into a new looper.
 This time we will use a window of size 3/4.
@@ -298,7 +298,7 @@ This time we will use a window of size 3/4.
         \mp
     }
 
-.. figure:: ./_images/image-example-2-4.png
+.. figure:: ../_images/image-example-2-4.png
 
 At this point, let's use ``auxjad.remove_repeated_dynamics`` to remove all
 repeated dyanmics. The final result is shown below.
@@ -381,4 +381,4 @@ repeated dyanmics. The final result is shown below.
         af'4
     }
 
-.. figure:: ./_images/image-example-2-5.png
+.. figure:: ../_images/image-example-2-5.png

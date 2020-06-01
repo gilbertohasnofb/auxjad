@@ -21,6 +21,7 @@ documentaion of each class and function.
     auxjad.containers_are_equal
     auxjad.fill_with_rests
     auxjad.HarmonicNote
+    auxjad.Hocketer
     auxjad.LeafDynMaker
     auxjad.leaves_are_tieable
     auxjad.LoopByList

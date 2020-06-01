@@ -56,7 +56,7 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
     :caption: Contents
 
     self
-    examples-main
+    examples/index
     api
 
 

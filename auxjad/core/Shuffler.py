@@ -367,7 +367,7 @@ class Shuffler:
         tuplets. And similarly to the method ``output_n()``, to output several
         containers with shuffled pitches, use ``output_n_shuffled_pitches()``.
 
-        >>> container = abjad.Container(r"\times 2/3 {\time 5/4 c'4 d'2}"
+        >>> container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2}"
         ...                             r"r4 e'4. f'8"
         ...                             )
         >>> shuffler = auxjad.Shuffler(container)
@@ -376,26 +376,26 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 5/4
+            r4
             \times 2/3 {
-                \time 5/4
                 f'4
                 e'2
             }
-            r4
             d'4.
             c'8
+            r4
             \times 2/3 {
                 d'4
                 c'2
             }
-            r4
             f'4.
             e'8
+            r4
             \times 2/3 {
                 d'4
                 f'2
             }
-            r4
             c'4.
             e'8
         }
@@ -452,7 +452,7 @@ class Shuffler:
         Similarly to the method ``output_n()``, to output several containers
         with rotated pitches, use ``output_n_rotated_pitches()``.
 
-        >>> container = abjad.Container(r"\times 2/3 {\time 5/4 c'4 d'2}"
+        >>> container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2}"
         ...                             r"r4 e'4. f'8"
         ...                             )
         >>> shuffler = auxjad.Shuffler(container)
@@ -461,26 +461,26 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 5/4
+            r4
             \times 2/3 {
-                \time 5/4
                 d'4
                 e'2
             }
-            r4
             f'4.
             c'8
+            r4
             \times 2/3 {
                 e'4
                 f'2
             }
-            r4
             c'4.
             d'8
+            r4
             \times 2/3 {
                 f'4
                 c'2
             }
-            r4
             d'4.
             e'8
         }

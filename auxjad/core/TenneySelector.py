@@ -489,12 +489,11 @@ class TenneySelector():
         if not isinstance(weights, list):
             raise TypeError("'weights' must be 'list'")
         if not self.__len__() == len(weights):
-            raise ValueError("'weights' must have the same length "
-                             "as the contents of the object")
+            raise ValueError("'weights' must have the same length as the "
+                             "contents of the object")
         if not all(isinstance(weight, (int, float))
                    for weight in weights):
-            raise TypeError("'weights' elements must be "
-                            "'int' or 'float'")
+            raise TypeError("'weights' elements must be 'int' or 'float'")
         self._weights = weights[:]
         self._generate_probabilities(reset=True)
 

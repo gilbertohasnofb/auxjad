@@ -554,8 +554,6 @@ class Shuffler:
                  ):
         r'Initialises self.'
         self.contents = contents
-        self._update_logical_ties()
-        self._find_time_signatures()
         self.output_single_measure = output_single_measure
         self.disable_rewrite_meter = disable_rewrite_meter
         self.force_time_signatures = force_time_signatures
@@ -868,6 +866,8 @@ class Shuffler:
                             "class")
         self._contents = copy.deepcopy(contents)
         self._current_window = copy.deepcopy(contents)
+        self._update_logical_ties()
+        self._find_time_signatures()
 
     @property
     def output_single_measure(self) -> bool:

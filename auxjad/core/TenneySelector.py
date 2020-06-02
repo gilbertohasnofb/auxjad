@@ -340,7 +340,7 @@ class TenneySelector():
                  '_curvature',
                  '_counter',
                  '_previous_index',
-                 'probabilities',
+                 '_probabilities',
                  )
 
     ### INITIALISER ###
@@ -393,7 +393,7 @@ class TenneySelector():
         r'Calls the selection process and outputs one element of ``contents``.'
         self._previous_index = random.choices(
             [n for n in range(self.__len__())],
-            weights=self.probabilities,
+            weights=self._probabilities,
             )[0]
         self._regenerate_counts()
         self._generate_probabilities()
@@ -421,7 +421,7 @@ class TenneySelector():
         """
         del self._contents[key]
         del self.weights[key]
-        del self.probabilities[key]
+        del self._probabilities[key]
         del self._counter[key]
 
     ### PUBLIC METHODS ###
@@ -453,9 +453,9 @@ class TenneySelector():
         """
         if reset:
             self._counter = [1 for _ in range(self.__len__())]
-        self.probabilities = []
+        self._probabilities = []
         for weight, count in zip(self._weights, self._counter):
-            self.probabilities.append(weight * self._growth_function(count))
+            self._probabilities.append(weight * self._growth_function(count))
 
     def _growth_function(self, count):
         r'Applies the growth exponent given a number of counts.'
@@ -519,3 +519,8 @@ class TenneySelector():
         element.
         """
         return self._previous_index
+
+    @property
+    def probabilities(self):
+        r'Read-only property, returns the probabilities vector.'
+        return self._probabilities

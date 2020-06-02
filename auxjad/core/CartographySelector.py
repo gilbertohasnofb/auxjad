@@ -288,7 +288,7 @@ class CartographySelector():
     __slots__ = ('_contents',
                  '_decay_rate',
                  '_previous_index',
-                 'weights',
+                 '_weights',
                  )
 
     ### INITIALISER ###
@@ -331,14 +331,14 @@ class CartographySelector():
         if not no_repeat:
             new_index = random.choices(
                 [n for n in range(self.__len__())],
-                weights=self.weights,
+                weights=self._weights,
             )[0]
         else:
             new_index = self._previous_index
             while (new_index == self._previous_index):
                 new_index = random.choices(
                     [n for n in range(self.__len__())],
-                    weights=self.weights,
+                    weights=self._weights,
                 )[0]
         self._previous_index = new_index
         return self._contents[self._previous_index]
@@ -437,9 +437,9 @@ class CartographySelector():
         r"""Given a decay rate, this method generates the weights of individual
         indeces.
         """
-        self.weights = []
+        self._weights = []
         for n in range(self.__len__()):
-            self.weights.append(self._decay_rate ** n)
+            self._weights.append(self._decay_rate ** n)
 
     ### PUBLIC PROPERTIES ###
 
@@ -491,3 +491,8 @@ class CartographySelector():
     def previous_result(self):
         r'Read-only property, returns the previously output element.'
         return self._contents[self._previous_index]
+
+    @property
+    def weights(self):
+        r'Read-only property, returns the weight vector.'
+        return self._weights

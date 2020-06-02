@@ -27,6 +27,7 @@ documentaion of each class and function.
     auxjad.LoopByList
     auxjad.LoopByNotes
     auxjad.LoopByWindow
+    auxjad.remove_empty_tuplets
     auxjad.remove_repeated_dynamics
     auxjad.remove_repeated_time_signatures
     auxjad.respell_container

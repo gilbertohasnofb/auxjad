@@ -349,7 +349,7 @@ def test_LoopByWindow_06():
 
 
 def test_LoopByWindow_07():
-    input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'} d'2.")
+    input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
     looper = auxjad.LoopByWindow(input_music,
                                  window_size=(3, 4),
                                  step_size=(1, 16))

@@ -12,7 +12,7 @@ from ..utilities.simplified_time_signature_ratio import (
 class Shuffler:
     r"""Shuffler takes an input ``abjad.Container`` and shuffles its logical
     ties. It can also shuffle only pitches, as well as rotate them. When
-    shuffling or rotating pitches only, tuplets are allowed. Tuplets are not
+    shuffling or rotating pitches only, tuplets are supported. Tuplets are not
     supported when shuffling leaves.
 
     ..  container:: example
@@ -338,6 +338,16 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-11.png
 
+    ..  warning::
+
+        Tuplets not supported by the shuffling operation. 
+
+        >>> container = abjad.Container(r"c'2 \times 2/3 {d'4 e'2}")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> music = shuffler()
+        TypeError: 'contents' contain one ore more tuplets, which are not
+        currently supported by the shuffle method
+
     ..  container:: example
 
         To shuffle only pitches, keeping the durations of the leaves as they
@@ -577,11 +587,16 @@ class Shuffler:
 
     def shuffle(self) -> abjad.Selection:
         r'Shuffles the logical ties of ``contents``.'
+        if len(abjad.select(self.contents).tuplets()) > 0:
+            raise TypeError("'contents' contain one ore more tuplets, which "
+                            "are not currently supported by the shuffle "
+                            "method")
         if self._force_time_signatures:
             self._last_time_signature = None
         dummy_container = abjad.Container()
         indeces = list(range(self.__len__()))
         random.shuffle(indeces)
+
         for index in indeces:
             logical_tie = copy.deepcopy(
                 self._logical_ties[index])
@@ -589,6 +604,7 @@ class Shuffler:
             for leaf in logical_tie:
                 if abjad.inspect(leaf).effective(abjad.TimeSignature):
                     abjad.detach(abjad.TimeSignature, leaf)
+
         if not self._output_single_measure:
             # splitting leaves at bar line points
             abjad.mutate(dummy_container[:]).split(
@@ -625,24 +641,25 @@ class Shuffler:
                     or time_signature != self._last_time_signature):
                 abjad.attach(time_signature, dummy_container[0])
             self._last_time_signature = time_signature
+
         # rewrite meter
         if not self._disable_rewrite_meter:
             start = 0
-            duration = abjad.Duration(0)
-            index = 0
+            ts_index = 0
             dummy_container_leaves = abjad.select(dummy_container).leaves()
-            for leaf_n in range(len(dummy_container_leaves)):
+            for item_index in range(len(dummy_container_leaves)):
                 duration = abjad.inspect(
-                    dummy_container_leaves[start : leaf_n+1]).duration()
-                if duration == self._time_signatures[index].duration:
+                    dummy_container_leaves[start : item_index+1]).duration()
+                if duration == self._time_signatures[ts_index].duration:
                     abjad.mutate(
-                        dummy_container_leaves[start : leaf_n+1]
-                    ).rewrite_meter(self._time_signatures[index])
-                    if index + 1 < len(self._time_signatures):
-                        index += 1
-                        start = leaf_n + 1
+                        dummy_container_leaves[start : item_index+1]
+                    ).rewrite_meter(self._time_signatures[ts_index])
+                    if ts_index + 1 < len(self._time_signatures):
+                        ts_index += 1
+                        start = item_index + 1
                     else:
                         break
+
         # output
         self._current_window = dummy_container[:]
         dummy_container[:] = []

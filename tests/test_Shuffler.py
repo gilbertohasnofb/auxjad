@@ -419,3 +419,10 @@ def test_Shuffler_13():
     container = abjad.Container(r"c'4 d'4 e'4 f'4 ~ | f'2 g'2")
     shuffler = auxjad.Shuffler(container)
     assert len(shuffler) == 5
+
+
+def test_Shuffler_14():
+    container = abjad.Container(r"c'2 \times 2/3 {d'4 e'2}")
+    shuffler = auxjad.Shuffler(container)
+    with pytest.raises(TypeError):
+        music = shuffler()

@@ -588,7 +588,7 @@ class Hocketer():
 
     ..  container:: example
 
-    This class can handle time signature changes as well as nested tuplets.
+        This class can handle time signature changes as well as nested tuplets.
 
         >>> container = abjad.Container(
         ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"

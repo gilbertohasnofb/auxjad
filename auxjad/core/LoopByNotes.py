@@ -475,14 +475,14 @@ class LoopByNotes(_LoopParent):
 
         .. figure:: ../_images/image-LoopByNotes-15.png
 
-    ..  note::
+    ..  warning::
 
-        This class can handle tuplets, but the output is not ideal and so this
-        functionality should be considered experimental. Time signatures will
-        be correct when dealing with partial tuplets (thus having non-standard
-        values in their denominators), but each individual note of a tuplet
-        will have the ratio printed above them and there won't be a bracket
-        spanning all notes.
+        This class can handle tuplets, but the engraving of the output is not
+        ideal and so this functionality should be considered experimental. Time
+        signatures will be correct when dealing with partial tuplets (thus
+        having non-standard values in their denominators), but each individual
+        note of a tuplet will have the ratio printed above them and there won't
+        be a bracket spanning all notes.
 
         >>> input_music = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
         >>> looper = auxjad.LoopByNotes(input_music,

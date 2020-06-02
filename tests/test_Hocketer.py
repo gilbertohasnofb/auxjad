@@ -376,6 +376,7 @@ def test_Hocketer_09():
         >>
         """)
 
+
 def test_Hocketer_10():
     random.seed(14432)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
@@ -424,6 +425,7 @@ def test_Hocketer_10():
         >>
         """)
 
+
 def test_Hocketer_11():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     with pytest.raises(ValueError):
@@ -446,3 +448,88 @@ def test_Hocketer_11():
     hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
     with pytest.raises(ValueError):
         hocketer.force_k_voices = True
+
+
+def test_Hocketer_12():
+    random.seed(48765)
+    container = abjad.Container(
+        r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"
+        r"\times 4/5 {\time 4/4 g'2. \times 2/3 {a'8 r8 b'2}}"
+    )
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=4,
+                               k=2,
+                               )
+    staves = hocketer()
+    score = abjad.Score(staves)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 5/4
+                r4
+                \times 2/3 {
+                    c'4
+                    d'2
+                }
+                r4.
+                f'8
+                \times 4/5 {
+                    \time 4/4
+                    r2.
+                    \times 2/3 {
+                        a'8
+                        r8
+                        r2
+                    }
+                }
+            }
+            \new Staff
+            {
+                \time 5/4
+                R1 * 5/4
+                R1
+            }
+            \new Staff
+            {
+                \time 5/4
+                r4
+                \times 2/3 {
+                    r4
+                    d'2
+                }
+                e'4.
+                f'8
+                \times 4/5 {
+                    \time 4/4
+                    r2.
+                    \times 2/3 {
+                        a'8
+                        r8
+                        b'2
+                    }
+                }
+            }
+            \new Staff
+            {
+                \time 5/4
+                r4
+                \times 2/3 {
+                    c'4
+                    r2
+                }
+                r2
+                \times 4/5 {
+                    \time 4/4
+                    g'2.
+                    \times 2/3 {
+                        r8
+                        r8
+                        b'2
+                    }
+                }
+            }
+        >>
+        """)

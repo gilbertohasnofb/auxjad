@@ -74,6 +74,7 @@ class Hocketer():
         ...                            n_voices=3,
         ...                            weights=[1, 2, 5],
         ...                            k=2,
+        ...                            force_k_voices=True,
         ...                            disable_rewrite_meter=True,
         ...                            use_multimeasure_rests=False,
         ...                            )
@@ -83,6 +84,8 @@ class Hocketer():
         [1, 2, 5]
         >>> hocketer.k
         2
+        >>> hocketer.force_k_voices
+        True
         >>> hocketer.disable_rewrite_meter
         True
         >>> not hocketer.use_multimeasure_rests
@@ -90,6 +93,7 @@ class Hocketer():
         >>> hocketer.n_voices = 5
         >>> hocketer.weights = [1, 1, 1, 2, 7]
         >>> hocketer.k = 3
+        >>> hocketer.force_k_voices = False
         >>> hocketer.disable_rewrite_meter = False
         >>> hocketer.use_multimeasure_rests = True
         >>> hocketer.n_voices
@@ -98,6 +102,8 @@ class Hocketer():
         [1, 1, 1, 2, 7]
         >>> hocketer.k
         3
+        >>> not hocketer.force_k_voices
+        False
         >>> not hocketer.disable_rewrite_meter
         False
         >>> hocketer.use_multimeasure_rests
@@ -253,6 +259,71 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-5.png
 
+        It is important to note that changing ``k`` to a higher value does not
+        guarantee each logical tie will appear in ``k`` different voices. By
+        default, ``k`` only defines how many times each logical tie is
+        processed by the hocket process, which may select the same voice more
+        than once. To ensure that each logical tie appears in ``k`` unique
+        voices, set the optional keyword argument ``force_k_voices`` to
+        ``True`` as shown below.
+
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            k=2,
+        ...                            force_k_voices=True,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score(music)
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                c'8
+                d'8
+                r8
+                f'8
+                g'8
+                r8
+                b'8
+                c''8
+            }
+            \new Staff
+            {
+                r4
+                e'8
+                r8
+                g'8
+                a'8
+                b'8
+                c''8
+            }
+            \new Staff
+            {
+                c'8
+                d'8
+                e'8
+                f'8
+                r8
+                a'8
+                r4
+            }
+        >>
+
+        .. figure:: ../_images/image-Hocketer-6.png
+
+    ..  warning::
+
+        Setting ``force_k_voices`` to ``True`` when ``k`` is larger than
+        ``n_voices`` will raise an Exception:
+
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
+        >>> hocketer.force_k_voices = True
+        ValueError: 'force_k_voices' cannot be set to True if 'k' > 'n_voices',
+        change 'k' first
+
     ..  container:: example
 
         By default, this class rewrites uses abjad's ``rewrite_meter()``
@@ -285,7 +356,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-6.png
+        .. figure:: ../_images/image-Hocketer-7.png
 
         Set ``disable_rewrite_meter`` to ``True`` in order to disable this
         behaviour.
@@ -323,7 +394,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-7.png
+        .. figure:: ../_images/image-Hocketer-8.png
 
     ..  container:: example
 
@@ -356,7 +427,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-8.png
+        .. figure:: ../_images/image-Hocketer-9.png
 
         Set ``use_multimeasure_rests`` to ``False`` to disable this behaviour.
 
@@ -388,7 +459,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-9.png
+        .. figure:: ../_images/image-Hocketer-10.png
 
     ..  container:: example
 
@@ -408,7 +479,7 @@ class Hocketer():
             f'4
         }
 
-        .. figure:: ../_images/image-Hocketer-10.png
+        .. figure:: ../_images/image-Hocketer-11.png
 
         >>> hocketer()
         >>> abjad.f(hocketer.contents)
@@ -419,7 +490,7 @@ class Hocketer():
             f'4
         }
 
-        .. figure:: ../_images/image-Hocketer-11.png
+        .. figure:: ../_images/image-Hocketer-12.png
 
         >>> hocketer.contents = abjad.Container(r"cs2 ds2")
         >>> abjad.f(hocketer.contents)
@@ -428,7 +499,7 @@ class Hocketer():
             ds2
         }
 
-        .. figure:: ../_images/image-Hocketer-12.png
+        .. figure:: ../_images/image-Hocketer-13.png
     """
 
     ### CLASS VARIABLES ###
@@ -437,6 +508,7 @@ class Hocketer():
                  '_n_voices',
                  '_weights',
                  '_k',
+                 '_force_k_voices',
                  '_disable_rewrite_meter',
                  '_use_multimeasure_rests',
                  '_voices',
@@ -451,17 +523,19 @@ class Hocketer():
                  n_voices: int = 2,
                  weights: list = None,
                  k: int = 1,
+                 force_k_voices: bool = False,
                  disable_rewrite_meter: bool = False,
                  use_multimeasure_rests: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
-        self.n_voices = n_voices
+        self._n_voices = n_voices
+        self._k = k
         if weights:
             self.weights = weights
         else:
             self.reset_weights()
-        self.k = k
+        self.force_k_voices = force_k_voices
         self.disable_rewrite_meter = disable_rewrite_meter
         self.use_multimeasure_rests = use_multimeasure_rests
 
@@ -504,10 +578,20 @@ class Hocketer():
         dummy_voices = [abjad.Container() for _ in range(self.n_voices)]
 
         for logical_tie in abjad.select(self.contents).logical_ties():
-            selected_voices = random.choices([n for n in range(self.n_voices)],
-                                             weights=self.weights,
-                                             k=self.k,
-                                             )
+            if not self.force_k_voices:
+                selected_voices = random.choices(list(range(self.n_voices)),
+                                                 weights=self.weights,
+                                                 k=self.k,
+                                                 )
+            else:
+                selected_voices = []
+                while len(selected_voices) < self.k:
+                    selected_value = random.choices(list(range(self.n_voices)),
+                                                    weights=self.weights,
+                                                    k=self.k,
+                                                    )[0]
+                    if selected_value not in selected_voices:
+                        selected_voices.append(selected_value)
             for voice in dummy_voices:
                 if dummy_voices.index(voice) in selected_voices:
                     voice.append(copy.deepcopy(logical_tie))
@@ -602,6 +686,9 @@ class Hocketer():
             raise TypeError("'n_voices' must be 'int'")
         if n_voices < 1:
             raise ValueError("'n_voices' must be greater than zero")
+        if self.force_k_voices and self.k > n_voices:
+            raise ValueError("'n_voices' cannot be smaller than 'k' when "
+                             "'force_k_voices' is set to True")
         self._n_voices = n_voices
 
     @property
@@ -636,7 +723,28 @@ class Hocketer():
             raise TypeError("'k' must be 'int'")
         if k < 1:
             raise ValueError("'k' must be greater than zero")
+        if self.force_k_voices and k > self.n_voices:
+            raise ValueError("'k' cannot be greater than 'n_voices' when "
+                             "'force_k_voices' is set to True")
         self._k = k
+
+    @property
+    def force_k_voices(self) -> bool:
+        r"""When ``True``, the hocket process will ensure that each logical tie
+        is distributed among ``k`` voices.
+        """
+        return self._force_k_voices
+
+    @force_k_voices.setter
+    def force_k_voices(self,
+                       force_k_voices: bool,
+                       ):
+        if not isinstance(force_k_voices, bool):
+            raise TypeError("'force_k_voices' must be 'bool'")
+        if force_k_voices and self.k > self.n_voices:
+            raise ValueError("'force_k_voices' cannot be set to True if 'k' > "
+                             "'n_voices', change 'k' first")
+        self._force_k_voices = force_k_voices
 
     @property
     def disable_rewrite_meter(self) -> bool:

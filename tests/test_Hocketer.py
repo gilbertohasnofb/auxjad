@@ -111,22 +111,26 @@ def test_Hocketer_03():
                                n_voices=3,
                                weights=[1, 2, 5],
                                k=2,
+                               force_k_voices=True,
                                disable_rewrite_meter=True,
                                use_multimeasure_rests=False,
                                )
     assert hocketer.n_voices == 3
     assert hocketer.weights == [1, 2, 5]
     assert hocketer.k == 2
+    assert hocketer.force_k_voices
     assert hocketer.disable_rewrite_meter
     assert not hocketer.use_multimeasure_rests
     hocketer.n_voices = 5
     hocketer.weights = [1, 1, 1, 2, 7]
     hocketer.k = 3
+    hocketer.force_k_voices = False
     hocketer.disable_rewrite_meter = False
     hocketer.use_multimeasure_rests = True
     assert hocketer.n_voices == 5
     assert hocketer.weights == [1, 1, 1, 2, 7]
     assert hocketer.k == 3
+    assert not hocketer.force_k_voices
     assert not hocketer.disable_rewrite_meter
     assert hocketer.use_multimeasure_rests
 
@@ -312,7 +316,7 @@ def test_Hocketer_08():
         """)
 
 
-def test_Hocketer_08():
+def test_Hocketer_09():
     random.seed(15663)
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
     hocketer = auxjad.Hocketer(container)
@@ -371,3 +375,74 @@ def test_Hocketer_08():
             }
         >>
         """)
+
+def test_Hocketer_10():
+    random.seed(14432)
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=3,
+                               k=2,
+                               force_k_voices=True,
+                               )
+    music = hocketer()
+    score = abjad.Score(music)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                c'8
+                d'8
+                r8
+                f'8
+                g'8
+                r8
+                b'8
+                c''8
+            }
+            \new Staff
+            {
+                r4
+                e'8
+                r8
+                g'8
+                a'8
+                b'8
+                c''8
+            }
+            \new Staff
+            {
+                c'8
+                d'8
+                e'8
+                f'8
+                r8
+                a'8
+                r4
+            }
+        >>
+        """)
+
+def test_Hocketer_11():
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    with pytest.raises(ValueError):
+        hocketer = auxjad.Hocketer(container,
+                                   n_voices=2,
+                                   k=4,
+                                   force_k_voices=True,
+                                   )
+
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=4,
+                               k=3,
+                               force_k_voices=True,
+                               )
+    with pytest.raises(ValueError):
+        hocketer.k = 5
+    with pytest.raises(ValueError):
+        hocketer.n_voices = 2
+
+    hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
+    with pytest.raises(ValueError):
+        hocketer.force_k_voices = True

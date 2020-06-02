@@ -179,7 +179,7 @@ def test_remove_repeated_dynamics_05():
 
 
 def test_remove_repeated_dynamics_06():
-    staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
+    staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -188,10 +188,10 @@ def test_remove_repeated_dynamics_06():
             c'4
             \pp
             r2.
-            c'4
+            c'1
         }
         """)
-    staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
+    staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=True)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -200,14 +200,14 @@ def test_remove_repeated_dynamics_06():
             c'4
             \pp
             r2.
-            c'4
+            c'1
             \pp
         }
         """)
 
 
 def test_remove_repeated_dynamics_07():
-    staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
+    staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=(4, 4))
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -216,10 +216,10 @@ def test_remove_repeated_dynamics_07():
             c'4
             \pp
             r2.
-            c'4
+            c'1
         }
         """)
-    staff = abjad.Staff(r"c'4\pp r2. | c'4\pp")
+    staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=2/4)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -228,14 +228,14 @@ def test_remove_repeated_dynamics_07():
             c'4
             \pp
             r2.
-            c'4
+            c'1
             \pp
         }
         """)
 
 
 def test_remove_repeated_dynamics_08():
-    staff = abjad.Staff(r"c'4\pp r2. | R1 | c'4\pp")
+    staff = abjad.Staff(r"c'4\pp r2. | R1 | c'1\pp")
     auxjad.remove_repeated_dynamics(staff,
                                     reset_after_rests=abjad.Duration(4, 4),
                                     )
@@ -247,11 +247,11 @@ def test_remove_repeated_dynamics_08():
             \pp
             r2.
             R1
-            c'4
+            c'1
             \pp
         }
         """)
-    staff = abjad.Staff(r"c'4\pp r2. | R1 | c'4\pp")
+    staff = abjad.Staff(r"c'4\pp r2. | R1 | c'1\pp")
     auxjad.remove_repeated_dynamics(staff, reset_after_rests=2)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -261,6 +261,6 @@ def test_remove_repeated_dynamics_08():
             \pp
             r2.
             R1
-            c'4
+            c'1
         }
         """)

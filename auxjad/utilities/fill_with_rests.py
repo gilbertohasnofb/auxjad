@@ -168,7 +168,7 @@ def fill_with_rests(container: abjad.Container):
 
         .. figure:: ../_images/image-fill_with_rests-10.png
 
-    ..  warning::
+    ..  error::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

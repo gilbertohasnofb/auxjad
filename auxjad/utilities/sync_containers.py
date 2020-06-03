@@ -393,7 +393,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-21.png
 
-    ..  warning::
+    ..  error::
 
         If one or more containers is malformed, i.e. it has an underfilled bar
         before a time signature change, the function raises a ``ValueError``

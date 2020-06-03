@@ -244,7 +244,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-7.png
 
-    ..  warning::
+    ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
         ``markup`` to ``None`` will raise an Exception:
@@ -268,7 +268,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-8.png
 
-    ..  warning::
+    ..  error::
 
         Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
         ValueError exception when it cannot calculate the sounding pitch for

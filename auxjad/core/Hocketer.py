@@ -398,7 +398,7 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-9.png
 
-    ..  warning::
+    ..  error::
 
         Setting ``force_k_voices`` to ``True`` when ``k`` is larger than
         ``n_voices`` will raise an Exception:

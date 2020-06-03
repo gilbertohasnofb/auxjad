@@ -158,7 +158,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-7.png
 
-    ..  warning::
+    ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
         ``markup`` to ``None`` will raise an Exception:

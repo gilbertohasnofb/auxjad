@@ -204,7 +204,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-8.png
 
-    ..  warning::
+    ..  error::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

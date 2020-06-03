@@ -692,10 +692,12 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-22.png
 
-    ..  note::
+    ..  warning::
 
         This class can handle tuplets, but the output is often quite complex.
-        This functionality should be considered experimental.
+        Although the result will be rhythmically correct, consecutive tuplets
+        are not fused together, and tuplets may be output off-beat. This
+        functionality should be considered experimental.
 
         >>> input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
         >>> looper = auxjad.LoopByWindow(input_music,

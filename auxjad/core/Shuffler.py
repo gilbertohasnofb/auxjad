@@ -338,9 +338,9 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-11.png
 
-    ..  warning::
+    ..  error::
 
-        Tuplets not supported by the shuffling operation. 
+        Tuplets not supported by the shuffling operation.
 
         >>> container = abjad.Container(r"c'2 \times 2/3 {d'4 e'2}")
         >>> shuffler = auxjad.Shuffler(container)

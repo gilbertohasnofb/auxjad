@@ -167,7 +167,7 @@ def close_container(container: abjad.Container):
 
         .. figure:: ../_images/image-close_container-10.png
 
-    ..  warning::
+    ..  error::
 
         If a container is malformed, i.e. it has an underfilled bar before a
         time signature change, the function raises a ``ValueError`` exception.

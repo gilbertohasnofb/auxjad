@@ -98,7 +98,7 @@ def test_close_container_02():
 
 
 def test_close_container_03():
-    container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
+    container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
     auxjad.close_container(container)
     assert format(container) == abjad.String.normalize(
         r"""

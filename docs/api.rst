@@ -19,6 +19,7 @@ documentaion of each class and function.
     auxjad.close_container
     auxjad.container_is_full
     auxjad.containers_are_equal
+    auxjad.enforce_time_signature
     auxjad.fill_with_rests
     auxjad.HarmonicNote
     auxjad.Hocketer

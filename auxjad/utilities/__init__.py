@@ -1,6 +1,7 @@
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .containers_are_equal import containers_are_equal
+from .enforce_time_signature import enforce_time_signature
 from .fill_with_rests import fill_with_rests
 from .leaves_are_tieable import leaves_are_tieable
 from .remove_empty_tuplets import remove_empty_tuplets

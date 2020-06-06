@@ -100,7 +100,7 @@ def test_fill_with_rests_02():
 
 
 def test_fill_with_rests_03():
-    container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
+    container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
     auxjad.fill_with_rests(container)
     assert format(container) == abjad.String.normalize(
         r"""

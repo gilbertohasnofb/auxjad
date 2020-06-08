@@ -232,6 +232,48 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-12.png
 
+        Alternatively, use ``None`` to indicate repeated time signatures:
+
+        >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'1
+            d'1
+            e'1
+            f'1
+        }
+
+        .. figure:: ../_images/image-enforce_time_signature-13.png
+
+        >>> time_signatures = [(2, 4),
+        ...                    None,
+        ...                    None,
+        ...                    (3, 4),
+        ...                    None,
+        ...                    (4, 4),
+        ...                    ]
+        >>> auxjad.enforce_time_signature(staff, time_signatures)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 2/4
+            c'2
+            ~
+            c'2
+            d'2
+            ~
+            \time 3/4
+            d'2
+            e'4
+            ~
+            e'2.
+            \time 4/4
+            f'1
+        }
+
+        .. figure:: ../_images/image-enforce_time_signature-14.png
+
     ..  container:: example
 
         To cycle through the list of time signatures until the container is
@@ -247,7 +289,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-13.png
+        .. figure:: ../_images/image-enforce_time_signature-15.png
 
         >>> time_signatures = [abjad.TimeSignature((3, 8)),
         ...                    abjad.TimeSignature((2, 8)),
@@ -301,7 +343,7 @@ def enforce_time_signature(container: abjad.Container,
             r8
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-14.png
+        .. figure:: ../_images/image-enforce_time_signature-16.png
 
     ..  container:: example
 
@@ -319,7 +361,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-15.png
+        .. figure:: ../_images/image-enforce_time_signature-17.png
 
         >>> time_signatures = [abjad.TimeSignature((2, 4)),
         ...                    abjad.TimeSignature((3, 4)),
@@ -344,7 +386,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-16.png
+        .. figure:: ../_images/image-enforce_time_signature-18.png
 
     ..  container:: example
 
@@ -361,7 +403,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-17.png
+        .. figure:: ../_images/image-enforce_time_signature-19.png
 
         >>> time_signatures = [abjad.TimeSignature((5, 8)),
         ...                    abjad.TimeSignature((1, 16)),
@@ -407,7 +449,7 @@ def enforce_time_signature(container: abjad.Container,
             f'8
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-18.png
+        .. figure:: ../_images/image-enforce_time_signature-20.png
 
     ..  container:: example
 
@@ -427,7 +469,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-19.png
+        .. figure:: ../_images/image-enforce_time_signature-21.png
 
         >>> time_signatures = [abjad.TimeSignature((3, 4), partial=(1, 4)),
         ...                    abjad.TimeSignature((3, 4)),
@@ -455,7 +497,7 @@ def enforce_time_signature(container: abjad.Container,
             r2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-20.png
+        .. figure:: ../_images/image-enforce_time_signature-22.png
 
     .. note::
 
@@ -505,10 +547,15 @@ def enforce_time_signature(container: abjad.Container,
                         "child class")
     if not isinstance(time_signatures, list):
         time_signatures = [time_signatures]
+    if time_signatures[0] is None:
+        raise ValueError("first element of the input list must not be 'None'")
     # converting all elements to abjad.TimeSignature
     for index in range(len(time_signatures)):
         time_signature = time_signatures[index]
-        if not isinstance(time_signature, abjad.TimeSignature):
+        if time_signature is None:
+            previous_ts_duration = time_signatures[index - 1].pair
+            time_signatures[index] = abjad.TimeSignature(previous_ts_duration)
+        elif not isinstance(time_signature, abjad.TimeSignature):
             time_signatures[index] = abjad.TimeSignature(time_signature)
     partial_time_signature = None
     if time_signatures[0].partial is not None:

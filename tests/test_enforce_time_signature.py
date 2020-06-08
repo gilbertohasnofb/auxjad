@@ -1,4 +1,5 @@
 import abjad
+import pytest
 import auxjad
 
 
@@ -301,3 +302,75 @@ def test_enforce_time_signature_10():
             r2.
         }
         """)
+
+def test_enforce_time_signature_11():
+    staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
+    time_signatures = [(2, 4),
+                       None,
+                       None,
+                       (3, 4),
+                       None,
+                       (4, 4),
+                       ]
+    auxjad.enforce_time_signature(staff, time_signatures)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 2/4
+            c'2
+            ~
+            c'2
+            d'2
+            ~
+            \time 3/4
+            d'2
+            e'4
+            ~
+            e'2.
+            \time 4/4
+            f'1
+        }
+        """)
+
+
+def test_enforce_time_signature_12():
+    staff = abjad.Staff(r"r8 c'1 d'1 e'1 f'1")
+    time_signatures = [abjad.TimeSignature((2, 4), partial=(1, 8)),
+                       None,
+                       None,
+                       abjad.TimeSignature((3, 4)),
+                       None,
+                       abjad.TimeSignature((4, 4)),
+                       ]
+    auxjad.enforce_time_signature(staff, time_signatures)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \partial 8
+            \time 2/4
+            r8
+            c'2
+            ~
+            c'2
+            d'2
+            ~
+            \time 3/4
+            d'2
+            e'4
+            ~
+            e'2.
+            \time 4/4
+            f'1
+        }
+        """)
+
+
+def test_enforce_time_signature_13():
+    staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
+    time_signatures = [None,
+                       (4, 4),
+                       ]
+    with pytest.raises(ValueError):
+        auxjad.enforce_time_signature(staff, time_signatures)

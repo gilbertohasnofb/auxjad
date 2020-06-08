@@ -12,7 +12,9 @@ examples do not make use of all functions and classes, nor does it show all the
 features of the used ones. Please refer to ``auxjad``'s API in the left pane
 for the documentation of specific functions and classes.
 
+.. toctree::
+    :maxdepth: 2
+    :caption: List of Examples of Usage
 
-.. include:: example-1.rst
-
-.. include:: example-2.rst
+    example-1
+    example-2

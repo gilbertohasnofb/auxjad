@@ -52,6 +52,7 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
 
 
 .. toctree::
+    :hidden:
     :maxdepth: 2
     :caption: Contents
 

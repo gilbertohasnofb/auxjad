@@ -1,3 +1,4 @@
+import copy
 from ._LoopParent import _LoopParent
 
 
@@ -332,7 +333,7 @@ class LoopByList(_LoopParent):
         if self._done:
             raise RuntimeError("'contents' has been exhausted")
         self._slice_contents()
-        return self.current_window[:]
+        return copy.deepcopy(self._current_window)[:]
 
     def __next__(self) -> list:
         r"""Calls the looping process for one iteration, returning a ``list``.
@@ -344,13 +345,13 @@ class LoopByList(_LoopParent):
         if self._done:
             raise StopIteration
         self._slice_contents()
-        return self._current_window[:]
+        return copy.deepcopy(self._current_window)[:]
 
     ### PUBLIC METHODS ###
 
     def output_all(self) -> list:
         r"""Goes through the whole looping process and outputs a single list.
-        
+
         This method replaces the parent's one since the parent's method outputs
         an ``abjad.Selection``.
         """
@@ -382,8 +383,8 @@ class LoopByList(_LoopParent):
         r"""This method takes a slice with ``window_size`` number of elements
         out of the contents starting at the current ``head_position``.
         """
-        start = self.head_position
-        end = self.head_position + self.window_size
+        start = self._head_position
+        end = self._head_position + self._window_size
         self._current_window = self._contents[start:end]
 
     ### PUBLIC PROPERTIES ###

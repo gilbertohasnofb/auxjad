@@ -301,7 +301,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                  ):
         r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
-        if len(self.note_heads) != 2:
+        if len(self._note_heads) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "
                              "'note_heads' for initialisation")
         self.style = style
@@ -313,8 +313,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     def sounding_pitch(self) -> abjad.Pitch:
         r'Returns the sounding pitch of the harmonic as an ``abjad.Pitch``.'
-        interval = abs(self.note_heads[1].written_pitch
-                       - self.note_heads[0].written_pitch).semitones
+        interval = abs(self._note_heads[1].written_pitch
+                       - self._note_heads[0].written_pitch).semitones
         sounding_pitch_dict = {1: 48,
                                2: 36,
                                3: 31,
@@ -329,7 +329,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                                28: 28,
                                }
         try:
-            sounding_pitch = (self.note_heads[0].written_pitch
+            sounding_pitch = (self._note_heads[0].written_pitch
                               + sounding_pitch_dict[interval])
         except KeyError as err:
             raise ValueError('cannot calculate sounding pitch for given '
@@ -338,7 +338,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     def sounding_note(self) -> abjad.Note:
         r'Returns the sounding note of the harmonic as an ``abjad.Note``.'
-        note = abjad.Note(self.sounding_pitch(), self.written_duration)
+        note = abjad.Note(self.sounding_pitch(), self._written_duration)
         for indicator in abjad.inspect(self).indicators():
             abjad.attach(indicator, note)
         return note
@@ -349,7 +349,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     def written_pitches(self) -> abjad.pitch.PitchSegment:
         r'The written pitches of the two note heads.'
         return abjad.pitch.PitchSegment(
-            items=(note_head.written_pitch for note_head in self.note_heads),
+            items=(note_head.written_pitch for note_head in self._note_heads),
             item_class=abjad.pitch.NamedPitch,
         )
 
@@ -362,7 +362,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             raise ValueError("'ArtificialHarmonic' requires exactly two "
                              "pitches")
         for i, pitch in enumerate(written_pitches_):
-            self.note_heads[i].written_pitch = pitch
+            self._note_heads[i].written_pitch = pitch
 
     @property
     def style(self) -> str:
@@ -376,7 +376,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         if not isinstance(style, str):
             raise TypeError("'style' must be 'str'")
         self._style = style
-        abjad.tweak(self.note_heads[1]).style = self._style
+        abjad.tweak(self._note_heads[1]).style = self._style
 
     @property
     def is_parenthesized(self) -> bool:
@@ -390,6 +390,6 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         if not isinstance(is_parenthesized, bool):
             raise TypeError("'is_parenthesized' must be 'bool'")
         self._is_parenthesized = is_parenthesized
-        self.note_heads[0].is_parenthesized = self._is_parenthesized
+        self._note_heads[0].is_parenthesized = self._is_parenthesized
         if self._is_parenthesized:
-            abjad.tweak(self.note_heads[0]).ParenthesesItem__font_size = -4
+            abjad.tweak(self._note_heads[0]).ParenthesesItem__font_size = -4

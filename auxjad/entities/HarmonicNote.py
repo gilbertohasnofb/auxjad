@@ -208,7 +208,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
             raise TypeError("'style' must be 'str'")
         self._style = style
         if not self._style == 'flageolet':
-            abjad.tweak(self.note_head).style = self._style
+            abjad.tweak(self._note_head).style = self._style
         else:
             flageolet = abjad.LilyPondLiteral(r'\flageolet',
                                               format_slot='after',

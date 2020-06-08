@@ -119,3 +119,25 @@ def test_HarmonicNote_09():
     harm.markup = 'III.'
     with pytest.raises(Exception):
         harm.markup = None
+
+
+
+def test_HarmonicNote_10():
+    harm = auxjad.HarmonicNote("d''1",
+                               markup='III.',
+                               direction=abjad.Down)
+    assert harm.direction is abjad.Down
+    assert format(harm) == abjad.String.normalize(
+        r"""
+        \tweak style #'harmonic
+        d''1
+        _ \markup { III. }
+        """)
+    harm.direction = abjad.Up
+    assert harm.direction is abjad.Up
+    assert format(harm) == abjad.String.normalize(
+        r"""
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+        """)

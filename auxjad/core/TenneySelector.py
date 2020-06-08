@@ -354,7 +354,7 @@ class TenneySelector():
         r'Initialises self.'
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
-        if weights:
+        if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
             if not len(contents) == len(weights):
@@ -370,7 +370,7 @@ class TenneySelector():
             raise ValueError("'curvature' must be larger than 0.0")
 
         self._contents = contents[:]
-        if weights:
+        if weights is not None:
             self._weights = weights[:]
         else:
             self._weights = [1.0 for _ in range(self.__len__())]
@@ -420,7 +420,7 @@ class TenneySelector():
         slicing.
         """
         del self._contents[key]
-        del self.weights[key]
+        del self._weights[key]
         del self._probabilities[key]
         del self._counter[key]
 
@@ -451,6 +451,8 @@ class TenneySelector():
         r"""Generates the probabilities given the weights of the elements as
         well as their count numbers (which are fed into the growth function).
         """
+        if not isinstance(reset, bool):
+            raise TypeError("'reset' must be 'bool")
         if reset:
             self._counter = [1 for _ in range(self.__len__())]
         self._probabilities = []
@@ -475,7 +477,8 @@ class TenneySelector():
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
-        self.weights = [1.0 for _ in range(self.__len__())]
+        self._weights = [1.0 for _ in range(self.__len__())]
+        self._generate_probabilities(reset=True)
 
     @property
     def weights(self) -> list:

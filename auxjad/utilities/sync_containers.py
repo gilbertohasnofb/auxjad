@@ -446,7 +446,7 @@ def sync_containers(*containers: abjad.Container,
             for leaf in abjad.select(container).leaves()[::-1]:
                 effective_time_signature = abjad.inspect(leaf).effective(
                     abjad.TimeSignature)
-                if effective_time_signature:
+                if effective_time_signature is not None:
                     break
             else:
                 effective_time_signature = abjad.TimeSignature((4, 4))

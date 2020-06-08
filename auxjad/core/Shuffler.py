@@ -587,7 +587,7 @@ class Shuffler:
 
     def shuffle(self) -> abjad.Selection:
         r'Shuffles the logical ties of ``contents``.'
-        if len(abjad.select(self.contents).tuplets()) > 0:
+        if len(abjad.select(self._contents).tuplets()) > 0:
             raise TypeError("'contents' contain one ore more tuplets, which "
                             "are not currently supported by the shuffle "
                             "method")
@@ -796,13 +796,13 @@ class Shuffler:
         duration = abjad.Duration(0)
         time_signature = abjad.inspect(
             leaves[0]).effective(abjad.TimeSignature)
-        if not time_signature:
+        if time_signature is None:
             time_signature = abjad.TimeSignature((4, 4))
         for leaf in leaves:
             if duration % time_signature.duration == 0:
                 time_signature = abjad.inspect(
                     leaf).effective(abjad.TimeSignature)
-                if time_signature:
+                if time_signature is not None:
                     duration = abjad.Duration(0)
                 elif leaf is leaves[0]:
                     time_signature = abjad.TimeSignature((4, 4))
@@ -839,7 +839,7 @@ class Shuffler:
         logical_ties = abjad.select(dummy_container).logical_ties()
         for pitch, logical_tie in zip(pitches, logical_ties):
             for leaf in logical_tie:
-                if not pitch:
+                if pitch is None:
                     new_leaf = abjad.Rest(leaf.written_duration)
                 elif isinstance(pitch, abjad.PitchSegment):
                     new_leaf = abjad.Chord(pitch, leaf.written_duration)

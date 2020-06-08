@@ -25,11 +25,12 @@ class _HarmonicParent:
     def direction(self,
                   direction: (str, abjad.enums.VerticalAlignment),
                   ):
-        if direction:
+        if direction is not None:
             if not isinstance(direction, (str, abjad.enums.VerticalAlignment)):
                 raise TypeError("'direction' must be 'str', None, or either "
                                 "'abjad.Up' or 'abjad.Down'")
         self._direction = direction
+        # detaching and reattaching markup to apply new direction
         markup = self._markup
         self.markup = None
         self.markup = markup
@@ -43,7 +44,7 @@ class _HarmonicParent:
     def markup(self,
                markup: str,
                ):
-        if markup:
+        if markup is not None:
             if not isinstance(markup, str):
                 raise TypeError("'markup' must be 'str'")
             self._markup = markup
@@ -53,6 +54,5 @@ class _HarmonicParent:
             abjad.attach(markup, self)
         else:
             self._markup = markup
-            markup = abjad.inspect(self).indicator(abjad.Markup)
-            if markup:
+            if abjad.inspect(self).indicator(abjad.Markup):
                 abjad.detach(abjad.Markup, self)

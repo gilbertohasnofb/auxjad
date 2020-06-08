@@ -702,7 +702,7 @@ class Hocketer():
         self.contents = contents
         self._n_voices = n_voices
         self._k = k
-        if weights:
+        if weights is not None:
             self.weights = weights
         else:
             self.reset_weights()
@@ -735,7 +735,7 @@ class Hocketer():
 
     def reset_weights(self):
         r'Resets the weight vector of all voices to an uniform distribution.'
-        self.weights = [1.0 for _ in range(self.__len__())]
+        self._weights = [1.0 for _ in range(self.__len__())]
 
     ### PRIVATE METHODS ###
 
@@ -748,25 +748,25 @@ class Hocketer():
         """
         # creating multiple copies of contents. The process actually removes
         # unwanted logical ties instead of writing them to empty containers
-        dummy_voices = [copy.deepcopy(self.contents)
-                        for _ in range(self.n_voices)]
+        dummy_voices = [copy.deepcopy(self._contents)
+                        for _ in range(self._n_voices)]
 
         # creating a list of selected voices for each logical tie
         selected_voices = []
-        if not self.force_k_voices:
-            for _ in abjad.select(self.contents).logical_ties():
-                item = random.choices(list(range(self.n_voices)),
-                                      weights=self.weights,
-                                      k=self.k,
+        if not self._force_k_voices:
+            for _ in abjad.select(self._contents).logical_ties():
+                item = random.choices(list(range(self._n_voices)),
+                                      weights=self._weights,
+                                      k=self._k,
                                       )
                 selected_voices.append(item)
         else:
-            for _ in abjad.select(self.contents).logical_ties():
+            for _ in abjad.select(self._contents).logical_ties():
                 item = []
-                while len(item) < self.k:
-                    voice = random.choices(list(range(self.n_voices)),
-                                           weights=self.weights,
-                                           k=self.k,
+                while len(item) < self._k:
+                    voice = random.choices(list(range(self._n_voices)),
+                                           weights=self._weights,
+                                           k=self._k,
                                            )[0]
                     if voice not in item:
                         item.append(voice)
@@ -827,13 +827,13 @@ class Hocketer():
         duration = abjad.Duration(0)
         time_signature = abjad.inspect(
             leaves[0]).effective(abjad.TimeSignature)
-        if not time_signature:
+        if time_signature is None:
             time_signature = abjad.TimeSignature((4, 4))
         for leaf in leaves:
             if duration % time_signature.duration == 0:
                 time_signature = abjad.inspect(
                     leaf).effective(abjad.TimeSignature)
-                if time_signature:
+                if time_signature is not None:
                     duration = abjad.Duration(0)
                 elif leaf is leaves[0]:
                     time_signature = abjad.TimeSignature((4, 4))
@@ -872,7 +872,7 @@ class Hocketer():
             raise TypeError("'n_voices' must be 'int'")
         if n_voices < 1:
             raise ValueError("'n_voices' must be greater than zero")
-        if self.force_k_voices and self.k > n_voices:
+        if self._force_k_voices and self._k > n_voices:
             raise ValueError("'n_voices' cannot be smaller than 'k' when "
                              "'force_k_voices' is set to True")
         self._n_voices = n_voices
@@ -909,7 +909,7 @@ class Hocketer():
             raise TypeError("'k' must be 'int'")
         if k < 1:
             raise ValueError("'k' must be greater than zero")
-        if self.force_k_voices and k > self.n_voices:
+        if self._force_k_voices and k > self._n_voices:
             raise ValueError("'k' cannot be greater than 'n_voices' when "
                              "'force_k_voices' is set to True")
         self._k = k
@@ -927,7 +927,7 @@ class Hocketer():
                        ):
         if not isinstance(force_k_voices, bool):
             raise TypeError("'force_k_voices' must be 'bool'")
-        if force_k_voices and self.k > self.n_voices:
+        if force_k_voices and self._k > self._n_voices:
             raise ValueError("'force_k_voices' cannot be set to True if 'k' > "
                              "'n_voices', change 'k' first")
         self._force_k_voices = force_k_voices

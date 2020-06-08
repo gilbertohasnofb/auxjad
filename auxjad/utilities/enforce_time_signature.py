@@ -511,7 +511,7 @@ def enforce_time_signature(container: abjad.Container,
         if not isinstance(time_signature, abjad.TimeSignature):
             time_signatures[index] = abjad.TimeSignature(time_signature)
     partial_time_signature = None
-    if time_signatures[0].partial:
+    if time_signatures[0].partial is not None:
         partial_time_signature = time_signatures[0]
         time_signatures[0] = abjad.TimeSignature(
             partial_time_signature.duration)
@@ -544,7 +544,7 @@ def enforce_time_signature(container: abjad.Container,
         if duration == previous_ts_duration:
             duration = abjad.Duration(0)
             previous_ts_duration = durations[ts_index]
-            if partial_time_signature and ts_index in (0, 1):
+            if partial_time_signature is not None and ts_index in (0, 1):
                 ts = partial_time_signature
             else:
                 ts = time_signatures[ts_index]

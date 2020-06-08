@@ -576,8 +576,8 @@ class LoopByNotes(_LoopParent):
         r"""This method takes a slice with ``window_size`` number of logical
         ties out of the contents starting at the current ``head_position``.
         """
-        start = self.head_position
-        end = self.head_position + self.window_size
+        start = self._head_position
+        end = self._head_position + self._window_size
         logical_ties = self._contents[start:end]
         dummy_container = abjad.Container()
         time_signature_duration = 0

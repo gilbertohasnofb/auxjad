@@ -52,9 +52,9 @@ if querry.lower() in ('y', 'yes'):
     # generating lilypond files from docstrings
     for member in dir(auxjad):
         docstring = getattr(auxjad, member).__doc__
-        if docstring:
+        if docstring is not None:
             matches = re.findall(pattern, docstring)
-            if matches:
+            if matches is not None:
                 for n, match in enumerate(matches):
                     directory = './lilypond-files/'
                     filename = ('image-' + str(member) + '-'

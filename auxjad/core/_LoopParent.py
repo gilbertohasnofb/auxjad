@@ -55,7 +55,7 @@ class _LoopParent():
         if self._done:
             raise RuntimeError("'contents' has been exhausted")
         self._slice_contents()
-        return self.current_window
+        return copy.deepcopy(self._current_window)
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an

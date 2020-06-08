@@ -174,7 +174,6 @@ def test_ArtificialHarmonic_14():
                                       markup='I.',
                                       direction=abjad.Down)
     staff = abjad.Staff([harm1, harm2, harm3])
-    abjad.f(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -221,3 +220,30 @@ def test_ArtificialHarmonic_16():
     harm.markup = 'I.'
     with pytest.raises(Exception):
         harm.markup = None
+
+
+def test_ArtificialHarmonic_17():
+    harm = auxjad.ArtificialHarmonic("<a d'>1",
+                                      markup='I.',
+                                      direction=abjad.Down)
+    assert harm.direction is abjad.Down
+    assert format(harm) == abjad.String.normalize(
+        r"""
+        <
+            a
+            \tweak style #'harmonic
+            d'
+        >1
+        _ \markup { I. }
+        """)
+    harm.direction = abjad.Up
+    assert harm.direction is abjad.Up
+    assert format(harm) == abjad.String.normalize(
+        r"""
+        <
+            a
+            \tweak style #'harmonic
+            d'
+        >1
+        ^ \markup { I. }
+        """)

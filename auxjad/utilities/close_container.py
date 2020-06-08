@@ -184,7 +184,7 @@ def close_container(container: abjad.Container):
         leaves = abjad.select(container).leaves()
         for leaf in leaves[::-1]:
             time_signature = abjad.inspect(leaf).effective(abjad.TimeSignature)
-            if time_signature:
+            if time_signature is not None:
                 last_time_signature = time_signature
                 break
         else:

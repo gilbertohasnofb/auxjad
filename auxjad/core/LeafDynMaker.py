@@ -309,21 +309,21 @@ class LeafDynMaker(abjad.LeafMaker):
                  dynamics=None,
                  articulations=None,
                  *,
-                 omit_repeated_dynamics=False,
-                 cyclic_dynamics=False,
-                 cyclic_articulations=False,
+                 omit_repeated_dynamics: bool = False,
+                 cyclic_dynamics: bool = False,
+                 cyclic_articulations: bool = False,
                  ) -> abjad.Selection:
 
         r"""Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
         and ``articulations``, returning an ``abjad.Selection``.
         """
-        if dynamics:
+        if dynamics is not None:
             for dynamic in dynamics:
                 if dynamic is not None:
                     if not isinstance(dynamic, (str, abjad.Dynamic)):
                         raise TypeError("dynamics must be 'str' or "
                                         "'abjad.Dynamic'")
-        if articulations:
+        if articulations is not None:
             for articulation in articulations:
                 if articulation is not None:
                     if not isinstance(articulation, (str,
@@ -363,16 +363,17 @@ class LeafDynMaker(abjad.LeafMaker):
         for logical_tie, dynamic, articulation in zip(logical_ties,
                                                       dynamics_,
                                                       articulations_):
-            if (dynamic and (not omit_repeated_dynamics
+            if (dynamic is not None and (not omit_repeated_dynamics
                     or dynamic != previous_dynamic)):
                 abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic
-            if articulation and isinstance(articulation, str):
-                abjad.attach(abjad.Articulation(articulation),
-                             logical_tie.head,
-                             )
-            elif articulation:
-                abjad.attach(articulation, logical_tie.head)
+            if articulation is not None:
+                if isinstance(articulation, str):
+                    abjad.attach(abjad.Articulation(articulation),
+                                 logical_tie.head,
+                                 )
+                else:
+                    abjad.attach(articulation, logical_tie.head)
 
         result = dummy_container[:]
         dummy_container[:] = []

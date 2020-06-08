@@ -167,6 +167,6 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             multimeasure_rest = abjad.MultimeasureRest((4, 4),
                                                        multiplier=multiplier,
                                                        )
-            if time_signature:
+            if time_signature is not None:
                 abjad.attach(time_signature, multimeasure_rest)
             abjad.mutate(measure).replace(multimeasure_rest)

@@ -84,19 +84,20 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
     # handling first leaf
     leaf = leaves[0]
     time_signature = abjad.inspect(leaf).effective(abjad.TimeSignature)
-    if time_signature:
+    if time_signature is not None:
         effective_time_signature = time_signature
     else:
         effective_time_signature = abjad.TimeSignature((4, 4))
     duration = abjad.inspect(leaf).duration()
     # handling partial time signatures
-    if effective_time_signature.partial:
+    if effective_time_signature.partial is not None:
         duration += effective_time_signature.duration
         duration -= effective_time_signature.partial
     # all other leaves
     for leaf in leaves[1:]:
         time_signature = abjad.inspect(leaf).effective(abjad.TimeSignature)
-        if time_signature and time_signature != effective_time_signature:
+        if (time_signature is not None
+                and time_signature != effective_time_signature):
             if duration % effective_time_signature.duration != 0:
                 raise ValueError("'container' is malformed, with an underfull "
                                  "bar preceeding a time signature change")

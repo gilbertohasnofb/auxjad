@@ -153,8 +153,10 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
     remove_empty_tuplets(container)
 
-    leaves = abjad.select(container).leaves()
-    for measure in leaves.group_by_measure():
+    measures = [measure for measure in
+                abjad.select(container).leaves().group_by_measure()]
+
+    for measure in measures:
         if all([isinstance(leaf, abjad.Rest) for leaf in measure]):
             first_leaf = abjad.select(measure).leaf(0)
             time_signature = abjad.inspect(first_leaf).indicator(

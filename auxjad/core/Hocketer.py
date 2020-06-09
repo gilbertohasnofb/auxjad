@@ -3,6 +3,7 @@ import random
 import abjad
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from ..utilities.remove_empty_tuplets import remove_empty_tuplets
+from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Hocketer():
@@ -818,30 +819,6 @@ class Hocketer():
             self._voices.append(dummy_voice[:])
             dummy_voice[:] = []
 
-    def _find_time_signatures(self):
-        r"""Creates a list of all time signatures for all measures of
-        ``contents``.
-        """
-        self._time_signatures = []
-        leaves = abjad.select(self._contents).leaves()
-        duration = abjad.Duration(0)
-        time_signature = abjad.inspect(
-            leaves[0]).effective(abjad.TimeSignature)
-        if time_signature is None:
-            time_signature = abjad.TimeSignature((4, 4))
-        for leaf in leaves:
-            if duration % time_signature.duration == 0:
-                time_signature = abjad.inspect(
-                    leaf).effective(abjad.TimeSignature)
-                if time_signature is not None:
-                    duration = abjad.Duration(0)
-                elif leaf is leaves[0]:
-                    time_signature = abjad.TimeSignature((4, 4))
-                else:
-                    time_signature = self._time_signatures[-1]
-                self._time_signatures.append(time_signature)
-            duration += abjad.inspect(leaf).duration()
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -857,7 +834,9 @@ class Hocketer():
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
         self._contents = copy.deepcopy(contents)
-        self._find_time_signatures()
+        self._time_signatures = time_signature_extractor(contents,
+                                                         do_not_use_none=True,
+                                                         )
 
     @property
     def n_voices(self) -> int:

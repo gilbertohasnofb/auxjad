@@ -7,6 +7,7 @@ from ..utilities.remove_repeated_time_signatures import (
 from ..utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio
 )
+from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
@@ -787,30 +788,6 @@ class Shuffler:
 
     ### PRIVATE METHODS ###
 
-    def _find_time_signatures(self):
-        r"""Creates a list of all time signatures for all measures of
-        ``contents``.
-        """
-        self._time_signatures = []
-        leaves = abjad.select(self._current_window).leaves()
-        duration = abjad.Duration(0)
-        time_signature = abjad.inspect(
-            leaves[0]).effective(abjad.TimeSignature)
-        if time_signature is None:
-            time_signature = abjad.TimeSignature((4, 4))
-        for leaf in leaves:
-            if duration % time_signature.duration == 0:
-                time_signature = abjad.inspect(
-                    leaf).effective(abjad.TimeSignature)
-                if time_signature is not None:
-                    duration = abjad.Duration(0)
-                elif leaf is leaves[0]:
-                    time_signature = abjad.TimeSignature((4, 4))
-                else:
-                    time_signature = self._time_signatures[-1]
-                self._time_signatures.append(time_signature)
-            duration += abjad.inspect(leaf).duration()
-
     def _update_logical_ties(self):
         r'Updates the selection of logical ties of ``contents``.'
         self._logical_ties = abjad.select(self._current_window).logical_ties()
@@ -881,7 +858,9 @@ class Shuffler:
         self._contents = copy.deepcopy(contents)
         self._current_window = copy.deepcopy(contents)
         self._update_logical_ties()
-        self._find_time_signatures()
+        self._time_signatures = time_signature_extractor(contents,
+                                                         do_not_use_none=True,
+                                                         )
 
     @property
     def output_single_measure(self) -> bool:

@@ -13,4 +13,5 @@ from .respell_chord import respell_chord
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 from .sync_containers import sync_containers
+from .time_signature_extractor import time_signature_extractor
 from .underfull_duration import underfull_duration

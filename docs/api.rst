@@ -38,6 +38,7 @@ documentaion of each class and function.
     auxjad.simplified_time_signature_ratio
     auxjad.sync_containers
     auxjad.TenneySelector
+    auxjad.time_signature_extractor
     auxjad.underfull_duration
 
 

@@ -401,7 +401,7 @@ class Hocketer():
     ..  error::
 
         Setting ``force_k_voices`` to ``True`` when ``k`` is larger than
-        ``n_voices`` will raise an Exception:
+        ``n_voices`` will raise an exception:
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=5)

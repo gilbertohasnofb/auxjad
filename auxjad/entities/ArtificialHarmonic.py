@@ -247,7 +247,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
-        ``markup`` to ``None`` will raise an Exception:
+        ``markup`` to ``None`` will raise an exception:
 
         >>> harm = auxjad.ArtificialHarmonic("<a d'>1")
         >>> abjad.attach(abjad.Markup('test'), harm)

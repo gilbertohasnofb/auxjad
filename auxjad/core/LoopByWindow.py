@@ -784,7 +784,7 @@ class LoopByWindow(_LoopParent):
 
     def __len__(self) -> int:
         r'Returns the length of ``contents`` in terms of ``step_size``.'
-        return ceil(abjad.inspect(self._contents).duration() / self._step_size)
+        return ceil(self._contents_length / self._step_size)
 
     def __call__(self,
                  *,

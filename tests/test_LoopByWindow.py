@@ -412,15 +412,20 @@ def test_LoopByWindow_09():
     with pytest.raises(TypeError):
         assert auxjad.LoopByWindow(wrong_type_input)
         assert auxjad.LoopByWindow(input_music, window_size=17j)
+        assert auxjad.LoopByWindow(input_music, step_size=True)
         assert auxjad.LoopByWindow(input_music, max_steps='foo')
         assert auxjad.LoopByWindow(input_music, repetition_chance='bar')
+        assert auxjad.LoopByWindow(input_music, forward_bias=False)
         assert auxjad.LoopByWindow(input_music, head_position=62.3j)
         assert auxjad.LoopByWindow(input_music, omit_all_time_signatures='xyz')
+        assert auxjad.LoopByWindow(input_music, fill_with_rests=1.2)
     with pytest.raises(ValueError):
         assert auxjad.LoopByWindow(input_music, window_size=(100, 1))
         assert auxjad.LoopByWindow(input_music, max_steps=-1)
         assert auxjad.LoopByWindow(input_music, repetition_chance=-0.3)
         assert auxjad.LoopByWindow(input_music, repetition_chance=1.4)
+        assert auxjad.LoopByWindow(input_music, forward_bias=-0.3)
+        assert auxjad.LoopByWindow(input_music, forward_bias=1.4)
         assert auxjad.LoopByWindow(input_music, head_position=(100, 1))
 
 

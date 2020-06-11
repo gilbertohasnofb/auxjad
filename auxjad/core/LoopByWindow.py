@@ -818,7 +818,7 @@ class LoopByWindow(_LoopParent):
 
     def _slice_contents(self):
         r"""This method takes a slice of size ``window_size`` out of the
-        contents starting at the current ``head_position``.
+        ``contents`` starting at the current ``head_position``.
         """
         head = self._head_position
         window_size = self._window_size
@@ -877,8 +877,8 @@ class LoopByWindow(_LoopParent):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self):
-        r'The ``list`` which serves as the basis for the slices of the looper.'
+    def contents(self) -> abjad.Container:
+        r'The ``abjad.Container`` to be sliced and looped.'
         return self._contents
 
     @contents.setter
@@ -901,7 +901,7 @@ class LoopByWindow(_LoopParent):
     def head_position(self,
                       head_position: (tuple, abjad.Duration),
                       ):
-        r"""This setter method replaces the paren'ts one since the parent's
+        r"""This setter method replaces the parent's one since the parent's
         method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(head_position,
@@ -924,7 +924,7 @@ class LoopByWindow(_LoopParent):
     def window_size(self,
                     window_size: (int, float, tuple, abjad.Meter),
                     ):
-        r"""This setter method replaces the paren'ts one since the parent's
+        r"""This setter method replaces the parent's one since the parent's
         method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(window_size,
@@ -949,7 +949,7 @@ class LoopByWindow(_LoopParent):
     def step_size(self,
                   step_size: (tuple, abjad.Duration),
                   ):
-        r"""This setter method replaces the paren'ts one since the parent's
+        r"""This setter method replaces the parent's one since the parent's
         method uses integers as input intead of tuples or ``abjad.Duration``.
         """
         if not isinstance(step_size,
@@ -960,20 +960,20 @@ class LoopByWindow(_LoopParent):
         self._step_size = abjad.Duration(step_size)
 
     @property
-    def omit_all_time_signatures(self) -> list:
+    def omit_all_time_signatures(self) -> bool:
         r'When ``True``, the output will contain no time signatures.'
         return self._omit_all_time_signatures
 
     @omit_all_time_signatures.setter
     def omit_all_time_signatures(self,
-                            omit_all_time_signatures: bool,
-                            ):
+                                 omit_all_time_signatures: bool,
+                                 ):
         if not isinstance(omit_all_time_signatures, bool):
             raise TypeError("'omit_all_time_signatures' must be 'bool'")
         self._omit_all_time_signatures = omit_all_time_signatures
 
     @property
-    def fill_with_rests(self) -> list:
+    def fill_with_rests(self) -> bool:
         r'When ``True``, the output will contain no time signatures.'
         return self._fill_with_rests
 

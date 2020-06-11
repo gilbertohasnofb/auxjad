@@ -134,7 +134,7 @@ class _LoopParent():
 
     def _move_head(self):
         r"""Moves the head by a certain number of steps of fixed size, either
-        forwards or backwards according to the forward bias
+        forwards or backwards according to the forward bias.
         """
         if not self._is_first_window:  # 1st window always at initial position
             if (self._repetition_chance == 0.0
@@ -146,14 +146,17 @@ class _LoopParent():
             self._is_first_window = False
 
     def _slice_contents(self):
+        r'Will be defined for each individual child class.'
         pass
 
     @staticmethod
     def _biased_choice(bias):
+        r'Returns either +1 or -1 according to a bias value.'
         return random.choices([1, -1], weights=[bias, 1.0-bias])[0]
 
     @staticmethod
     def _remove_all_time_signatures(contents):
+        r'Removes all time signatures of an ``abjad.Container``'
         for leaf in abjad.select(contents).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -266,9 +269,7 @@ class _LoopParent():
 
     @property
     def current_window(self) -> (list, abjad.Selection):
-        r"""Read-only property, returns the window at the current head
-        position.
-        """
+        r'Read-only property, returns the window at the current head position.'
         return copy.deepcopy(self._current_window)
 
     ### PRIVATE PROPERTIES ###

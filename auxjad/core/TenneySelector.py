@@ -501,7 +501,7 @@ class TenneySelector():
         self._generate_probabilities(reset=True)
 
     @property
-    def curvature(self) -> list:
+    def curvature(self) -> float:
         r'The exponent of the growth function.'
         return self._curvature
 
@@ -517,13 +517,13 @@ class TenneySelector():
         self._generate_probabilities()
 
     @property
-    def previous_index(self):
+    def previous_index(self) -> int:
         r"""Read-only property, returns the index of the previously output
         element.
         """
         return self._previous_index
 
     @property
-    def probabilities(self):
+    def probabilities(self) -> list:
         r'Read-only property, returns the probabilities vector.'
         return self._probabilities

@@ -352,7 +352,8 @@ def test_LoopByWindow_07():
     input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
     looper = auxjad.LoopByWindow(input_music,
                                  window_size=(3, 4),
-                                 step_size=(1, 16))
+                                 step_size=(1, 16),
+                                 )
     staff = abjad.Staff()
     for _ in range(3):
         window = looper()

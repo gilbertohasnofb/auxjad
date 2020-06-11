@@ -471,7 +471,8 @@ class CartographySelector():
 
     @decay_rate.setter
     def decay_rate(self,
-                   decay_rate: float):
+                   decay_rate: float,
+                   ):
         if not isinstance(decay_rate, float):
             raise TypeError("'decay_rate' must be float")
         if decay_rate <= 0.0 or decay_rate > 1.0:
@@ -481,7 +482,7 @@ class CartographySelector():
         self._generate_weights()
 
     @property
-    def previous_index(self):
+    def previous_index(self) -> int:
         r"""Read-only property, returns the index of the previously output
         element.
         """
@@ -493,6 +494,6 @@ class CartographySelector():
         return self._contents[self._previous_index]
 
     @property
-    def weights(self):
+    def weights(self) -> list:
         r'Read-only property, returns the weight vector.'
         return self._weights

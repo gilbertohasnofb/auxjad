@@ -603,8 +603,8 @@ class LoopByNotes(_LoopParent):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self):
-        r'The ``list`` which serves as the basis for the slices of the looper.'
+    def contents(self) -> abjad.Container:
+        r'The ``abjad.Container`` to be sliced and looped.'
         return self._contents
 
     @contents.setter
@@ -619,7 +619,7 @@ class LoopByNotes(_LoopParent):
         self._contents = abjad.select(self._contents_container).logical_ties()
 
     @property
-    def omit_all_time_signatures(self) -> list:
+    def omit_all_time_signatures(self) -> bool:
         r'When ``True``, the output will contain no time signatures.'
         return self._omit_all_time_signatures
 
@@ -632,7 +632,7 @@ class LoopByNotes(_LoopParent):
         self._omit_all_time_signatures = omit_all_time_signatures
 
     @property
-    def force_identical_time_signatures(self) -> list:
+    def force_identical_time_signatures(self) -> bool:
         r"""When ``True``, identical time signatures will not be removed from
         the output.
         """

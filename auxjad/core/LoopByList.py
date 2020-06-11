@@ -390,8 +390,8 @@ class LoopByList(_LoopParent):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self):
-        r'The ``list`` which serves as the basis for the slices of the looper.'
+    def contents(self) -> list:
+        r'The ``list`` to be sliced and looped.'
         return self._contents
 
     @contents.setter

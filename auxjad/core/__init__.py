@@ -4,5 +4,6 @@ from .LeafDynMaker import LeafDynMaker
 from .LoopByList import LoopByList
 from .LoopByNotes import LoopByNotes
 from .LoopByWindow import LoopByWindow
+from .Phaser import Phaser
 from .Shuffler import Shuffler
 from .TenneySelector import TenneySelector

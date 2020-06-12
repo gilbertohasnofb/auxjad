@@ -252,17 +252,17 @@ class LoopByWindow(_LoopParent):
         This class can take many optional keyword arguments during its
         creation, besides ``window_size`` and ``step_size``. ``max_steps`` sets
         the maximum number of steps that the window can advance when the object
-        is called, ranging between 1 and the input value (default is also 1).
-        ``repetition_chance`` sets the chance of a window result repeating
-        itself (that is, the window not moving forwards when called). It should
-        range from 0.0 to 1.0 (default 0.0, i.e. no repetition).
-        ``forward_bias`` sets the chance of the window moving forward instead
-        of backwards. It should range from 0.0 to 1.0 (default 1.0, which means
-        the window can only move forwards. A value of 0.5 gives 50% chance of
-        moving forwards while a value of 0.0 will move the window only
-        backwards). Finally, ``head_position`` can be used to offset the
-        starting position of the looping window. It must be a tuple or an
-        ``abjad.Duration``, and its default value is 0.
+        is called, ranging between ``1`` and the input value (default is also
+        ``1``). ``repetition_chance`` sets the chance of a window result
+        repeating itself (that is, the window not moving forwards when called).
+        It should range from ``0.0`` to ``1.0`` (default ``0.0``, i.e. no
+        repetition). ``forward_bias`` sets the chance of the window moving
+        forward instead of backwards. It should range from ``0.0`` to ``1.0``
+        (default ``1.0``, which means the window can only move forwards. A
+        value of ``0.5`` gives 50% chance of moving forwards while a value of
+        ``0.0`` will move the window only backwards). Lastly, ``head_position``
+        can be used to offset the starting position of the  looping window. It
+        must be a tuple or an ``abjad.Duration``, and its default value is ``0``.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(input_music,
@@ -312,6 +312,107 @@ class LoopByWindow(_LoopParent):
         0
         >>> looper.omit_all_time_signatures
         True
+
+    .. container:: example
+
+        Set ``forward_bias`` to ``0.0`` to move backwards instead of forwards
+        (default is ``1.0``). The initial ``head_position`` must be greater
+        than ``0`` otherwise the contents will already be exhausted in the very
+        first call (since it will not be able to move backwards from that
+        position).
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 4),
+        ...                              head_position=(3, 4),
+        ...                              forward_bias=0.0,
+        ...                              )
+        >>> notes = looper.output_n(3)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-10.png
+
+    .. container:: example
+
+        Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
+        result in random steps being taken forward or backward, according to
+        the bias. The initial value of ``head_position`` will once gain play
+        an important role here, as the contents might be exhausted if the
+        looper attempts to move backwards after reaching the head position
+        ``0``.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 4),
+        ...                              head_position=(3, 4),
+        ...                              forward_bias=0.5,
+        ...                              )
+        >>> notes = looper.output_n(5)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            d'4
+            e'4
+            f'4
+            e'4
+            f'4
+            g'4
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-11.png
+
+    ..  container:: example
+
+        Setting the keyword argument ``max_steps`` to a value larger than ``1``
+        will result in a random number of steps (between ``1`` and
+        ``max_steps``) being applied at each call.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+        >>> looper = auxjad.LoopByWindow(input_music,
+        ...                              window_size=(1, 4),
+        ...                              step_size=(1, 4),
+        ...                              max_steps=4,
+        ...                              )
+        >>> notes = looper.output_n(4)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 1/4
+            c'4
+            f'4
+            b'4
+            c''4
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-12.png
 
     ..  container:: example
 
@@ -369,7 +470,7 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-10.png
+        .. figure:: ../_images/image-LoopByWindow-13.png
 
     ..  container:: example
 
@@ -407,7 +508,7 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-11.png
+        .. figure:: ../_images/image-LoopByWindow-14.png
 
     ..  container:: example
 
@@ -436,7 +537,7 @@ class LoopByWindow(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-12.png
+        .. figure:: ../_images/image-LoopByWindow-15.png
 
     .. container:: example
 
@@ -478,7 +579,7 @@ class LoopByWindow(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-13.png
+        .. figure:: ../_images/image-LoopByWindow-16.png
 
         >>> looper.window_size = (3, 8)
         >>> staff = abjad.Staff()
@@ -497,7 +598,7 @@ class LoopByWindow(_LoopParent):
             d'4.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-14.png
+        .. figure:: ../_images/image-LoopByWindow-17.png
 
         To disable time signatures altogether, initialise ``LoopByWindow`` with
         the keyword argument ``omit_all_time_signatures`` set to ``True``
@@ -518,7 +619,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-15.png
+        .. figure:: ../_images/image-LoopByWindow-18.png
 
     ..  container:: example
 
@@ -551,7 +652,7 @@ class LoopByWindow(_LoopParent):
             e'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-16.png
+        .. figure:: ../_images/image-LoopByWindow-19.png
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(input_music,
@@ -572,7 +673,7 @@ class LoopByWindow(_LoopParent):
             e'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-17.png
+        .. figure:: ../_images/image-LoopByWindow-20.png
 
     ..  container:: example
 
@@ -618,7 +719,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-18.png
+        .. figure:: ../_images/image-LoopByWindow-21.png
 
     .. container:: example
 
@@ -639,7 +740,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-19.png
+        .. figure:: ../_images/image-LoopByWindow-22.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -656,7 +757,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-20.png
+        .. figure:: ../_images/image-LoopByWindow-23.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
@@ -674,7 +775,7 @@ class LoopByWindow(_LoopParent):
             a'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-21.png
+        .. figure:: ../_images/image-LoopByWindow-24.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -689,7 +790,7 @@ class LoopByWindow(_LoopParent):
             g'2.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-22.png
+        .. figure:: ../_images/image-LoopByWindow-25.png
 
     ..  warning::
 
@@ -735,7 +836,7 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-23.png
+        .. figure:: ../_images/image-LoopByWindow-26.png
     """
 
     ### CLASS VARIABLES ###

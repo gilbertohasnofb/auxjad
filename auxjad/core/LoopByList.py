@@ -82,18 +82,19 @@ class LoopByList(_LoopParent):
 
         This class can take many optional keyword arguments during its
         creation. ``step_size`` dictates the size of each individual step in
-        number of elements (default value is 1). ``max_steps`` sets the maximum
-        number of steps that the window can advance when the object is called,
-        ranging between 1 and the input value (default is also 1).
-        ``repetition_chance`` sets the chance of a window result repeating
-        itself (that is, the window not moving forwards when called). It should
-        range from 0.0 to 1.0 (default 0.0, i.e. no repetition).
-        ``forward_bias`` sets the chance of the window moving forward instead
-        of backwards. It should range from 0.0 to 1.0 (default 1.0, which means
-        the window can only move forwards. A value of 0.5 gives 50% chance of
-        moving forwards while a value of 0.0 will move the window only
-        backwards). Finally, ``head_position`` can be used to offset the
-        starting position of the looping window (default is 0).
+        number of elements (default value is ``1``). ``max_steps`` sets the
+        maximum number of steps that the window can advance when the object is
+        called, ranging between ``1`` and the input value (default is also
+        ``1``). ``repetition_chance`` sets the chance of a window result
+        repeating itself (that is, the window not moving forwards when called).
+        It should range from ``0.0`` to ``1.0`` (default ``0.0``, i.e. no
+        repetition). ``forward_bias`` sets the chance of the window moving
+        forward instead of backwards. It should range from ``0.0`` to ``1.0``
+        (default ``1.0``, which means the window can only move forwards. A
+        value of ``0.5`` gives 50% chance of moving forwards while a value of
+        ``0.0`` will move the window only backwards). Lastly, ``head_position``
+        can be used to offset the starting position of the looping window. It
+        must be an integer and its default value is ``0``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopByList(input_list,
@@ -137,6 +138,56 @@ class LoopByList(_LoopParent):
         0.8
         >>> looper.head_position
         2
+
+    .. container:: example
+
+        Set ``forward_bias`` to ``0.0`` to move backwards instead of forwards
+        (default is ``1.0``). The initial ``head_position`` must be greater
+        than ``0`` otherwise the contents will already be exhausted in the very
+        first call (since it will not be able to move backwards from that
+        position).
+
+        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=2,
+        ...                            head_position=2,
+        ...                            forward_bias=0.0,
+        ...                            )
+        >>> looper.output_all()
+        ['C', 'D', 'B', 'C', 'A', 'B']
+
+    .. container:: example
+
+        Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
+        result in random steps being taken forward or backward, according to
+        the bias. The initial value of ``head_position`` will once gain play
+        an important role here, as the contents might be exhausted if the
+        looper attempts to move backwards after reaching the head position
+        ``0``.
+
+        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=2,
+        ...                            head_position=4,
+        ...                            forward_bias=0.5,
+        ...                            )
+        >>> looper.output_n(4)
+        ['E', 'F', 'D', 'E', 'C', 'D', 'B', 'C']
+
+    ..  container:: example
+
+        Setting the keyword argument ``max_steps`` to a value larger than ``1``
+        will result in a random number of steps (between ``1`` and
+        ``max_steps``) being applied at each call.
+
+        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        >>> looper = auxjad.LoopByList(input_list,
+        ...                            window_size=2,
+        ...                            head_position=2,
+        ...                            max_steps=4,
+        ...                            )
+        >>> looper.output_n(4)
+        ['C', 'D', 'D', 'E', 'E', 'F', 'H']
 
     ..  container:: example
 

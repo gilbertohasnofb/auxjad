@@ -1,3 +1,4 @@
+import random
 import abjad
 import pytest
 import auxjad
@@ -248,3 +249,25 @@ def test_LoopByList_16():
     assert looper() == [2, 3, 4]
     looper.head_position = 0
     assert looper() == [0, 1, 2]
+
+
+def test_LoopByList_17():
+    random.seed(85162)
+    input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    looper = auxjad.LoopByList(input_list,
+                               window_size=2,
+                               head_position=4,
+                               forward_bias=0.5,
+                               )
+    assert looper.output_n(4) == ['E', 'F', 'D', 'E', 'C', 'D', 'B', 'C']
+
+
+def test_LoopByList_18():
+    random.seed(70013)
+    input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    looper = auxjad.LoopByList(input_list,
+                               window_size=2,
+                               head_position=2,
+                               max_steps=4,
+                               )
+    assert looper.output_n(4) == ['C', 'D', 'D', 'E', 'E', 'F', 'H']

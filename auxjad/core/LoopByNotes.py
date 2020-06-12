@@ -152,19 +152,19 @@ class LoopByNotes(_LoopParent):
 
         This class can take many optional keyword arguments during its
         creation. ``step_size`` dictates the size of each individual step in
-        number of elements (default value is 1). ``max_steps`` sets the maximum
-        number of steps that the window can advance when the object is called,
-        ranging between 1 and the input value (default is also 1).
-        ``repetition_chance`` sets the chance of a window result repeating
-        itself (that is, the window not moving forwards when called). It should
-        range from 0.0 to 1.0 (default 0.0, i.e. no repetition).
-        ``forward_bias`` sets the chance of the window moving forward instead
-        of backwards. It should range from 0.0 to 1.0 (default 1.0, which means
-        the window can only move forwards. A value of 0.5 gives 50% chance of
-        moving forwards while a value of 0.0 will move the window only
-        backwards). Finally, ``head_position`` can be used to offset the
-        starting position of the looping window. It must be an integer and its
-        default value is 0.
+        number of elements (default value is ``1``). ``max_steps`` sets the
+        maximum number of steps that the window can advance when the object is
+        called, ranging between ``1`` and the input value (default is also
+        ``1``). ``repetition_chance`` sets the chance of a window result
+        repeating itself (that is, the window not moving forwards when called).
+        It should range from ``0.0`` to ``1.0`` (default ``0.0``, i.e. no
+        repetition). ``forward_bias`` sets the chance of the window moving
+        forward instead of backwards. It should range from ``0.0`` to ``1.0``
+        (default ``1.0``, which means the window can only move forwards. A
+        value of ``0.5`` gives 50% chance of moving forwards while a value of
+        ``0.0`` will move the window only backwards). Lastly, ``head_position``
+        can be used to offset the starting position of the looping window. It
+        must be an integer and its default value is ``0``.
 
         >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByNotes(input_music,
@@ -221,6 +221,106 @@ class LoopByNotes(_LoopParent):
         >>> looper.force_identical_time_signatures
         True
 
+    .. container:: example
+
+        Set ``forward_bias`` to ``0.0`` to move backwards instead of forwards
+        (default is ``1.0``). The initial ``head_position`` must be greater
+        than ``0`` otherwise the contents will already be exhausted in the very
+        first call (since it will not be able to move backwards from that
+        position).
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=2,
+        ...                             head_position=2,
+        ...                             forward_bias=0.0,
+        ...                             )
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 2/4
+            e'4
+            f'4
+            d'4
+            e'4
+            c'4
+            d'4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-6.png
+
+    .. container:: example
+
+        Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
+        result in random steps being taken forward or backward, according to
+        the bias. The initial value of ``head_position`` will once gain play
+        an important role here, as the contents might be exhausted if the
+        looper attempts to move backwards after reaching the head position
+        ``0``.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=3,
+        ...                             head_position=3,
+        ...                             forward_bias=0.5,
+        ...                             )
+        >>> notes = looper.output_n(5)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            d'4
+            e'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-7.png
+
+    ..  container:: example
+
+        Setting the keyword argument ``max_steps`` to a value larger than ``1``
+        will result in a random number of steps (between ``1`` and
+        ``max_steps``) being applied at each call.
+
+        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 "
+        ...                               r"a'4 b'4 c''4 d''4 e''4")
+        >>> looper = auxjad.LoopByNotes(input_music,
+        ...                             window_size=2,
+        ...                             max_steps=4,
+        ...                             )
+        >>> notes = looper.output_n(4)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 2/4
+            c'4
+            d'4
+            g'4
+            a'4
+            a'4
+            b'4
+            c''4
+            d''4
+        }
+
+        .. figure:: ../_images/image-LoopByNotes-8.png
+
     ..  container:: example
 
         To disable time signatures altogether, initialise ``LoopByNotes`` with
@@ -243,7 +343,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-6.png
+        .. figure:: ../_images/image-LoopByNotes-9.png
 
     ..  container:: example
 
@@ -285,7 +385,7 @@ class LoopByNotes(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-7.png
+        .. figure:: ../_images/image-LoopByNotes-10.png
 
     ..  container:: example
 
@@ -341,7 +441,7 @@ class LoopByNotes(_LoopParent):
             <e' g'>16
         }
 
-        .. figure:: ../_images/image-LoopByNotes-8.png
+        .. figure:: ../_images/image-LoopByNotes-11.png
 
     ..  container:: example
 
@@ -368,7 +468,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-9.png
+        .. figure:: ../_images/image-LoopByNotes-12.png
 
     .. container:: example
 
@@ -394,7 +494,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-10.png
+        .. figure:: ../_images/image-LoopByNotes-13.png
 
         >>> looper.window_size = 4
         >>> notes = looper()
@@ -411,7 +511,7 @@ class LoopByNotes(_LoopParent):
             g'1
         }
 
-        .. figure:: ../_images/image-LoopByNotes-11.png
+        .. figure:: ../_images/image-LoopByNotes-14.png
 
     .. container:: example
 
@@ -434,7 +534,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-12.png
+        .. figure:: ../_images/image-LoopByNotes-15.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -446,7 +546,7 @@ class LoopByNotes(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-13.png
+        .. figure:: ../_images/image-LoopByNotes-16.png
 
         >>> looper.contents = abjad.Container(r"c'''4 r4 d'''4 r4 "
         ...                                   "e'''4 r4 f'''4 r4")
@@ -460,7 +560,7 @@ class LoopByNotes(_LoopParent):
             e'''4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-14.png
+        .. figure:: ../_images/image-LoopByNotes-17.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -473,7 +573,7 @@ class LoopByNotes(_LoopParent):
             d'''4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-15.png
+        .. figure:: ../_images/image-LoopByNotes-18.png
 
     ..  warning::
 
@@ -520,7 +620,7 @@ class LoopByNotes(_LoopParent):
             }
         }
 
-        .. figure:: ../_images/image-LoopByNotes-16.png
+        .. figure:: ../_images/image-LoopByNotes-19.png
     """
 
     ### CLASS VARIABLES ###

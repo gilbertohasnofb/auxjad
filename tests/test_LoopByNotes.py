@@ -1,3 +1,4 @@
+import random
 import abjad
 import pytest
 import auxjad
@@ -584,5 +585,65 @@ def test_LoopByNotes_19():
             c'''4
             r4
             d'''4
+        }
+        """)
+    
+
+def test_LoopByNotes_20():
+    random.seed(15231)
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+    looper = auxjad.LoopByNotes(input_music,
+                                window_size=3,
+                                head_position=3,
+                                forward_bias=0.5,
+                                )
+    notes = looper.output_n(5)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            d'4
+            e'4
+            f'4
+        }
+        """)
+
+
+def test_LoopByNotes_21():
+    random.seed(55126)
+    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4")
+    looper = auxjad.LoopByNotes(input_music,
+                                window_size=2,
+                                max_steps=4,
+                                )
+    notes = looper.output_n(4)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 2/4
+            c'4
+            d'4
+            g'4
+            a'4
+            a'4
+            b'4
+            c''4
+            d''4
         }
         """)

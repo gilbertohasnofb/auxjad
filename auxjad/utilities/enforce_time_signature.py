@@ -9,6 +9,7 @@ def enforce_time_signature(container: abjad.Container,
                            cyclic: bool = False,
                            fill_with_rests: bool = True,
                            close_container: bool = False,
+                           rewrite_meter: bool = True,
                            ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value. This function applies a time
@@ -349,6 +350,61 @@ def enforce_time_signature(container: abjad.Container,
 
     ..  container:: example
 
+        By default, this function appled the mutation ``rewrite_meter()`` to
+        its output.
+
+        >>> staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
+        >>> time_signatures = [abjad.TimeSignature((5, 4)),
+        ...                    abjad.TimeSignature((3, 4)),
+        ...                    ]
+        >>> auxjad.enforce_time_signature(staff,
+        ...                               time_signatures,
+        ...                               )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 5/4
+            c'2.
+            ~
+            c'2
+            \time 3/4
+            r8
+            d'8
+            ~
+            d'4
+            e'4
+        }
+
+        .. figure:: ../_images/image-enforce_time_signature-17.png
+
+        To disable this, set the keyword arggument ``rewrite_meter`` to
+        ``False``.
+
+        >>> staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
+        >>> time_signatures = [abjad.TimeSignature((5, 4)),
+        ...                    abjad.TimeSignature((3, 4)),
+        ...                    ]
+        >>> auxjad.enforce_time_signature(staff,
+        ...                               time_signatures,
+        ...                               rewrite_meter=False,
+        ...                               )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 5/4
+            c'1
+            ~
+            c'4
+            \time 3/4
+            r8
+            d'4.
+            e'4
+        }
+
+        .. figure:: ../_images/image-enforce_time_signature-18.png
+
+    ..  container:: example
+
         The function handles tuplets, even if they must be split.
 
         >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'2 e'2} f'1")
@@ -363,7 +419,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-17.png
+        .. figure:: ../_images/image-enforce_time_signature-19.png
 
         >>> time_signatures = [abjad.TimeSignature((2, 4)),
         ...                    abjad.TimeSignature((3, 4)),
@@ -388,7 +444,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-18.png
+        .. figure:: ../_images/image-enforce_time_signature-20.png
 
     ..  container:: example
 
@@ -405,7 +461,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-19.png
+        .. figure:: ../_images/image-enforce_time_signature-21.png
 
         >>> time_signatures = [abjad.TimeSignature((5, 8)),
         ...                    abjad.TimeSignature((1, 16)),
@@ -453,7 +509,7 @@ def enforce_time_signature(container: abjad.Container,
             f'8
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-20.png
+        .. figure:: ../_images/image-enforce_time_signature-22.png
 
     ..  container:: example
 
@@ -473,7 +529,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-21.png
+        .. figure:: ../_images/image-enforce_time_signature-23.png
 
         >>> time_signatures = [abjad.TimeSignature((3, 4), partial=(1, 4)),
         ...                    abjad.TimeSignature((3, 4)),
@@ -501,7 +557,7 @@ def enforce_time_signature(container: abjad.Container,
             r2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-22.png
+        .. figure:: ../_images/image-enforce_time_signature-24.png
 
     .. note::
 
@@ -574,6 +630,8 @@ def enforce_time_signature(container: abjad.Container,
         raise TypeError("'fill_with_rests' must be 'bool'")
     if not isinstance(close_container, bool):
         raise TypeError("'close_container' must be 'bool'")
+    if not isinstance(rewrite_meter, bool):
+        raise TypeError("'rewrite_meter' must be 'bool'")
     # remove all time signatures from container
     for leaf in abjad.select(container).leaves():
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
@@ -615,19 +673,20 @@ def enforce_time_signature(container: abjad.Container,
     elif fill_with_rests:
         fill_with_rests_function(container)
     # rewrite meter
-    start = 0
-    ts_index = 0
-    for item_index in range(len(container)):
-        duration = abjad.inspect(container[start : item_index+1]).duration()
-        if duration == time_signatures[ts_index].duration:
-            abjad.mutate(container[start : item_index+1]).rewrite_meter(
-                time_signatures[ts_index],
-                boundary_depth=1,
-            )
-            start = item_index + 1
-            ts_index += 1
-            if ts_index == len(time_signatures):
-                if cyclic:
-                    ts_index = 0
-                else:
-                    ts_index -= 1
+    if rewrite_meter:
+        start = 0
+        ts_index = 0
+        for item_index in range(len(container)):
+            duration = abjad.inspect(container[start:item_index+1]).duration()
+            if duration == time_signatures[ts_index].duration:
+                abjad.mutate(container[start : item_index+1]).rewrite_meter(
+                    time_signatures[ts_index],
+                    boundary_depth=1,
+                )
+                start = item_index + 1
+                ts_index += 1
+                if ts_index == len(time_signatures):
+                    if cyclic:
+                        ts_index = 0
+                    else:
+                        ts_index -= 1

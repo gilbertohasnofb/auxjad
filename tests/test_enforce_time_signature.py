@@ -402,3 +402,51 @@ def test_enforce_time_signature_14():
             d'16
         }
         """)
+
+
+def test_enforce_time_signature_15():
+    staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
+    time_signatures = [abjad.TimeSignature((5, 4)),
+                       abjad.TimeSignature((3, 4)),
+                       ]
+    auxjad.enforce_time_signature(staff,
+                                 time_signatures,
+                                 )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 5/4
+            c'2.
+            ~
+            c'2
+            \time 3/4
+            r8
+            d'8
+            ~
+            d'4
+            e'4
+        }
+        """)
+    staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
+    time_signatures = [abjad.TimeSignature((5, 4)),
+                       abjad.TimeSignature((3, 4)),
+                       ]
+    auxjad.enforce_time_signature(staff,
+                                  time_signatures,
+                                  rewrite_meter=False,
+                                  )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 5/4
+            c'1
+            ~
+            c'4
+            \time 3/4
+            r8
+            d'4.
+            e'4
+        }
+        """)

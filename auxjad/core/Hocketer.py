@@ -214,19 +214,22 @@ class Hocketer():
                 e'8
                 r8
                 g'8
-                r4.
+                r8
+                r4
             }
             \new Staff
             {
                 r8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }
             \new Staff
             {
-                r4.
+                r4
+                r8
                 f'8
                 r4
                 b'8
@@ -272,7 +275,8 @@ class Hocketer():
                 d'8
                 r4
                 g'8
-                r4.
+                r8
+                r4
             }
             \new Staff
             {
@@ -426,7 +430,8 @@ class Hocketer():
             {
                 c'8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }
@@ -787,21 +792,22 @@ class Hocketer():
                         abjad.mutate(leaf).replace(rest)
 
         # removing empty tuplets
-        for dummy_voice in dummy_voices:
-            remove_empty_tuplets(dummy_voice)
+        for voice in dummy_voices:
+            remove_empty_tuplets(voice)
 
         # rewriting meter
         if not self._disable_rewrite_meter:
-            for dummy_voice in dummy_voices:
+            for voice in dummy_voices:
                 start = 0
                 ts_index = 0
-                for item_index in range(len(dummy_voice)):
+                for item_index in range(len(voice)):
                     duration = abjad.inspect(
-                        dummy_voice[start : item_index+1]).duration()
+                        voice[start : item_index+1]).duration()
                     if duration == self._time_signatures[ts_index].duration:
-                        abjad.mutate(
-                            dummy_voice[start : item_index+1]
-                        ).rewrite_meter(self._time_signatures[ts_index])
+                        abjad.mutate(voice[start:item_index+1]).rewrite_meter(
+                            self._time_signatures[ts_index],
+                            boundary_depth=1,
+                        )
                         if ts_index + 1 < len(self._time_signatures):
                             ts_index += 1
                             start = item_index + 1
@@ -810,14 +816,14 @@ class Hocketer():
 
         # replacing rests with multi-measure rests
         if self._use_multimeasure_rests:
-            for dummy_voice in dummy_voices:
-                rests_to_multimeasure_rest(dummy_voice)
+            for voice in dummy_voices:
+                rests_to_multimeasure_rest(voice)
 
         # output
         self._voices = []
-        for dummy_voice in dummy_voices:
-            self._voices.append(dummy_voice[:])
-            dummy_voice[:] = []
+        for voice in dummy_voices:
+            self._voices.append(voice[:])
+            voice[:] = []
 
     ### PUBLIC PROPERTIES ###
 

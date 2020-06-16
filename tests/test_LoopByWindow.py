@@ -40,7 +40,9 @@ def test_LoopByWindow_01():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -56,7 +58,9 @@ def test_LoopByWindow_01():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -94,7 +98,9 @@ def test_LoopByWindow_02():
             c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             e'8
         }
         """)
@@ -126,7 +132,9 @@ def test_LoopByWindow_03():
             c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             e'8
         }
         """)
@@ -146,7 +154,9 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
-            d'4.
+            d'4
+            ~
+            d'8
             e'8
             ~
             e'8
@@ -174,7 +184,8 @@ def test_LoopByWindow_03():
             e'8
             ~
             e'8
-            r4.
+            r8
+            r4
         }
         """)
     notes = looper.__next__()
@@ -292,7 +303,9 @@ def test_LoopByWindow_06():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -308,7 +321,9 @@ def test_LoopByWindow_06():
             c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             e'8
             ~
             e'8
@@ -375,7 +390,9 @@ def test_LoopByWindow_07():
                 d'16
                 ~
                 d'16
-                e'8
+                e'32
+                ~
+                e'16.
             }
             d'16
             ~
@@ -590,24 +607,24 @@ def test_LoopByWindow_16():
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 3/4
-        f'4
-        g'4
-        a'4
-        e'4
-        f'4
-        g'4
-        d'4
-        e'4
-        f'4
-        c'4
-        d'4
-        e'4
-    }
-    """)
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            f'4
+            g'4
+            a'4
+            e'4
+            f'4
+            g'4
+            d'4
+            e'4
+            f'4
+            c'4
+            d'4
+            e'4
+        }
+        """)
 
 
 def test_LoopByWindow_17():
@@ -620,15 +637,15 @@ def test_LoopByWindow_17():
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 3/4
-        c'4
-        d'4
-        e'4
-    }
-    """)
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+        }
+        """)
 
 
 def test_LoopByWindow_18():
@@ -639,61 +656,65 @@ def test_LoopByWindow_18():
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 4/4
-        c'8.
-        d'16
-        ~
-        d'4..
-        e'16
-        ~
-        e'8.
-        f'16
-    }
-    """)
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8.
+            d'16
+            ~
+            d'4
+            ~
+            d'8.
+            e'16
+            ~
+            e'8.
+            f'16
+        }
+        """)
 
 
 def test_LoopByWindow_19():
-    input_music = abjad.Container(r"c'4-.\pp\< d'2--\f e'4->\ppp f'2 ~ f'8")
+    input_music = abjad.Container(r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
     looper = auxjad.LoopByWindow(input_music)
     staff = abjad.Staff()
     for _ in range(2):
         music = looper()
         staff.append(music)
     assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 4/4
-        c'4
-        \pp
-        - \staccato
-        \<
-        d'2
-        \f
-        - \tenuto
-        e'4
-        \ppp
-        - \accent
-        c'8.
-        \pp
-        - \staccato
-        \<
-        d'16
-        \f
-        - \tenuto
-        ~
-        d'4..
-        e'16
-        \ppp
-        - \accent
-        ~
-        e'8.
-        f'16
-    }
-    """)
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            \p
+            - \staccato
+            \<
+            d'2
+            \f
+            - \tenuto
+            e'4
+            \ppp
+            - \accent
+            c'8.
+            \p
+            - \staccato
+            \<
+            d'16
+            \f
+            - \tenuto
+            ~
+            d'4
+            ~
+            d'8.
+            e'16
+            \ppp
+            - \accent
+            ~
+            e'8.
+            f'16
+        }
+        """)
 
 
 def test_LoopByWindow_20():
@@ -720,7 +741,9 @@ def test_LoopByWindow_20():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -819,7 +842,9 @@ def test_LoopByWindow_23():
             c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             e'8
         }
         """)

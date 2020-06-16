@@ -190,13 +190,17 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
             f'16
             ~
-            f'4..
+            f'4
+            ~
+            f'8.
             r16
             r8.
             c'16
@@ -213,12 +217,16 @@ class Shuffler:
             e'8.
             ~
             e'16
-            f'4..
+            f'8.
+            ~
+            f'4
             ~
             f'16
             r8.
             r16
-            d'4..
+            d'8.
+            ~
+            d'4
         }
 
         .. figure:: ../_images/image-Shuffler-7.png
@@ -236,12 +244,20 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
-            d'4..
+            d'4
+            ~
+            d'8.
+            e'16
+            ~
+            e'8.
+            f'16
+            ~
+            f'4
+            ~
+            f'8.
             r16
             r8.
             c'16
-            f'2
-            e'4
         }
 
         .. figure:: ../_images/image-Shuffler-8.png
@@ -256,12 +272,16 @@ class Shuffler:
             e'8.
             ~
             e'16
-            f'4..
+            f'8.
+            ~
+            f'4
             ~
             f'16
             r8.
             r16
-            d'4..
+            d'8.
+            ~
+            d'4
         }
 
         .. figure:: ../_images/image-Shuffler-9.png
@@ -282,13 +302,17 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
             f'16
             ~
-            f'4..
+            f'4
+            ~
+            f'8.
             r16
             r8.
             c'16
@@ -315,12 +339,16 @@ class Shuffler:
         \new Staff
         {
             \time 2/4
-            d'4..
+            d'4
+            ~
+            d'8.
             f'16
             c'16
             e'8.
             r4
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8
@@ -355,7 +383,8 @@ class Shuffler:
         are, use the method ``shuffle_pitches()``. It handles both notes and
         chords. Rests will remain at their current location.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. | r4 e'8. f'16")
+        >>> container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
+        ...                             r"r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.shuffle_pitches()
         >>> staff = abjad.Staff(music)
@@ -364,10 +393,15 @@ class Shuffler:
         {
             \time 3/4
             e'16
-            c'4..
+            c'8.
+            ~
+            c'4
+            d'4
             r4
-            d'8.
-            f'16
+            f'4
+            ~
+            f'8..
+            g'32
         }
 
         .. figure:: ../_images/image-Shuffler-12.png
@@ -417,7 +451,8 @@ class Shuffler:
 
         To rotate pitches, use the ``rotate_pitches()`` method.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. | r4 e'8. f'16")
+        >>> container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
+        ...                             r"r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.rotate_pitches()
         >>> staff = abjad.Staff(music)
@@ -426,10 +461,15 @@ class Shuffler:
         {
             \time 3/4
             d'16
-            e'4..
+            e'8.
+            ~
+            e'4
+            f'4
             r4
-            f'8.
-            c'16
+            g'4
+            ~
+            g'8..
+            c'32
         }
 
         .. figure:: ../_images/image-Shuffler-14.png
@@ -441,7 +481,8 @@ class Shuffler:
         The first defines the direction of the rotation, while the later sets
         the number of rotations applied.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. | r4 e'8. f'16")
+        >>> container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
+        ...                             r"r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
         >>> staff = abjad.Staff(music)
@@ -449,11 +490,16 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
-            e'16
-            f'4..
+            f'16
+            g'8.
+            ~
+            g'4
+            c'4
             r4
-            c'8.
-            d'16
+            d'4
+            ~
+            d'8..
+            e'32
         }
 
         .. figure:: ../_images/image-Shuffler-15.png
@@ -647,14 +693,15 @@ class Shuffler:
         if not self._disable_rewrite_meter:
             start = 0
             ts_index = 0
-            dummy_container_leaves = abjad.select(dummy_container).leaves()
-            for item_index in range(len(dummy_container_leaves)):
+            leaves = abjad.select(dummy_container).leaves()
+            for item_index in range(len(leaves)):
                 duration = abjad.inspect(
-                    dummy_container_leaves[start : item_index+1]).duration()
+                    leaves[start : item_index+1]).duration()
                 if duration == self._time_signatures[ts_index].duration:
-                    abjad.mutate(
-                        dummy_container_leaves[start : item_index+1]
-                    ).rewrite_meter(self._time_signatures[ts_index])
+                    abjad.mutate(leaves[start : item_index+1]).rewrite_meter(
+                        self._time_signatures[ts_index],
+                        boundary_depth=1,
+                    )
                     if ts_index + 1 < len(self._time_signatures):
                         ts_index += 1
                         start = item_index + 1

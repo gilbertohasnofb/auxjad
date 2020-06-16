@@ -190,7 +190,9 @@ def enforce_time_signature(container: abjad.Container,
             ~
             \time 5/4
             c'4
-            d'1
+            d'2
+            ~
+            d'2
         }
 
         .. figure:: ../_images/image-enforce_time_signature-10.png
@@ -426,7 +428,9 @@ def enforce_time_signature(container: abjad.Container,
             ~
             \time 2/4
             c'16
-            d'4..
+            d'8.
+            ~
+            d'4
             ~
             \time 5/8
             d'4
@@ -614,19 +618,16 @@ def enforce_time_signature(container: abjad.Container,
     start = 0
     ts_index = 0
     for item_index in range(len(container)):
-        duration = abjad.inspect(
-            container[start : item_index+1]).duration()
+        duration = abjad.inspect(container[start : item_index+1]).duration()
         if duration == time_signatures[ts_index].duration:
-            abjad.mutate(
-                container[start : item_index+1]
-            ).rewrite_meter(time_signatures[ts_index])
-            if ts_index + 1 < len(time_signatures):
-                ts_index += 1
-                start = item_index + 1
-                if ts_index == len(time_signatures):
-                    if cyclic:
-                        ts_index = 0
-                    else:
-                        ts_index -= 1
-            else:
-                break
+            abjad.mutate(container[start : item_index+1]).rewrite_meter(
+                time_signatures[ts_index],
+                boundary_depth=1,
+            )
+            start = item_index + 1
+            ts_index += 1
+            if ts_index == len(time_signatures):
+                if cyclic:
+                    ts_index = 0
+                else:
+                    ts_index -= 1

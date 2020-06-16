@@ -59,7 +59,10 @@ def test_complex_music_example_01():
         staff.append(music)
     # shuffling the last output container by the looping window 3 times
     container = abjad.Container(looper.current_window)
-    shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
+    shuffler = auxjad.Shuffler(container,
+                               omit_time_signatures=True,
+                               disable_rewrite_meter=True,
+                               )
     for _ in range(3):
         music = shuffler()
         staff.append(music)
@@ -128,15 +131,7 @@ def test_complex_music_example_01():
                 d'
                 \tweak style #'harmonic
                 a'
-            >4.
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size #-4
-                d'
-                \tweak style #'harmonic
-                a'
-            >4.
+            >2.
             <c' df' g'>8
             <
                 \parenthesize
@@ -158,17 +153,8 @@ def test_complex_music_example_01():
                 g
                 \tweak style #'harmonic
                 c'
-            >2
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size #-4
-                g
-                \tweak style #'harmonic
-                c'
-            >4
-            r8
-            r8
+            >2.
+            r4
             <c' df' g'>8
             <c' df' g'>8
             <
@@ -177,30 +163,14 @@ def test_complex_music_example_01():
                 g
                 \tweak style #'harmonic
                 c'
-            >2
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size #-4
-                g
-                \tweak style #'harmonic
-                c'
-            >4
+            >2.
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size #-4
                 d'
                 \tweak style #'harmonic
                 a'
-            >4.
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size #-4
-                d'
-                \tweak style #'harmonic
-                a'
-            >4.
+            >2.
             r4
         }
         """)
@@ -287,7 +257,9 @@ def test_complex_music_example_02():
             - \tenuto
             ~
             c'8
-            af'4.
+            af'8
+            ~
+            af'4
             c'2
             - \tenuto
             ~
@@ -301,7 +273,9 @@ def test_complex_music_example_02():
             c'2
             \mp
             - \tenuto
-            af'4.
+            af'4
+            ~
+            af'8
             bf'8
             \mf
             - \tenuto
@@ -311,15 +285,21 @@ def test_complex_music_example_02():
             \mp
             - \tenuto
             ~
-            c'4.
-            af'4.
+            c'4
+            ~
+            c'8
+            af'8
+            ~
+            af'4
             c'2
             - \tenuto
             bf'8
             \mf
             - \tenuto
-            af'4.
+            af'8
             \mp
+            ~
+            af'4
             bf'8
             \mf
             - \tenuto
@@ -327,8 +307,12 @@ def test_complex_music_example_02():
             \mp
             - \tenuto
             ~
-            c'4.
-            af'4.
+            c'4
+            ~
+            c'8
+            af'8
+            ~
+            af'4
             \time 3/4
             bf'8
             \mf
@@ -337,7 +321,9 @@ def test_complex_music_example_02():
             \mp
             - \tenuto
             ~
-            c'4.
+            c'4
+            ~
+            c'8
             af'8
             bf'16
             \mf

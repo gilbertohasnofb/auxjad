@@ -448,10 +448,14 @@ class Phaser():
             c'4.
             d'4.
             c'8
-            d'4.
+            d'8
+            ~
+            d'4
             c'4
             d'4
-            c'4.
+            c'4
+            ~
+            c'8
             d'8
             c'4.
             d'4.
@@ -472,17 +476,21 @@ class Phaser():
         ...                        )
         >>> music = phaser.output_all(cycle_back_to_first=False)
         >>> staff = abjad.Staff(music)
-        >>> abjad.f(staff)\new Staff
+        >>> abjad.f(staff)
         \new Staff
         {
             \time 3/4
             c'4.
             d'4.
             c'8
-            d'4.
+            d'8
+            ~
+            d'4
             c'4
             d'4
-            c'4.
+            c'4
+            ~
+            c'8
             d'8
         }
 
@@ -648,15 +656,16 @@ class Phaser():
             d'4.
             \time 2/4
             e'2
-            c'4.
-            d'8
+            c'4
             ~
-            \time 3/8
-            d'4
+            c'8
+            d'4.
             e'8
             ~
             \time 2/4
-            e'4.
+            e'4
+            ~
+            e'8
             c'8
             c'4
             d'4
@@ -874,7 +883,9 @@ class Phaser():
                 d'16
                 ~
                 d'16
-                e'8
+                e'32
+                ~
+                e'16.
             }
             d'16
             ~

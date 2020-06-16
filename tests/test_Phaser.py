@@ -232,10 +232,14 @@ def test_Phaser_05():
             c'4.
             d'4.
             c'8
-            d'4.
+            d'8
+            ~
+            d'4
             c'4
             d'4
-            c'4.
+            c'4
+            ~
+            c'8
             d'8
             c'4.
             d'4.
@@ -254,10 +258,14 @@ def test_Phaser_05():
             c'4.
             d'4.
             c'8
-            d'4.
+            d'8
+            ~
+            d'4
             c'4
             d'4
-            c'4.
+            c'4
+            ~
+            c'8
             d'8
         }
         """)
@@ -266,7 +274,7 @@ def test_Phaser_05():
 def test_Phaser_06():
     input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
     phaser = auxjad.Phaser(input_music,
-                           step_size=(1, 4),
+                               step_size=(1, 4),
                            )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
@@ -323,7 +331,9 @@ def test_Phaser_06():
             ~
             e'2
             ~
-            e'4.
+            e'4
+            ~
+            e'8
             c'8
             ~
             c'8
@@ -354,7 +364,9 @@ def test_Phaser_07():
                 d'16
                 ~
                 d'16
-                e'8
+                e'32
+                ~
+                e'16.
             }
             d'16
             ~
@@ -412,10 +424,14 @@ def test_Phaser_09():
         {
             c'2
             d'2
-            c'4.
+            c'4
+            ~
+            c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             c'8
             c'4
             d'2
@@ -423,8 +439,12 @@ def test_Phaser_09():
             c'8
             d'8
             ~
-            d'4.
-            c'4.
+            d'4
+            ~
+            d'8
+            c'8
+            ~
+            c'4
         }
         """)
     phaser = auxjad.Phaser(input_music,
@@ -441,10 +461,14 @@ def test_Phaser_09():
         {
             c'2
             d'2
-            c'4.
+            c'4
+            ~
+            c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             c'8
             c'4
             d'2
@@ -452,14 +476,18 @@ def test_Phaser_09():
             c'8
             d'8
             ~
-            d'4.
-            c'4.
+            d'4
+            ~
+            d'8
+            c'8
+            ~
+            c'4
         }
         """)
 
 
 def test_Phaser_10():
-    input_music = abjad.Container(r"c'2 <d' fs' a'>2")
+    input_music = abjad.Container(r"<d' fs' a'>2 c'2")
     phaser = auxjad.Phaser(input_music,
                            step_size=(1, 8),
                            )
@@ -471,21 +499,29 @@ def test_Phaser_10():
         r"""
         \new Staff
         {
+            <d' fs' a'>2
             c'2
-            <d' fs' a'>2
-            c'4.
-            <d' fs' a'>8
+            <d' fs' a'>4
             ~
-            <d' fs' a'>4.
+            <d' fs' a'>8
             c'8
+            ~
             c'4
-            <d' fs' a'>2
-            c'4
+            ~
             c'8
             <d' fs' a'>8
+            <d' fs' a'>4
+            c'2
+            <d' fs' a'>4
+            <d' fs' a'>8
+            c'8
             ~
-            <d' fs' a'>4.
-            c'4.
+            c'4
+            ~
+            c'8
+            <d' fs' a'>8
+            ~
+            <d' fs' a'>4
         }
         """)
     phaser = auxjad.Phaser(input_music,
@@ -500,23 +536,31 @@ def test_Phaser_10():
         r"""
         \new Staff
         {
+            <d' fs' a'>2
             c'2
-            <d' fs' a'>2
-            c'4.
-            <d' fs' a'>8
+            <d' fs' a'>4
             ~
-            <d' fs' a'>4.
+            <d' fs' a'>8
             c'8
             ~
-            c'4
-            <d' fs' a'>2
             c'4
             ~
             c'8
             <d' fs' a'>8
             ~
-            <d' fs' a'>4.
-            c'4.
+            <d' fs' a'>4
+            c'2
+            <d' fs' a'>4
+            ~
+            <d' fs' a'>8
+            c'8
+            ~
+            c'4
+            ~
+            c'8
+            <d' fs' a'>8
+            ~
+            <d' fs' a'>4
             ~
         }
         """)
@@ -924,15 +968,16 @@ def test_Phaser_20():
             d'4.
             \time 2/4
             e'2
-            c'4.
-            d'8
+            c'4
             ~
-            \time 3/8
-            d'4
+            c'8
+            d'4.
             e'8
             ~
             \time 2/4
-            e'4.
+            e'4
+            ~
+            e'8
             c'8
             c'4
             d'4

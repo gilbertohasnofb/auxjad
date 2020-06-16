@@ -83,19 +83,22 @@ def test_Hocketer_02():
                 e'8
                 r8
                 g'8
-                r4.
+                r8
+                r4
             }
             \new Staff
             {
                 r8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }
             \new Staff
             {
-                r4.
+                r4
+                r8
                 f'8
                 r4
                 b'8
@@ -189,7 +192,8 @@ def test_Hocketer_06():
             {
                 c'8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }
@@ -258,7 +262,8 @@ def test_Hocketer_07():
                 d'8
                 r4
                 g'8
-                r4.
+                r8
+                r4
             }
             \new Staff
             {

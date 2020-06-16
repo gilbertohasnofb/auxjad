@@ -13,14 +13,17 @@ def test_TenneySelector_01():
     assert selector.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert selector.probabilities == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert selector.previous_index is None
+    assert selector.previous_result is None
     assert len(selector) == 6
     result = ''
     for _ in range(30):
         result += selector()
     assert result == 'BDAFCBEFCDFDBAEDFCABDEABCDEBFE'
     assert selector.previous_index == 4
+    assert selector.previous_result == 'E'
     with pytest.raises(AttributeError):
         selector.previous_index = 3
+        selector.previous_result = 'C'
     assert selector.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     assert selector.probabilities == [7.0, 2.0, 5.0, 4.0, 0.0, 1.0]
 

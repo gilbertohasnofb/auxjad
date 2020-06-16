@@ -29,9 +29,7 @@ class TenneySelector():
         6
 
         When no other keyword arguments are used, the default probabilities of
-        each element in the list is 1.0. Probabilities are not normalised. Use
-        the previous_index attribute to check the previously selected index
-        (default is None).
+        each element in the list is ``1.0``. Probabilities are not normalised.
 
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
@@ -72,6 +70,24 @@ class TenneySelector():
         [6.0, 5.0, 0.0, 3.0, 1.0, 2.0]
         >>> selector.previous_index
         2
+
+    ..  container:: example
+
+        Use the read-only properties ``previous_result`` and ``previous_index``
+        to output the previous result and its index. Default values for both
+         is ``None``.
+
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector.previous_index
+        None
+        >>> selector.previous_result
+        None
+        >>> selector()
+        C
+        >>> selector.previous_index
+        2
+        >>> selector.previous_result
+        C
 
     ..  container:: example
 
@@ -522,6 +538,14 @@ class TenneySelector():
         element.
         """
         return self._previous_index
+
+    @property
+    def previous_result(self):
+        r'Read-only property, returns the previously output element.'
+        if self._previous_index is not None:
+            return self._contents[self._previous_index]
+        else:
+            return None
 
     @property
     def probabilities(self) -> list:

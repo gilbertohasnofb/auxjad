@@ -491,7 +491,10 @@ class CartographySelector():
     @property
     def previous_result(self):
         r'Read-only property, returns the previously output element.'
-        return self._contents[self._previous_index]
+        if self._previous_index is not None:
+            return self._contents[self._previous_index]
+        else:
+            return None
 
     @property
     def weights(self) -> list:

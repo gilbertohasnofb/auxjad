@@ -10,6 +10,8 @@ def test_CartographySelector_01():
     assert selector.contents == [0, 1, 2, 3, 4]
     assert format(selector) == "[0, 1, 2, 3, 4]"
     assert selector.weights == [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
+    assert selector.previous_index is None
+    assert selector.previous_result is None
     assert len(selector) == 5
     result = ''
     for _ in range(30):

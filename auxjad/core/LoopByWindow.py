@@ -871,6 +871,7 @@ class LoopByWindow(_LoopParent):
                  '_fill_with_rests',
                  '_new_time_signature',
                  '_contents_length',
+                 '_contents_no_time_signature',
                  )
 
     ### INITIALISER ###
@@ -948,7 +949,7 @@ class LoopByWindow(_LoopParent):
         """
         head = self._head_position
         window_size = self._window_size
-        dummy_container = copy.deepcopy(self._contents)
+        dummy_container = copy.deepcopy(self._contents_no_time_signature)
         # splitting leaves at both slicing points
         if head > abjad.Duration(0):
             abjad.mutate(dummy_container[:]).split([head,
@@ -1007,7 +1008,7 @@ class LoopByWindow(_LoopParent):
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be sliced and looped.'
-        return self._contents
+        return copy.deepcopy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -1017,8 +1018,9 @@ class LoopByWindow(_LoopParent):
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
         self._contents = copy.deepcopy(contents)
-        self._remove_all_time_signatures(self._contents)
         self._contents_length = abjad.inspect(contents[:]).duration()
+        self._contents_no_time_signature = copy.deepcopy(contents)
+        self._remove_all_time_signatures(self._contents_no_time_signature)
 
     @property
     def head_position(self) -> abjad.Duration:

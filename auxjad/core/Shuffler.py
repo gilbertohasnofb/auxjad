@@ -893,7 +893,7 @@ class Shuffler:
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be shuffled.'
-        return self._contents
+        return copy.deepcopy(self._contents)
 
     @contents.setter
     def contents(self,

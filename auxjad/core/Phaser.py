@@ -949,6 +949,7 @@ class Phaser():
         if not isinstance(phase_on_first_call, bool):
             raise TypeError("'phase_on_first_call' must be 'bool'")
         self._is_first_window = not phase_on_first_call
+        self._current_window = None
 
     ### SPECIAL METHODS ###
 
@@ -1142,7 +1143,7 @@ class Phaser():
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be phased.'
-        return self._contents
+        return copy.deepcopy(self._contents)
 
     @contents.setter
     def contents(self,

@@ -44,6 +44,7 @@ class _LoopParent():
         self.repetition_chance = repetition_chance
         self.forward_bias = forward_bias
         self._is_first_window = not move_window_on_first_call
+        self._current_window = None
 
     ### SPECIAL METHODS ###
 
@@ -84,6 +85,7 @@ class _LoopParent():
             raise TypeError("'tie_identical_pitches' must be 'bool'")
         dummy_container = abjad.Container()
         while True:
+            print('x')
             try:
                 if not tie_identical_pitches or len(dummy_container) == 0:
                     dummy_container.append(self.__call__())
@@ -176,7 +178,7 @@ class _LoopParent():
             raise TypeError("'head_position' must be 'int'")
         if head_position < 0:
             raise ValueError("'head_position' must be a positive 'int'")
-        if head_position >= self._contents.__len__():
+        if head_position >= self.__len__():
             raise ValueError("'head_position' must be smaller than the length "
                              "of 'contents'")
         self._is_first_window = True
@@ -195,7 +197,7 @@ class _LoopParent():
             raise TypeError("'window_size' must be 'int'")
         if window_size < 1:
             raise ValueError("'window_size' must be greater than zero")
-        if window_size > self._contents.__len__():
+        if window_size > self.__len__():
             raise ValueError("'window_size' must be smaller than or equal to "
                              "the length of 'contents'")
         self._window_size = window_size
@@ -213,7 +215,7 @@ class _LoopParent():
             raise TypeError("'step_size' must be 'int'")
         if step_size < 1:
             raise ValueError("'step_size' must be greater than zero")
-        if step_size >= self._contents.__len__():
+        if step_size >= self.__len__():
             raise ValueError("'step_size' must be smaller than the length of "
                              "'contents'")
         self._step_size = step_size
@@ -279,5 +281,5 @@ class _LoopParent():
         r"""Boolean indicating whether the process is done (i.e. whether the
         head position has overtaken the ``contents`` length).
         """
-        return (self._head_position >= self._contents.__len__()
+        return (self._head_position >= self.__len__()
             or self._head_position < 0)

@@ -628,7 +628,7 @@ class LoopByNotes(_LoopParent):
     __slots__ = ('_omit_all_time_signatures',
                  '_force_identical_time_signatures',
                  '_last_time_signature',
-                 '_contents_container'
+                 '_contents_logical_ties',
                  )
 
     ### INITIALISER ###
@@ -664,11 +664,11 @@ class LoopByNotes(_LoopParent):
 
     def __repr__(self) -> str:
         r'Returns interpret representation of ``contents``.'
-        return format(self._contents_container)
+        return format(self._contents)
 
     def __len__(self) -> int:
         r'Returns the number of logical ties of ``contents``.'
-        return len(self._contents)
+        return len(self._contents_logical_ties)
 
     ### PRIVATE METHODS ###
 
@@ -678,7 +678,7 @@ class LoopByNotes(_LoopParent):
         """
         start = self._head_position
         end = self._head_position + self._window_size
-        logical_ties = self._contents[start:end]
+        logical_ties = self._contents_logical_ties[start:end]
         dummy_container = abjad.Container()
         time_signature_duration = 0
         for logical_tie in logical_ties:
@@ -705,7 +705,7 @@ class LoopByNotes(_LoopParent):
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be sliced and looped.'
-        return self._contents
+        return copy.deepcopy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -714,9 +714,11 @@ class LoopByNotes(_LoopParent):
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
-        self._contents_container = copy.deepcopy(contents)
-        self._remove_all_time_signatures(self._contents_container)
-        self._contents = abjad.select(self._contents_container).logical_ties()
+        self._contents = copy.deepcopy(contents)
+        dummy_container = copy.deepcopy(contents)
+        self._remove_all_time_signatures(dummy_container)
+        self._contents_logical_ties = abjad.select(
+            dummy_container).logical_ties()
 
     @property
     def omit_all_time_signatures(self) -> bool:

@@ -706,6 +706,7 @@ class Hocketer():
                  ):
         r'Initialises self.'
         self.contents = contents
+        self._voices = None
         self._n_voices = n_voices
         self._k = k
         if weights is not None:
@@ -830,7 +831,7 @@ class Hocketer():
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be hocketed.'
-        return self._contents
+        return copy.deepcopy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -949,6 +950,10 @@ class Hocketer():
         self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def current_window(self) -> abjad.Selection:
+    def current_window(self) -> list:
         r'Read-only property, returns the result of the last operation.'
-        return (abjad.Staff([copy.deepcopy(voice)]) for voice in self._voices)
+        if self._voices is not None:
+            return [abjad.Staff([copy.deepcopy(voice)]) for voice in
+                    self._voices]
+        else:
+            return self._voices

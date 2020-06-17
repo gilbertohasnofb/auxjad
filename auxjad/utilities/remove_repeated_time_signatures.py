@@ -122,14 +122,13 @@ def remove_repeated_time_signatures(container: abjad.Container):
     if not isinstance(container, abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
 
-    measures = abjad.select(container).leaves().group_by_measure()
+    measures = abjad.select(container[:]).group_by_measure()
 
     previous_time_signature = None
     for measure in measures:
-        time_signature = abjad.inspect(measure[0]).indicator(
-            abjad.TimeSignature
-        )
+        head = abjad.select(measure).leaf(0)
+        time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
         if time_signature == previous_time_signature:
-            abjad.detach(abjad.TimeSignature, measure[0])
+            abjad.detach(abjad.TimeSignature, head)
         if time_signature is not None:
             previous_time_signature = time_signature

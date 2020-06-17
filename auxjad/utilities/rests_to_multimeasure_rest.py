@@ -152,13 +152,12 @@ def rests_to_multimeasure_rest(container: abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
 
     remove_empty_tuplets(container)
-    measures = abjad.select(container).leaves().group_by_measure()
+    measures = abjad.select(container[:]).group_by_measure()
 
     for measure in measures:
         if all([isinstance(leaf, abjad.Rest) for leaf in measure]):
-            first_leaf = abjad.select(measure).leaf(0)
-            time_signature = abjad.inspect(first_leaf).indicator(
-                abjad.TimeSignature)
+            head = abjad.select(measure).leaf(0)
+            time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
             duration = abjad.inspect(measure).duration()
             if duration == 1:
                 multiplier = None

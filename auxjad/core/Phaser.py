@@ -659,7 +659,10 @@ class Phaser():
             c'4
             ~
             c'8
-            d'4.
+            d'8
+            ~
+            \time 3/8
+            d'4
             e'8
             ~
             \time 2/4

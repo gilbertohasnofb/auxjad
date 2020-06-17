@@ -492,72 +492,26 @@ def enforce_time_signature(container: abjad.Container,
             d'4
             ~
             d'16
-            e'4
-            ~
             e'16
+            ~
+            e'4
             ~
             \time 1/16
             e'16
             ~
             \time 2/4
-            e'4.
+            e'4
+            ~
+            e'8
             f'8
             ~
             \time 5/8
-            f'2
+            f'4.
             ~
-            f'8
+            f'4
         }
 
         .. figure:: ../_images/image-enforce_time_signature-22.png
-
-    ..  container:: example
-
-        Correctly handles partial time signatures.
-
-        >>> staff = abjad.Staff(r"c'2. d'4 ~ d'2 e'2 ~ e'4 f'2.")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'2.
-            d'4
-            ~
-            d'2
-            e'2
-            ~
-            e'4
-            f'2.
-        }
-
-        .. figure:: ../_images/image-enforce_time_signature-23.png
-
-        >>> time_signatures = [abjad.TimeSignature((3, 4), partial=(1, 4)),
-        ...                    abjad.TimeSignature((3, 4)),
-        ...                    abjad.TimeSignature((4, 4)),
-        ...                    ]
-        >>> auxjad.enforce_time_signature(staff, time_signatures)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \partial 4
-            \time 3/4
-            c'4
-            ~
-            c'2
-            d'4
-            ~
-            d'2
-            e'4
-            ~
-            \time 4/4
-            e'2
-            f'2
-            ~
-            f'4
-            r2.
-        }
-
-        .. figure:: ../_images/image-enforce_time_signature-24.png
 
     .. note::
 
@@ -605,24 +559,26 @@ def enforce_time_signature(container: abjad.Container,
     if not isinstance(container, abjad.Container):
         raise TypeError("first argument must be 'abjad.Container' or "
                         "child class")
-    if not isinstance(time_signatures, list):
-        time_signatures = [time_signatures]
-    if time_signatures[0] is None:
+    if isinstance(time_signatures, list):
+        time_signatures_ = time_signatures[:]
+    else:
+        time_signatures_ = [time_signatures]
+    if time_signatures_[0] is None:
         raise ValueError("first element of the input list must not be 'None'")
     # converting all elements to abjad.TimeSignature
-    for index in range(len(time_signatures)):
-        time_signature = time_signatures[index]
+    for index in range(len(time_signatures_)):
+        time_signature = time_signatures_[index]
         if time_signature is None:
-            previous_ts_duration = time_signatures[index - 1].pair
-            time_signatures[index] = abjad.TimeSignature(previous_ts_duration)
+            previous_ts_duration = time_signatures_[index - 1].pair
+            time_signatures_[index] = abjad.TimeSignature(previous_ts_duration)
         elif not isinstance(time_signature, abjad.TimeSignature):
-            time_signatures[index] = abjad.TimeSignature(time_signature)
+            time_signatures_[index] = abjad.TimeSignature(time_signature)
     partial_time_signature = None
-    if time_signatures[0].partial is not None:
-        partial_time_signature = time_signatures[0]
-        time_signatures[0] = abjad.TimeSignature(
+    if time_signatures_[0].partial is not None:
+        partial_time_signature = time_signatures_[0]
+        time_signatures_[0] = abjad.TimeSignature(
             partial_time_signature.duration)
-        time_signatures.insert(0, abjad.TimeSignature(
+        time_signatures_.insert(0, abjad.TimeSignature(
             partial_time_signature.partial))
     if not isinstance(cyclic, bool):
         raise TypeError("'cyclic' must be 'bool'")
@@ -637,7 +593,7 @@ def enforce_time_signature(container: abjad.Container,
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
             abjad.detach(abjad.TimeSignature, leaf)
     # slice container at the places where time signatures change
-    durations = [time_signature.duration for time_signature in time_signatures]
+    durations = [time_signature.duration for time_signature in time_signatures_]
     if cyclic:
         abjad.mutate(container[:]).split(durations, cyclic=True)
     else:
@@ -656,12 +612,12 @@ def enforce_time_signature(container: abjad.Container,
             if partial_time_signature is not None and ts_index in (0, 1):
                 ts = partial_time_signature
             else:
-                ts = time_signatures[ts_index]
+                ts = time_signatures_[ts_index]
             if ts != previous_ts:
                 abjad.attach(ts, leaf)
             previous_ts = ts
             ts_index += 1
-            if ts_index == len(time_signatures):
+            if ts_index == len(time_signatures_):
                 if cyclic:
                     ts_index = 0
                 else:
@@ -674,19 +630,15 @@ def enforce_time_signature(container: abjad.Container,
         fill_with_rests_function(container)
     # rewrite meter
     if rewrite_meter:
-        start = 0
-        ts_index = 0
-        for item_index in range(len(container)):
-            duration = abjad.inspect(container[start:item_index+1]).duration()
-            if duration == time_signatures[ts_index].duration:
-                abjad.mutate(container[start : item_index+1]).rewrite_meter(
-                    time_signatures[ts_index],
-                    boundary_depth=1,
-                )
-                start = item_index + 1
-                ts_index += 1
-                if ts_index == len(time_signatures):
-                    if cyclic:
-                        ts_index = 0
-                    else:
-                        ts_index -= 1
+        measures = abjad.select(container[:]).group_by_measure()
+        if cyclic:
+            pattern = time_signatures_[:]
+            while len(time_signatures_) < len(measures):
+                time_signatures_ += pattern[:]
+        else:
+            while len(time_signatures_) < len(measures):
+                time_signatures_.append(time_signatures_[-1])
+        for measure, time_signature in zip(measures, time_signatures_):
+            abjad.mutate(measure).rewrite_meter(time_signature,
+                                                boundary_depth=1,
+                                                )

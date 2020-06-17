@@ -274,7 +274,7 @@ def test_Phaser_05():
 def test_Phaser_06():
     input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
     phaser = auxjad.Phaser(input_music,
-                               step_size=(1, 4),
+                           step_size=(1, 4),
                            )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
@@ -315,8 +315,12 @@ def test_Phaser_06():
             ~
             e'2
             ~
-            e'4..
-            c'4
+            e'4
+            ~
+            e'8.
+            c'16
+            ~
+            c'8.
             d'16
         }
         """)
@@ -971,7 +975,10 @@ def test_Phaser_20():
             c'4
             ~
             c'8
-            d'4.
+            d'8
+            ~
+            \time 3/8
+            d'4
             e'8
             ~
             \time 2/4

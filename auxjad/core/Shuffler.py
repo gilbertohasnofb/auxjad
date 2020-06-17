@@ -7,6 +7,7 @@ from ..utilities.remove_repeated_time_signatures import (
 from ..utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio
 )
+from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -595,7 +596,7 @@ class Shuffler:
                  '_current_window',
                  '_logical_ties',
                  '_time_signatures',
-                 '_last_time_signature',
+                 '_is_first_window',
                  )
 
     ### INITIALISER ###
@@ -614,7 +615,7 @@ class Shuffler:
         self.disable_rewrite_meter = disable_rewrite_meter
         self.force_time_signatures = force_time_signatures
         self.omit_time_signatures = omit_time_signatures
-        self._last_time_signature = None
+        self._is_first_window = True
 
     ### SPECIAL METHODS ###
 
@@ -635,11 +636,11 @@ class Shuffler:
     def shuffle(self) -> abjad.Selection:
         r'Shuffles the logical ties of ``contents``.'
         if len(abjad.select(self._contents).tuplets()) > 0:
-            raise TypeError("'contents' contain one ore more tuplets, which "
+            raise TypeError("'contents' contain one ore more tuplets; tuplets "
                             "are not currently supported by the shuffle "
                             "method")
         if self._force_time_signatures:
-            self._last_time_signature = None
+            self._is_first_window = True
         dummy_container = abjad.Container()
         indeces = list(range(self.__len__()))
         random.shuffle(indeces)
@@ -659,65 +660,51 @@ class Shuffler:
                 cyclic=True,
             )
             # attaching time signature structure
-            time_signature = self._time_signatures[0]
-            if (not self._last_time_signature
-                    or time_signature != self._last_time_signature):
-                abjad.attach(time_signature, dummy_container[0])
-                self._last_time_signature = time_signature
-            duration = abjad.inspect(dummy_container[0]).duration()
-            index = 1
-            for leaf in abjad.select(dummy_container).leaves()[1:]:
-                if duration % self._time_signatures[index - 1].duration == 0:
-                    time_signature = self._time_signatures[index]
-                    if time_signature != self._last_time_signature:
-                        abjad.attach(time_signature, leaf)
-                        self._last_time_signature = time_signature
-                    if index + 1 < len(self._time_signatures):
-                        index += 1
-                        duration = abjad.Duration(0)
-                    else:
-                        break
-                duration += abjad.inspect(leaf).duration()
-            remove_repeated_time_signatures(dummy_container)
-            self._last_time_signature = self._time_signatures[-1]
+            enforce_time_signature(dummy_container,
+                                   self._time_signatures,
+                                   disable_rewrite_meter=True,
+                                   )
+            # rewrite meter
+            if not self._disable_rewrite_meter:
+                measures = abjad.select(dummy_container[:]).group_by_measure()
+                if not self._output_single_measure:
+                    for measure, time_signature in zip(measures,
+                                                       self._time_signatures):
+                        abjad.mutate(measure).rewrite_meter(time_signature,
+                                                            boundary_depth=1,
+                                                            )
         else:
             time_signature = abjad.TimeSignature(
                 abjad.inspect(dummy_container).duration())
             time_signature = simplified_time_signature_ratio(time_signature)
-            if (not self._last_time_signature
-                    or time_signature != self._last_time_signature):
+            if self._is_first_window:
                 abjad.attach(time_signature, dummy_container[0])
-            self._last_time_signature = time_signature
+            # rewrite meter
+            if not self._disable_rewrite_meter:
+                measures = abjad.select(dummy_container[:]).group_by_measure()
+                for measure in measures:
+                    abjad.mutate(measure).rewrite_meter(time_signature,
+                                                        boundary_depth=1,
+                                                        )
 
-        # rewrite meter
-        if not self._disable_rewrite_meter:
-            start = 0
-            ts_index = 0
-            leaves = abjad.select(dummy_container).leaves()
-            for item_index in range(len(leaves)):
-                duration = abjad.inspect(
-                    leaves[start : item_index+1]).duration()
-                if duration == self._time_signatures[ts_index].duration:
-                    abjad.mutate(leaves[start : item_index+1]).rewrite_meter(
-                        self._time_signatures[ts_index],
-                        boundary_depth=1,
-                    )
-                    if ts_index + 1 < len(self._time_signatures):
-                        ts_index += 1
-                        start = item_index + 1
-                    else:
-                        break
+        # removing first time signature if necessary
+        if (not self._is_first_window
+                and self._time_signatures[0] == self._time_signatures[-1]):
+            head = abjad.select(dummy_container).leaf(0)
+            abjad.detach(abjad.TimeSignature, head)
 
         # output
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+        self._is_first_window = False
         return self.current_window
 
     def shuffle_pitches(self) -> abjad.Selection:
         r'Shuffles only the pitches of ``contents``.'
         if self._force_time_signatures:
-            self._last_time_signature = None
+            self._is_first_window = True
         pitches = self._get_pitch_list()
+
         # shuffling (while preserving rests)
         true_pitches = [pitch for pitch in pitches if pitch is not None]
         random.shuffle(true_pitches)
@@ -727,11 +714,18 @@ class Shuffler:
                 index += 1
             pitches[index] = true_pitch
             index += 1
+
         # rewriting leaves
         self._rewrite_pitches(pitches)
-        self._last_time_signature = self._time_signatures[-1]
+
+        # removing first time signature if necessary
+        if (not self._is_first_window
+                and self._time_signatures[0] == self._time_signatures[-1]):
+            head = abjad.select(self.current_window).leaf(0)
+            abjad.detach(abjad.TimeSignature, head)
+        self._is_first_window = False
         self._update_logical_ties()
-        # updating logical ties
+
         return self.current_window
 
     def rotate_pitches(self,
@@ -747,8 +741,9 @@ class Shuffler:
         if not isinstance(anticlockwise, bool):
             raise TypeError("'anticlockwise' must be 'bool'")
         if self._force_time_signatures:
-            self._last_time_signature = None
+            self._is_first_window = True
         pitches = self._get_pitch_list()
+
         # rotating pitches (while preserving rests)
         true_pitches = [pitch for pitch in pitches if pitch is not None]
         for _ in range(n_rotations):
@@ -762,10 +757,17 @@ class Shuffler:
                 index += 1
             pitches[index] = true_pitch
             index += 1
+
         # rewriting leaves
         self._rewrite_pitches(pitches)
-        self._last_time_signature = self._time_signatures[-1]
-        # updating logical ties
+
+        # removing first time signature if necessary
+        if (not self._is_first_window
+                and self._time_signatures[0] == self._time_signatures[-1]):
+            head = abjad.select(self.current_window).leaf(0)
+            abjad.detach(abjad.TimeSignature, head)
+        self._is_first_window = False
+
         return self.current_window
 
     def output_n(self,
@@ -875,10 +877,7 @@ class Shuffler:
                                                             )):
                         continue
                     if isinstance(indicator, abjad.TimeSignature):
-                        if (not self._last_time_signature
-                                or indicator != self._last_time_signature):
-                            abjad.attach(indicator, new_leaf)
-                            self._last_time_signature = indicator
+                        abjad.attach(indicator, new_leaf)
                     else:
                         abjad.attach(indicator, new_leaf)
                 selection = abjad.select(dummy_container).leaf(index)

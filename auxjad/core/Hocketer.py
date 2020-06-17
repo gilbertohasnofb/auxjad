@@ -668,8 +668,7 @@ class Hocketer():
                     \time 4/4
                     g'2.
                     \times 2/3 {
-                        r8
-                        r8
+                        r4
                         b'2
                     }
                 }
@@ -799,21 +798,12 @@ class Hocketer():
         # rewriting meter
         if not self._disable_rewrite_meter:
             for voice in dummy_voices:
-                start = 0
-                ts_index = 0
-                for item_index in range(len(voice)):
-                    duration = abjad.inspect(
-                        voice[start : item_index+1]).duration()
-                    if duration == self._time_signatures[ts_index].duration:
-                        abjad.mutate(voice[start:item_index+1]).rewrite_meter(
-                            self._time_signatures[ts_index],
-                            boundary_depth=1,
-                        )
-                        if ts_index + 1 < len(self._time_signatures):
-                            ts_index += 1
-                            start = item_index + 1
-                        else:
-                            break
+                measures = abjad.select(voice[:]).group_by_measure()
+                for measure, time_signature in zip(measures,
+                                                   self._time_signatures):
+                    abjad.mutate(measure).rewrite_meter(time_signature,
+                                                        boundary_depth=1,
+                                                        )
 
         # replacing rests with multi-measure rests
         if self._use_multimeasure_rests:

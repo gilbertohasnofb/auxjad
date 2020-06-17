@@ -530,8 +530,7 @@ def test_Hocketer_12():
                     \time 4/4
                     g'2.
                     \times 2/3 {
-                        r8
-                        r8
+                        r4
                         b'2
                     }
                 }

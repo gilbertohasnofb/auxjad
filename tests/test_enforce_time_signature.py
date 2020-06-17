@@ -373,7 +373,7 @@ def test_enforce_time_signature_13():
                        ]
     auxjad.enforce_time_signature(staff,
                                   time_signatures,
-                                  rewrite_meter=False,
+                                  disable_rewrite_meter=True,
                                   )
     assert format(staff) == abjad.String.normalize(
         r"""

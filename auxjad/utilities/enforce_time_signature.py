@@ -9,7 +9,7 @@ def enforce_time_signature(container: abjad.Container,
                            cyclic: bool = False,
                            fill_with_rests: bool = True,
                            close_container: bool = False,
-                           rewrite_meter: bool = True,
+                           disable_rewrite_meter: bool = False,
                            ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value. This function applies a time
@@ -377,8 +377,8 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-17.png
 
-        To disable this, set the keyword arggument ``rewrite_meter`` to
-        ``False``.
+        To disable this, set the keyword argument ``disable_rewrite_meter`` to
+        ``True``.
 
         >>> staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
         >>> time_signatures = [abjad.TimeSignature((5, 4)),
@@ -386,7 +386,7 @@ def enforce_time_signature(container: abjad.Container,
         ...                    ]
         >>> auxjad.enforce_time_signature(staff,
         ...                               time_signatures,
-        ...                               rewrite_meter=False,
+        ...                               disable_rewrite_meter=True,
         ...                               )
         >>> abjad.f(staff)
         \new Staff
@@ -586,8 +586,8 @@ def enforce_time_signature(container: abjad.Container,
         raise TypeError("'fill_with_rests' must be 'bool'")
     if not isinstance(close_container, bool):
         raise TypeError("'close_container' must be 'bool'")
-    if not isinstance(rewrite_meter, bool):
-        raise TypeError("'rewrite_meter' must be 'bool'")
+    if not isinstance(disable_rewrite_meter, bool):
+        raise TypeError("'disable_rewrite_meter' must be 'bool'")
     # remove all time signatures from container
     for leaf in abjad.select(container).leaves():
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
@@ -629,7 +629,7 @@ def enforce_time_signature(container: abjad.Container,
     elif fill_with_rests:
         fill_with_rests_function(container)
     # rewrite meter
-    if rewrite_meter:
+    if not disable_rewrite_meter:
         measures = abjad.select(container[:]).group_by_measure()
         if cyclic:
             pattern = time_signatures_[:]

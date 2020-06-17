@@ -997,7 +997,7 @@ class LoopByWindow(_LoopParent):
                                                        )
         if self._new_time_signature and not self._omit_all_time_signatures:
             abjad.attach(abjad.TimeSignature(window_size),
-                         abjad.select(dummy_container).leaves()[0],
+                         abjad.select(dummy_container).leaf(0),
                          )
             self._new_time_signature = False
         self._current_window = dummy_container[:]

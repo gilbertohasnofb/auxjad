@@ -91,8 +91,8 @@ class _LoopParent():
                     dummy_container.append(self.__call__())
                 else:
                     new_window = self.__call__()
-                    leaf1 = abjad.select(new_window).leaves()[0]
-                    leaf2 = abjad.select(dummy_container).leaves()[-1]
+                    leaf1 = abjad.select(new_window).leaf(0)
+                    leaf2 = abjad.select(dummy_container).leaf(-1)
                     if leaves_are_tieable(leaf1, leaf2):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
@@ -123,8 +123,8 @@ class _LoopParent():
                 dummy_container.append(self.__call__())
             else:
                 new_window = self.__call__()
-                leaf1 = abjad.select(new_window).leaves()[0]
-                leaf2 = abjad.select(dummy_container).leaves()[-1]
+                leaf1 = abjad.select(new_window).leaf(0)
+                leaf2 = abjad.select(dummy_container).leaf(-1)
                 if leaves_are_tieable(leaf1, leaf2):
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)

@@ -1081,7 +1081,7 @@ class Phaser():
             for start in range(len(dummy_container)):
                 if abjad.inspect(dummy_container[:start+1]).duration() > pivot:
                     break
-            last_leaf = dummy_container[:start].leaves()[-1]
+            last_leaf = dummy_container[:start].leaf(-1)
             # copying indicators to both leaves
             if abjad.inspect(last_leaf).indicator(abjad.Tie):  # i.e. split
                 for indicator in abjad.inspect(last_leaf).indicators():
@@ -1091,7 +1091,7 @@ class Phaser():
                                               abjad.Staccatissimo,
                                               abjad.Fermata,
                                               )):
-                        first_leaf = dummy_container[start:].leaves()[0]
+                        first_leaf = dummy_container[start:].leaf(0)
                         abjad.attach(indicator, first_leaf)
             # removing ties of splitted logical tie if necessary
             if (self._remove_unterminated_ties and
@@ -1116,7 +1116,7 @@ class Phaser():
                     break
             if time_signatures[0] == last_time_signature:
                 abjad.detach(abjad.TimeSignature,
-                             abjad.select(dummy_container).leaves()[0],
+                             abjad.select(dummy_container).leaf(0),
                              )
         self._new_time_signature = False
         self._current_window = dummy_container[:]
@@ -1127,8 +1127,8 @@ class Phaser():
         r'Ties identical pitches when joining windows.'
         if len(previous_container) == 0:
             return
-        first_leaf = currrent_selection.leaves()[0]
-        last_leaf = abjad.select(previous_container).leaves()[-1]
+        first_leaf = currrent_selection.leaf(0)
+        last_leaf = abjad.select(previous_container).leaf(-1)
         if (leaves_are_tieable(first_leaf, last_leaf) and not
                 abjad.inspect(last_leaf).indicators(abjad.Tie)):
             abjad.attach(abjad.Tie(), last_leaf)

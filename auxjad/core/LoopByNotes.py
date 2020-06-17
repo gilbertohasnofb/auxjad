@@ -694,7 +694,7 @@ class LoopByNotes(_LoopParent):
             if (time_signature != self._last_time_signature
                     or self._force_identical_time_signatures):
                 abjad.attach(time_signature,
-                             abjad.select(dummy_container).leaves()[0],
+                             abjad.select(dummy_container).leaf(0),
                              )
             self._last_time_signature = time_signature
         self._current_window = dummy_container[:]

@@ -125,7 +125,7 @@ def time_signature_extractor(container: abjad.Container,
         raise ValueError("'omit_repeated' and 'do_not_use_none' cannot be "
                          "both set to 'True'")
     if not implicit_common_time and do_not_use_none:
-        if not abjad.inspect(abjad.select(container).leaves()[0]).indicator(
+        if not abjad.inspect(abjad.select(container).leaf(0)).indicator(
                 abjad.TimeSignature):
             raise ValueError("container does not have a time signature "
                              "attached to its first leaf, with "

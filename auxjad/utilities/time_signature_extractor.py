@@ -132,9 +132,7 @@ def time_signature_extractor(container: abjad.Container,
                              "'implicit_common_time' set to 'False' and "
                              "'omit_repeated' set to 'True'")
 
-    measures = [measure for measure in
-                abjad.select(container).leaves().group_by_measure()]
-
+    measures = abjad.select(container).leaves().group_by_measure()
     time_signatures = []
 
     for i, measure in enumerate(measures):
@@ -165,6 +163,5 @@ def time_signature_extractor(container: abjad.Container,
             else:
                 if current_time_signature is not None:
                     effective_time_signature = current_time_signature
-
 
     return time_signatures

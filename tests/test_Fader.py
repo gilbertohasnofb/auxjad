@@ -154,7 +154,7 @@ def test_Fader_03():
                          fade_on_first_call=True,
                          disable_rewrite_meter=True,
                          omit_all_time_signatures=True,
-                         force_time_signature=True,
+                         force_time_signatures=True,
                          use_multimeasure_rest=False,
                          mask=[1, 0, 1, 1, 0],
                          )
@@ -162,21 +162,21 @@ def test_Fader_03():
     assert fader.max_steps == 2
     assert fader.disable_rewrite_meter
     assert fader.omit_all_time_signatures
-    assert fader.force_time_signature
+    assert fader.force_time_signatures
     assert not fader.use_multimeasure_rest
     assert fader.mask == [1, 0, 1, 1, 0]
     fader.fader_type = 'out'
     fader.max_steps = 1
     fader.disable_rewrite_meter = False
     fader.omit_all_time_signatures = False
-    fader.force_time_signature = False
+    fader.force_time_signatures = False
     fader.use_multimeasure_rest = True
     fader.mask = [0, 1, 1, 0, 1]
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
     assert not fader.disable_rewrite_meter
     assert not fader.omit_all_time_signatures
-    assert not fader.force_time_signature
+    assert not fader.force_time_signatures
     assert fader.use_multimeasure_rest
     assert fader.mask == [0, 1, 1, 0, 1]
 
@@ -899,7 +899,7 @@ def test_Fader_20():
     random.seed(91653)
     input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
     fader = auxjad.Fader(input_music,
-                         force_time_signature=True,
+                         force_time_signatures=True,
                          )
     notes1 = fader()
     notes2 = fader()

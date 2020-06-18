@@ -285,8 +285,8 @@ class Fader():
         the first time signature is attached only to the first leaf of the
         first call (unless time signature changes require it). To force every
         returned selection to start with a time signature attached to its first
-        leaf, set ``force_time_signature`` to ``True``. Any measure filled with
-        rests will be rewritten using a multi-measure rest; set the
+        leaf, set ``force_time_signatures`` to ``True``. Any measure filled
+        with rests will be rewritten using a multi-measure rest; set the
         ``use_multimeasure_rest`` to ``False`` to disable this behaviour.
         Lastly, an initial mask for the logical ties can be set using ``mask``,
         which should be a ``list`` of the same length as the number of pitched
@@ -303,7 +303,7 @@ class Fader():
         ...                      fade_on_first_call=True,
         ...                      disable_rewrite_meter=True,
         ...                      omit_all_time_signatures=True,
-        ...                      force_time_signature=True,
+        ...                      force_time_signatures=True,
         ...                      use_multimeasure_rest=False,
         ...                      mask=[1, 0, 1, 1, 0],
         ...                      )
@@ -317,7 +317,7 @@ class Fader():
         True
         >>> fader.omit_all_time_signatures
         True
-        >>> fader.force_time_signature
+        >>> fader.force_time_signatures
         True
         >>> fader.use_multimeasure_rest
         False
@@ -330,7 +330,7 @@ class Fader():
         >>> fader.max_steps = 1
         >>> fader.disable_rewrite_meter = False
         >>> fader.omit_all_time_signatures = False
-        >>> fader.force_time_signature = False
+        >>> fader.force_time_signatures = False
         >>> fader.use_multimeasure_rest = True
         >>> fader.mask = [0, 1, 1, 0, 1]
         >>> fader.fader_type
@@ -343,7 +343,7 @@ class Fader():
         False
         >>> fader.omit_all_time_signatures
         False
-        >>> fader.force_time_signature
+        >>> fader.force_time_signatures
         False
         >>> fader.use_multimeasure_rest
         True
@@ -696,13 +696,13 @@ class Fader():
 
         By default, only the first output bar will contain a time signature,
         and all subsequent bars won't have one. Use the optional keyword
-        argument ``force_time_signature`` when inisialising the object, or
+        argument ``force_time_signatures`` when inisialising the object, or
         alternatively set the property of the same name, to change this
         behaviour. Compare the two cases below; in the first, the variable
         ``notes2`` won't have a time signature appended to its first leaf
         because the fader had been called before (though LilyPond will
         fallback to a default 4/4 time signature when none is found in the
-        source file). In the second, ``force_time_signature`` is set to
+        source file). In the second, ``force_time_signatures`` is set to
         ``True``, and the output of ``abjad.f(staff)`` now includes
         ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
 
@@ -723,7 +723,7 @@ class Fader():
 
         >>> input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> fader = auxjad.Fader(input_music,
-        ...                      force_time_signature=True,
+        ...                      force_time_signatures=True,
         ...                      )
         >>> notes1 = fader()
         >>> notes2 = fader()
@@ -845,7 +845,7 @@ class Fader():
                  '_is_first_window',
                  '_time_signatures',
                  '_omit_all_time_signatures',
-                 '_force_time_signature',
+                 '_force_time_signatures',
                  '_use_multimeasure_rest',
                  '_new_mask',
                  )
@@ -860,7 +860,7 @@ class Fader():
                  fade_on_first_call: bool = False,
                  disable_rewrite_meter: bool = False,
                  omit_all_time_signatures: bool = False,
-                 force_time_signature: bool = False,
+                 force_time_signatures: bool = False,
                  use_multimeasure_rest: bool = True,
                  mask: list = None,
                  ):
@@ -872,7 +872,7 @@ class Fader():
             raise TypeError("'fade_on_first_call' must be 'bool'")
         self.disable_rewrite_meter = disable_rewrite_meter
         self.omit_all_time_signatures = omit_all_time_signatures
-        self.force_time_signature = force_time_signature
+        self.force_time_signatures = force_time_signatures
         self.use_multimeasure_rest = use_multimeasure_rest
         if mask:
             self.mask = mask
@@ -1013,7 +1013,7 @@ class Fader():
             )
             if self._use_multimeasure_rest:
                 rests_to_multimeasure_rest(dummy_container)
-            if not self._is_first_window and not self._force_time_signature:
+            if not self._is_first_window and not self._force_time_signatures:
                 if self._time_signatures[0] == self._time_signatures[-1]:
                     abjad.detach(abjad.TimeSignature,
                                  abjad.select(dummy_container).leaf(0),
@@ -1130,19 +1130,19 @@ class Fader():
         self._omit_all_time_signatures = omit_all_time_signatures
 
     @property
-    def force_time_signature(self) -> bool:
+    def force_time_signatures(self) -> bool:
         r"""When ``True``, the initial time signature of a window is always
         attached to the first leaf.
         """
-        return self._force_time_signature
+        return self._force_time_signatures
 
-    @force_time_signature.setter
-    def force_time_signature(self,
-                             force_time_signature: bool,
-                             ):
-        if not isinstance(force_time_signature, bool):
-            raise TypeError("'force_time_signature' must be 'bool'")
-        self._force_time_signature = force_time_signature
+    @force_time_signatures.setter
+    def force_time_signatures(self,
+                              force_time_signatures: bool,
+                              ):
+        if not isinstance(force_time_signatures, bool):
+            raise TypeError("'force_time_signatures' must be 'bool'")
+        self._force_time_signatures = force_time_signatures
 
     @property
     def use_multimeasure_rest(self) -> bool:

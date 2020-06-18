@@ -597,7 +597,7 @@ class Hocketer():
         This class can handle time signature changes as well as nested tuplets.
 
         >>> container = abjad.Container(
-        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8 "
         ...     r"\times 4/5 {\time 4/4 g'2. \times 2/3 {a'8 r8 b'2}}"
         >>> )
         >>> hocketer = auxjad.Hocketer(container,

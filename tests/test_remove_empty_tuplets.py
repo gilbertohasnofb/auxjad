@@ -25,9 +25,8 @@ def test_remove_empty_tuplets_02():
 
 
 def test_remove_empty_tuplets_03():
-    container = abjad.Container(r"r2 \times 2/3 {r2 r4}"
-                                r"\times 4/5 {c'2. \times 2/3 {r2 r4}}"
-                                )
+    container = abjad.Container(
+        r"r2 \times 2/3 {r2 r4} \times 4/5 {c'2. \times 2/3 {r2 r4}}")
     auxjad.remove_empty_tuplets(container)
     assert format(container) == abjad.String.normalize(
         r"""

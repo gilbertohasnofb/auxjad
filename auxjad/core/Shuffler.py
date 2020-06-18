@@ -92,9 +92,8 @@ class Shuffler:
         after instantiation using properties with the same names as shown
         below.
 
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 |"
-        ...                             r"\time 2/4 f'4 g'4 |"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
         >>> shuffler = auxjad.Shuffler(container,
         ...                            output_single_measure=False,
         ...                            disable_rewrite_meter=False,
@@ -129,9 +128,8 @@ class Shuffler:
         container is output as a single measure, having its time signature
         rewritten.
 
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 |"
-        ...                             r"\time 2/4 f'4 g'4"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
         >>> shuffler = auxjad.Shuffler(container,
         ...                            output_single_measure=True,
         ...                            )
@@ -155,9 +153,8 @@ class Shuffler:
         If ``disable_rewrite_meter`` is set to ``True``, then the automatic
         behaviour of rewriting the leaves according to the meter is disabled.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 |"
-        ...                             r"\time 2/4 f'2"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'16 d'4.. e'4 | \time 2/4 f'2")
         >>> shuffler = auxjad.Shuffler(container,
         ...                            output_single_measure=True,
         ...                            disable_rewrite_meter=True,
@@ -384,8 +381,8 @@ class Shuffler:
         are, use the method ``shuffle_pitches()``. It handles both notes and
         chords. Rests will remain at their current location.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
-        ...                             r"r4 f'4 ~ f'8.. g'32")
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.shuffle_pitches()
         >>> staff = abjad.Staff(music)
@@ -413,9 +410,8 @@ class Shuffler:
         tuplets. And similarly to the method ``output_n()``, to output several
         containers with shuffled pitches, use ``output_n_shuffled_pitches()``.
 
-        >>> container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2}"
-        ...                             r"r4 e'4. f'8"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} r4 e'4. f'8)
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.output_n_shuffled_pitches(3)
         >>> staff = abjad.Staff(music)
@@ -452,8 +448,8 @@ class Shuffler:
 
         To rotate pitches, use the ``rotate_pitches()`` method.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
-        ...                             r"r4 f'4 ~ f'8.. g'32")
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.rotate_pitches()
         >>> staff = abjad.Staff(music)
@@ -482,8 +478,8 @@ class Shuffler:
         The first defines the direction of the rotation, while the later sets
         the number of rotations applied.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
-        ...                             r"r4 f'4 ~ f'8.. g'32")
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
         >>> staff = abjad.Staff(music)
@@ -510,9 +506,8 @@ class Shuffler:
         Similarly to the method ``output_n()``, to output several containers
         with rotated pitches, use ``output_n_rotated_pitches()``.
 
-        >>> container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2}"
-        ...                             r"r4 e'4. f'8"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} r4 e'4. f'8")
         >>> shuffler = auxjad.Shuffler(container)
         >>> music = shuffler.output_n_rotated_pitches(3)
         >>> staff = abjad.Staff(music)

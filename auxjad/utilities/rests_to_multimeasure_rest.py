@@ -118,9 +118,8 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         It also works with containers with tuplets within tuplets.
 
-        >>> container = abjad.Container(r"r2 \times 2/3 {r2 r4}"
-        ...                             r"\times 4/5 {r2. \times 2/3 {r2 r4}}"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {r2. \times 2/3 {r2 r4}}")
         >>> abjad.f(container)
         {
             r2

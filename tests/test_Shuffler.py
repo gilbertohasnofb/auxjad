@@ -219,8 +219,8 @@ def test_Shuffler_06():
 
 def test_Shuffler_07():
     random.seed(77347)
-    container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
-                                r"r4 f'4 ~ f'8.. g'32")
+    container = abjad.Container(
+        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
     shuffler = auxjad.Shuffler(container)
     music = shuffler.shuffle_pitches()
     staff = abjad.Staff(music)
@@ -280,8 +280,8 @@ def test_Shuffler_08():
 
 
 def test_Shuffler_09():
-    container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
-                                r"r4 f'4 ~ f'8.. g'32")
+    container = abjad.Container(
+        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
     shuffler = auxjad.Shuffler(container)
     music = shuffler.rotate_pitches()
     staff = abjad.Staff(music)
@@ -305,8 +305,8 @@ def test_Shuffler_09():
 
 
 def test_Shuffler_10():
-    container = abjad.Container(r"\time 3/4 c'16 d'8. ~ d'4 e'4 "
-                                r"r4 f'4 ~ f'8.. g'32")
+    container = abjad.Container(
+        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
     shuffler = auxjad.Shuffler(container)
     music = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
     staff = abjad.Staff(music)

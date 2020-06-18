@@ -640,8 +640,8 @@ class Phaser():
 
         This class handles time signature changes.
 
-        >>> input_music = abjad.Container(r"\time 2/4 c'2 \time 3/8 d'4. "
-        ...                               r"\time 2/4 e'2")
+        >>> input_music = abjad.Container(
+        ...     r"\time 2/4 c'2 \time 3/8 d'4. \time 2/4 e'2")
         >>> phaser = auxjad.Phaser(input_music,
         ...                        step_size=(1, 8),
         ...                        )

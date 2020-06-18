@@ -514,8 +514,8 @@ class Fader():
         >>> fader = auxjad.Fader(input_music)
         >>> len(fader)
         4
-        >>> input_music = abjad.Container(r"c'4 ~ c'16 r16 d'8 "
-        ...                               r"e'4 ~ e'8 f'16 r16")
+        >>> input_music = abjad.Container(
+        ...     r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16")
         >>> fader = auxjad.Fader(input_music)
         >>> len(fader)
         4

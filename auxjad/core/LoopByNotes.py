@@ -297,8 +297,8 @@ class LoopByNotes(_LoopParent):
         will result in a random number of steps (between ``1`` and
         ``max_steps``) being applied at each call.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 "
-        ...                               r"a'4 b'4 c''4 d''4 e''4")
+        >>> input_music = abjad.Container(
+        ...     r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4 e''4")
         >>> looper = auxjad.LoopByNotes(input_music,
         ...                             window_size=2,
         ...                             max_steps=4,

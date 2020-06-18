@@ -25,8 +25,8 @@ def time_signature_extractor(container: abjad.Container,
         By default, the list will contain a ``None`` if a measure does
         not have an explicit time signature.
 
-        >>> container = abjad.Container(r"\time 5/8 c'4 ~ c'16 "
-        ...                             r"\time 3/8 d'4. e'4.")
+        >>> container = abjad.Container(
+        ...     r"\time 5/8 c'4 ~ c'16 \time 3/8 d'4. e'4.")
         >>> time_signatures = auxjad.time_signature_extractor(container)
         >>> time_signatures
         [TimeSignature((5, 8)), TimeSignature((3, 8)), None]
@@ -46,8 +46,8 @@ def time_signature_extractor(container: abjad.Container,
         By default, time signatures are output according to the container, even
         if there are multiple instances of a same time signature.
 
-        >>> container = abjad.Container(r"\time 3/4 c'2. d'2. "
-        ...                             r"\time 3/4 e'2. f'2.")
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2.")
         >>> time_signatures = auxjad.time_signature_extractor(container)
         >>> time_signatures
         [abjad.TimeSignature((3, 4)), None, abjad.TimeSignature((3, 4)), None]
@@ -67,8 +67,8 @@ def time_signature_extractor(container: abjad.Container,
         Setting both ``do_not_use_none`` and ``omit_repeated`` to ``True``
         will raise an exception:
 
-        >>> container = abjad.Container(r"\time 3/4 c'2. d'2. "
-        ...                             r"\time 3/4 e'2. f'2.")
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2.")
         >>> time_signatures = auxjad.time_signature_extractor(
         ...     container,
         ...     do_not_use_none=True,

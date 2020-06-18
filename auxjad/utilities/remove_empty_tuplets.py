@@ -57,9 +57,8 @@ def remove_empty_tuplets(container: abjad.Container):
         This function also simplifies a mix of tuplets of rests and tuplets
         with notes.
 
-        >>> container = abjad.Container(r"r2 \times 2/3 {r2 r4}"
-        ...                             r"\times 4/5 {c'2. \times 2/3 {r2 r4}}"
-        ...                             )
+        >>> container = abjad.Container(
+        ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {c'2. \times 2/3 {r2 r4}}")
         >>> abjad.f(container)
         {
             r2

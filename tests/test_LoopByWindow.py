@@ -5,8 +5,8 @@ import auxjad
 
 
 def test_LoopByWindow_01():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music)
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container)
     assert format(looper) == abjad.String.normalize(
         r"""
         {
@@ -70,8 +70,8 @@ def test_LoopByWindow_01():
 
 
 def test_LoopByWindow_02():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 8),
                                  )
@@ -107,8 +107,8 @@ def test_LoopByWindow_02():
 
 
 def test_LoopByWindow_03():
-    input_music = abjad.Container(r"c'4 d'2 e'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 8),
                                  )
@@ -214,8 +214,8 @@ def test_LoopByWindow_03():
 
 
 def test_LoopByWindow_04():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(5, 8),
                                  max_steps=2,
@@ -252,13 +252,13 @@ def test_LoopByWindow_04():
 
 
 def test_LoopByWindow_05():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  )
-    music = looper.output_all()
-    staff = abjad.Staff(music)
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -280,8 +280,8 @@ def test_LoopByWindow_05():
 
 
 def test_LoopByWindow_06():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music)
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -365,8 +365,8 @@ def test_LoopByWindow_06():
 
 
 def test_LoopByWindow_07():
-    input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 16),
                                  )
@@ -409,8 +409,8 @@ def test_LoopByWindow_07():
 
 
 def test_LoopByWindow_08():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music, omit_all_time_signatures=True)
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container, omit_all_time_signatures=True)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -426,35 +426,35 @@ def test_LoopByWindow_08():
 
 def test_LoopByWindow_09():
     wrong_type_input = 'foobar'
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     with pytest.raises(TypeError):
         assert auxjad.LoopByWindow(wrong_type_input)
-        assert auxjad.LoopByWindow(input_music, window_size=17j)
-        assert auxjad.LoopByWindow(input_music, step_size=True)
-        assert auxjad.LoopByWindow(input_music, max_steps='foo')
-        assert auxjad.LoopByWindow(input_music, repetition_chance='bar')
-        assert auxjad.LoopByWindow(input_music, forward_bias=False)
-        assert auxjad.LoopByWindow(input_music, head_position=62.3j)
-        assert auxjad.LoopByWindow(input_music, omit_all_time_signatures='xyz')
-        assert auxjad.LoopByWindow(input_music, fill_with_rests=1.2)
+        assert auxjad.LoopByWindow(container, window_size=17j)
+        assert auxjad.LoopByWindow(container, step_size=True)
+        assert auxjad.LoopByWindow(container, max_steps='foo')
+        assert auxjad.LoopByWindow(container, repetition_chance='bar')
+        assert auxjad.LoopByWindow(container, forward_bias=False)
+        assert auxjad.LoopByWindow(container, head_position=62.3j)
+        assert auxjad.LoopByWindow(container, omit_all_time_signatures='xyz')
+        assert auxjad.LoopByWindow(container, fill_with_rests=1.2)
     with pytest.raises(ValueError):
-        assert auxjad.LoopByWindow(input_music, window_size=(100, 1))
-        assert auxjad.LoopByWindow(input_music, max_steps=-1)
-        assert auxjad.LoopByWindow(input_music, repetition_chance=-0.3)
-        assert auxjad.LoopByWindow(input_music, repetition_chance=1.4)
-        assert auxjad.LoopByWindow(input_music, forward_bias=-0.3)
-        assert auxjad.LoopByWindow(input_music, forward_bias=1.4)
-        assert auxjad.LoopByWindow(input_music, head_position=(100, 1))
+        assert auxjad.LoopByWindow(container, window_size=(100, 1))
+        assert auxjad.LoopByWindow(container, max_steps=-1)
+        assert auxjad.LoopByWindow(container, repetition_chance=-0.3)
+        assert auxjad.LoopByWindow(container, repetition_chance=1.4)
+        assert auxjad.LoopByWindow(container, forward_bias=-0.3)
+        assert auxjad.LoopByWindow(container, forward_bias=1.4)
+        assert auxjad.LoopByWindow(container, head_position=(100, 1))
 
 
 def test_LoopByWindow_10():
-    input_music = abjad.Container(r"c'4 e'2 d'2 f'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 e'2 d'2 f'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  )
-    music = looper.output_all(tie_identical_pitches=True)
-    staff = abjad.Staff(music)
+    notes = looper.output_all(tie_identical_pitches=True)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -480,13 +480,13 @@ def test_LoopByWindow_10():
 
 
 def test_LoopByWindow_11():
-    input_music = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  )
-    music = looper.output_all(tie_identical_pitches=True)
-    staff = abjad.Staff(music)
+    notes = looper.output_all(tie_identical_pitches=True)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -514,13 +514,13 @@ def test_LoopByWindow_11():
 
 
 def test_LoopByWindow_12():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  )
-    music = looper.output_n(2)
-    staff = abjad.Staff(music)
+    notes = looper.output_n(2)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -537,13 +537,13 @@ def test_LoopByWindow_12():
 
 
 def test_LoopByWindow_13():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4 f'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  )
-    music = looper.output_n(2, tie_identical_pitches=True)
-    staff = abjad.Staff(music)
+    notes = looper.output_n(2, tie_identical_pitches=True)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -559,8 +559,8 @@ def test_LoopByWindow_13():
 
 
 def test_LoopByWindow_14():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  )
@@ -569,8 +569,8 @@ def test_LoopByWindow_14():
 
 
 def test_LoopByWindow_15():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  head_position=(3, 4),
@@ -597,8 +597,8 @@ def test_LoopByWindow_15():
 
 
 def test_LoopByWindow_16():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  head_position=(3, 4),
@@ -628,8 +628,8 @@ def test_LoopByWindow_16():
 
 
 def test_LoopByWindow_17():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  forward_bias=0.0,
@@ -649,8 +649,8 @@ def test_LoopByWindow_17():
 
 
 def test_LoopByWindow_18():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container,
                                  move_window_on_first_call=True,
                                  )
     notes = looper()
@@ -675,8 +675,8 @@ def test_LoopByWindow_18():
 
 
 def test_LoopByWindow_19():
-    input_music = abjad.Container(r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
-    looper = auxjad.LoopByWindow(input_music)
+    container = abjad.Container(r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
+    looper = auxjad.LoopByWindow(container)
     staff = abjad.Staff()
     for _ in range(2):
         music = looper()
@@ -718,8 +718,8 @@ def test_LoopByWindow_19():
 
 
 def test_LoopByWindow_20():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music)
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -784,16 +784,16 @@ def test_LoopByWindow_20():
 
 
 def test_LoopByWindow_21():
-    input_music = abjad.Container(r"c'1")
-    looper = auxjad.LoopByWindow(input_music)
+    container = abjad.Container(r"c'1")
+    looper = auxjad.LoopByWindow(container)
     assert len(looper) == 16
-    input_music = abjad.Container(r"c'1")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'1")
+    looper = auxjad.LoopByWindow(container,
                                  step_size=(1, 4),
                                  )
     assert len(looper) == 4
-    input_music = abjad.Container(r"c'2..")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'2..")
+    looper = auxjad.LoopByWindow(container,
                                  step_size=(1, 4),
                                  window_size=(2, 4),
                                  )
@@ -801,8 +801,8 @@ def test_LoopByWindow_21():
 
 
 def test_LoopByWindow_22():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  fill_with_rests=False,
@@ -826,8 +826,8 @@ def test_LoopByWindow_22():
 
 
 def test_LoopByWindow_23():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 8),
                                  )
@@ -852,8 +852,8 @@ def test_LoopByWindow_23():
 
 def test_LoopByWindow_24():
     random.seed(43271)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 4),
                                  head_position=(3, 4),
@@ -887,8 +887,8 @@ def test_LoopByWindow_24():
 
 def test_LoopByWindow_25():
     random.seed(19814)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-    looper = auxjad.LoopByWindow(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+    looper = auxjad.LoopByWindow(container,
                                  window_size=(1, 4),
                                  step_size=(1, 4),
                                  max_steps=4,

@@ -75,7 +75,7 @@ class TenneySelector():
 
         Use the read-only properties ``previous_result`` and ``previous_index``
         to output the previous result and its index. Default values for both
-         is ``None``.
+        is ``None``.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> selector.previous_index

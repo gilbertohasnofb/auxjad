@@ -5,8 +5,8 @@ import auxjad
 
 
 def test_Phaser_01():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container)
     assert format(phaser) == abjad.String.normalize(
         r"""
         {
@@ -69,8 +69,8 @@ def test_Phaser_01():
 
 
 def test_Phaser_02():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            )
     notes = phaser()
@@ -111,8 +111,8 @@ def test_Phaser_02():
 
 
 def test_Phaser_03():
-    input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
     notes = phaser.__next__()
@@ -196,8 +196,8 @@ def test_Phaser_03():
 
 
 def test_Phaser_04():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
                            step_size=(5, 8),
                            max_steps=2,
                            forward_bias=0.2,
@@ -218,12 +218,12 @@ def test_Phaser_04():
 
 
 def test_Phaser_05():
-    input_music = abjad.Container(r"\time 3/4 c'4. d'4.")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/4 c'4. d'4.")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
-    music = phaser.output_all()
-    staff = abjad.Staff(music)
+    notes = phaser.output_all()
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -245,11 +245,11 @@ def test_Phaser_05():
             d'4.
         }
         """)
-    phaser = auxjad.Phaser(input_music,
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
-    music = phaser.output_all(cycle_back_to_first=False)
-    staff = abjad.Staff(music)
+    notes = phaser.output_all(cycle_back_to_first=False)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -272,8 +272,8 @@ def test_Phaser_05():
 
 
 def test_Phaser_06():
-    input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
     notes = phaser.__next__()
@@ -347,8 +347,8 @@ def test_Phaser_06():
 
 
 def test_Phaser_07():
-    input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-    phaser = auxjad.Phaser(input_music)
+    container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
+    phaser = auxjad.Phaser(container)
     staff = abjad.Staff()
     for _ in range(3):
         window = phaser()
@@ -399,23 +399,23 @@ def test_Phaser_07():
 
 def test_Phaser_08():
     wrong_type_input = 'foobar'
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
     with pytest.raises(TypeError):
         assert auxjad.Phaser(wrong_type_input)
-        assert auxjad.Phaser(input_music, step_size=62.3j)
-        assert auxjad.Phaser(input_music, max_steps='foo')
-        assert auxjad.Phaser(input_music, forward_bias='bar')
-        assert auxjad.Phaser(input_music, phase_on_first_call='xyz')
-        assert auxjad.Phaser(input_music, remove_ties_connecting_windows=17j)
+        assert auxjad.Phaser(container, step_size=62.3j)
+        assert auxjad.Phaser(container, max_steps='foo')
+        assert auxjad.Phaser(container, forward_bias='bar')
+        assert auxjad.Phaser(container, phase_on_first_call='xyz')
+        assert auxjad.Phaser(container, remove_ties_connecting_windows=17j)
     with pytest.raises(ValueError):
-        assert auxjad.Phaser(input_music, max_steps=-1)
-        assert auxjad.Phaser(input_music, forward_bias=-0.3)
-        assert auxjad.Phaser(input_music, forward_bias=1.4)
+        assert auxjad.Phaser(container, max_steps=-1)
+        assert auxjad.Phaser(container, forward_bias=-0.3)
+        assert auxjad.Phaser(container, forward_bias=1.4)
 
 
 def test_Phaser_09():
-    input_music = abjad.Container(r"c'2 d'2")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'2 d'2")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            )
     staff = abjad.Staff()
@@ -451,7 +451,7 @@ def test_Phaser_09():
             c'4
         }
         """)
-    phaser = auxjad.Phaser(input_music,
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            remove_unterminated_ties=True,
                            )
@@ -491,8 +491,8 @@ def test_Phaser_09():
 
 
 def test_Phaser_10():
-    input_music = abjad.Container(r"<d' fs' a'>2 c'2")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"<d' fs' a'>2 c'2")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            )
     staff = abjad.Staff()
@@ -528,7 +528,7 @@ def test_Phaser_10():
             <d' fs' a'>4
         }
         """)
-    phaser = auxjad.Phaser(input_music,
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            remove_unterminated_ties=False,
                            )
@@ -571,12 +571,12 @@ def test_Phaser_10():
 
 
 def test_Phaser_11():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 32),
                            )
-    music = phaser.output_n(3)
-    staff = abjad.Staff(music)
+    notes = phaser.output_n(3)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -612,8 +612,8 @@ def test_Phaser_11():
 
 
 def test_Phaser_12():
-    input_music = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
-    phaser = auxjad.Phaser(input_music)
+    container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
+    phaser = auxjad.Phaser(container)
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -637,7 +637,7 @@ def test_Phaser_12():
             c'8
         }
         """)
-    phaser = auxjad.Phaser(input_music,
+    phaser = auxjad.Phaser(container,
                            forward_bias=0.0,
                            )
     notes = phaser.output_n(3)
@@ -666,8 +666,8 @@ def test_Phaser_12():
 
 
 def test_Phaser_13():
-    input_music = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            forward_bias=0.0,
                            )
@@ -695,8 +695,8 @@ def test_Phaser_13():
 
 
 def test_Phaser_14():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
                            phase_on_first_call=True,
                            )
     notes = phaser()
@@ -722,8 +722,8 @@ def test_Phaser_14():
 
 
 def test_Phaser_15():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
                            phase_on_first_call=True,
                            remove_unterminated_ties=False,
                            )
@@ -751,12 +751,12 @@ def test_Phaser_15():
 
 
 def test_Phaser_16():
-    input_music = abjad.Container(r"c'4-.\p\< d'4--\f e'4->\p f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4-.\p\< d'4--\f e'4->\p f'4")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            )
-    music = phaser.output_n(5)
-    staff = abjad.Staff(music)
+    notes = phaser.output_n(5)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
     r"""
     \new Staff
@@ -839,8 +839,8 @@ def test_Phaser_16():
 
 
 def test_Phaser_17():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container)
     notes = phaser()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -906,32 +906,32 @@ def test_Phaser_17():
 
 
 def test_Phaser_18():
-    input_music = abjad.Container(r"c'1")
-    phaser = auxjad.Phaser(input_music)
+    container = abjad.Container(r"c'1")
+    phaser = auxjad.Phaser(container)
     assert len(phaser) == 16
-    input_music = abjad.Container(r"c'1 d'1 e'1 f'1")
-    phaser = auxjad.Phaser(input_music)
+    container = abjad.Container(r"c'1 d'1 e'1 f'1")
+    phaser = auxjad.Phaser(container)
     assert len(phaser) == 64
-    input_music = abjad.Container(r"c'1")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'1")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
     assert len(phaser) == 4
-    input_music = abjad.Container(r"\time 3/4 c'2.")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/4 c'2.")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
     assert len(phaser) == 3
-    input_music = abjad.Container(r"\time 3/4 c'2.")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/4 c'2.")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 2),
                            )
     assert len(phaser) == 3
 
 
 def test_Phaser_19():
-    input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            )
     notes1 = phaser()
@@ -955,9 +955,9 @@ def test_Phaser_19():
 
 
 def test_Phaser_20():
-    input_music = abjad.Container(
+    container = abjad.Container(
         r"\time 2/4 c'2 \time 3/8 d'4. \time 2/4 e'2")
-    phaser = auxjad.Phaser(input_music,
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            )
     notes = phaser.output_n(3)
@@ -1002,8 +1002,8 @@ def test_Phaser_20():
 
 def test_Phaser_21():
     random.seed(98451)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            forward_bias=0.5,
                            )
@@ -1039,8 +1039,8 @@ def test_Phaser_21():
 
 def test_Phaser_22():
     random.seed(12365)
-    input_music = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-    phaser = auxjad.Phaser(input_music,
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            max_steps=4,
                            )

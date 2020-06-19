@@ -16,8 +16,8 @@ class Phaser():
         the phasing process. Each call of the object will shift the contents of
         the input container by a fixed amount.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music)
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -81,8 +81,8 @@ class Phaser():
         initialise the class with the keyword argument ``phase_on_first_call``
         set to ``True``.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        phase_on_first_call=True,
         ...                        )
         >>> notes = phaser()
@@ -111,8 +111,8 @@ class Phaser():
         The optional argument ``step_size`` can be used to step sizes for the
         phasing process. It takes a tuple or an ``abjad.Duration``.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        )
         >>> notes = phaser()
@@ -159,8 +159,8 @@ class Phaser():
         it appends rests at the end of the container, until it is totally
         exhausted.
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 4),
         ...                        )
         >>> staff = abjad.Staff()
@@ -217,8 +217,8 @@ class Phaser():
         any unterminated ties will be removed; set ``remove_unterminated_ties``
         to ``False`` to disable this behaviour.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(5, 8),
         ...                        max_steps=2,
         ...                        forward_bias=0.2,
@@ -253,8 +253,8 @@ class Phaser():
         Set ``forward_bias`` to ``0.0`` to move backwards instead of forwards
         (default is ``1.0``).
 
-        >>> input_music = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
-        >>> phaser = auxjad.Phaser(input_music)
+        >>> container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
+        >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -279,8 +279,8 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-8.png
 
-        >>> input_music = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
+        >>> phaser = auxjad.Phaser(container,
         ...                        forward_bias=0.0,
         ...                        )
         >>> notes = phaser.output_n(3)
@@ -313,8 +313,8 @@ class Phaser():
         result in random steps being taken forward or backward, according to
         the bias.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 4),
         ...                        forward_bias=0.5,
         ...                        )
@@ -353,8 +353,8 @@ class Phaser():
         will result in a random number of steps (between ``1`` and
         ``max_steps``) being applied at each call.
 
-        >>> input_music = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        max_steps=4,
         ...                        )
@@ -412,18 +412,18 @@ class Phaser():
         The function ``len()`` can be used to get the total number of steps
         that are necessary to return to the initial container.
 
-        >>> input_music = abjad.Container(r"c'1")
-        >>> phaser = auxjad.Phaser(input_music)
+        >>> container = abjad.Container(r"c'1")
+        >>> phaser = auxjad.Phaser(container)
         >>> len(phaser)
         16
-        >>> input_music = abjad.Container(r"c'1")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'1")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 4),
         ...                        )
         >>> len(phaser)
         4
-        >>> input_music = abjad.Container(r"\time 3/4 c'2.")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'2.")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 2),
         ...                        )
         >>> len(phaser)
@@ -435,12 +435,12 @@ class Phaser():
         from the initial head position until the process outputs the single
         last element, use the method ``output_all()``.
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4. d'4.")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'4. d'4.")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 4),
         ...                        )
-        >>> music = phaser.output_all()
-        >>> staff = abjad.Staff(music)
+        >>> notes = phaser.output_all()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -470,12 +470,12 @@ class Phaser():
         container, set the keyword argument ``cycle_back_to_first`` to
         ``False``.
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4. d'4.")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'4. d'4.")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 4),
         ...                        )
-        >>> music = phaser.output_all(cycle_back_to_first=False)
-        >>> staff = abjad.Staff(music)
+        >>> notes = phaser.output_all(cycle_back_to_first=False)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -502,12 +502,12 @@ class Phaser():
         container, starting from the initial head position, use the method
         ``output_n()`` and pass the number of iterations as argument.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 32),
         ...                        )
-        >>> music = phaser.output_n(3)
-        >>> staff = abjad.Staff(music)
+        >>> notes = phaser.output_n(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -550,8 +550,8 @@ class Phaser():
         ``remove_unterminated_ties=False`` when initialising the phaser to
         disable this behaviour.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        phase_on_first_call=True,
         ...                        remove_unterminated_ties=False,
         ...                        )
@@ -591,8 +591,8 @@ class Phaser():
         ``abjad.f(staff)`` now includes ``\time 3/4`` (and LilyPond does not
         fallback to a 4/4 time signature).
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        )
         >>> notes1 = phaser()
@@ -613,8 +613,8 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-16.png
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        )
         >>> notes1 = phaser()
@@ -640,9 +640,9 @@ class Phaser():
 
         This class handles time signature changes.
 
-        >>> input_music = abjad.Container(
+        >>> container = abjad.Container(
         ...     r"\time 2/4 c'2 \time 3/8 d'4. \time 2/4 e'2")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        )
         >>> notes = phaser.output_n(3)
@@ -690,8 +690,8 @@ class Phaser():
         tie is split into two during the phasing process, dynamics and
         articulations are passed on to both of them.
 
-        >>> input_music = abjad.Container(r"c'4-.\p\< d'4--\f e'4->\p f'4")
-        >>> phaser = auxjad.Phaser(input_music,
+        >>> container = abjad.Container(r"c'4-.\p\< d'4--\f e'4->\p f'4")
+        >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        )
         >>> staff = abjad.Staff()
@@ -791,8 +791,8 @@ class Phaser():
         of the phaser. Notice that the phasing process will start from the
         beginning of the new container.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> phaser = auxjad.Phaser(input_music)
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -866,8 +866,8 @@ class Phaser():
         are not fused together, and tuplets may be output off-beat. This
         functionality should be considered experimental.
 
-        >>> input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-        >>> phaser = auxjad.Phaser(input_music)
+        >>> container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
+        >>> phaser = auxjad.Phaser(container)
         >>> staff = abjad.Staff()
         >>> for _ in range(3):
         ...     window = phaser()

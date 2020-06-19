@@ -17,8 +17,8 @@ class Fader():
         process to the previous result. By default, the container will be faded
         out (that is, its logical ties will be gradually removed one by one).
 
-        >>> input_music = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -92,8 +92,8 @@ class Fader():
         first call, initialise the class with the keyword argument
         ``fade_on_first_call`` set to ``True``.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> fader = auxjad.Fader(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> fader = auxjad.Fader(container,
         ...                      fade_on_first_call=True,
         ...                      )
         >>> notes = fader()
@@ -117,8 +117,8 @@ class Fader():
         signature structure as the input music and will gradually add the
         original logical ties one by one.
 
-        >>> input_music = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-        >>> fader = auxjad.Fader(input_music,
+        >>> container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+        >>> fader = auxjad.Fader(container,
         ...                      fader_type='in',
         ...                      )
         >>> notes = fader()
@@ -168,8 +168,8 @@ class Fader():
         The property ``fader_type`` can also be changed after initialisation,
         as shown below.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -241,8 +241,8 @@ class Fader():
         The instances of ``Fader`` can also be used as an iterator,
         which can then be used in a for loop to run through the whole process.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> fader = auxjad.Fader(container)
         >>> staff = abjad.Staff()
         >>> for notes in fader:
         ...     staff.append(notes)
@@ -296,8 +296,8 @@ class Fader():
         and ``0``'s to start the process with some specific logical ties
         already hidden/shown.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> fader = auxjad.Fader(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> fader = auxjad.Fader(container,
         ...                      fader_type='in',
         ...                      max_steps=2,
         ...                      fade_on_first_call=True,
@@ -355,8 +355,8 @@ class Fader():
         Use the ``contents`` property to read as well as overwrite the contents
         of the fader. Notice that ``mask`` will also be reset at that point.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader()
         >>> fader.mask
         [1, 1, 1, 1]
@@ -427,10 +427,10 @@ class Fader():
         from the initial head position until the process outputs the single
         last element, use the method ``output_all()``.
 
-        >>> input_music = abjad.Container(r"c'4. d'8 e'2")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4. d'8 e'2")
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
-        >>> staff = abjad.Staff(music)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -459,10 +459,10 @@ class Fader():
         container, use the method``output_n()`` and pass the number of
         iterations as argument.
 
-        >>> input_music = abjad.Container(r"c'4. d'8 e'16 f'16 g'4.")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4. d'8 e'16 f'16 g'4.")
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_n(3)
-        >>> staff = abjad.Staff(music)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -502,21 +502,21 @@ class Fader():
         The function ``len()`` returns the number of pitched logical ties in
         ``contents``.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> fader = auxjad.Fader(container)
         >>> len(fader)
         4
-        >>> input_music = abjad.Container(r"<c' e' g'>4 d'4 <e' g' b'>4 f'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"<c' e' g'>4 d'4 <e' g' b'>4 f'4")
+        >>> fader = auxjad.Fader(container)
         >>> len(fader)
         4
-        >>> input_music = abjad.Container(r"c'4 ~ c'8 d'8 e'4 ~ e'8 f'8")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 ~ c'8 d'8 e'4 ~ e'8 f'8")
+        >>> fader = auxjad.Fader(container)
         >>> len(fader)
         4
-        >>> input_music = abjad.Container(
+        >>> container = abjad.Container(
         ...     r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16")
-        >>> fader = auxjad.Fader(input_music)
+        >>> fader = auxjad.Fader(container)
         >>> len(fader)
         4
 
@@ -526,15 +526,14 @@ class Fader():
         will result in a random number of steps (between ``1`` and
         ``max_steps``) being applied at each call.
 
-        >>> input_music = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-        >>> fader = auxjad.Fader(input_music,
-        ...                              max_steps=3,
-        ...                              fade_on_first_call=True,
-        ...                              )
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> fader = auxjad.Fader(container,
+        ...                      max_steps=3,
+        ...                      fade_on_first_call=True,
+        ...                      )
         >>> notes = fader.output_n(3)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
-        \new Staff
         \new Staff
         {
             c'8
@@ -574,11 +573,11 @@ class Fader():
         ``reset_mask()`` to reset it back to its default value (depending on
         ``fader_type``).
 
-        >>> input_music = abjad.Container(r"c'4 d'8 e'8 f'4 ~ f'8. g'16")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"c'4 d'8 e'8 f'4 ~ f'8. g'16")
+        >>> fader = auxjad.Fader(container)
         >>> fader.mask
         [1, 1, 1, 1, 1]
-        >>> fader = auxjad.Fader(input_music,
+        >>> fader = auxjad.Fader(container,
         ...                      fader_type='in',
         ...                      )
         >>> fader.mask
@@ -642,8 +641,8 @@ class Fader():
         through abjad's ``rewrite_meter()``. To disable it, set
         ``disable_rewrite_meter`` to ``True``.
 
-        >>> input_music = abjad.Container(r"c'8 d'8 e'2.")
-        >>> fader = auxjad.Fader(input_music,
+        >>> container = abjad.Container(r"c'8 d'8 e'2.")
+        >>> fader = auxjad.Fader(container,
         ...                      disable_rewrite_meter=True,
         ...                      use_multimeasure_rest=False,
         ...                      )
@@ -676,8 +675,8 @@ class Fader():
         is ``False``), or use the ``omit_all_time_signatures`` property after
         initialisation.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> fader = auxjad.Fader(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> fader = auxjad.Fader(container,
         ...                      omit_all_time_signatures=True,
         ...                      )
         >>> notes = fader()
@@ -706,8 +705,8 @@ class Fader():
         ``True``, and the output of ``abjad.f(staff)`` now includes
         ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> fader = auxjad.Fader(container)
         >>> notes1 = fader()
         >>> notes2 = fader()
         >>> staff = abjad.Staff(notes2)
@@ -721,8 +720,8 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-27.png
 
-        >>> input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> fader = auxjad.Fader(input_music,
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> fader = auxjad.Fader(container,
         ...                      force_time_signatures=True,
         ...                      )
         >>> notes1 = fader()
@@ -744,9 +743,9 @@ class Fader():
         This class can handle dynamics and articulations too. Hairpins might
         need manual tweaking if the leaf under which they terminate is removed.
 
-        >>> input_music = abjad.Container(
+        >>> container = abjad.Container(
         ...     r"\time 3/4 <e' g' b'>8->\f d'8\p ~ d'4 f'8..-- g'32-.")
-        >>> fader = auxjad.Fader(input_music)
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -792,12 +791,20 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-29.png
 
+    ..  warning::
+
+        Do note that elements that span multiple notes (such as hairpins,
+        ottava indicators, manual beams, etc.) can become problematic when
+        notes containing them are split into two. Whenever possible, it is
+        always better to attach those to the music after the phasing process is
+        concluded.
+
     ..  container:: example
 
         This class can handle tuplets.
 
-        >>> input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-        >>> fader = auxjad.Fader(input_music)
+        >>> container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
+        >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)

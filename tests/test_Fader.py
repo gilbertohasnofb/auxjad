@@ -6,8 +6,8 @@ import auxjad
 
 def test_Fader_01():
     random.seed(13987)
-    input_music = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+    fader = auxjad.Fader(container)
     assert format(fader) == abjad.String.normalize(
         r"""
         {
@@ -84,8 +84,8 @@ def test_Fader_01():
 
 def test_Fader_02():
     random.seed(98752)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container)
     notes = fader()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -147,8 +147,8 @@ def test_Fader_02():
 
 
 def test_Fader_03():
-    input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    fader = auxjad.Fader(container,
                          fader_type='in',
                          max_steps=2,
                          fade_on_first_call=True,
@@ -183,8 +183,8 @@ def test_Fader_03():
 
 def test_Fader_04():
     random.seed(19962)
-    input_music = abjad.Container(r"c'4. d'8 e'2")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4. d'8 e'2")
+    fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -212,8 +212,8 @@ def test_Fader_04():
 
 def test_Fader_05():
     random.seed(98713)
-    input_music = abjad.Container(r"c'4. d'8 e'2")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'4. d'8 e'2")
+    fader = auxjad.Fader(container,
                          fader_type='in'
                          )
     notes = fader.output_all()
@@ -244,8 +244,8 @@ def test_Fader_05():
 
 def test_Fader_06():
     random.seed(13241)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container)
     notes = fader.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -335,8 +335,8 @@ def test_Fader_06():
 
 def test_Fader_07():
     random.seed(44126)
-    input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
+    fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -375,8 +375,8 @@ def test_Fader_07():
 
 def test_Fader_08():
     random.seed(88103)
-    input_music = abjad.Container(r"c'4. d'8 e'16 f'16 g'4.")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4. d'8 e'16 f'16 g'4.")
+    fader = auxjad.Fader(container)
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -416,9 +416,9 @@ def test_Fader_08():
 
 def test_Fader_09():
     random.seed(14812)
-    input_music = abjad.Container(
+    container = abjad.Container(
         r"\time 3/8 c'4. \time 2/4 d'2 \time 3/8 e'4.")
-    fader = auxjad.Fader(input_music)
+    fader = auxjad.Fader(container)
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -447,8 +447,8 @@ def test_Fader_09():
 
 def test_Fader_10():
     random.seed(29862)
-    input_music = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    fader = auxjad.Fader(container,
                          max_steps=3,
                          fade_on_first_call=True,
                          )
@@ -485,8 +485,8 @@ def test_Fader_10():
 
 def test_Fader_11():
     random.seed(18711)
-    input_music = abjad.Container(r"c'8 d'8 e'2.")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'8 d'8 e'2.")
+    fader = auxjad.Fader(container,
                          disable_rewrite_meter=True,
                          use_multimeasure_rest=False,
                          )
@@ -515,8 +515,8 @@ def test_Fader_11():
 
 def test_Fader_12():
     random.seed(87123)
-    input_music = abjad.Container(r"\time 2/4 c'4 d'4 \time 3/4 e'4 f'4 g'4")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"\time 2/4 c'4 d'4 \time 3/4 e'4 f'4 g'4")
+    fader = auxjad.Fader(container,
                          omit_all_time_signatures=True,
                          )
     notes = fader.output_n(3)
@@ -546,8 +546,8 @@ def test_Fader_12():
 
 def test_Fader_13():
     random.seed(47103)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container,
                          fade_on_first_call=True,
                          )
     notes = fader()
@@ -566,8 +566,8 @@ def test_Fader_13():
 
 def test_Fader_14():
     random.seed(19941)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container,
                          fader_type='in',
                          mask=[0, 1, 1, 0]
                          )
@@ -624,9 +624,9 @@ def test_Fader_14():
 
 def test_Fader_15():
     random.seed(71324)
-    input_music = abjad.Container(
+    container = abjad.Container(
         r"\time 3/4 <e' g' b'>8->\f d'8\p ~ d'4 f'8..-- g'32-.")
-    fader = auxjad.Fader(input_music)
+    fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -675,8 +675,8 @@ def test_Fader_15():
 
 def test_Fader_16():
     random.seed(91622)
-    input_music = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+    fader = auxjad.Fader(container,
                          fader_type='in',
                          )
     assert format(fader) == abjad.String.normalize(
@@ -750,24 +750,24 @@ def test_Fader_16():
 
 
 def test_Fader_17():
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container)
     assert len(fader) == 4
-    input_music = abjad.Container(r"<c' e' g'>4 d'4 <e' g' b'>4 f'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"<c' e' g'>4 d'4 <e' g' b'>4 f'4")
+    fader = auxjad.Fader(container)
     assert len(fader) == 4
-    input_music = abjad.Container(r"c'4 ~ c'8 d'8 e'4 ~ e'8 f'8")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 ~ c'8 d'8 e'4 ~ e'8 f'8")
+    fader = auxjad.Fader(container)
     assert len(fader) == 4
-    input_music = abjad.Container(r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16")
+    fader = auxjad.Fader(container)
     assert len(fader) == 4
 
 
 def test_Fader_18():
     random.seed(66501)
-    input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container)
     notes = fader()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -824,10 +824,10 @@ def test_Fader_18():
 
 def test_Fader_19():
     random.seed(48917)
-    input_music = abjad.Container(r"c'4 d'8 e'8 f'4 ~ f'8. g'16")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"c'4 d'8 e'8 f'4 ~ f'8. g'16")
+    fader = auxjad.Fader(container)
     assert fader.mask == [1, 1, 1, 1, 1]
-    fader = auxjad.Fader(input_music,
+    fader = auxjad.Fader(container,
                          fader_type='in',
                          )
     assert fader.mask == [0, 0, 0, 0, 0]
@@ -882,8 +882,8 @@ def test_Fader_19():
 
 def test_Fader_20():
     random.seed(91653)
-    input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-    fader = auxjad.Fader(input_music)
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+    fader = auxjad.Fader(container)
     notes1 = fader()
     notes2 = fader()
     staff = abjad.Staff(notes2)
@@ -897,8 +897,8 @@ def test_Fader_20():
         }
         """)
     random.seed(91653)
-    input_music = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-    fader = auxjad.Fader(input_music,
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+    fader = auxjad.Fader(container,
                          force_time_signatures=True,
                          )
     notes1 = fader()

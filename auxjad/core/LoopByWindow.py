@@ -18,8 +18,8 @@ class LoopByWindow(_LoopParent):
         respectively: (4, 4), i.e. a window of the size of a 4/4 bar, and
         (1, 16), i.e. a step of the length of a sixteenth-note.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -81,8 +81,8 @@ class LoopByWindow(_LoopParent):
         very first call, initialise the class with the keyword argument
         ``move_window_on_first_call`` set to ``True``.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              move_window_on_first_call=True,
         ...                              )
         >>> notes = looper()
@@ -112,8 +112,8 @@ class LoopByWindow(_LoopParent):
         or an ``abjad.Meter`` as input, while ``step_size`` takes a tuple or an
         ``abjad.Duration``.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
         ...                              )
@@ -155,8 +155,8 @@ class LoopByWindow(_LoopParent):
         it appends rests at the end of the container, until it is totally
         exhausted.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
         ...                              )
@@ -209,8 +209,8 @@ class LoopByWindow(_LoopParent):
         set the optional keyword argument ``fill_with_rests`` to ``True``.
         Compare the two approaches below.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
@@ -236,8 +236,8 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-8.png
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              fill_with_rests=False,
@@ -277,8 +277,8 @@ class LoopByWindow(_LoopParent):
         must be a tuple or an ``abjad.Duration``, and its default value is
         ``0``.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(5, 8),
         ...                              max_steps=2,
@@ -334,8 +334,8 @@ class LoopByWindow(_LoopParent):
         first call (since it will not be able to move backwards from that
         position).
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              head_position=(3, 4),
@@ -369,8 +369,8 @@ class LoopByWindow(_LoopParent):
         looper attempts to move backwards after reaching the head position
         ``0``.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              head_position=(3, 4),
@@ -407,8 +407,8 @@ class LoopByWindow(_LoopParent):
         will result in a random number of steps (between ``1`` and
         ``max_steps``) being applied at each call.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(1, 4),
         ...                              step_size=(1, 4),
         ...                              max_steps=4,
@@ -432,18 +432,18 @@ class LoopByWindow(_LoopParent):
         The function ``len()`` can be used to get the total number of steps
         in the contents (always rounded up).
 
-        >>> input_music = abjad.Container(r"c'1")
-        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> container = abjad.Container(r"c'1")
+        >>> looper = auxjad.LoopByWindow(container)
         >>> len(looper)
         16
-        >>> input_music = abjad.Container(r"c'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              step_size=(1, 4),
         ...                              )
         >>> len(looper)
         4
-        >>> input_music = abjad.Container(r"c'2..")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'2..")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              step_size=(1, 4),
         ...                              window_size=(2, 4),
         ...                              )
@@ -459,13 +459,13 @@ class LoopByWindow(_LoopParent):
         process is to be stopped when the end of the looping window reaches the
         end of the contents (thus not appending rests).
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
-        >>> music = looper.output_all()
-        >>> staff = abjad.Staff(music)
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -491,13 +491,13 @@ class LoopByWindow(_LoopParent):
         ``tie_identical_pitches`` to ``True`` in order to tie identical notes
         or chords at the end and beginning of consecutive windows.
 
-        >>> input_music = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
-        >>> music = looper.output_all(tie_identical_pitches=True)
-        >>> staff = abjad.Staff(music)
+        >>> notes = looper.output_all(tie_identical_pitches=True)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -531,13 +531,13 @@ class LoopByWindow(_LoopParent):
         to ``output_all()``, the optional keyword arguments
         ``tie_identical_pitches`` and ``fill_with_rests`` are available.
 
-        >>> input_music = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
-        >>> music = looper.output_n(2)
-        >>> staff = abjad.Staff(music)
+        >>> notes = looper.output_n(2)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -561,8 +561,8 @@ class LoopByWindow(_LoopParent):
         to the output window; subsequent calls will not have time signatures
         unless the size of the looping window changes.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container)
         >>> staff = abjad.Staff()
         >>> for _ in range(3):
         ...     notes = looper()
@@ -624,8 +624,8 @@ class LoopByWindow(_LoopParent):
         (default is ``False``), or use the ``omit_all_time_signatures``
         property after initialisation.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              omit_all_time_signatures=True,
         ...                              )
         >>> notes = looper()
@@ -653,8 +653,8 @@ class LoopByWindow(_LoopParent):
         ``True``, and the output of ``abjad.f(staff)`` now includes
         ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
         ...                              )
@@ -675,8 +675,8 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-19.png
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
         ...                              )
@@ -704,9 +704,9 @@ class LoopByWindow(_LoopParent):
         shortened by the looping window's movement, the dynamics and
         articulations are still applied to it.
 
-        >>> input_music = abjad.Container(
+        >>> container = abjad.Container(
         ...     r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
-        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> looper = auxjad.LoopByWindow(container)
         >>> staff = abjad.Staff()
         >>> for _ in range(2):
         ...     music = looper()
@@ -752,8 +752,8 @@ class LoopByWindow(_LoopParent):
         of the looper. Notice that the ``head_position`` will remain on its
         previous value and must be reset to ``0`` if that's required.
 
-        >>> input_music = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(input_music)
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> looper = auxjad.LoopByWindow(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -826,8 +826,8 @@ class LoopByWindow(_LoopParent):
         are not fused together, and tuplets may be output off-beat. This
         functionality should be considered experimental.
 
-        >>> input_music = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-        >>> looper = auxjad.LoopByWindow(input_music,
+        >>> container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
+        >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 16))
         >>> staff = abjad.Staff()

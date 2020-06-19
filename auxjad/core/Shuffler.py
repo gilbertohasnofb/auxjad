@@ -24,8 +24,8 @@ class Shuffler:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -41,8 +41,8 @@ class Shuffler:
         To get the result of the last operation, use the property
         ``current_window``.
 
-        >>> music = shuffler.current_window
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.current_window
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -62,8 +62,8 @@ class Shuffler:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.shuffle()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.shuffle()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -133,8 +133,8 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container,
         ...                            output_single_measure=True,
         ...                            )
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -159,8 +159,8 @@ class Shuffler:
         ...                            output_single_measure=True,
         ...                            disable_rewrite_meter=True,
         ...                            )
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -182,8 +182,8 @@ class Shuffler:
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -206,8 +206,8 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-6.png
 
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -236,8 +236,8 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container,
         ...                            force_time_signatures=True,
         ...                            )
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -260,8 +260,8 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-8.png
 
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -295,8 +295,8 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container,
         ...                            omit_time_signatures=True,
         ...                            )
-        >>> music = shuffler()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -331,8 +331,8 @@ class Shuffler:
 
         >>> container = abjad.Container(r"\time 2/4 c'16 d'4.. | r4 e'8. f'16")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.output_n(3)
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.output_n(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -371,7 +371,7 @@ class Shuffler:
 
         >>> container = abjad.Container(r"c'2 \times 2/3 {d'4 e'2}")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler()
+        >>> notes = shuffler()
         TypeError: 'contents' contain one ore more tuplets, which are not
         currently supported by the shuffle method
 
@@ -384,8 +384,8 @@ class Shuffler:
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.shuffle_pitches()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.shuffle_pitches()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -413,8 +413,8 @@ class Shuffler:
         >>> container = abjad.Container(
         ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} r4 e'4. f'8)
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.output_n_shuffled_pitches(3)
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.output_n_shuffled_pitches(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -451,8 +451,8 @@ class Shuffler:
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.rotate_pitches()
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.rotate_pitches()
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -481,8 +481,8 @@ class Shuffler:
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -509,8 +509,8 @@ class Shuffler:
         >>> container = abjad.Container(
         ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} r4 e'4. f'8")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> music = shuffler.output_n_rotated_pitches(3)
-        >>> staff = abjad.Staff(music)
+        >>> notes = shuffler.output_n_rotated_pitches(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {

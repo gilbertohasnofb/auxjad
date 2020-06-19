@@ -33,9 +33,7 @@ def test_Fader_01():
             c'16
             d'8.
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader()
@@ -49,9 +47,7 @@ def test_Fader_01():
             c'16
             r8.
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader()
@@ -62,9 +58,7 @@ def test_Fader_01():
         {
             r2
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader.current_window
@@ -75,9 +69,7 @@ def test_Fader_01():
         {
             r2
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
 
@@ -157,6 +149,7 @@ def test_Fader_03():
                          force_time_signatures=True,
                          use_multimeasure_rest=False,
                          mask=[1, 0, 1, 1, 0],
+                         rewrite_meter_boundary_depth=0,
                          )
     assert fader.fader_type == 'in'
     assert fader.max_steps == 2
@@ -165,6 +158,7 @@ def test_Fader_03():
     assert fader.force_time_signatures
     assert not fader.use_multimeasure_rest
     assert fader.mask == [1, 0, 1, 1, 0]
+    assert fader.rewrite_meter_boundary_depth == 0
     fader.fader_type = 'out'
     fader.max_steps = 1
     fader.disable_rewrite_meter = False
@@ -172,6 +166,7 @@ def test_Fader_03():
     fader.force_time_signatures = False
     fader.use_multimeasure_rest = True
     fader.mask = [0, 1, 1, 0, 1]
+    fader.rewrite_meter_boundary_depth = 1
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
     assert not fader.disable_rewrite_meter
@@ -179,6 +174,7 @@ def test_Fader_03():
     assert not fader.force_time_signatures
     assert fader.use_multimeasure_rest
     assert fader.mask == [0, 1, 1, 0, 1]
+    assert fader.rewrite_meter_boundary_depth == 1
 
 
 def test_Fader_04():
@@ -192,17 +188,13 @@ def test_Fader_04():
         \new Staff
         {
             \time 4/4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             e'2
-            r4
-            r8
+            r4.
             d'8
             e'2
-            r4
-            r8
+            r4.
             d'8
             r2
             R1
@@ -224,18 +216,13 @@ def test_Fader_05():
         {
             \time 4/4
             R1
-            r4
-            r8
+            r4.
             d'8
             r2
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             r2
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             e'2
         }
@@ -384,32 +371,21 @@ def test_Fader_08():
         \new Staff
         {
             \time 4/4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             e'16
             f'16
-            g'8
-            ~
-            g'4
-            c'4
-            ~
-            c'8
+            g'4.
+            c'4.
             r8
             e'16
             f'16
-            g'8
-            ~
-            g'4
-            c'4
-            ~
-            c'8
+            g'4.
+            c'4.
             r8
             e'16
             f'16
-            r8
-            r4
+            r4.
         }
         """)
 
@@ -637,10 +613,8 @@ def test_Fader_15():
             <e' g' b'>8
             \f
             - \accent
-            d'8
+            d'4.
             \p
-            ~
-            d'4
             f'8..
             - \tenuto
             g'32
@@ -648,10 +622,8 @@ def test_Fader_15():
             <e' g' b'>8
             \f
             - \accent
-            d'8
+            d'4.
             \p
-            ~
-            d'4
             r8..
             g'32
             - \staccato
@@ -659,8 +631,7 @@ def test_Fader_15():
             \f
             - \accent
             r8
-            r4
-            r8..
+            r4...
             g'32
             - \staccato
             <e' g' b'>8
@@ -710,9 +681,7 @@ def test_Fader_16():
         {
             r2
             r8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader()
@@ -726,9 +695,7 @@ def test_Fader_16():
             c'16
             r8.
             r8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader.current_window
@@ -742,9 +709,7 @@ def test_Fader_16():
             c'16
             r8.
             r8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
 
@@ -860,9 +825,7 @@ def test_Fader_19():
             c'4
             r8
             e'8
-            f'4
-            ~
-            f'8.
+            f'4..
             r16
         }
         """)
@@ -912,5 +875,39 @@ def test_Fader_20():
             c'4
             r4
             e'4
+        }
+        """)
+
+
+def test_Fader_21():
+    container = abjad.Container(r"c'4. d'8 e'2")
+    fader = auxjad.Fader(container)
+    notes = fader()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+        """)
+    fader = auxjad.Fader(container,
+                         rewrite_meter_boundary_depth=1,
+                         )
+    notes = fader()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
         }
         """)

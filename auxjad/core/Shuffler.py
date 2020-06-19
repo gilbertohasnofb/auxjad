@@ -188,17 +188,13 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
             f'16
             ~
-            f'4
-            ~
-            f'8.
+            f'4..
             r16
             r8.
             c'16
@@ -215,16 +211,12 @@ class Shuffler:
             e'8.
             ~
             e'16
-            f'8.
-            ~
-            f'4
+            f'4..
             ~
             f'16
             r8.
             r16
-            d'8.
-            ~
-            d'4
+            d'4..
         }
 
         .. figure:: ../_images/image-Shuffler-7.png
@@ -242,20 +234,12 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
-            d'4
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'4
-            ~
-            f'8.
+            d'4..
             r16
             r8.
             c'16
+            e'4
+            f'2
         }
 
         .. figure:: ../_images/image-Shuffler-8.png
@@ -266,20 +250,11 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
+            e'4
+            f'2
+            r4
             c'16
-            e'8.
-            ~
-            e'16
-            f'8.
-            ~
-            f'4
-            ~
-            f'16
-            r8.
-            r16
-            d'8.
-            ~
-            d'4
+            d'4..
         }
 
         .. figure:: ../_images/image-Shuffler-9.png
@@ -300,17 +275,13 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
             f'16
             ~
-            f'4
-            ~
-            f'8.
+            f'4..
             r16
             r8.
             c'16
@@ -337,16 +308,12 @@ class Shuffler:
         \new Staff
         {
             \time 2/4
-            d'4
-            ~
-            d'8.
+            d'4..
             f'16
             c'16
             e'8.
             r4
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8
@@ -579,6 +546,47 @@ class Shuffler:
         }
 
         .. figure:: ../_images/image-Shuffler-19.png
+
+    ..  container:: example
+
+        This function uses the default logical tie splitting algorithm from
+        abjad's ``rewrite_meter()``.
+
+        >>> container = abjad.Container(r"c'4. d'8 e'2")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            e'2
+            c'4.
+            d'8
+        }
+
+        .. figure:: ../_images/image-Shuffler-20.png
+
+        Set ``rewrite_meter_boundary_depth`` to a different number to change
+        its behaviour.
+
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            rewrite_meter_boundary_depth=1,
+        ...                            )
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            e'2
+            c'4
+            ~
+            c'8
+            d'8
+        }
+
+        .. figure:: ../_images/image-Shuffler-21.png
     """
 
     ### CLASS VARIABLES ###
@@ -592,6 +600,7 @@ class Shuffler:
                  '_logical_ties',
                  '_time_signatures',
                  '_is_first_window',
+                 '_rewrite_meter_boundary_depth',
                  )
 
     ### INITIALISER ###
@@ -603,6 +612,7 @@ class Shuffler:
                  disable_rewrite_meter: bool = False,
                  force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
+                 rewrite_meter_boundary_depth: int = None,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -610,6 +620,7 @@ class Shuffler:
         self.disable_rewrite_meter = disable_rewrite_meter
         self.force_time_signatures = force_time_signatures
         self.omit_time_signatures = omit_time_signatures
+        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -665,9 +676,10 @@ class Shuffler:
                 if not self._output_single_measure:
                     for measure, time_signature in zip(measures,
                                                        self._time_signatures):
-                        abjad.mutate(measure).rewrite_meter(time_signature,
-                                                            boundary_depth=1,
-                                                            )
+                        abjad.mutate(measure).rewrite_meter(
+                            time_signature,
+                            boundary_depth=self._rewrite_meter_boundary_depth,
+                        )
         else:
             time_signature = abjad.TimeSignature(
                 abjad.inspect(dummy_container).duration())
@@ -678,9 +690,10 @@ class Shuffler:
             if not self._disable_rewrite_meter:
                 measures = abjad.select(dummy_container[:]).group_by_measure()
                 for measure in measures:
-                    abjad.mutate(measure).rewrite_meter(time_signature,
-                                                        boundary_depth=1,
-                                                        )
+                    abjad.mutate(measure).rewrite_meter(
+                        time_signature,
+                        boundary_depth=self._rewrite_meter_boundary_depth,
+                    )
 
         # removing first time signature if necessary
         if (not self._is_first_window
@@ -960,6 +973,20 @@ class Shuffler:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
+
+    @property
+    def rewrite_meter_boundary_depth(self) -> int:
+        r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
+        return self._rewrite_meter_boundary_depth
+
+    @rewrite_meter_boundary_depth.setter
+    def rewrite_meter_boundary_depth(self,
+                                     rewrite_meter_boundary_depth: int,
+                                     ):
+        if rewrite_meter_boundary_depth is not None:
+            if not isinstance(rewrite_meter_boundary_depth, int):
+                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
+        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
 
     @property
     def current_window(self) -> abjad.Selection:

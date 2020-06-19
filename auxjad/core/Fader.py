@@ -30,9 +30,7 @@ class Fader():
             c'16
             d'8.
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
 
         .. figure:: ../_images/image-Fader-1.png
@@ -47,9 +45,7 @@ class Fader():
             c'16
             r8.
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
 
         .. figure:: ../_images/image-Fader-2.png
@@ -61,9 +57,7 @@ class Fader():
         {
             r2
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
 
         .. figure:: ../_images/image-Fader-3.png
@@ -78,9 +72,7 @@ class Fader():
         {
             r2
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
 
         .. figure:: ../_images/image-Fader-4.png
@@ -139,9 +131,7 @@ class Fader():
         {
             r2
             r8
-            f'8
-            ~
-            f'4
+            f'4.
         }
 
         .. figure:: ../_images/image-Fader-7.png
@@ -156,9 +146,7 @@ class Fader():
             c'16
             r8.
             r8
-            f'8
-            ~
-            f'4
+            f'4.
         }
 
         .. figure:: ../_images/image-Fader-8.png
@@ -435,17 +423,13 @@ class Fader():
         \new Staff
         {
             \time 4/4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             e'2
-            r4
-            r8
+            r4.
             d'8
             e'2
-            r4
-            r8
+            r4.
             d'8
             r2
             R1
@@ -467,32 +451,21 @@ class Fader():
         \new Staff
         {
             \time 4/4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             e'16
             f'16
-            g'8
-            ~
-            g'4
-            c'4
-            ~
-            c'8
+            g'4.
+            c'4.
             r8
             e'16
             f'16
-            g'8
-            ~
-            g'4
-            c'4
-            ~
-            c'8
+            g'4.
+            c'4.
             r8
             e'16
             f'16
-            r8
-            r4
+            r4.
         }
 
         .. figure:: ../_images/image-Fader-20.png
@@ -611,9 +584,7 @@ class Fader():
             c'4
             r8
             e'8
-            f'4
-            ~
-            f'8.
+            f'4..
             r16
         }
 
@@ -740,6 +711,47 @@ class Fader():
 
     ..  container:: example
 
+        This function uses the default logical tie splitting algorithm from
+        abjad's ``rewrite_meter()``.
+
+        >>> staff = abjad.Staff(r"c'4. d'8 e'2")
+        >>> fader = auxjad.Fader(container)
+        >>> notes = fader()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-Fader-29.png
+
+        Set ``rewrite_meter_boundary_depth`` to a different number to change
+        its behaviour.
+
+        >>> fader = auxjad.Fader(container,
+        ...                      rewrite_meter_boundary_depth=1,
+        ...                      )
+        >>> notes = fader()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-Fader-30.png
+
+    ..  container:: example
+
         This class can handle dynamics and articulations too. Hairpins might
         need manual tweaking if the leaf under which they terminate is removed.
 
@@ -755,10 +767,8 @@ class Fader():
             <e' g' b'>8
             \f
             - \accent
-            d'8
+            d'4.
             \p
-            ~
-            d'4
             f'8..
             - \tenuto
             g'32
@@ -766,10 +776,8 @@ class Fader():
             <e' g' b'>8
             \f
             - \accent
-            d'8
+            d'4.
             \p
-            ~
-            d'4
             r8..
             g'32
             - \staccato
@@ -777,8 +785,7 @@ class Fader():
             \f
             - \accent
             r8
-            r4
-            r8..
+            r4...
             g'32
             - \staccato
             <e' g' b'>8
@@ -789,7 +796,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/image-Fader-29.png
+        .. figure:: ../_images/image-Fader-31.png
 
     ..  warning::
 
@@ -838,7 +845,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-30.png
+        .. figure:: ../_images/image-Fader-32.png
     """
 
     ### CLASS VARIABLES ###
@@ -855,6 +862,7 @@ class Fader():
                  '_force_time_signatures',
                  '_use_multimeasure_rest',
                  '_new_mask',
+                 '_rewrite_meter_boundary_depth',
                  )
 
     ### INITIALISER ###
@@ -870,6 +878,7 @@ class Fader():
                  force_time_signatures: bool = False,
                  use_multimeasure_rest: bool = True,
                  mask: list = None,
+                 rewrite_meter_boundary_depth: int = None,
                  ):
         r'Initialises self.'
         self.fader_type = fader_type
@@ -883,6 +892,7 @@ class Fader():
         self.use_multimeasure_rest = use_multimeasure_rest
         if mask:
             self.mask = mask
+        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
         self._is_first_window = not fade_on_first_call
         self._current_window = None
         self._new_mask = False
@@ -1017,6 +1027,7 @@ class Fader():
                 dummy_container,
                 self._time_signatures,
                 disable_rewrite_meter=self._disable_rewrite_meter,
+                rewrite_meter_boundary_depth=self._rewrite_meter_boundary_depth
             )
             if self._use_multimeasure_rest:
                 rests_to_multimeasure_rest(dummy_container)
@@ -1163,6 +1174,20 @@ class Fader():
         if not isinstance(use_multimeasure_rest, bool):
             raise TypeError("'use_multimeasure_rest' must be 'bool'")
         self._use_multimeasure_rest = use_multimeasure_rest
+
+    @property
+    def rewrite_meter_boundary_depth(self) -> int:
+        r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
+        return self._rewrite_meter_boundary_depth
+
+    @rewrite_meter_boundary_depth.setter
+    def rewrite_meter_boundary_depth(self,
+                                     rewrite_meter_boundary_depth: int,
+                                     ):
+        if rewrite_meter_boundary_depth is not None:
+            if not isinstance(rewrite_meter_boundary_depth, int):
+                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
+        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
 
     ### PRIVATE PROPERTIES ###
 

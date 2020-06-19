@@ -83,22 +83,19 @@ def test_Hocketer_02():
                 e'8
                 r8
                 g'8
-                r8
-                r4
+                r4.
             }
             \new Staff
             {
                 r8
                 d'8
-                r4
-                r8
+                r4.
                 a'8
                 r4
             }
             \new Staff
             {
-                r4
-                r8
+                r4.
                 f'8
                 r4
                 b'8
@@ -117,6 +114,7 @@ def test_Hocketer_03():
                                force_k_voices=True,
                                disable_rewrite_meter=True,
                                use_multimeasure_rests=False,
+                               rewrite_meter_boundary_depth=0,
                                )
     assert hocketer.n_voices == 3
     assert hocketer.weights == [1, 2, 5]
@@ -124,18 +122,21 @@ def test_Hocketer_03():
     assert hocketer.force_k_voices
     assert hocketer.disable_rewrite_meter
     assert not hocketer.use_multimeasure_rests
+    assert hocketer.rewrite_meter_boundary_depth == 0
     hocketer.n_voices = 5
     hocketer.weights = [1, 1, 1, 2, 7]
     hocketer.k = 3
     hocketer.force_k_voices = False
     hocketer.disable_rewrite_meter = False
     hocketer.use_multimeasure_rests = True
+    hocketer.rewrite_meter_boundary_depth = 1
     assert hocketer.n_voices == 5
     assert hocketer.weights == [1, 1, 1, 2, 7]
     assert hocketer.k == 3
     assert not hocketer.force_k_voices
     assert not hocketer.disable_rewrite_meter
     assert hocketer.use_multimeasure_rests
+    assert hocketer.rewrite_meter_boundary_depth == 1
 
 
 def test_Hocketer_04():
@@ -192,8 +193,7 @@ def test_Hocketer_06():
             {
                 c'8
                 d'8
-                r4
-                r8
+                r4.
                 a'8
                 r4
             }
@@ -262,8 +262,7 @@ def test_Hocketer_07():
                 d'8
                 r4
                 g'8
-                r8
-                r4
+                r4.
             }
             \new Staff
             {
@@ -534,6 +533,47 @@ def test_Hocketer_12():
                         b'2
                     }
                 }
+            }
+        >>
+        """)
+
+
+def test_Hocketer_13():
+    container = abjad.Container(r"c'4. d'8 e'2")
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=1,
+                               )
+    music = hocketer()
+    score = abjad.Score(music)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4.
+                d'8
+                e'2
+            }
+        >>
+        """)
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=1,
+                               rewrite_meter_boundary_depth=1,
+                               )
+    music = hocketer()
+    score = abjad.Score(music)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4
+                ~
+                c'8
+                d'8
+                e'2
             }
         >>
         """)

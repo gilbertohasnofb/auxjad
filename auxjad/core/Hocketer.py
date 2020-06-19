@@ -214,22 +214,19 @@ class Hocketer():
                 e'8
                 r8
                 g'8
-                r8
-                r4
+                r4.
             }
             \new Staff
             {
                 r8
                 d'8
-                r4
-                r8
+                r4.
                 a'8
                 r4
             }
             \new Staff
             {
-                r4
-                r8
+                r4.
                 f'8
                 r4
                 b'8
@@ -275,8 +272,7 @@ class Hocketer():
                 d'8
                 r4
                 g'8
-                r8
-                r4
+                r4.
             }
             \new Staff
             {
@@ -430,8 +426,7 @@ class Hocketer():
             {
                 c'8
                 d'8
-                r4
-                r8
+                r4.
                 a'8
                 r4
             }
@@ -594,6 +589,54 @@ class Hocketer():
 
     ..  container:: example
 
+        This function uses the default logical tie splitting algorithm from
+        abjad's ``rewrite_meter()``.
+
+        >>> container = abjad.Container(r"c'4. d'8 e'2")
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=1,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score(music)
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4.
+                d'8
+                e'2
+            }
+        >>
+
+        .. figure:: ../_images/image-Hocketer-17.png
+
+        Set ``rewrite_meter_boundary_depth`` to a different number to change
+        its behaviour.
+
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=1,
+        ...                            rewrite_meter_boundary_depth=1,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score(music)
+        >>> abjad.f(staff)
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4
+                ~
+                c'8
+                d'8
+                e'2
+            }
+        >>
+
+        .. figure:: ../_images/image-Hocketer-18.png
+
+    ..  container:: example
+
         This class can handle time signature changes as well as nested tuplets.
 
         >>> container = abjad.Container(
@@ -675,7 +718,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-17.png
+        .. figure:: ../_images/image-Hocketer-19.png
     """
 
     ### CLASS VARIABLES ###
@@ -689,6 +732,7 @@ class Hocketer():
                  '_use_multimeasure_rests',
                  '_voices',
                  '_time_signatures',
+                 '_rewrite_meter_boundary_depth',
                  )
 
     ### INITIALISER ###
@@ -702,6 +746,7 @@ class Hocketer():
                  force_k_voices: bool = False,
                  disable_rewrite_meter: bool = False,
                  use_multimeasure_rests: bool = True,
+                 rewrite_meter_boundary_depth: int = None,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -715,6 +760,7 @@ class Hocketer():
         self.force_k_voices = force_k_voices
         self.disable_rewrite_meter = disable_rewrite_meter
         self.use_multimeasure_rests = use_multimeasure_rests
+        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
 
     ### SPECIAL METHODS ###
 
@@ -801,9 +847,10 @@ class Hocketer():
                 measures = abjad.select(voice[:]).group_by_measure()
                 for measure, time_signature in zip(measures,
                                                    self._time_signatures):
-                    abjad.mutate(measure).rewrite_meter(time_signature,
-                                                        boundary_depth=1,
-                                                        )
+                    abjad.mutate(measure).rewrite_meter(
+                        time_signature,
+                        boundary_depth=self._rewrite_meter_boundary_depth,
+                    )
 
         # replacing rests with multi-measure rests
         if self._use_multimeasure_rests:
@@ -938,6 +985,20 @@ class Hocketer():
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
+
+    @property
+    def rewrite_meter_boundary_depth(self) -> int:
+        r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
+        return self._rewrite_meter_boundary_depth
+
+    @rewrite_meter_boundary_depth.setter
+    def rewrite_meter_boundary_depth(self,
+                                     rewrite_meter_boundary_depth: int,
+                                     ):
+        if rewrite_meter_boundary_depth is not None:
+            if not isinstance(rewrite_meter_boundary_depth, int):
+                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
+        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
 
     @property
     def current_window(self) -> list:

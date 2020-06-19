@@ -23,6 +23,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -120,6 +121,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -133,6 +135,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -323,6 +326,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -363,6 +367,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             e'8
@@ -448,14 +453,10 @@ class Phaser():
             c'4.
             d'4.
             c'8
-            d'8
-            ~
-            d'4
+            d'4.
             c'4
             d'4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             c'4.
             d'4.
@@ -483,14 +484,10 @@ class Phaser():
             c'4.
             d'4.
             c'8
-            d'8
-            ~
-            d'4
+            d'4.
             c'4
             d'4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
         }
 
@@ -511,6 +508,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -656,9 +654,7 @@ class Phaser():
             d'4.
             \time 2/4
             e'2
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             ~
             \time 3/8
@@ -666,9 +662,7 @@ class Phaser():
             e'8
             ~
             \time 2/4
-            e'4
-            ~
-            e'8
+            e'4.
             c'8
             c'4
             d'4
@@ -695,11 +689,12 @@ class Phaser():
         ...                        step_size=(1, 8),
         ...                        )
         >>> staff = abjad.Staff()
-        >>> music = phaser.output_n(5)
-        >>> staff.append(music)
+        >>> notes = phaser.output_n(5)
+        >>> staff.append(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             \p
             - \staccato
@@ -798,6 +793,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -859,6 +855,47 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-23.png
 
+    ..  container:: example
+
+        This function uses the default logical tie splitting algorithm from
+        abjad's ``rewrite_meter()``.
+
+        >>> container = abjad.Container(r"c'4. d'8 e'2")
+        >>> phaser = auxjad.Phaser(container)
+        >>> notes = phaser()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-Phaser-24.png
+
+        Set ``rewrite_meter_boundary_depth`` to a different number to change
+        its behaviour.
+
+        >>> phaser = auxjad.Phaser(container,
+        ...                        rewrite_meter_boundary_depth=1,
+        ...                        )
+        >>> notes = phaser()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-Phaser-25.png
+
     ..  warning::
 
         This class can handle tuplets, but the output is often quite complex.
@@ -876,6 +913,7 @@ class Phaser():
         \new Staff
         {
             \times 2/3 {
+                \time 4/4
                 c'8
                 d'8
                 e'8
@@ -886,9 +924,7 @@ class Phaser():
                 d'16
                 ~
                 d'16
-                e'32
-                ~
-                e'16.
+                e'8
             }
             d'16
             ~
@@ -913,7 +949,7 @@ class Phaser():
             }
         }
 
-        .. figure:: ../_images/image-Phaser-24.png
+        .. figure:: ../_images/image-Phaser-26.png
     """
 
     ### CLASS VARIABLES ###
@@ -928,6 +964,7 @@ class Phaser():
                  '_is_first_window',
                  '_new_time_signature',
                  '_contents_length',
+                 '_rewrite_meter_boundary_depth',
                  )
 
     ### INITIALISER ###
@@ -940,6 +977,7 @@ class Phaser():
                  forward_bias: float = 1.0,
                  phase_on_first_call: bool = False,
                  remove_unterminated_ties: bool = True,
+                 rewrite_meter_boundary_depth: int = None,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -949,6 +987,7 @@ class Phaser():
         self.max_steps = max_steps
         self.forward_bias = forward_bias
         self.remove_unterminated_ties = remove_unterminated_ties
+        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
         if not isinstance(phase_on_first_call, bool):
             raise TypeError("'phase_on_first_call' must be 'bool'")
         self._is_first_window = not phase_on_first_call
@@ -1109,8 +1148,12 @@ class Phaser():
             )
             dummy_container.extend(dummy_end_container)
             dummy_end_container[:] = []
-            # adding time signatures back and rewriting meter
-            enforce_time_signature(dummy_container, time_signatures)
+        # adding time signatures back and rewriting meter
+        enforce_time_signature(
+            dummy_container,
+            time_signatures,
+            rewrite_meter_boundary_depth=self._rewrite_meter_boundary_depth
+        )
         # removing first time signature if repeated
         if not self._new_time_signature:
             for time_signature in time_signatures[::-1]:
@@ -1235,6 +1278,20 @@ class Phaser():
         if not isinstance(remove_unterminated_ties, bool):
             raise TypeError("'remove_unterminated_ties' must be 'bool'")
         self._remove_unterminated_ties = remove_unterminated_ties
+
+    @property
+    def rewrite_meter_boundary_depth(self) -> int:
+        r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
+        return self._rewrite_meter_boundary_depth
+
+    @rewrite_meter_boundary_depth.setter
+    def rewrite_meter_boundary_depth(self,
+                                     rewrite_meter_boundary_depth: int,
+                                     ):
+        if rewrite_meter_boundary_depth is not None:
+            if not isinstance(rewrite_meter_boundary_depth, int):
+                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
+        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
 
     ### PRIVATE PROPERTIES ###
 

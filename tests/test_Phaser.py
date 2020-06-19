@@ -22,6 +22,7 @@ def test_Phaser_01():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -79,6 +80,7 @@ def test_Phaser_02():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -91,6 +93,7 @@ def test_Phaser_02():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -202,19 +205,23 @@ def test_Phaser_04():
                            max_steps=2,
                            forward_bias=0.2,
                            remove_unterminated_ties=True,
+                           rewrite_meter_boundary_depth=0,
                            )
     assert phaser.step_size == abjad.Duration((5, 8))
     assert phaser.max_steps == 2
     assert phaser.forward_bias == 0.2
     assert phaser.remove_unterminated_ties
+    assert phaser.rewrite_meter_boundary_depth == 0
     phaser.step_size = (1, 4)
     phaser.max_steps = 3
     phaser.forward_bias = 0.8
     phaser.remove_unterminated_ties = False
+    phaser.rewrite_meter_boundary_depth = 1
     assert phaser.step_size == abjad.Duration((1, 4))
     assert phaser.max_steps == 3
     assert phaser.forward_bias == 0.8
     assert not phaser.remove_unterminated_ties
+    assert phaser.rewrite_meter_boundary_depth == 1
 
 
 def test_Phaser_05():
@@ -232,14 +239,10 @@ def test_Phaser_05():
             c'4.
             d'4.
             c'8
-            d'8
-            ~
-            d'4
+            d'4.
             c'4
             d'4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             c'4.
             d'4.
@@ -258,14 +261,10 @@ def test_Phaser_05():
             c'4.
             d'4.
             c'8
-            d'8
-            ~
-            d'4
+            d'4.
             c'4
             d'4
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
         }
         """)
@@ -315,9 +314,7 @@ def test_Phaser_06():
             ~
             e'2
             ~
-            e'4
-            ~
-            e'8.
+            e'4..
             c'16
             ~
             c'8.
@@ -335,9 +332,7 @@ def test_Phaser_06():
             ~
             e'2
             ~
-            e'4
-            ~
-            e'8
+            e'4.
             c'8
             ~
             c'8
@@ -358,6 +353,7 @@ def test_Phaser_07():
         \new Staff
         {
             \times 2/3 {
+                \time 4/4
                 c'8
                 d'8
                 e'8
@@ -368,9 +364,7 @@ def test_Phaser_07():
                 d'16
                 ~
                 d'16
-                e'32
-                ~
-                e'16.
+                e'8
             }
             d'16
             ~
@@ -420,22 +414,19 @@ def test_Phaser_09():
                            )
     staff = abjad.Staff()
     for _ in range(4):
-        music = phaser()
-        staff.append(music)
+        notes = phaser()
+        staff.append(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
+            \time 4/4
             c'2
             d'2
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             c'8
             c'4
             d'2
@@ -443,49 +434,41 @@ def test_Phaser_09():
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
-            c'8
-            ~
-            c'4
+            d'4.
+            c'4.
         }
         """)
     phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
-                           remove_unterminated_ties=True,
+                           remove_unterminated_ties=False,
                            )
     staff = abjad.Staff()
     for _ in range(4):
-        music = phaser()
-        staff.append(music)
+        notes = phaser()
+        staff.append(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
+            \time 4/4
             c'2
             d'2
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             c'8
+            ~
             c'4
             d'2
             c'4
+            ~
             c'8
             d'8
             ~
-            d'4
+            d'4.
+            c'4.
             ~
-            d'8
-            c'8
-            ~
-            c'4
         }
         """)
 
@@ -497,22 +480,19 @@ def test_Phaser_10():
                            )
     staff = abjad.Staff()
     for _ in range(4):
-        music = phaser()
-        staff.append(music)
+        notes = phaser()
+        staff.append(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
+            \time 4/4
             <d' fs' a'>2
             c'2
-            <d' fs' a'>4
-            ~
-            <d' fs' a'>8
+            <d' fs' a'>4.
             c'8
             ~
-            c'4
-            ~
-            c'8
+            c'4.
             <d' fs' a'>8
             <d' fs' a'>4
             c'2
@@ -520,12 +500,8 @@ def test_Phaser_10():
             <d' fs' a'>8
             c'8
             ~
-            c'4
-            ~
-            c'8
-            <d' fs' a'>8
-            ~
-            <d' fs' a'>4
+            c'4.
+            <d' fs' a'>4.
         }
         """)
     phaser = auxjad.Phaser(container,
@@ -534,22 +510,19 @@ def test_Phaser_10():
                            )
     staff = abjad.Staff()
     for _ in range(4):
-        music = phaser()
-        staff.append(music)
+        notes = phaser()
+        staff.append(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
+            \time 4/4
             <d' fs' a'>2
             c'2
-            <d' fs' a'>4
-            ~
-            <d' fs' a'>8
+            <d' fs' a'>4.
             c'8
             ~
-            c'4
-            ~
-            c'8
+            c'4.
             <d' fs' a'>8
             ~
             <d' fs' a'>4
@@ -559,12 +532,8 @@ def test_Phaser_10():
             <d' fs' a'>8
             c'8
             ~
-            c'4
-            ~
-            c'8
-            <d' fs' a'>8
-            ~
-            <d' fs' a'>4
+            c'4.
+            <d' fs' a'>4.
             ~
         }
         """)
@@ -581,6 +550,7 @@ def test_Phaser_11():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -761,6 +731,7 @@ def test_Phaser_16():
     r"""
     \new Staff
     {
+        \time 4/4
         c'4
         \p
         - \staccato
@@ -847,6 +818,7 @@ def test_Phaser_17():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -972,9 +944,7 @@ def test_Phaser_20():
             d'4.
             \time 2/4
             e'2
-            c'4
-            ~
-            c'8
+            c'4.
             d'8
             ~
             \time 3/8
@@ -982,9 +952,7 @@ def test_Phaser_20():
             e'8
             ~
             \time 2/4
-            e'4
-            ~
-            e'8
+            e'4.
             c'8
             c'4
             d'4
@@ -1013,6 +981,7 @@ def test_Phaser_21():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -1050,6 +1019,7 @@ def test_Phaser_22():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             e'8
@@ -1090,5 +1060,39 @@ def test_Phaser_22():
             e'8
             f'8
             g'8
+        }
+        """)
+
+
+def test_Phaser_23():
+    container = abjad.Container(r"c'4. d'8 e'2")
+    phaser = auxjad.Phaser(container)
+    notes = phaser()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+        """)
+    phaser = auxjad.Phaser(container,
+                           rewrite_meter_boundary_depth=1,
+                           )
+    notes = phaser()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
         }
         """)

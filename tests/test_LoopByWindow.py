@@ -40,9 +40,7 @@ def test_LoopByWindow_01():
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -58,9 +56,7 @@ def test_LoopByWindow_01():
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -98,9 +94,7 @@ def test_LoopByWindow_02():
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
         }
         """)
@@ -132,9 +126,7 @@ def test_LoopByWindow_03():
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
         }
         """)
@@ -154,9 +146,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
             ~
             e'8
@@ -184,8 +174,7 @@ def test_LoopByWindow_03():
             e'8
             ~
             e'8
-            r8
-            r4
+            r4.
         }
         """)
     notes = looper.__next__()
@@ -224,6 +213,7 @@ def test_LoopByWindow_04():
                                  head_position=(2, 8),
                                  omit_all_time_signatures=False,
                                  fill_with_rests=False,
+                                 rewrite_meter_boundary_depth=0,
                                  )
     assert looper.window_size == abjad.Meter((3, 4))
     assert looper.step_size == abjad.Duration((5, 8))
@@ -233,6 +223,7 @@ def test_LoopByWindow_04():
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_all_time_signatures
     assert not looper.fill_with_rests
+    assert looper.rewrite_meter_boundary_depth == 0
     looper.window_size = (5, 4)
     looper.step_size = (1, 4)
     looper.max_steps = 3
@@ -241,6 +232,7 @@ def test_LoopByWindow_04():
     looper.head_position = 0
     looper.omit_all_time_signatures = True
     looper.fill_with_rests = True
+    looper.rewrite_meter_boundary_depth = 1
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
@@ -249,6 +241,7 @@ def test_LoopByWindow_04():
     assert looper.head_position == abjad.Duration(0)
     assert looper.omit_all_time_signatures
     assert looper.fill_with_rests
+    assert looper.rewrite_meter_boundary_depth == 1
 
 
 def test_LoopByWindow_05():
@@ -303,9 +296,7 @@ def test_LoopByWindow_06():
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -321,9 +312,7 @@ def test_LoopByWindow_06():
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
             ~
             e'8
@@ -390,9 +379,7 @@ def test_LoopByWindow_07():
                 d'16
                 ~
                 d'16
-                e'32
-                ~
-                e'16.
+                e'8
             }
             d'16
             ~
@@ -663,9 +650,7 @@ def test_LoopByWindow_18():
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -679,8 +664,8 @@ def test_LoopByWindow_19():
     looper = auxjad.LoopByWindow(container)
     staff = abjad.Staff()
     for _ in range(2):
-        music = looper()
-        staff.append(music)
+        notes = looper()
+        staff.append(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -704,9 +689,7 @@ def test_LoopByWindow_19():
             \f
             - \tenuto
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             \ppp
             - \accent
@@ -741,9 +724,7 @@ def test_LoopByWindow_20():
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -842,9 +823,7 @@ def test_LoopByWindow_23():
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
         }
         """)
@@ -904,5 +883,39 @@ def test_LoopByWindow_25():
             f'4
             b'4
             c''4
+        }
+        """)
+
+
+def test_LoopByWindow_26():
+    container = abjad.Container(r"c'4. d'8 e'2")
+    looper = auxjad.LoopByWindow(container)
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+        """)
+    looper = auxjad.LoopByWindow(container,
+                                 rewrite_meter_boundary_depth=1,
+                                 )
+    notes = looper()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
         }
         """)

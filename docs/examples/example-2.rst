@@ -90,8 +90,8 @@ please refer to this library's API for more information.
     >>> looper = auxjad.LoopByWindow(container)
     >>> staff = abjad.Staff()
     >>> for _ in range(3):
-    >>>     music = looper()
-    >>>     staff.append(music)
+    >>>     notes = looper()
+    >>>     staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {
@@ -101,10 +101,8 @@ please refer to this library's API for more information.
         - \tenuto
         ~
         c'8
-        af'8
+        af'4.
         \mp
-        ~
-        af'4
         c'2
         \mp
         - \tenuto
@@ -120,10 +118,8 @@ please refer to this library's API for more information.
         c'2
         \mp
         - \tenuto
-        af'4
+        af'4.
         \mp
-        ~
-        af'8
         bf'8
         \mf
         - \tenuto
@@ -138,8 +134,8 @@ the input container.
     >>> container = abjad.Container(looper.current_window)
     >>> shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
     >>> for _ in range(3):
-    >>>     music = shuffler()
-    >>>     staff.append(music)
+    >>>     notes = shuffler()
+    >>>     staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {
@@ -149,10 +145,8 @@ the input container.
         - \tenuto
         ~
         c'8
-        af'8
+        af'4.
         \mp
-        ~
-        af'4
         c'2
         \mp
         - \tenuto
@@ -168,10 +162,8 @@ the input container.
         c'2
         \mp
         - \tenuto
-        af'4
+        af'4.
         \mp
-        ~
-        af'8
         bf'8
         \mf
         - \tenuto
@@ -182,23 +174,17 @@ the input container.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
-        af'8
+        c'4.
+        af'4.
         \mp
-        ~
-        af'4
         c'2
         \mp
         - \tenuto
         bf'8
         \mf
         - \tenuto
-        af'8
+        af'4.
         \mp
-        ~
-        af'4
         bf'8
         \mf
         - \tenuto
@@ -206,13 +192,9 @@ the input container.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
-        af'8
+        c'4.
+        af'4.
         \mp
-        ~
-        af'4
     }
 
 .. figure:: ../_images/image-example-2-3.png
@@ -225,8 +207,8 @@ This time we will use a window of size 3/4.
     ...                            window_size=(3, 4),
     ...                            )
     >>> for _ in range(3):
-    >>>     music = looper()
-    >>>     staff.append(music)
+    >>>     notes = looper()
+    >>>     staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {
@@ -236,10 +218,8 @@ This time we will use a window of size 3/4.
         - \tenuto
         ~
         c'8
-        af'8
+        af'4.
         \mp
-        ~
-        af'4
         c'2
         \mp
         - \tenuto
@@ -255,10 +235,8 @@ This time we will use a window of size 3/4.
         c'2
         \mp
         - \tenuto
-        af'4
+        af'4.
         \mp
-        ~
-        af'8
         bf'8
         \mf
         - \tenuto
@@ -269,23 +247,17 @@ This time we will use a window of size 3/4.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
-        af'8
+        c'4.
+        af'4.
         \mp
-        ~
-        af'4
         c'2
         \mp
         - \tenuto
         bf'8
         \mf
         - \tenuto
-        af'8
+        af'4.
         \mp
-        ~
-        af'4
         bf'8
         \mf
         - \tenuto
@@ -293,13 +265,9 @@ This time we will use a window of size 3/4.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
-        af'8
+        c'4.
+        af'4.
         \mp
-        ~
-        af'4
         \time 3/4
         bf'8
         \mf
@@ -308,9 +276,7 @@ This time we will use a window of size 3/4.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
+        c'4.
         af'8
         \mp
         bf'16
@@ -347,9 +313,7 @@ repeated dyanmics. The final result is shown below.
         - \tenuto
         ~
         c'8
-        af'8
-        ~
-        af'4
+        af'4.
         c'2
         - \tenuto
         ~
@@ -363,9 +327,7 @@ repeated dyanmics. The final result is shown below.
         c'2
         \mp
         - \tenuto
-        af'4
-        ~
-        af'8
+        af'4.
         bf'8
         \mf
         - \tenuto
@@ -375,21 +337,15 @@ repeated dyanmics. The final result is shown below.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
-        af'8
-        ~
-        af'4
+        c'4.
+        af'4.
         c'2
         - \tenuto
         bf'8
         \mf
         - \tenuto
-        af'8
+        af'4.
         \mp
-        ~
-        af'4
         bf'8
         \mf
         - \tenuto
@@ -397,12 +353,8 @@ repeated dyanmics. The final result is shown below.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
-        af'8
-        ~
-        af'4
+        c'4.
+        af'4.
         \time 3/4
         bf'8
         \mf
@@ -411,9 +363,7 @@ repeated dyanmics. The final result is shown below.
         \mp
         - \tenuto
         ~
-        c'4
-        ~
-        c'8
+        c'4.
         af'8
         bf'16
         \mf

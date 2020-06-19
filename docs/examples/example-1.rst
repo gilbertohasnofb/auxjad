@@ -107,8 +107,8 @@ elements 2 through 5, then 3 through 6, and so on.
     >>> looper = auxjad.LoopByNotes(container, window_size=4)
     >>> staff = abjad.Staff()
     >>> for _ in range(3):
-    ...     music = looper()
-    ...     staff.append(music)
+    ...     notes = looper()
+    ...     staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {
@@ -177,8 +177,8 @@ the input container.
     ...                            disable_rewrite_meter=True,
     ...                            )
     >>> for _ in range(3):
-    ...     music = shuffler()
-    ...     staff.append(music)
+    ...     notes = shuffler()
+    ...     staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {

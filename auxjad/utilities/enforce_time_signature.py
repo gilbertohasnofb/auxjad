@@ -10,6 +10,7 @@ def enforce_time_signature(container: abjad.Container,
                            fill_with_rests: bool = True,
                            close_container: bool = False,
                            disable_rewrite_meter: bool = False,
+                           rewrite_meter_boundary_depth: int = None,
                            ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value. This function applies a time
@@ -191,9 +192,7 @@ def enforce_time_signature(container: abjad.Container,
             ~
             \time 5/4
             c'4
-            d'2
-            ~
-            d'2
+            d'1
         }
 
         .. figure:: ../_images/image-enforce_time_signature-10.png
@@ -369,9 +368,7 @@ def enforce_time_signature(container: abjad.Container,
             c'2
             \time 3/4
             r8
-            d'8
-            ~
-            d'4
+            d'4.
             e'4
         }
 
@@ -484,9 +481,7 @@ def enforce_time_signature(container: abjad.Container,
             ~
             \time 2/4
             c'16
-            d'8.
-            ~
-            d'4
+            d'4..
             ~
             \time 5/8
             d'4
@@ -500,9 +495,7 @@ def enforce_time_signature(container: abjad.Container,
             e'16
             ~
             \time 2/4
-            e'4
-            ~
-            e'8
+            e'4.
             f'8
             ~
             \time 5/8
@@ -512,6 +505,47 @@ def enforce_time_signature(container: abjad.Container,
         }
 
         .. figure:: ../_images/image-enforce_time_signature-22.png
+
+    ..  container:: example
+
+        This function uses the default logical tie splitting algorithm from
+        abjad's ``rewrite_meter()``.
+
+        >>> staff = abjad.Staff(r"c'4. d'8 e'2")
+        >>> auxjad.enforce_time_signature(staff,
+        ...                               abjad.TimeSignature((4, 4)),
+        ...                               )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-enforce_time_signature-23.png
+
+        Set ``rewrite_meter_boundary_depth`` to a different number to change
+        its behaviour.
+
+        >>> staff = abjad.Staff(r"c'4. d'8 e'2")
+        >>> auxjad.enforce_time_signature(staff,
+        ...                               abjad.TimeSignature((4, 4)),
+        ...                               rewrite_meter_boundary_depth=1,
+        ...                               )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-enforce_time_signature-24.png
 
     .. note::
 
@@ -588,6 +622,9 @@ def enforce_time_signature(container: abjad.Container,
         raise TypeError("'close_container' must be 'bool'")
     if not isinstance(disable_rewrite_meter, bool):
         raise TypeError("'disable_rewrite_meter' must be 'bool'")
+    if rewrite_meter_boundary_depth is not None:
+        if not isinstance(rewrite_meter_boundary_depth, int):
+            raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
     # remove all time signatures from container
     for leaf in abjad.select(container).leaves():
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
@@ -639,6 +676,7 @@ def enforce_time_signature(container: abjad.Container,
             while len(time_signatures_) < len(measures):
                 time_signatures_.append(time_signatures_[-1])
         for measure, time_signature in zip(measures, time_signatures_):
-            abjad.mutate(measure).rewrite_meter(time_signature,
-                                                boundary_depth=1,
-                                                )
+            abjad.mutate(measure).rewrite_meter(
+                time_signature,
+                boundary_depth=rewrite_meter_boundary_depth,
+            )

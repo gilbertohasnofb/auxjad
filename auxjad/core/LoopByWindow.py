@@ -41,9 +41,7 @@ class LoopByWindow(_LoopParent):
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -63,9 +61,7 @@ class LoopByWindow(_LoopParent):
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -94,9 +90,7 @@ class LoopByWindow(_LoopParent):
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -140,9 +134,7 @@ class LoopByWindow(_LoopParent):
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
         }
 
@@ -164,6 +156,7 @@ class LoopByWindow(_LoopParent):
         >>> for window in looper:
         ...     staff.append(window)
         >>> abjad.f(staff)
+        \new Staff
         {
             \time 3/4
             c'4
@@ -171,15 +164,11 @@ class LoopByWindow(_LoopParent):
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
             d'2
             e'4
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
             ~
             e'8
@@ -191,8 +180,7 @@ class LoopByWindow(_LoopParent):
             e'8
             ~
             e'8
-            r8
-            r4
+            r4.
             e'4
             r2
             e'8
@@ -577,9 +565,7 @@ class LoopByWindow(_LoopParent):
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -587,9 +573,7 @@ class LoopByWindow(_LoopParent):
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
             ~
             e'8
@@ -667,9 +651,7 @@ class LoopByWindow(_LoopParent):
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
         }
 
@@ -690,9 +672,7 @@ class LoopByWindow(_LoopParent):
             c'8
             d'8
             ~
-            d'4
-            ~
-            d'8
+            d'4.
             e'8
         }
 
@@ -709,8 +689,8 @@ class LoopByWindow(_LoopParent):
         >>> looper = auxjad.LoopByWindow(container)
         >>> staff = abjad.Staff()
         >>> for _ in range(2):
-        ...     music = looper()
-        ...     staff.append(music)
+        ...     notes = looper()
+        ...     staff.append(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -733,9 +713,7 @@ class LoopByWindow(_LoopParent):
             \f
             - \tenuto
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             \ppp
             - \accent
@@ -775,9 +753,7 @@ class LoopByWindow(_LoopParent):
             c'8.
             d'16
             ~
-            d'4
-            ~
-            d'8.
+            d'4..
             e'16
             ~
             e'8.
@@ -819,6 +795,47 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-25.png
 
+    ..  container:: example
+
+        This function uses the default logical tie splitting algorithm from
+        abjad's ``rewrite_meter()``.
+
+        >>> container = abjad.Container(r"c'4. d'8 e'2")
+        >>> looper = auxjad.LoopByWindow(container)
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-26.png
+
+        Set ``rewrite_meter_boundary_depth`` to a different number to change
+        its behaviour.
+
+        >>> looper = auxjad.LoopByWindow(container,
+        ...                              rewrite_meter_boundary_depth=1,
+        ...                              )
+        >>> notes = looper()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            e'2
+        }
+
+        .. figure:: ../_images/image-LoopByWindow-27.png
+
     ..  warning::
 
         This class can handle tuplets, but the output is often quite complex.
@@ -849,9 +866,7 @@ class LoopByWindow(_LoopParent):
                 d'16
                 ~
                 d'16
-                e'32
-                ~
-                e'16.
+                e'8
             }
             d'16
             ~
@@ -865,7 +880,7 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-26.png
+        .. figure:: ../_images/image-LoopByWindow-28.png
     """
 
     ### CLASS VARIABLES ###
@@ -875,6 +890,7 @@ class LoopByWindow(_LoopParent):
                  '_new_time_signature',
                  '_contents_length',
                  '_contents_no_time_signature',
+                 '_rewrite_meter_boundary_depth',
                  )
 
     ### INITIALISER ###
@@ -891,12 +907,14 @@ class LoopByWindow(_LoopParent):
                  omit_all_time_signatures: bool = False,
                  move_window_on_first_call: bool = False,
                  fill_with_rests: bool = True,
+                 rewrite_meter_boundary_depth: int = None,
                  ):
         r'Initialises self.'
         self.contents = contents
         self._new_time_signature = True
         self.omit_all_time_signatures = omit_all_time_signatures
         self.fill_with_rests = fill_with_rests
+        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
         super().__init__(head_position,
                          window_size,
                          step_size,
@@ -995,9 +1013,10 @@ class LoopByWindow(_LoopParent):
         dummy_container = abjad.Container(
             abjad.mutate(dummy_container[start : end]).copy()
         )
-        abjad.mutate(dummy_container[:]).rewrite_meter(window_size,
-                                                       boundary_depth=1,
-                                                       )
+        abjad.mutate(dummy_container[:]).rewrite_meter(
+            window_size,
+            boundary_depth=self._rewrite_meter_boundary_depth,
+        )
         if self._new_time_signature and not self._omit_all_time_signatures:
             abjad.attach(abjad.TimeSignature(window_size),
                          abjad.select(dummy_container).leaf(0),
@@ -1117,6 +1136,20 @@ class LoopByWindow(_LoopParent):
         if not isinstance(fill_with_rests, bool):
             raise TypeError("'fill_with_rests' must be 'bool'")
         self._fill_with_rests = fill_with_rests
+
+    @property
+    def rewrite_meter_boundary_depth(self) -> int:
+        r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
+        return self._rewrite_meter_boundary_depth
+
+    @rewrite_meter_boundary_depth.setter
+    def rewrite_meter_boundary_depth(self,
+                                     rewrite_meter_boundary_depth: int,
+                                     ):
+        if rewrite_meter_boundary_depth is not None:
+            if not isinstance(rewrite_meter_boundary_depth, int):
+                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
+        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
 
     ### PRIVATE PROPERTIES ###
 

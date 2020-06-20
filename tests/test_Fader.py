@@ -147,34 +147,42 @@ def test_Fader_03():
                          disable_rewrite_meter=True,
                          omit_all_time_signatures=True,
                          force_time_signatures=True,
-                         use_multimeasure_rest=False,
+                         use_multimeasure_rests=False,
                          mask=[1, 0, 1, 1, 0],
-                         rewrite_meter_boundary_depth=0,
+                         boundary_depth=0,
+                         maximum_dot_count=1,
+                         rewrite_tuplets=False,
                          )
     assert fader.fader_type == 'in'
     assert fader.max_steps == 2
     assert fader.disable_rewrite_meter
     assert fader.omit_all_time_signatures
     assert fader.force_time_signatures
-    assert not fader.use_multimeasure_rest
+    assert not fader.use_multimeasure_rests
     assert fader.mask == [1, 0, 1, 1, 0]
-    assert fader.rewrite_meter_boundary_depth == 0
+    assert fader.boundary_depth == 0
+    assert fader.maximum_dot_count == 1
+    assert not fader.rewrite_tuplets
     fader.fader_type = 'out'
     fader.max_steps = 1
     fader.disable_rewrite_meter = False
     fader.omit_all_time_signatures = False
     fader.force_time_signatures = False
-    fader.use_multimeasure_rest = True
+    fader.use_multimeasure_rests = True
     fader.mask = [0, 1, 1, 0, 1]
-    fader.rewrite_meter_boundary_depth = 1
+    fader.boundary_depth = 1
+    fader.maximum_dot_count = 2
+    fader.rewrite_tuplets = True
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
     assert not fader.disable_rewrite_meter
     assert not fader.omit_all_time_signatures
     assert not fader.force_time_signatures
-    assert fader.use_multimeasure_rest
+    assert fader.use_multimeasure_rests
     assert fader.mask == [0, 1, 1, 0, 1]
-    assert fader.rewrite_meter_boundary_depth == 1
+    assert fader.boundary_depth == 1
+    assert fader.maximum_dot_count == 2
+    assert fader.rewrite_tuplets
 
 
 def test_Fader_04():
@@ -464,7 +472,7 @@ def test_Fader_11():
     container = abjad.Container(r"c'8 d'8 e'2.")
     fader = auxjad.Fader(container,
                          disable_rewrite_meter=True,
-                         use_multimeasure_rest=False,
+                         use_multimeasure_rests=False,
                          )
     notes = fader.output_all()
     staff = abjad.Staff(notes)
@@ -895,7 +903,7 @@ def test_Fader_21():
         }
         """)
     fader = auxjad.Fader(container,
-                         rewrite_meter_boundary_depth=1,
+                         boundary_depth=1,
                          )
     notes = fader()
     staff = abjad.Staff(notes)

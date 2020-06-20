@@ -53,20 +53,32 @@ def test_Shuffler_02():
                                output_single_measure=False,
                                disable_rewrite_meter=False,
                                force_time_signatures=False,
-                               rewrite_meter_boundary_depth=0,
+                               omit_time_signatures=True,
+                               boundary_depth=0,
+                               maximum_dot_count=1,
+                               rewrite_tuplets=False,
                                )
     assert not shuffler.output_single_measure
     assert not shuffler.disable_rewrite_meter
     assert not shuffler.force_time_signatures
-    assert shuffler.rewrite_meter_boundary_depth == 0
+    assert shuffler.omit_time_signatures
+    assert shuffler.boundary_depth == 0
+    assert shuffler.maximum_dot_count == 1
+    assert not shuffler.rewrite_tuplets
     shuffler.output_single_measure = True
     shuffler.disable_rewrite_meter = True
     shuffler.force_time_signatures = True
-    shuffler.rewrite_meter_boundary_depth = 1
+    shuffler.omit_time_signatures = False
+    shuffler.boundary_depth = 1
+    shuffler.maximum_dot_count = 2
+    shuffler.rewrite_tuplets = True
     assert shuffler.output_single_measure
     assert shuffler.disable_rewrite_meter
     assert shuffler.force_time_signatures
-    assert shuffler.rewrite_meter_boundary_depth == 1
+    assert not shuffler.omit_time_signatures
+    assert shuffler.boundary_depth == 1
+    assert shuffler.maximum_dot_count == 2
+    assert shuffler.rewrite_tuplets
 
 
 def test_Shuffler_03():
@@ -468,7 +480,7 @@ def test_Shuffler_17():
         """)
     random.seed(98604)
     shuffler = auxjad.Shuffler(container,
-                               rewrite_meter_boundary_depth=1,
+                               boundary_depth=1,
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)

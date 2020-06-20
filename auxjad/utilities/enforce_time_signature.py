@@ -10,7 +10,9 @@ def enforce_time_signature(container: abjad.Container,
                            fill_with_rests: bool = True,
                            close_container: bool = False,
                            disable_rewrite_meter: bool = False,
-                           rewrite_meter_boundary_depth: int = None,
+                           boundary_depth: int = None,
+                           maximum_dot_count: int = None,
+                           rewrite_tuplets: bool = True,
                            ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value. This function applies a time
@@ -526,13 +528,12 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-23.png
 
-        Set ``rewrite_meter_boundary_depth`` to a different number to change
-        its behaviour.
+        Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> staff = abjad.Staff(r"c'4. d'8 e'2")
         >>> auxjad.enforce_time_signature(staff,
         ...                               abjad.TimeSignature((4, 4)),
-        ...                               rewrite_meter_boundary_depth=1,
+        ...                               boundary_depth=1,
         ...                               )
         >>> abjad.f(staff)
         \new Staff
@@ -546,6 +547,11 @@ def enforce_time_signature(container: abjad.Container,
         }
 
         .. figure:: ../_images/image-enforce_time_signature-24.png
+
+        Other arguments available for tweaking the output of abjad's
+        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
+        which work exactly as the identically named arguments of
+        ``rewrite_meter()``.
 
     .. note::
 
@@ -622,9 +628,14 @@ def enforce_time_signature(container: abjad.Container,
         raise TypeError("'close_container' must be 'bool'")
     if not isinstance(disable_rewrite_meter, bool):
         raise TypeError("'disable_rewrite_meter' must be 'bool'")
-    if rewrite_meter_boundary_depth is not None:
-        if not isinstance(rewrite_meter_boundary_depth, int):
-            raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
+    if boundary_depth is not None:
+        if not isinstance(boundary_depth, int):
+            raise TypeError("'boundary_depth' must be 'int'")
+    if maximum_dot_count is not None:
+        if not isinstance(maximum_dot_count, int):
+            raise TypeError("'maximum_dot_count' must be 'int'")
+    if not isinstance(rewrite_tuplets, bool):
+        raise TypeError("'rewrite_tuplets' must be 'bool'")
     # remove all time signatures from container
     for leaf in abjad.select(container).leaves():
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
@@ -678,5 +689,7 @@ def enforce_time_signature(container: abjad.Container,
         for measure, time_signature in zip(measures, time_signatures_):
             abjad.mutate(measure).rewrite_meter(
                 time_signature,
-                boundary_depth=rewrite_meter_boundary_depth,
+                boundary_depth=boundary_depth,
+                maximum_dot_count=maximum_dot_count,
+                rewrite_tuplets=rewrite_tuplets,
             )

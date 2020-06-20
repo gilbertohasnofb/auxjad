@@ -218,14 +218,20 @@ class Phaser():
         while a value of ``0.0`` will result in the process moving only
         backwards). By default, when a logical tie is split in between windows,
         any unterminated ties will be removed; set ``remove_unterminated_ties``
-        to ``False`` to disable this behaviour.
+        to ``False`` to disable this behaviour. The properties
+        ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
+        passed as arguments to abjad's ``rewrite_meter()``, see its
+        documentation for more information.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(5, 8),
         ...                        max_steps=2,
         ...                        forward_bias=0.2,
-        ..                         remove_unterminated_ties=True,
+        ...                        remove_unterminated_ties=True,
+        ...                        boundary_depth=0,
+        ...                        maximum_dot_count=1,
+        ...                        rewrite_tuplets=False,
         ...                        )
         >>> phaser.step_size
         5/8
@@ -235,6 +241,12 @@ class Phaser():
         0.2
         >>> phaser.remove_unterminated_ties
         True
+        >>> phaser.boundary_depth
+        0
+        >>> phaser.maximum_dot_count
+        1
+        >>> phaser.rewrite_tuplets
+        False
 
         Use the properties below to change these values after initialisation.
 
@@ -242,6 +254,9 @@ class Phaser():
         >>> phaser.max_steps = 3
         >>> phaser.forward_bias = 0.8
         >>> phaser.remove_unterminated_ties = False
+        >>> phaser.boundary_depth = 1
+        >>> phaser.maximum_dot_count = 2
+        >>> phaser.rewrite_tuplets = True
         >>> phaser.step_size
         1/4
         >>> phaser.max_steps
@@ -250,6 +265,12 @@ class Phaser():
         0.8
         >>> phaser.remove_unterminated_ties
         False
+        >>> phaser.boundary_depth
+        1
+        >>> phaser.maximum_dot_count
+        2
+        >>> phaser.rewrite_tuplets
+        True
 
     .. container:: example
 
@@ -875,11 +896,10 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-24.png
 
-        Set ``rewrite_meter_boundary_depth`` to a different number to change
-        its behaviour.
+        Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> phaser = auxjad.Phaser(container,
-        ...                        rewrite_meter_boundary_depth=1,
+        ...                        boundary_depth=1,
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -895,6 +915,11 @@ class Phaser():
         }
 
         .. figure:: ../_images/image-Phaser-25.png
+
+        Other arguments available for tweaking the output of abjad's
+        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
+        which work exactly as the identically named arguments of
+        ``rewrite_meter()``.
 
     ..  warning::
 
@@ -964,7 +989,9 @@ class Phaser():
                  '_is_first_window',
                  '_new_time_signature',
                  '_contents_length',
-                 '_rewrite_meter_boundary_depth',
+                 '_boundary_depth',
+                 '_maximum_dot_count',
+                 '_rewrite_tuplets',
                  )
 
     ### INITIALISER ###
@@ -977,7 +1004,9 @@ class Phaser():
                  forward_bias: float = 1.0,
                  phase_on_first_call: bool = False,
                  remove_unterminated_ties: bool = True,
-                 rewrite_meter_boundary_depth: int = None,
+                 boundary_depth: int = None,
+                 maximum_dot_count: int = None,
+                 rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -987,7 +1016,9 @@ class Phaser():
         self.max_steps = max_steps
         self.forward_bias = forward_bias
         self.remove_unterminated_ties = remove_unterminated_ties
-        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+        self.boundary_depth = boundary_depth
+        self.maximum_dot_count = maximum_dot_count
+        self.rewrite_tuplets = rewrite_tuplets
         if not isinstance(phase_on_first_call, bool):
             raise TypeError("'phase_on_first_call' must be 'bool'")
         self._is_first_window = not phase_on_first_call
@@ -1152,7 +1183,9 @@ class Phaser():
         enforce_time_signature(
             dummy_container,
             time_signatures,
-            rewrite_meter_boundary_depth=self._rewrite_meter_boundary_depth
+            boundary_depth=self._boundary_depth,
+            maximum_dot_count=self._maximum_dot_count,
+            rewrite_tuplets=self._rewrite_tuplets,
         )
         # removing first time signature if repeated
         if not self._new_time_signature:
@@ -1280,18 +1313,47 @@ class Phaser():
         self._remove_unterminated_ties = remove_unterminated_ties
 
     @property
-    def rewrite_meter_boundary_depth(self) -> int:
+    def boundary_depth(self) -> int:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
-        return self._rewrite_meter_boundary_depth
+        return self._boundary_depth
 
-    @rewrite_meter_boundary_depth.setter
-    def rewrite_meter_boundary_depth(self,
-                                     rewrite_meter_boundary_depth: int,
-                                     ):
-        if rewrite_meter_boundary_depth is not None:
-            if not isinstance(rewrite_meter_boundary_depth, int):
-                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
-        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+    @boundary_depth.setter
+    def boundary_depth(self,
+                       boundary_depth: int,
+                       ):
+        if boundary_depth is not None:
+            if not isinstance(boundary_depth, int):
+                raise TypeError("'boundary_depth' must be 'int'")
+        self._boundary_depth = boundary_depth
+
+    @property
+    def maximum_dot_count(self) -> int:
+        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        return self._maximum_dot_count
+
+    @maximum_dot_count.setter
+    def maximum_dot_count(self,
+                       maximum_dot_count: int,
+                       ):
+        if maximum_dot_count is not None:
+            if not isinstance(maximum_dot_count, int):
+                raise TypeError("'maximum_dot_count' must be 'int'")
+        self._maximum_dot_count = maximum_dot_count
+
+    @property
+    def rewrite_tuplets(self) -> bool:
+        r"""Sets the argument ``rewrite_tuplets`` of abjad's
+        ``rewrite_meter()``.
+        """
+        return self._rewrite_tuplets
+
+    @rewrite_tuplets.setter
+    def rewrite_tuplets(self,
+                       rewrite_tuplets: bool,
+                       ):
+        if not isinstance(rewrite_tuplets, bool):
+            raise TypeError("'rewrite_tuplets' must be 'bool'")
+        self._rewrite_tuplets = rewrite_tuplets
 
     ### PRIVATE PROPERTIES ###
 

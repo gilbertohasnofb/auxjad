@@ -114,7 +114,9 @@ def test_Hocketer_03():
                                force_k_voices=True,
                                disable_rewrite_meter=True,
                                use_multimeasure_rests=False,
-                               rewrite_meter_boundary_depth=0,
+                               boundary_depth=0,
+                               maximum_dot_count=1,
+                               rewrite_tuplets=False,
                                )
     assert hocketer.n_voices == 3
     assert hocketer.weights == [1, 2, 5]
@@ -122,21 +124,27 @@ def test_Hocketer_03():
     assert hocketer.force_k_voices
     assert hocketer.disable_rewrite_meter
     assert not hocketer.use_multimeasure_rests
-    assert hocketer.rewrite_meter_boundary_depth == 0
+    assert hocketer.boundary_depth == 0
+    assert hocketer.maximum_dot_count == 1
+    assert not hocketer.rewrite_tuplets
     hocketer.n_voices = 5
     hocketer.weights = [1, 1, 1, 2, 7]
     hocketer.k = 3
     hocketer.force_k_voices = False
     hocketer.disable_rewrite_meter = False
     hocketer.use_multimeasure_rests = True
-    hocketer.rewrite_meter_boundary_depth = 1
+    hocketer.boundary_depth = 1
+    hocketer.maximum_dot_count = 2
+    hocketer.rewrite_tuplets = True
     assert hocketer.n_voices == 5
     assert hocketer.weights == [1, 1, 1, 2, 7]
     assert hocketer.k == 3
     assert not hocketer.force_k_voices
     assert not hocketer.disable_rewrite_meter
     assert hocketer.use_multimeasure_rests
-    assert hocketer.rewrite_meter_boundary_depth == 1
+    assert hocketer.boundary_depth == 1
+    assert hocketer.maximum_dot_count == 2
+    assert hocketer.rewrite_tuplets
 
 
 def test_Hocketer_04():
@@ -559,7 +567,7 @@ def test_Hocketer_13():
         """)
     hocketer = auxjad.Hocketer(container,
                                n_voices=1,
-                               rewrite_meter_boundary_depth=1,
+                               boundary_depth=1,
                                )
     music = hocketer()
     score = abjad.Score(music)

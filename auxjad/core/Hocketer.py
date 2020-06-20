@@ -153,7 +153,18 @@ class Hocketer():
 
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below.
+        below. ``weights`` set the individual weight of a given voice (must
+        be a list of length equal to ``n_voices``). ``k`` defines the number of
+        times that the process is applied to each logical tie. Setting
+        ``force_k_voices`` to ``True`` ensure that a single logical tie is
+        distributed to exactly ``k`` voices. ``disable_rewrite_meter`` disables
+        the ``rewrite_meter()`` mutation which is applied to the container
+        after every call. Any measure filled with rests will be rewritten using
+        a multi-measure rest; set the ``use_multimeasure_rests`` to ``False``
+        to disable this behaviour. The properties ``boundary_depth``,
+        ``maximum_dot_count``, and ``rewrite_tuplets`` are passed as arguments
+        to abjad's ``rewrite_meter()``, see its documentation for more
+        information.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 | f'4 g'4 a'4")
         >>> hocketer = auxjad.Hocketer(container,
@@ -163,6 +174,9 @@ class Hocketer():
         ...                            force_k_voices=True,
         ...                            disable_rewrite_meter=True,
         ...                            use_multimeasure_rests=False,
+        ...                            boundary_depth=0,
+        ...                            maximum_dot_count=1,
+        ...                            rewrite_tuplets=False,
         ...                            )
         >>> hocketer.n_voices
         3
@@ -176,12 +190,24 @@ class Hocketer():
         True
         >>> not hocketer.use_multimeasure_rests
         False
+        >>> hocketer.boundary_depth
+        0
+        >>> hocketer.maximum_dot_count
+        1
+        >>> hocketer.rewrite_tuplets
+        False
+
+        Use the properties below to change these values after initialisation.
+
         >>> hocketer.n_voices = 5
         >>> hocketer.weights = [1, 1, 1, 2, 7]
         >>> hocketer.k = 3
         >>> hocketer.force_k_voices = False
         >>> hocketer.disable_rewrite_meter = False
         >>> hocketer.use_multimeasure_rests = True
+        >>> hocketer.boundary_depth = 1
+        >>> hocketer.maximum_dot_count = 2
+        >>> hocketer.rewrite_tuplets = True
         >>> hocketer.n_voices
         5
         >>> hocketer.weights
@@ -193,6 +219,12 @@ class Hocketer():
         >>> not hocketer.disable_rewrite_meter
         False
         >>> hocketer.use_multimeasure_rests
+        True
+        >>> hocketer.boundary_depth
+        1
+        >>> hocketer.maximum_dot_count
+        2
+        >>> hocketer.rewrite_tuplets
         True
 
     ..  container:: example
@@ -304,11 +336,13 @@ class Hocketer():
 
     ..  container:: example
 
-        Set ``k`` to an integer representing how many times each logical tie
-        is fed into the hocket process. By default, ``k`` is set to ``1``, so
-        each logical tie is assigned to a single voice. Changing this to a
-        higher value will increase the chance of a logical tie appearing for
-        up to ``k`` different voices.
+
+
+        The argument ``k`` is an integer defining the number of times that the
+        process is applied to each logical tie. By default, ``k`` is set to
+        ``1``, so each logical tie is assigned to a single voice. Changing this
+        to a higher value will increase the chance of a logical tie appearing
+        for up to ``k`` different voices.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=2)
@@ -611,12 +645,11 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-17.png
 
-        Set ``rewrite_meter_boundary_depth`` to a different number to change
-        its behaviour.
+        Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> hocketer = auxjad.Hocketer(container,
         ...                            n_voices=1,
-        ...                            rewrite_meter_boundary_depth=1,
+        ...                            boundary_depth=1,
         ...                            )
         >>> music = hocketer()
         >>> score = abjad.Score(music)
@@ -634,6 +667,11 @@ class Hocketer():
         >>
 
         .. figure:: ../_images/image-Hocketer-18.png
+
+        Other arguments available for tweaking the output of abjad's
+        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
+        which work exactly as the identically named arguments of
+        ``rewrite_meter()``.
 
     ..  container:: example
 
@@ -732,7 +770,9 @@ class Hocketer():
                  '_use_multimeasure_rests',
                  '_voices',
                  '_time_signatures',
-                 '_rewrite_meter_boundary_depth',
+                 '_boundary_depth',
+                 '_maximum_dot_count',
+                 '_rewrite_tuplets',
                  )
 
     ### INITIALISER ###
@@ -746,7 +786,9 @@ class Hocketer():
                  force_k_voices: bool = False,
                  disable_rewrite_meter: bool = False,
                  use_multimeasure_rests: bool = True,
-                 rewrite_meter_boundary_depth: int = None,
+                 boundary_depth: int = None,
+                 maximum_dot_count: int = None,
+                 rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -760,7 +802,9 @@ class Hocketer():
         self.force_k_voices = force_k_voices
         self.disable_rewrite_meter = disable_rewrite_meter
         self.use_multimeasure_rests = use_multimeasure_rests
-        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+        self.boundary_depth = boundary_depth
+        self.maximum_dot_count = maximum_dot_count
+        self.rewrite_tuplets = rewrite_tuplets
 
     ### SPECIAL METHODS ###
 
@@ -849,7 +893,9 @@ class Hocketer():
                                                    self._time_signatures):
                     abjad.mutate(measure).rewrite_meter(
                         time_signature,
-                        boundary_depth=self._rewrite_meter_boundary_depth,
+                        boundary_depth=self._boundary_depth,
+                        maximum_dot_count=self._maximum_dot_count,
+                        rewrite_tuplets=self._rewrite_tuplets,
                     )
 
         # replacing rests with multi-measure rests
@@ -987,18 +1033,47 @@ class Hocketer():
         self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def rewrite_meter_boundary_depth(self) -> int:
+    def boundary_depth(self) -> int:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
-        return self._rewrite_meter_boundary_depth
+        return self._boundary_depth
 
-    @rewrite_meter_boundary_depth.setter
-    def rewrite_meter_boundary_depth(self,
-                                     rewrite_meter_boundary_depth: int,
-                                     ):
-        if rewrite_meter_boundary_depth is not None:
-            if not isinstance(rewrite_meter_boundary_depth, int):
-                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
-        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+    @boundary_depth.setter
+    def boundary_depth(self,
+                       boundary_depth: int,
+                       ):
+        if boundary_depth is not None:
+            if not isinstance(boundary_depth, int):
+                raise TypeError("'boundary_depth' must be 'int'")
+        self._boundary_depth = boundary_depth
+
+    @property
+    def maximum_dot_count(self) -> int:
+        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        return self._maximum_dot_count
+
+    @maximum_dot_count.setter
+    def maximum_dot_count(self,
+                       maximum_dot_count: int,
+                       ):
+        if maximum_dot_count is not None:
+            if not isinstance(maximum_dot_count, int):
+                raise TypeError("'maximum_dot_count' must be 'int'")
+        self._maximum_dot_count = maximum_dot_count
+
+    @property
+    def rewrite_tuplets(self) -> bool:
+        r"""Sets the argument ``rewrite_tuplets`` of abjad's
+        ``rewrite_meter()``.
+        """
+        return self._rewrite_tuplets
+
+    @rewrite_tuplets.setter
+    def rewrite_tuplets(self,
+                       rewrite_tuplets: bool,
+                       ):
+        if not isinstance(rewrite_tuplets, bool):
+            raise TypeError("'rewrite_tuplets' must be 'bool'")
+        self._rewrite_tuplets = rewrite_tuplets
 
     @property
     def current_window(self) -> list:

@@ -213,7 +213,9 @@ def test_LoopByWindow_04():
                                  head_position=(2, 8),
                                  omit_all_time_signatures=False,
                                  fill_with_rests=False,
-                                 rewrite_meter_boundary_depth=0,
+                                 boundary_depth=0,
+                                 maximum_dot_count=1,
+                                 rewrite_tuplets=False,
                                  )
     assert looper.window_size == abjad.Meter((3, 4))
     assert looper.step_size == abjad.Duration((5, 8))
@@ -223,7 +225,9 @@ def test_LoopByWindow_04():
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_all_time_signatures
     assert not looper.fill_with_rests
-    assert looper.rewrite_meter_boundary_depth == 0
+    assert looper.boundary_depth == 0
+    assert looper.maximum_dot_count == 1
+    assert not looper.rewrite_tuplets
     looper.window_size = (5, 4)
     looper.step_size = (1, 4)
     looper.max_steps = 3
@@ -232,7 +236,9 @@ def test_LoopByWindow_04():
     looper.head_position = 0
     looper.omit_all_time_signatures = True
     looper.fill_with_rests = True
-    looper.rewrite_meter_boundary_depth = 1
+    looper.boundary_depth = 1
+    looper.maximum_dot_count = 2
+    looper.rewrite_tuplets = True
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
@@ -241,7 +247,9 @@ def test_LoopByWindow_04():
     assert looper.head_position == abjad.Duration(0)
     assert looper.omit_all_time_signatures
     assert looper.fill_with_rests
-    assert looper.rewrite_meter_boundary_depth == 1
+    assert looper.boundary_depth == 1
+    assert looper.maximum_dot_count == 2
+    assert looper.rewrite_tuplets
 
 
 def test_LoopByWindow_05():
@@ -903,7 +911,7 @@ def test_LoopByWindow_26():
         }
         """)
     looper = auxjad.LoopByWindow(container,
-                                 rewrite_meter_boundary_depth=1,
+                                 boundary_depth=1,
                                  )
     notes = looper()
     staff = abjad.Staff(notes)

@@ -275,14 +275,17 @@ class Fader():
         returned selection to start with a time signature attached to its first
         leaf, set ``force_time_signatures`` to ``True``. Any measure filled
         with rests will be rewritten using a multi-measure rest; set the
-        ``use_multimeasure_rest`` to ``False`` to disable this behaviour.
-        Lastly, an initial mask for the logical ties can be set using ``mask``,
-        which should be a ``list`` of the same length as the number of pitched
+        ``use_multimeasure_rests`` to ``False`` to disable this behaviour.
+        An initial mask for the logical ties can be set using ``mask``, which
+        should be a ``list`` of the same length as the number of pitched
         logical ties in the input container. When ``fader_type`` is set to
         ``'out'``, the mask is initialised with ``1``'s, and when it is set to
         ``'in'``, it is initialised with ``0``'s. Change it to a mix of ``1``'s
         and ``0``'s to start the process with some specific logical ties
-        already hidden/shown.
+        already hidden/shown. The properties ``boundary_depth``,
+        ``maximum_dot_count``, and ``rewrite_tuplets`` are passed as arguments
+        to abjad's ``rewrite_meter()``, see its documentation for more
+        information.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> fader = auxjad.Fader(container,
@@ -292,8 +295,11 @@ class Fader():
         ...                      disable_rewrite_meter=True,
         ...                      omit_all_time_signatures=True,
         ...                      force_time_signatures=True,
-        ...                      use_multimeasure_rest=False,
+        ...                      use_multimeasure_rests=False,
         ...                      mask=[1, 0, 1, 1, 0],
+        ...                      boundary_depth=0,
+        ...                      maximum_dot_count=1,
+        ...                      rewrite_tuplets=False,
         ...                      )
         >>> fader.fader_type
         'in'
@@ -307,10 +313,16 @@ class Fader():
         True
         >>> fader.force_time_signatures
         True
-        >>> fader.use_multimeasure_rest
+        >>> fader.use_multimeasure_rests
         False
         >>> fader.mask
         [1, 0, 1, 1, 0]
+        >>> fader.boundary_depth
+        0
+        >>> fader.maximum_dot_count
+        1
+        >>> fader.rewrite_tuplets
+        False
 
         Use the properties below to change these values after initialisation.
 
@@ -319,8 +331,11 @@ class Fader():
         >>> fader.disable_rewrite_meter = False
         >>> fader.omit_all_time_signatures = False
         >>> fader.force_time_signatures = False
-        >>> fader.use_multimeasure_rest = True
+        >>> fader.use_multimeasure_rests = True
         >>> fader.mask = [0, 1, 1, 0, 1]
+        >>> fader.boundary_depth = 1
+        >>> fader.maximum_dot_count = 2
+        >>> fader.rewrite_tuplets = True
         >>> fader.fader_type
         'out'
         >>> fader.max_steps
@@ -333,10 +348,16 @@ class Fader():
         False
         >>> fader.force_time_signatures
         False
-        >>> fader.use_multimeasure_rest
+        >>> fader.use_multimeasure_rests
         True
         >>> fader.mask
         [0, 1, 1, 0, 1]
+        >>> fader.boundary_depth
+        1
+        >>> fader.maximum_dot_count
+        2
+        >>> fader.rewrite_tuplets
+        True
 
     .. container:: example
 
@@ -607,7 +628,7 @@ class Fader():
     .. container:: example
 
         By default, all rests in a measure filled only with rests will be
-        converted into a multi-measure rest. Set ``use_multimeasure_rest`` to
+        converted into a multi-measure rest. Set ``use_multimeasure_rests`` to
         ``False`` to disable this. Also, by default, all output is mutated
         through abjad's ``rewrite_meter()``. To disable it, set
         ``disable_rewrite_meter`` to ``True``.
@@ -615,7 +636,7 @@ class Fader():
         >>> container = abjad.Container(r"c'8 d'8 e'2.")
         >>> fader = auxjad.Fader(container,
         ...                      disable_rewrite_meter=True,
-        ...                      use_multimeasure_rest=False,
+        ...                      use_multimeasure_rests=False,
         ...                      )
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
@@ -729,11 +750,10 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-29.png
 
-        Set ``rewrite_meter_boundary_depth`` to a different number to change
-        its behaviour.
+        Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> fader = auxjad.Fader(container,
-        ...                      rewrite_meter_boundary_depth=1,
+        ...                      boundary_depth=1,
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -749,6 +769,11 @@ class Fader():
         }
 
         .. figure:: ../_images/image-Fader-30.png
+
+        Other arguments available for tweaking the output of abjad's
+        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
+        which work exactly as the identically named arguments of
+        ``rewrite_meter()``.
 
     ..  container:: example
 
@@ -860,9 +885,11 @@ class Fader():
                  '_time_signatures',
                  '_omit_all_time_signatures',
                  '_force_time_signatures',
-                 '_use_multimeasure_rest',
+                 '_use_multimeasure_rests',
                  '_new_mask',
-                 '_rewrite_meter_boundary_depth',
+                 '_boundary_depth',
+                 '_maximum_dot_count',
+                 '_rewrite_tuplets',
                  )
 
     ### INITIALISER ###
@@ -876,9 +903,11 @@ class Fader():
                  disable_rewrite_meter: bool = False,
                  omit_all_time_signatures: bool = False,
                  force_time_signatures: bool = False,
-                 use_multimeasure_rest: bool = True,
+                 use_multimeasure_rests: bool = True,
                  mask: list = None,
-                 rewrite_meter_boundary_depth: int = None,
+                 boundary_depth: int = None,
+                 maximum_dot_count: int = None,
+                 rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
         self.fader_type = fader_type
@@ -889,10 +918,12 @@ class Fader():
         self.disable_rewrite_meter = disable_rewrite_meter
         self.omit_all_time_signatures = omit_all_time_signatures
         self.force_time_signatures = force_time_signatures
-        self.use_multimeasure_rest = use_multimeasure_rest
+        self.use_multimeasure_rests = use_multimeasure_rests
         if mask:
             self.mask = mask
-        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+        self.boundary_depth = boundary_depth
+        self.maximum_dot_count = maximum_dot_count
+        self.rewrite_tuplets = rewrite_tuplets
         self._is_first_window = not fade_on_first_call
         self._current_window = None
         self._new_mask = False
@@ -1027,9 +1058,11 @@ class Fader():
                 dummy_container,
                 self._time_signatures,
                 disable_rewrite_meter=self._disable_rewrite_meter,
-                rewrite_meter_boundary_depth=self._rewrite_meter_boundary_depth
+                boundary_depth=self._boundary_depth,
+                maximum_dot_count=self._maximum_dot_count,
+                rewrite_tuplets=self._rewrite_tuplets,
             )
-            if self._use_multimeasure_rest:
+            if self._use_multimeasure_rests:
                 rests_to_multimeasure_rest(dummy_container)
             if not self._is_first_window and not self._force_time_signatures:
                 if self._time_signatures[0] == self._time_signatures[-1]:
@@ -1163,31 +1196,60 @@ class Fader():
         self._force_time_signatures = force_time_signatures
 
     @property
-    def use_multimeasure_rest(self) -> bool:
+    def use_multimeasure_rests(self) -> bool:
         r'When ``True``, multimeasure rests will be used for silent measures.'
-        return self._use_multimeasure_rest
+        return self._use_multimeasure_rests
 
-    @use_multimeasure_rest.setter
-    def use_multimeasure_rest(self,
-                              use_multimeasure_rest: bool,
-                              ):
-        if not isinstance(use_multimeasure_rest, bool):
-            raise TypeError("'use_multimeasure_rest' must be 'bool'")
-        self._use_multimeasure_rest = use_multimeasure_rest
+    @use_multimeasure_rests.setter
+    def use_multimeasure_rests(self,
+                               use_multimeasure_rests: bool,
+                               ):
+        if not isinstance(use_multimeasure_rests, bool):
+            raise TypeError("'use_multimeasure_rests' must be 'bool'")
+        self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def rewrite_meter_boundary_depth(self) -> int:
+    def boundary_depth(self) -> int:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
-        return self._rewrite_meter_boundary_depth
+        return self._boundary_depth
 
-    @rewrite_meter_boundary_depth.setter
-    def rewrite_meter_boundary_depth(self,
-                                     rewrite_meter_boundary_depth: int,
-                                     ):
-        if rewrite_meter_boundary_depth is not None:
-            if not isinstance(rewrite_meter_boundary_depth, int):
-                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
-        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+    @boundary_depth.setter
+    def boundary_depth(self,
+                       boundary_depth: int,
+                       ):
+        if boundary_depth is not None:
+            if not isinstance(boundary_depth, int):
+                raise TypeError("'boundary_depth' must be 'int'")
+        self._boundary_depth = boundary_depth
+
+    @property
+    def maximum_dot_count(self) -> int:
+        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        return self._maximum_dot_count
+
+    @maximum_dot_count.setter
+    def maximum_dot_count(self,
+                       maximum_dot_count: int,
+                       ):
+        if maximum_dot_count is not None:
+            if not isinstance(maximum_dot_count, int):
+                raise TypeError("'maximum_dot_count' must be 'int'")
+        self._maximum_dot_count = maximum_dot_count
+
+    @property
+    def rewrite_tuplets(self) -> bool:
+        r"""Sets the argument ``rewrite_tuplets`` of abjad's
+        ``rewrite_meter()``.
+        """
+        return self._rewrite_tuplets
+
+    @rewrite_tuplets.setter
+    def rewrite_tuplets(self,
+                       rewrite_tuplets: bool,
+                       ):
+        if not isinstance(rewrite_tuplets, bool):
+            raise TypeError("'rewrite_tuplets' must be 'bool'")
+        self._rewrite_tuplets = rewrite_tuplets
 
     ### PRIVATE PROPERTIES ###
 

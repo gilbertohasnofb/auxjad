@@ -205,23 +205,31 @@ def test_Phaser_04():
                            max_steps=2,
                            forward_bias=0.2,
                            remove_unterminated_ties=True,
-                           rewrite_meter_boundary_depth=0,
+                           boundary_depth=0,
+                           maximum_dot_count=1,
+                           rewrite_tuplets=False,
                            )
     assert phaser.step_size == abjad.Duration((5, 8))
     assert phaser.max_steps == 2
     assert phaser.forward_bias == 0.2
     assert phaser.remove_unterminated_ties
-    assert phaser.rewrite_meter_boundary_depth == 0
+    assert phaser.boundary_depth == 0
+    assert phaser.maximum_dot_count == 1
+    assert not phaser.rewrite_tuplets
     phaser.step_size = (1, 4)
     phaser.max_steps = 3
     phaser.forward_bias = 0.8
     phaser.remove_unterminated_ties = False
-    phaser.rewrite_meter_boundary_depth = 1
+    phaser.boundary_depth = 1
+    phaser.maximum_dot_count = 2
+    phaser.rewrite_tuplets = True
     assert phaser.step_size == abjad.Duration((1, 4))
     assert phaser.max_steps == 3
     assert phaser.forward_bias == 0.8
     assert not phaser.remove_unterminated_ties
-    assert phaser.rewrite_meter_boundary_depth == 1
+    assert phaser.boundary_depth == 1
+    assert phaser.maximum_dot_count == 2
+    assert phaser.rewrite_tuplets
 
 
 def test_Phaser_05():
@@ -1080,7 +1088,7 @@ def test_Phaser_23():
         }
         """)
     phaser = auxjad.Phaser(container,
-                           rewrite_meter_boundary_depth=1,
+                           boundary_depth=1,
                            )
     notes = phaser()
     staff = abjad.Staff(notes)

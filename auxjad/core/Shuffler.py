@@ -90,7 +90,19 @@ class Shuffler:
 
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below.
+        below. Setting ``output_single_measure`` to ``True`` will strip the
+        output from its time signature structure and return a single measure.
+        ``disable_rewrite_meter`` disables the ``rewrite_meter()`` mutation
+        which is applied to the container after every call, and
+        ``omit_all_time_signatures`` will remove all time signatures from the
+        output (both are ``False`` by default). By default, the first time
+        signature is attached only to the first leaf of the first call (unless
+        time signature changes require it). To force every returned selection
+        to start with a time signature attached to its first leaf, set
+        ``force_time_signatures`` to ``True``. The properties
+        ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
+        passed as arguments to abjad's ``rewrite_meter()``, see its
+        documentation for more information.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -98,7 +110,10 @@ class Shuffler:
         ...                            output_single_measure=False,
         ...                            disable_rewrite_meter=False,
         ...                            force_time_signatures=False,
-        ...                            omit_time_signatures=False,
+        ...                            omit_time_signatures=True,
+        ...                            boundary_depth=0,
+        ...                            maximum_dot_count=1,
+        ...                            rewrite_tuplets=False,
         ...                            )
         >>> shuffler.output_single_measure
         False
@@ -107,11 +122,23 @@ class Shuffler:
         >>> shuffler.force_time_signatures
         False
         >>> shuffler.omit_time_signatures
+        True
+        >>> shuffler.boundary_depth
+        0
+        >>> shuffler.maximum_dot_count
+        1
+        >>> shuffler.rewrite_tuplets
         False
+
+        Use the properties below to change these values after initialisation.
+
         >>> shuffler.output_single_measure = True
         >>> shuffler.disable_rewrite_meter = True
         >>> shuffler.force_time_signatures = True
-        >>> shuffler.omit_time_signatures = True
+        >>> shuffler.omit_time_signatures = False
+        >>> shuffler.boundary_depth = 1
+        >>> shuffler.maximum_dot_count = 2
+        >>> shuffler.rewrite_tuplets = True
         >>> shuffler.output_single_measure
         True
         >>> shuffler.disable_rewrite_meter
@@ -119,8 +146,13 @@ class Shuffler:
         >>> shuffler.force_time_signatures
         True
         >>> shuffler.omit_time_signatures
+        False
+        >>> shuffler.boundary_depth
+        1
+        >>> shuffler.maximum_dot_count
+        2
+        >>> shuffler.rewrite_tuplets
         True
-
 
     ..  container:: example
 
@@ -567,11 +599,10 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-20.png
 
-        Set ``rewrite_meter_boundary_depth`` to a different number to change
-        its behaviour.
+        Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> shuffler = auxjad.Shuffler(container,
-        ...                            rewrite_meter_boundary_depth=1,
+        ...                            boundary_depth=1,
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
@@ -587,6 +618,11 @@ class Shuffler:
         }
 
         .. figure:: ../_images/image-Shuffler-21.png
+
+        Other arguments available for tweaking the output of abjad's
+        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
+        which work exactly as the identically named arguments of
+        ``rewrite_meter()``.
     """
 
     ### CLASS VARIABLES ###
@@ -600,7 +636,9 @@ class Shuffler:
                  '_logical_ties',
                  '_time_signatures',
                  '_is_first_window',
-                 '_rewrite_meter_boundary_depth',
+                 '_boundary_depth',
+                 '_maximum_dot_count',
+                 '_rewrite_tuplets',
                  )
 
     ### INITIALISER ###
@@ -612,7 +650,9 @@ class Shuffler:
                  disable_rewrite_meter: bool = False,
                  force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
-                 rewrite_meter_boundary_depth: int = None,
+                 boundary_depth: int = None,
+                 maximum_dot_count: int = None,
+                 rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -620,7 +660,9 @@ class Shuffler:
         self.disable_rewrite_meter = disable_rewrite_meter
         self.force_time_signatures = force_time_signatures
         self.omit_time_signatures = omit_time_signatures
-        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+        self.boundary_depth = boundary_depth
+        self.maximum_dot_count = maximum_dot_count
+        self.rewrite_tuplets = rewrite_tuplets
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -678,7 +720,9 @@ class Shuffler:
                                                        self._time_signatures):
                         abjad.mutate(measure).rewrite_meter(
                             time_signature,
-                            boundary_depth=self._rewrite_meter_boundary_depth,
+                            boundary_depth=self._boundary_depth,
+                            maximum_dot_count=self._maximum_dot_count,
+                            rewrite_tuplets=self._rewrite_tuplets,
                         )
         else:
             time_signature = abjad.TimeSignature(
@@ -692,7 +736,9 @@ class Shuffler:
                 for measure in measures:
                     abjad.mutate(measure).rewrite_meter(
                         time_signature,
-                        boundary_depth=self._rewrite_meter_boundary_depth,
+                        boundary_depth=self._boundary_depth,
+                        maximum_dot_count=self._maximum_dot_count,
+                        rewrite_tuplets=self._rewrite_tuplets,
                     )
 
         # removing first time signature if necessary
@@ -975,18 +1021,47 @@ class Shuffler:
         self._omit_time_signatures = omit_time_signatures
 
     @property
-    def rewrite_meter_boundary_depth(self) -> int:
+    def boundary_depth(self) -> int:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
-        return self._rewrite_meter_boundary_depth
+        return self._boundary_depth
 
-    @rewrite_meter_boundary_depth.setter
-    def rewrite_meter_boundary_depth(self,
-                                     rewrite_meter_boundary_depth: int,
-                                     ):
-        if rewrite_meter_boundary_depth is not None:
-            if not isinstance(rewrite_meter_boundary_depth, int):
-                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
-        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+    @boundary_depth.setter
+    def boundary_depth(self,
+                       boundary_depth: int,
+                       ):
+        if boundary_depth is not None:
+            if not isinstance(boundary_depth, int):
+                raise TypeError("'boundary_depth' must be 'int'")
+        self._boundary_depth = boundary_depth
+
+    @property
+    def maximum_dot_count(self) -> int:
+        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        return self._maximum_dot_count
+
+    @maximum_dot_count.setter
+    def maximum_dot_count(self,
+                       maximum_dot_count: int,
+                       ):
+        if maximum_dot_count is not None:
+            if not isinstance(maximum_dot_count, int):
+                raise TypeError("'maximum_dot_count' must be 'int'")
+        self._maximum_dot_count = maximum_dot_count
+
+    @property
+    def rewrite_tuplets(self) -> bool:
+        r"""Sets the argument ``rewrite_tuplets`` of abjad's
+        ``rewrite_meter()``.
+        """
+        return self._rewrite_tuplets
+
+    @rewrite_tuplets.setter
+    def rewrite_tuplets(self,
+                       rewrite_tuplets: bool,
+                       ):
+        if not isinstance(rewrite_tuplets, bool):
+            raise TypeError("'rewrite_tuplets' must be 'bool'")
+        self._rewrite_tuplets = rewrite_tuplets
 
     @property
     def current_window(self) -> abjad.Selection:

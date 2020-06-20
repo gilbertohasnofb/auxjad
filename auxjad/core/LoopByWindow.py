@@ -260,10 +260,12 @@ class LoopByWindow(_LoopParent):
         forward instead of backwards. It should range from ``0.0`` to ``1.0``
         (default ``1.0``, which means the window can only move forwards. A
         value of ``0.5`` gives 50% chance of moving forwards while a value of
-        ``0.0`` will move the window only backwards). Lastly, ``head_position``
-        can be used to offset the starting position of the  looping window. It
-        must be a tuple or an ``abjad.Duration``, and its default value is
-        ``0``.
+        ``0.0`` will move the window only backwards). ``head_position`` can be
+        used to offset the starting position of the  looping window. It must be
+        a tuple or an ``abjad.Duration``, and its default value is ``0``. The
+        properties ``boundary_depth``, ``maximum_dot_count``, and
+        ``rewrite_tuplets`` are passed as arguments to abjad's
+        ``rewrite_meter()``, see its documentation for more information.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(container,
@@ -274,6 +276,10 @@ class LoopByWindow(_LoopParent):
         ...                              forward_bias=0.2,
         ...                              head_position=(2, 8),
         ...                              omit_all_time_signatures=False,
+        ...                              fill_with_rests=False,
+        ...                              boundary_depth=0,
+        ...                              maximum_dot_count=1,
+        ...                              rewrite_tuplets=False,
         ...                              )
         >>> looper.window_size
         3/4
@@ -289,6 +295,20 @@ class LoopByWindow(_LoopParent):
         1/4
         >>> looper.omit_all_time_signatures
         False
+        >>> looper.fill_with_rests
+        False
+        >>> looper.boundary_depth
+        0
+        >>> looper.maximum_dot_count
+        1
+        >>> looper.rewrite_tuplets
+        False
+        >>> looper.boundary_depth
+        0
+        >>> looper.maximum_dot_count
+        1
+        >>> looper.rewrite_tuplets
+        False
 
         Use the properties below to change these values after initialisation.
 
@@ -299,6 +319,9 @@ class LoopByWindow(_LoopParent):
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 0
         >>> looper.omit_all_time_signatures = True
+        >>> looper.boundary_depth = 1
+        >>> looper.maximum_dot_count = 2
+        >>> looper.rewrite_tuplets = True
         >>> looper.window_size
         5/4
         >>> looper.step_size
@@ -312,6 +335,12 @@ class LoopByWindow(_LoopParent):
         >>> looper.head_position
         0
         >>> looper.omit_all_time_signatures
+        True
+        >>> looper.boundary_depth
+        1
+        >>> looper.maximum_dot_count
+        2
+        >>> looper.rewrite_tuplets
         True
 
     .. container:: example
@@ -815,11 +844,10 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-26.png
 
-        Set ``rewrite_meter_boundary_depth`` to a different number to change
-        its behaviour.
+        Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> looper = auxjad.LoopByWindow(container,
-        ...                              rewrite_meter_boundary_depth=1,
+        ...                              boundary_depth=1,
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -835,6 +863,11 @@ class LoopByWindow(_LoopParent):
         }
 
         .. figure:: ../_images/image-LoopByWindow-27.png
+
+        Other arguments available for tweaking the output of abjad's
+        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
+        which work exactly as the identically named arguments of
+        ``rewrite_meter()``.
 
     ..  warning::
 
@@ -890,7 +923,9 @@ class LoopByWindow(_LoopParent):
                  '_new_time_signature',
                  '_contents_length',
                  '_contents_no_time_signature',
-                 '_rewrite_meter_boundary_depth',
+                 '_boundary_depth',
+                 '_maximum_dot_count',
+                 '_rewrite_tuplets',
                  )
 
     ### INITIALISER ###
@@ -907,14 +942,18 @@ class LoopByWindow(_LoopParent):
                  omit_all_time_signatures: bool = False,
                  move_window_on_first_call: bool = False,
                  fill_with_rests: bool = True,
-                 rewrite_meter_boundary_depth: int = None,
+                 boundary_depth: int = None,
+                 maximum_dot_count: int = None,
+                 rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
         self._new_time_signature = True
         self.omit_all_time_signatures = omit_all_time_signatures
         self.fill_with_rests = fill_with_rests
-        self.rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+        self.boundary_depth = boundary_depth
+        self.maximum_dot_count = maximum_dot_count
+        self.rewrite_tuplets = rewrite_tuplets
         super().__init__(head_position,
                          window_size,
                          step_size,
@@ -1015,7 +1054,9 @@ class LoopByWindow(_LoopParent):
         )
         abjad.mutate(dummy_container[:]).rewrite_meter(
             window_size,
-            boundary_depth=self._rewrite_meter_boundary_depth,
+            boundary_depth=self._boundary_depth,
+            maximum_dot_count=self._maximum_dot_count,
+            rewrite_tuplets=self._rewrite_tuplets,
         )
         if self._new_time_signature and not self._omit_all_time_signatures:
             abjad.attach(abjad.TimeSignature(window_size),
@@ -1138,18 +1179,47 @@ class LoopByWindow(_LoopParent):
         self._fill_with_rests = fill_with_rests
 
     @property
-    def rewrite_meter_boundary_depth(self) -> int:
+    def boundary_depth(self) -> int:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
-        return self._rewrite_meter_boundary_depth
+        return self._boundary_depth
 
-    @rewrite_meter_boundary_depth.setter
-    def rewrite_meter_boundary_depth(self,
-                                     rewrite_meter_boundary_depth: int,
-                                     ):
-        if rewrite_meter_boundary_depth is not None:
-            if not isinstance(rewrite_meter_boundary_depth, int):
-                raise TypeError("'rewrite_meter_boundary_depth' must be 'int'")
-        self._rewrite_meter_boundary_depth = rewrite_meter_boundary_depth
+    @boundary_depth.setter
+    def boundary_depth(self,
+                       boundary_depth: int,
+                       ):
+        if boundary_depth is not None:
+            if not isinstance(boundary_depth, int):
+                raise TypeError("'boundary_depth' must be 'int'")
+        self._boundary_depth = boundary_depth
+
+    @property
+    def maximum_dot_count(self) -> int:
+        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        return self._maximum_dot_count
+
+    @maximum_dot_count.setter
+    def maximum_dot_count(self,
+                       maximum_dot_count: int,
+                       ):
+        if maximum_dot_count is not None:
+            if not isinstance(maximum_dot_count, int):
+                raise TypeError("'maximum_dot_count' must be 'int'")
+        self._maximum_dot_count = maximum_dot_count
+
+    @property
+    def rewrite_tuplets(self) -> bool:
+        r"""Sets the argument ``rewrite_tuplets`` of abjad's
+        ``rewrite_meter()``.
+        """
+        return self._rewrite_tuplets
+
+    @rewrite_tuplets.setter
+    def rewrite_tuplets(self,
+                       rewrite_tuplets: bool,
+                       ):
+        if not isinstance(rewrite_tuplets, bool):
+            raise TypeError("'rewrite_tuplets' must be 'bool'")
+        self._rewrite_tuplets = rewrite_tuplets
 
     ### PRIVATE PROPERTIES ###
 

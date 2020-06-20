@@ -336,7 +336,7 @@ def test_enforce_time_signature_12():
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.enforce_time_signature(staff,
                                   abjad.TimeSignature((3, 4)),
-                                  rewrite_meter_boundary_depth=1,
+                                  boundary_depth=1,
                                   )
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -423,7 +423,7 @@ def test_enforce_time_signature_14():
     staff = abjad.Staff(r"c'4. d'8 e'2")
     auxjad.enforce_time_signature(staff,
                                  abjad.TimeSignature((4, 4)),
-                                 rewrite_meter_boundary_depth=1,
+                                 boundary_depth=1,
                                  )
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -435,5 +435,107 @@ def test_enforce_time_signature_14():
             c'8
             d'8
             e'2
+        }
+        """)
+
+
+def test_enforce_time_signature_15():
+    staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
+    auxjad.enforce_time_signature(staff, abjad.TimeSignature((3, 4)))
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            d'8.
+            e'16
+            ~
+            e'2
+            ~
+            e'4..
+            c'16
+            ~
+            c'8.
+            d'16
+        }
+        """)
+    staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
+    auxjad.enforce_time_signature(staff,
+                                  abjad.TimeSignature((3, 4)),
+                                  maximum_dot_count=1,
+                                  )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            d'8.
+            e'16
+            ~
+            e'2
+            ~
+            e'4
+            ~
+            e'8.
+            c'16
+            ~
+            c'8.
+            d'16
+        }
+        """)
+
+
+def test_enforce_time_signature_16():
+    staff = abjad.Staff(r"\times 6/7 {c'4. r16} \times 6/7 {d'4. r16}")
+    auxjad.enforce_time_signature(staff,
+                                  abjad.TimeSignature((3, 4)),
+                                  boundary_depth=1,
+                                  )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \tweak text #tuplet-number::calc-fraction-text
+            \times 6/7 {
+                \time 3/4
+                c'8.
+                ~
+                c'8
+                ~
+                c'16
+                r16
+            }
+            \tweak text #tuplet-number::calc-fraction-text
+            \times 6/7 {
+                d'8.
+                ~
+                d'8
+                ~
+                d'16
+                r16
+            }
+        }
+        """)
+    staff = abjad.Staff(r"\times 6/7 {c'4. r16} \times 6/7 {d'4. r16}")
+    auxjad.enforce_time_signature(staff,
+                                  abjad.TimeSignature((3, 4)),
+                                  boundary_depth=1,
+                                  rewrite_tuplets=False,
+                                  )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \tweak text #tuplet-number::calc-fraction-text
+            \times 6/7 {
+                \time 3/4
+                c'4.
+                r16
+            }
+            \tweak text #tuplet-number::calc-fraction-text
+            \times 6/7 {
+                d'4.
+                r16
+            }
         }
         """)

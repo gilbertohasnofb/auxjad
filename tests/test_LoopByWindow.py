@@ -212,6 +212,7 @@ def test_LoopByWindow_04():
                                  forward_bias=0.2,
                                  head_position=(2, 8),
                                  omit_all_time_signatures=False,
+                                 force_time_signatures=True,
                                  fill_with_rests=False,
                                  boundary_depth=0,
                                  maximum_dot_count=1,
@@ -224,6 +225,7 @@ def test_LoopByWindow_04():
     assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_all_time_signatures
+    assert looper.force_time_signatures
     assert not looper.fill_with_rests
     assert looper.boundary_depth == 0
     assert looper.maximum_dot_count == 1
@@ -235,6 +237,7 @@ def test_LoopByWindow_04():
     looper.forward_bias = 0.8
     looper.head_position = 0
     looper.omit_all_time_signatures = True
+    looper.force_time_signatures = False
     looper.fill_with_rests = True
     looper.boundary_depth = 1
     looper.maximum_dot_count = 2
@@ -246,6 +249,7 @@ def test_LoopByWindow_04():
     assert looper.forward_bias == 0.8
     assert looper.head_position == abjad.Duration(0)
     assert looper.omit_all_time_signatures
+    assert not looper.force_time_signatures
     assert looper.fill_with_rests
     assert looper.boundary_depth == 1
     assert looper.maximum_dot_count == 2
@@ -819,9 +823,10 @@ def test_LoopByWindow_23():
     looper = auxjad.LoopByWindow(container,
                                  window_size=(3, 4),
                                  step_size=(1, 8),
+                                 force_time_signatures=True,
                                  )
     notes1 = looper()
-    notes2 = looper(force_time_signature=True)
+    notes2 = looper()
     staff = abjad.Staff(notes2)
     assert format(staff) == abjad.String.normalize(
         r"""

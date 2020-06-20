@@ -218,10 +218,14 @@ class Phaser():
         while a value of ``0.0`` will result in the process moving only
         backwards). By default, when a logical tie is split in between windows,
         any unterminated ties will be removed; set ``remove_unterminated_ties``
-        to ``False`` to disable this behaviour. The properties
+        to ``False`` to disable this behaviour. To force every returned
+        selection to start with a time signature attached to its first leaf,
+        set ``force_time_signatures`` to ``True``. The properties
         ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
         passed as arguments to abjad's ``rewrite_meter()``, see its
         documentation for more information.
+
+
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -229,6 +233,7 @@ class Phaser():
         ...                        max_steps=2,
         ...                        forward_bias=0.2,
         ...                        remove_unterminated_ties=True,
+        ...                        force_time_signatures=True,
         ...                        boundary_depth=0,
         ...                        maximum_dot_count=1,
         ...                        rewrite_tuplets=False,
@@ -240,6 +245,8 @@ class Phaser():
         >>> phaser.forward_bias
         0.2
         >>> phaser.remove_unterminated_ties
+        True
+        >>> phaser.force_time_signatures
         True
         >>> phaser.boundary_depth
         0
@@ -254,6 +261,7 @@ class Phaser():
         >>> phaser.max_steps = 3
         >>> phaser.forward_bias = 0.8
         >>> phaser.remove_unterminated_ties = False
+        >>> phaser.force_time_signatures = False
         >>> phaser.boundary_depth = 1
         >>> phaser.maximum_dot_count = 2
         >>> phaser.rewrite_tuplets = True
@@ -264,6 +272,8 @@ class Phaser():
         >>> phaser.forward_bias
         0.8
         >>> phaser.remove_unterminated_ties
+        False
+        >>> phaser.force_time_signatures
         False
         >>> phaser.boundary_depth
         1
@@ -599,14 +609,14 @@ class Phaser():
     ..  container:: example
 
         By default, only the first output selection will contain a time
-        signature (unless time signature changes require it, see below). Use
-        the optional keyword argument ``force_time_signature`` when calling the
-        phaser in order to force an initial time signature. Compare the two
-        cases below; in the first, the variable ``notes2`` won't have a time
-        signature appended to its first leaf because the phaser had been called
-        before (though LilyPond will fallback to a default 4/4 time signature
-        when none is found in the source file). In the second,
-        ``force_time_signature`` is set to ``True``, and the output of
+        signature (unless time signature changes require it, see below).
+        Initialise with the optional keyword argument ``force_time_signatures``
+        set to ``True`` in order to force an initial time signature. Compare
+        the  two cases below; in the first, the variable ``notes2`` won't have
+        a time signature appended to its first leaf because the phaser had been
+        called before (though LilyPond will fallback to a default 4/4 time
+        signature when none is found in the source file). In the second,
+        ``force_time_signatures`` is set to ``True``, and the output of
         ``abjad.f(staff)`` now includes ``\time 3/4`` (and LilyPond does not
         fallback to a 4/4 time signature).
 
@@ -635,9 +645,10 @@ class Phaser():
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
+        ...                        force_time_signatures=True,
         ...                        )
         >>> notes1 = phaser()
-        >>> notes2 = phaser(force_time_signature=True)
+        >>> notes2 = phaser()
         >>> staff = abjad.Staff(notes2)
         >>> abjad.f(staff)
         \new Staff
@@ -988,6 +999,7 @@ class Phaser():
                  '_current_window',
                  '_is_first_window',
                  '_new_time_signature',
+                 '_force_time_signatures',
                  '_contents_length',
                  '_boundary_depth',
                  '_maximum_dot_count',
@@ -1004,6 +1016,7 @@ class Phaser():
                  forward_bias: float = 1.0,
                  phase_on_first_call: bool = False,
                  remove_unterminated_ties: bool = True,
+                 force_time_signatures: bool = False,
                  boundary_depth: int = None,
                  maximum_dot_count: int = None,
                  rewrite_tuplets: bool = True,
@@ -1016,6 +1029,7 @@ class Phaser():
         self.max_steps = max_steps
         self.forward_bias = forward_bias
         self.remove_unterminated_ties = remove_unterminated_ties
+        self.force_time_signatures = force_time_signatures
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
@@ -1035,31 +1049,21 @@ class Phaser():
         proportion = self._contents_length / self._step_size
         return int(proportion * proportion.denominator)
 
-    def __call__(self,
-                 *,
-                 force_time_signature: bool = False,
-                 ) -> abjad.Selection:
+    def __call__(self) -> abjad.Selection:
         r"""Calls the phaser process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if not isinstance(force_time_signature, bool):
-            raise TypeError("'force_time_signature' must be 'bool'")
-        if force_time_signature:
+        if self._force_time_signatures:
             self._new_time_signature = True
         self._move_pivot_point()
         self._phase_contents()
         return copy.deepcopy(self._current_window)
 
-    def __next__(self,
-                 *,
-                 force_time_signature: bool = False,
-                 ) -> abjad.Selection:
+    def __next__(self) -> abjad.Selection:
         r"""Calls the phaser process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if not isinstance(force_time_signature, bool):
-            raise TypeError("'force_time_signature' must be 'bool'")
-        if force_time_signature:
+        if self._force_time_signatures:
             self._new_time_signature = True
         self._move_pivot_point()
         if self._done:
@@ -1311,6 +1315,21 @@ class Phaser():
         if not isinstance(remove_unterminated_ties, bool):
             raise TypeError("'remove_unterminated_ties' must be 'bool'")
         self._remove_unterminated_ties = remove_unterminated_ties
+
+    @property
+    def force_time_signatures(self) -> bool:
+        r"""When ``True``, every call will output a selection with a time
+        signature.
+        """
+        return self._force_time_signatures
+
+    @force_time_signatures.setter
+    def force_time_signatures(self,
+                              force_time_signatures: bool,
+                              ):
+        if not isinstance(force_time_signatures, bool):
+            raise TypeError("'force_time_signatures' must be 'bool'")
+        self._force_time_signatures = force_time_signatures
 
     @property
     def boundary_depth(self) -> int:

@@ -262,7 +262,9 @@ class LoopByWindow(_LoopParent):
         value of ``0.5`` gives 50% chance of moving forwards while a value of
         ``0.0`` will move the window only backwards). ``head_position`` can be
         used to offset the starting position of the  looping window. It must be
-        a tuple or an ``abjad.Duration``, and its default value is ``0``. The
+        a tuple or an ``abjad.Duration``, and its default value is ``0``. To
+        force every returned selection to start with a time signature attached
+        to its first leaf, set ``force_time_signatures`` to ``True``. The
         properties ``boundary_depth``, ``maximum_dot_count``, and
         ``rewrite_tuplets`` are passed as arguments to abjad's
         ``rewrite_meter()``, see its documentation for more information.
@@ -276,6 +278,7 @@ class LoopByWindow(_LoopParent):
         ...                              forward_bias=0.2,
         ...                              head_position=(2, 8),
         ...                              omit_all_time_signatures=False,
+        ...                              force_time_signatures=True,
         ...                              fill_with_rests=False,
         ...                              boundary_depth=0,
         ...                              maximum_dot_count=1,
@@ -295,6 +298,8 @@ class LoopByWindow(_LoopParent):
         1/4
         >>> looper.omit_all_time_signatures
         False
+        >>> looper.force_time_signatures
+        True
         >>> looper.fill_with_rests
         False
         >>> looper.boundary_depth
@@ -319,6 +324,7 @@ class LoopByWindow(_LoopParent):
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 0
         >>> looper.omit_all_time_signatures = True
+        >>> looper.force_time_signatures = False
         >>> looper.boundary_depth = 1
         >>> looper.maximum_dot_count = 2
         >>> looper.rewrite_tuplets = True
@@ -336,6 +342,8 @@ class LoopByWindow(_LoopParent):
         0
         >>> looper.omit_all_time_signatures
         True
+        >>> looper.force_time_signature
+        False
         >>> looper.boundary_depth
         1
         >>> looper.maximum_dot_count
@@ -656,14 +664,14 @@ class LoopByWindow(_LoopParent):
     ..  container:: example
 
         By default, only the first output bar will contain a time signature,
-        and all subsequent bars won't have one. Use the optional keyword
-        argument ``force_time_signature`` when calling the looper in order to
-        force it. Compare the two cases below; in the first, the variable
-        ``notes2`` won't have a time signature appended to its first leaf
-        because the looper had been called before (though LilyPond will
-        fallback to a default 4/4 time signature when none is found in the
-        source file). In the second, ``force_time_signature`` is set to
-        ``True``, and the output of ``abjad.f(staff)`` now includes
+        and all subsequent bars won't have one. Initialise with the optional
+        keyword argument ``force_time_signatures`` set to ``True`` in order to
+        force an initial time signature. Compare the two cases below; in the
+        first, the variable ``notes2`` won't have a time signature appended to
+        its first leaf because the looper had been called before (though
+        LilyPond will fallback to a default 4/4 time signature when none is
+        found in the source file). In the second, ``force_time_signatures`` is
+        set to ``True``, and the output of ``abjad.f(staff)`` now includes
         ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -690,9 +698,10 @@ class LoopByWindow(_LoopParent):
         >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
+        ...                              force_time_signatures=True,
         ...                              )
         >>> notes1 = looper()
-        >>> notes2 = looper(force_time_signature=True)
+        >>> notes2 = looper()
         >>> staff = abjad.Staff(notes2)
         >>> abjad.f(staff)
         \new Staff
@@ -923,6 +932,7 @@ class LoopByWindow(_LoopParent):
                  '_new_time_signature',
                  '_contents_length',
                  '_contents_no_time_signature',
+                 '_force_time_signatures',
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
@@ -940,6 +950,7 @@ class LoopByWindow(_LoopParent):
                  forward_bias: float = 1.0,
                  head_position: (int, float, tuple, str, abjad.Duration) = 0,
                  omit_all_time_signatures: bool = False,
+                 force_time_signatures: bool = False,
                  move_window_on_first_call: bool = False,
                  fill_with_rests: bool = True,
                  boundary_depth: int = None,
@@ -950,6 +961,7 @@ class LoopByWindow(_LoopParent):
         self.contents = contents
         self._new_time_signature = True
         self.omit_all_time_signatures = omit_all_time_signatures
+        self.force_time_signatures = force_time_signatures
         self.fill_with_rests = fill_with_rests
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
@@ -973,31 +985,19 @@ class LoopByWindow(_LoopParent):
         r'Returns the length of ``contents`` in terms of ``step_size``.'
         return ceil(self._contents_length / self._step_size)
 
-    def __call__(self,
-                 *,
-                 force_time_signature: bool = False,
-                 ) -> abjad.Selection:
+    def __call__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
         ``abjad.Selection``.
-
-        This method extends the parent's one since as to allow the optional
-        keyword argument ``force_time_signature``.
         """
-        if force_time_signature:
+        if self._force_time_signatures:
             self._new_time_signature = True
         return super().__call__()
 
-    def __next__(self,
-                 *,
-                 force_time_signature: bool = False,
-                 ) -> abjad.Selection:
+    def __next__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
         ``abjad.Selection``.
-
-        This method extends the parent's one since as to allow the optional
-        keyword argument ``force_time_signature``.
         """
-        if force_time_signature:
+        if self._force_time_signatures:
             self._new_time_signature = True
         return super().__next__()
 
@@ -1164,6 +1164,21 @@ class LoopByWindow(_LoopParent):
         if not isinstance(omit_all_time_signatures, bool):
             raise TypeError("'omit_all_time_signatures' must be 'bool'")
         self._omit_all_time_signatures = omit_all_time_signatures
+
+    @property
+    def force_time_signatures(self) -> bool:
+        r"""When ``True``, every call will output a selection with a time
+        signature.
+        """
+        return self._force_time_signatures
+
+    @force_time_signatures.setter
+    def force_time_signatures(self,
+                              force_time_signatures: bool,
+                              ):
+        if not isinstance(force_time_signatures, bool):
+            raise TypeError("'force_time_signatures' must be 'bool'")
+        self._force_time_signatures = force_time_signatures
 
     @property
     def fill_with_rests(self) -> bool:

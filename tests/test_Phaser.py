@@ -205,6 +205,7 @@ def test_Phaser_04():
                            max_steps=2,
                            forward_bias=0.2,
                            remove_unterminated_ties=True,
+                           force_time_signatures=True,
                            boundary_depth=0,
                            maximum_dot_count=1,
                            rewrite_tuplets=False,
@@ -213,6 +214,7 @@ def test_Phaser_04():
     assert phaser.max_steps == 2
     assert phaser.forward_bias == 0.2
     assert phaser.remove_unterminated_ties
+    assert phaser.force_time_signatures
     assert phaser.boundary_depth == 0
     assert phaser.maximum_dot_count == 1
     assert not phaser.rewrite_tuplets
@@ -220,6 +222,7 @@ def test_Phaser_04():
     phaser.max_steps = 3
     phaser.forward_bias = 0.8
     phaser.remove_unterminated_ties = False
+    phaser.force_time_signatures = False
     phaser.boundary_depth = 1
     phaser.maximum_dot_count = 2
     phaser.rewrite_tuplets = True
@@ -227,6 +230,7 @@ def test_Phaser_04():
     assert phaser.max_steps == 3
     assert phaser.forward_bias == 0.8
     assert not phaser.remove_unterminated_ties
+    assert not phaser.force_time_signatures
     assert phaser.boundary_depth == 1
     assert phaser.maximum_dot_count == 2
     assert phaser.rewrite_tuplets
@@ -915,7 +919,29 @@ def test_Phaser_19():
                            step_size=(1, 8),
                            )
     notes1 = phaser()
-    notes2 = phaser(force_time_signature=True)
+    notes2 = phaser()
+    staff = abjad.Staff(notes2)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            c'8
+        }
+        """)
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 8),
+                           force_time_signatures=True,
+                           )
+    notes1 = phaser()
+    notes2 = phaser()
     staff = abjad.Staff(notes2)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -939,6 +965,7 @@ def test_Phaser_20():
         r"\time 2/4 c'2 \time 3/8 d'4. \time 2/4 e'2")
     phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
+                           force_time_signatures=True,
                            )
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
@@ -952,6 +979,7 @@ def test_Phaser_20():
             d'4.
             \time 2/4
             e'2
+            \time 2/4
             c'4.
             d'8
             ~
@@ -962,6 +990,7 @@ def test_Phaser_20():
             \time 2/4
             e'4.
             c'8
+            \time 2/4
             c'4
             d'4
             ~

@@ -919,3 +919,41 @@ def test_Fader_21():
             e'2
         }
         """)
+
+
+def test_Fader_22():
+    random.seed(92114)
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    fader = auxjad.Fader(container)
+    fader.random_mask()
+    notes = fader()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            r8
+            d'8
+            r4
+            g'8
+            a'8
+            r4
+        }
+        """)
+    fader.random_mask()
+    notes = fader()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            r8
+            d'8
+            r4
+            g'8
+            a'8
+            b'8
+            r8
+        }
+        """)

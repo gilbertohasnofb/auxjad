@@ -624,6 +624,46 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-24.png
 
+    .. container:: example
+
+        The mask can also be randomised at any point using the method
+        ``random_mask()``.
+
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> fader = auxjad.Fader(container)
+        >>> fader.random_mask()
+        >>> notes = fader()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            r8
+            d'8
+            r4
+            g'8
+            a'8
+            r4
+        }
+
+        .. figure:: ../_images/image-Fader-25.png
+
+        >>> fader.random_mask()
+        >>> notes = fader()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            r8
+            d'8
+            r4
+            g'8
+            a'8
+            b'8
+            r8
+        }
+
+        .. figure:: ../_images/image-Fader-26.png
 
     .. container:: example
 
@@ -658,7 +698,7 @@ class Fader():
             r2.
         }
 
-        .. figure:: ../_images/image-Fader-25.png
+        .. figure:: ../_images/image-Fader-27.png
 
     .. container:: example
 
@@ -681,7 +721,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-26.png
+        .. figure:: ../_images/image-Fader-28.png
 
     ..  container:: example
 
@@ -710,7 +750,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-27.png
+        .. figure:: ../_images/image-Fader-29.png
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> fader = auxjad.Fader(container,
@@ -728,7 +768,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-28.png
+        .. figure:: ../_images/image-Fader-30.png
 
     ..  container:: example
 
@@ -748,7 +788,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-29.png
+        .. figure:: ../_images/image-Fader-31.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -768,7 +808,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-30.png
+        .. figure:: ../_images/image-Fader-32.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -821,7 +861,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/image-Fader-31.png
+        .. figure:: ../_images/image-Fader-33.png
 
     ..  warning::
 
@@ -870,7 +910,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-32.png
+        .. figure:: ../_images/image-Fader-34.png
     """
 
     ### CLASS VARIABLES ###
@@ -1016,6 +1056,11 @@ class Fader():
             self._mask = [1 for _ in range(self.__len__())]
         else:
             self._mask = [0 for _ in range(self.__len__())]
+
+    def random_mask(self):
+        r"Creates a mask randomly filled with ``1``'s and ``0``'s."
+        self._new_mask = True
+        self._mask = [random.randint(0, 1) for _ in range(self.__len__())]
 
     ### PRIVATE METHODS ###
 

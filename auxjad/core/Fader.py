@@ -667,6 +667,54 @@ class Fader():
 
     .. container:: example
 
+        Use ``shuffle_mask()`` to shuffle the current mask. This method will
+        shuffle the mask while keeping the same number of pitched logical ties
+        (that is, it will shuffle the contents of the mask while keeping the
+        total number of ``1``'s and ``0``'s).
+
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> fader = auxjad.Fader(container,
+        ...                      mask=[0, 0, 1, 1, 1, 1, 1, 1],
+        ...                      )
+        >>> fader.shuffle_mask()
+        >>> notes = fader()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            r8
+            d'8
+            e'8
+            f'8
+            g'8
+            a'8
+            b'8
+            r8
+        }
+
+        .. figure:: ../_images/image-Fader-27.png
+
+        >>> fader.shuffle_mask()
+        >>> notes = fader()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'8
+            d'8
+            e'8
+            r8
+            g'8
+            r8
+            b'8
+            c''8
+        }
+
+        .. figure:: ../_images/image-Fader-28.png
+
+    .. container:: example
+
         By default, all rests in a measure filled only with rests will be
         converted into a multi-measure rest. Set ``use_multimeasure_rests`` to
         ``False`` to disable this. Also, by default, all output is mutated
@@ -698,7 +746,7 @@ class Fader():
             r2.
         }
 
-        .. figure:: ../_images/image-Fader-27.png
+        .. figure:: ../_images/image-Fader-29.png
 
     .. container:: example
 
@@ -721,7 +769,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-28.png
+        .. figure:: ../_images/image-Fader-30.png
 
     ..  container:: example
 
@@ -750,7 +798,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-29.png
+        .. figure:: ../_images/image-Fader-31.png
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> fader = auxjad.Fader(container,
@@ -768,7 +816,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-30.png
+        .. figure:: ../_images/image-Fader-32.png
 
     ..  container:: example
 
@@ -788,7 +836,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-31.png
+        .. figure:: ../_images/image-Fader-33.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -808,7 +856,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-32.png
+        .. figure:: ../_images/image-Fader-34.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -861,7 +909,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/image-Fader-33.png
+        .. figure:: ../_images/image-Fader-35.png
 
     ..  warning::
 
@@ -910,7 +958,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-34.png
+        .. figure:: ../_images/image-Fader-36.png
     """
 
     ### CLASS VARIABLES ###
@@ -1061,6 +1109,11 @@ class Fader():
         r"Creates a mask randomly filled with ``1``'s and ``0``'s."
         self._new_mask = True
         self._mask = [random.randint(0, 1) for _ in range(self.__len__())]
+
+    def shuffle_mask(self):
+        r"Shuffles the current mask."
+        self._new_mask = True
+        random.shuffle(self._mask)
 
     ### PRIVATE METHODS ###
 

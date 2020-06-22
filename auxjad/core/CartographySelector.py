@@ -7,8 +7,8 @@ class CartographySelector():
     represents the ratio of probabilities of any index given the probability of
     the preceeding one. For instance, if the decay rate is set to ``0.75``
     (which is its default value), the probability of the element in index 1 of
-    the input list being selected is 0.75 the probability of the element in
-    index 0, and the probability of the element in index 2 is 0.5625 (0.75^2)
+    the input list being selected is 75% the probability of the element in
+    index 0, and the probability of the element in index 2 is 56.25% (0.75^2)
     the probability of the element in index 0. This is the selector used in my
     *Cartography* series of compositions.
 

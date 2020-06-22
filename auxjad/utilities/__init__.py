@@ -1,3 +1,4 @@
+from .adjust_clefs import adjust_clefs
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .containers_are_equal import containers_are_equal

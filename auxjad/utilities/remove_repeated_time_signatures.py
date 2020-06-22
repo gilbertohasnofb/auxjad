@@ -130,5 +130,5 @@ def remove_repeated_time_signatures(container: abjad.Container):
         time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
         if time_signature == previous_time_signature:
             abjad.detach(abjad.TimeSignature, head)
-        if time_signature is not None:
+        elif time_signature is not None:
             previous_time_signature = time_signature

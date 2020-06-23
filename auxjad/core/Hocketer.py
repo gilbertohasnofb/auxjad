@@ -1,5 +1,6 @@
 import copy
 import random
+from typing import Optional, Union
 import abjad
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from ..utilities.remove_empty_tuplets import remove_empty_tuplets
@@ -781,13 +782,13 @@ class Hocketer():
                  contents: abjad.Container,
                  *,
                  n_voices: int = 2,
-                 weights: list = None,
+                 weights: Optional[list] = None,
                  k: int = 1,
                  force_k_voices: bool = False,
                  disable_rewrite_meter: bool = False,
                  use_multimeasure_rests: bool = True,
-                 boundary_depth: int = None,
-                 maximum_dot_count: int = None,
+                 boundary_depth: Optional[int] = None,
+                 maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
@@ -1033,13 +1034,13 @@ class Hocketer():
         self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def boundary_depth(self) -> int:
+    def boundary_depth(self) -> Union[int, None]:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
         return self._boundary_depth
 
     @boundary_depth.setter
     def boundary_depth(self,
-                       boundary_depth: int,
+                       boundary_depth: Optional[int],
                        ):
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1047,13 +1048,13 @@ class Hocketer():
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> int:
+    def maximum_dot_count(self) -> Union[int, None]:
         r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: int,
+                       maximum_dot_count: Optional[int],
                        ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
@@ -1076,7 +1077,7 @@ class Hocketer():
         self._rewrite_tuplets = rewrite_tuplets
 
     @property
-    def current_window(self) -> list:
+    def current_window(self) -> Union[list, None]:
         r'Read-only property, returns the result of the last operation.'
         if self._voices is not None:
             return [abjad.Staff([copy.deepcopy(voice)]) for voice in

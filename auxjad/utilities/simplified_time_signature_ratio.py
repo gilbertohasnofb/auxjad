@@ -1,15 +1,13 @@
+from typing import Union
 import abjad
 
 
-def simplified_time_signature_ratio(ratio: (tuple,
-                                            abjad.TimeSignature,
-                                            abjad.Duration,
-                                            abjad.Meter,
-                                            ),
+def simplified_time_signature_ratio(ratio: Union[tuple, abjad.TimeSignature,
+                                                 abjad.Duration, abjad.Meter],
                                     *,
                                     min_denominator: int = 4,
                                     output_pair_of_int: bool = False,
-                                    ) -> (abjad.TimeSignature, tuple):
+                                    ) -> Union[abjad.TimeSignature, tuple]:
     r"""Returns an ``abjad.TimeSignature`` with the simplified ratio of an
     input ratio according to a minimum denominator value. The input ratio can
     be a ``tuple`` of integers, an ``abjad.TimeSignature``, ``abjad.Duration``,

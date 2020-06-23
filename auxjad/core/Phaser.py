@@ -1,5 +1,6 @@
 import copy
 import random
+from typing import Optional, Union
 import abjad
 from ..utilities.time_signature_extractor import time_signature_extractor
 from ..utilities.enforce_time_signature import enforce_time_signature
@@ -1011,14 +1012,15 @@ class Phaser():
     def __init__(self,
                  contents: abjad.Container,
                  *,
-                 step_size: (int, float, tuple, str, abjad.Duration) = (1, 16),
+                 step_size: Union[int, float, tuple, str,
+                                  abjad.Duration] = (1, 16),
                  max_steps: int = 1,
                  forward_bias: float = 1.0,
                  phase_on_first_call: bool = False,
                  remove_unterminated_ties: bool = True,
                  force_time_signatures: bool = False,
-                 boundary_depth: int = None,
-                 maximum_dot_count: int = None,
+                 boundary_depth: Optional[int] = None,
+                 maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
@@ -1257,7 +1259,7 @@ class Phaser():
 
     @step_size.setter
     def step_size(self,
-                  step_size: (tuple, abjad.Duration),
+                  step_size: Union[tuple, abjad.Duration],
                   ):
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
@@ -1332,13 +1334,13 @@ class Phaser():
         self._force_time_signatures = force_time_signatures
 
     @property
-    def boundary_depth(self) -> int:
+    def boundary_depth(self) -> Union[int, None]:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
         return self._boundary_depth
 
     @boundary_depth.setter
     def boundary_depth(self,
-                       boundary_depth: int,
+                       boundary_depth: Optional[int],
                        ):
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1346,13 +1348,13 @@ class Phaser():
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> int:
+    def maximum_dot_count(self) -> Union[int, None]:
         r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: int,
+                       maximum_dot_count: Optional[int],
                        ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):

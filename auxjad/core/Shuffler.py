@@ -1,5 +1,6 @@
 import copy
 import random
+from typing import Optional, Union
 import abjad
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures
@@ -650,8 +651,8 @@ class Shuffler:
                  disable_rewrite_meter: bool = False,
                  force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
-                 boundary_depth: int = None,
-                 maximum_dot_count: int = None,
+                 boundary_depth: Optional[int] = None,
+                 maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
@@ -1021,13 +1022,13 @@ class Shuffler:
         self._omit_time_signatures = omit_time_signatures
 
     @property
-    def boundary_depth(self) -> int:
+    def boundary_depth(self) -> Union[int, None]:
         r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
         return self._boundary_depth
 
     @boundary_depth.setter
     def boundary_depth(self,
-                       boundary_depth: int,
+                       boundary_depth: Optional[int],
                        ):
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1035,13 +1036,13 @@ class Shuffler:
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> int:
+    def maximum_dot_count(self) -> Union[int, None]:
         r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: int,
+                       maximum_dot_count: Optional[int],
                        ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):

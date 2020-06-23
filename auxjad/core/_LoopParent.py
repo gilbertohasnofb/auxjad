@@ -1,5 +1,6 @@
 import copy
 import random
+from typing import Union
 import abjad
 from ..utilities.leaves_are_tieable import leaves_are_tieable
 
@@ -270,7 +271,7 @@ class _LoopParent():
         self._forward_bias = forward_bias
 
     @property
-    def current_window(self) -> (list, abjad.Selection):
+    def current_window(self) -> Union[list, abjad.Selection]:
         r'Read-only property, returns the window at the current head position.'
         return copy.deepcopy(self._current_window)
 

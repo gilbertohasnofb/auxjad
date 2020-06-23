@@ -1,17 +1,19 @@
 import abjad
+from typing import Optional, Union
 from .fill_with_rests import fill_with_rests as fill_with_rests_function
 from .close_container import close_container as close_container_function
 
 
 def enforce_time_signature(container: abjad.Container,
-                           time_signatures: (abjad.TimeSignature, tuple, list),
+                           time_signatures: Union[abjad.TimeSignature, tuple,
+                                                  list],
                            *,
                            cyclic: bool = False,
                            fill_with_rests: bool = True,
                            close_container: bool = False,
                            disable_rewrite_meter: bool = False,
-                           boundary_depth: int = None,
-                           maximum_dot_count: int = None,
+                           boundary_depth: Optional[int] = None,
+                           maximum_dot_count: Optional[int] = None,
                            rewrite_tuplets: bool = True,
                            ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)

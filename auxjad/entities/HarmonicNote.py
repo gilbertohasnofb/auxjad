@@ -1,4 +1,5 @@
 import abjad
+from typing import Optional, Union
 from ._HarmonicParent import _HarmonicParent
 
 
@@ -181,11 +182,11 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     def __init__(self,
                  *arguments,
-                 multiplier: abjad.typings.DurationTyping = None,
-                 tag: abjad.Tag = None,
+                 multiplier: Optional[abjad.typings.DurationTyping] = None,
+                 tag: Optional[abjad.Tag] = None,
                  style: str = 'harmonic',
-                 markup: str = None,
-                 direction: (str, abjad.enums.VerticalAlignment) = 'up',
+                 markup: Optional[str] = None,
+                 direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
                  ):
         r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)

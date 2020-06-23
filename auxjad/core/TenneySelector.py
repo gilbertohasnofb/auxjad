@@ -1,4 +1,5 @@
 import random
+from typing import Any, Optional, Union
 
 
 class TenneySelector():
@@ -364,7 +365,7 @@ class TenneySelector():
     def __init__(self,
                  contents: list,
                  *,
-                 weights: list = None,
+                 weights: Optional[list] = None,
                  curvature: float = 1.0,
                  ):
         r'Initialises self.'
@@ -533,19 +534,19 @@ class TenneySelector():
         self._generate_probabilities()
 
     @property
-    def previous_index(self) -> int:
+    def previous_index(self) -> Union[int, None]:
         r"""Read-only property, returns the index of the previously output
         element.
         """
         return self._previous_index
 
     @property
-    def previous_result(self):
+    def previous_result(self) -> Any:
         r'Read-only property, returns the previously output element.'
         if self._previous_index is not None:
             return self._contents[self._previous_index]
         else:
-            return None
+            return self._previous_index
 
     @property
     def probabilities(self) -> list:

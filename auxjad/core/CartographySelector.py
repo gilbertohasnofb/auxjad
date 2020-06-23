@@ -1,4 +1,5 @@
 import random
+from typing import Any, Union
 
 
 class CartographySelector():
@@ -335,7 +336,7 @@ class CartographySelector():
             )[0]
         else:
             new_index = self._previous_index
-            while (new_index == self._previous_index):
+            while new_index == self._previous_index:
                 new_index = random.choices(
                     [n for n in range(self.__len__())],
                     weights=self._weights,
@@ -482,19 +483,19 @@ class CartographySelector():
         self._generate_weights()
 
     @property
-    def previous_index(self) -> int:
+    def previous_index(self) -> Union[int, None]:
         r"""Read-only property, returns the index of the previously output
         element.
         """
         return self._previous_index
 
     @property
-    def previous_result(self):
+    def previous_result(self) -> Any:
         r'Read-only property, returns the previously output element.'
         if self._previous_index is not None:
             return self._contents[self._previous_index]
         else:
-            return None
+            return self._previous_index
 
     @property
     def weights(self) -> list:

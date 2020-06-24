@@ -90,7 +90,7 @@ def test_repeat_container_04():
     container = abjad.Container(r"c'4 d'4 e'4")
     output_container = auxjad.repeat_container(container,
                                                3,
-                                               omit_all_time_signatures=True,
+                                               omit_time_signatures=True,
                                                )
     assert format(output_container) == abjad.String.normalize(
         r"""

@@ -8,7 +8,7 @@ from .remove_repeated_time_signatures import remove_repeated_time_signatures
 def repeat_container(container: abjad.Container,
                      n: int,
                      *,
-                     omit_all_time_signatures: bool = False,
+                     omit_time_signatures: bool = False,
                      force_identical_time_signatures: bool = False,
                      ) -> abjad.Container:
     r"""This Returns an ``abjad.Container`` with n repetitions of an input
@@ -127,13 +127,13 @@ def repeat_container(container: abjad.Container,
     ..  container:: example
 
         To omit all time signatures, set the keyword argument
-        ``omit_all_time_signatures`` to ``True``.
+        ``omit_time_signatures`` to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> output_container = auxjad.repeat_container(
         ...     container,
         ...     3,
-        ...     omit_all_time_signatures=True,
+        ...     omit_time_signatures=True,
         ... )
         >>> abjad.f(output_container)
         {
@@ -219,8 +219,8 @@ def repeat_container(container: abjad.Container,
                         "or child class")
     if not isinstance(n, int):
         raise TypeError("second positional argument must be 'int'")
-    if not isinstance(omit_all_time_signatures, bool):
-        raise TypeError("'omit_all_time_signatures' must be 'bool'")
+    if not isinstance(omit_time_signatures, bool):
+        raise TypeError("'omit_time_signatures' must be 'bool'")
     if not isinstance(force_identical_time_signatures, bool):
         raise TypeError("'force_identical_time_signatures' must be 'bool'")
 
@@ -232,7 +232,7 @@ def repeat_container(container: abjad.Container,
         output_container.extend(copy.deepcopy(container_))
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)
-    if omit_all_time_signatures:
+    if omit_time_signatures:
         for leaf in abjad.select(output_container).leaves():
             if abjad.inspect(leaf).indicator(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)

@@ -211,7 +211,7 @@ def test_LoopByWindow_04():
                                  repetition_chance=0.25,
                                  forward_bias=0.2,
                                  head_position=(2, 8),
-                                 omit_all_time_signatures=False,
+                                 omit_time_signatures=False,
                                  force_time_signatures=True,
                                  fill_with_rests=False,
                                  boundary_depth=0,
@@ -224,7 +224,7 @@ def test_LoopByWindow_04():
     assert looper.repetition_chance == 0.25
     assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
-    assert not looper.omit_all_time_signatures
+    assert not looper.omit_time_signatures
     assert looper.force_time_signatures
     assert not looper.fill_with_rests
     assert looper.boundary_depth == 0
@@ -236,7 +236,7 @@ def test_LoopByWindow_04():
     looper.repetition_chance = 0.1
     looper.forward_bias = 0.8
     looper.head_position = 0
-    looper.omit_all_time_signatures = True
+    looper.omit_time_signatures = True
     looper.force_time_signatures = False
     looper.fill_with_rests = True
     looper.boundary_depth = 1
@@ -248,7 +248,7 @@ def test_LoopByWindow_04():
     assert looper.repetition_chance == 0.1
     assert looper.forward_bias == 0.8
     assert looper.head_position == abjad.Duration(0)
-    assert looper.omit_all_time_signatures
+    assert looper.omit_time_signatures
     assert not looper.force_time_signatures
     assert looper.fill_with_rests
     assert looper.boundary_depth == 1
@@ -409,7 +409,7 @@ def test_LoopByWindow_07():
 
 def test_LoopByWindow_08():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(container, omit_all_time_signatures=True)
+    looper = auxjad.LoopByWindow(container, omit_time_signatures=True)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -434,7 +434,7 @@ def test_LoopByWindow_09():
         assert auxjad.LoopByWindow(container, repetition_chance='bar')
         assert auxjad.LoopByWindow(container, forward_bias=False)
         assert auxjad.LoopByWindow(container, head_position=62.3j)
-        assert auxjad.LoopByWindow(container, omit_all_time_signatures='xyz')
+        assert auxjad.LoopByWindow(container, omit_time_signatures='xyz')
         assert auxjad.LoopByWindow(container, fill_with_rests=1.2)
     with pytest.raises(ValueError):
         assert auxjad.LoopByWindow(container, window_size=(100, 1))

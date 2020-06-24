@@ -70,7 +70,7 @@ def test_LoopByNotes_02():
                                 repetition_chance=0.25,
                                 forward_bias=0.2,
                                 head_position=0,
-                                omit_all_time_signatures=False,
+                                omit_time_signatures=False,
                                 force_identical_time_signatures=False,
                                 )
     assert looper.window_size == 3
@@ -79,7 +79,7 @@ def test_LoopByNotes_02():
     assert looper.repetition_chance == 0.25
     assert looper.forward_bias == 0.2
     assert looper.head_position == 0
-    assert not looper.omit_all_time_signatures
+    assert not looper.omit_time_signatures
     assert not looper.force_identical_time_signatures
     looper.window_size = 2
     looper.step_size = 2
@@ -87,7 +87,7 @@ def test_LoopByNotes_02():
     looper.repetition_chance = 0.1
     looper.forward_bias = 0.8
     looper.head_position = 2
-    looper.omit_all_time_signatures = True
+    looper.omit_time_signatures = True
     looper.force_identical_time_signatures = True
     assert looper.window_size == 2
     assert looper.step_size == 2
@@ -95,7 +95,7 @@ def test_LoopByNotes_02():
     assert looper.repetition_chance == 0.1
     assert looper.forward_bias == 0.8
     assert looper.head_position == 2
-    assert looper.omit_all_time_signatures
+    assert looper.omit_time_signatures
     assert looper.force_identical_time_signatures
 
 
@@ -274,7 +274,7 @@ def test_LoopByNotes_10():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopByNotes(container,
                                 window_size=3,
-                                omit_all_time_signatures=True,
+                                omit_time_signatures=True,
                                 )
     notes = looper()
     staff = abjad.Staff(notes)
@@ -313,7 +313,7 @@ def test_LoopByNotes_11():
                                   )
         assert auxjad.LoopByNotes(container,
                                   window_size=3,
-                                  omit_all_time_signatures='foobar',
+                                  omit_time_signatures='foobar',
                                   )
     with pytest.raises(ValueError):
         assert auxjad.LoopByNotes(container, window_size=100)

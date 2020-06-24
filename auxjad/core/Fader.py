@@ -269,7 +269,7 @@ class Fader():
         rests; set ``fade_on_first_call`` to ``True`` and the fade process will
         be applied on the very first call.  ``disable_rewrite_meter`` disables
         the ``rewrite_meter()`` mutation which is applied to the container
-        after every call, and ``omit_all_time_signatures`` will remove all time
+        after every call, and ``omit_time_signatures`` will remove all time
         signatures from the output (both are ``False`` by default). By default,
         the first time signature is attached only to the first leaf of the
         first call (unless time signature changes require it). To force every
@@ -294,7 +294,7 @@ class Fader():
         ...                      max_steps=2,
         ...                      fade_on_first_call=True,
         ...                      disable_rewrite_meter=True,
-        ...                      omit_all_time_signatures=True,
+        ...                      omit_time_signatures=True,
         ...                      force_time_signatures=True,
         ...                      use_multimeasure_rests=False,
         ...                      mask=[1, 0, 1, 1, 0],
@@ -310,7 +310,7 @@ class Fader():
         True
         >>> fader.disable_rewrite_meter
         True
-        >>> fader.omit_all_time_signatures
+        >>> fader.omit_time_signatures
         True
         >>> fader.force_time_signatures
         True
@@ -330,7 +330,7 @@ class Fader():
         >>> fader.fader_type = 'out'
         >>> fader.max_steps = 1
         >>> fader.disable_rewrite_meter = False
-        >>> fader.omit_all_time_signatures = False
+        >>> fader.omit_time_signatures = False
         >>> fader.force_time_signatures = False
         >>> fader.use_multimeasure_rests = True
         >>> fader.mask = [0, 1, 1, 0, 1]
@@ -345,7 +345,7 @@ class Fader():
         False
         >>> fader.disable_rewrite_meter
         False
-        >>> fader.omit_all_time_signatures
+        >>> fader.omit_time_signatures
         False
         >>> fader.force_time_signatures
         False
@@ -752,13 +752,13 @@ class Fader():
     .. container:: example
 
         To disable time signatures altogether, initialise this class with the
-        keyword argument ``omit_all_time_signatures`` set to ``True`` (default
-        is ``False``), or use the ``omit_all_time_signatures`` property after
+        keyword argument ``omit_time_signatures`` set to ``True`` (default is
+        ``False``), or use the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> fader = auxjad.Fader(container,
-        ...                      omit_all_time_signatures=True,
+        ...                      omit_time_signatures=True,
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -972,7 +972,7 @@ class Fader():
                  '_mask',
                  '_is_first_window',
                  '_time_signatures',
-                 '_omit_all_time_signatures',
+                 '_omit_time_signatures',
                  '_force_time_signatures',
                  '_use_multimeasure_rests',
                  '_new_mask',
@@ -990,7 +990,7 @@ class Fader():
                  max_steps: int = 1,
                  fade_on_first_call: bool = False,
                  disable_rewrite_meter: bool = False,
-                 omit_all_time_signatures: bool = False,
+                 omit_time_signatures: bool = False,
                  force_time_signatures: bool = False,
                  use_multimeasure_rests: bool = True,
                  mask: Optional[list] = None,
@@ -1005,7 +1005,7 @@ class Fader():
         if not isinstance(fade_on_first_call, bool):
             raise TypeError("'fade_on_first_call' must be 'bool'")
         self.disable_rewrite_meter = disable_rewrite_meter
-        self.omit_all_time_signatures = omit_all_time_signatures
+        self.omit_time_signatures = omit_time_signatures
         self.force_time_signatures = force_time_signatures
         self.use_multimeasure_rests = use_multimeasure_rests
         if mask:
@@ -1151,7 +1151,7 @@ class Fader():
                 for leaf in logical_tie:
                     abjad.mutate(leaf).replace(
                         abjad.Rest(leaf.written_duration))
-        if not self.omit_all_time_signatures:
+        if not self._omit_time_signatures:
             # applying time signatures and rewrite meter
             enforce_time_signature(
                 dummy_container,
@@ -1169,13 +1169,17 @@ class Fader():
                                  abjad.select(dummy_container).leaf(0),
                                  )
         else:
-            for logical_tie in logical_ties:
-                for leaf in logical_tie:
-                    if abjad.inspect(leaf).indicator(abjad.TimeSignature):
-                        abjad.detach(abjad.TimeSignature, leaf)
+            self._remove_all_time_signatures(dummy_container)
         # output
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+
+    @staticmethod
+    def _remove_all_time_signatures(container):
+        r'Removes all time signatures of an ``abjad.Container``'
+        for leaf in abjad.select(container).leaves():
+            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+                abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
 
@@ -1198,7 +1202,7 @@ class Fader():
         self.reset_mask()
 
     @property
-    def current_window(self) -> abjad.Selection:
+    def current_window(self) -> Union[abjad.Selection, None]:
         r'Read-only property, returns the previously output selection.'
         return copy.deepcopy(self._current_window)
 
@@ -1267,17 +1271,17 @@ class Fader():
         self._disable_rewrite_meter = disable_rewrite_meter
 
     @property
-    def omit_all_time_signatures(self) -> bool:
+    def omit_time_signatures(self) -> bool:
         r'When ``True``, all time signatures will be omitted from the output.'
-        return self._omit_all_time_signatures
+        return self._omit_time_signatures
 
-    @omit_all_time_signatures.setter
-    def omit_all_time_signatures(self,
-                                 omit_all_time_signatures: bool,
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                                 omit_time_signatures: bool,
                                  ):
-        if not isinstance(omit_all_time_signatures, bool):
-            raise TypeError("'omit_all_time_signatures' must be 'bool'")
-        self._omit_all_time_signatures = omit_all_time_signatures
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self._omit_time_signatures = omit_time_signatures
 
     @property
     def force_time_signatures(self) -> bool:

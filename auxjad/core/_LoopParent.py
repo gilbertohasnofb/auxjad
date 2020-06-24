@@ -158,9 +158,9 @@ class _LoopParent():
         return random.choices([1, -1], weights=[bias, 1.0-bias])[0]
 
     @staticmethod
-    def _remove_all_time_signatures(contents):
+    def _remove_all_time_signatures(container):
         r'Removes all time signatures of an ``abjad.Container``'
-        for leaf in abjad.select(contents).leaves():
+        for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
@@ -271,7 +271,7 @@ class _LoopParent():
         self._forward_bias = forward_bias
 
     @property
-    def current_window(self) -> Union[list, abjad.Selection]:
+    def current_window(self) -> Union[list, abjad.Selection, None]:
         r'Read-only property, returns the window at the current head position.'
         return copy.deepcopy(self._current_window)
 

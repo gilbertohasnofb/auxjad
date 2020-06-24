@@ -1243,7 +1243,7 @@ class Phaser():
         self._is_first_window = True
 
     @property
-    def current_window(self) -> abjad.Selection:
+    def current_window(self) -> Union[abjad.Selection, None]:
         r'Read-only property, returns the previously output selection.'
         return copy.deepcopy(self._current_window)
 

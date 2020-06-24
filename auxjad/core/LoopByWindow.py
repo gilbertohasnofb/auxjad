@@ -278,7 +278,7 @@ class LoopByWindow(_LoopParent):
         ...                              repetition_chance=0.25,
         ...                              forward_bias=0.2,
         ...                              head_position=(2, 8),
-        ...                              omit_all_time_signatures=False,
+        ...                              omit_time_signatures=False,
         ...                              force_time_signatures=True,
         ...                              fill_with_rests=False,
         ...                              boundary_depth=0,
@@ -297,7 +297,7 @@ class LoopByWindow(_LoopParent):
         2
         >>> looper.head_position
         1/4
-        >>> looper.omit_all_time_signatures
+        >>> looper.omit_time_signatures
         False
         >>> looper.force_time_signatures
         True
@@ -324,7 +324,7 @@ class LoopByWindow(_LoopParent):
         >>> looper.repetition_chance = 0.1
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 0
-        >>> looper.omit_all_time_signatures = True
+        >>> looper.omit_time_signatures = True
         >>> looper.force_time_signatures = False
         >>> looper.boundary_depth = 1
         >>> looper.maximum_dot_count = 2
@@ -341,7 +341,7 @@ class LoopByWindow(_LoopParent):
         0.8
         >>> looper.head_position
         0
-        >>> looper.omit_all_time_signatures
+        >>> looper.omit_time_signatures
         True
         >>> looper.force_time_signature
         False
@@ -642,13 +642,13 @@ class LoopByWindow(_LoopParent):
     .. container:: example
 
         To disable time signatures altogether, initialise ``LoopByWindow`` with
-        the keyword argument ``omit_all_time_signatures`` set to ``True``
-        (default is ``False``), or use the ``omit_all_time_signatures``
-        property after initialisation.
+        the keyword argument ``omit_time_signatures`` set to ``True`` (default
+        is ``False``), or use the ``omit_time_signatures`` property after 
+        initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(container,
-        ...                              omit_all_time_signatures=True,
+        ...                              omit_time_signatures=True,
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -928,7 +928,7 @@ class LoopByWindow(_LoopParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_omit_all_time_signatures',
+    __slots__ = ('_omit_time_signatures',
                  '_fill_with_rests',
                  '_new_time_signature',
                  '_contents_length',
@@ -952,7 +952,7 @@ class LoopByWindow(_LoopParent):
                  forward_bias: float = 1.0,
                  head_position: Union[int, float, tuple, str,
                                       abjad.Duration] = 0,
-                 omit_all_time_signatures: bool = False,
+                 omit_time_signatures: bool = False,
                  force_time_signatures: bool = False,
                  move_window_on_first_call: bool = False,
                  fill_with_rests: bool = True,
@@ -963,7 +963,7 @@ class LoopByWindow(_LoopParent):
         r'Initialises self.'
         self.contents = contents
         self._new_time_signature = True
-        self.omit_all_time_signatures = omit_all_time_signatures
+        self.omit_time_signatures = omit_time_signatures
         self.force_time_signatures = force_time_signatures
         self.fill_with_rests = fill_with_rests
         self.boundary_depth = boundary_depth
@@ -1061,7 +1061,7 @@ class LoopByWindow(_LoopParent):
             maximum_dot_count=self._maximum_dot_count,
             rewrite_tuplets=self._rewrite_tuplets,
         )
-        if self._new_time_signature and not self._omit_all_time_signatures:
+        if self._new_time_signature and not self._omit_time_signatures:
             abjad.attach(abjad.TimeSignature(window_size),
                          abjad.select(dummy_container).leaf(0),
                          )
@@ -1156,17 +1156,17 @@ class LoopByWindow(_LoopParent):
         self._step_size = abjad.Duration(step_size)
 
     @property
-    def omit_all_time_signatures(self) -> bool:
+    def omit_time_signatures(self) -> bool:
         r'When ``True``, the output will contain no time signatures.'
-        return self._omit_all_time_signatures
+        return self._omit_time_signatures
 
-    @omit_all_time_signatures.setter
-    def omit_all_time_signatures(self,
-                                 omit_all_time_signatures: bool,
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                                 omit_time_signatures: bool,
                                  ):
-        if not isinstance(omit_all_time_signatures, bool):
-            raise TypeError("'omit_all_time_signatures' must be 'bool'")
-        self._omit_all_time_signatures = omit_all_time_signatures
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self._omit_time_signatures = omit_time_signatures
 
     @property
     def force_time_signatures(self) -> bool:

@@ -1104,9 +1104,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
     def output_n(self,
                  n: int,
@@ -1129,9 +1129,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
     ### PRIVATE METHODS ###
 

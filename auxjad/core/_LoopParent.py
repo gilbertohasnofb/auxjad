@@ -99,9 +99,9 @@ class _LoopParent():
                     dummy_container.append(new_window)
             except RuntimeError:
                 break
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
     def output_n(self,
                  n: int,
@@ -129,9 +129,9 @@ class _LoopParent():
                 if leaves_are_tieable(leaf1, leaf2):
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
     ### PRIVATE METHODS ###
 

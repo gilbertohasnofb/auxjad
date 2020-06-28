@@ -375,10 +375,9 @@ class LeafDynMaker(abjad.LeafMaker):
                 else:
                     abjad.attach(articulation, logical_tie.head)
 
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-
-        return result
+        return output
 
     ### PRIVATE METHODS ###
 

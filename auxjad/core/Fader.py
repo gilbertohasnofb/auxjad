@@ -1076,9 +1076,9 @@ class Fader():
             dummy_container.append(self.__call__())
             if self._done:
                 break
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
     def output_n(self,
                  n: int,
@@ -1094,9 +1094,9 @@ class Fader():
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
     def reset_mask(self):
         r'Creates a mask filled with a default value for the logical ties.'

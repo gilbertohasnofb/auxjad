@@ -37,6 +37,7 @@ def test_LoopByWindow_01():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -53,6 +54,7 @@ def test_LoopByWindow_01():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -83,14 +85,12 @@ def test_LoopByWindow_02():
         }
         """)
     notes = looper()
-    staff.append(notes)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
             \time 3/4
-            c'4
-            d'2
             c'8
             d'8
             ~
@@ -123,6 +123,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             c'8
             d'8
             ~
@@ -136,6 +137,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             d'2
             e'4
         }
@@ -146,6 +148,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             d'4.
             e'8
             ~
@@ -159,6 +162,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             d'4
             e'4
             r4
@@ -170,6 +174,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             d'8
             e'8
             ~
@@ -183,6 +188,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             e'4
             r2
         }
@@ -193,6 +199,7 @@ def test_LoopByWindow_03():
         r"""
         \new Staff
         {
+            \time 3/4
             e'8
             r8
             r2
@@ -212,11 +219,11 @@ def test_LoopByWindow_04():
                                  forward_bias=0.2,
                                  head_position=(2, 8),
                                  omit_time_signatures=False,
-                                 force_time_signatures=True,
                                  fill_with_rests=False,
                                  boundary_depth=0,
                                  maximum_dot_count=1,
                                  rewrite_tuplets=False,
+                                 processs_on_first_call=True,
                                  )
     assert looper.window_size == abjad.Meter((3, 4))
     assert looper.step_size == abjad.Duration((5, 8))
@@ -225,11 +232,11 @@ def test_LoopByWindow_04():
     assert looper.forward_bias == 0.2
     assert looper.head_position == abjad.Duration((1, 4))
     assert not looper.omit_time_signatures
-    assert looper.force_time_signatures
     assert not looper.fill_with_rests
     assert looper.boundary_depth == 0
     assert looper.maximum_dot_count == 1
     assert not looper.rewrite_tuplets
+    assert looper.processs_on_first_call
     looper.window_size = (5, 4)
     looper.step_size = (1, 4)
     looper.max_steps = 3
@@ -237,11 +244,11 @@ def test_LoopByWindow_04():
     looper.forward_bias = 0.8
     looper.head_position = 0
     looper.omit_time_signatures = True
-    looper.force_time_signatures = False
     looper.fill_with_rests = True
     looper.boundary_depth = 1
     looper.maximum_dot_count = 2
     looper.rewrite_tuplets = True
+    looper.processs_on_first_call = False
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
@@ -249,11 +256,11 @@ def test_LoopByWindow_04():
     assert looper.forward_bias == 0.8
     assert looper.head_position == abjad.Duration(0)
     assert looper.omit_time_signatures
-    assert not looper.force_time_signatures
     assert looper.fill_with_rests
     assert looper.boundary_depth == 1
     assert looper.maximum_dot_count == 2
     assert looper.rewrite_tuplets
+    assert not looper.processs_on_first_call
 
 
 def test_LoopByWindow_05():
@@ -305,6 +312,7 @@ def test_LoopByWindow_06():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -321,6 +329,7 @@ def test_LoopByWindow_06():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             ~
@@ -351,6 +360,7 @@ def test_LoopByWindow_06():
         r"""
         \new Staff
         {
+            \time 3/8
             d'4.
         }
         """)
@@ -360,6 +370,7 @@ def test_LoopByWindow_06():
         r"""
         \new Staff
         {
+            \time 3/8
             d'4.
         }
         """)
@@ -371,10 +382,8 @@ def test_LoopByWindow_07():
                                  window_size=(3, 4),
                                  step_size=(1, 16),
                                  )
-    staff = abjad.Staff()
-    for _ in range(3):
-        window = looper()
-        staff.append(window)
+    notes = looper.output_n(3)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -650,7 +659,7 @@ def test_LoopByWindow_17():
 def test_LoopByWindow_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopByWindow(container,
-                                 move_window_on_first_call=True,
+                                 processs_on_first_call=True,
                                  )
     notes = looper()
     staff = abjad.Staff(notes)
@@ -675,9 +684,8 @@ def test_LoopByWindow_19():
     container = abjad.Container(r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
     looper = auxjad.LoopByWindow(container)
     staff = abjad.Staff()
-    for _ in range(2):
-        notes = looper()
-        staff.append(notes)
+    notes = looper.output_n(2)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -733,6 +741,7 @@ def test_LoopByWindow_20():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -750,14 +759,16 @@ def test_LoopByWindow_20():
         r"""
         \new Staff
         {
+            \time 4/4
+            d'16
             e'16
             f'16
-            g'8
+            g'16
             ~
             g'2
             ~
-            g'8
-            a'8
+            g'8.
+            a'16
         }
         """)
     looper.head_position = 0
@@ -767,6 +778,7 @@ def test_LoopByWindow_20():
         r"""
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             e'16
@@ -800,9 +812,8 @@ def test_LoopByWindow_22():
                                  step_size=(1, 4),
                                  fill_with_rests=False,
                                  )
-    staff = abjad.Staff()
-    for window in looper:
-        staff.append(window)
+    notes = looper.output_n(2)
+    staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -819,30 +830,6 @@ def test_LoopByWindow_22():
 
 
 def test_LoopByWindow_23():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByWindow(container,
-                                 window_size=(3, 4),
-                                 step_size=(1, 8),
-                                 force_time_signatures=True,
-                                 )
-    notes1 = looper()
-    notes2 = looper()
-    staff = abjad.Staff(notes2)
-    assert format(staff) == abjad.String.normalize(
-        r"""
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'8
-            ~
-            d'4.
-            e'8
-        }
-        """)
-
-
-def test_LoopByWindow_24():
     random.seed(43271)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
     looper = auxjad.LoopByWindow(container,
@@ -877,7 +864,7 @@ def test_LoopByWindow_24():
         """)
 
 
-def test_LoopByWindow_25():
+def test_LoopByWindow_24():
     random.seed(19814)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
     looper = auxjad.LoopByWindow(container,
@@ -900,7 +887,7 @@ def test_LoopByWindow_25():
         """)
 
 
-def test_LoopByWindow_26():
+def test_LoopByWindow_25():
     container = abjad.Container(r"c'4. d'8 e'2")
     looper = auxjad.LoopByWindow(container)
     notes = looper()

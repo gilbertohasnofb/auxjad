@@ -71,7 +71,7 @@ def test_LoopByNotes_02():
                                 forward_bias=0.2,
                                 head_position=0,
                                 omit_time_signatures=False,
-                                force_identical_time_signatures=False,
+                                processs_on_first_call=True,
                                 )
     assert looper.window_size == 3
     assert looper.step_size == 1
@@ -80,7 +80,7 @@ def test_LoopByNotes_02():
     assert looper.forward_bias == 0.2
     assert looper.head_position == 0
     assert not looper.omit_time_signatures
-    assert not looper.force_identical_time_signatures
+    assert looper.processs_on_first_call
     looper.window_size = 2
     looper.step_size = 2
     looper.max_steps = 3
@@ -88,7 +88,7 @@ def test_LoopByNotes_02():
     looper.forward_bias = 0.8
     looper.head_position = 2
     looper.omit_time_signatures = True
-    looper.force_identical_time_signatures = True
+    looper.processs_on_first_call = False
     assert looper.window_size == 2
     assert looper.step_size == 2
     assert looper.max_steps == 3
@@ -96,7 +96,7 @@ def test_LoopByNotes_02():
     assert looper.forward_bias == 0.8
     assert looper.head_position == 2
     assert looper.omit_time_signatures
-    assert looper.force_identical_time_signatures
+    assert not looper.processs_on_first_call
 
 
 def test_LoopByNotes_03():
@@ -233,7 +233,7 @@ def test_LoopByNotes_08():
 
 
 def test_LoopByNotes_09():
-    container = abjad.Container(r"c'4 d'2 e'4")
+    container = abjad.Container(r"c'4 d'2 e'8")
     looper = auxjad.LoopByNotes(container, window_size=2)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
@@ -252,8 +252,9 @@ def test_LoopByNotes_09():
         r"""
         \new Staff
         {
+            \time 5/8
             d'2
-            e'4
+            e'8
         }
         """)
     notes = looper.__next__()
@@ -262,8 +263,8 @@ def test_LoopByNotes_09():
         r"""
         \new Staff
         {
-            \time 1/4
-            e'4
+            \time 1/8
+            e'8
         }
         """)
     with pytest.raises(StopIteration):
@@ -487,37 +488,10 @@ def test_LoopByNotes_16():
 
 
 def test_LoopByNotes_17():
-    container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=2,
-                                force_identical_time_signatures=True,
-                                )
-    notes = looper.output_all()
-    staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
-        r"""
-        \new Staff
-        {
-            \time 2/4
-            c'4
-            d'4
-            \time 2/4
-            d'4
-            e'4
-            \time 2/4
-            e'4
-            f'4
-            \time 1/4
-            f'4
-        }
-        """)
-
-
-def test_LoopByNotes_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopByNotes(container,
                                 window_size=3,
-                                move_window_on_first_call=True,
+                                processs_on_first_call=True,
                                 )
     notes = looper()
     staff = abjad.Staff(notes)
@@ -535,7 +509,7 @@ def test_LoopByNotes_18():
         """)
 
 
-def test_LoopByNotes_19():
+def test_LoopByNotes_18():
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
     looper = auxjad.LoopByNotes(container,
                                 window_size=3,
@@ -558,21 +532,23 @@ def test_LoopByNotes_19():
         r"""
         \new Staff
         {
+            \time 3/4
             d'4
             e'4
             f'4
         }
         """)
-    looper.contents = abjad.Container(r"c'''4 r4 d'''4 r4 e'''4 r4 f'''4 r4")
+    looper.contents = abjad.Container(r"cs'''4 ds'''4 es'''4 fs'''4")
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
-            d'''4
-            r4
-            e'''4
+            \time 3/4
+            ds'''4
+            es'''4
+            fs'''4
         }
         """)
     looper.head_position = 0
@@ -582,14 +558,15 @@ def test_LoopByNotes_19():
         r"""
         \new Staff
         {
-            c'''4
-            r4
-            d'''4
+            \time 3/4
+            cs'''4
+            ds'''4
+            es'''4
         }
         """)
 
 
-def test_LoopByNotes_20():
+def test_LoopByNotes_19():
     random.seed(15231)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
     looper = auxjad.LoopByNotes(container,
@@ -623,7 +600,7 @@ def test_LoopByNotes_20():
         """)
 
 
-def test_LoopByNotes_21():
+def test_LoopByNotes_20():
     random.seed(55126)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4")
     looper = auxjad.LoopByNotes(container,

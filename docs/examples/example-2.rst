@@ -89,9 +89,8 @@ please refer to this library's API for more information.
 
     >>> looper = auxjad.LoopByWindow(container)
     >>> staff = abjad.Staff()
-    >>> for _ in range(3):
-    >>>     notes = looper()
-    >>>     staff.append(notes)
+    >>> notes = looper.output_n(3)
+    >>> staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {
@@ -133,9 +132,8 @@ the input container.
 
     >>> container = abjad.Container(looper.current_window)
     >>> shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
-    >>> for _ in range(3):
-    >>>     notes = shuffler()
-    >>>     staff.append(notes)
+    >>> notes = shuffler.shuffle_n(3)
+    >>> staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {
@@ -204,9 +202,8 @@ This time we will use a window of size 3/4.
     >>> looper = auxjad.LoopByWindow(container,
     ...                            window_size=(3, 4),
     ...                            )
-    >>> for _ in range(3):
-    >>>     notes = looper()
-    >>>     staff.append(notes)
+    >>> notes = looper.output_n(3)
+    >>> staff.append(notes)
     >>> abjad.f(staff)
     \new Staff
     {

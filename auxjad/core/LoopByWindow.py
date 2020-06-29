@@ -39,6 +39,7 @@ class LoopByWindow(_LoopParent):
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -59,6 +60,7 @@ class LoopByWindow(_LoopParent):
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -76,11 +78,11 @@ class LoopByWindow(_LoopParent):
         The very first call will output the input container without processing
         it. To disable this behaviour and have the looping window move on the
         very first call, initialise the class with the keyword argument
-        ``move_window_on_first_call`` set to ``True``.
+        ``processs_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(container,
-        ...                              move_window_on_first_call=True,
+        ...                              processs_on_first_call=True,
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -125,13 +127,11 @@ class LoopByWindow(_LoopParent):
         .. figure:: ../_images/image-LoopByWindow-5.png
 
         >>> notes = looper()
-        >>> staff.append(notes)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
             \time 3/4
-            c'4
-            d'2
             c'8
             d'8
             ~
@@ -263,12 +263,14 @@ class LoopByWindow(_LoopParent):
         value of ``0.5`` gives 50% chance of moving forwards while a value of
         ``0.0`` will move the window only backwards). ``head_position`` can be
         used to offset the starting position of the  looping window. It must be
-        a tuple or an ``abjad.Duration``, and its default value is ``0``. To
-        force every returned selection to start with a time signature attached
-        to its first leaf, set ``force_time_signatures`` to ``True``. The
+        a tuple or an ``abjad.Duration``, and its default value is ``0``. The
         properties ``boundary_depth``, ``maximum_dot_count``, and
         ``rewrite_tuplets`` are passed as arguments to abjad's
-        ``rewrite_meter()``, see its documentation for more information.
+        ``rewrite_meter()``, see its documentation for more information. By
+        default, calling the object will first return the original container
+        and subsequent  calls will process it; set ``processs_on_first_call``
+        to ``True`` and the looping process will be applied on the very first
+        call.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(container,
@@ -279,11 +281,11 @@ class LoopByWindow(_LoopParent):
         ...                              forward_bias=0.2,
         ...                              head_position=(2, 8),
         ...                              omit_time_signatures=False,
-        ...                              force_time_signatures=True,
         ...                              fill_with_rests=False,
         ...                              boundary_depth=0,
         ...                              maximum_dot_count=1,
         ...                              rewrite_tuplets=False,
+        ...                              processs_on_first_call=True,
         ...                              )
         >>> looper.window_size
         3/4
@@ -299,8 +301,6 @@ class LoopByWindow(_LoopParent):
         1/4
         >>> looper.omit_time_signatures
         False
-        >>> looper.force_time_signatures
-        True
         >>> looper.fill_with_rests
         False
         >>> looper.boundary_depth
@@ -315,6 +315,8 @@ class LoopByWindow(_LoopParent):
         1
         >>> looper.rewrite_tuplets
         False
+        >>> looper.processs_on_first_call
+        True
 
         Use the properties below to change these values after initialisation.
 
@@ -325,10 +327,10 @@ class LoopByWindow(_LoopParent):
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 0
         >>> looper.omit_time_signatures = True
-        >>> looper.force_time_signatures = False
         >>> looper.boundary_depth = 1
         >>> looper.maximum_dot_count = 2
         >>> looper.rewrite_tuplets = True
+        >>> looper.processs_on_first_call = False
         >>> looper.window_size
         5/4
         >>> looper.step_size
@@ -343,14 +345,14 @@ class LoopByWindow(_LoopParent):
         0
         >>> looper.omit_time_signatures
         True
-        >>> looper.force_time_signature
-        False
         >>> looper.boundary_depth
         1
         >>> looper.maximum_dot_count
         2
         >>> looper.rewrite_tuplets
         True
+        >>> looper.processs_on_first_call
+        False
 
     .. container:: example
 
@@ -582,17 +584,12 @@ class LoopByWindow(_LoopParent):
 
         To change the size of the looping window after instantiation, use the
         property ``window_size``. In the example below, the initial window is
-        of size (4, 4), but changes to (3, 8) after three calls. Notice how the
-        very first call attaches a time signature equivalent to the window size
-        to the output window; subsequent calls will not have time signatures
-        unless the size of the looping window changes.
+        of size (4, 4), but changes to (3, 8) after three calls.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByWindow(container)
-        >>> staff = abjad.Staff()
-        >>> for _ in range(3):
-        ...     notes = looper()
-        ...     staff.append(notes)
+        >>> notes = looper.output_n(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -621,10 +618,8 @@ class LoopByWindow(_LoopParent):
         .. figure:: ../_images/image-LoopByWindow-16.png
 
         >>> looper.window_size = (3, 8)
-        >>> staff = abjad.Staff()
-        >>> for _ in range(3):
-        ...     notes = looper()
-        ...     staff.append(notes)
+        >>> notes = looper.output_n(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -643,7 +638,7 @@ class LoopByWindow(_LoopParent):
 
         To disable time signatures altogether, initialise ``LoopByWindow`` with
         the keyword argument ``omit_time_signatures`` set to ``True`` (default
-        is ``False``), or use the ``omit_time_signatures`` property after 
+        is ``False``), or use the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -662,60 +657,15 @@ class LoopByWindow(_LoopParent):
 
         .. figure:: ../_images/image-LoopByWindow-18.png
 
-    ..  container:: example
+    ..  tip::
 
-        By default, only the first output bar will contain a time signature,
-        and all subsequent bars won't have one. Initialise with the optional
-        keyword argument ``force_time_signatures`` set to ``True`` in order to
-        force an initial time signature. Compare the two cases below; in the
-        first, the variable ``notes2`` won't have a time signature appended to
-        its first leaf because the looper had been called before (though
-        LilyPond will fallback to a default 4/4 time signature when none is
-        found in the source file). In the second, ``force_time_signatures`` is
-        set to ``True``, and the output of ``abjad.f(staff)`` now includes
-        ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
-
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container,
-        ...                              window_size=(3, 4),
-        ...                              step_size=(1, 8),
-        ...                              )
-        >>> notes1 = looper()
-        >>> notes2 = looper()
-        >>> staff = abjad.Staff(notes2)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'8
-            d'8
-            ~
-            d'4.
-            e'8
-        }
-
-        .. figure:: ../_images/image-LoopByWindow-19.png
-
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container,
-        ...                              window_size=(3, 4),
-        ...                              step_size=(1, 8),
-        ...                              force_time_signatures=True,
-        ...                              )
-        >>> notes1 = looper()
-        >>> notes2 = looper()
-        >>> staff = abjad.Staff(notes2)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'8
-            ~
-            d'4.
-            e'8
-        }
-
-        .. figure:: ../_images/image-LoopByWindow-20.png
+        All methods that return an ``abjad.Selection`` will add an initial time
+        signature to it. The ``output_n()`` and ``output_all()`` methods
+        automatically remove repeated time signatures. When joining selections
+        output by multiple method calls, use
+        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        after fusing the selections to remove any unecessary time signature
+        changes.
 
     ..  container:: example
 
@@ -726,10 +676,8 @@ class LoopByWindow(_LoopParent):
         >>> container = abjad.Container(
         ...     r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
         >>> looper = auxjad.LoopByWindow(container)
-        >>> staff = abjad.Staff()
-        >>> for _ in range(2):
-        ...     notes = looper()
-        ...     staff.append(notes)
+        >>> notes = looper.output_n(2)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -761,7 +709,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-21.png
+        .. figure:: ../_images/image-LoopByWindow-19.png
 
     .. container:: example
 
@@ -782,13 +730,14 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-22.png
+        .. figure:: ../_images/image-LoopByWindow-20.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -799,7 +748,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-23.png
+        .. figure:: ../_images/image-LoopByWindow-21.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
@@ -807,17 +756,19 @@ class LoopByWindow(_LoopParent):
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
+            d'16
             e'16
             f'16
-            g'8
+            g'16
             ~
             g'2
             ~
-            g'8
-            a'8
+            g'8.
+            a'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-24.png
+        .. figure:: ../_images/image-LoopByWindow-22.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -825,6 +776,7 @@ class LoopByWindow(_LoopParent):
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             e'16
@@ -832,7 +784,7 @@ class LoopByWindow(_LoopParent):
             g'2.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-25.png
+        .. figure:: ../_images/image-LoopByWindow-23.png
 
     ..  container:: example
 
@@ -852,7 +804,7 @@ class LoopByWindow(_LoopParent):
             e'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-26.png
+        .. figure:: ../_images/image-LoopByWindow-24.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -872,7 +824,7 @@ class LoopByWindow(_LoopParent):
             e'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-27.png
+        .. figure:: ../_images/image-LoopByWindow-25.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -890,10 +842,8 @@ class LoopByWindow(_LoopParent):
         >>> looper = auxjad.LoopByWindow(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 16))
-        >>> staff = abjad.Staff()
-        >>> for _ in range(3):
-        ...     window = looper()
-        ...     staff.append(window)
+        >>> notes = looper.output_n(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -923,17 +873,15 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-28.png
+        .. figure:: ../_images/image-LoopByWindow-26.png
     """
 
     ### CLASS VARIABLES ###
 
     __slots__ = ('_omit_time_signatures',
                  '_fill_with_rests',
-                 '_new_time_signature',
                  '_contents_length',
                  '_contents_no_time_signature',
-                 '_force_time_signatures',
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
@@ -953,8 +901,7 @@ class LoopByWindow(_LoopParent):
                  head_position: Union[int, float, tuple, str,
                                       abjad.Duration] = 0,
                  omit_time_signatures: bool = False,
-                 force_time_signatures: bool = False,
-                 move_window_on_first_call: bool = False,
+                 processs_on_first_call: bool = False,
                  fill_with_rests: bool = True,
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
@@ -962,9 +909,7 @@ class LoopByWindow(_LoopParent):
                  ):
         r'Initialises self.'
         self.contents = contents
-        self._new_time_signature = True
         self.omit_time_signatures = omit_time_signatures
-        self.force_time_signatures = force_time_signatures
         self.fill_with_rests = fill_with_rests
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
@@ -975,7 +920,7 @@ class LoopByWindow(_LoopParent):
                          max_steps,
                          repetition_chance,
                          forward_bias,
-                         move_window_on_first_call,
+                         processs_on_first_call,
                          )
 
     ### SPECIAL METHODS ###
@@ -992,16 +937,12 @@ class LoopByWindow(_LoopParent):
         r"""Calls the looping process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if self._force_time_signatures:
-            self._new_time_signature = True
         return super().__call__()
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if self._force_time_signatures:
-            self._new_time_signature = True
         return super().__next__()
 
     ### PRIVATE METHODS ###
@@ -1061,11 +1002,9 @@ class LoopByWindow(_LoopParent):
             maximum_dot_count=self._maximum_dot_count,
             rewrite_tuplets=self._rewrite_tuplets,
         )
-        if self._new_time_signature and not self._omit_time_signatures:
-            abjad.attach(abjad.TimeSignature(window_size),
-                         abjad.select(dummy_container).leaf(0),
-                         )
-            self._new_time_signature = False
+        abjad.attach(abjad.TimeSignature(window_size),
+                     abjad.select(dummy_container).leaf(0),
+                     )
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -1087,6 +1026,7 @@ class LoopByWindow(_LoopParent):
         self._contents_length = abjad.inspect(contents[:]).duration()
         self._contents_no_time_signature = copy.deepcopy(contents)
         self._remove_all_time_signatures(self._contents_no_time_signature)
+        self._is_first_window = True
 
     @property
     def head_position(self) -> abjad.Duration:
@@ -1131,10 +1071,7 @@ class LoopByWindow(_LoopParent):
                 > self._contents_length - self._head_position):
             raise ValueError("'window_size' must be smaller than or equal "
                              "to the length of 'contents'")
-        if (self._is_first_window or self._window_size.duration
-                != abjad.Meter(window_size).duration):
-            self._window_size = abjad.Meter(window_size)
-            self._new_time_signature = True
+        self._window_size = abjad.Meter(window_size)
 
     @property
     def step_size(self) -> abjad.Duration:
@@ -1162,26 +1099,11 @@ class LoopByWindow(_LoopParent):
 
     @omit_time_signatures.setter
     def omit_time_signatures(self,
-                                 omit_time_signatures: bool,
-                                 ):
+                             omit_time_signatures: bool,
+                             ):
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
-
-    @property
-    def force_time_signatures(self) -> bool:
-        r"""When ``True``, every call will output a selection with a time
-        signature.
-        """
-        return self._force_time_signatures
-
-    @force_time_signatures.setter
-    def force_time_signatures(self,
-                              force_time_signatures: bool,
-                              ):
-        if not isinstance(force_time_signatures, bool):
-            raise TypeError("'force_time_signatures' must be 'bool'")
-        self._force_time_signatures = force_time_signatures
 
     @property
     def fill_with_rests(self) -> bool:
@@ -1212,7 +1134,9 @@ class LoopByWindow(_LoopParent):
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        r"""Sets the argument ``maximum_dot_count`` of abjad's
+        ``rewrite_meter()``.
+        """
         return self._maximum_dot_count
 
     @maximum_dot_count.setter

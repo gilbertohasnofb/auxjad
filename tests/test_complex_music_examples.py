@@ -54,18 +54,16 @@ def test_complex_music_example_01():
     # Using a looping window by elements 3 times
     looper = auxjad.LoopByNotes(container, window_size=4)
     staff = abjad.Staff()
-    for _ in range(3):
-        notes = looper()
-        staff.append(notes)
+    notes = looper.output_n(3)
+    staff.append(notes)
     # shuffling the last output container by the looping window 3 times
     container = abjad.Container(looper.current_window)
     shuffler = auxjad.Shuffler(container,
                                omit_time_signatures=True,
                                disable_rewrite_meter=True,
                                )
-    for _ in range(3):
-        notes = shuffler()
-        staff.append(notes)
+    notes = shuffler.shuffle_n(3)
+    staff.append(notes)
     # adding initial dynamics
     abjad.attach(abjad.Dynamic('ppp'), staff[0])
     assert format(staff) == abjad.String.normalize(
@@ -229,22 +227,19 @@ def test_complex_music_example_02():
     # Using a looping window 3 times with the container created above as input
     looper = auxjad.LoopByWindow(container)
     staff = abjad.Staff()
-    for _ in range(3):
-        notes = looper()
-        staff.append(notes)
+    notes = looper.output_n(3)
+    staff.append(notes)
     # shuffling the last output container by the looping window 3 times
     container = abjad.Container(looper.current_window)
     shuffler = auxjad.Shuffler(container, omit_time_signatures=True)
-    for _ in range(3):
-        notes = shuffler()
-        staff.append(notes)
+    notes = shuffler.shuffle_n(3)
+    staff.append(notes)
     # continuing with the looping process 3 more times using the last shuffled
     # container
     container = abjad.Container(shuffler.current_window)
     looper = auxjad.LoopByWindow(container, window_size=(3, 4))
-    for _ in range(3):
-        notes = looper()
-        staff.append(notes)
+    notes = looper.output_n(3)
+    staff.append(notes)
     # removing repeated dynamics
     auxjad.remove_repeated_dynamics(staff)
     assert format(staff) == abjad.String.normalize(

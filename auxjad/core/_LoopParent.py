@@ -2,6 +2,9 @@ import copy
 import random
 from typing import Union
 import abjad
+from ..utilities.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures
+)
 from ..utilities.leaves_are_tieable import leaves_are_tieable
 
 
@@ -22,6 +25,7 @@ class _LoopParent():
                  '_forward_bias',
                  '_current_window',
                  '_is_first_window',
+                 '_processs_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -33,18 +37,19 @@ class _LoopParent():
                  max_steps,
                  repetition_chance,
                  forward_bias,
-                 move_window_on_first_call,
+                 processs_on_first_call,
                  ):
         r'Initialises self.'
-        if not isinstance(move_window_on_first_call, bool):
-            raise TypeError("'move_window_on_first_call' must be 'bool'")
+        if not isinstance(processs_on_first_call, bool):
+            raise TypeError("'processs_on_first_call' must be 'bool'")
         self.head_position = head_position
         self.window_size = window_size
         self.step_size = step_size
         self.max_steps = max_steps
         self.repetition_chance = repetition_chance
         self.forward_bias = forward_bias
-        self._is_first_window = not move_window_on_first_call
+        self.processs_on_first_call = processs_on_first_call
+        self._is_first_window = True
         self._current_window = None
 
     ### SPECIAL METHODS ###
@@ -57,7 +62,7 @@ class _LoopParent():
         if self._done:
             raise RuntimeError("'contents' has been exhausted")
         self._slice_contents()
-        return copy.deepcopy(self._current_window)
+        return self.current_window
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
@@ -67,7 +72,7 @@ class _LoopParent():
         if self._done:
             raise StopIteration
         self._slice_contents()
-        return self._current_window
+        return self.current_window
 
     def __iter__(self):
         r'Returns an iterator, allowing instances to be used as iterators.'
@@ -86,7 +91,6 @@ class _LoopParent():
             raise TypeError("'tie_identical_pitches' must be 'bool'")
         dummy_container = abjad.Container()
         while True:
-            print('x')
             try:
                 if not tie_identical_pitches or len(dummy_container) == 0:
                     dummy_container.append(self.__call__())
@@ -99,6 +103,7 @@ class _LoopParent():
                     dummy_container.append(new_window)
             except RuntimeError:
                 break
+        remove_repeated_time_signatures(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -129,6 +134,7 @@ class _LoopParent():
                 if leaves_are_tieable(leaf1, leaf2):
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)
+        remove_repeated_time_signatures(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -139,14 +145,13 @@ class _LoopParent():
         r"""Moves the head by a certain number of steps of fixed size, either
         forwards or backwards according to the forward bias.
         """
-        if not self._is_first_window:  # 1st window always at initial position
+        if not self._is_first_window or self._processs_on_first_call:
             if (self._repetition_chance == 0.0
                     or random.random() > self._repetition_chance):
                 step = self._step_size * random.randint(1, self._max_steps)
                 diretion = self._biased_choice(self._forward_bias)
                 self._head_position += step * diretion
-        else:
-            self._is_first_window = False
+        self._is_first_window = False
 
     def _slice_contents(self):
         r'Will be defined for each individual child class.'
@@ -271,9 +276,29 @@ class _LoopParent():
         self._forward_bias = forward_bias
 
     @property
-    def current_window(self) -> Union[list, abjad.Selection, None]:
+    def processs_on_first_call(self) -> bool:
+        r"""If ``True`` then the ``contents`` will be processed in the very
+        first call.
+        """
+        return self._processs_on_first_call
+
+    @processs_on_first_call.setter
+    def processs_on_first_call(self,
+                               processs_on_first_call: bool,
+                               ):
+        if not isinstance(processs_on_first_call, bool):
+            raise TypeError("'processs_on_first_call' must be 'bool'")
+        self._processs_on_first_call = processs_on_first_call
+
+    @property
+    def current_window(self) -> Union[abjad.Selection, None]:
         r'Read-only property, returns the window at the current head position.'
-        return copy.deepcopy(self._current_window)
+        if self._current_window is None:
+            return self._current_window
+        current_window = copy.deepcopy(self._current_window)
+        if self._omit_time_signatures:
+            self._remove_all_time_signatures(current_window)
+        return current_window
 
     ### PRIVATE PROPERTIES ###
 

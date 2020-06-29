@@ -165,7 +165,9 @@ class Hocketer():
         to disable this behaviour. The properties ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets`` are passed as arguments
         to abjad's ``rewrite_meter()``, see its documentation for more
-        information.
+        information. Setting the property ``omit_time_signatures`` to
+        ``True`` will remove all time signatures from the output (``False`` by
+        default).
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 | f'4 g'4 a'4")
         >>> hocketer = auxjad.Hocketer(container,
@@ -175,6 +177,7 @@ class Hocketer():
         ...                            force_k_voices=True,
         ...                            disable_rewrite_meter=True,
         ...                            use_multimeasure_rests=False,
+        ...                            omit_time_signatures=True,
         ...                            boundary_depth=0,
         ...                            maximum_dot_count=1,
         ...                            rewrite_tuplets=False,
@@ -191,6 +194,8 @@ class Hocketer():
         True
         >>> not hocketer.use_multimeasure_rests
         False
+        >>> hocketer.omit_time_signatures
+        True
         >>> hocketer.boundary_depth
         0
         >>> hocketer.maximum_dot_count
@@ -206,6 +211,7 @@ class Hocketer():
         >>> hocketer.force_k_voices = False
         >>> hocketer.disable_rewrite_meter = False
         >>> hocketer.use_multimeasure_rests = True
+        >>> hocketer.omit_time_signatures = False
         >>> hocketer.boundary_depth = 1
         >>> hocketer.maximum_dot_count = 2
         >>> hocketer.rewrite_tuplets = True
@@ -221,6 +227,8 @@ class Hocketer():
         False
         >>> hocketer.use_multimeasure_rests
         True
+        >>> hocketer.omit_time_signatures
+        False
         >>> hocketer.boundary_depth
         1
         >>> hocketer.maximum_dot_count
@@ -758,6 +766,44 @@ class Hocketer():
         >>
 
         .. figure:: ../_images/image-Hocketer-19.png
+
+    .. container:: example
+
+        To disable time signatures altogether, initialise this class with the
+        keyword argument ``omit_time_signatures`` set to ``True`` (default is
+        ``False``), or use the ``omit_time_signatures`` property after
+        initialisation. It is recommended to also set
+        ``use_multimeasure_rests`` to ``False``, as those are created according
+        to the original time signatures.
+
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            omit_time_signatures=True,
+        ...                            use_multimeasure_rests=False,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score(music)
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                r2.
+                r4
+                g'4
+                a'4
+            }
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                r2
+            }
+        >>
+
+        .. figure:: ../_images/image-Hocketer-20.png
     """
 
     ### CLASS VARIABLES ###
@@ -774,6 +820,7 @@ class Hocketer():
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
+                 '_omit_time_signatures',
                  )
 
     ### INITIALISER ###
@@ -787,6 +834,7 @@ class Hocketer():
                  force_k_voices: bool = False,
                  disable_rewrite_meter: bool = False,
                  use_multimeasure_rests: bool = True,
+                 omit_time_signatures: bool = False,
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
@@ -803,6 +851,7 @@ class Hocketer():
         self.force_k_voices = force_k_voices
         self.disable_rewrite_meter = disable_rewrite_meter
         self.use_multimeasure_rests = use_multimeasure_rests
+        self.omit_time_signatures = omit_time_signatures
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
@@ -820,7 +869,7 @@ class Hocketer():
     def __call__(self) -> list:
         r'Calls the hocket process, returning a list of ``abjad.Staff``'
         self._hocket_process()
-        return [abjad.Staff([copy.deepcopy(voice)]) for voice in self._voices]
+        return self.current_window
 
     def __getitem__(self, key: int) -> abjad.Selection:
         r"""Returns one or more voices of the output of the hocketer through
@@ -909,6 +958,13 @@ class Hocketer():
         for voice in dummy_voices:
             self._voices.append(voice[:])
             voice[:] = []
+
+    @staticmethod
+    def _remove_all_time_signatures(container):
+        r'Removes all time signatures of an ``abjad.Container``'
+        for leaf in abjad.select(container).leaves():
+            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+                abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
 
@@ -1003,6 +1059,19 @@ class Hocketer():
         self._force_k_voices = force_k_voices
 
     @property
+    def omit_time_signatures(self) -> bool:
+        r'When ``True``, all time signatures will be omitted from the output.'
+        return self._omit_time_signatures
+
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                             omit_time_signatures: bool,
+                             ):
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self._omit_time_signatures = omit_time_signatures
+
+    @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
         rewritten by the ``rewrite_meter`` mutation. Rests will have the same
@@ -1049,7 +1118,9 @@ class Hocketer():
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        r"""Sets the argument ``maximum_dot_count`` of abjad's
+        ``rewrite_meter()``.
+        """
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
@@ -1080,7 +1151,12 @@ class Hocketer():
     def current_window(self) -> Union[list, None]:
         r'Read-only property, returns the result of the last operation.'
         if self._voices is not None:
-            return [abjad.Staff([copy.deepcopy(voice)]) for voice in
-                    self._voices]
+            output = []
+            for voice in self._voices:
+                voice_ = copy.deepcopy(voice)
+                if self._omit_time_signatures:
+                    self._remove_all_time_signatures(voice_)
+                output.append(abjad.Staff([voice_]))
+            return output
         else:
             return self._voices

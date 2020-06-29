@@ -1,4 +1,5 @@
 import copy
+from typing import Union
 from ._LoopParent import _LoopParent
 
 
@@ -50,12 +51,12 @@ class LoopByList(_LoopParent):
         The very first call will output the input list without processing
         it. To disable this behaviour and have the looping window move on the
         very first call, initialise the class with the keyword argument
-        ``move_window_on_first_call`` set to ``True``.
+        ``processs_on_first_call`` set to ``True``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopByList(input_list,
         ...                            window_size=3,
-        ...                            move_window_on_first_call=True,
+        ...                            processs_on_first_call=True,
         ...                            )
         >>> looper()
         ['B', 'C', 'D']
@@ -94,7 +95,10 @@ class LoopByList(_LoopParent):
         value of ``0.5`` gives 50% chance of moving forwards while a value of
         ``0.0`` will move the window only backwards). Lastly, ``head_position``
         can be used to offset the starting position of the looping window. It
-        must be an integer and its default value is ``0``.
+        must be an integer and its default value is ``0``. By default, calling
+        the object will first return the original container and subsequent
+        calls will process it; set ``processs_on_first_call`` to ``True`` and
+        the looping process will be applied on the very first call.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.LoopByList(input_list,
@@ -104,6 +108,7 @@ class LoopByList(_LoopParent):
         ...                            repetition_chance=0.25,
         ...                            forward_bias=0.2,
         ...                            head_position=0,
+        ...                            processs_on_first_call=True,
         ...                            )
         >>> looper.window_size
         3
@@ -117,6 +122,8 @@ class LoopByList(_LoopParent):
         2
         >>> looper.head_position
         0
+        >>> looper.processs_on_first_call
+        True
 
         Use the properties below to change these values after initialisation.
 
@@ -126,6 +133,7 @@ class LoopByList(_LoopParent):
         >>> looper.repetition_chance = 0.1
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 2
+        >>> looper.processs_on_first_call = False
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -138,6 +146,8 @@ class LoopByList(_LoopParent):
         0.8
         >>> looper.head_position
         2
+        >>> looper.processs_on_first_call
+        False
 
     .. container:: example
 
@@ -259,7 +269,7 @@ class LoopByList(_LoopParent):
         >>> looper.contents
         [0, 1, 2, 3, 4]
         >>> looper()
-        [2, 3, 4]
+        [1, 2, 3]
         >>> looper.head_position = 0
         >>> looper()
         [0, 1, 2]
@@ -351,7 +361,7 @@ class LoopByList(_LoopParent):
                  repetition_chance: float = 0.0,
                  forward_bias: float = 1.0,
                  head_position: int = 0,
-                 move_window_on_first_call: bool = False,
+                 processs_on_first_call: bool = False,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -361,7 +371,7 @@ class LoopByList(_LoopParent):
                          max_steps,
                          repetition_chance,
                          forward_bias,
-                         move_window_on_first_call,
+                         processs_on_first_call,
                          )
 
     ### SPECIAL METHODS ###
@@ -373,30 +383,6 @@ class LoopByList(_LoopParent):
     def __len__(self) -> int:
         r'Returns a length of ``contents``.'
         return len(self._contents)
-
-    def __call__(self) -> list:
-        r"""Calls the looping process for one iteration, returning a ``list``.
-
-        This method replaces the parent's one since the parent's method outputs
-        an ``abjad.Selection``.
-        """
-        self._move_head()
-        if self._done:
-            raise RuntimeError("'contents' has been exhausted")
-        self._slice_contents()
-        return copy.deepcopy(self._current_window)[:]
-
-    def __next__(self) -> list:
-        r"""Calls the looping process for one iteration, returning a ``list``.
-
-        This method replaces the parent's one since the parent's method outputs
-        an ``abjad.Selection``.
-        """
-        self._move_head()
-        if self._done:
-            raise StopIteration
-        self._slice_contents()
-        return copy.deepcopy(self._current_window)[:]
 
     ### PUBLIC METHODS ###
 
@@ -452,3 +438,11 @@ class LoopByList(_LoopParent):
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
+        self._is_first_window = True
+
+    @property
+    def current_window(self) -> Union[list, None]:
+        r'Read-only property, returns the window at the current head position.'
+        if self._current_window is None:
+            return self._current_window
+        return copy.deepcopy(self._current_window)[:]

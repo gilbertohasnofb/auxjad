@@ -2,6 +2,9 @@ import copy
 import random
 from typing import Optional, Union
 import abjad
+from ..utilities.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures
+)
 from ..utilities.time_signature_extractor import time_signature_extractor
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.leaves_are_tieable import leaves_are_tieable
@@ -38,6 +41,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -61,6 +65,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -80,12 +85,12 @@ class Phaser():
 
         The very first call will output the input container without processing
         it. To disable this behaviour and phase on the very first call,
-        initialise the class with the keyword argument ``phase_on_first_call``
-        set to ``True``.
+        initialise the class with the keyword argument
+        ``processs_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
-        ...                        phase_on_first_call=True,
+        ...                        processs_on_first_call=True,
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -132,15 +137,11 @@ class Phaser():
         .. figure:: ../_images/image-Phaser-5.png
 
         >>> notes = phaser()
-        >>> staff.append(notes)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
             \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
             c'8
             d'8
             ~
@@ -219,14 +220,15 @@ class Phaser():
         while a value of ``0.0`` will result in the process moving only
         backwards). By default, when a logical tie is split in between windows,
         any unterminated ties will be removed; set ``remove_unterminated_ties``
-        to ``False`` to disable this behaviour. To force every returned
-        selection to start with a time signature attached to its first leaf,
-        set ``force_time_signatures`` to ``True``. The properties
+        to ``False`` to disable this behaviour. The properties
         ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
         passed as arguments to abjad's ``rewrite_meter()``, see its
-        documentation for more information.
-
-
+        documentation for more information. By default, calling the object will
+        first return the original container and subsequent  calls will process
+        it; set ``processs_on_first_call`` to ``True`` and the looping process
+        will be applied on the very first call. Setting the property
+        ``omit_time_signatures`` to ``True`` will remove all time signatures
+        from the output (``False`` by default).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -234,10 +236,11 @@ class Phaser():
         ...                        max_steps=2,
         ...                        forward_bias=0.2,
         ...                        remove_unterminated_ties=True,
-        ...                        force_time_signatures=True,
+        ...                        omit_time_signatures=True,
         ...                        boundary_depth=0,
         ...                        maximum_dot_count=1,
         ...                        rewrite_tuplets=False,
+        ...                        processs_on_first_call=True,
         ...                        )
         >>> phaser.step_size
         5/8
@@ -247,7 +250,7 @@ class Phaser():
         0.2
         >>> phaser.remove_unterminated_ties
         True
-        >>> phaser.force_time_signatures
+        >>> phaser.omit_time_signatures
         True
         >>> phaser.boundary_depth
         0
@@ -255,6 +258,8 @@ class Phaser():
         1
         >>> phaser.rewrite_tuplets
         False
+        >>> phaser.processs_on_first_call
+        True
 
         Use the properties below to change these values after initialisation.
 
@@ -262,10 +267,11 @@ class Phaser():
         >>> phaser.max_steps = 3
         >>> phaser.forward_bias = 0.8
         >>> phaser.remove_unterminated_ties = False
-        >>> phaser.force_time_signatures = False
+        >>> phaser.omit_time_signatures = False
         >>> phaser.boundary_depth = 1
         >>> phaser.maximum_dot_count = 2
         >>> phaser.rewrite_tuplets = True
+        >>> phaser.processs_on_first_call = False
         >>> phaser.step_size
         1/4
         >>> phaser.max_steps
@@ -274,7 +280,7 @@ class Phaser():
         0.8
         >>> phaser.remove_unterminated_ties
         False
-        >>> phaser.force_time_signatures
+        >>> phaser.omit_time_signatures
         False
         >>> phaser.boundary_depth
         1
@@ -282,6 +288,8 @@ class Phaser():
         2
         >>> phaser.rewrite_tuplets
         True
+        >>> phaser.processs_on_first_call
+        False
 
     .. container:: example
 
@@ -582,7 +590,7 @@ class Phaser():
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
-        ...                        phase_on_first_call=True,
+        ...                        processs_on_first_call=True,
         ...                        remove_unterminated_ties=False,
         ...                        )
         >>> notes = phaser()
@@ -606,66 +614,6 @@ class Phaser():
         }
 
         .. figure:: ../_images/image-Phaser-15.png
-
-    ..  container:: example
-
-        By default, only the first output selection will contain a time
-        signature (unless time signature changes require it, see below).
-        Initialise with the optional keyword argument ``force_time_signatures``
-        set to ``True`` in order to force an initial time signature. Compare
-        the  two cases below; in the first, the variable ``notes2`` won't have
-        a time signature appended to its first leaf because the phaser had been
-        called before (though LilyPond will fallback to a default 4/4 time
-        signature when none is found in the source file). In the second,
-        ``force_time_signatures`` is set to ``True``, and the output of
-        ``abjad.f(staff)`` now includes ``\time 3/4`` (and LilyPond does not
-        fallback to a 4/4 time signature).
-
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> phaser = auxjad.Phaser(container,
-        ...                        step_size=(1, 8),
-        ...                        )
-        >>> notes1 = phaser()
-        >>> notes2 = phaser()
-        >>> staff = abjad.Staff(notes2)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            c'8
-        }
-
-        .. figure:: ../_images/image-Phaser-16.png
-
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> phaser = auxjad.Phaser(container,
-        ...                        step_size=(1, 8),
-        ...                        force_time_signatures=True,
-        ...                        )
-        >>> notes1 = phaser()
-        >>> notes2 = phaser()
-        >>> staff = abjad.Staff(notes2)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            c'8
-        }
-
-        .. figure:: ../_images/image-Phaser-17.png
 
     ..  container:: example
 
@@ -709,7 +657,7 @@ class Phaser():
             c'4
         }
 
-        .. figure:: ../_images/image-Phaser-18.png
+        .. figure:: ../_images/image-Phaser-16.png
 
     ..  container:: example
 
@@ -803,7 +751,7 @@ class Phaser():
             - \tenuto
         }
 
-        .. figure:: ../_images/image-Phaser-19.png
+        .. figure:: ../_images/image-Phaser-17.png
 
     ..  warning::
 
@@ -833,13 +781,14 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-20.png
+        .. figure:: ../_images/image-Phaser-18.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8.
             d'16
             ~
@@ -853,7 +802,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-21.png
+        .. figure:: ../_images/image-Phaser-19.png
 
         >>> phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = phaser()
@@ -861,6 +810,7 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             e'16
@@ -868,13 +818,14 @@ class Phaser():
             g'2.
         }
 
-        .. figure:: ../_images/image-Phaser-22.png
+        .. figure:: ../_images/image-Phaser-20.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             d'16
             e'16
             f'16
@@ -886,7 +837,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-23.png
+        .. figure:: ../_images/image-Phaser-21.png
 
     ..  container:: example
 
@@ -906,7 +857,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-24.png
+        .. figure:: ../_images/image-Phaser-22.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -926,12 +877,57 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-25.png
+        .. figure:: ../_images/image-Phaser-23.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
         which work exactly as the identically named arguments of
         ``rewrite_meter()``.
+
+    .. container:: example
+
+        To disable time signatures altogether, initialise this class with the
+        keyword argument ``omit_time_signatures`` set to ``True`` (default is
+        ``False``), or use the ``omit_time_signatures`` property after
+        initialisation.
+
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> phaser = auxjad.Phaser(container,
+        ...                        step_size=(1, 8),
+        ...                        omit_time_signatures=True,
+        ...                        )
+        >>> notes = phaser.output_n(3)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            d'4
+            e'4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            c'8
+            d'4
+            e'4
+            c'4
+        }
+
+        .. figure:: ../_images/image-Phaser-24.png
+
+    ..  tip::
+
+        All methods that return an ``abjad.Selection`` will add an initial time
+        signature to it. The ``output_n()`` and ``output_all()`` methods 
+        automatically remove repeated time signatures. When joining selections
+        output by multiple method calls, use
+        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        after fusing the selections to remove any unecessary time signature
+        changes.
 
     ..  warning::
 
@@ -942,10 +938,8 @@ class Phaser():
 
         >>> container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
         >>> phaser = auxjad.Phaser(container)
-        >>> staff = abjad.Staff()
-        >>> for _ in range(3):
-        ...     window = phaser()
-        ...     staff.append(window)
+        >>> notes = phaser.output_n(3)
+        >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -986,7 +980,7 @@ class Phaser():
             }
         }
 
-        .. figure:: ../_images/image-Phaser-26.png
+        .. figure:: ../_images/image-Phaser-25.png
     """
 
     ### CLASS VARIABLES ###
@@ -999,12 +993,12 @@ class Phaser():
                  '_remove_unterminated_ties',
                  '_current_window',
                  '_is_first_window',
-                 '_new_time_signature',
-                 '_force_time_signatures',
                  '_contents_length',
+                 '_omit_time_signatures',
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
+                 '_processs_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -1016,9 +1010,9 @@ class Phaser():
                                   abjad.Duration] = (1, 16),
                  max_steps: int = 1,
                  forward_bias: float = 1.0,
-                 phase_on_first_call: bool = False,
+                 processs_on_first_call: bool = False,
                  remove_unterminated_ties: bool = True,
-                 force_time_signatures: bool = False,
+                 omit_time_signatures: bool = False,
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
@@ -1026,19 +1020,16 @@ class Phaser():
         r'Initialises self.'
         self.contents = contents
         self._pivot_point = abjad.Duration(0)
-        self._new_time_signature = True
         self.step_size = step_size
         self.max_steps = max_steps
         self.forward_bias = forward_bias
         self.remove_unterminated_ties = remove_unterminated_ties
-        self.force_time_signatures = force_time_signatures
+        self.omit_time_signatures = omit_time_signatures
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
-        if not isinstance(phase_on_first_call, bool):
-            raise TypeError("'phase_on_first_call' must be 'bool'")
-        self._is_first_window = not phase_on_first_call
-        self._current_window = None
+        self.processs_on_first_call = processs_on_first_call
+        self._is_first_window = True
 
     ### SPECIAL METHODS ###
 
@@ -1055,23 +1046,23 @@ class Phaser():
         r"""Calls the phaser process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if self._force_time_signatures:
-            self._new_time_signature = True
-        self._move_pivot_point()
+        if not self._is_first_window or self._processs_on_first_call:
+            self._move_pivot_point()
         self._phase_contents()
-        return copy.deepcopy(self._current_window)
+        self._is_first_window = False
+        return self.current_window
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the phaser process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if self._force_time_signatures:
-            self._new_time_signature = True
-        self._move_pivot_point()
-        if self._done:
-            raise StopIteration
+        if not self._is_first_window or self._processs_on_first_call:
+            self._move_pivot_point()
+            if self._done:
+                raise StopIteration
         self._phase_contents()
-        return copy.deepcopy(self._current_window)
+        self._is_first_window = False
+        return self.current_window
 
     def __iter__(self):
         r'Returns an iterator, allowing instances to be used as iterators.'
@@ -1104,6 +1095,7 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
+        remove_repeated_time_signatures(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1129,6 +1121,7 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
+        remove_repeated_time_signatures(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1139,12 +1132,9 @@ class Phaser():
         r"""Moves the pivot point by a certain number of steps of fixed size,
         either forwards or backwards according to the forward bias.
         """
-        if not self._is_first_window:  # 1st window always at initial position
-            step = self._step_size * random.randint(1, self._max_steps)
-            diretion = self._biased_choice(self._forward_bias)
-            self._pivot_point += step * diretion
-        else:
-            self._is_first_window = False
+        step = self._step_size * random.randint(1, self._max_steps)
+        diretion = self._biased_choice(self._forward_bias)
+        self._pivot_point += step * diretion
 
     def _phase_contents(self):
         r"""This method phases ``contents`` using ``_pivot_point`` as the
@@ -1193,17 +1183,6 @@ class Phaser():
             maximum_dot_count=self._maximum_dot_count,
             rewrite_tuplets=self._rewrite_tuplets,
         )
-        # removing first time signature if repeated
-        if not self._new_time_signature:
-            for time_signature in time_signatures[::-1]:
-                if time_signature is not None:
-                    last_time_signature = time_signature
-                    break
-            if time_signatures[0] == last_time_signature:
-                abjad.detach(abjad.TimeSignature,
-                             abjad.select(dummy_container).leaf(0),
-                             )
-        self._new_time_signature = False
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -1223,6 +1202,13 @@ class Phaser():
         r'Returns either +1 or -1 according to a bias value.'
         return random.choices([1, -1], weights=[bias, 1.0-bias])[0]
 
+    @staticmethod
+    def _remove_all_time_signatures(container):
+        r'Removes all time signatures of an ``abjad.Container``'
+        for leaf in abjad.select(container).leaves():
+            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+                abjad.detach(abjad.TimeSignature, leaf)
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -1238,14 +1224,18 @@ class Phaser():
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
         self._contents = copy.deepcopy(contents)
+        self._current_window = copy.deepcopy(contents)
         self._contents_length = abjad.inspect(contents[:]).duration()
         self._pivot_point = abjad.Duration(0)
         self._is_first_window = True
 
     @property
-    def current_window(self) -> Union[abjad.Selection, None]:
+    def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the previously output selection.'
-        return copy.deepcopy(self._current_window)
+        current_window = copy.deepcopy(self._current_window)
+        if self._omit_time_signatures:
+            self._remove_all_time_signatures(current_window)
+        return current_window
 
     @property
     def pivot_point(self) -> abjad.Duration:
@@ -1303,6 +1293,19 @@ class Phaser():
         self._forward_bias = forward_bias
 
     @property
+    def omit_time_signatures(self) -> bool:
+        r'When ``True``, all time signatures will be omitted from the output.'
+        return self._omit_time_signatures
+
+    @omit_time_signatures.setter
+    def omit_time_signatures(self,
+                             omit_time_signatures: bool,
+                             ):
+        if not isinstance(omit_time_signatures, bool):
+            raise TypeError("'omit_time_signatures' must be 'bool'")
+        self._omit_time_signatures = omit_time_signatures
+
+    @property
     def remove_unterminated_ties(self) -> bool:
         r"""When ``True``, the last element of the ``abjad.Selection`` returned
         by a call will have any ties removed. This means that splitted logical
@@ -1317,21 +1320,6 @@ class Phaser():
         if not isinstance(remove_unterminated_ties, bool):
             raise TypeError("'remove_unterminated_ties' must be 'bool'")
         self._remove_unterminated_ties = remove_unterminated_ties
-
-    @property
-    def force_time_signatures(self) -> bool:
-        r"""When ``True``, every call will output a selection with a time
-        signature.
-        """
-        return self._force_time_signatures
-
-    @force_time_signatures.setter
-    def force_time_signatures(self,
-                              force_time_signatures: bool,
-                              ):
-        if not isinstance(force_time_signatures, bool):
-            raise TypeError("'force_time_signatures' must be 'bool'")
-        self._force_time_signatures = force_time_signatures
 
     @property
     def boundary_depth(self) -> Union[int, None]:
@@ -1349,7 +1337,9 @@ class Phaser():
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        r"""Sets the argument ``maximum_dot_count`` of abjad's
+        ``rewrite_meter()``.
+        """
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
@@ -1375,6 +1365,21 @@ class Phaser():
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
+
+    @property
+    def processs_on_first_call(self) -> bool:
+        r"""If ``True`` then the ``contents`` will be processed in the very
+        first call.
+        """
+        return self._processs_on_first_call
+
+    @processs_on_first_call.setter
+    def processs_on_first_call(self,
+                               processs_on_first_call: bool,
+                               ):
+        if not isinstance(processs_on_first_call, bool):
+            raise TypeError("'processs_on_first_call' must be 'bool'")
+        self._processs_on_first_call = processs_on_first_call
 
     ### PRIVATE PROPERTIES ###
 

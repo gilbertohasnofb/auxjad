@@ -42,6 +42,7 @@ def test_Fader_01():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
@@ -56,6 +57,7 @@ def test_Fader_01():
         r"""
         \new Staff
         {
+            \time 4/4
             r2
             e'8
             f'4.
@@ -67,6 +69,7 @@ def test_Fader_01():
         r"""
         \new Staff
         {
+            \time 4/4
             r2
             e'8
             f'4.
@@ -97,6 +100,7 @@ def test_Fader_02():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             r4
             e'4
@@ -109,6 +113,7 @@ def test_Fader_02():
         r"""
         \new Staff
         {
+            \time 4/4
             r2
             e'4
             f'4
@@ -120,6 +125,7 @@ def test_Fader_02():
         r"""
         \new Staff
         {
+            \time 4/4
             r2
             e'4
             r4
@@ -131,6 +137,7 @@ def test_Fader_02():
         r"""
         \new Staff
         {
+            \time 4/4
             R1
         }
         """)
@@ -143,46 +150,45 @@ def test_Fader_03():
     fader = auxjad.Fader(container,
                          fader_type='in',
                          max_steps=2,
-                         fade_on_first_call=True,
                          disable_rewrite_meter=True,
                          omit_time_signatures=True,
-                         force_time_signatures=True,
                          use_multimeasure_rests=False,
                          mask=[1, 0, 1, 1, 0],
                          boundary_depth=0,
                          maximum_dot_count=1,
                          rewrite_tuplets=False,
+                         processs_on_first_call=True,
                          )
     assert fader.fader_type == 'in'
     assert fader.max_steps == 2
     assert fader.disable_rewrite_meter
     assert fader.omit_time_signatures
-    assert fader.force_time_signatures
     assert not fader.use_multimeasure_rests
     assert fader.mask == [1, 0, 1, 1, 0]
     assert fader.boundary_depth == 0
     assert fader.maximum_dot_count == 1
     assert not fader.rewrite_tuplets
+    assert fader.processs_on_first_call
     fader.fader_type = 'out'
     fader.max_steps = 1
     fader.disable_rewrite_meter = False
     fader.omit_time_signatures = False
-    fader.force_time_signatures = False
     fader.use_multimeasure_rests = True
     fader.mask = [0, 1, 1, 0, 1]
     fader.boundary_depth = 1
     fader.maximum_dot_count = 2
     fader.rewrite_tuplets = True
+    fader.processs_on_first_call = False
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
     assert not fader.disable_rewrite_meter
     assert not fader.omit_time_signatures
-    assert not fader.force_time_signatures
     assert fader.use_multimeasure_rests
     assert fader.mask == [0, 1, 1, 0, 1]
     assert fader.boundary_depth == 1
     assert fader.maximum_dot_count == 2
     assert fader.rewrite_tuplets
+    assert not fader.processs_on_first_call
 
 
 def test_Fader_04():
@@ -260,6 +266,7 @@ def test_Fader_06():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             r4
@@ -272,6 +279,7 @@ def test_Fader_06():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             r2
@@ -284,6 +292,7 @@ def test_Fader_06():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -296,6 +305,7 @@ def test_Fader_06():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -309,6 +319,7 @@ def test_Fader_06():
         r"""
         \new Staff
         {
+            \time 4/4
             r2
             e'4
             f'4
@@ -320,6 +331,7 @@ def test_Fader_06():
         r"""
         \new Staff
         {
+            \time 4/4
             r4
             d'4
             e'4
@@ -434,7 +446,7 @@ def test_Fader_10():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     fader = auxjad.Fader(container,
                          max_steps=3,
-                         fade_on_first_call=True,
+                         processs_on_first_call=True,
                          )
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
@@ -442,6 +454,7 @@ def test_Fader_10():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             r8
@@ -522,8 +535,7 @@ def test_Fader_12():
             c'4
             d'4
             e'4
-            r4
-            r4
+            r2
         }
         """)
 
@@ -532,7 +544,7 @@ def test_Fader_13():
     random.seed(47103)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     fader = auxjad.Fader(container,
-                         fade_on_first_call=True,
+                         processs_on_first_call=True,
                          )
     notes = fader()
     staff = abjad.Staff(notes)
@@ -540,6 +552,7 @@ def test_Fader_13():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -574,6 +587,7 @@ def test_Fader_14():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -587,6 +601,7 @@ def test_Fader_14():
         r"""
         \new Staff
         {
+            \time 4/4
             R1
         }
         """)
@@ -598,6 +613,7 @@ def test_Fader_14():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -687,6 +703,7 @@ def test_Fader_16():
         r"""
         \new Staff
         {
+            \time 4/4
             r2
             r8
             f'4.
@@ -698,6 +715,7 @@ def test_Fader_16():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
@@ -712,6 +730,7 @@ def test_Fader_16():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
@@ -760,6 +779,7 @@ def test_Fader_18():
         r"""
         \new Staff
         {
+            \time 4/4
             r4
             d'4
             e'4
@@ -773,6 +793,7 @@ def test_Fader_18():
         r"""
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             e'16
@@ -786,6 +807,7 @@ def test_Fader_18():
         r"""
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             r16
@@ -815,6 +837,7 @@ def test_Fader_19():
         r"""
         \new Staff
         {
+            \time 4/4
             r4
             d'8
             e'8
@@ -830,6 +853,7 @@ def test_Fader_19():
         r"""
         \new Staff
         {
+            \time 4/4
             c'4
             r8
             e'8
@@ -846,48 +870,13 @@ def test_Fader_19():
         r"""
         \new Staff
         {
+            \time 4/4
             R1
         }
         """)
 
 
 def test_Fader_20():
-    random.seed(91653)
-    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-    fader = auxjad.Fader(container)
-    notes1 = fader()
-    notes2 = fader()
-    staff = abjad.Staff(notes2)
-    assert format(staff) == abjad.String.normalize(
-        r"""
-        \new Staff
-        {
-            c'4
-            r4
-            e'4
-        }
-        """)
-    random.seed(91653)
-    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-    fader = auxjad.Fader(container,
-                         force_time_signatures=True,
-                         )
-    notes1 = fader()
-    notes2 = fader()
-    staff = abjad.Staff(notes2)
-    assert format(staff) == abjad.String.normalize(
-        r"""
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            r4
-            e'4
-        }
-        """)
-
-
-def test_Fader_21():
     container = abjad.Container(r"c'4. d'8 e'2")
     fader = auxjad.Fader(container)
     notes = fader()
@@ -948,6 +937,7 @@ def test_Fader_22():
         r"""
         \new Staff
         {
+            \time 4/4
             r8
             d'8
             r4
@@ -989,6 +979,7 @@ def test_Fader_23():
         r"""
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             e'8

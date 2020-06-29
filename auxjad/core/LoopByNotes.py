@@ -92,13 +92,13 @@ class LoopByNotes(_LoopParent):
         The very first call will output the input container without processing
         it. To disable this behaviour and have the looping window move on the
         very first call, initialise the class with the keyword argument
-        ``move_window_on_first_call`` set to ``True``.
+        ``processs_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LoopByNotes(
         ...     container,
         ...     window_size=3,
-        ...     move_window_on_first_call=True,
+        ...     processs_on_first_call=True,
         ... )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -120,7 +120,7 @@ class LoopByNotes(_LoopParent):
         The instances of ``LoopByNotes`` can also be used as an iterator, which
         can then be used in a for loop to exhaust all windows.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4")
+        >>> container = abjad.Container(r"c'4 d'2 e'8")
         >>> looper = auxjad.LoopByNotes(container,
         ...                             window_size=2,
         ...                             )
@@ -133,20 +133,14 @@ class LoopByNotes(_LoopParent):
             \time 3/4
             c'4
             d'2
+            \time 5/8
             d'2
-            e'4
-            \time 1/4
-            e'4
+            e'8
+            \time 1/8
+            e'8
         }
 
         .. figure:: ../_images/image-LoopByNotes-5.png
-
-        Notice how the second staff in the example above does not have a time
-        signature. This is because consecutive identical time signatures are
-        omitted by default. To change this behaviour, instantialise this class
-        with the keyword argument ``force_identical_time_signatures`` set to
-        ``True``, or change the ``force_identical_time_signatures`` property
-        to alter its value after the initialisation.
 
     ..  container:: example
 
@@ -175,7 +169,7 @@ class LoopByNotes(_LoopParent):
         ...                             forward_bias=0.2,
         ...                             head_position=0,
         ...                             omit_time_signatures=False,
-        ...                             force_identical_time_signatures=False,
+        ...                             processs_on_first_call=True,
         ...                             )
         >>> looper.window_size
         3
@@ -191,8 +185,8 @@ class LoopByNotes(_LoopParent):
         0
         >>> looper.omit_time_signatures
         False
-        >>> looper.force_identical_time_signatures
-        False
+        >>> looper.processs_on_first_call
+        True
 
         Use the properties below to change these values after initialisation.
 
@@ -203,7 +197,7 @@ class LoopByNotes(_LoopParent):
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 2
         >>> looper.omit_time_signatures = True
-        >>> looper.force_identical_time_signatures = True
+        >>> looper.processs_on_first_call = False
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -218,8 +212,8 @@ class LoopByNotes(_LoopParent):
         2
         >>> looper.omit_time_signatures
         True
-        >>> looper.force_identical_time_signatures
-        True
+        >>> looper.processs_on_first_call
+        False
 
     .. container:: example
 
@@ -325,7 +319,7 @@ class LoopByNotes(_LoopParent):
 
         To disable time signatures altogether, initialise ``LoopByNotes`` with
         the keyword argument ``omit_time_signatures`` set to ``True`` (default
-        is ``False``), or use the ``omit_time_signatures`` property after 
+        is ``False``), or use the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -344,6 +338,16 @@ class LoopByNotes(_LoopParent):
         }
 
         .. figure:: ../_images/image-LoopByNotes-9.png
+
+    ..  tip::
+
+        All methods that return an ``abjad.Selection`` will add an initial time
+        signature to it. The ``output_n()`` and ``output_all()`` methods
+        automatically remove repeated time signatures. When joining selections
+        output by multiple method calls, use
+        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        after fusing the selections to remove any unecessary time signature
+        changes.
 
     ..  container:: example
 
@@ -541,6 +545,7 @@ class LoopByNotes(_LoopParent):
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 3/4
             d'4
             e'4
             f'4
@@ -549,15 +554,16 @@ class LoopByNotes(_LoopParent):
         .. figure:: ../_images/image-LoopByNotes-16.png
 
         >>> looper.contents = abjad.Container(
-        ...     r"c'''4 r4 d'''4 r4 e'''4 r4 f'''4 r4")
+        ...     r"cs'''4 ds'''4 es'''4 fs'''4")
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            d'''4
-            r4
-            e'''4
+            \time 3/4
+            ds'''4
+            es'''4
+            fs'''4
         }
 
         .. figure:: ../_images/image-LoopByNotes-17.png
@@ -568,9 +574,10 @@ class LoopByNotes(_LoopParent):
         >>> abjad.f(staff)
         \new Staff
         {
-            c'''4
-            r4
-            d'''4
+            \time 3/4
+            cs'''4
+            ds'''4
+            es'''4
         }
 
         .. figure:: ../_images/image-LoopByNotes-18.png
@@ -626,8 +633,6 @@ class LoopByNotes(_LoopParent):
     ### CLASS VARIABLES ###
 
     __slots__ = ('_omit_time_signatures',
-                 '_force_identical_time_signatures',
-                 '_last_time_signature',
                  '_contents_logical_ties',
                  )
 
@@ -643,21 +648,18 @@ class LoopByNotes(_LoopParent):
                  forward_bias: float = 1.0,
                  head_position: int = 0,
                  omit_time_signatures: bool = False,
-                 force_identical_time_signatures: bool = False,
-                 move_window_on_first_call: bool = False,
+                 processs_on_first_call: bool = False,
                  ):
         r'Initialises self.'
         self.contents = contents
         self._omit_time_signatures = omit_time_signatures
-        self._force_identical_time_signatures = force_identical_time_signatures
-        self._last_time_signature = None
         super().__init__(head_position,
                          window_size,
                          step_size,
                          max_steps,
                          repetition_chance,
                          forward_bias,
-                         move_window_on_first_call,
+                         processs_on_first_call,
                          )
 
     ### SPECIAL METHODS ###
@@ -688,15 +690,10 @@ class LoopByNotes(_LoopParent):
             multiplier = effective_duration / logical_tie_.written_duration
             logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
             time_signature_duration += effective_duration
-        if len(logical_ties) > 0 and not self._omit_time_signatures:
+        if len(logical_ties) > 0:
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
-            if (time_signature != self._last_time_signature
-                    or self._force_identical_time_signatures):
-                abjad.attach(time_signature,
-                             abjad.select(dummy_container).leaf(0),
-                             )
-            self._last_time_signature = time_signature
+            abjad.attach(time_signature, abjad.select(dummy_container).leaf(0))
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -719,6 +716,7 @@ class LoopByNotes(_LoopParent):
         self._remove_all_time_signatures(dummy_container)
         self._contents_logical_ties = abjad.select(
             dummy_container).logical_ties()
+        self._is_first_window = True
 
     @property
     def omit_time_signatures(self) -> bool:
@@ -727,23 +725,8 @@ class LoopByNotes(_LoopParent):
 
     @omit_time_signatures.setter
     def omit_time_signatures(self,
-                                 omit_time_signatures: bool,
-                                 ):
+                             omit_time_signatures: bool,
+                             ):
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
-
-    @property
-    def force_identical_time_signatures(self) -> bool:
-        r"""When ``True``, identical time signatures will not be removed from
-        the output.
-        """
-        return self._force_identical_time_signatures
-
-    @force_identical_time_signatures.setter
-    def force_identical_time_signatures(self,
-                                        force_identical_time_signatures: bool,
-                                        ):
-        if not isinstance(force_identical_time_signatures, bool):
-            raise TypeError("'force_identical_time_signatures' must be 'bool'")
-        self._force_identical_time_signatures = force_identical_time_signatures

@@ -35,6 +35,20 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-1.png
 
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            e'4
+            d'4
+            f'4
+        }
+
+        .. figure:: ../_images/image-Shuffler-2.png
+
         To get the result of the last operation, use the property
         ``current_window``.
 
@@ -44,13 +58,13 @@ class Shuffler:
         \new Staff
         {
             \time 4/4
-            d'4
             c'4
-            f'4
             e'4
+            d'4
+            f'4
         }
 
-        .. figure:: ../_images/image-Shuffler-2.png
+        .. figure:: ../_images/image-Shuffler-3.png
 
         Calling the object outputs the same result as using the method
         ``shuffle()``.
@@ -60,13 +74,40 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
-            c'4
+            \time 4/4
             e'4
+            f'4
+            c'4
             d'4
+        }
+
+        .. figure:: ../_images/image-Shuffler-4.png
+
+    ..  warning::
+
+        Unlike the other classes in auxjad, the very first call of ``Shuffler``
+        will already process the initial container. To disable this behaviour
+        and output the initial container once before shuffling or rotating it,
+        initialise the class with the keyword argument
+        ``processs_on_first_call`` set to ``False``.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            processs_on_first_call=False,
+        ...                            )
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'4
             f'4
         }
 
-        .. figure:: ../_images/image-Shuffler-3.png
+        .. figure:: ../_images/image-Shuffler-5.png
 
     ..  container:: example
 
@@ -99,15 +140,16 @@ class Shuffler:
         operations will not change the position or duration of rests.
         ``disable_rewrite_meter`` disables the ``rewrite_meter()`` mutation
         which is applied to the container after every call, and
-        ``omit_all_time_signatures`` will remove all time signatures from the
+        ``omit_time_signatures`` will remove all time signatures from the
         output (both are ``False`` by default). By default, the first time
         signature is attached only to the first leaf of the first call (unless
-        time signature changes require it). To force every returned selection
-        to start with a time signature attached to its first leaf, set
-        ``force_time_signatures`` to ``True``. The properties
-        ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
-        passed as arguments to abjad's ``rewrite_meter()``, see its
-        documentation for more information.
+        time signature changes require it). The properties ``boundary_depth``,
+        ``maximum_dot_count``, and ``rewrite_tuplets`` are passed as arguments
+        to abjad's ``rewrite_meter()``, see its documentation for more
+        information. By default, calling the object will first return the
+        original container and subsequent calls will process it; set
+        ``processs_on_first_call`` to ``True`` and the looping process will be
+        applied on the very first call.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -115,19 +157,17 @@ class Shuffler:
         ...                            pitch_only=False,
         ...                            preserve_rest_position=True,
         ...                            disable_rewrite_meter=False,
-        ...                            force_time_signatures=False,
         ...                            omit_time_signatures=True,
         ...                            boundary_depth=0,
         ...                            maximum_dot_count=1,
         ...                            rewrite_tuplets=False,
+        ...                            processs_on_first_call=True,
         ...                            )
         >>> shuffler.pitch_only
         False
         >>> shuffler.preserve_rest_position
         True
         >>> shuffler.disable_rewrite_meter
-        False
-        >>> shuffler.force_time_signatures
         False
         >>> shuffler.omit_time_signatures
         True
@@ -137,24 +177,24 @@ class Shuffler:
         1
         >>> shuffler.rewrite_tuplets
         False
+        >>> shuffler.processs_on_first_call
+        True
 
         Use the properties below to change these values after initialisation.
 
         >>> shuffler.pitch_only = True
         >>> shuffler.preserve_rest_position = False
         >>> shuffler.disable_rewrite_meter = True
-        >>> shuffler.force_time_signatures = True
         >>> shuffler.omit_time_signatures = False
         >>> shuffler.boundary_depth = 1
         >>> shuffler.maximum_dot_count = 2
         >>> shuffler.rewrite_tuplets = True
+        >>> shuffler.processs_on_first_call = False
         >>> shuffler.pitch_only
         True
         >>> shuffler.preserve_rest_position
         True
         >>> shuffler.disable_rewrite_meter
-        True
-        >>> shuffler.force_time_signatures
         True
         >>> shuffler.omit_time_signatures
         False
@@ -164,6 +204,8 @@ class Shuffler:
         2
         >>> shuffler.rewrite_tuplets
         True
+        >>> shuffler.processs_on_first_call
+        False
 
     ..  container:: example
 
@@ -189,7 +231,7 @@ class Shuffler:
             c'8.
         }
 
-        .. figure:: ../_images/image-Shuffler-4.png
+        .. figure:: ../_images/image-Shuffler-6.png
 
         Setting ``pitch_only`` to ``True`` enables pitch mode, so only pitches
         are shuffled (and not durations). Note how in the example below the
@@ -202,6 +244,7 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             f'8.
             r4
             d'8
@@ -212,7 +255,7 @@ class Shuffler:
             e'8.
         }
 
-        .. figure:: ../_images/image-Shuffler-5.png
+        .. figure:: ../_images/image-Shuffler-7.png
 
     ..  container:: example
 
@@ -246,7 +289,7 @@ class Shuffler:
             c'16
         }
 
-        .. figure:: ../_images/image-Shuffler-6.png
+        .. figure:: ../_images/image-Shuffler-8.png
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
@@ -269,7 +312,7 @@ class Shuffler:
             c'32
         }
 
-        .. figure:: ../_images/image-Shuffler-7.png
+        .. figure:: ../_images/image-Shuffler-9.png
 
         This method can also take the optional parameters ``n_rotations`` and
         ``anticlockwise``. The first is an integer setting the number of
@@ -297,7 +340,7 @@ class Shuffler:
             r32
         }
 
-        .. figure:: ../_images/image-Shuffler-8.png
+        .. figure:: ../_images/image-Shuffler-10.png
 
     ..  container:: example
 
@@ -326,7 +369,7 @@ class Shuffler:
             e'8.
         }
 
-        .. figure:: ../_images/image-Shuffler-9.png
+        .. figure:: ../_images/image-Shuffler-11.png
 
         In logical ties mode, the rests will remain at the same index and will
         have the same total duration as before, but their position in the bar
@@ -351,7 +394,7 @@ class Shuffler:
             c'8.
         }
 
-        .. figure:: ../_images/image-Shuffler-10.png
+        .. figure:: ../_images/image-Shuffler-12.png
 
     ..  container:: example
 
@@ -374,7 +417,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-11.png
+        .. figure:: ../_images/image-Shuffler-13.png
 
     ..  container:: example
 
@@ -409,7 +452,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-12.png
+        .. figure:: ../_images/image-Shuffler-14.png
 
         >>> container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
         >>> shuffler = auxjad.Shuffler(container)
@@ -435,16 +478,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-13.png
-
-    ..  tip::
-
-        All methods that return an ``abjad.Selection`` will add an initial time
-        signature. The ``shuffle_n`` and ``rotate_n`` methods automatically
-        remove repeated time signatures. When joining selections output by
-        multiple calls, use ``auxjad.remove_repeated_time_signatures()`` on the
-        whole container after fusing the selections to remove any unecessary
-        time signature changes.
+        .. figure:: ../_images/image-Shuffler-15.png
 
     ..  container:: example
 
@@ -462,6 +496,7 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             d'4..
             e'16
             ~
@@ -474,7 +509,17 @@ class Shuffler:
             c'16
         }
 
-        .. figure:: ../_images/image-Shuffler-14.png
+        .. figure:: ../_images/image-Shuffler-16.png
+
+    ..  tip::
+
+        All methods that return an ``abjad.Selection`` will add an initial time
+        signature to it. The ``shuffle_n()`` and ``rotate_n()`` methods
+        automatically remove repeated time signatures. When joining selections
+        output by multiple method calls, use
+        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        after fusing the selections to remove any unecessary time signature
+        changes.
 
     ..  container:: example
 
@@ -512,7 +557,7 @@ class Shuffler:
             e'16
         }
 
-        .. figure:: ../_images/image-Shuffler-15.png
+        .. figure:: ../_images/image-Shuffler-17.png
 
     ..  container:: example
 
@@ -537,7 +582,7 @@ class Shuffler:
             r8
         }
 
-        .. figure:: ../_images/image-Shuffler-16.png
+        .. figure:: ../_images/image-Shuffler-18.png
 
     ..  error::
 
@@ -604,7 +649,7 @@ class Shuffler:
             - \tenuto
         }
 
-        .. figure:: ../_images/image-Shuffler-17.png
+        .. figure:: ../_images/image-Shuffler-19.png
 
     ..  container:: example
 
@@ -624,7 +669,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/image-Shuffler-18.png
+        .. figure:: ../_images/image-Shuffler-20.png
 
         >>> shuffler()
         >>> abjad.f(shuffler.contents)
@@ -635,7 +680,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/image-Shuffler-19.png
+        .. figure:: ../_images/image-Shuffler-21.png
 
         >>> shuffler.contents = abjad.Container(r"cs2 ds2")
         >>> abjad.f(shuffler.contents)
@@ -644,7 +689,7 @@ class Shuffler:
             ds2
         }
 
-        .. figure:: ../_images/image-Shuffler-20.png
+        .. figure:: ../_images/image-Shuffler-22.png
 
     ..  container:: example
 
@@ -664,7 +709,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-21.png
+        .. figure:: ../_images/image-Shuffler-23.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -684,7 +729,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-22.png
+        .. figure:: ../_images/image-Shuffler-24.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -714,7 +759,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Hocketer-10.png
+        .. figure:: ../_images/image-Shuffler-25.png
 
         Set ``disable_rewrite_meter`` to ``True`` in order to disable this
         behaviour.
@@ -735,7 +780,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Hocketer-11.png
+        .. figure:: ../_images/image-Shuffler-26.png
     """
 
     ### CLASS VARIABLES ###
@@ -744,7 +789,6 @@ class Shuffler:
                  '_pitch_only',
                  '_preserve_rest_position',
                  '_disable_rewrite_meter',
-                 '_force_time_signatures',
                  '_omit_time_signatures',
                  '_current_window',
                  '_logical_selections',
@@ -755,6 +799,7 @@ class Shuffler:
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
+                 '_processs_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -765,22 +810,22 @@ class Shuffler:
                  pitch_only: bool = False,
                  preserve_rest_position: bool = False,
                  disable_rewrite_meter: bool = False,
-                 force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
+                 processs_on_first_call: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
         self.pitch_only = pitch_only
         self.preserve_rest_position = preserve_rest_position
         self.disable_rewrite_meter = disable_rewrite_meter
-        self.force_time_signatures = force_time_signatures
         self.omit_time_signatures = omit_time_signatures
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
+        self.processs_on_first_call = processs_on_first_call
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -801,12 +846,18 @@ class Shuffler:
 
     def shuffle(self) -> abjad.Selection:
         r'Shuffles logical ties or pitches of ``contents``.'
-        if self._force_time_signatures:
-            self._is_first_window = True
-        if not self._pitch_only:
-            return self._shuffle_logical_selections()
+        if self._is_first_window and not self._processs_on_first_call:
+            if not self._pitch_only:
+                self._rewrite_logical_selections()
+                return self.current_window
+            else:
+                self._rewrite_pitches()
+                return self.current_window
         else:
-            return self._shuffle_pitches()
+            if not self._pitch_only:
+                return self._shuffle_logical_selections()
+            else:
+                return self._shuffle_pitches()
 
     def rotate(self,
                *,
@@ -820,16 +871,24 @@ class Shuffler:
             raise ValueError("'n_rotations' must be greater than zero")
         if not isinstance(anticlockwise, bool):
             raise TypeError("'anticlockwise' must be 'bool'")
-        if self._force_time_signatures:
-            self._is_first_window = True
-        if not self._pitch_only:
-            return self._rotate_logical_selections(n_rotations=n_rotations,
-                                                   anticlockwise=anticlockwise,
-                                                   )
+        if self._is_first_window and not self._processs_on_first_call:
+            if not self._pitch_only:
+                self._rewrite_logical_selections()
+                return self.current_window
+            else:
+                self._rewrite_pitches()
+                return self.current_window
         else:
-            return self._rotate_pitches(n_rotations=n_rotations,
-                                        anticlockwise=anticlockwise,
-                                        )
+            if not self._pitch_only:
+                return self._rotate_logical_selections(
+                    n_rotations=n_rotations,
+                    anticlockwise=anticlockwise,
+                )
+            else:
+                return self._rotate_pitches(
+                    n_rotations=n_rotations,
+                    anticlockwise=anticlockwise,
+                )
 
     def shuffle_n(self,
                   n: int,
@@ -1026,11 +1085,6 @@ class Shuffler:
                     maximum_dot_count=self._maximum_dot_count,
                     rewrite_tuplets=self._rewrite_tuplets,
                 )
-        # removing first time signature if necessary
-        if (not self._is_first_window
-                and self._time_signatures[0] == self._time_signatures[-1]):
-            head = abjad.select(dummy_container).leaf(0)
-            abjad.detach(abjad.TimeSignature, head)
         # output
         self._is_first_window = False
         self._current_window = dummy_container[:]
@@ -1074,11 +1128,6 @@ class Shuffler:
                                self._time_signatures,
                                disable_rewrite_meter=True,
                                )
-        # removing first time signature if necessary
-        if (not self._is_first_window
-                and self._time_signatures[0] == self._time_signatures[-1]):
-            head = abjad.select(dummy_container).leaf(0)
-            abjad.detach(abjad.TimeSignature, head)
         # output
         self._is_first_window = False
         self._current_window = dummy_container[:]
@@ -1128,6 +1177,7 @@ class Shuffler:
         self._time_signatures = time_signature_extractor(contents,
                                                          do_not_use_none=True,
                                                          )
+        self._is_first_window = True
 
     @property
     def pitch_only(self) -> bool:
@@ -1175,21 +1225,6 @@ class Shuffler:
         self._disable_rewrite_meter = disable_rewrite_meter
 
     @property
-    def force_time_signatures(self) -> bool:
-        r"""When ``True``, every call will output a selection with a time
-        signature.
-        """
-        return self._force_time_signatures
-
-    @force_time_signatures.setter
-    def force_time_signatures(self,
-                              force_time_signatures: bool,
-                              ):
-        if not isinstance(force_time_signatures, bool):
-            raise TypeError("'force_time_signatures' must be 'bool'")
-        self._force_time_signatures = force_time_signatures
-
-    @property
     def omit_time_signatures(self) -> bool:
         r'When ``True``, the output will contain no time signatures.'
         return self._omit_time_signatures
@@ -1218,7 +1253,9 @@ class Shuffler:
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        r"""Sets the argument ``maximum_dot_count`` of abjad's
+        ``rewrite_meter()``.
+        """
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
@@ -1246,7 +1283,22 @@ class Shuffler:
         self._rewrite_tuplets = rewrite_tuplets
 
     @property
-    def current_window(self) -> Union[abjad.Selection, None]:
+    def processs_on_first_call(self) -> bool:
+        r"""If ``True`` then the ``contents`` will be processed in the very
+        first call.
+        """
+        return self._processs_on_first_call
+
+    @processs_on_first_call.setter
+    def processs_on_first_call(self,
+                               processs_on_first_call: bool,
+                               ):
+        if not isinstance(processs_on_first_call, bool):
+            raise TypeError("'processs_on_first_call' must be 'bool'")
+        self._processs_on_first_call = processs_on_first_call
+
+    @property
+    def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the result of the last operation.'
         current_window = copy.deepcopy(self._current_window)
         if self._omit_time_signatures:

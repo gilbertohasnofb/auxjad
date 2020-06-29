@@ -114,6 +114,7 @@ def test_Hocketer_03():
                                force_k_voices=True,
                                disable_rewrite_meter=True,
                                use_multimeasure_rests=False,
+                               omit_time_signatures=True,
                                boundary_depth=0,
                                maximum_dot_count=1,
                                rewrite_tuplets=False,
@@ -124,6 +125,7 @@ def test_Hocketer_03():
     assert hocketer.force_k_voices
     assert hocketer.disable_rewrite_meter
     assert not hocketer.use_multimeasure_rests
+    assert hocketer.omit_time_signatures
     assert hocketer.boundary_depth == 0
     assert hocketer.maximum_dot_count == 1
     assert not hocketer.rewrite_tuplets
@@ -133,6 +135,7 @@ def test_Hocketer_03():
     hocketer.force_k_voices = False
     hocketer.disable_rewrite_meter = False
     hocketer.use_multimeasure_rests = True
+    hocketer.omit_time_signatures = False
     hocketer.boundary_depth = 1
     hocketer.maximum_dot_count = 2
     hocketer.rewrite_tuplets = True
@@ -142,6 +145,7 @@ def test_Hocketer_03():
     assert not hocketer.force_k_voices
     assert not hocketer.disable_rewrite_meter
     assert hocketer.use_multimeasure_rests
+    assert not hocketer.omit_time_signatures
     assert hocketer.boundary_depth == 1
     assert hocketer.maximum_dot_count == 2
     assert hocketer.rewrite_tuplets
@@ -582,6 +586,38 @@ def test_Hocketer_13():
                 c'8
                 d'8
                 e'2
+            }
+        >>
+        """)
+
+
+def test_Hocketer_14():
+    random.seed(15663)
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
+    hocketer = auxjad.Hocketer(container,
+                               omit_time_signatures=True,
+                               use_multimeasure_rests=False,
+                               )
+    music = hocketer()
+    score = abjad.Score(music)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                r2.
+                r4
+                g'4
+                a'4
+            }
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                r2
             }
         >>
         """)

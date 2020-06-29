@@ -2,6 +2,9 @@ import copy
 import random
 from typing import Optional, Union
 import abjad
+from ..utilities.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures
+)
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
@@ -41,6 +44,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
@@ -56,6 +60,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             r2
             e'8
             f'4.
@@ -71,6 +76,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             r2
             e'8
             f'4.
@@ -83,17 +89,18 @@ class Fader():
         The very first call will output the input container without processing
         it. To disable this behaviour and apply the fading process on the very
         first call, initialise the class with the keyword argument
-        ``fade_on_first_call`` set to ``True``.
+        ``processs_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> fader = auxjad.Fader(container,
-        ...                      fade_on_first_call=True,
+        ...                      processs_on_first_call=True,
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -130,6 +137,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             r2
             r8
             f'4.
@@ -142,6 +150,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
@@ -178,6 +187,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             r4
@@ -191,6 +201,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             r2
@@ -204,6 +215,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -217,6 +229,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             d'4
             e'4
@@ -266,16 +279,14 @@ class Fader():
         between ``1`` and the input value (default is also ``1``). By default,
         calling the object in fade out mode will return the original container,
         and calling it in fade in mode will return a container filled with
-        rests; set ``fade_on_first_call`` to ``True`` and the fade process will
-        be applied on the very first call.  ``disable_rewrite_meter`` disables
-        the ``rewrite_meter()`` mutation which is applied to the container
-        after every call, and ``omit_time_signatures`` will remove all time
-        signatures from the output (both are ``False`` by default). By default,
-        the first time signature is attached only to the first leaf of the
-        first call (unless time signature changes require it). To force every
-        returned selection to start with a time signature attached to its first
-        leaf, set ``force_time_signatures`` to ``True``. Any measure filled
-        with rests will be rewritten using a multi-measure rest; set the
+        rests; set ``processs_on_first_call`` to ``True`` and the fade process
+        will be applied on the very first call.  ``disable_rewrite_meter``
+        disables the ``rewrite_meter()`` mutation which is applied to the
+        container after every call, and ``omit_time_signatures`` will remove
+        all time signatures from the output (both are ``False`` by default). By
+        default, the first time signature is attached only to the first leaf of
+        the first call (unless time signature changes require it). Any measure
+        filled with rests will be rewritten using a multi-measure rest; set the
         ``use_multimeasure_rests`` to ``False`` to disable this behaviour.
         An initial mask for the logical ties can be set using ``mask``, which
         should be a ``list`` of the same length as the number of pitched
@@ -292,27 +303,22 @@ class Fader():
         >>> fader = auxjad.Fader(container,
         ...                      fader_type='in',
         ...                      max_steps=2,
-        ...                      fade_on_first_call=True,
         ...                      disable_rewrite_meter=True,
         ...                      omit_time_signatures=True,
-        ...                      force_time_signatures=True,
         ...                      use_multimeasure_rests=False,
         ...                      mask=[1, 0, 1, 1, 0],
         ...                      boundary_depth=0,
         ...                      maximum_dot_count=1,
         ...                      rewrite_tuplets=False,
+        ...                      processs_on_first_call=True,
         ...                      )
         >>> fader.fader_type
         'in'
         >>> fader.max_steps
         2
-        >>> fader.fade_on_first_call
-        True
         >>> fader.disable_rewrite_meter
         True
         >>> fader.omit_time_signatures
-        True
-        >>> fader.force_time_signatures
         True
         >>> fader.use_multimeasure_rests
         False
@@ -324,6 +330,8 @@ class Fader():
         1
         >>> fader.rewrite_tuplets
         False
+        >>> fader.processs_on_first_call
+        True
 
         Use the properties below to change these values after initialisation.
 
@@ -331,23 +339,19 @@ class Fader():
         >>> fader.max_steps = 1
         >>> fader.disable_rewrite_meter = False
         >>> fader.omit_time_signatures = False
-        >>> fader.force_time_signatures = False
         >>> fader.use_multimeasure_rests = True
         >>> fader.mask = [0, 1, 1, 0, 1]
         >>> fader.boundary_depth = 1
         >>> fader.maximum_dot_count = 2
         >>> fader.rewrite_tuplets = True
+        >>> fader.processs_on_first_call = False
         >>> fader.fader_type
         'out'
         >>> fader.max_steps
         1
-        >>> fader.fade_on_first_call
-        False
         >>> fader.disable_rewrite_meter
         False
         >>> fader.omit_time_signatures
-        False
-        >>> fader.force_time_signatures
         False
         >>> fader.use_multimeasure_rests
         True
@@ -359,6 +363,8 @@ class Fader():
         2
         >>> fader.rewrite_tuplets
         True
+        >>> fader.processs_on_first_call
+        False
 
     .. container:: example
 
@@ -390,6 +396,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             r4
             d'4
             e'4
@@ -406,6 +413,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             e'16
@@ -422,6 +430,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'16
             d'16
             r16
@@ -524,13 +533,14 @@ class Fader():
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> fader = auxjad.Fader(container,
         ...                      max_steps=3,
-        ...                      fade_on_first_call=True,
+        ...                      processs_on_first_call=True,
         ...                      )
         >>> notes = fader.output_n(3)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             r8
@@ -587,6 +597,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             r4
             d'8
             e'8
@@ -603,6 +614,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'4
             r8
             e'8
@@ -620,6 +632,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             R1
         }
 
@@ -655,6 +668,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             r8
             d'8
             r4
@@ -702,6 +716,7 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
+            \time 4/4
             c'8
             d'8
             e'8
@@ -772,52 +787,15 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-30.png
 
-    ..  container:: example
+    ..  tip::
 
-        By default, only the first output bar will contain a time signature,
-        and all subsequent bars won't have one. Use the optional keyword
-        argument ``force_time_signatures`` when inisialising the object, or
-        alternatively set the property of the same name, to change this
-        behaviour. Compare the two cases below; in the first, the variable
-        ``notes2`` won't have a time signature appended to its first leaf
-        because the fader had been called before (though LilyPond will
-        fallback to a default 4/4 time signature when none is found in the
-        source file). In the second, ``force_time_signatures`` is set to
-        ``True``, and the output of ``abjad.f(staff)`` now includes
-        ``\time 3/4`` (and LilyPond does not fallback to a 4/4 time signature).
-
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> fader = auxjad.Fader(container)
-        >>> notes1 = fader()
-        >>> notes2 = fader()
-        >>> staff = abjad.Staff(notes2)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            r4
-            e'4
-        }
-
-        .. figure:: ../_images/image-Fader-31.png
-
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> fader = auxjad.Fader(container,
-        ...                      force_time_signatures=True,
-        ...                      )
-        >>> notes1 = fader()
-        >>> notes2 = fader()
-        >>> staff = abjad.Staff(notes2)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            r4
-            e'4
-        }
-
-        .. figure:: ../_images/image-Fader-32.png
+        All methods that return an ``abjad.Selection`` will add an initial time
+        signature to it. The ``output_n()`` and ``output_all()`` methods 
+        automatically remove repeated time signatures. When joining selections
+        output by multiple method calls, use
+        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        after fusing the selections to remove any unecessary time signature
+        changes.
 
     ..  container:: example
 
@@ -837,7 +815,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-33.png
+        .. figure:: ../_images/image-Fader-31.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -857,7 +835,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-34.png
+        .. figure:: ../_images/image-Fader-32.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -910,7 +888,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/image-Fader-35.png
+        .. figure:: ../_images/image-Fader-33.png
 
     ..  warning::
 
@@ -959,7 +937,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-36.png
+        .. figure:: ../_images/image-Fader-34.png
     """
 
     ### CLASS VARIABLES ###
@@ -973,12 +951,11 @@ class Fader():
                  '_is_first_window',
                  '_time_signatures',
                  '_omit_time_signatures',
-                 '_force_time_signatures',
                  '_use_multimeasure_rests',
-                 '_new_mask',
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
+                 '_processs_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -988,10 +965,9 @@ class Fader():
                  *,
                  fader_type: str = 'out',
                  max_steps: int = 1,
-                 fade_on_first_call: bool = False,
+                 processs_on_first_call: bool = False,
                  disable_rewrite_meter: bool = False,
                  omit_time_signatures: bool = False,
-                 force_time_signatures: bool = False,
                  use_multimeasure_rests: bool = True,
                  mask: Optional[list] = None,
                  boundary_depth: Optional[int] = None,
@@ -1002,20 +978,16 @@ class Fader():
         self.fader_type = fader_type
         self.max_steps = max_steps
         self.contents = contents
-        if not isinstance(fade_on_first_call, bool):
-            raise TypeError("'fade_on_first_call' must be 'bool'")
         self.disable_rewrite_meter = disable_rewrite_meter
         self.omit_time_signatures = omit_time_signatures
-        self.force_time_signatures = force_time_signatures
         self.use_multimeasure_rests = use_multimeasure_rests
         if mask:
             self.mask = mask
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
-        self._is_first_window = not fade_on_first_call
-        self._current_window = None
-        self._new_mask = False
+        self.processs_on_first_call = processs_on_first_call
+        self._is_first_window = True
 
     ### SPECIAL METHODS ###
 
@@ -1031,17 +1003,13 @@ class Fader():
         r"""Calls the fading process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if not self._is_first_window and not self._new_mask:
+        if not self._is_first_window or self._processs_on_first_call:
             if self._fader_type == 'out':
                 self._remove_element()
             else:
                 self._add_element()
-            self._mask_to_selection()
-        else:
-            self._mask_to_selection()
-            self._is_first_window = False
-            self._new_mask = False
-        return copy.deepcopy(self._current_window)
+        self._mask_to_selection()
+        return self.current_window
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the fading process for one iteration, returning an
@@ -1049,17 +1017,15 @@ class Fader():
         """
         if self._done:
             raise StopIteration
-        if not self._is_first_window and not self._new_mask:
+        if self._is_first_window and not self._processs_on_first_call:
+            self._mask_to_selection()
+        else:
             if self._fader_type == 'out':
                 self._remove_element()
             else:
                 self._add_element()
             self._mask_to_selection()
-        else:
-            self._mask_to_selection()
-            self._is_first_window = False
-            self._new_mask = False
-        return copy.deepcopy(self._current_window)
+        return self.current_window
 
     def __iter__(self):
         r'Returns an iterator, allowing instances to be used as iterators.'
@@ -1076,6 +1042,7 @@ class Fader():
             dummy_container.append(self.__call__())
             if self._done:
                 break
+        remove_repeated_time_signatures(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1094,13 +1061,14 @@ class Fader():
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
+        remove_repeated_time_signatures(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
 
     def reset_mask(self):
         r'Creates a mask filled with a default value for the logical ties.'
-        self._new_mask = True
+        self._is_first_window = True
         if self._fader_type == 'out':
             self._mask = [1 for _ in range(self.__len__())]
         else:
@@ -1108,12 +1076,12 @@ class Fader():
 
     def random_mask(self):
         r"Creates a mask randomly filled with ``1``'s and ``0``'s."
-        self._new_mask = True
+        self._is_first_window = True
         self._mask = [random.randint(0, 1) for _ in range(self.__len__())]
 
     def shuffle_mask(self):
         r"Shuffles the current mask."
-        self._new_mask = True
+        self._is_first_window = True
         random.shuffle(self._mask)
 
     ### PRIVATE METHODS ###
@@ -1151,28 +1119,21 @@ class Fader():
                 for leaf in logical_tie:
                     abjad.mutate(leaf).replace(
                         abjad.Rest(leaf.written_duration))
-        if not self._omit_time_signatures:
-            # applying time signatures and rewrite meter
-            enforce_time_signature(
-                dummy_container,
-                self._time_signatures,
-                disable_rewrite_meter=self._disable_rewrite_meter,
-                boundary_depth=self._boundary_depth,
-                maximum_dot_count=self._maximum_dot_count,
-                rewrite_tuplets=self._rewrite_tuplets,
-            )
-            if self._use_multimeasure_rests:
-                rests_to_multimeasure_rest(dummy_container)
-            if not self._is_first_window and not self._force_time_signatures:
-                if self._time_signatures[0] == self._time_signatures[-1]:
-                    abjad.detach(abjad.TimeSignature,
-                                 abjad.select(dummy_container).leaf(0),
-                                 )
-        else:
-            self._remove_all_time_signatures(dummy_container)
+        # applying time signatures and rewrite meter
+        enforce_time_signature(
+            dummy_container,
+            self._time_signatures,
+            disable_rewrite_meter=self._disable_rewrite_meter,
+            boundary_depth=self._boundary_depth,
+            maximum_dot_count=self._maximum_dot_count,
+            rewrite_tuplets=self._rewrite_tuplets,
+        )
+        if self._use_multimeasure_rests:
+            rests_to_multimeasure_rest(dummy_container)
         # output
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+        self._is_first_window = False
 
     @staticmethod
     def _remove_all_time_signatures(container):
@@ -1196,15 +1157,20 @@ class Fader():
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
         self._contents = copy.deepcopy(contents)
+        self._current_window = copy.deepcopy(contents)
         self._time_signatures = time_signature_extractor(contents,
                                                          do_not_use_none=True,
                                                          )
         self.reset_mask()
+        self._is_first_window = True
 
     @property
-    def current_window(self) -> Union[abjad.Selection, None]:
+    def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the previously output selection.'
-        return copy.deepcopy(self._current_window)
+        current_window = copy.deepcopy(self._current_window)
+        if self._omit_time_signatures:
+            self._remove_all_time_signatures(current_window)
+        return current_window
 
     @property
     def fader_type(self) -> str:
@@ -1253,7 +1219,7 @@ class Fader():
             raise ValueError("'mask' must have the same length as the number "
                              "of logical ties in 'contents'")
         self._mask = mask
-        self._new_mask = True
+        self._is_first_window = True
 
     @property
     def disable_rewrite_meter(self) -> bool:
@@ -1277,26 +1243,11 @@ class Fader():
 
     @omit_time_signatures.setter
     def omit_time_signatures(self,
-                                 omit_time_signatures: bool,
-                                 ):
+                             omit_time_signatures: bool,
+                             ):
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
-
-    @property
-    def force_time_signatures(self) -> bool:
-        r"""When ``True``, the initial time signature of a window is always
-        attached to the first leaf.
-        """
-        return self._force_time_signatures
-
-    @force_time_signatures.setter
-    def force_time_signatures(self,
-                              force_time_signatures: bool,
-                              ):
-        if not isinstance(force_time_signatures, bool):
-            raise TypeError("'force_time_signatures' must be 'bool'")
-        self._force_time_signatures = force_time_signatures
 
     @property
     def use_multimeasure_rests(self) -> bool:
@@ -1327,7 +1278,9 @@ class Fader():
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"Sets the argument ``maximum_dot_count`` of abjad's ``rewrite_meter()``."
+        r"""Sets the argument ``maximum_dot_count`` of abjad's
+        ``rewrite_meter()``.
+        """
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
@@ -1353,6 +1306,21 @@ class Fader():
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
+
+    @property
+    def processs_on_first_call(self) -> bool:
+        r"""If ``True`` then the ``contents`` will be processed in the very
+        first call.
+        """
+        return self._processs_on_first_call
+
+    @processs_on_first_call.setter
+    def processs_on_first_call(self,
+                               processs_on_first_call: bool,
+                               ):
+        if not isinstance(processs_on_first_call, bool):
+            raise TypeError("'processs_on_first_call' must be 'bool'")
+        self._processs_on_first_call = processs_on_first_call
 
     ### PRIVATE PROPERTIES ###
 

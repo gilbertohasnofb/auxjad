@@ -5,18 +5,14 @@ import abjad
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures
 )
-from ..utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio
-)
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
-    r"""Shuffler takes an input ``abjad.Container`` and shuffles its logical
-    ties. It can also shuffle only pitches, as well as rotate them. When
-    shuffling or rotating pitches only, tuplets are supported. Tuplets are not
-    supported when shuffling leaves.
+    r"""Shuffler takes an input ``abjad.Container`` and shuffles or rotates its
+    logical ties or pitches. When shuffling or rotating pitches only, tuplets
+    are supported, otherwise tuplets are not supported.
 
     ..  container:: example
 
@@ -56,23 +52,18 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-2.png
 
-    ..  container:: example
-
         Calling the object outputs the same result as using the method
         ``shuffle()``.
 
-        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.shuffle()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 4/4
-            f'4
             c'4
             e'4
             d'4
+            f'4
         }
 
         .. figure:: ../_images/image-Shuffler-3.png
@@ -87,12 +78,25 @@ class Shuffler:
         >>> len(shuffler)
         5
 
+         Do note that consecutive rests are considered as a single logical tie,
+         so in the example below the ``len()`` function returns ``5`` and not
+         ``6``. When shuffling or rotating logical ties, consecutive rests are
+         also shuffled and rotated together.
+
+         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+         >>> shuffler = auxjad.Shuffler(container)
+         >>> len(shuffler)
+         5
+
     ..  container:: example
 
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below. Setting ``output_single_measure`` to ``True`` will strip the
-        output from its time signature structure and return a single measure.
+        below. Setting ``pitch_only`` to ``True`` will enable pitch mode; by
+        default, this class shuffles and rotates logical ties, but in pitch
+        mode only pitches are shuffled or rotated. By setting
+        ``preserve_rest_position`` to ``True`` the shuffle and rotation
+        operations will not change the position or duration of rests.
         ``disable_rewrite_meter`` disables the ``rewrite_meter()`` mutation
         which is applied to the container after every call, and
         ``omit_all_time_signatures`` will remove all time signatures from the
@@ -108,7 +112,8 @@ class Shuffler:
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
         >>> shuffler = auxjad.Shuffler(container,
-        ...                            output_single_measure=False,
+        ...                            pitch_only=False,
+        ...                            preserve_rest_position=True,
         ...                            disable_rewrite_meter=False,
         ...                            force_time_signatures=False,
         ...                            omit_time_signatures=True,
@@ -116,8 +121,10 @@ class Shuffler:
         ...                            maximum_dot_count=1,
         ...                            rewrite_tuplets=False,
         ...                            )
-        >>> shuffler.output_single_measure
+        >>> shuffler.pitch_only
         False
+        >>> shuffler.preserve_rest_position
+        True
         >>> shuffler.disable_rewrite_meter
         False
         >>> shuffler.force_time_signatures
@@ -133,14 +140,17 @@ class Shuffler:
 
         Use the properties below to change these values after initialisation.
 
-        >>> shuffler.output_single_measure = True
+        >>> shuffler.pitch_only = True
+        >>> shuffler.preserve_rest_position = False
         >>> shuffler.disable_rewrite_meter = True
         >>> shuffler.force_time_signatures = True
         >>> shuffler.omit_time_signatures = False
         >>> shuffler.boundary_depth = 1
         >>> shuffler.maximum_dot_count = 2
         >>> shuffler.rewrite_tuplets = True
-        >>> shuffler.output_single_measure
+        >>> shuffler.pitch_only
+        True
+        >>> shuffler.preserve_rest_position
         True
         >>> shuffler.disable_rewrite_meter
         True
@@ -157,39 +167,199 @@ class Shuffler:
 
     ..  container:: example
 
-        If ``output_single_measure`` is set to ``True``, then the whole
-        container is output as a single measure, having its time signature
-        rewritten.
+        By default, the shuffling operation will shuffle logical ties:
+
+        >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            r4
+            r16
+            e'16
+            f'8
+            ~
+            f'16
+            d'8.
+            ~
+            d'16
+            c'8.
+        }
+
+        .. figure:: ../_images/image-Shuffler-4.png
+
+        Setting ``pitch_only`` to ``True`` enables pitch mode, so only pitches
+        are shuffled (and not durations). Note how in the example below the
+        duration of each leaf is the same as the input container.
+
+        >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+        >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            f'8.
+            r4
+            d'8
+            ~
+            d'8.
+            ~
+            c'16
+            e'8.
+        }
+
+        .. figure:: ../_images/image-Shuffler-5.png
+
+    ..  container:: example
+
+        Besides shuffling, logical ties and pitches can also be rotated using
+        the ``rotate()`` method. Similarly to shuffling, it can be applied to
+        logical ties or pitches only depending on the property ``pitch_only``.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> notes = shuffler.rotate()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            d'4..
+            e'16
+            ~
+            e'8.
+            r16
+            r8.
+            f'16
+            ~
+            f'4
+            ~
+            f'8
+            ~
+            f'32
+            g'32
+            c'16
+        }
+
+        .. figure:: ../_images/image-Shuffler-6.png
+
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
+        >>> notes = shuffler.rotate()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            d'16
+            e'8.
+            ~
+            e'4
+            r4
+            f'4
+            g'4
+            ~
+            g'8..
+            c'32
+        }
+
+        .. figure:: ../_images/image-Shuffler-7.png
+
+        This method can also take the optional parameters ``n_rotations`` and
+        ``anticlockwise``. The first is an integer setting the number of
+        rotations applied to the material, and the second is a boolean setting
+        the direction of the rotation (default ``False``).
+
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
+        >>> notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            f'16
+            g'8.
+            ~
+            g'4
+            c'4
+            d'4
+            e'4
+            ~
+            e'8..
+            r32
+        }
+
+        .. figure:: ../_images/image-Shuffler-8.png
+
+    ..  container:: example
+
+        If ``preserve_rest_position`` is set to ``True``, the positions of all
+        rests will remain the same after either shuffling and rotation. In
+        pitch mode (when ``pitch_only`` is set to ``True``), this means that
+        only the pitched notes will be shuffled or rotated, while the rests
+        remain in the exact same place.
+
+        >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
         >>> shuffler = auxjad.Shuffler(container,
-        ...                            output_single_measure=True,
+        ...                            pitch_only=True,
+        ...                            preserve_rest_position=True,
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 5/4
+            \time 4/4
+            d'8.
             f'4
-            d'4
-            e'4
-            g'4
-            c'4
+            r8
+            r8.
+            c'16
+            e'8.
         }
 
-        .. figure:: ../_images/image-Shuffler-4.png
+        .. figure:: ../_images/image-Shuffler-9.png
+
+        In logical ties mode, the rests will remain at the same index and will
+        have the same total duration as before, but their position in the bar
+        might vary since the duration of the pitched logical ties preceeding
+        it might change.
+
+        >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+        >>> shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            d'4
+            e'16
+            r8.
+            r8
+            f'8
+            ~
+            f'16
+            c'8.
+        }
+
+        .. figure:: ../_images/image-Shuffler-10.png
 
     ..  container:: example
 
         If ``disable_rewrite_meter`` is set to ``True``, then the automatic
         behaviour of rewriting the leaves according to the meter is disabled.
 
-        >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'4.. e'4 | \time 2/4 f'2")
+        >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
         >>> shuffler = auxjad.Shuffler(container,
-        ...                            output_single_measure=True,
         ...                            disable_rewrite_meter=True,
         ...                            )
         >>> notes = shuffler()
@@ -197,100 +367,84 @@ class Shuffler:
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 5/4
-            d'4..
+            \time 4/4
+            e'8
             f'2
-            c'16
-            e'4
+            c'4
+            d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-5.png
+        .. figure:: ../_images/image-Shuffler-11.png
 
     ..  container:: example
 
-        The first call to the instance will add the correct time signature to
-        the first leaf. Subsequent calls will only add it if its necessary,
-        such as when there is a time signature change in some bar in the
-        container.
+        To output several shuffled containers at once, use the methods
+        ``shuffle_n`` and ``rotate_n``, inputting the desired number of
+        iterations. ``rotate_n`` can also take the optional arguments
+        ``n_rotations`` and ``anticlockwise``, similarly to ``rotate()``.
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
+        >>> container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler()
+        >>> notes = shuffler.shuffle_n(2)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 3/4
-            d'4..
-            e'16
+            \time 4/4
+            d'8
+            g'16
+            c'16
             ~
-            e'8.
+            c'8.
             f'16
             ~
-            f'4..
-            r16
-            r8.
-            c'16
+            f'8
+            e'4.
+            g'16
+            f'8.
+            e'4.
+            c'8
+            ~
+            c'8
+            d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-6.png
+        .. figure:: ../_images/image-Shuffler-12.png
 
-        >>> notes = shuffler()
+        >>> container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> notes = shuffler.rotate_n(2)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            c'16
-            e'8.
-            ~
-            e'16
-            f'4..
+            \time 4/4
+            d'8
+            e'4.
+            f'8.
+            g'16
+            c'4
+            e'4.
+            f'8
             ~
             f'16
-            r8.
-            r16
-            d'4..
+            g'16
+            c'8
+            ~
+            c'8
+            d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-7.png
+        .. figure:: ../_images/image-Shuffler-13.png
 
-        It is possible to force time signatures on every call using either
-        optional keyword argument ``force_time_signatures``.
+    ..  tip::
 
-        >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
-        >>> shuffler = auxjad.Shuffler(container,
-        ...                            force_time_signatures=True,
-        ...                            )
-        >>> notes = shuffler()
-        >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            d'4..
-            r16
-            r8.
-            c'16
-            e'4
-            f'2
-        }
-
-        .. figure:: ../_images/image-Shuffler-8.png
-
-        >>> notes = shuffler()
-        >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            e'4
-            f'2
-            r4
-            c'16
-            d'4..
-        }
-
-        .. figure:: ../_images/image-Shuffler-9.png
+        All methods that return an ``abjad.Selection`` will add an initial time
+        signature. The ``shuffle_n`` and ``rotate_n`` methods automatically
+        remove repeated time signatures. When joining selections output by
+        multiple calls, use ``auxjad.remove_repeated_time_signatures()`` on the
+        whole container after fusing the selections to remove any unecessary
+        time signature changes.
 
     ..  container:: example
 
@@ -320,56 +474,78 @@ class Shuffler:
             c'16
         }
 
-        .. figure:: ../_images/image-Shuffler-10.png
-
-        >>> shuffler.omit_time_signatures
-        True
-        >>> shuffler.omit_time_signatures = False
-        >>> shuffler.omit_time_signatures
-        False
+        .. figure:: ../_images/image-Shuffler-14.png
 
     ..  container:: example
 
-        To output several shuffled containers at once, use the ``output_n``
-        method, inputting the desired number of iterations.
+        This class handles time signature changes too:
 
-        >>> container = abjad.Container(r"\time 2/4 c'16 d'4.. | r4 e'8. f'16")
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'8. d'4 r8 r8. \time 2/4 e'16 f'4..")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler.output_n(3)
+        >>> notes = shuffler.shuffle_n(2)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 2/4
-            d'4..
-            f'16
-            c'16
-            e'8.
-            r4
-            d'4..
+            \time 3/4
             e'16
+            d'8.
             ~
-            e'8
-            f'16
+            d'16
+            f'4..
+            \time 2/4
+            c'8.
             r16
-            r8.
-            c'16
             r4
-            d'4
+            \time 3/4
+            c'8.
+            f'16
+            ~
+            f'4.
+            r8
+            \time 2/4
+            r8.
+            d'16
             ~
             d'8.
-            f'16
-            c'16
-            e'8.
+            e'16
         }
 
-        .. figure:: ../_images/image-Shuffler-11.png
+        .. figure:: ../_images/image-Shuffler-15.png
+
+    ..  container:: example
+
+        Tuplets are supported when ``pitch_only`` is ``True`` (pitch-only
+        mode).
+
+        >>> container = abjad.Container(
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
+        >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 5/4
+            d'4
+            \times 2/3 {
+                f'4
+                c'2
+            }
+            e'4.
+            r8
+        }
+
+        .. figure:: ../_images/image-Shuffler-16.png
 
     ..  error::
 
-        Tuplets not supported by the shuffling operation.
+        Tuplets are not supported when ``pitch_only`` is ``False`` (logical tie
+        mode).
 
-        >>> container = abjad.Container(r"c'2 \times 2/3 {d'4 e'2}")
+        >>> container = abjad.Container(
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         TypeError: 'contents' contain one ore more tuplets, which are not
@@ -377,168 +553,58 @@ class Shuffler:
 
     ..  container:: example
 
-        To shuffle only pitches, keeping the durations of the leaves as they
-        are, use the method ``shuffle_pitches()``. It handles both notes and
-        chords. Rests will remain at their current location.
+        This class can also handle dynamics and articulations.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        ...     r"<c' e' g'>4--\p d'8-. e'8-. f'4-^\f r4")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler.shuffle_pitches()
+        >>> notes = shuffler.shuffle_n(3)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 3/4
-            e'16
-            c'8.
-            ~
-            c'4
-            d'4
+            \time 4/4
             r4
             f'4
-            ~
-            f'8..
-            g'32
-        }
-
-        .. figure:: ../_images/image-Shuffler-12.png
-
-    ..  container:: example
-
-        When dealing with pitches, it is possible to use containers containing
-        tuplets. And similarly to the method ``output_n()``, to output several
-        containers with shuffled pitches, use ``output_n_shuffled_pitches()``.
-
-        >>> container = abjad.Container(
-        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} r4 e'4. f'8)
-        >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler.output_n_shuffled_pitches(3)
-        >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/4
-            r4
-            \times 2/3 {
-                f'4
-                e'2
-            }
-            d'4.
-            c'8
-            r4
-            \times 2/3 {
-                d'4
-                c'2
-            }
-            f'4.
-            e'8
-            r4
-            \times 2/3 {
-                d'4
-                f'2
-            }
-            c'4.
-            e'8
-        }
-
-        .. figure:: ../_images/image-Shuffler-13.png
-
-    ..  container:: example
-
-        To rotate pitches, use the ``rotate_pitches()`` method.
-
-        >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
-        >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler.rotate_pitches()
-        >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            d'16
-            e'8.
-            ~
-            e'4
-            f'4
-            r4
-            g'4
-            ~
-            g'8..
-            c'32
-        }
-
-        .. figure:: ../_images/image-Shuffler-14.png
-
-    ..  container:: example
-
-        This method can take two optioanl keyword arguments: ``anticlockwise``,
-        set to ``False`` by default, and ``n_rotations``, set to 1 by default.
-        The first defines the direction of the rotation, while the later sets
-        the number of rotations applied.
-
-        >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
-        >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
-        >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            f'16
-            g'8.
-            ~
-            g'4
-            c'4
-            r4
-            d'4
-            ~
-            d'8..
-            e'32
-        }
-
-        .. figure:: ../_images/image-Shuffler-15.png
-
-    ..  container:: example
-
-        Similarly to the method ``output_n()``, to output several containers
-        with rotated pitches, use ``output_n_rotated_pitches()``.
-
-        >>> container = abjad.Container(
-        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} r4 e'4. f'8")
-        >>> shuffler = auxjad.Shuffler(container)
-        >>> notes = shuffler.output_n_rotated_pitches(3)
-        >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/4
-            r4
-            \times 2/3 {
-                d'4
-                e'2
-            }
-            f'4.
-            c'8
-            r4
-            \times 2/3 {
-                e'4
-                f'2
-            }
-            c'4.
+            \f
+            - \marcato
             d'8
-            r4
-            \times 2/3 {
-                f'4
-                c'2
-            }
-            d'4.
+            - \staccato
+            <c' e' g'>8
+            \p
+            - \tenuto
+            ~
+            <c' e' g'>8
             e'8
+            - \staccato
+            f'4
+            \f
+            - \marcato
+            d'8
+            - \staccato
+            <c' e' g'>8
+            \p
+            - \tenuto
+            ~
+            <c' e' g'>8
+            r8
+            r8
+            e'8
+            - \staccato
+            f'4
+            \f
+            - \marcato
+            r4
+            e'8
+            - \staccato
+            d'8
+            - \staccato
+            <c' e' g'>4
+            \p
+            - \tenuto
         }
 
-        .. figure:: ../_images/image-Shuffler-16.png
+        .. figure:: ../_images/image-Shuffler-17.png
 
     ..  container:: example
 
@@ -558,7 +624,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/image-Shuffler-17.png
+        .. figure:: ../_images/image-Shuffler-18.png
 
         >>> shuffler()
         >>> abjad.f(shuffler.contents)
@@ -569,7 +635,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/image-Shuffler-18.png
+        .. figure:: ../_images/image-Shuffler-19.png
 
         >>> shuffler.contents = abjad.Container(r"cs2 ds2")
         >>> abjad.f(shuffler.contents)
@@ -578,7 +644,7 @@ class Shuffler:
             ds2
         }
 
-        .. figure:: ../_images/image-Shuffler-19.png
+        .. figure:: ../_images/image-Shuffler-20.png
 
     ..  container:: example
 
@@ -598,7 +664,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-20.png
+        .. figure:: ../_images/image-Shuffler-21.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -618,23 +684,72 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/image-Shuffler-21.png
+        .. figure:: ../_images/image-Shuffler-22.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
         which work exactly as the identically named arguments of
         ``rewrite_meter()``.
+
+    ..  container:: example
+
+        By default, this class rewrites uses abjad's ``rewrite_meter()``
+        mutation.
+
+        >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            e'8
+            f'8
+            ~
+            f'4.
+            c'8
+            ~
+            c'8
+            d'8
+        }
+
+        .. figure:: ../_images/image-Hocketer-10.png
+
+        Set ``disable_rewrite_meter`` to ``True`` in order to disable this
+        behaviour.
+
+        >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            disable_rewrite_meter=True,
+        ...                            )
+        >>> notes = shuffler()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            e'8
+            f'2
+            c'4
+            d'8
+        }
+
+        .. figure:: ../_images/image-Hocketer-11.png
     """
 
     ### CLASS VARIABLES ###
 
     __slots__ = ('_contents',
-                 '_output_single_measure',
+                 '_pitch_only',
+                 '_preserve_rest_position',
                  '_disable_rewrite_meter',
                  '_force_time_signatures',
                  '_omit_time_signatures',
                  '_current_window',
-                 '_logical_ties',
+                 '_logical_selections',
+                 '_logical_selections_indeces',
+                 '_pitches',
                  '_time_signatures',
                  '_is_first_window',
                  '_boundary_depth',
@@ -647,7 +762,8 @@ class Shuffler:
     def __init__(self,
                  contents: abjad.Container,
                  *,
-                 output_single_measure: bool = False,
+                 pitch_only: bool = False,
+                 preserve_rest_position: bool = False,
                  disable_rewrite_meter: bool = False,
                  force_time_signatures: bool = False,
                  omit_time_signatures: bool = False,
@@ -657,7 +773,8 @@ class Shuffler:
                  ):
         r'Initialises self.'
         self.contents = contents
-        self.output_single_measure = output_single_measure
+        self.pitch_only = pitch_only
+        self.preserve_rest_position = preserve_rest_position
         self.disable_rewrite_meter = disable_rewrite_meter
         self.force_time_signatures = force_time_signatures
         self.omit_time_signatures = omit_time_signatures
@@ -674,7 +791,7 @@ class Shuffler:
 
     def __len__(self) -> int:
         r'Returns the number of logical ties of ``contents``.'
-        return len(self._logical_ties)
+        return len(self._logical_selections)
 
     def __call__(self) -> abjad.Selection:
         r'Calls the shuffling process, returning an ``abjad.Selection``'
@@ -683,112 +800,20 @@ class Shuffler:
     ### PUBLIC METHODS ###
 
     def shuffle(self) -> abjad.Selection:
-        r'Shuffles the logical ties of ``contents``.'
-        if len(abjad.select(self._contents).tuplets()) > 0:
-            raise TypeError("'contents' contain one ore more tuplets; tuplets "
-                            "are not currently supported by the shuffle "
-                            "method")
+        r'Shuffles logical ties or pitches of ``contents``.'
         if self._force_time_signatures:
             self._is_first_window = True
-        dummy_container = abjad.Container()
-        indeces = list(range(self.__len__()))
-        random.shuffle(indeces)
-
-        for index in indeces:
-            logical_tie = copy.deepcopy(
-                self._logical_ties[index])
-            dummy_container.append(logical_tie)
-            for leaf in logical_tie:
-                if abjad.inspect(leaf).effective(abjad.TimeSignature):
-                    abjad.detach(abjad.TimeSignature, leaf)
-
-        if not self._output_single_measure:
-            # splitting leaves at bar line points
-            abjad.mutate(dummy_container[:]).split(
-                [ts.duration for ts in self._time_signatures],
-                cyclic=True,
-            )
-            # attaching time signature structure
-            enforce_time_signature(dummy_container,
-                                   self._time_signatures,
-                                   disable_rewrite_meter=True,
-                                   )
-            # rewrite meter
-            if not self._disable_rewrite_meter:
-                measures = abjad.select(dummy_container[:]).group_by_measure()
-                if not self._output_single_measure:
-                    for measure, time_signature in zip(measures,
-                                                       self._time_signatures):
-                        abjad.mutate(measure).rewrite_meter(
-                            time_signature,
-                            boundary_depth=self._boundary_depth,
-                            maximum_dot_count=self._maximum_dot_count,
-                            rewrite_tuplets=self._rewrite_tuplets,
-                        )
+        if not self._pitch_only:
+            return self._shuffle_logical_selections()
         else:
-            time_signature = abjad.TimeSignature(
-                abjad.inspect(dummy_container).duration())
-            time_signature = simplified_time_signature_ratio(time_signature)
-            if self._is_first_window:
-                abjad.attach(time_signature, dummy_container[0])
-            # rewrite meter
-            if not self._disable_rewrite_meter:
-                measures = abjad.select(dummy_container[:]).group_by_measure()
-                for measure in measures:
-                    abjad.mutate(measure).rewrite_meter(
-                        time_signature,
-                        boundary_depth=self._boundary_depth,
-                        maximum_dot_count=self._maximum_dot_count,
-                        rewrite_tuplets=self._rewrite_tuplets,
-                    )
+            return self._shuffle_pitches()
 
-        # removing first time signature if necessary
-        if (not self._is_first_window
-                and self._time_signatures[0] == self._time_signatures[-1]):
-            head = abjad.select(dummy_container).leaf(0)
-            abjad.detach(abjad.TimeSignature, head)
-
-        # output
-        self._current_window = dummy_container[:]
-        dummy_container[:] = []
-        self._is_first_window = False
-        return self.current_window
-
-    def shuffle_pitches(self) -> abjad.Selection:
-        r'Shuffles only the pitches of ``contents``.'
-        if self._force_time_signatures:
-            self._is_first_window = True
-        pitches = self._get_pitch_list()
-
-        # shuffling (while preserving rests)
-        true_pitches = [pitch for pitch in pitches if pitch is not None]
-        random.shuffle(true_pitches)
-        index = 0
-        for true_pitch in true_pitches:
-            while not pitches[index]:
-                index += 1
-            pitches[index] = true_pitch
-            index += 1
-
-        # rewriting leaves
-        self._rewrite_pitches(pitches)
-
-        # removing first time signature if necessary
-        if (not self._is_first_window
-                and self._time_signatures[0] == self._time_signatures[-1]):
-            head = abjad.select(self.current_window).leaf(0)
-            abjad.detach(abjad.TimeSignature, head)
-        self._is_first_window = False
-        self._update_logical_ties()
-
-        return self.current_window
-
-    def rotate_pitches(self,
-                       *,
-                       n_rotations: int = 1,
-                       anticlockwise: bool = False,
-                       ) -> abjad.Selection:
-        r'Rotates the pitches of ``contents``.'
+    def rotate(self,
+               *,
+               n_rotations: int = 1,
+               anticlockwise: bool = False,
+               ) -> abjad.Selection:
+        r'Rotates logical ties or pitches of ``contents``.'
         if not isinstance(n_rotations, int):
             raise TypeError("'n_rotations' must be 'int'")
         if n_rotations < 1:
@@ -797,37 +822,18 @@ class Shuffler:
             raise TypeError("'anticlockwise' must be 'bool'")
         if self._force_time_signatures:
             self._is_first_window = True
-        pitches = self._get_pitch_list()
+        if not self._pitch_only:
+            return self._rotate_logical_selections(n_rotations=n_rotations,
+                                                   anticlockwise=anticlockwise,
+                                                   )
+        else:
+            return self._rotate_pitches(n_rotations=n_rotations,
+                                        anticlockwise=anticlockwise,
+                                        )
 
-        # rotating pitches (while preserving rests)
-        true_pitches = [pitch for pitch in pitches if pitch is not None]
-        for _ in range(n_rotations):
-            if not anticlockwise:
-                true_pitches = true_pitches[1:] + [true_pitches[0]]
-            else:
-                true_pitches = [true_pitches[-1]] + true_pitches[:-1]
-        index = 0
-        for true_pitch in true_pitches:
-            while not pitches[index]:
-                index += 1
-            pitches[index] = true_pitch
-            index += 1
-
-        # rewriting leaves
-        self._rewrite_pitches(pitches)
-
-        # removing first time signature if necessary
-        if (not self._is_first_window
-                and self._time_signatures[0] == self._time_signatures[-1]):
-            head = abjad.select(self.current_window).leaf(0)
-            abjad.detach(abjad.TimeSignature, head)
-        self._is_first_window = False
-
-        return self.current_window
-
-    def output_n(self,
-                 n: int,
-                 ) -> abjad.Selection:
+    def shuffle_n(self,
+                  n: int,
+                  ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the shuffling process and outputs
         a single ``abjad.Selection``.
         """
@@ -839,13 +845,16 @@ class Shuffler:
         for _ in range(n):
             dummy_container.append(self.__call__())
         remove_repeated_time_signatures(dummy_container)
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
+        return output
 
-    def output_n_shuffled_pitches(self,
-                                  n: int,
-                                  ) -> abjad.Selection:
+    def rotate_n(self,
+                 n: int,
+                 *,
+                 n_rotations: int = 1,
+                 anticlockwise: bool = False,
+                 ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the pitch shuffling process and
         outputs a single ``abjad.Selection``.
         """
@@ -855,81 +864,203 @@ class Shuffler:
             raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):
-            dummy_container.append(self.shuffle_pitches())
+            dummy_container.append(self.rotate(n_rotations=n_rotations,
+                                               anticlockwise=anticlockwise))
         remove_repeated_time_signatures(dummy_container)
-        result = dummy_container[:]
+        output = dummy_container[:]
         dummy_container[:] = []
-        return result
-
-    def output_n_rotated_pitches(self,
-                                 n: int,
-                                 *,
-                                 n_rotations: int = 1,
-                                 anticlockwise: bool = False,
-                                 ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the pitch rotation process and
-        outputs a single ``abjad.Selection``.
-        """
-        if not isinstance(n, int):
-            raise TypeError("first positional argument must be 'int'")
-        if n < 1:
-            raise ValueError("first positional argument must be a positive "
-                             "'int'")
-        if not isinstance(n_rotations, int):
-            raise TypeError("'n_rotations' must be 'int'")
-        if not isinstance(anticlockwise, bool):
-            raise TypeError("'anticlockwise' must be 'bool'")
-        dummy_container = abjad.Container()
-        for _ in range(n):
-            dummy_container.append(self.rotate_pitches(
-                n_rotations=n_rotations,
-                anticlockwise=anticlockwise,
-            ))
-        remove_repeated_time_signatures(dummy_container)
-        result = dummy_container[:]
-        dummy_container[:] = []
-        return result
+        return output
 
     ### PRIVATE METHODS ###
 
-    def _update_logical_ties(self):
+    def _get_logical_selections(self):
         r'Updates the selection of logical ties of ``contents``.'
-        self._logical_ties = abjad.select(self._current_window).logical_ties()
+        def group_logical_ties(logical_tie):
+            if isinstance(logical_tie.head, abjad.Rest):
+                return True
+            else:
+                return logical_tie.head
+        logical_ties = abjad.select(self._contents).logical_ties()
+        self._logical_selections = logical_ties.group_by(group_logical_ties)
+        self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> list:
         r'Creates a list of all pitches in ``contents``.'
-        pitches = []
-        for logical_tie in abjad.select(self._current_window).logical_ties():
-            leaf = logical_tie[0]
+        self._pitches = []
+        for logical_selection in self._logical_selections:
+            leaf = logical_selection.leaves()[0]
             if isinstance(leaf, abjad.Rest):
-                pitches.append(None)
+                self._pitches.append(None)
             elif isinstance(leaf, abjad.Note):
-                pitches.append(leaf.written_pitch)
+                self._pitches.append(leaf.written_pitch)
             elif isinstance(leaf, abjad.Chord):
-                pitches.append(leaf.written_pitches)
-        return pitches
+                self._pitches.append(leaf.written_pitches)
 
-    def _rewrite_pitches(self,
-                         pitches: list,
-                         ):
-        r'Rewrites the pitches of all logical ties given a list of pitches.'
+    def _shuffle_list_preserving_rests(self,
+                                       input_list: list
+                                       ) -> list:
+        r'Shuffles a list while keeping rest indeces unchanged.'
+        dummy_list = [input_list[i] for i in range(len(input_list))
+                      if self._pitches[i] is not None]
+        random.shuffle(dummy_list)
+        self._replace_list_preserving_rests(dummy_list, input_list)
+
+    def _rotate_list_preserving_rests(self,
+                                      input_list: list,
+                                      *,
+                                      n_rotations: int = 1,
+                                      anticlockwise: bool = False,
+                                      ) -> list:
+        r'Rotates a list while keeping rest indeces unchanged.'
+        dummy_list = [input_list[i] for i in range(len(input_list))
+                      if self._pitches[i] is not None]
+        self._rotate_list(dummy_list,
+                          n_rotations=n_rotations,
+                          anticlockwise=anticlockwise,
+                          )
+        self._replace_list_preserving_rests(dummy_list, input_list)
+
+    def _replace_list_preserving_rests(self,
+                                       input_list: list,
+                                       destination_list: list,
+                                       ) -> list:
+        r'Substitutes back an altered list while preserving rests.'
+        index = 0
+        for i, pitch in enumerate(self._pitches):
+            if pitch is not None:
+                destination_list[i] = input_list[index]
+                index += 1
+
+    def _shuffle_logical_selections(self) -> abjad.Selection:
+        r'Shuffles the logical ties of ``contents``.'
+        if len(abjad.select(self._contents).tuplets()) > 0:
+            raise ValueError("'contents' contain one ore more tuplets; "
+                             "tuplets are currently supported only in "
+                             "pitch-only mode")
+        if not self._preserve_rest_position:
+            random.shuffle(self._logical_selections_indeces)
+        else:
+            self._shuffle_list_preserving_rests(
+                self._logical_selections_indeces)
+        self._rewrite_logical_selections()
+        return self.current_window
+
+    def _shuffle_pitches(self) -> abjad.Selection:
+        r'Shuffles only the pitches of ``contents``.'
+        if not self._preserve_rest_position:
+            random.shuffle(self._pitches)
+        else:
+            self._shuffle_list_preserving_rests(self._pitches)
+        self._rewrite_pitches()
+        return self.current_window
+
+    def _rotate_logical_selections(self,
+                                   *,
+                                   n_rotations: int = 1,
+                                   anticlockwise: bool = False,
+                                   ) -> abjad.Selection:
+        r'Rotates the logical ties of ``contents``.'
+        if len(abjad.select(self._contents).tuplets()) > 0:
+            raise ValueError("'contents' contain one ore more tuplets; "
+                             "tuplets are currently supported only in "
+                             "pitch-only mode")
+        if not self._preserve_rest_position:
+            self._rotate_list(self._logical_selections_indeces,
+                              n_rotations=n_rotations,
+                              anticlockwise=anticlockwise,
+                              )
+        else:
+            self._rotate_list_preserving_rests(
+                self._logical_selections_indeces,
+                n_rotations=n_rotations,
+                anticlockwise=anticlockwise,
+            )
+        self._rewrite_logical_selections()
+        return self.current_window
+
+    def _rotate_pitches(self,
+                        *,
+                        n_rotations: int = 1,
+                        anticlockwise: bool = False,
+                        ) -> abjad.Selection:
+        r'Rotates the pitches of ``contents``.'
+        if not self._preserve_rest_position:
+            self._rotate_list(self._pitches,
+                              n_rotations=n_rotations,
+                              anticlockwise=anticlockwise,
+                              )
+        else:
+            self._rotate_list_preserving_rests(self._pitches,
+                                               n_rotations=n_rotations,
+                                               anticlockwise=anticlockwise,
+                                               )
+        self._rewrite_pitches()
+        return self.current_window
+
+    def _rewrite_logical_selections(self):
+        r'Rewrites the logical selections of the current window.'
+        # writing dummy_container in shuffled order
+        dummy_container = abjad.Container()
+        for index in self._logical_selections_indeces:
+            logical_selection = copy.deepcopy(
+                self._logical_selections[index])
+            dummy_container.append(logical_selection.leaves())
+        # splitting leaves at bar line points
+        abjad.mutate(dummy_container[:]).split(
+            [ts.duration for ts in self._time_signatures],
+            cyclic=True,
+        )
+        # attaching time signature structure
+        enforce_time_signature(dummy_container,
+                               self._time_signatures,
+                               disable_rewrite_meter=True,
+                               )
+        # rewrite meter
+        if not self._disable_rewrite_meter:
+            measures = abjad.select(dummy_container[:]).group_by_measure()
+            for measure, time_signature in zip(measures,
+                                               self._time_signatures):
+                abjad.mutate(measure).rewrite_meter(
+                    time_signature,
+                    boundary_depth=self._boundary_depth,
+                    maximum_dot_count=self._maximum_dot_count,
+                    rewrite_tuplets=self._rewrite_tuplets,
+                )
+        # removing first time signature if necessary
+        if (not self._is_first_window
+                and self._time_signatures[0] == self._time_signatures[-1]):
+            head = abjad.select(dummy_container).leaf(0)
+            abjad.detach(abjad.TimeSignature, head)
+        # output
+        self._is_first_window = False
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
+
+    def _rewrite_pitches(self):
+        r'Rewrites the pitches of the current window.'
         index = 0
         dummy_container = abjad.Container(
             abjad.mutate(self._current_window[:]).copy()
         )
-        logical_ties = abjad.select(dummy_container).logical_ties()
-        for pitch, logical_tie in zip(pitches, logical_ties):
+        for pitch, logical_selection in zip(self._pitches,
+                                            self._logical_selections):
+            logical_tie = logical_selection.leaves()
             for leaf in logical_tie:
                 if pitch is None:
                     new_leaf = abjad.Rest(leaf.written_duration)
                 elif isinstance(pitch, abjad.PitchSegment):
                     new_leaf = abjad.Chord(pitch, leaf.written_duration)
+                    if (isinstance(leaf, abjad.Rest) and len(logical_tie) > 1
+                            and leaf is not logical_tie[-1]):
+                        abjad.attach(abjad.Tie(), new_leaf)
                 else:
                     new_leaf = abjad.Note(pitch, leaf.written_duration)
+                    if (isinstance(leaf, abjad.Rest) and len(logical_tie) > 1
+                            and leaf is not logical_tie[-1]):
+                        abjad.attach(abjad.Tie(), new_leaf)
                 for indicator in abjad.inspect(leaf).indicators():
-                    if not pitch and isinstance(indicator, (abjad.Tie,
-                                                            abjad.Articulation
-                                                            )):
+                    if pitch is None and isinstance(indicator, (abjad.Tie,
+                            abjad.Articulation)):
                         continue
                     if isinstance(indicator, abjad.TimeSignature):
                         abjad.attach(indicator, new_leaf)
@@ -938,9 +1069,43 @@ class Shuffler:
                 selection = abjad.select(dummy_container).leaf(index)
                 abjad.mutate(selection).replace(new_leaf)
                 index += 1
+        # attaching time signature structure
+        enforce_time_signature(dummy_container,
+                               self._time_signatures,
+                               disable_rewrite_meter=True,
+                               )
+        # removing first time signature if necessary
+        if (not self._is_first_window
+                and self._time_signatures[0] == self._time_signatures[-1]):
+            head = abjad.select(dummy_container).leaf(0)
+            abjad.detach(abjad.TimeSignature, head)
         # output
+        self._is_first_window = False
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+        self._get_logical_selections()  # new logical selections
+
+    @staticmethod
+    def _remove_all_time_signatures(container):
+        r'Removes all time signatures of an ``abjad.Container``'
+        for leaf in abjad.select(container).leaves():
+            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+                abjad.detach(abjad.TimeSignature, leaf)
+
+    @staticmethod
+    def _rotate_list(input_list: list,
+                     *,
+                     n_rotations: int = 1,
+                     anticlockwise: bool = False,
+                     ) -> list:
+        r'Rotates a list.'
+        for _ in range(n_rotations):
+            if not anticlockwise:
+                element = input_list.pop(0)
+                input_list.append(element)
+            else:
+                element = input_list.pop(-1)
+                input_list.insert(0, element)
 
     ### PUBLIC PROPERTIES ###
 
@@ -958,25 +1123,41 @@ class Shuffler:
                             "class")
         self._contents = copy.deepcopy(contents)
         self._current_window = copy.deepcopy(contents)
-        self._update_logical_ties()
+        self._get_logical_selections()
+        self._get_pitch_list()
         self._time_signatures = time_signature_extractor(contents,
                                                          do_not_use_none=True,
                                                          )
 
     @property
-    def output_single_measure(self) -> bool:
-        r"""When ``True``, the output will be a single measure even if the
-        contents of the shuffler are several measures.
+    def pitch_only(self) -> bool:
+        r"""When ``True``, only the pitches will be shuffled or rotated while
+        the durations remain the same.
         """
-        return self._output_single_measure
+        return self._pitch_only
 
-    @output_single_measure.setter
-    def output_single_measure(self,
-                              output_single_measure: bool,
-                              ):
-        if not isinstance(output_single_measure, bool):
-            raise TypeError("'output_single_measure' must be 'bool'")
-        self._output_single_measure = output_single_measure
+    @pitch_only.setter
+    def pitch_only(self,
+                   pitch_only: bool,
+                   ):
+        if not isinstance(pitch_only, bool):
+            raise TypeError("'pitch_only' must be 'bool'")
+        self._pitch_only = pitch_only
+
+    @property
+    def preserve_rest_position(self) -> bool:
+        r"""When ``True``, shuffle operations will preserve rest positions and
+        durations.
+        """
+        return self._preserve_rest_position
+
+    @preserve_rest_position.setter
+    def preserve_rest_position(self,
+                               preserve_rest_position: bool,
+                               ):
+        if not isinstance(preserve_rest_position, bool):
+            raise TypeError("'preserve_rest_position' must be 'bool'")
+        self._preserve_rest_position = preserve_rest_position
 
     @property
     def disable_rewrite_meter(self) -> bool:
@@ -1065,11 +1246,9 @@ class Shuffler:
         self._rewrite_tuplets = rewrite_tuplets
 
     @property
-    def current_window(self) -> abjad.Selection:
+    def current_window(self) -> Union[abjad.Selection, None]:
         r'Read-only property, returns the result of the last operation.'
+        current_window = copy.deepcopy(self._current_window)
         if self._omit_time_signatures:
-            for leaf in abjad.select(self._current_window).leaves():
-                for indicator in abjad.inspect(leaf).indicators():
-                    if isinstance(indicator, abjad.TimeSignature):
-                        abjad.detach(indicator, leaf)
-        return copy.deepcopy(self._current_window)
+            self._remove_all_time_signatures(current_window)
+        return current_window

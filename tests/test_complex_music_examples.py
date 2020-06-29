@@ -143,27 +143,11 @@ def test_complex_music_example_01():
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size #-4
-                d'
-                \tweak style #'harmonic
-                a'
-            >2.
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size #-4
                 g
                 \tweak style #'harmonic
                 c'
             >2.
             r4
-            <c' df' g'>8
-            <c' df' g'>8
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size #-4
-                g
-                \tweak style #'harmonic
-                c'
-            >2.
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size #-4
@@ -171,6 +155,22 @@ def test_complex_music_example_01():
                 \tweak style #'harmonic
                 a'
             >2.
+            <c' df' g'>8
+            <
+                \parenthesize
+                \tweak ParenthesesItem.font-size #-4
+                d'
+                \tweak style #'harmonic
+                a'
+            >2.
+            <
+                \parenthesize
+                \tweak ParenthesesItem.font-size #-4
+                g
+                \tweak style #'harmonic
+                c'
+            >2.
+            <c' df' g'>8
             r4
         }
         """)
@@ -283,6 +283,13 @@ def test_complex_music_example_02():
             ~
             c'4.
             af'4.
+            bf'8
+            \mf
+            - \tenuto
+            af'4.
+            \mp
+            c'2
+            - \tenuto
             c'2
             - \tenuto
             bf'8
@@ -290,38 +297,29 @@ def test_complex_music_example_02():
             - \tenuto
             af'4.
             \mp
-            bf'8
-            \mf
-            - \tenuto
-            c'8
-            \mp
-            - \tenuto
-            ~
-            c'4.
-            af'4.
             \time 3/4
+            c'2
+            - \tenuto
             bf'8
             \mf
             - \tenuto
-            c'8
-            \mp
-            - \tenuto
-            ~
-            c'4.
             af'8
+            \mp
+            c'4..
+            - \tenuto
             bf'16
             \mf
             - \tenuto
-            c'8.
-            \mp
-            - \tenuto
             ~
-            c'4
-            ~
-            c'16
+            bf'16
             af'8.
-            c'2
+            \mp
+            c'4.
+            - \tenuto
+            bf'8
+            \mf
             - \tenuto
             af'4
+            \mp
         }
         """)

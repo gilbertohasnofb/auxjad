@@ -45,12 +45,25 @@ def test_Shuffler_01():
             e'4
         }
         """)
+    notes = shuffler.shuffle()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            e'4
+            d'4
+            f'4
+        }
+        """)
 
 
 def test_Shuffler_02():
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
     shuffler = auxjad.Shuffler(container,
-                               output_single_measure=False,
+                               pitch_only=False,
+                               preserve_rest_position=True,
                                disable_rewrite_meter=False,
                                force_time_signatures=False,
                                omit_time_signatures=True,
@@ -58,21 +71,24 @@ def test_Shuffler_02():
                                maximum_dot_count=1,
                                rewrite_tuplets=False,
                                )
-    assert not shuffler.output_single_measure
+    assert not shuffler.pitch_only
+    assert shuffler.preserve_rest_position
     assert not shuffler.disable_rewrite_meter
     assert not shuffler.force_time_signatures
     assert shuffler.omit_time_signatures
     assert shuffler.boundary_depth == 0
     assert shuffler.maximum_dot_count == 1
     assert not shuffler.rewrite_tuplets
-    shuffler.output_single_measure = True
+    shuffler.pitch_only = True
+    shuffler.preserve_rest_position = False
     shuffler.disable_rewrite_meter = True
     shuffler.force_time_signatures = True
     shuffler.omit_time_signatures = False
     shuffler.boundary_depth = 1
     shuffler.maximum_dot_count = 2
     shuffler.rewrite_tuplets = True
-    assert shuffler.output_single_measure
+    assert shuffler.pitch_only
+    assert not shuffler.preserve_rest_position
     assert shuffler.disable_rewrite_meter
     assert shuffler.force_time_signatures
     assert not shuffler.omit_time_signatures
@@ -82,33 +98,165 @@ def test_Shuffler_02():
 
 
 def test_Shuffler_03():
-    random.seed(99961)
-    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
-    shuffler = auxjad.Shuffler(container,
-                               output_single_measure=True,
-                               )
+    random.seed(18331)
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+    shuffler = auxjad.Shuffler(container)
     notes = shuffler()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
-            \time 5/4
-            f'4
-            d'4
-            e'4
-            g'4
-            c'4
+            \time 4/4
+            r4
+            r16
+            e'16
+            f'8
+            ~
+            f'16
+            d'8.
+            ~
+            d'16
+            c'8.
+        }
+        """)
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            f'8.
+            r4
+            d'8
+            ~
+            d'8.
+            c'16
+            e'8.
         }
         """)
 
 
 def test_Shuffler_04():
-    random.seed(17453)
-    container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 \time 2/4 f'2")
+    container = abjad.Container(
+        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+    shuffler = auxjad.Shuffler(container)
+    notes = shuffler.rotate()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            d'4..
+            e'16
+            ~
+            e'8.
+            r16
+            r8.
+            f'16
+            ~
+            f'4
+            ~
+            f'8
+            ~
+            f'32
+            g'32
+            c'16
+        }
+        """)
+    notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            g'32
+            c'16
+            d'32
+            ~
+            d'8
+            ~
+            d'4
+            ~
+            d'32
+            e'8..
+            ~
+            e'32
+            r8..
+            r32
+            f'4...
+        }
+        """)
+    container = abjad.Container(
+        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler.rotate()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            d'16
+            e'8.
+            ~
+            e'4
+            r4
+            f'4
+            g'4
+            ~
+            g'8..
+            c'32
+        }
+        """)
+    notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            g'16
+            c'8.
+            ~
+            c'4
+            d'4
+            e'4
+            r4
+            r8..
+            f'32
+        }
+        """)
+
+
+def test_Shuffler_05():
+    random.seed(18332)
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+    shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
+    notes = shuffler()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            d'4
+            e'16
+            r8.
+            r8
+            f'8
+            ~
+            f'16
+            c'8.
+        }
+        """)
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
     shuffler = auxjad.Shuffler(container,
-                               output_single_measure=True,
-                               disable_rewrite_meter=True,
+                               pitch_only=True,
+                               preserve_rest_position=True,
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)
@@ -116,16 +264,60 @@ def test_Shuffler_04():
         r"""
         \new Staff
         {
-            \time 5/4
-            d'4..
-            f'2
+            \time 4/4
+            d'8.
+            f'4
+            r8
+            r8.
             c'16
-            e'4
+            e'8.
         }
         """)
 
 
-def test_Shuffler_05():
+def test_Shuffler_06():
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+    shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
+    notes = shuffler.rotate()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            d'4
+            e'16
+            r8.
+            r8
+            f'8
+            ~
+            f'16
+            c'8.
+        }
+        """)
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+    shuffler = auxjad.Shuffler(container,
+                               pitch_only=True,
+                               preserve_rest_position=True,
+                               )
+    notes = shuffler.rotate()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            d'8.
+            e'4
+            r8
+            r8.
+            f'16
+            c'8.
+        }
+        """)
+
+
+def test_Shuffler_07():
     random.seed(18892)
     container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
     shuffler = auxjad.Shuffler(container)
@@ -154,16 +346,15 @@ def test_Shuffler_05():
         r"""
         \new Staff
         {
-            c'16
-            e'8.
-            ~
-            e'16
-            f'4..
-            ~
-            f'16
-            r8.
-            r16
             d'4..
+            f'16
+            ~
+            f'4
+            ~
+            f'8.
+            c'16
+            r4
+            e'4
         }
         """)
     shuffler.force_time_signatures = True
@@ -174,203 +365,98 @@ def test_Shuffler_05():
         \new Staff
         {
             \time 3/4
-            d'4..
-            r16
-            r8.
-            c'16
             f'2
-            e'4
+            r4
+            d'4..
+            e'16
+            ~
+            e'8.
+            c'16
         }
         """)
 
 
-def test_Shuffler_06():
+def test_Shuffler_08():
     random.seed(98231)
-    container = abjad.Container(r"\time 2/4 c'16 d'4.. | r4 e'8. f'16")
+    container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
     shuffler = auxjad.Shuffler(container)
-    notes = shuffler.output_n(3)
+    notes = shuffler.shuffle_n(2)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
-            \time 2/4
-            d'4..
-            f'16
+            \time 4/4
+            d'8
+            g'16
             c'16
-            e'8.
-            r4
-            d'4..
-            e'16
             ~
-            e'8
+            c'8.
             f'16
-            r16
-            r8.
-            c'16
-            r4
-            d'4
             ~
-            d'8.
+            f'8
+            e'4.
+            g'16
+            f'8.
+            e'4.
+            c'8
+            ~
+            c'8
+            d'8
+        }
+        """)
+    container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler.shuffle_n(2)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            e'4
+            d'8
+            g'4.
+            c'8.
             f'16
-            c'16
+            f'4
+            c'8
+            d'4.
             e'8.
+            g'16
         }
         """)
 
 
-def test_Shuffler_07():
-    random.seed(77347)
-    container = abjad.Container(
-        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
-    shuffler = auxjad.Shuffler(container)
-    notes = shuffler.shuffle_pitches()
-    staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 3/4
-        e'16
-        c'8.
-        ~
-        c'4
-        d'4
-        r4
-        f'4
-        ~
-        f'8..
-        g'32
-    }
-    """)
-
-
-def test_Shuffler_08():
-    random.seed(17231)
-    container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
-    shuffler = auxjad.Shuffler(container)
-    notes = shuffler.output_n_shuffled_pitches(3)
-    staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 5/4
-        r4
-        \times 2/3 {
-            f'4
-            e'2
-        }
-        d'4.
-        c'8
-        r4
-        \times 2/3 {
-            d'4
-            c'2
-        }
-        f'4.
-        e'8
-        r4
-        \times 2/3 {
-            d'4
-            f'2
-        }
-        c'4.
-        e'8
-    }
-    """)
-
-
 def test_Shuffler_09():
-    container = abjad.Container(
-        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+    container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
     shuffler = auxjad.Shuffler(container)
-    notes = shuffler.rotate_pitches()
+    notes = shuffler.rotate_n(2)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 3/4
-        d'16
-        e'8.
-        ~
-        e'4
-        f'4
-        r4
-        g'4
-        ~
-        g'8..
-        c'32
-    }
-    """)
-
-
-def test_Shuffler_10():
-    container = abjad.Container(
-        r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
-    shuffler = auxjad.Shuffler(container)
-    notes = shuffler.rotate_pitches(anticlockwise=True, n_rotations=2)
-    staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 3/4
-        f'16
-        g'8.
-        ~
-        g'4
-        c'4
-        r4
-        d'4
-        ~
-        d'8..
-        e'32
-    }
-    """)
-
-
-def test_Shuffler_11():
-    container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
-    shuffler = auxjad.Shuffler(container)
-    notes = shuffler.output_n_rotated_pitches(3)
-    staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 5/4
-        r4
-        \times 2/3 {
-            d'4
-            e'2
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            d'8
+            e'4.
+            f'8.
+            g'16
+            c'4
+            e'4.
+            f'8
+            ~
+            f'16
+            g'16
+            c'8
+            ~
+            c'8
+            d'8
         }
-        f'4.
-        c'8
-        r4
-        \times 2/3 {
-            e'4
-            f'2
-        }
-        c'4.
-        d'8
-        r4
-        \times 2/3 {
-            f'4
-            c'2
-        }
-        d'4.
-        e'8
-    }
-    """)
-
-
-def test_Shuffler_12():
-    random.seed(87234)
-    container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    shuffler = auxjad.Shuffler(container)
-    notes = shuffler.shuffle()
+        """)
+    container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler.rotate_n(2)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -378,9 +464,132 @@ def test_Shuffler_12():
         {
             \time 4/4
             d'4
-            c'4
-            f'4
+            e'8
+            f'4.
+            g'8.
+            c'16
             e'4
+            f'8
+            g'4.
+            c'8.
+            d'16
+        }
+        """)
+
+
+def test_Shuffler_10():
+    random.seed(17231)
+    container = abjad.Container(r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 5/4
+            d'4
+            \times 2/3 {
+                f'4
+                c'2
+            }
+            e'4.
+            r8
+        }
+        """)
+    shuffler.pitch_only = False
+    with pytest.raises(ValueError):
+        notes = shuffler()
+    with pytest.raises(ValueError):
+        notes = shuffler.rotate()
+
+
+def test_Shuffler_11():
+    random.seed(98103)
+    container = abjad.Container(
+        r"\time 3/4 c'8. d'4 r8 r8. \time 2/4 e'16 f'4..")
+    shuffler = auxjad.Shuffler(container)
+    notes = shuffler.shuffle_n(2)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            e'16
+            d'8.
+            ~
+            d'16
+            f'4..
+            \time 2/4
+            c'8.
+            r16
+            r4
+            \time 3/4
+            c'8.
+            f'16
+            ~
+            f'4.
+            r8
+            \time 2/4
+            r8.
+            d'16
+            ~
+            d'8.
+            e'16
+        }
+        """)
+
+
+def test_Shuffler_12():
+    random.seed(87234)
+    container = abjad.Container(r"<c' e' g'>4--\p d'8-. e'8-. f'4-^\f r4")
+    shuffler = auxjad.Shuffler(container)
+    notes = shuffler.shuffle_n(3)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            r4
+            f'4
+            \f
+            - \marcato
+            d'8
+            - \staccato
+            <c' e' g'>8
+            \p
+            - \tenuto
+            ~
+            <c' e' g'>8
+            e'8
+            - \staccato
+            f'4
+            \f
+            - \marcato
+            d'8
+            - \staccato
+            <c' e' g'>8
+            \p
+            - \tenuto
+            ~
+            <c' e' g'>8
+            r8
+            r8
+            e'8
+            - \staccato
+            f'4
+            \f
+            - \marcato
+            r4
+            e'8
+            - \staccato
+            d'8
+            - \staccato
+            <c' e' g'>4
+            \p
+            - \tenuto
         }
         """)
 
@@ -453,16 +662,12 @@ def test_Shuffler_15():
     container = abjad.Container(r"c'4 d'4 e'4 f'4 ~ | f'2 g'2")
     shuffler = auxjad.Shuffler(container)
     assert len(shuffler) == 5
+    container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+    shuffler = auxjad.Shuffler(container)
+    assert len(shuffler) == 5
 
 
 def test_Shuffler_16():
-    container = abjad.Container(r"c'2 \times 2/3 {d'4 e'2}")
-    shuffler = auxjad.Shuffler(container)
-    with pytest.raises(TypeError):
-        notes = shuffler()
-
-
-def test_Shuffler_17():
     random.seed(98604)
     container = abjad.Container(r"c'4. d'8 e'2")
     shuffler = auxjad.Shuffler(container)
@@ -493,6 +698,46 @@ def test_Shuffler_17():
             c'4
             ~
             c'8
+            d'8
+        }
+        """)
+
+
+def test_Shuffler_17():
+    random.seed(19867)
+    container = abjad.Container(r"c'4 d'8 e'8 f'2")
+    shuffler = auxjad.Shuffler(container)
+    notes = shuffler()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            e'8
+            f'8
+            ~
+            f'4.
+            c'8
+            ~
+            c'8
+            d'8
+        }
+        """)
+    random.seed(19867)
+    shuffler = auxjad.Shuffler(container,
+                               disable_rewrite_meter=True,
+                               )
+    notes = shuffler()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            e'8
+            f'2
+            c'4
             d'8
         }
         """)

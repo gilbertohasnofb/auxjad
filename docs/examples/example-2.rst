@@ -177,22 +177,20 @@ the input container.
         c'4.
         af'4.
         \mp
+        bf'8
+        \mf
+        - \tenuto
+        af'4.
+        \mp
+        c'2
+        \mp
+        - \tenuto
         c'2
         \mp
         - \tenuto
         bf'8
         \mf
         - \tenuto
-        af'4.
-        \mp
-        bf'8
-        \mf
-        - \tenuto
-        c'8
-        \mp
-        - \tenuto
-        ~
-        c'4.
         af'4.
         \mp
     }
@@ -202,7 +200,7 @@ the input container.
 Let's use the last output of the shuffler above and feed it into a new looper.
 This time we will use a window of size 3/4.
 
-    >>> container = abjad.Container(shuffler.current_container)
+    >>> container = abjad.Container(shuffler.current_window)
     >>> looper = auxjad.LoopByWindow(container,
     ...                            window_size=(3, 4),
     ...                            )
@@ -250,49 +248,46 @@ This time we will use a window of size 3/4.
         c'4.
         af'4.
         \mp
+        bf'8
+        \mf
+        - \tenuto
+        af'4.
+        \mp
+        c'2
+        \mp
+        - \tenuto
         c'2
         \mp
         - \tenuto
         bf'8
         \mf
         - \tenuto
-        af'4.
-        \mp
-        bf'8
-        \mf
-        - \tenuto
-        c'8
-        \mp
-        - \tenuto
-        ~
-        c'4.
         af'4.
         \mp
         \time 3/4
+        c'2
+        \mp
+        - \tenuto
         bf'8
         \mf
         - \tenuto
-        c'8
-        \mp
-        - \tenuto
-        ~
-        c'4.
         af'8
         \mp
+        c'4..
+        \mp
+        - \tenuto
         bf'16
         \mf
         - \tenuto
-        c'8.
-        \mp
-        - \tenuto
         ~
-        c'4
-        ~
-        c'16
+        bf'16
         af'8.
         \mp
-        c'2
+        c'4.
         \mp
+        - \tenuto
+        bf'8
+        \mf
         - \tenuto
         af'4
         \mp
@@ -339,6 +334,13 @@ repeated dyanmics. The final result is shown below.
         ~
         c'4.
         af'4.
+        bf'8
+        \mf
+        - \tenuto
+        af'4.
+        \mp
+        c'2
+        - \tenuto
         c'2
         - \tenuto
         bf'8
@@ -346,39 +348,30 @@ repeated dyanmics. The final result is shown below.
         - \tenuto
         af'4.
         \mp
-        bf'8
-        \mf
-        - \tenuto
-        c'8
-        \mp
-        - \tenuto
-        ~
-        c'4.
-        af'4.
         \time 3/4
+        c'2
+        - \tenuto
         bf'8
         \mf
         - \tenuto
-        c'8
-        \mp
-        - \tenuto
-        ~
-        c'4.
         af'8
+        \mp
+        c'4..
+        - \tenuto
         bf'16
         \mf
         - \tenuto
-        c'8.
-        \mp
-        - \tenuto
         ~
-        c'4
-        ~
-        c'16
+        bf'16
         af'8.
-        c'2
+        \mp
+        c'4.
+        - \tenuto
+        bf'8
+        \mf
         - \tenuto
         af'4
+        \mp
     }
 
 .. figure:: ../_images/image-example-2-5.png

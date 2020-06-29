@@ -252,27 +252,11 @@ the input container.
         <
             \parenthesize
             \tweak ParenthesesItem.font-size #-4
-            d'
-            \tweak style #'harmonic
-            a'
-        >2.
-        <
-            \parenthesize
-            \tweak ParenthesesItem.font-size #-4
             g
             \tweak style #'harmonic
             c'
         >2.
         r4
-        <c' df' g'>8
-        <c' df' g'>8
-        <
-            \parenthesize
-            \tweak ParenthesesItem.font-size #-4
-            g
-            \tweak style #'harmonic
-            c'
-        >2.
         <
             \parenthesize
             \tweak ParenthesesItem.font-size #-4
@@ -280,6 +264,22 @@ the input container.
             \tweak style #'harmonic
             a'
         >2.
+        <c' df' g'>8
+        <
+            \parenthesize
+            \tweak ParenthesesItem.font-size #-4
+            d'
+            \tweak style #'harmonic
+            a'
+        >2.
+        <
+            \parenthesize
+            \tweak ParenthesesItem.font-size #-4
+            g
+            \tweak style #'harmonic
+            c'
+        >2.
+        <c' df' g'>8
         r4
     }
 
@@ -363,27 +363,11 @@ staff.
         <
             \parenthesize
             \tweak ParenthesesItem.font-size #-4
-            d'
-            \tweak style #'harmonic
-            a'
-        >2.
-        <
-            \parenthesize
-            \tweak ParenthesesItem.font-size #-4
             g
             \tweak style #'harmonic
             c'
         >2.
         r4
-        <c' df' g'>8
-        <c' df' g'>8
-        <
-            \parenthesize
-            \tweak ParenthesesItem.font-size #-4
-            g
-            \tweak style #'harmonic
-            c'
-        >2.
         <
             \parenthesize
             \tweak ParenthesesItem.font-size #-4
@@ -391,6 +375,22 @@ staff.
             \tweak style #'harmonic
             a'
         >2.
+        <c' df' g'>8
+        <
+            \parenthesize
+            \tweak ParenthesesItem.font-size #-4
+            d'
+            \tweak style #'harmonic
+            a'
+        >2.
+        <
+            \parenthesize
+            \tweak ParenthesesItem.font-size #-4
+            g
+            \tweak style #'harmonic
+            c'
+        >2.
+        <c' df' g'>8
         r4
     }
 

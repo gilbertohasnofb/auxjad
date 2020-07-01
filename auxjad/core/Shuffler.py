@@ -781,6 +781,44 @@ class Shuffler:
         }
 
         .. figure:: ../_images/image-Shuffler-26.png
+
+    ..  container:: example
+
+        The instances of ``Shuffler`` can also be used as an iterator, which
+        can then be used in a for loop. Note that unlike the methods
+        ``shuffle_n()`` and ``rotate_n()``, time signatures are added to each
+        window returned by the shuffler. Use the function
+        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
+        using ``Shuffler`` in this way. It is also important to note that a
+        ``break`` statement is needed when using ``Shuffler`` as an iterator.
+        The reason is that shuffling is a process that can happen indefinitely
+        (unlike some of the other classes in this package).
+
+        random.seed(96102)
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> staff = abjad.Staff()
+        >>> for window in shuffler:
+        ...     staff.append(window)
+        ...     if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        ...         break
+        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            c'4
+            d'4
+            e'4
+            c'4
+            d'4
+            e'4
+        }
+
+        .. figure:: ../_images/image-Shuffler-27.png
     """
 
     ### CLASS VARIABLES ###
@@ -841,6 +879,17 @@ class Shuffler:
     def __call__(self) -> abjad.Selection:
         r'Calls the shuffling process, returning an ``abjad.Selection``'
         return self.shuffle()
+
+    def __next__(self) -> abjad.Selection:
+        r"""Calls the shuffling process for one iteration, returning an
+        ``abjad.Selection``.
+        """
+        return self.__call__()
+
+    def __iter__(self):
+        r'Returns an iterator, allowing instances to be used as iterators.'
+        return self
+
 
     ### PUBLIC METHODS ###
 
@@ -1171,7 +1220,9 @@ class Shuffler:
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
         self._contents = copy.deepcopy(contents)
-        self._current_window = copy.deepcopy(contents)
+        dummy_container = copy.deepcopy(self._contents)
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
         self._get_logical_selections()
         self._get_pitch_list()
         self._time_signatures = time_signature_extractor(contents,

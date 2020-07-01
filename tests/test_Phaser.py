@@ -1074,3 +1074,87 @@ def test_Phaser_22():
             e'2
         }
         """)
+
+
+def test_Phaser_23():
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
+    phaser = auxjad.Phaser(container,
+                       step_size=(1, 4),
+                       )
+    staff = abjad.Staff()
+    for window in phaser:
+        staff.append(window)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            ~
+            e'2.
+            \time 3/4
+            d'4
+            e'2
+            ~
+            e'2
+            c'4
+            \time 3/4
+            e'2.
+            ~
+            e'4
+            c'4
+            d'4
+            \time 3/4
+            e'2.
+            c'4
+            d'4
+            e'4
+            \time 3/4
+            e'2
+            c'4
+            d'4
+            e'2
+            \time 3/4
+            e'4
+            c'4
+            d'4
+            e'2.
+        }
+        """)
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            ~
+            e'2.
+            d'4
+            e'2
+            ~
+            e'2
+            c'4
+            e'2.
+            ~
+            e'4
+            c'4
+            d'4
+            e'2.
+            c'4
+            d'4
+            e'4
+            e'2
+            c'4
+            d'4
+            e'2
+            e'4
+            c'4
+            d'4
+            e'2.
+        }
+        """)

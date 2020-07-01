@@ -118,15 +118,20 @@ class LoopByNotes(_LoopParent):
     ..  container:: example
 
         The instances of ``LoopByNotes`` can also be used as an iterator, which
-        can then be used in a for loop to exhaust all windows.
+        can then be used in a for loop to exhaust all windows. Note that unlike
+        the methods ``output_n()`` and ``output_all()``, time signatures are
+        added to each window returned by the shuffler. Use the function
+        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
+        using ``LoopByNotes`` in this way.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'8")
+        >>> container = abjad.Container(r"c'4 d'2 e'8 f'2")
         >>> looper = auxjad.LoopByNotes(container,
         ...                             window_size=2,
         ...                             )
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
+        >>> auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -136,8 +141,10 @@ class LoopByNotes(_LoopParent):
             \time 5/8
             d'2
             e'8
-            \time 1/8
             e'8
+            f'2
+            \time 2/4
+            f'2
         }
 
         .. figure:: ../_images/image-LoopByNotes-5.png

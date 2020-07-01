@@ -624,3 +624,47 @@ def test_LoopByNotes_20():
             d''4
         }
         """)
+
+
+def test_LoopByNotes_21():
+    container = abjad.Container(r"c'4 d'2 e'8 f'2")
+    looper = auxjad.LoopByNotes(container,
+                                window_size=2,
+                                )
+    staff = abjad.Staff()
+    for window in looper:
+        staff.append(window)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'2
+            \time 5/8
+            d'2
+            e'8
+            \time 5/8
+            e'8
+            f'2
+            \time 2/4
+            f'2
+        }
+        """)
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'2
+            \time 5/8
+            d'2
+            e'8
+            e'8
+            f'2
+            \time 2/4
+            f'2
+        }
+        """)

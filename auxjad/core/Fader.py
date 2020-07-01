@@ -240,14 +240,19 @@ class Fader():
 
     ..  container:: example
 
-        The instances of ``Fader`` can also be used as an iterator,
-        which can then be used in a for loop to run through the whole process.
+        The instances of ``Fader`` can also be used as an iterator, which can
+        then be used in a for loop to run through the whole process. Note that
+        unlike the methods ``output_n()`` and ``output_all()``, time signatures
+        are added to each window returned by the shuffler. Use the function
+        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
+        using ``Fader`` in this way.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> fader = auxjad.Fader(container)
         >>> staff = abjad.Staff()
-        >>> for notes in fader:
-        ...     staff.append(notes)
+        >>> for window in fader:
+        ...     staff.append(window)
+        >>> auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -790,7 +795,7 @@ class Fader():
     ..  tip::
 
         All methods that return an ``abjad.Selection`` will add an initial time
-        signature to it. The ``output_n()`` and ``output_all()`` methods 
+        signature to it. The ``output_n()`` and ``output_all()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
         ``auxjad.remove_repeated_time_signatures()`` on the whole container
@@ -1017,15 +1022,7 @@ class Fader():
         """
         if self._done:
             raise StopIteration
-        if self._is_first_window and not self._processs_on_first_call:
-            self._mask_to_selection()
-        else:
-            if self._fader_type == 'out':
-                self._remove_element()
-            else:
-                self._add_element()
-            self._mask_to_selection()
-        return self.current_window
+        return self.__call__()
 
     def __iter__(self):
         r'Returns an iterator, allowing instances to be used as iterators.'
@@ -1157,7 +1154,9 @@ class Fader():
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
         self._contents = copy.deepcopy(contents)
-        self._current_window = copy.deepcopy(contents)
+        dummy_container = copy.deepcopy(self._contents)
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
         self._time_signatures = time_signature_extractor(contents,
                                                          do_not_use_none=True,
                                                          )

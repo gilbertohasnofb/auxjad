@@ -919,3 +919,90 @@ def test_LoopByWindow_25():
             e'2
         }
         """)
+
+
+def test_LoopByWindow_26():
+    container = abjad.Container(r"c'4 d'2 e'4")
+    looper = auxjad.LoopByWindow(container,
+                                 window_size=(3, 4),
+                                 step_size=(1, 8),
+                                 )
+    staff = abjad.Staff()
+    for window in looper:
+        staff.append(window)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'2
+            \time 3/4
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
+            \time 3/4
+            d'2
+            e'4
+            \time 3/4
+            d'4.
+            e'8
+            ~
+            e'8
+            r8
+            \time 3/4
+            d'4
+            e'4
+            r4
+            \time 3/4
+            d'8
+            e'8
+            ~
+            e'8
+            r4.
+            \time 3/4
+            e'4
+            r2
+            \time 3/4
+            e'8
+            r8
+            r2
+        }
+        """)
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'2
+            c'8
+            d'8
+            ~
+            d'4.
+            e'8
+            d'2
+            e'4
+            d'4.
+            e'8
+            ~
+            e'8
+            r8
+            d'4
+            e'4
+            r4
+            d'8
+            e'8
+            ~
+            e'8
+            r4.
+            e'4
+            r2
+            e'8
+            r8
+            r2
+        }
+        """)

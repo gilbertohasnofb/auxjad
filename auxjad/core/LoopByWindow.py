@@ -146,7 +146,11 @@ class LoopByWindow(_LoopParent):
         The instances of ``LoopByWindow`` can also be used as an iterator,
         which can then be used in a for loop to exhaust all windows. Notice how
         it appends rests at the end of the container, until it is totally
-        exhausted.
+        exhausted. Note that unlike the methods ``output_n()`` and
+        ``output_all()``, time signatures are added to each window returned by
+        the shuffler. Use the function
+        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
+        using ``LoopByWindow`` in this way.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4")
         >>> looper = auxjad.LoopByWindow(container,
@@ -156,6 +160,7 @@ class LoopByWindow(_LoopParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
+        >>> auxjad.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {

@@ -706,3 +706,49 @@ def test_Shuffler_17():
             f'4
         }
         """)
+
+
+def test_Shuffler_18():
+    random.seed(96102)
+    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+    shuffler = auxjad.Shuffler(container)
+    staff = abjad.Staff()
+    for window in shuffler:
+        staff.append(window)
+        if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+            break
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            \time 3/4
+            c'4
+            d'4
+            e'4
+        }
+        """)
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            c'4
+            d'4
+            e'4
+            c'4
+            d'4
+            e'4
+        }
+        """)

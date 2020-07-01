@@ -990,3 +990,61 @@ def test_Fader_23():
             c''8
         }
         """)
+
+
+def test_Fader_24():
+    random.seed(83012)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container)
+    staff = abjad.Staff()
+    for window in fader:
+        staff.append(window)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'4
+            f'4
+            \time 4/4
+            c'4
+            r4
+            e'4
+            f'4
+            \time 4/4
+            r2
+            e'4
+            f'4
+            \time 4/4
+            r2
+            e'4
+            r4
+            \time 4/4
+            R1
+        }
+        """)
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'4
+            f'4
+            c'4
+            r4
+            e'4
+            f'4
+            r2
+            e'4
+            f'4
+            r2
+            e'4
+            r4
+            R1
+        }
+        """)

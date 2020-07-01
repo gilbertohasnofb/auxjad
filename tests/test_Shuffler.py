@@ -709,7 +709,7 @@ def test_Shuffler_17():
 
 
 def test_Shuffler_18():
-    random.seed(96102)
+    random.seed(10932)
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
     shuffler = auxjad.Shuffler(container)
     staff = abjad.Staff()
@@ -722,17 +722,17 @@ def test_Shuffler_18():
         \new Staff
         {
             \time 3/4
+            e'4
             c'4
             d'4
+            \time 3/4
+            d'4
+            c'4
             e'4
             \time 3/4
             c'4
-            d'4
             e'4
-            \time 3/4
-            c'4
             d'4
-            e'4
         }
         """)
     auxjad.remove_repeated_time_signatures(staff)
@@ -741,14 +741,14 @@ def test_Shuffler_18():
         \new Staff
         {
             \time 3/4
-            c'4
-            d'4
             e'4
             c'4
             d'4
+            d'4
+            c'4
             e'4
             c'4
-            d'4
             e'4
+            d'4
         }
         """)

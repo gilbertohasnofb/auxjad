@@ -794,7 +794,6 @@ class Shuffler:
         The reason is that shuffling is a process that can happen indefinitely
         (unlike some of the other classes in this package).
 
-        random.seed(96102)
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> shuffler = auxjad.Shuffler(container)
         >>> staff = abjad.Staff()
@@ -807,15 +806,15 @@ class Shuffler:
         \new Staff
         {
             \time 3/4
-            c'4
-            d'4
             e'4
             c'4
             d'4
+            d'4
+            c'4
             e'4
             c'4
-            d'4
             e'4
+            d'4
         }
 
         .. figure:: ../_images/image-Shuffler-27.png

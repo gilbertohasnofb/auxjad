@@ -1,5 +1,6 @@
 import copy
 import abjad
+from .adjust_clefs import adjust_clefs
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
@@ -204,6 +205,30 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-8.png
 
+    .. container:: example
+
+        This function automatically removes repeated clefs when repeating a
+        container.
+
+        >>> container = abjad.Staff(r"\clef bass c4 d4 e4")
+        >>> output_staff = auxjad.repeat_container(container, 3)
+        >>> abjad.f(output_staff)
+        {
+            \time 3/4
+            \clef bass
+            c4
+            d4
+            e4
+            c4
+            d4
+            e4
+            c4
+            d4
+            e4
+        }
+
+        .. figure:: ../_images/image-repeat_container-9.png
+
     ..  error::
 
         If a container is malformed, i.e. it has an underfilled bar before a
@@ -232,6 +257,7 @@ def repeat_container(container: abjad.Container,
         output_container.extend(copy.deepcopy(container_))
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)
+    adjust_clefs(output_container)
     if omit_time_signatures:
         for leaf in abjad.select(output_container).leaves():
             if abjad.inspect(leaf).indicator(abjad.TimeSignature):

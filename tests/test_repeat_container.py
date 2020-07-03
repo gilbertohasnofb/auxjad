@@ -159,3 +159,25 @@ def test_repeat_container_07():
     container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
     with pytest.raises(ValueError):
         assert auxjad.repeat_container(container, 4)
+
+
+def test_repeat_container_08():
+    container = abjad.Staff(r"\clef bass c4 d4 e4")
+    output_staff = auxjad.repeat_container(container, 3)
+    assert format(output_staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            \clef "bass"
+            c4
+            d4
+            e4
+            c4
+            d4
+            e4
+            c4
+            d4
+            e4
+        }
+        """)

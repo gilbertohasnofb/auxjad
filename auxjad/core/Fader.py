@@ -243,7 +243,7 @@ class Fader():
         The instances of ``Fader`` can also be used as an iterator, which can
         then be used in a for loop to run through the whole process. Note that
         unlike the methods ``output_n()`` and ``output_all()``, time signatures
-        are added to each window returned by the shuffler. Use the function
+        are added to each window returned by the fader. Use the function
         ``auxjad.remove_repeated_time_signatures()`` to clean the output when
         using ``Fader`` in this way.
 
@@ -448,8 +448,7 @@ class Fader():
     ..  container:: example
 
         To run through the whole process and output it as a single container,
-        from the initial head position until the process outputs the single
-        last element, use the method ``output_all()``.
+        use the method ``output_all()``.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> fader = auxjad.Fader(container)
@@ -1001,7 +1000,7 @@ class Fader():
         return format(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of logical ties ``contents``.'
+        r'Returns the number of pitched logical ties ``contents``.'
         return len(abjad.select(self._contents).logical_ties(pitched=True))
 
     def __call__(self) -> abjad.Selection:

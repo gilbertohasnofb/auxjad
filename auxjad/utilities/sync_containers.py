@@ -450,7 +450,7 @@ def sync_containers(*containers: abjad.Container,
                     break
             else:
                 effective_time_signature = abjad.TimeSignature((4, 4))
-            # creating new bars for any leftover duratin
+            # creating new bars for any leftover duration
             if use_multimeasure_rests and (adjust_last_time_signature or
                     duration_difference == effective_time_signature.duration):
                 multiplier = duration_difference.pair

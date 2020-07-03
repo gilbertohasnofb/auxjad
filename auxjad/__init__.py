@@ -17,4 +17,4 @@ from .utilities import *
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.7.2"
+__version__ = "0.8.0"

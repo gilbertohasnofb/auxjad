@@ -14,6 +14,7 @@ documentaion of each class and function.
 .. autosummary::
     :toctree: _api_members
 
+    auxjad.Adrifter
     auxjad.adjust_clefs
     auxjad.ArtificialHarmonic
     auxjad.CartographySelector

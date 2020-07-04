@@ -72,18 +72,19 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         Works with containers with multiple time signatures as well as notes.
 
-        >>> container = abjad.Container(r"\time 3/4 r2. | "
-        ...                              "\time 6/8 r2. | "
-        ...                              "\time 5/4 c'1 ~ c'4 | r1 r4"
-        ...                              )
+        >>> container = abjad.Staff(r"\time 3/4 r2. | "
+        ...                         "\time 6/8 r2. | "
+        ...                         "\time 5/4 c'1 ~ c'4 | r1 r4"
+        ...                         )
         >>> auxjad.rests_to_multimeasure_rest(container)
         >>> abjad.f(container)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             R1 * 3/4
-            %%% \time 6/8 %%%
+            \time 6/8
             R1 * 3/4
-            %%% \time 5/4 %%%
+            \time 5/4
             c'1
             ~
             c'4
@@ -152,19 +153,22 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
     remove_empty_tuplets(container)
     measures = abjad.select(container[:]).group_by_measure()
+    effective_time_signature = abjad.TimeSignature((4, 4))
 
     for measure in measures:
+        head = abjad.select(measure).leaf(0)
+        time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
+        if time_signature is not None:
+            effective_time_signature = time_signature
         if all([isinstance(leaf, abjad.Rest) for leaf in measure]):
-            head = abjad.select(measure).leaf(0)
-            time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
             duration = abjad.inspect(measure).duration()
-            if duration == 1:
-                multiplier = None
-            else:
-                multiplier = abjad.Multiplier(duration)
-            multimeasure_rest = abjad.MultimeasureRest((4, 4),
-                                                       multiplier=multiplier,
-                                                       )
-            if time_signature is not None:
-                abjad.attach(time_signature, multimeasure_rest)
-            abjad.mutate(measure).replace(multimeasure_rest)
+            if duration == effective_time_signature.duration:
+                if duration == 1:
+                    multiplier = None
+                else:
+                    multiplier = abjad.Multiplier(duration)
+                multimeasure_rest = abjad.MultimeasureRest(
+                    (4, 4), multiplier=multiplier)
+                if time_signature is not None:
+                    abjad.attach(time_signature, multimeasure_rest)
+                abjad.mutate(measure).replace(multimeasure_rest)

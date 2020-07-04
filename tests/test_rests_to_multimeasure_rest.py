@@ -25,17 +25,18 @@ def test_rests_to_multimeasure_rest_02():
 
 
 def test_rests_to_multimeasure_rest_03():
-    container = abjad.Container(
+    container = abjad.Staff(
         r"\time 3/4 r2. | \time 6/8 r2. | \time 5/4 c'1 ~ c'4 | r1 r4")
     auxjad.rests_to_multimeasure_rest(container)
     assert format(container) == abjad.String.normalize(
         r"""
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             R1 * 3/4
-            %%% \time 6/8 %%%
+            \time 6/8
             R1 * 3/4
-            %%% \time 5/4 %%%
+            \time 5/4
             c'1
             ~
             c'4

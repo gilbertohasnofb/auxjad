@@ -440,3 +440,19 @@ def test_sync_containers_14():
             R1 * 5/4
         }
         """)
+
+
+def test_sync_containers_15():
+    container1 = abjad.Container(r"\time 7/4 a'1 ~ a'2.")
+    container2 = abjad.Container(r"\time 3/4 c'2.")
+    auxjad.sync_containers(container1, container2)
+    assert format(container2) == abjad.String.normalize(
+        r"""
+        {
+            %%% \time 3/4 %%%
+            c'2.
+            R1 * 3/4
+            %%% \time 1/4 %%%
+            R1 * 1/4
+        }
+        """)

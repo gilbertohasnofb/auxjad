@@ -1,6 +1,7 @@
 import abjad
 from .close_container import close_container
 from .container_is_full import container_is_full
+from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 from .underfull_duration import underfull_duration
 
@@ -68,20 +69,22 @@ def sync_containers(*containers: abjad.Container,
 
         If all containers have the same size, no modification is applied.
 
-        >>> container1 = abjad.Container(r"\time 3/4 g'2.")
-        >>> container2 = abjad.Container(r"\time 3/4 c'2.")
+        >>> container1 = abjad.Staff(r"\time 3/4 g'2.")
+        >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
         >>> auxjad.sync_containers(container1, container2)
         >>> abjad.f(container1)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             g'2.
         }
 
         .. figure:: ../_images/image-sync_containers-5.png
 
         >>> abjad.f(container2)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
         }
 
@@ -93,24 +96,26 @@ def sync_containers(*containers: abjad.Container,
         time signature of its last bar if necessary (if it is underfull), and
         uses multi-measure rests whenever possible.
 
-        >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
-        >>> container2 = abjad.Container(r"\time 4/4 c'1")
+        >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
+        >>> container2 = abjad.Staff(r"\time 4/4 c'1")
         >>> auxjad.sync_containers(container1, container2)
         >>> abjad.f(container1)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             g'1
-            %%% \time 1/4 %%%
+            \time 1/4
             f'4
         }
 
         .. figure:: ../_images/image-sync_containers-7.png
 
         >>> abjad.f(container2)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
-            %%% \time 1/4 %%%
+            \time 1/4
             R1*1/4
         }
 
@@ -121,27 +126,29 @@ def sync_containers(*containers: abjad.Container,
         To disable multi-measure rests, set the keyword argument
         ``use_multimeasure_rests`` to ``False``.
 
-        >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
-        >>> container2 = abjad.Container(r"\time 4/4 c'1")
+        >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
+        >>> container2 = abjad.Staff(r"\time 4/4 c'1")
         >>> auxjad.sync_containers(container1,
         ...                        container2,
         ...                        use_multimeasure_rests=False,
         ...                        )
         >>> abjad.f(container1)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             g'1
-            %%% \time 1/4 %%%
+            \time 1/4
             f'4
         }
 
         .. figure:: ../_images/image-sync_containers-9.png
 
         >>> abjad.f(container2)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
-            %%% \time 1/4 %%%
+            \time 1/4
             r4
         }
 
@@ -176,119 +183,148 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-12.png
 
+    .. container:: example
+
+        When adjusting the last time signature, this function will maintain the
+        same time effective signature for as long as possible and only add a
+        new one at the last bar if its duration is shorter.
+
+        >>> container1 = abjad.Staff(r"\time 7/4 a'1 ~ a'2.")
+        >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
+        >>> auxjad.sync_containers(container1, container2)
+        >>> abjad.f(container2)
+        \new Staff
+        {
+            \time 3/4
+            c'2.
+            R1 * 3/4
+            \time 1/4
+            R1 * 1/4
+        }
+
+        .. figure:: ../_images/image-sync_containers-13.png
+
     ..  container:: example
 
         This function can take an arbitrary number of containers.
 
-        >>> container1 = abjad.Container(r"\time 4/4 c'1 | g'4")
-        >>> container2 = abjad.Container(r"\time 4/4 c'1 | g'2")
-        >>> container3 = abjad.Container(r"\time 4/4 c'1 | g'2.")
-        >>> container4 = abjad.Container(r"\time 4/4 c'1")
+        >>> container1 = abjad.Staff(r"\time 4/4 c'1 | g'4")
+        >>> container2 = abjad.Staff(r"\time 4/4 c'1 | g'2")
+        >>> container3 = abjad.Staff(r"\time 4/4 c'1 | g'2.")
+        >>> container4 = abjad.Staff(r"\time 4/4 c'1")
         >>> auxjad.sync_containers(container1,
         ...                        container2,
         ...                        container3,
         ...                        container4,
         ...                        )
         >>> abjad.f(container1)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
-            %%% \time 3/4 %%%
+            \time 3/4
             g'4
             r2
         }
 
-        .. figure:: ../_images/image-sync_containers-13.png
+        .. figure:: ../_images/image-sync_containers-14.png
 
         >>> abjad.f(container2)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
-            %%% \time 3/4 %%%
+            \time 3/4
             g'2
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-14.png
+        .. figure:: ../_images/image-sync_containers-15.png
 
         >>> abjad.f(container3)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
-            %%% \time 3/4 %%%
+            \time 3/4
             g'2.
         }
 
-        .. figure:: ../_images/image-sync_containers-15.png
+        .. figure:: ../_images/image-sync_containers-16.png
 
         >>> abjad.f(container4)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
-            %%% \time 3/4 %%%
+            \time 3/4
             R1*3/4
         }
 
-        .. figure:: ../_images/image-sync_containers-16.png
+        .. figure:: ../_images/image-sync_containers-17.png
 
     ..  container:: example
 
         The containers can be of different length, can have different time
         signatures, and can contain time signature changes as well.
 
-        >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
-        >>> container2 = abjad.Container(r"\time 3/4 a2. \time 4/4 c'4")
-        >>> container3 = abjad.Container(r"\time 5/4 g''1 ~ g''4")
-        >>> container4 = abjad.Container(r"\time 6/8 c'2")
+        >>> container1 = abjad.Staff(r"\time 4/4 c'4 d'4 e'4 f'4")
+        >>> container2 = abjad.Staff(r"\time 3/4 a2. \time 4/4 c'4")
+        >>> container3 = abjad.Staff(r"\time 5/4 g''1 ~ g''4")
+        >>> container4 = abjad.Staff(r"\time 6/8 c'2")
         >>> auxjad.sync_containers(container1,
         ...                        container2,
         ...                        container3,
         ...                        container4,
         ...                        )
         >>> abjad.f(container1)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'4
             d'4
             e'4
             f'4
-            %%% \time 1/4 %%%
+            \time 1/4
             R1*1/4
-        }
-
-        .. figure:: ../_images/image-sync_containers-17.png
-
-        >>> abjad.f(container2)
-        {
-            %%% \time 3/4 %%%
-            a2.
-            %%% \time 2/4 %%%
-            c'4
-            r4
         }
 
         .. figure:: ../_images/image-sync_containers-18.png
 
-        >>> abjad.f(container3)
+        >>> abjad.f(container2)
+        \new Staff
         {
-            %%% \time 5/4 %%%
+            \time 3/4
+            a2.
+            \time 2/4
+            c'4
+            r4
+        }
+
+        .. figure:: ../_images/image-sync_containers-19.png
+
+        >>> abjad.f(container3)
+        \new Staff
+        {
+            \time 5/4
             g''1
             ~
             g''4
         }
 
-        .. figure:: ../_images/image-sync_containers-19.png
+        .. figure:: ../_images/image-sync_containers-20.png
 
         >>> abjad.f(container4)
+        \new Staff
         {
-            %%% \time 6/8 %%%
+            \time 6/8
             c'2
             r4
-            %%% \time 2/4 %%%
+            \time 2/4
             R1*1/2
         }
 
-        .. figure:: ../_images/image-sync_containers-20.png
+        .. figure:: ../_images/image-sync_containers-21.png
 
         It's important to note that LilyPond does not support simultanoues
         staves with different time signatures (i.e. polymetric notation) by
@@ -391,7 +427,7 @@ def sync_containers(*containers: abjad.Container,
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/image-sync_containers-21.png
+        .. figure:: ../_images/image-sync_containers-22.png
 
     ..  error::
 
@@ -437,8 +473,8 @@ def sync_containers(*containers: abjad.Container,
                                                     )
                 duration_difference -= underfull_rests_duration
                 container.extend(underfull_rests)
-                if (adjust_last_time_signature and duration_difference
-                        == abjad.Duration(0)):
+                if (duration_difference == abjad.Duration(0)
+                        and adjust_last_time_signature):
                     close_container(container)
                 if duration_difference == abjad.Duration(0):
                     continue
@@ -451,21 +487,23 @@ def sync_containers(*containers: abjad.Container,
             else:
                 effective_time_signature = abjad.TimeSignature((4, 4))
             # creating new bars for any leftover duration
-            if use_multimeasure_rests and (adjust_last_time_signature or
-                    duration_difference == effective_time_signature.duration):
-                multiplier = duration_difference.pair
-                if multiplier[0] == multiplier[1]:  # avoiding R1 * 1
-                    multiplier = None
-                rests = [abjad.MultimeasureRest((4, 4), multiplier=multiplier)]
-            else:
+            measure_duration = effective_time_signature.duration
+            while duration_difference > measure_duration:
+                rests = abjad.LeafMaker()(None, measure_duration)
+                duration_difference -= measure_duration
+                container.extend(rests)
+            if duration_difference > abjad.Duration(0):
                 rests = abjad.LeafMaker()(None, duration_difference)
-            if adjust_last_time_signature:
-                rests_time_signature = abjad.TimeSignature(duration_difference)
-                rests_time_signature = simplified_time_signature_ratio(
-                    rests_time_signature)
-                if rests_time_signature != effective_time_signature:
-                    abjad.attach(rests_time_signature, rests[0])
-            container.extend(rests)
+                if adjust_last_time_signature:
+                    rests_time_signature = abjad.TimeSignature(
+                        duration_difference)
+                    rests_time_signature = simplified_time_signature_ratio(
+                        rests_time_signature)
+                    if rests_time_signature != effective_time_signature:
+                        abjad.attach(rests_time_signature, rests[0])
+                container.extend(rests)
+            if use_multimeasure_rests:
+                rests_to_multimeasure_rest(container)
         else:
             # closing longest container if necessary
             if adjust_last_time_signature and not container_is_full(container):

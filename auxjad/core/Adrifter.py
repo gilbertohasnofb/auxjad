@@ -1309,8 +1309,8 @@ class Adrifter():
                     c'4
                     r2
                     R1 * 3/4
-                    \time 6/4
-                    R1 * 3/2
+                    R1 * 3/4
+                    R1 * 3/4
                 }
                 \new Staff
                 {

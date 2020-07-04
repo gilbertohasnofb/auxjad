@@ -13,8 +13,7 @@ class CartographySelector():
     the probability of the element in index 0. This is the selector used in my
     *Cartography* series of compositions.
 
-    ..  container:: example
-
+    Example:
         The selector should be initialised with a list of objects. The elements
         of this list can be of any type.
 
@@ -50,8 +49,7 @@ class CartographySelector():
         >>> next(selector)
         0
 
-    ..  container:: example
-
+    Example:
         By default, only the weight function (defined by the decay rate) is
         taken into consideration when selecting an element. This means that
         repeated elements can appear, as shown below.
@@ -73,8 +71,7 @@ class CartographySelector():
         >>> result
         210421021020304024230120241202
 
-    ..  container:: example
-
+    Example:
         The keyword argument ``decay_rate`` can be used to set a different
         decay rate when creating a selector.
 
@@ -98,8 +95,7 @@ class CartographySelector():
         >>> result
         '000001002100000201001030000100'
 
-    ..  container:: example
-
+    Example:
         Appending is a type of content transformation. It discards the first
         element of the selector's ``contents``, shifts all others leftwards,
         and then appends the new element to the last index.
@@ -114,8 +110,7 @@ class CartographySelector():
         >>> selector.contents
         [2, 3, 4, 5, 42]
 
-    ..  container:: example
-
+    Example:
         The method ``append_keeping_n()`` is similar to ``append()``, but it
         keeps the first ``n`` elements of ``contents`` untouched. It thus
         discards the n+1-th element, shifts all the next elements one position
@@ -128,8 +123,7 @@ class CartographySelector():
         >>> selector.contents
         [10, 7, 31, 98, 100]
 
-    ..  container:: example
-
+    Example:
         Prepending is another type of content transformation. It discards the
         last element of the ``contents``, shifts all others rightwards, and
         then prepends the new element to the first index.
@@ -144,8 +138,7 @@ class CartographySelector():
         >>> selector.contents
         [71, -1, 0, 1, 2]
 
-    ..  container:: example
-
+    Example:
         Rotation is another type of content transformation. It rotates all
         elements rightwards, moving the last element to the first index. If the
         optional keyword argument ``anticlockwise`` is set to ``True``, the
@@ -164,8 +157,7 @@ class CartographySelector():
         >>> selector.contents
         [1, 2, 3, 4, 0]
 
-    ..  container:: example
-
+    Example:
         The mirror transformation swaps the element of the input index with its
         complementary element. Complementary elements are defined as the pair
         of elements which share the same distance from the centre of the
@@ -188,8 +180,7 @@ class CartographySelector():
         >>> selector.contents
         [0, 3, 2, 1, 4]
 
-    ..  container:: example
-
+    Example:
         To mirror a random pair of complementary elements, use the
         ``mirror_random()`` method. In case of a selector with an odd number
         of elements, this method will never pick an element at the pivot point
@@ -208,8 +199,7 @@ class CartographySelector():
         >>> selector.contents
         [4, 1, 2, 3, 0]
 
-    ..  container:: example
-
+    Example:
         The method ``shuffle()`` will shuffle the position of the elements of
         the selector's ``contents``.
 
@@ -220,8 +210,7 @@ class CartographySelector():
         >>> selector.contents
         [1, 4, 3, 0, 2]
 
-    ..  container:: example
-
+    Example:
         The contents of a selector can also be altered after it has been
         initialised using the ``contents`` property. The length of the
         contents can change as well.
@@ -241,8 +230,7 @@ class CartographySelector():
         >>> selector.weights
         [1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]
 
-    ..  container:: example
-
+    Example:
         Use the read-only properties ``previous_result`` and ``previous_index``
         to output the previous result and its index.
 
@@ -255,8 +243,7 @@ class CartographySelector():
         >>> selector.previous_result
         14
 
-    ..  container:: example
-
+    Example:
         The ``contents`` of instances of this class can be indexed and sliced.
         This allows reading, assigning, or deleting values from ``contents``.
 

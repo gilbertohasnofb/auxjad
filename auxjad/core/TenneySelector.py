@@ -14,8 +14,7 @@ class TenneySelector():
     Counterpoint and Statistical Feedback'. In: Journal of Mathematics and
     Music 5(2). pp. 63--82.
 
-    ..  container:: example
-
+    Example:
         The selector should be initialised with a list of objects. The elements
         of this list can be of any type.
 
@@ -72,8 +71,7 @@ class TenneySelector():
         >>> selector.previous_index
         2
 
-    ..  container:: example
-
+    Example:
         Use the read-only properties ``previous_result`` and ``previous_index``
         to output the previous result and its index. Default values for both
         is ``None``.
@@ -90,8 +88,7 @@ class TenneySelector():
         >>> selector.previous_result
         C
 
-    ..  container:: example
-
+    Example:
         This class can take two optional keywords argument during its
         instantiation, namely ``weights`` and ``curvature``. ``weights`` takes
         a list of floats with the individual weights of each element; by
@@ -132,8 +129,7 @@ class TenneySelector():
         >>> selector.probabilities
         [2.0, 0.0, 2.0, 2.0, 2.0, 2.0]
 
-    ..  container:: example
-
+    Example:
         Using a convex curvature:
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
@@ -180,8 +176,7 @@ class TenneySelector():
         which is why there is a high chance of an element being selected again
         just two iterations apart.
 
-    ..  container:: example
-
+    Example:
         Using a concave curvature:
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
@@ -228,8 +223,7 @@ class TenneySelector():
         curvature, the higher the difference between these values, making some
         of them much more likely to be selected.
 
-    ..  container:: example
-
+    Example:
         Each element can also have a fixed weight to themselves. This will
         affect the probability calculation. The example below uses the default
         linear curvature.
@@ -252,8 +246,7 @@ class TenneySelector():
         >>> selector.probabilities
         [7.0, 12.0, 10.0, 15.0, 0.0, 20.0]
 
-    ..  container:: example
-
+    Example:
         To reset the probability distribution of all elements to its initial
         value (an uniform distribution), use the method
         ``reset_probabilities()``.
@@ -267,8 +260,7 @@ class TenneySelector():
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
-    ..  container:: example
-
+    Example:
         The ``contents`` of instances of this class can be indexed and sliced.
         This allows reading, assigning, or deleting values from ``contents``.
         Replacing elements by assignment will not affect the ``probabilities``
@@ -307,8 +299,7 @@ class TenneySelector():
         >>> 'A' in selector
         False
 
-    ..  container:: example
-
+    Example:
         A new list of an arbitrary length can be set at any point using the
         property ``contents``. Do notice that both ``probabilities`` and
         ``weights`` will be reset at that point.
@@ -337,8 +328,7 @@ class TenneySelector():
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0]
 
-    ..  container:: example
-
+    Example:
         To change the curvature value at any point, simply set the property
         ``curvature`` to a different value.
 

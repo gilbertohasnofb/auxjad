@@ -7,8 +7,7 @@ class LeafDynMaker(abjad.LeafMaker):
     extension of ``abjad.LeafMaker`` which can take optional lists of dynamics
     and articulations.
 
-    ..  container:: example
-
+    Example:
         Usage is similar to ``abjad.LeafMaker``:
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
@@ -45,8 +44,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-1.png
 
-    ..  container:: example
-
+    Example:
         Tuple elements in ``pitches`` result in chords. None-valued elements
         in ``pitches`` result in rests:
 
@@ -71,8 +69,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-2.png
 
-    ..  container:: example
-
+    Example:
         Can omit repeated dynamics with the keyword argument
         ``omit_repeated_dynamics``:
 
@@ -105,8 +102,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-3.png
 
-    ..  container:: example
-
+    Example:
         The lengths ``dynamics`` and ``articulations`` can be shorter than the
         lengths of ``pitches`` and ``durations`` (whatever is the greatest):
 
@@ -135,8 +131,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-4.png
 
-    ..  container:: example
-
+    Example:
         If the lengths of either ``dynamics`` and ``articulations`` are shorter
         than the lengths of ``pitches`` and ``durations`` (whatever is the
         greatest), use the optional keyword arguments ``cyclic_dynamics`` and
@@ -180,8 +175,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-5.png
 
-    ..  container:: example
-
+    Example:
         If the length of ``articulations`` or ``dynamics`` is 1, they will be
         applied only to the first element.
 
@@ -207,8 +201,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-6.png
 
-    ..  container:: example
-
+    Example:
         To apply them to all elements, use the ``cyclic_dynamics`` and
         ``cyclic_articulations`` optioanl keywords.
 
@@ -244,8 +237,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-7.png
 
-    ..  container:: example
-
+    Example:
         Similarly to Abjad's native classes, it accepts many types of elements
         in its input lists:
 

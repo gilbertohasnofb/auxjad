@@ -6,8 +6,7 @@ def remove_empty_tuplets(container: abjad.Container):
     in place and has no return value. This function looks for tuplets filled
     with rests and replaces them with a single rest.
 
-    ..  container:: example
-
+    Example:
         Usage is simple:
 
         >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
@@ -97,8 +96,7 @@ def remove_empty_tuplets(container: abjad.Container):
         ``remove_empty_tuplets()``, so it is not necessary to flatten the
         empty tuplets beforehand.
 
-    ..  container:: example
-
+    Example:
         Works with measures with any time signature.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")

@@ -14,8 +14,7 @@ class Shuffler:
     logical ties or pitches. When shuffling or rotating pitches only, tuplets
     are supported, otherwise tuplets are not supported.
 
-    ..  container:: example
-
+    Example:
         Calling the object will output a shuffled selection of the input
         container.
 
@@ -109,8 +108,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-5.png
 
-    ..  container:: example
-
+    Example:
         Applying the ``len()`` function to the shuffler will return the number
         of logical ties of ``contents``.
 
@@ -129,8 +127,7 @@ class Shuffler:
          >>> len(shuffler)
          5
 
-    ..  container:: example
-
+    Example:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
         below. Setting ``pitch_only`` to ``True`` will enable pitch mode; by
@@ -207,8 +204,7 @@ class Shuffler:
         >>> shuffler.processs_on_first_call
         False
 
-    ..  container:: example
-
+    Example:
         By default, the shuffling operation will shuffle logical ties:
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
@@ -257,8 +253,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-7.png
 
-    ..  container:: example
-
+    Example:
         Besides shuffling, logical ties and pitches can also be rotated using
         the ``rotate()`` method. Similarly to shuffling, it can be applied to
         logical ties or pitches only depending on the property ``pitch_only``.
@@ -342,8 +337,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-10.png
 
-    ..  container:: example
-
+    Example:
         If ``preserve_rest_position`` is set to ``True``, the positions of all
         rests will remain the same after either shuffling and rotation. In
         pitch mode (when ``pitch_only`` is set to ``True``), this means that
@@ -396,8 +390,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-12.png
 
-    ..  container:: example
-
+    Example:
         If ``disable_rewrite_meter`` is set to ``True``, then the automatic
         behaviour of rewriting the leaves according to the meter is disabled.
 
@@ -419,8 +412,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-13.png
 
-    ..  container:: example
-
+    Example:
         To output several shuffled containers at once, use the methods
         ``shuffle_n`` and ``rotate_n``, inputting the desired number of
         iterations. ``rotate_n`` can also take the optional arguments
@@ -480,8 +472,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-15.png
 
-    ..  container:: example
-
+    Example:
         To disable time signatures altogether, initialise this class with the
         keyword argument ``omit_time_signatures`` set to ``True`` (default is
         ``False``), or change the ``omit_time_signatures`` property after
@@ -521,8 +512,7 @@ class Shuffler:
         after fusing the selections to remove any unecessary time signature
         changes.
 
-    ..  container:: example
-
+    Example:
         This class handles time signature changes too:
 
         >>> container = abjad.Container(
@@ -559,8 +549,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-17.png
 
-    ..  container:: example
-
+    Example:
         Tuplets are supported when ``pitch_only`` is ``True`` (pitch-only
         mode).
 
@@ -596,8 +585,7 @@ class Shuffler:
         TypeError: 'contents' contain one ore more tuplets, which are not
         currently supported by the shuffle method
 
-    ..  container:: example
-
+    Example:
         This class can also handle dynamics and articulations.
 
         >>> container = abjad.Container(
@@ -662,11 +650,10 @@ class Shuffler:
         Do note that elements that span multiple notes (such as hairpins,
         ottava indicators, manual beams, etc.) can become problematic when
         notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the shuffling process 
+        always better to attach those to the music after the shuffling process
         has ended.
 
-    ..  container:: example
-
+    Example:
         Use the property ``contents`` to get the input container upon which the
         shuffler operates. Notice that ``contents`` remains invariant after
         any shuffling or rotation operations (use ``current_window`` for the
@@ -705,8 +692,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-22.png
 
-    ..  container:: example
-
+    Example:
         This function uses the default logical tie splitting algorithm from
         abjad's ``rewrite_meter()``.
 
@@ -750,8 +736,7 @@ class Shuffler:
         which work exactly as the identically named arguments of
         ``rewrite_meter()``.
 
-    ..  container:: example
-
+    Example:
         By default, this class rewrites uses abjad's ``rewrite_meter()``
         mutation.
 
@@ -796,8 +781,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-26.png
 
-    ..  container:: example
-
+    Example:
         The instances of ``Shuffler`` can also be used as an iterator, which
         can then be used in a for loop. Note that unlike the methods
         ``shuffle_n()`` and ``rotate_n()``, time signatures are added to each

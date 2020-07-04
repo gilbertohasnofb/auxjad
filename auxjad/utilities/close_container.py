@@ -9,8 +9,7 @@ def close_container(container: abjad.Container):
     in place and has no return value. This function changes the time signature
     of the last bar of an underfull in order to make it full.
 
-    ..  container:: example
-
+    Example:
         Returns the missing duration of the last bar of any container or child
         class. If no time signature is encountered, it uses LilyPond's
         convention and considers the container as in 4/4.
@@ -69,8 +68,7 @@ def close_container(container: abjad.Container):
 
         .. figure:: ../_images/image-close_container-4.png
 
-    ..  container:: example
-
+    Example:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
@@ -145,8 +143,7 @@ def close_container(container: abjad.Container):
             g'4
         }
 
-    ..  container:: example
-
+    Example:
         Correctly handles partial time signatures.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")

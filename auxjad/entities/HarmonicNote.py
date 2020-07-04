@@ -7,8 +7,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     r"""Creates a note with tweaked notehead for harmonics. This is a child
     class of ``abjad.Note``.
 
-    ..  container:: example
-
+    Example:
         Usage is similar to ``abjad.Note``:
 
         >>> harm = auxjad.HarmonicNote("c''4")
@@ -43,8 +42,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-2.png
 
-    ..  container:: example
-
+    Example:
         When creating an ``HarmonicNote``, use the keyword argument ``style``
         to set a different type of note head, such as ``'harmonic-mixed'``:
 
@@ -59,8 +57,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-3.png
 
-    ..  container:: example
-
+    Example:
         Similarly to ``abjad.Note``, ``HarmonicNote`` can take multipliers:
 
         >>> harm = auxjad.HarmonicNote("c''4",
@@ -74,8 +71,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-4.png
 
-    ..  container:: example
-
+    Example:
         All properties of ``abjad.Note`` are also available to be read. This
         class also includes a new property named ``style``:
 
@@ -100,8 +96,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.style
         'harmonic-mixed'
 
-    ..  container:: example
-
+    Example:
         To create a harmonic note with a regular note head and with a flageolet
         circle above it, use the style ``'flageolet'``:
 
@@ -116,8 +111,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-5.png
 
-    ..  container:: example
-
+    Example:
         To add a markup expression to the harmonic note, use the ``markup``
         optional keyword argument, which takes strings. By default, the markup
         position is above the harmonic note, but this can be overridden using

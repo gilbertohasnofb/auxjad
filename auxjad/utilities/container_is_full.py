@@ -7,8 +7,7 @@ def container_is_full(container: abjad.Container) -> bool:
     ``abjad.Container`` or child class) has its last bar is fully filled in or
     not.
 
-    ..  container:: example
-
+    Example:
         Returns ``True`` if the last bar of any container (or child class) is
         full, otherwise returns ``False``. If no time signature is encountered,
         it uses LilyPond's convention and considers the container as in 4/4.
@@ -26,8 +25,7 @@ def container_is_full(container: abjad.Container) -> bool:
         >>> auxjad.container_is_full(container4)
         True
 
-    ..  container:: example
-
+    Example:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
@@ -43,8 +41,7 @@ def container_is_full(container: abjad.Container) -> bool:
         >>> auxjad.container_is_full(container4)
         False
 
-    ..  container:: example
-
+    Example:
         Correctly handles partial time signatures.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -53,8 +50,7 @@ def container_is_full(container: abjad.Container) -> bool:
         >>> auxjad.container_is_full(container)
         True
 
-    ..  container:: example
-
+    Example:
         It also handles multi-measure rests.
 
         >>> container1 = abjad.Container(r"R1")

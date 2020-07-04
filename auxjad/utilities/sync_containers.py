@@ -16,8 +16,7 @@ def sync_containers(*containers: abjad.Container,
     making them the same length. By default, it rewrites the last time
     signature if necessary, and uses multi-measure rests whenever possible.
 
-    ..  container:: example
-
+    Example:
         Input two or more containers. This function will fill the shortest ones
         with rests ensuring all their lengths become the same.
 
@@ -65,8 +64,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-    ..  container:: example
-
+    Example:
         If all containers have the same size, no modification is applied.
 
         >>> container1 = abjad.Staff(r"\time 3/4 g'2.")
@@ -90,8 +88,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-6.png
 
-    ..  container:: example
-
+    Example:
         By default, this function closes the longest container by rewriting the
         time signature of its last bar if necessary (if it is underfull), and
         uses multi-measure rests whenever possible.
@@ -121,8 +118,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-8.png
 
-    ..  container:: example
-
+    Example:
         To disable multi-measure rests, set the keyword argument
         ``use_multimeasure_rests`` to ``False``.
 
@@ -154,8 +150,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-10.png
 
-    ..  container:: example
-
+    Example:
         To allow containers to be left open (with underfull bars), set the
         keyword argument ``adjust_last_time_signature`` to ``False``.
 
@@ -183,8 +178,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-12.png
 
-    .. container:: example
-
+    Example:
         When adjusting the last time signature, this function will maintain the
         same time effective signature for as long as possible and only add a
         new one at the last bar if its duration is shorter.
@@ -204,8 +198,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-13.png
 
-    ..  container:: example
-
+    Example:
         This function can take an arbitrary number of containers.
 
         >>> container1 = abjad.Staff(r"\time 4/4 c'1 | g'4")
@@ -263,8 +256,7 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-17.png
 
-    ..  container:: example
-
+    Example:
         The containers can be of different length, can have different time
         signatures, and can contain time signature changes as well.
 

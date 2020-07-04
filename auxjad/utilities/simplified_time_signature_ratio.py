@@ -13,8 +13,7 @@ def simplified_time_signature_ratio(ratio: Union[tuple, abjad.TimeSignature,
     be a ``tuple`` of integers, an ``abjad.TimeSignature``, ``abjad.Duration``,
     or an ``abjad.Meter``).
 
-    ..  container:: example
-
+    Example:
         By default, the function simplifies the ratio of numerator/denominator
         using a minimum denominator value of 4 (that is, the denominator will
         not get smaller than 4). In the case below, (2, 4) is the simplest
@@ -51,8 +50,7 @@ def simplified_time_signature_ratio(ratio: Union[tuple, abjad.TimeSignature,
         >>> format(time_signature)
         abjad.TimeSignature((1, 1))
 
-    ..  container:: example
-
+    Example:
         By default, the function returns an ``abjad.TimeSignature`` for
         whatever type of argument it receives (which can be a ``tuple`` of
         integers, an ``abjad.TimeSignature``, an ``abjad.Duration``, or an

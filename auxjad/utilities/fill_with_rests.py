@@ -8,8 +8,7 @@ def fill_with_rests(container: abjad.Container):
     in place and has no return value. This function fills a container with
     rests in order to make it full.
 
-    ..  container:: example
-
+    Example:
         Returns the missing duration of the last bar of any container or child
         class. If no time signature is encountered, it uses LilyPond's
         convention and considers the container as in 4/4.
@@ -68,8 +67,7 @@ def fill_with_rests(container: abjad.Container):
 
         .. figure:: ../_images/image-fill_with_rests-4.png
 
-    ..  container:: example
-
+    Example:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
@@ -146,8 +144,7 @@ def fill_with_rests(container: abjad.Container):
             r2.
         }
 
-    ..  container:: example
-
+    Example:
         Correctly handles partial time signatures.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")

@@ -5,8 +5,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
     r"""Returns the missing ``abjad.Duration`` of an underfull container (of
     type ``abjad.Container`` or child class).
 
-    ..  container:: example
-
+    Example:
         Returns the missing duration of the last bar of any container or child
         class. If no time signature is encountered, it uses LilyPond's
         convention and considers the container as in 4/4.
@@ -24,8 +23,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container4)
         0
 
-    ..  container:: example
-
+    Example:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
@@ -41,8 +39,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container4)
         1/8
 
-    ..  container:: example
-
+    Example:
         Correctly handles partial time signatures.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -51,8 +48,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container)
         0
 
-    ..  container:: example
-
+    Example:
         It also handles multi-measure rests.
 
         >>> container1 = abjad.Container(r"R1")

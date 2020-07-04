@@ -15,8 +15,7 @@ def repeat_container(container: abjad.Container,
     r"""This Returns an ``abjad.Container`` with n repetitions of an input
     container (of type ``abjad.Container`` or child class).
 
-    ..  container:: example
-
+    Example:
         The required arguments are an ``abjad.Container`` (or child class) and
         and integer n for the number of repetitions.
 
@@ -74,8 +73,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-    ..  container:: example
-
+    Example:
         It handle containers with multiple bars and different time signatures.
 
         >>> container = abjad.Container(r"\time 3/4 c'2. \time 2/4 r2 g'2")
@@ -101,8 +99,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-4.png
 
-    ..  container:: example
-
+    Example:
         It automatically closes a container if necessary.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'2")
@@ -125,8 +122,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-5.png
 
-    ..  container:: example
-
+    Example:
         To omit all time signatures, set the keyword argument
         ``omit_time_signatures`` to ``True``.
 
@@ -151,8 +147,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-6.png
 
-    ..  container:: example
-
+    Example:
         To force identical time signatures to be repeated at every repetition,
         set the keyword argument  ``force_identical_time_signatures`` to
         ``True``.
@@ -181,8 +176,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-7.png
 
-    ..  container:: example
-
+    Example:
         The input container can be of child classes such as ``abjad.Staff``,
         and the output will be of the same type.
 
@@ -205,8 +199,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-8.png
 
-    .. container:: example
-
+    Example:
         This function automatically removes repeated clefs when repeating a
         container.
 

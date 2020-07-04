@@ -6,8 +6,7 @@ def remove_repeated_time_signatures(container: abjad.Container):
     in place and has no return value. This function removes all consecutive
     repeated time signatures.
 
-    ..  container:: example
-
+    Example:
         When two consecutive bars have identical time signatures, the second
         one is removed:
 
@@ -40,8 +39,7 @@ def remove_repeated_time_signatures(container: abjad.Container):
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-2.png
 
-    ..  container:: example
-
+    Example:
         The function also removes time signatures that are separated by an
         arbitrary number of bars without one:
 
@@ -76,8 +74,7 @@ def remove_repeated_time_signatures(container: abjad.Container):
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-4.png
 
-    ..  container:: example
-
+    Example:
         The input container can also handle subcontainers, including cases in
         which the time signatures are attached to leaves of subcontainers:
 

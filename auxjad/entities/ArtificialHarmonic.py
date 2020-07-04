@@ -7,8 +7,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     r"""Creates a chord with a tweaked top note head for notating artificial
     harmonics. This is a child class of ``abjad.Chord``.
 
-    ..  container:: example
-
+    Example:
         Usage is similar to ``abjad.Chord``:
 
         >>> harm = auxjad.ArtificialHarmonic("<g c'>4")
@@ -60,8 +59,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
 
 
-    ..  container:: example
-
+    Example:
         It is important to note that this class can only be initialised with
         exactly two pitches. Any other number of pitches will raise a
         ``ValueError``:
@@ -70,8 +68,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ValueError: 'ArtificialHarmonic' requires exactly two 'note_heads' for
         initialisation
 
-    ..  container:: example
-
+    Example:
         When creating an ``ArtificialHarmonic``, use the keyword argument
         ``style`` to set a different type of note head for the top note, such
         as ``'harmonic-mixed'``:
@@ -90,8 +87,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-3.png
 
-    ..  container:: example
-
+    Example:
         To notate natural harmonics with a parenthesised pitch for the open
         string at the bottom of the interval, set the keyword
         ``is_parenthesized`` to ``True``.
@@ -112,8 +108,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-4.png
 
-    ..  container:: example
-
+    Example:
         Similarly to ``abjad.Chord``, ``ArtificialHarmonic`` can take
         multipliers:
 
@@ -131,8 +126,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-5.png
 
-    ..  container:: example
-
+    Example:
         All properties of ``abjad.Chord`` are also available to be read. This
         class also includes two new properties named ``style`` and
         ``is_parenthesized``:
@@ -163,8 +157,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> harm.is_parenthesized
         True
 
-    ..  container:: example
-
+    Example:
         The methods ``sounding_pitch()`` and ``sounding_note()`` return the
         sounding pitch and sounding note, respectively. Their types are
         ``abjad.Pitch`` and ``abjad.Note``, respectively.
@@ -190,8 +183,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         b''4
         g'4
 
-    ..  container:: example
-
+    Example:
         To add a markup expression to the artificial harmonic, use the
         ``markup`` optional keyword argument, which takes strings. By default,
         the markup position is above the harmonic note, but this can be
@@ -256,8 +248,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> harm.markup = None
         Exception: multiple indicators attached to client.
 
-    ..  container:: example
-
+    Example:
         The note created by ``sounding_note()`` inherits all indicators from
         the ``ArtificialHarmonic``.
 

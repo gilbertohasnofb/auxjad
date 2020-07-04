@@ -9,8 +9,7 @@ def containers_are_equal(container1: abjad.Container,
     r"""Returns a ``bool`` representing whether two input containers (of type
     ``abjad.Container`` or child class) are identical or not.
 
-    ..  container:: example
-
+    Example:
         When the pitches and effective durations of all leaves in both
         containers are identical, this function returns ``True``:
 
@@ -19,8 +18,7 @@ def containers_are_equal(container1: abjad.Container,
         >>> auxjad.containers_are_equal(container1, container2)
         True
 
-    ..  container:: example
-
+    Example:
         Even if all leaves of both containers are identical in relation to both
         pitches and written durations, the function considers the effective
         durations. This means that situations like the one below do not yield a
@@ -32,8 +30,7 @@ def containers_are_equal(container1: abjad.Container,
         >>> auxjad.containers_are_equal(container1, container2)
         False
 
-    ..  container:: example
-
+    Example:
         By default, this function ignores indicators, so the containers in the
         example below are understood to be identical:
 
@@ -42,8 +39,7 @@ def containers_are_equal(container1: abjad.Container,
         >>> auxjad.containers_are_equal(container1, container2)
         True
 
-    ..  container:: example
-
+    Example:
         Setting the argument ``include_indicators`` to ``True`` forces the
         function to include indicators in its comparison. In that case, the
         containers in the example above are not considered identical any
@@ -57,8 +53,7 @@ def containers_are_equal(container1: abjad.Container,
         ...                             )
         True
 
-    ..  container:: example
-
+    Example:
         This function also handles grace notes:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
@@ -115,7 +110,7 @@ def containers_are_equal(container1: abjad.Container,
         if (type(abjad.inspect(leaf1).before_grace_container()) is not
                 type(abjad.inspect(leaf2).before_grace_container())):
             return False
-        if (include_indicators and abjad.inspect(leaf1).indicators() != 
+        if (include_indicators and abjad.inspect(leaf1).indicators() !=
                 abjad.inspect(leaf2).indicators()):
             return False
     return True

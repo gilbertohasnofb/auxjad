@@ -8,8 +8,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
     in place and has no return value. This function looks for bars filled with
     regular rests and converts them into an ``abjad.MultimeasureRest``.
 
-    ..  container:: example
-
+    Example:
         Converts any measure filled with regular rests into a measure with a
         single multi-measure rest.
 
@@ -22,8 +21,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-1.png
 
-    ..  container:: example
-
+    Example:
         Works with measures with multiple regular rests.
 
         >>> container = abjad.Container(r"r2 r8.. r32 r16 r8 r16")
@@ -68,8 +66,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             R1 * 3/4
         }
 
-    ..  container:: example
-
+    Example:
         Works with containers with multiple time signatures as well as notes.
 
         >>> container = abjad.Staff(r"\time 3/4 r2. | "
@@ -93,8 +90,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-6.png
 
-    ..  container:: example
-
+    Example:
         Works with containers with tuplets.
 
         >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")

@@ -20,8 +20,7 @@ def enforce_time_signature(container: abjad.Container,
     in place and has no return value. This function applies a time
     signature (or a list of time signatures) to the input container.
 
-    ..  container:: example
-
+    Example:
         The function mutates a container in place, applying a time signature
         to it.
 
@@ -50,8 +49,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-2.png
 
-    ..  container:: example
-
+    Example:
         The second positional argument can take either ``abjad.TimeSignature``
         or a ``tuple`` for a single time signature (for multiple time
         signatures, use a ``list`` as shown further below). By default,
@@ -83,8 +81,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-4.png
 
-    ..  container:: example
-
+    Example:
         Set the optional keyword argument ``close_container`` to ``True`` in
         order to adjust the last bar's time signature instead of filling it
         with rests.
@@ -126,8 +123,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-6.png
 
-    ..  container:: example
-
+    Example:
         Alternatively, to leave the last bar as it is input (i.e. not filling
         it with rests nor adjusting the time signature), set the optional
         keyword argument ``fill_with_rests`` to ``False`` (default value is
@@ -169,8 +165,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-8.png
 
-    ..  container:: example
-
+    Example:
         The second argument can also take a ``list`` of ``abjad.TimeSignature``
         or ``tuple``.
 
@@ -201,8 +196,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-10.png
 
-    ..  container:: example
-
+    Example:
         Consecutive identical time signatures are omitted. Also note that time
         signatures can also be represented as a ``list`` of ``tuples``.
 
@@ -280,8 +274,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-14.png
 
-    ..  container:: example
-
+    Example:
         To cycle through the list of time signatures until the container is
         exhausted, set the optional keyword argument ``cyclic`` to ``True``.
 
@@ -351,8 +344,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-16.png
 
-    ..  container:: example
-
+    Example:
         By default, this function appled the mutation ``rewrite_meter()`` to
         its output.
 
@@ -404,8 +396,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-18.png
 
-    ..  container:: example
-
+    Example:
         The function handles tuplets, even if they must be split.
 
         >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'2 e'2} f'1")
@@ -447,8 +438,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-20.png
 
-    ..  container:: example
-
+    Example:
         Note that any time signatures in the input container will be ignored.
 
         >>> staff = abjad.Staff(r"\time 3/4 c'2. d'2. e'2. f'2.")
@@ -510,8 +500,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-22.png
 
-    ..  container:: example
-
+    Example:
         This function uses the default logical tie splitting algorithm from
         abjad's ``rewrite_meter()``.
 

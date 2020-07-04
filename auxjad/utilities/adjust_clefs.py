@@ -11,8 +11,7 @@ def adjust_clefs(container: abjad.Container,
     repeated clefs. It can also be used to shift clefs from rests to pitched
     leaves.
 
-    ..  container:: example
-
+    Example:
         When consecutive clefs are the same, the second one is removed:
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
@@ -40,8 +39,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-2.png
 
-    ..  container:: example
-
+    Example:
         As seen above, LilyPond automatically omits repeated clefs unless the
         first clef is omitted. In that case, it uses a treble clef as fallback,
         although it won't then remove a subsequent repeated treble clef:
@@ -70,8 +68,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-4.png
 
-    ..  container:: example
-
+    Example:
         The function also removes clefs that are separated by anarbitrary
         number of leaves without clefs:
 
@@ -103,8 +100,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-6.png
 
-    ..  container:: example
-
+    Example:
         The function will not alter the container if the clef changes are
         already optimal.
 
@@ -140,8 +136,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-8.png
 
-    ..  container:: example
-
+    Example:
         The function handles rests and multi-measure rests.
 
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | R1 | e'1")
@@ -173,8 +168,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-10.png
 
-    ..  container:: example
-
+    Example:
         By default, clefs attached to rests are shifted to the first pitched
         leaf.
 
@@ -227,8 +221,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-13.png
 
-    ..  container:: example
-
+    Example:
         Clefs are shifted even if the container has multi-measure rests.
 
         >>> staff = abjad.Staff(r"\time 3/4 c'2. | d'4 r2 | R1 * 3/4 | e'2.")
@@ -265,8 +258,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-15.png
 
-    ..  container:: example
-
+    Example:
         The input container can also handle subcontainers, including cases in
         which the clefs are attached to leaves of subcontainers:
 
@@ -305,8 +297,7 @@ def adjust_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-adjust_clefs-17.png
 
-    ..  container:: example
-
+    Example:
         By default, when the first leaf doesn't have a clef the function
         assumes that the music is written in treble clef (which is the default
         fallback clef in LilyPond).

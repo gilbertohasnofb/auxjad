@@ -10,8 +10,7 @@ def time_signature_extractor(container: abjad.Container,
     r"""Returns a ``list`` with the ``abjad.TimeSignature`` for all measures of
     an input ``abjad.Container``.
 
-    ..  container:: example
-
+    Example:
         This function returns a list with one ``abjad.TimeSignature`` per
         measure.
 
@@ -20,8 +19,7 @@ def time_signature_extractor(container: abjad.Container,
         >>> time_signatures
         [TimeSignature((3, 4)), TimeSignature((4, 4))]
 
-    ..  container:: example
-
+    Example:
         By default, the list will contain a ``None`` if a measure does
         not have an explicit time signature.
 
@@ -41,8 +39,7 @@ def time_signature_extractor(container: abjad.Container,
         >>> time_signatures
         [TimeSignature((5, 8)), TimeSignature((3, 8)), TimeSignature((3, 8))]
 
-    ..  container:: example
-
+    Example:
         By default, time signatures are output according to the container, even
         if there are multiple instances of a same time signature.
 
@@ -77,8 +74,7 @@ def time_signature_extractor(container: abjad.Container,
         ValueError: 'omit_repeated' and 'do_not_use_none' cannot be both set to
         'True'
 
-    ..  container:: example
-
+    Example:
         LilyPond uses an implicit time signature of 4/4 whenever a time
         signature is not found. This function behaves the same way.
 

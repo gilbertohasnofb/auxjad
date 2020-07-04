@@ -101,3 +101,19 @@ def test_remove_repeated_time_signatures_03():
             }
         }
         """)
+
+
+def test_remove_repeated_time_signatures_04():
+    staff = abjad.Staff(r"c'2 d'2 | e'2 d'2")
+    abjad.attach(abjad.TimeSignature((4, 4)), staff[2])
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'2
+            d'2
+            e'2
+            d'2
+        }
+        """)

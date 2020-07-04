@@ -161,4 +161,9 @@ def remove_empty_tuplets(container: abjad.Container):
                 leaves = abjad.select(tuplet).leaves()
                 if all(isinstance(leaf, abjad.Rest) for leaf in leaves):
                     duration = tuplet.multiplied_duration
-                    abjad.mutate(tuplet).replace(abjad.Rest(duration))
+                    rest = abjad.Rest(duration)
+                    time_signature = abjad.inspect(leaves[0]).indicator(
+                        abjad.TimeSignature)
+                    if time_signature is not None:
+                        abjad.attach(time_signature, rest)
+                    abjad.mutate(tuplet).replace(rest)

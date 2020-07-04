@@ -643,7 +643,8 @@ def enforce_time_signature(container: abjad.Container,
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
             abjad.detach(abjad.TimeSignature, leaf)
     # slice container at the places where time signatures change
-    durations = [time_signature.duration for time_signature in time_signatures_]
+    durations = [time_signature.duration for time_signature
+                 in time_signatures_]
     if cyclic:
         abjad.mutate(container[:]).split(durations, cyclic=True)
     else:

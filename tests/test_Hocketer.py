@@ -506,6 +506,7 @@ def test_Hocketer_12():
             {
                 \time 5/4
                 R1 * 5/4
+                \time 4/4
                 R1
             }
             \new Staff

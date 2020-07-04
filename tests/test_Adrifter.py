@@ -33,6 +33,7 @@ def test_Adrifter_01():
         <<
             \new Staff
             {
+                \time 4/4
                 R1
             }
             \new Staff
@@ -135,6 +136,7 @@ def test_Adrifter_03():
         <<
             \new Staff
             {
+                \time 4/4
                 R1
                 \times 4/5 {
                     \time 4/4
@@ -146,6 +148,7 @@ def test_Adrifter_03():
                     cs''4
                     r1
                 }
+                \time 4/4
                 R1
             }
             \new Staff
@@ -184,9 +187,9 @@ def test_Adrifter_04():
         <<
             \new Staff
             {
+                \time 4/4
                 R1
                 \times 4/5 {
-                    \time 4/4
                     cs''4
                     r1
                 }
@@ -1127,3 +1130,94 @@ def test_Adrifter_17():
     assert not adrifter.boundary_depth
     assert not adrifter.maximum_dot_count
     assert not adrifter.rewrite_tuplets
+
+
+def test_Adrifter_18():
+    random.seed(97142)
+    container_out = abjad.Container(r"<c' e' g'>4.\p e'8--\f ~ e'2")
+    container_in = abjad.Container(r"\times 2/3 {f'4-.\pp r4 <d' ef'>4->\f ~ } <d' ef'>2")
+    adrifter = auxjad.Adrifter(container_out,
+                               container_in,
+                               fade_in_first=True,
+                               fade_out_last=True,
+                               )
+    staff_a, staff_b = adrifter.output_all()
+    score = abjad.Score([staff_a, staff_b])
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
+            }
+            \new Staff
+            {
+                \time 4/4
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                R1
+            }
+        >>
+        """)

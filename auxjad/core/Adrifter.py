@@ -34,6 +34,7 @@ class Adrifter():
         <<
             \new Staff
             {
+                \time 4/4
                 R1
             }
             \new Staff
@@ -146,9 +147,9 @@ class Adrifter():
         <<
             \new Staff
             {
+                \time 4/4
                 R1
                 \times 4/5 {
-                    \time 4/4
                     cs''4
                     r1
                 }
@@ -433,9 +434,9 @@ class Adrifter():
         <<
             \new Staff
             {
+                \time 4/4
                 R1
                 \times 4/5 {
-                    \time 4/4
                     cs''4
                     r1
                 }
@@ -1075,7 +1076,7 @@ class Adrifter():
 
     ..  container:: example
 
-        This class can time signature changes.
+        This class can handle time signature changes.
 
         >>> container_out = abjad.Container(
         ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
@@ -1133,6 +1134,115 @@ class Adrifter():
         >>
 
         .. figure:: ../_images/image-Adrifter-18.png
+
+    .. container:: example
+
+        This class can also handle dynamics, articulations, chords, and
+        tuplets. Hairpins might need manual tweaking if the leaf under which
+        they terminate is removed.
+
+        >>> container_out = abjad.Container(r"<c' e' g'>4.\p e'8--\f ~ e'2")
+        >>> container_in = abjad.Container(
+        ...     r"\times 2/3 {f'4-.\pp r4 <d' ef'>4->\f ~ } <d' ef'>2")
+        >>> adrifter = auxjad.Adrifter(container_out,
+        ...                            container_in,
+        ...                            fade_in_first=True,
+        ...                            fade_out_last=True,
+        ...                            )
+        >>> staff_a, staff_b = adrifter.output_all()
+        >>> score = abjad.Score([staff_a, staff_b])
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
+            }
+            \new Staff
+            {
+                \time 4/4
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                R1
+            }
+        >>
+
+        .. figure:: ../_images/image-Adrifter-19.png
+
+    .. tip::
+
+        The functions ``auxjad.remove_repeated_dynamics()`` and
+        ``auxjad.adjust_clefs()`` can be used to clean the output and remove
+        repeated dynamics and unnecessary clef changes.
+
+    ..  warning::
+
+        Do note that elements that span multiple notes (such as hairpins,
+        ottava indicators, manual beams, etc.) can become problematic when
+        notes containing them are split into two. As a rule of thumb, it is
+        always better to attach those to the music after the drifting process
+        has ended.
 
     ..  container:: example
 
@@ -1232,7 +1342,7 @@ class Adrifter():
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/image-Adrifter-19.png
+        .. figure:: ../_images/image-Adrifter-20.png
     """
 
     ### CLASS VARIABLES ###

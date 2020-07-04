@@ -756,13 +756,19 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-17.png
 
+    .. tip::
+
+        The functions ``auxjad.remove_repeated_dynamics()`` and
+        ``auxjad.adjust_clefs()`` can be used to clean the output and remove
+        repeated dynamics and unnecessary clef changes.
+
     ..  warning::
 
         Do note that elements that span multiple notes (such as hairpins,
         ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. Whenever possible, it is
-        always better to attach those to the music after the phasing process is
-        concluded.
+        notes containing them are split into two. As a rule of thumb, it is
+        always better to attach those to the music after the looping process
+        has ended.
 
     .. container:: example
 

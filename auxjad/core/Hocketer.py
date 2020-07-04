@@ -345,8 +345,6 @@ class Hocketer():
 
     ..  container:: example
 
-
-
         The argument ``k`` is an integer defining the number of times that the
         process is applied to each logical tie. By default, ``k`` is set to
         ``1``, so each logical tie is assigned to a single voice. Changing this
@@ -723,6 +721,7 @@ class Hocketer():
             {
                 \time 5/4
                 R1 * 5/4
+                \time 4/4
                 R1
             }
             \new Staff
@@ -804,6 +803,20 @@ class Hocketer():
         >>
 
         .. figure:: ../_images/image-Hocketer-20.png
+
+    .. tip::
+
+        The functions ``auxjad.remove_repeated_dynamics()`` and
+        ``auxjad.adjust_clefs()`` can be used to clean the output and remove
+        repeated dynamics and unnecessary clef changes.
+
+    ..  warning::
+
+        Do note that elements that span multiple notes (such as hairpins,
+        ottava indicators, manual beams, etc.) can become problematic when
+        notes containing them are split into two. As a rule of thumb, it is
+        always better to attach those to the music after the hocketing process
+        has ended.
     """
 
     ### CLASS VARIABLES ###

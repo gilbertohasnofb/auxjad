@@ -11,15 +11,15 @@ def test_Adrifter_01():
     assert format(adrifter) == abjad.String.normalize(
         r"""
         {
+            fs'4
+            g'2
+            bf'4
+        }
+        {
             \times 4/5 {
                 cs''4
                 d''1
             }
-        }
-        {
-            fs'4
-            g'2
-            bf'4
         }
         """)
     selection_a, selection_b = adrifter()
@@ -34,14 +34,14 @@ def test_Adrifter_01():
             \new Staff
             {
                 \time 4/4
-                R1
+                fs'4
+                g'2
+                bf'4
             }
             \new Staff
             {
                 \time 4/4
-                fs'4
-                g'2
-                bf'4
+                R1
             }
         >>
         """)
@@ -56,18 +56,18 @@ def test_Adrifter_01():
         <<
             \new Staff
             {
+                \time 4/4
+                fs'4
+                g'2
+                bf'4
+            }
+            \new Staff
+            {
                 \times 4/5 {
                     \time 4/4
                     r4
                     d''1
                 }
-            }
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
             }
         >>
         """)
@@ -82,18 +82,18 @@ def test_Adrifter_01():
         <<
             \new Staff
             {
+                \time 4/4
+                fs'4
+                g'2
+                bf'4
+            }
+            \new Staff
+            {
                 \times 4/5 {
                     \time 4/4
                     r4
                     d''1
                 }
-            }
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
             }
         >>
         """)
@@ -137,23 +137,6 @@ def test_Adrifter_03():
             \new Staff
             {
                 \time 4/4
-                R1
-                \times 4/5 {
-                    \time 4/4
-                    cs''4
-                    r1
-                }
-                \times 4/5 {
-                    \time 4/4
-                    cs''4
-                    r1
-                }
-                \time 4/4
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
                 fs'4
                 g'2
                 bf'4
@@ -169,6 +152,23 @@ def test_Adrifter_03():
                 fs'4
                 g'2
                 bf'4
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \times 4/5 {
+                    \time 4/4
+                    cs''4
+                    r1
+                }
+                \times 4/5 {
+                    \time 4/4
+                    cs''4
+                    r1
+                }
+                \time 4/4
+                R1
             }
         >>
         """)
@@ -188,31 +188,6 @@ def test_Adrifter_04():
             \new Staff
             {
                 \time 4/4
-                R1
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-                \times 4/5 {
-                    cs''4
-                    d'1
-                }
-                \times 4/5 {
-                    cs''4
-                    d'1
-                }
-                \times 4/5 {
-                    cs''4
-                    d'1
-                }
-            }
-            \new Staff
-            {
-                \time 4/4
                 fs'4
                 g'2
                 bf'4
@@ -228,6 +203,31 @@ def test_Adrifter_04():
                 r2.
                 bf'4
                 R1
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
+                \times 4/5 {
+                    cs''4
+                    d'1
+                }
+                \times 4/5 {
+                    cs''4
+                    d'1
+                }
+                \times 4/5 {
+                    cs''4
+                    d'1
+                }
             }
         >>
         """)
@@ -247,6 +247,18 @@ def test_Adrifter_05():
             \new Staff
             {
                 \time 4/4
+                e'8
+                fs'4.
+                r2
+                e'8
+                fs'4.
+                r2
+                e'8
+                r2..
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 c''2
                 ~
@@ -256,18 +268,6 @@ def test_Adrifter_05():
                 ~
                 c''8
                 r4.
-            }
-            \new Staff
-            {
-                \time 4/4
-                e'8
-                fs'4.
-                r2
-                e'8
-                fs'4.
-                r2
-                e'8
-                r2..
             }
         >>
         """)
@@ -291,46 +291,46 @@ def test_Adrifter_06():
             \new Staff
             {
                 \time 4/4
+                e'8
+                fs'4.
+                r2
+                \time 4/4
+                e'8
+                fs'4.
+                r2
+                \time 4/4
+                e'8
+                r2..
+                \time 4/4
+                e'8
+                r2..
+                \time 4/4
                 R1
-                \time 4/4
-                c''2
-                ~
-                c''8
-                r4.
-                \time 4/4
-                c''2
-                ~
-                c''8
-                r4.
-                \time 4/4
-                c''2
-                ~
-                c''8
-                d''4.
-                \time 4/4
-                c''2
-                ~
-                c''8
-                d''4.
             }
             \new Staff
             {
                 \time 4/4
-                e'8
-                fs'4.
-                r2
-                \time 4/4
-                e'8
-                fs'4.
-                r2
-                \time 4/4
-                e'8
-                r2..
-                \time 4/4
-                e'8
-                r2..
-                \time 4/4
                 R1
+                \time 4/4
+                c''2
+                ~
+                c''8
+                r4.
+                \time 4/4
+                c''2
+                ~
+                c''8
+                r4.
+                \time 4/4
+                c''2
+                ~
+                c''8
+                d''4.
+                \time 4/4
+                c''2
+                ~
+                c''8
+                d''4.
             }
         >>
         """)
@@ -355,18 +355,6 @@ def test_Adrifter_07():
             \new Staff
             {
                 \time 4/4
-                R1
-                \time 4/4
-                R1
-                \time 4/4
-                c''2
-                ~
-                c''8
-                r4.
-            }
-            \new Staff
-            {
-                \time 4/4
                 e'8
                 fs'4.
                 r2
@@ -376,6 +364,18 @@ def test_Adrifter_07():
                 \time 4/4
                 e'8
                 r2..
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \time 4/4
+                R1
+                \time 4/4
+                c''2
+                ~
+                c''8
+                r4.
             }
         >>
         """)
@@ -395,18 +395,6 @@ def test_Adrifter_08():
             \new Staff
             {
                 \time 3/4
-                R1 * 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                r2
-                a''4
-                g''2
-            }
-            \new Staff
-            {
-                \time 3/4
                 r4
                 c'4
                 d'4
@@ -416,6 +404,18 @@ def test_Adrifter_08():
                 d'4
                 R1 * 3/4
                 R1 * 3/4
+            }
+            \new Staff
+            {
+                \time 3/4
+                R1 * 3/4
+                R1 * 3/4
+                a''4
+                r2
+                a''4
+                r2
+                a''4
+                g''2
             }
         >>
         """)
@@ -433,18 +433,6 @@ def test_Adrifter_08():
             \new Staff
             {
                 \time 3/4
-                R1 * 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                g''2
-                a''4
-                g''2
-            }
-            \new Staff
-            {
-                \time 3/4
                 r4
                 c'4
                 d'4
@@ -455,6 +443,18 @@ def test_Adrifter_08():
                 r2
                 d'4
                 R1 * 3/4
+            }
+            \new Staff
+            {
+                \time 3/4
+                R1 * 3/4
+                R1 * 3/4
+                a''4
+                r2
+                a''4
+                g''2
+                a''4
+                g''2
             }
         >>
         """)
@@ -473,31 +473,31 @@ def test_Adrifter_08():
             \new Staff
             {
                 \time 3/4
-                R1 * 3/4
-                a''4
+                r4
+                c'4
+                d'4
+                r4
+                c'4
+                d'4
+                r4
+                c'4
+                d'4
                 r2
-                a''4
-                g''2
-                a''4
-                g''2
-                a''4
-                g''2
+                d'4
+                R1 * 3/4
             }
             \new Staff
             {
                 \time 3/4
-                r4
-                c'4
-                d'4
-                r4
-                c'4
-                d'4
-                r4
-                c'4
-                d'4
-                r2
-                d'4
                 R1 * 3/4
+                a''4
+                r2
+                a''4
+                g''2
+                a''4
+                g''2
+                a''4
+                g''2
             }
         >>
         """)
@@ -517,6 +517,25 @@ def test_Adrifter_09():
             \new Staff
             {
                 \time 4/4
+                e'2
+                c'2
+                e'2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                R1
+                R1
+                R1
+                R1
+                R1
+                R1
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 r4.
                 f''8
@@ -576,25 +595,6 @@ def test_Adrifter_09():
                 a''8
                 b''8
                 c'''8
-            }
-            \new Staff
-            {
-                \time 4/4
-                e'2
-                c'2
-                e'2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                R1
-                R1
-                R1
-                R1
-                R1
-                R1
-                R1
             }
         >>
         """)
@@ -612,6 +612,31 @@ def test_Adrifter_09():
             \new Staff
             {
                 \time 4/4
+                e'2
+                c'2
+                e'2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 r4.
                 f''8
@@ -679,31 +704,6 @@ def test_Adrifter_09():
                 b''8
                 c'''8
             }
-            \new Staff
-            {
-                \time 4/4
-                e'2
-                c'2
-                e'2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                R1
-            }
         >>
         """)
 
@@ -717,17 +717,17 @@ def test_Adrifter_10():
         r"""
         {
             %%% \time 3/4 %%%
+            a4.
+            bf4.
+        }
+        {
+            %%% \time 3/4 %%%
             c'8
             d'8
             e'8
             f'8
             g'8
             a'8
-        }
-        {
-            %%% \time 3/4 %%%
-            a4.
-            bf4.
         }
         """)
 
@@ -750,6 +750,28 @@ def test_Adrifter_11():
             \new Staff
             {
                 \time 4/4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+                r4
+                bf'2
+                r4
+                r4
+                bf'2
+                r4
+                r4
+                bf'2
+                r4
+                R1
+                R1
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 R1
                 R1
@@ -763,28 +785,6 @@ def test_Adrifter_11():
                 d''2
                 c''2
                 d''2
-            }
-            \new Staff
-            {
-                \time 4/4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                R1
-                R1
-                R1
             }
         >>
         """)
@@ -807,6 +807,22 @@ def test_Adrifter_12():
             \new Staff
             {
                 \time 4/4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 r2
                 d''2
@@ -814,22 +830,6 @@ def test_Adrifter_12():
                 d''2
                 r2
                 d''2
-            }
-            \new Staff
-            {
-                \time 4/4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
             }
         >>
         """)
@@ -849,6 +849,30 @@ def test_Adrifter_13():
             \new Staff
             {
                 \time 3/4
+                a'4
+                bf'2
+                ~
+                \time 2/4
+                bf'4
+                f'4
+                \time 3/4
+                a'4
+                bf'2
+                ~
+                \time 2/4
+                bf'4
+                f'4
+                \time 3/4
+                a'4
+                bf'2
+                ~
+                \time 2/4
+                bf'4
+                r4
+            }
+            \new Staff
+            {
+                \time 3/4
                 R1 * 3/4
                 \time 2/4
                 R1 * 1/2
@@ -864,30 +888,6 @@ def test_Adrifter_13():
                 r4
                 \time 2/4
                 R1 * 1/2
-            }
-            \new Staff
-            {
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                f'4
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                f'4
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                r4
             }
         >>
         """)
@@ -909,15 +909,6 @@ def test_Adrifter_14():
         <<
             \new Staff
             {
-                R1
-                R1
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-            }
-            \new Staff
-            {
                 fs'4
                 g'2
                 bf'4
@@ -927,6 +918,15 @@ def test_Adrifter_14():
                 fs'4
                 g'2
                 r4
+            }
+            \new Staff
+            {
+                R1
+                R1
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
             }
         >>
         """)
@@ -949,14 +949,6 @@ def test_Adrifter_15():
             \new Staff
             {
                 \time 4/4
-                R1
-                R1
-                r2
-                d'2
-            }
-            \new Staff
-            {
-                \time 4/4
                 c'8
                 d'4
                 e'8
@@ -972,6 +964,14 @@ def test_Adrifter_15():
                 e'8
                 ~
                 e'2
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                R1
+                r2
+                d'2
             }
         >>
         """)
@@ -1026,21 +1026,6 @@ def test_Adrifter_16():
             <<
                 \new Staff
                 {
-                    \time 4/4
-                    R1
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    g'2
-                    a'2
-                    g'2
-                    a'2
-                }
-                \new Staff
-                {
                     \time 3/4
                     c'4
                     d'4
@@ -1058,6 +1043,21 @@ def test_Adrifter_16():
                     R1 * 3/4
                     \time 6/4
                     R1 * 3/2
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    r2
+                    a'2
+                    r2
+                    a'2
+                    r2
+                    a'2
+                    g'2
+                    a'2
+                    g'2
+                    a'2
                 }
             >>
             \layout {
@@ -1150,74 +1150,74 @@ def test_Adrifter_18():
             \new Staff
             {
                 \time 4/4
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
                 R1
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r2
-                }
-                r2
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r2
-                }
-                r2
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r4
-                    <d' ef'>4
-                    \f
-                    - \accent
-                    ~
-                }
-                <d' ef'>2
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r4
-                    <d' ef'>4
-                    \f
-                    - \accent
-                    ~
-                }
-                <d' ef'>2
             }
             \new Staff
             {
                 \time 4/4
-                <c' e' g'>4.
-                \p
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                <c' e' g'>4.
-                \p
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                r4.
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                r4.
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
                 R1
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
             }
         >>
         """)

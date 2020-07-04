@@ -35,14 +35,14 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
-                R1
+                fs'4
+                g'2
+                bf'4
             }
             \new Staff
             {
                 \time 4/4
-                fs'4
-                g'2
-                bf'4
+                R1
             }
         >>
 
@@ -58,18 +58,18 @@ class Adrifter():
         <<
             \new Staff
             {
+                \time 4/4
+                fs'4
+                g'2
+                bf'4
+            }
+            \new Staff
+            {
                 \times 4/5 {
                     \time 4/4
                     r4
                     d''1
                 }
-            }
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
             }
         >>
 
@@ -85,18 +85,18 @@ class Adrifter():
         <<
             \new Staff
             {
+                \time 4/4
+                fs'4
+                r2
+                bf'4
+            }
+            \new Staff
+            {
                 \times 4/5 {
                     \time 4/4
                     r4
                     d''1
                 }
-            }
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                r2
-                bf'4
             }
         >>
 
@@ -115,18 +115,18 @@ class Adrifter():
         <<
             \new Staff
             {
+                \time 4/4
+                fs'4
+                r2
+                bf'4
+            }
+            \new Staff
+            {
                 \times 4/5 {
                     \time 4/4
                     r4
                     d''1
                 }
-            }
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                r2
-                bf'4
             }
         >>
 
@@ -148,31 +148,6 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
-                R1
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-                \times 4/5 {
-                    cs''4
-                    d'1
-                }
-                \times 4/5 {
-                    cs''4
-                    d'1
-                }
-                \times 4/5 {
-                    cs''4
-                    d'1
-                }
-            }
-            \new Staff
-            {
-                \time 4/4
                 fs'4
                 g'2
                 bf'4
@@ -188,6 +163,31 @@ class Adrifter():
                 r2.
                 bf'4
                 R1
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
+                \times 4/5 {
+                    cs''4
+                    d'1
+                }
+                \times 4/5 {
+                    cs''4
+                    d'1
+                }
+                \times 4/5 {
+                    cs''4
+                    d'1
+                }
             }
         >>
 
@@ -210,6 +210,18 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                e'8
+                fs'4.
+                r2
+                e'8
+                fs'4.
+                r2
+                e'8
+                r2..
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 c''2
                 ~
@@ -219,18 +231,6 @@ class Adrifter():
                 ~
                 c''8
                 r4.
-            }
-            \new Staff
-            {
-                \time 4/4
-                e'8
-                fs'4.
-                r2
-                e'8
-                fs'4.
-                r2
-                e'8
-                r2..
             }
         >>
 
@@ -262,38 +262,38 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                e'8
+                fs'4.
+                r2
+                e'8
+                fs'4.
+                r2
+                e'8
+                r2..
+                e'8
+                r2..
                 R1
-                c''2
-                ~
-                c''8
-                r4.
-                c''2
-                ~
-                c''8
-                r4.
-                c''2
-                ~
-                c''8
-                d''4.
-                c''2
-                ~
-                c''8
-                d''4.
             }
             \new Staff
             {
                 \time 4/4
-                e'8
-                fs'4.
-                r2
-                e'8
-                fs'4.
-                r2
-                e'8
-                r2..
-                e'8
-                r2..
                 R1
+                c''2
+                ~
+                c''8
+                r4.
+                c''2
+                ~
+                c''8
+                r4.
+                c''2
+                ~
+                c''8
+                d''4.
+                c''2
+                ~
+                c''8
+                d''4.
             }
         >>
 
@@ -435,20 +435,6 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
-                R1
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
                 fs'4
                 g'2
                 bf'4
@@ -461,6 +447,20 @@ class Adrifter():
                 fs'4
                 g'2
                 bf'4
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
+                R1
             }
         >>
 
@@ -507,18 +507,6 @@ class Adrifter():
             \new Staff
             {
                 \time 3/4
-                R1 * 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                r2
-                a''4
-                g''2
-            }
-            \new Staff
-            {
-                \time 3/4
                 r4
                 c'4
                 d'4
@@ -528,6 +516,18 @@ class Adrifter():
                 d'4
                 R1 * 3/4
                 R1 * 3/4
+            }
+            \new Staff
+            {
+                \time 3/4
+                R1 * 3/4
+                R1 * 3/4
+                a''4
+                r2
+                a''4
+                r2
+                a''4
+                g''2
             }
         >>
 
@@ -545,18 +545,6 @@ class Adrifter():
             \new Staff
             {
                 \time 3/4
-                R1 * 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                g''2
-                a''4
-                g''2
-            }
-            \new Staff
-            {
-                \time 3/4
                 r4
                 c'4
                 d'4
@@ -567,6 +555,18 @@ class Adrifter():
                 r2
                 d'4
                 R1 * 3/4
+            }
+            \new Staff
+            {
+                \time 3/4
+                R1 * 3/4
+                R1 * 3/4
+                a''4
+                r2
+                a''4
+                g''2
+                a''4
+                g''2
             }
         >>
 
@@ -585,31 +585,31 @@ class Adrifter():
             \new Staff
             {
                 \time 3/4
-                R1 * 3/4
-                a''4
+                r4
+                c'4
+                d'4
+                r4
+                c'4
+                d'4
+                r4
+                c'4
+                d'4
                 r2
-                a''4
-                g''2
-                a''4
-                g''2
-                a''4
-                g''2
+                d'4
+                R1 * 3/4
             }
             \new Staff
             {
                 \time 3/4
-                r4
-                c'4
-                d'4
-                r4
-                c'4
-                d'4
-                r4
-                c'4
-                d'4
-                r2
-                d'4
                 R1 * 3/4
+                a''4
+                r2
+                a''4
+                g''2
+                a''4
+                g''2
+                a''4
+                g''2
             }
         >>
 
@@ -634,6 +634,25 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                e'2
+                c'2
+                e'2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                R1
+                R1
+                R1
+                R1
+                R1
+                R1
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 r4.
                 f''8
@@ -693,25 +712,6 @@ class Adrifter():
                 a''8
                 b''8
                 c'''8
-            }
-            \new Staff
-            {
-                \time 4/4
-                e'2
-                c'2
-                e'2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                R1
-                R1
-                R1
-                R1
-                R1
-                R1
-                R1
             }
         >>
 
@@ -729,6 +729,31 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                e'2
+                c'2
+                e'2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                r2
+                c'2
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 r4.
                 f''8
@@ -795,31 +820,6 @@ class Adrifter():
                 a''8
                 b''8
                 c'''8
-            }
-            \new Staff
-            {
-                \time 4/4
-                e'2
-                c'2
-                e'2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                R1
             }
         >>
 
@@ -846,6 +846,28 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+                r4
+                bf'2
+                r4
+                r4
+                bf'2
+                r4
+                r4
+                bf'2
+                r4
+                R1
+                R1
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 R1
                 R1
@@ -859,28 +881,6 @@ class Adrifter():
                 d''2
                 c''2
                 d''2
-            }
-            \new Staff
-            {
-                \time 4/4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                R1
-                R1
-                R1
             }
         >>
 
@@ -906,6 +906,22 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+                a'4
+                bf'2
+                r4
+            }
+            \new Staff
+            {
+                \time 4/4
                 R1
                 r2
                 d''2
@@ -913,22 +929,6 @@ class Adrifter():
                 d''2
                 r2
                 d''2
-            }
-            \new Staff
-            {
-                \time 4/4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
             }
         >>
 
@@ -954,15 +954,6 @@ class Adrifter():
         <<
             \new Staff
             {
-                R1
-                R1
-                \times 4/5 {
-                    cs''4
-                    r1
-                }
-            }
-            \new Staff
-            {
                 fs'4
                 g'2
                 bf'4
@@ -972,6 +963,15 @@ class Adrifter():
                 fs'4
                 g'2
                 r4
+            }
+            \new Staff
+            {
+                R1
+                R1
+                \times 4/5 {
+                    cs''4
+                    r1
+                }
             }
         >>
 
@@ -1007,14 +1007,6 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
-                R1
-                R1
-                r2
-                d'2
-            }
-            \new Staff
-            {
-                \time 4/4
                 c'8
                 d'4
                 e'8
@@ -1030,6 +1022,14 @@ class Adrifter():
                 e'8
                 ~
                 e'2
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                R1
+                r2
+                d'2
             }
         >>
 
@@ -1053,17 +1053,17 @@ class Adrifter():
         >>> print(adrifter)
         {
             %%% \time 3/4 %%%
+            a4.
+            bf4.
+        }
+        {
+            %%% \time 3/4 %%%
             c'8
             d'8
             e'8
             f'8
             g'8
             a'8
-        }
-        {
-            %%% \time 3/4 %%%
-            a4.
-            bf4.
         }
 
     ..  warning::
@@ -1091,6 +1091,30 @@ class Adrifter():
             \new Staff
             {
                 \time 3/4
+                a'4
+                bf'2
+                ~
+                \time 2/4
+                bf'4
+                f'4
+                \time 3/4
+                a'4
+                bf'2
+                ~
+                \time 2/4
+                bf'4
+                f'4
+                \time 3/4
+                a'4
+                bf'2
+                ~
+                \time 2/4
+                bf'4
+                r4
+            }
+            \new Staff
+            {
+                \time 3/4
                 R1 * 3/4
                 \time 2/4
                 R1 * 1/2
@@ -1106,30 +1130,6 @@ class Adrifter():
                 r4
                 \time 2/4
                 R1 * 1/2
-            }
-            \new Staff
-            {
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                f'4
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                f'4
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                r4
             }
         >>
 
@@ -1157,74 +1157,74 @@ class Adrifter():
             \new Staff
             {
                 \time 4/4
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                <c' e' g'>4.
+                \p
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
+                r4.
+                e'8
+                \f
+                - \tenuto
+                ~
+                e'2
                 R1
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r2
-                }
-                r2
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r2
-                }
-                r2
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r4
-                    <d' ef'>4
-                    \f
-                    - \accent
-                    ~
-                }
-                <d' ef'>2
-                \times 2/3 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r4
-                    <d' ef'>4
-                    \f
-                    - \accent
-                    ~
-                }
-                <d' ef'>2
             }
             \new Staff
             {
                 \time 4/4
-                <c' e' g'>4.
-                \p
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                <c' e' g'>4.
-                \p
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                r4.
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                r4.
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
                 R1
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r2
+                }
+                r2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
+                \times 2/3 {
+                    f'4
+                    \pp
+                    - \staccato
+                    r4
+                    <d' ef'>4
+                    \f
+                    - \accent
+                    ~
+                }
+                <d' ef'>2
             }
         >>
 
@@ -1294,21 +1294,6 @@ class Adrifter():
             <<
                 \new Staff
                 {
-                    \time 4/4
-                    R1
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    g'2
-                    a'2
-                    g'2
-                    a'2
-                }
-                \new Staff
-                {
                     \time 3/4
                     c'4
                     d'4
@@ -1326,6 +1311,21 @@ class Adrifter():
                     R1 * 3/4
                     \time 6/4
                     R1 * 3/2
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    r2
+                    a'2
+                    r2
+                    a'2
+                    r2
+                    a'2
+                    g'2
+                    a'2
+                    g'2
+                    a'2
                 }
             >>
             \layout {
@@ -1424,7 +1424,7 @@ class Adrifter():
 
     def __repr__(self) -> str:
         r'Returns interpret representation of  both contents.'
-        return format(self._fader_in) + '\n' + format(self._fader_out)
+        return format(self._fader_out) + '\n' + format(self._fader_in)
 
     def __len__(self) -> int:
         r'Returns the number of pitched logical ties in both contents.'
@@ -1433,8 +1433,8 @@ class Adrifter():
     def __call__(self) -> tuple:
         r'Calls the drifting process, returning a `tuple` of ``abjad.Staff``.'
         self._adrift_process()
-        self._current_window = tuple(fader.current_window
-                                     for fader in self._faders)
+        self._current_window = (self._fader_out.current_window,
+                                self._fader_in.current_window)
         return self.current_window
 
     def __next__(self) -> tuple:

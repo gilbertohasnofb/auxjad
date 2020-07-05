@@ -2,10 +2,10 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""This class can be used to create leaves and logical ties from input
-    lists of pitches, durations, dynamics, and articulations. It is an
-    extension of ``abjad.LeafMaker`` which can take optional lists of dynamics
-    and articulations.
+    r"""``LeafDynMaker`` creates leaves and logical ties from input lists of
+    pitches, durations, dynamics, and articulations. It is an extension of
+    ``abjad.LeafMaker`` which can take optional lists of dynamics and
+    articulations.
 
     Example:
         Usage is similar to ``abjad.LeafMaker``:

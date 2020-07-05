@@ -10,8 +10,9 @@ def simplified_time_signature_ratio(ratio: Union[tuple, abjad.TimeSignature,
                                     ) -> Union[abjad.TimeSignature, tuple]:
     r"""Returns an ``abjad.TimeSignature`` with the simplified ratio of an
     input ratio according to a minimum denominator value. The input ratio can
-    be a ``tuple`` of integers, an ``abjad.TimeSignature``, ``abjad.Duration``,
-    or an ``abjad.Meter``).
+    be an ``abjad.TimeSignature``, ``abjad.Duration``, an ``abjad.Meter``, or a
+    ``tuple`` of integers. If the input is a ``tuple``, the return value is
+    also a ``tuple``.
 
     Example:
         By default, the function simplifies the ratio of numerator/denominator

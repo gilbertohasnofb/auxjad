@@ -7,7 +7,7 @@ def respell_chord(chord: abjad.Chord,
                   respell_by_pitch_class: bool = False,
                   ):
     r"""Mutates an input chord (of type ``abjad.Chord`` or child class) in
-    place and has no return value. This function changes the accidentals of
+    place and has no return value; this function changes the accidentals of
     individual pitches of a chord in order to avoid augmented unisons.
 
     Example:

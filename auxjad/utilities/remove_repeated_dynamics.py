@@ -7,7 +7,7 @@ def remove_repeated_dynamics(container: abjad.Container,
                              reset_after_rests: bool = False,
                              ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
-    in place and has no return value. This function removes all consecutive
+    in place and has no return value; this function removes all consecutive
     repeated dynamic markings.
 
     Example:

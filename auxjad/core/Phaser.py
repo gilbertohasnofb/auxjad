@@ -11,7 +11,7 @@ from ..utilities.leaves_are_tieable import leaves_are_tieable
 
 
 class Phaser():
-    r"""Phaser will shift all leaves of an ``abjad.Container`` by a fixed
+    r"""``Phaser`` will shift all leaves of an ``abjad.Container`` by a fixed
     amount. Subsequent calls apply further shifts.
 
     Example:

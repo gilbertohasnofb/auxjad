@@ -17,8 +17,8 @@ def enforce_time_signature(container: abjad.Container,
                            rewrite_tuplets: bool = True,
                            ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
-    in place and has no return value. This function applies a time
-    signature (or a list of time signatures) to the input container.
+    in place and has no return value; this function applies a time signature
+    (or a list of time signatures) to the input container.
 
     Example:
         The function mutates a container in place, applying a time signature

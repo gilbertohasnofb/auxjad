@@ -3,7 +3,7 @@ import abjad
 
 def remove_empty_tuplets(container: abjad.Container):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
-    in place and has no return value. This function looks for tuplets filled
+    in place and has no return value; this function looks for tuplets filled
     with rests and replaces them with a single rest.
 
     Example:

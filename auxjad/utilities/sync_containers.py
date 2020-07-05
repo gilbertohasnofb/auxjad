@@ -11,7 +11,7 @@ def sync_containers(*containers: abjad.Container,
                     adjust_last_time_signature: bool = True,
                     ):
     r"""Mutates two or more input containers (of type ``abjad.Container`` or
-    child class) in place and has no return value. This function finds the
+    child class) in place and has no return value; this function finds the
     longest container among the inputs and adds rests to all the shorter ones,
     making them the same length. By default, it rewrites the last time
     signature if necessary, and uses multi-measure rests whenever possible.

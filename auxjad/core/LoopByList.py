@@ -4,10 +4,10 @@ from ._LoopParent import _LoopParent
 
 
 class LoopByList(_LoopParent):
-    r"""This class can be used to output slices of a ``list`` using the
-    metaphor of a looping window of a constant number of elements. This number
-    is given by the argument ``window_size``, which is an ``int`` representing
-    how many elements are to be included in each slice.
+    r"""``LoopByList`` outputs slices of a ``list`` using the metaphor of a
+    looping window of a constant number of elements. This number is given by
+    the argument ``window_size``, which is an ``int`` representing how many
+    elements are to be included in each slice.
 
     For instance, if the initial container had the logical ties
     ``[A, B, C, D, E, F]`` (where each letter represents one elemnt of an

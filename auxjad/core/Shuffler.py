@@ -10,9 +10,9 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
-    r"""Shuffler takes an input ``abjad.Container`` and shuffles or rotates its
-    logical ties or pitches. When shuffling or rotating pitches only, tuplets
-    are supported, otherwise tuplets are not supported.
+    r"""``Shuffler`` takes an input ``abjad.Container`` and shuffles or rotates
+    its logical ties or pitches. When shuffling or rotating pitches only,
+    tuplets are supported, otherwise tuplets are not supported.
 
     Example:
         Calling the object will output a shuffled selection of the input

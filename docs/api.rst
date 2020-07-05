@@ -35,8 +35,9 @@ documentaion of each class and function.
     auxjad.remove_empty_tuplets
     auxjad.remove_repeated_dynamics
     auxjad.remove_repeated_time_signatures
-    auxjad.respell_container
+    auxjad.repeat_container
     auxjad.respell_chord
+    auxjad.respell_container
     auxjad.rests_to_multimeasure_rest
     auxjad.Shuffler
     auxjad.simplified_time_signature_ratio

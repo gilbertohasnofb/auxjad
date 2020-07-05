@@ -9,7 +9,7 @@ from ..utilities.remove_repeated_time_signatures import (
 
 
 class Adrifter():
-    r"""This class takes two ``abjad.Container``'s and gradually drifts from
+    r"""``Adrifter`` takes two ``abjad.Container``'s and gradually drifts from
     one into the other, by fading out the first while fading in the second. It
     makes uses of ``auxjad.Fader`` for that.
 

@@ -6,8 +6,8 @@ from ._LoopParent import _LoopParent
 
 
 class LoopByWindow(_LoopParent):
-    r"""This class can be used to output slices of an ``abjad.Container`` using
-    the metaphor of a looping window of a constant size (given by an
+    r"""``LoopByWindow`` outputs slices of an ``abjad.Container`` using the
+    metaphor of a looping window of a constant size (given by an
     ``abjad.Duration``).
 
     Example:

@@ -12,8 +12,8 @@ def repeat_container(container: abjad.Container,
                      omit_time_signatures: bool = False,
                      force_identical_time_signatures: bool = False,
                      ) -> abjad.Container:
-    r"""This Returns an ``abjad.Container`` with n repetitions of an input
-    container (of type ``abjad.Container`` or child class).
+    r"""This function returns an ``abjad.Container`` with ``n`` repetitions of
+    an input container (of type ``abjad.Container`` or child class).
 
     Example:
         The required arguments are an ``abjad.Container`` (or child class) and
@@ -43,6 +43,7 @@ def repeat_container(container: abjad.Container,
         ``%%%``. This is because Abjad only applies time signatures to
         containers that belong to a ``abjad.Staff``. The present function works
         with either ``abjad.Container`` and ``abjad.Staff``.
+        
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> output_container = auxjad.repeat_container(container, 3)
         >>> abjad.f(output_container)

@@ -7,7 +7,7 @@ def adjust_clefs(container: abjad.Container,
                  implicit_clef: abjad.Clef = abjad.Clef('treble'),
                  ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
-    in place and has no return value. This function removes all consecutive
+    in place and has no return value; this function removes all consecutive
     repeated clefs. It can also be used to shift clefs from rests to pitched
     leaves.
 

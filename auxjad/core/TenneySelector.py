@@ -3,11 +3,11 @@ from typing import Any, Optional, Union
 
 
 class TenneySelector():
-    r"""This in an implementation of the Dissonant Counterpoint Algorithm by
-    James Tenney. This class can be used to randomly select elements from an
-    input list, giving more weight to elements which have not been selected in
-    recent iterations. In other words, Tenney's algorithm uses feedback in
-    order to lower the weight of recently selected elements.
+    r"""``TenneySelector`` is an implementation of the Dissonant Counterpoint
+    Algorithm by James Tenney. This class can be used to randomly select
+    elements from an input list, giving more weight to elements which have not
+    been selected in recent iterations. In other words, Tenney's algorithm uses
+    feedback in order to lower the weight of recently selected elements.
 
     This implementation is based on the paper: Polansky, L., A. Barnett, and
     M. Winter (2011). 'A Few More Words About James Tenney: Dissonant

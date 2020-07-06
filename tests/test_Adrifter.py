@@ -990,89 +990,46 @@ def test_Adrifter_16():
     staff_a, staff_b = adrifter.output_all()
     auxjad.sync_containers(staff_a, staff_b)
     score = abjad.Score([staff_a, staff_b])
-
-    lilypond_file = abjad.LilyPondFile.new()
-    score_block = abjad.Block(name='score')
-    layout_block = abjad.Block(name='layout')
-    score_block.items.append(score)
-    score_block.items.append(layout_block)
-    lilypond_file.items.append(score_block)
-    layout_block.items.append(
-        r'''\context {
-            \Score
-            \remove "Timing_translator"
-            \remove "Default_bar_line_engraver"
-        }
-        \context {
-            \Staff
-            \consists "Timing_translator"
-            \consists "Default_bar_line_engraver"
-        }''')
-    assert format(lilypond_file) == abjad.String.normalize(
+    assert format(score) == abjad.String.normalize(
         r"""
-        \version "2.19.82"  %! abjad.LilyPondFile._get_format_pieces()
-        \language "english" %! abjad.LilyPondFile._get_format_pieces()
-
-        \header { %! abjad.LilyPondFile._get_formatted_blocks()
-            tagline = ##f
-        } %! abjad.LilyPondFile._get_formatted_blocks()
-
-        \layout {}
-
-        \paper {}
-
-        \score { %! abjad.LilyPondFile._get_formatted_blocks()
-            \new Score
-            <<
-                \new Staff
-                {
-                    \time 3/4
-                    c'4
-                    d'4
-                    e'4
-                    c'4
-                    d'4
-                    e'4
-                    c'4
-                    r4
-                    e'4
-                    c'4
-                    r2
-                    c'4
-                    r2
-                    R1 * 3/4
-                    R1 * 3/4
-                    R1 * 3/4
-                }
-                \new Staff
-                {
-                    \time 4/4
-                    R1
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    g'2
-                    a'2
-                    g'2
-                    a'2
-                }
-            >>
-            \layout {
-                \context {
-                    \Score
-                    \remove "Timing_translator"
-                    \remove "Default_bar_line_engraver"
-                }
-                \context {
-                    \Staff
-                    \consists "Timing_translator"
-                    \consists "Default_bar_line_engraver"
-                }
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+                c'4
+                r4
+                e'4
+                c'4
+                r2
+                c'4
+                r2
+                R1 * 3/4
+                R1 * 3/4
+                R1 * 3/4
             }
-        } %! abjad.LilyPondFile._get_formatted_blocks()
+            \new Staff
+            {
+                \time 4/4
+                R1
+                r2
+                a'2
+                r2
+                a'2
+                r2
+                a'2
+                g'2
+                a'2
+                g'2
+                a'2
+            }
+        >>
         """)
 
 

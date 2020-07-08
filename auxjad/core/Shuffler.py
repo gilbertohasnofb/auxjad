@@ -790,7 +790,7 @@ class Shuffler:
         using ``Shuffler`` in this way. It is also important to note that a
         ``break`` statement is needed when using ``Shuffler`` as an iterator.
         The reason is that shuffling is a process that can happen indefinitely
-        (unlike some of the other classes in this package).
+        (unlike some of the other classes in this library).
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> shuffler = auxjad.Shuffler(container)

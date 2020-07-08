@@ -3,8 +3,9 @@ auxjad
 
 |PyPI| |Build| |Python versions| |License| |Bug report| |Documentation|
 
-``auxjad`` is a library of auxiliary functions and classes for Abjad 3.1. All
-classes and functions have a __doc__ attribute with usage instructions.
+``auxjad`` is a library of auxiliary functions and classes for Abjad 3.1 aimed 
+at composers of algorithmic music. All classes and functions have a __doc__
+attribute with usage instructions.
 
 Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
 

@@ -321,6 +321,7 @@ def remove_repeated_dynamics(container: abjad.Container,
     leaves = [leaf for leaf in abjad.select(container).leaves()]
 
     previous_dynamic = None
+    current_dynamic = None
     duration_since_last_note = abjad.Duration(0)
     for leaf in leaves:
         if type(leaf) in (abjad.Rest, abjad.MultimeasureRest):
@@ -339,6 +340,9 @@ def remove_repeated_dynamics(container: abjad.Container,
             for indicator in indicators:
                 if isinstance(indicator, abjad.Dynamic):
                     if hairpin_present and not ignore_hairpins:
+                        if (indicator is not None
+                                and indicator == previous_dynamic):
+                            abjad.detach(abjad.Dynamic, leaf)
                         current_dynamic = None
                     else:
                         current_dynamic = indicator

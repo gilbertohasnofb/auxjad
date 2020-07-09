@@ -36,6 +36,7 @@ documentaion of each class and function.
     auxjad.remove_repeated_dynamics
     auxjad.remove_repeated_time_signatures
     auxjad.repeat_container
+    auxjad.reposition_dynamics
     auxjad.respell_chord
     auxjad.respell_container
     auxjad.rests_to_multimeasure_rest

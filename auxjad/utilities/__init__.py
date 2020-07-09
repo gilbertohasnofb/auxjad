@@ -1,5 +1,3 @@
-from .adjust_clefs import adjust_clefs
-from .reposition_dynamics import reposition_dynamics
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .containers_are_equal import containers_are_equal
@@ -10,6 +8,8 @@ from .remove_empty_tuplets import remove_empty_tuplets
 from .remove_repeated_dynamics import remove_repeated_dynamics
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
 from .repeat_container import repeat_container
+from .reposition_clefs import reposition_clefs
+from .reposition_dynamics import reposition_dynamics
 from .respell_container import respell_container
 from .respell_chord import respell_chord
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest

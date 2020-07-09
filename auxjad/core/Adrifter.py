@@ -1217,8 +1217,8 @@ class Adrifter():
     .. tip::
 
         The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.adjust_clefs()`` can be used to clean the output and remove
-        repeated dynamics and unnecessary clef changes.
+        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
 

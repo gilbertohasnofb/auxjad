@@ -1,11 +1,11 @@
 import abjad
 
 
-def adjust_clefs(container: abjad.Container,
-                 *,
-                 shift_clef_to_notes: bool = True,
-                 implicit_clef: abjad.Clef = abjad.Clef('treble'),
-                 ):
+def reposition_clefs(container: abjad.Container,
+                     *,
+                     shift_clef_to_notes: bool = True,
+                     implicit_clef: abjad.Clef = abjad.Clef('treble'),
+                     ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value; this function removes all consecutive
     repeated clefs. It can also be used to shift clefs from rests to pitched
@@ -26,9 +26,9 @@ def adjust_clefs(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-1.png
+        .. figure:: ../_images/image-reposition_clefs-1.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -37,7 +37,7 @@ def adjust_clefs(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-2.png
+        .. figure:: ../_images/image-reposition_clefs-2.png
 
     Example:
         As seen above, LilyPond automatically omits repeated clefs unless the
@@ -54,11 +54,11 @@ def adjust_clefs(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-3.png
+        .. figure:: ../_images/image-reposition_clefs-3.png
 
         This function handles fallback clefs too:
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -66,7 +66,7 @@ def adjust_clefs(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-4.png
+        .. figure:: ../_images/image-reposition_clefs-4.png
 
     Example:
         The function also removes clefs that are separated by anarbitrary
@@ -85,9 +85,9 @@ def adjust_clefs(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-5.png
+        .. figure:: ../_images/image-reposition_clefs-5.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -98,7 +98,7 @@ def adjust_clefs(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-6.png
+        .. figure:: ../_images/image-reposition_clefs-6.png
 
     Example:
         The function will not alter the container if the clef changes are
@@ -119,9 +119,9 @@ def adjust_clefs(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-7.png
+        .. figure:: ../_images/image-reposition_clefs-7.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -134,7 +134,7 @@ def adjust_clefs(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-8.png
+        .. figure:: ../_images/image-reposition_clefs-8.png
 
     Example:
         The function handles rests and multi-measure rests.
@@ -153,9 +153,9 @@ def adjust_clefs(container: abjad.Container,
             e'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-9.png
+        .. figure:: ../_images/image-reposition_clefs-9.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -166,7 +166,7 @@ def adjust_clefs(container: abjad.Container,
             e'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-10.png
+        .. figure:: ../_images/image-reposition_clefs-10.png
 
     Example:
         By default, clefs attached to rests are shifted to the first pitched
@@ -186,9 +186,9 @@ def adjust_clefs(container: abjad.Container,
             fs1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-11.png
+        .. figure:: ../_images/image-reposition_clefs-11.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -200,14 +200,14 @@ def adjust_clefs(container: abjad.Container,
             fs1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-12.png
+        .. figure:: ../_images/image-reposition_clefs-12.png
 
         Set ``shift_clef_to_notes`` to ``False`` to disable this behaviour.
 
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('bass'), staff[2])
-        >>> auxjad.adjust_clefs(staff, shift_clef_to_notes=False)
+        >>> auxjad.reposition_clefs(staff, shift_clef_to_notes=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -219,7 +219,7 @@ def adjust_clefs(container: abjad.Container,
             fs1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-13.png
+        .. figure:: ../_images/image-reposition_clefs-13.png
 
     Example:
         Clefs are shifted even if the container has multi-measure rests.
@@ -240,9 +240,9 @@ def adjust_clefs(container: abjad.Container,
             e'2.
         }
 
-        .. figure:: ../_images/image-adjust_clefs-14.png
+        .. figure:: ../_images/image-reposition_clefs-14.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -256,7 +256,7 @@ def adjust_clefs(container: abjad.Container,
             e'2.
         }
 
-        .. figure:: ../_images/image-adjust_clefs-15.png
+        .. figure:: ../_images/image-reposition_clefs-15.png
 
     Example:
         The input container can also handle subcontainers, including cases in
@@ -280,9 +280,9 @@ def adjust_clefs(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/image-adjust_clefs-16.png
+        .. figure:: ../_images/image-reposition_clefs-16.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -295,7 +295,7 @@ def adjust_clefs(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/image-adjust_clefs-17.png
+        .. figure:: ../_images/image-reposition_clefs-17.png
 
     Example:
         By default, when the first leaf doesn't have a clef the function
@@ -312,9 +312,9 @@ def adjust_clefs(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-18.png
+        .. figure:: ../_images/image-reposition_clefs-18.png
 
-        >>> auxjad.adjust_clefs(staff)
+        >>> auxjad.reposition_clefs(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -322,7 +322,7 @@ def adjust_clefs(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-19.png
+        .. figure:: ../_images/image-reposition_clefs-19.png
 
         Set the argument ``implicit_clef`` to a different ``abjad.Clef`` to
         change the implicit clef.
@@ -337,9 +337,9 @@ def adjust_clefs(container: abjad.Container,
             d1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-20.png
+        .. figure:: ../_images/image-reposition_clefs-20.png
 
-        >>> auxjad.adjust_clefs(staff, implicit_clef=abjad.Clef('bass'))
+        >>> auxjad.reposition_clefs(staff, implicit_clef=abjad.Clef('bass'))
         >>> abjad.f(staff)
         \new Staff
         {
@@ -347,7 +347,7 @@ def adjust_clefs(container: abjad.Container,
             d1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-21.png
+        .. figure:: ../_images/image-reposition_clefs-21.png
 
         This can be useful when extending a container that already has a
         specific clef.
@@ -366,7 +366,7 @@ def adjust_clefs(container: abjad.Container,
             d1
         }
 
-        .. figure:: ../_images/image-adjust_clefs-22.png
+        .. figure:: ../_images/image-reposition_clefs-22.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")

@@ -2,7 +2,7 @@ import abjad
 import auxjad
 
 
-def test_adjust_clefs_01():
+def test_reposition_clefs_01():
     staff = abjad.Staff(r"c'1 | d'1")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('treble'), staff[1])
@@ -16,7 +16,7 @@ def test_adjust_clefs_01():
             d'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -37,7 +37,7 @@ def test_adjust_clefs_01():
             d'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -48,7 +48,7 @@ def test_adjust_clefs_01():
         """)
 
 
-def test_adjust_clefs_02():
+def test_reposition_clefs_02():
     staff = abjad.Staff(r"c'1 | d'2 e'4 r4 | f'1")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('treble'), staff[4])
@@ -65,7 +65,7 @@ def test_adjust_clefs_02():
             f'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -92,7 +92,7 @@ def test_adjust_clefs_02():
             f'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -106,7 +106,7 @@ def test_adjust_clefs_02():
         """)
 
 
-def test_adjust_clefs_03():
+def test_reposition_clefs_03():
     staff = abjad.Staff(r"c'1 | a,2 bf,4 r4 | f'1")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('bass'), staff[1])
@@ -125,7 +125,7 @@ def test_adjust_clefs_03():
             f'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -156,7 +156,7 @@ def test_adjust_clefs_03():
             f'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -172,7 +172,7 @@ def test_adjust_clefs_03():
         """)
 
 
-def test_adjust_clefs_04():
+def test_reposition_clefs_04():
     staff = abjad.Staff(r"c'1 | d'2 r2 | R1 | e'1")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('treble'), staff[4])
@@ -189,7 +189,7 @@ def test_adjust_clefs_04():
             e'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -216,7 +216,7 @@ def test_adjust_clefs_04():
             e'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -230,7 +230,7 @@ def test_adjust_clefs_04():
         """)
 
 
-def test_adjust_clefs_05():
+def test_reposition_clefs_05():
     staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('bass'), staff[2])
@@ -246,7 +246,7 @@ def test_adjust_clefs_05():
             fs1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -272,7 +272,7 @@ def test_adjust_clefs_05():
             fs1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -286,7 +286,7 @@ def test_adjust_clefs_05():
         """)
 
 
-def test_adjust_clefs_06():
+def test_reposition_clefs_06():
     staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('bass'), staff[2])
@@ -302,7 +302,7 @@ def test_adjust_clefs_06():
             fs1
         }
         """)
-    auxjad.adjust_clefs(staff, shift_clef_to_notes=False)
+    auxjad.reposition_clefs(staff, shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -328,7 +328,7 @@ def test_adjust_clefs_06():
             fs1
         }
         """)
-    auxjad.adjust_clefs(staff, shift_clef_to_notes=False)
+    auxjad.reposition_clefs(staff, shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -342,7 +342,7 @@ def test_adjust_clefs_06():
         """)
 
 
-def test_adjust_clefs_07():
+def test_reposition_clefs_07():
     staff = abjad.Staff([abjad.Note("c'2"),
                          abjad.Chord("<d' f'>2"),
                          abjad.Tuplet((2, 3), "g'2 a'2 b'2"),
@@ -364,7 +364,7 @@ def test_adjust_clefs_07():
             }
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -398,7 +398,7 @@ def test_adjust_clefs_07():
             }
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -414,7 +414,7 @@ def test_adjust_clefs_07():
         """)
 
 
-def test_adjust_clefs_08():
+def test_reposition_clefs_08():
     staff = abjad.Staff(r"c'1 | d'1")
     abjad.attach(abjad.Clef('treble'), staff[1])
     assert format(staff) == abjad.String.normalize(
@@ -426,7 +426,7 @@ def test_adjust_clefs_08():
             d'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -437,7 +437,7 @@ def test_adjust_clefs_08():
         """)
 
 
-def test_adjust_clefs_09():
+def test_reposition_clefs_09():
     staff = abjad.Staff(r"c1 | d1")
     abjad.attach(abjad.Clef('bass'), staff[1])
     assert format(staff) == abjad.String.normalize(
@@ -449,7 +449,7 @@ def test_adjust_clefs_09():
             d1
         }
         """)
-    auxjad.adjust_clefs(staff, implicit_clef=abjad.Clef('bass'))
+    auxjad.reposition_clefs(staff, implicit_clef=abjad.Clef('bass'))
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -460,7 +460,7 @@ def test_adjust_clefs_09():
         """)
 
 
-def test_adjust_clefs_10():
+def test_reposition_clefs_10():
     staff = abjad.Staff(r"c'1 | r1 | d'1")
     abjad.attach(abjad.Clef('bass'), staff[1])
     abjad.attach(abjad.Clef('treble'), staff[2])
@@ -475,7 +475,7 @@ def test_adjust_clefs_10():
             d'1
         }
         """)
-    auxjad.adjust_clefs(staff, shift_clef_to_notes=False)
+    auxjad.reposition_clefs(staff, shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -487,7 +487,7 @@ def test_adjust_clefs_10():
             d'1
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -499,7 +499,7 @@ def test_adjust_clefs_10():
         """)
 
 
-def test_adjust_clefs_11():
+def test_reposition_clefs_11():
     staff = abjad.Staff(r"\time 3/4 c'2. | d'4 r2 | R1 * 3/4 | e'2.")
     abjad.attach(abjad.Clef('treble'), staff[0])
     abjad.attach(abjad.Clef('bass'), staff[2])
@@ -517,7 +517,7 @@ def test_adjust_clefs_11():
             e'2.
         }
         """)
-    auxjad.adjust_clefs(staff, shift_clef_to_notes=False)
+    auxjad.reposition_clefs(staff, shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -532,7 +532,7 @@ def test_adjust_clefs_11():
             e'2.
         }
         """)
-    auxjad.adjust_clefs(staff)
+    auxjad.reposition_clefs(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

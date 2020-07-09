@@ -15,7 +15,6 @@ documentaion of each class and function.
     :toctree: _api_members
 
     auxjad.Adrifter
-    auxjad.adjust_clefs
     auxjad.ArtificialHarmonic
     auxjad.CartographySelector
     auxjad.close_container
@@ -36,6 +35,7 @@ documentaion of each class and function.
     auxjad.remove_repeated_dynamics
     auxjad.remove_repeated_time_signatures
     auxjad.repeat_container
+    auxjad.reposition_clefs
     auxjad.reposition_dynamics
     auxjad.respell_chord
     auxjad.respell_container

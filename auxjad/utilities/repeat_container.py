@@ -1,6 +1,6 @@
 import copy
 import abjad
-from .adjust_clefs import adjust_clefs
+from .reposition_clefs import reposition_clefs
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
@@ -43,7 +43,7 @@ def repeat_container(container: abjad.Container,
         ``%%%``. This is because Abjad only applies time signatures to
         containers that belong to a ``abjad.Staff``. The present function works
         with either ``abjad.Container`` and ``abjad.Staff``.
-        
+
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> output_container = auxjad.repeat_container(container, 3)
         >>> abjad.f(output_container)
@@ -251,7 +251,7 @@ def repeat_container(container: abjad.Container,
         output_container.extend(copy.deepcopy(container_))
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)
-    adjust_clefs(output_container)
+    reposition_clefs(output_container)
     if omit_time_signatures:
         for leaf in abjad.select(output_container).leaves():
             if abjad.inspect(leaf).indicator(abjad.TimeSignature):

@@ -622,3 +622,92 @@ def test_Hocketer_14():
             }
         >>
         """)
+
+
+def test_Hocketer_15():
+    random.seed(14432)
+    container = abjad.Container(r"c'2-.\p\< d'2-.\f\> e'1 f'2.\pp\< "
+                                r"g'4--\p a'2\ff\> b'2\p\> ~ b'2 c''2\!")
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=3,
+                               k=2,
+                               force_k_voices=True,
+                               )
+    music = hocketer()
+    score = abjad.Score(music)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                c'2
+                \p
+                - \staccato
+                \<
+                d'2
+                \f
+                - \staccato
+                \>
+                R1
+                f'2.
+                \pp
+                \<
+                g'4
+                \p
+                - \tenuto
+                r2
+                b'2
+                \>
+                ~
+                b'2
+                c''2
+                \!
+            }
+            \new Staff
+            {
+                R1
+                e'1
+                \f
+                \>
+                r2.
+                \!
+                g'4
+                \p
+                - \tenuto
+                a'2
+                \ff
+                \>
+                b'2
+                \p
+                \>
+                ~
+                b'2
+                c''2
+                \!
+            }
+            \new Staff
+            {
+                c'2
+                \p
+                - \staccato
+                \<
+                d'2
+                \f
+                - \staccato
+                \>
+                e'1
+                f'2.
+                \pp
+                \<
+                r4
+                \!
+                a'2
+                \ff
+                \>
+                r2
+                \!
+                R1
+            }
+        >>
+        """)

@@ -2,6 +2,7 @@ import copy
 import random
 from typing import Optional, Union
 import abjad
+from ..utilities.reposition_dynamics import reposition_dynamics
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from ..utilities.remove_empty_tuplets import remove_empty_tuplets
 from ..utilities.time_signature_extractor import time_signature_extractor
@@ -789,11 +790,101 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-20.png
 
+    Example:
+        Dynamics and hairpins are supported.
+
+        >>> container = abjad.Container(r"c'2-.\p\< d'2-.\f\> e'1 "
+        ...                             r"f'2.\pp\< g'4--\p a'2\ff\> "
+        ...                             r"b'2\p\> ~ b'2 c''2\!")
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            k=2,
+        ...                            force_k_voices=True,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score(music)
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                c'2
+                \p
+                - \staccato
+                \<
+                d'2
+                \f
+                - \staccato
+                \>
+                R1
+                f'2.
+                \pp
+                \<
+                g'4
+                \p
+                - \tenuto
+                r2
+                b'2
+                \>
+                ~
+                b'2
+                c''2
+                \!
+            }
+            \new Staff
+            {
+                R1
+                e'1
+                \f
+                \>
+                r2.
+                \!
+                g'4
+                \p
+                - \tenuto
+                a'2
+                \ff
+                \>
+                b'2
+                \p
+                \>
+                ~
+                b'2
+                c''2
+                \!
+            }
+            \new Staff
+            {
+                c'2
+                \p
+                - \staccato
+                \<
+                d'2
+                \f
+                - \staccato
+                \>
+                e'1
+                f'2.
+                \pp
+                \<
+                r4
+                \!
+                a'2
+                \ff
+                \>
+                r2
+                \!
+                R1
+            }
+        >>
+
+        .. figure:: ../_images/image-Hocketer-21.png
+
     .. tip::
 
         The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.adjust_clefs()`` can be used to clean the output and remove
-        repeated dynamics and unnecessary clef changes.
+        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
 
@@ -925,13 +1016,17 @@ class Hocketer():
                     for leaf in logical_tie:
                         rest = abjad.Rest(leaf.written_duration)
                         for indicator in abjad.inspect(leaf).indicators():
-                            if isinstance(indicator, abjad.TimeSignature):
+                            if isinstance(indicator, (abjad.TimeSignature,
+                                                      abjad.Dynamic,
+                                                      abjad.StartHairpin,
+                                                      abjad.StopHairpin,
+                                                      )):
                                 abjad.attach(indicator, rest)
                         abjad.mutate(leaf).replace(rest)
 
-        # removing empty tuplets
+        # handling dynamics
         for voice in dummy_voices:
-            remove_empty_tuplets(voice)
+            reposition_dynamics(voice)
 
         # rewriting meter
         if not self._disable_rewrite_meter:
@@ -946,9 +1041,10 @@ class Hocketer():
                         rewrite_tuplets=self._rewrite_tuplets,
                     )
 
-        # replacing rests with multi-measure rests
-        if self._use_multimeasure_rests:
-            for voice in dummy_voices:
+        # handling empty tuplets and multi-measure rests
+        for voice in dummy_voices:
+            remove_empty_tuplets(voice)
+            if self._use_multimeasure_rests:
                 rests_to_multimeasure_rest(voice)
 
         # output

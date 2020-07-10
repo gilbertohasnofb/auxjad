@@ -2,8 +2,11 @@ from typing import Union
 import abjad
 
 
-def simplified_time_signature_ratio(ratio: Union[tuple, abjad.TimeSignature,
-                                                 abjad.Duration, abjad.Meter],
+def simplified_time_signature_ratio(ratio: Union[tuple,
+                                                 abjad.TimeSignature,
+                                                 abjad.Duration,
+                                                 abjad.Meter,
+                                                 ],
                                     *,
                                     min_denominator: int = 4,
                                     output_pair_of_int: bool = False,
@@ -112,10 +115,10 @@ def simplified_time_signature_ratio(ratio: Union[tuple, abjad.TimeSignature,
         >>> pair
         (2, 4)
     """
-    if not isinstance(ratio, (tuple, abjad.TimeSignature,
-                              abjad.Duration, abjad.Meter)):
-        raise TypeError("argument must be 'tuple', 'abjad.Duration', or "
-                        "'abjad.TimeSignature'")
+    if not isinstance(ratio, (tuple, abjad.TimeSignature, abjad.Duration,
+                              abjad.Meter)):
+        raise TypeError("argument must be 'tuple', 'abjad.Duration', "
+                        "'abjad.TimeSignature',  or 'abjad.Meter'")
     if not isinstance(min_denominator, int):
         raise TypeError("'min_denominator' must be 'int'")
     if not isinstance(output_pair_of_int, bool):

@@ -838,7 +838,7 @@ class Hocketer():
                 \f
                 \>
                 r2.
-                \!
+                \pp
                 g'4
                 \p
                 - \tenuto
@@ -868,12 +868,12 @@ class Hocketer():
                 \pp
                 \<
                 r4
-                \!
+                \p
                 a'2
                 \ff
                 \>
                 r2
-                \!
+                \p
                 R1
             }
         >>

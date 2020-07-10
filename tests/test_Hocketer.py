@@ -671,7 +671,7 @@ def test_Hocketer_15():
                 \f
                 \>
                 r2.
-                \!
+                \pp
                 g'4
                 \p
                 - \tenuto
@@ -701,12 +701,12 @@ def test_Hocketer_15():
                 \pp
                 \<
                 r4
-                \!
+                \p
                 a'2
                 \ff
                 \>
                 r2
-                \!
+                \p
                 R1
             }
         >>

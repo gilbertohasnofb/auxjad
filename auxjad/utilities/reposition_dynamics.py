@@ -9,6 +9,7 @@ def reposition_dynamics(container: abjad.Container,
                         allow_hairpins_under_rests: bool = False,
                         check_hairpin_trends: bool = True,
                         remove_repeated_dynamics: bool = True,
+                        allow_rests_with_dynamics_after_hairpins: bool = True,
                         ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value; this function shifts all dynamics from
@@ -124,14 +125,15 @@ def reposition_dynamics(container: abjad.Container,
     Example:
         This function will shorten hairpins until rests by default
 
-        >>> staff = abjad.Staff(r"c'1\p\< d'1 r1\f e'1")
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
         >>> abjad.f(staff)
         \new Staff
         {
             c'1
             \p
             \<
-            d'1
+            d'2
+            r2
             r1
             \f
             e'1
@@ -139,7 +141,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-7.png
 
-        >>> staff = abjad.Staff(r"c'1\p\< d'1 r1\f e'1")
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
         >>> auxjad.reposition_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
@@ -147,9 +149,10 @@ def reposition_dynamics(container: abjad.Container,
             c'1
             \p
             \<
-            d'1
-            r1
+            d'2
+            r2
             \!
+            r1
             e'1
             \f
         }
@@ -159,7 +162,7 @@ def reposition_dynamics(container: abjad.Container,
         Set the optional keyword argument ``allow_hairpins_under_rests`` to
         ``True`` to allow hairpins to extend cross rests.
 
-        >>> staff = abjad.Staff(r"c'1\p\< d'1 r1\f e'1")
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
         >>> auxjad.reposition_dynamics(staff, allow_hairpins_under_rests=True)
         >>> abjad.f(staff)
         \new Staff
@@ -167,13 +170,59 @@ def reposition_dynamics(container: abjad.Container,
             c'1
             \p
             \<
-            d'1
+            d'2
+            r2
             r1
             e'1
             \f
         }
 
         .. figure:: ../_images/image-reposition_dynamics-9.png
+
+    Example:
+        Notice that if a hairpin leads to a rest with dynamic, that one is not
+        removed.
+
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
+        >>> auxjad.reposition_dynamics(staff)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'1
+            \p
+            \<
+            d'2
+            r2
+            \f
+            r1
+            e'1
+        }
+
+        .. figure:: ../_images/image-reposition_dynamics-10.png
+
+        Set the argument ``allow_rests_with_dynamics_after_hairpins`` to
+        ``False`` to disable this behaviour.
+
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
+        >>> auxjad.reposition_dynamics(
+        ...     staff,
+        ...     allow_rests_with_dynamics_after_hairpins=False,
+        ... )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'1
+            \p
+            \<
+            d'2
+            r2
+            \!
+            r1
+            e'1
+            \f
+        }
+
+        .. figure:: ../_images/image-reposition_dynamics-11.png
 
     Example:
         This function will remove any hairpins connecting dynamics that grow in
@@ -194,7 +243,7 @@ def reposition_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-10.png
+        .. figure:: ../_images/image-reposition_dynamics-12.png
 
         This behaviour can be disabled by setting the argument
         ``check_hairpin_trends`` to ``False``.
@@ -214,7 +263,7 @@ def reposition_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-11.png
+        .. figure:: ../_images/image-reposition_dynamics-13.png
 
     ..  note::
 
@@ -240,7 +289,7 @@ def reposition_dynamics(container: abjad.Container,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-12.png
+        .. figure:: ../_images/image-reposition_dynamics-14.png
 
     Example:
         This function can handle multiple types of hairpins as well as niente
@@ -262,7 +311,7 @@ def reposition_dynamics(container: abjad.Container,
             d'1
             e'1
             r1
-            \!
+            \mf
             r1
             f'1
             \ff
@@ -273,7 +322,7 @@ def reposition_dynamics(container: abjad.Container,
             g'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-13.png
+        .. figure:: ../_images/image-reposition_dynamics-15.png
 
         >>> staff = abjad.Staff(
         ...     r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp")
@@ -292,7 +341,7 @@ def reposition_dynamics(container: abjad.Container,
             \ff
             \<
             r1
-            \!
+            \fff
             f'1
             \p
             \>
@@ -300,7 +349,7 @@ def reposition_dynamics(container: abjad.Container,
             \ppp
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-14.png
+        .. figure:: ../_images/image-reposition_dynamics-16.png
 
     Example:
         Multi-measure rests are also supported.
@@ -316,7 +365,7 @@ def reposition_dynamics(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-15.png
+        .. figure:: ../_images/image-reposition_dynamics-17.png
 
         >>> staff = abjad.Staff(r"c'1\p R1\f d'1")
         >>> auxjad.reposition_dynamics(staff)
@@ -330,7 +379,7 @@ def reposition_dynamics(container: abjad.Container,
             \f
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-16.png
+        .. figure:: ../_images/image-reposition_dynamics-18.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
@@ -346,11 +395,18 @@ def reposition_dynamics(container: abjad.Container,
     # shifting dynamics and hairpins from rests to notes
     shifted_dynamic = None
     shifted_hairpin = None
+    active_hairpin = None
     for leaf in leaves:
         if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)):
             if abjad.inspect(leaf).indicator(abjad.Dynamic) is not None:
-                shifted_dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
-                abjad.detach(abjad.Dynamic, leaf)
+                previous_leaf = abjad.select(leaf).with_previous_leaf()[0]
+                if (allow_rests_with_dynamics_after_hairpins
+                        and active_hairpin is not None
+                        and not isinstance(previous_leaf, (abjad.Rest, abjad.MultimeasureRest))):
+                    active_hairpin = None
+                else:
+                    shifted_dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
+                    abjad.detach(abjad.Dynamic, leaf)
             if abjad.inspect(leaf).indicator(abjad.StartHairpin) is not None:
                 shifted_hairpin = abjad.inspect(leaf).indicator(
                     abjad.StartHairpin)
@@ -364,8 +420,14 @@ def reposition_dynamics(container: abjad.Container,
                         abjad.detach(abjad.StopHairpin, leaf)
                 if shifted_hairpin is not None:
                     abjad.attach(shifted_hairpin, leaf)
+            else:
+                active_hairpin = None
+            if abjad.inspect(leaf).indicator(abjad.StopHairpin) is not None:
+                active_hairpin = None
             shifted_dynamic = None
             shifted_hairpin = None
+            if active_hairpin is None:
+                active_hairpin = abjad.inspect(leaf).indicator(abjad.StartHairpin)
 
     # stopping hairpins under rests if not allowed
     if not allow_hairpins_under_rests:
@@ -413,6 +475,10 @@ def reposition_dynamics(container: abjad.Container,
         abjad.detach(abjad.StartHairpin, leaves[-1])
 
     # removing unecessary StopHairpin's
+    for leaf in leaves:
+        if (abjad.inspect(leaf).indicator(abjad.StopHairpin) is not None
+                and abjad.inspect(leaf).indicator(abjad.Dynamic) is not None):
+            abjad.detach(abjad.StopHairpin, leaf)
     target_leaf = None
     for leaf in leaves[::-1]:
         if abjad.inspect(leaf).indicator(abjad.StopHairpin) is not None:
@@ -425,4 +491,4 @@ def reposition_dynamics(container: abjad.Container,
 
     # removing repeated dynamics if required
     if remove_repeated_dynamics:
-        remove_repeated_dynamics_(container)
+        remove_repeated_dynamics_(container, ignore_hairpins=True)

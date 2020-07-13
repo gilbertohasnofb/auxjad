@@ -126,9 +126,8 @@ def test_Fader_02():
         \new Staff
         {
             \time 4/4
-            r2
-            e'4
-            r4
+            r2.
+            f'4
         }
         """)
     notes = fader()
@@ -208,19 +207,18 @@ def test_Fader_04():
             r4.
             d'8
             e'2
-            r4.
-            d'8
             r2
+            e'2
             R1
         }
         """)
 
 
 def test_Fader_05():
-    random.seed(98713)
+    random.seed(98738)
     container = abjad.Container(r"c'4. d'8 e'2")
     fader = auxjad.Fader(container,
-                         fader_type='in'
+                         fader_type='in',
                          )
     notes = fader.output_all()
     staff = abjad.Staff(notes)
@@ -295,8 +293,8 @@ def test_Fader_06():
             \time 4/4
             c'4
             d'4
-            e'4
             r4
+            f'4
         }
         """)
     notes = fader.__next__()
@@ -369,19 +367,15 @@ def test_Fader_07():
                 r8
             }
             d'2.
-            \times 2/3 {
-                r8
-                d'8
-                r8
-            }
-            r2.
+            r4
+            d'2.
             R1
         }
         """)
 
 
 def test_Fader_08():
-    random.seed(88103)
+    random.seed(88111)
     container = abjad.Container(r"c'4. d'8 e'16 f'16 g'4.")
     fader = auxjad.Fader(container)
     notes = fader.output_n(3)
@@ -432,11 +426,11 @@ def test_Fader_09():
             R1 * 1/2
             \time 3/8
             e'4.
-            R1 * 3/8
+            c'4.
             \time 2/4
             R1 * 1/2
             \time 3/8
-            e'4.
+            R1 * 3/8
         }
         """)
 
@@ -463,17 +457,16 @@ def test_Fader_10():
             a'8
             b'8
             c''8
-            c'8
-            r8
-            r8
+            r4.
             f'8
             g'8
             a'8
             b'8
+            c''8
+            r4.
+            f'8
             r8
-            r2
-            g'8
-            r8
+            a'8
             b'8
             r8
         }
@@ -500,9 +493,9 @@ def test_Fader_11():
             c'8
             r8
             e'2.
-            c'8
             r8
-            r2.
+            r8
+            e'2.
             r8
             r8
             r2.
@@ -654,10 +647,9 @@ def test_Fader_15():
             <e' g' b'>8
             \f
             - \accent
-            r8
-            r4...
-            g'32
-            - \staccato
+            d'4.
+            \p
+            r4
             <e' g' b'>8
             \f
             - \accent
@@ -669,7 +661,7 @@ def test_Fader_15():
 
 
 def test_Fader_16():
-    random.seed(91622)
+    random.seed(91634)
     container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
     fader = auxjad.Fader(container,
                          fader_type='in',
@@ -818,7 +810,7 @@ def test_Fader_18():
 
 
 def test_Fader_19():
-    random.seed(48917)
+    random.seed(48915)
     container = abjad.Container(r"c'4 d'8 e'8 f'4 ~ f'8. g'16")
     fader = auxjad.Fader(container)
     assert fader.mask == [1, 1, 1, 1, 1]
@@ -1014,13 +1006,13 @@ def test_Fader_24():
             e'4
             f'4
             \time 4/4
-            r2
-            e'4
-            f'4
-            \time 4/4
-            r2
+            c'4
+            r4
             e'4
             r4
+            \time 4/4
+            c'4
+            r2.
             \time 4/4
             R1
         }
@@ -1039,12 +1031,36 @@ def test_Fader_24():
             r4
             e'4
             f'4
-            r2
-            e'4
-            f'4
-            r2
+            c'4
+            r4
             e'4
             r4
+            c'4
+            r2.
+            R1
+        }
+        """)
+
+
+def test_Fader_25():
+    random.seed(19873)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container, max_steps=3)
+    staff = abjad.Staff()
+    for window in fader:
+        staff.append(window)
+    auxjad.remove_repeated_time_signatures(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'4
+            f'4
+            c'4
+            r2.
             R1
         }
         """)

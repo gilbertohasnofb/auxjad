@@ -1,6 +1,6 @@
 import copy
 import random
-from typing import Optional, Union
+from typing import Any, Optional, Union
 import abjad
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures
@@ -260,12 +260,12 @@ class Fader():
             r4
             e'4
             f'4
-            r2
-            e'4
-            f'4
-            r2
+            c'4
+            r4
             e'4
             r4
+            c'4
+            r2.
             R1
         }
 
@@ -456,9 +456,8 @@ class Fader():
             r4.
             d'8
             e'2
-            r4.
-            d'8
             r2
+            e'2
             R1
         }
 
@@ -542,17 +541,16 @@ class Fader():
             a'8
             b'8
             c''8
-            c'8
-            r8
-            r8
+            r4.
             f'8
             g'8
             a'8
             b'8
+            c''8
+            r4.
+            f'8
             r8
-            r2
-            g'8
-            r8
+            a'8
             b'8
             r8
         }
@@ -743,9 +741,9 @@ class Fader():
             c'8
             r8
             e'2.
-            c'8
             r8
-            r2.
+            r8
+            e'2.
             r8
             r8
             r2.
@@ -862,10 +860,9 @@ class Fader():
             <e' g' b'>8
             \f
             - \accent
-            r8
-            r4...
-            g'32
-            - \staccato
+            d'4.
+            \p
+            r4
             <e' g' b'>8
             \f
             - \accent
@@ -919,12 +916,8 @@ class Fader():
                 r8
             }
             d'2.
-            \times 2/3 {
-                r8
-                d'8
-                r8
-            }
-            r2.
+            r4
+            d'2.
             R1
         }
 
@@ -1071,26 +1064,30 @@ class Fader():
 
     def _remove_element(self):
         r'Sets a random element of the mask to ``False``.'
-        for _ in range(random.randint(1, self._max_steps)):
+        for n in range(random.randint(1, self._max_steps)):
             if 1 in self._mask:
-                while True:
-                    index = random.randint(0, self.__len__() - 1)
-                    if self._mask[index] == 1:
-                        self._mask[index] = 0
-                        break
-            else:
-                raise RuntimeError("'current_window' is already empty")
+                total_count = sum(self._mask)
+                random_count = random.randint(0, total_count - 1)
+                index = self._get_index_of_nth_occurrence(self._mask,
+                                                          1,
+                                                          random_count,
+                                                          )
+                self._mask[index] = 0
+            elif n == 0:
+                    raise RuntimeError("'current_window' is already empty")
 
     def _add_element(self):
         r'Sets a random element of the mask to ``True``.'
-        for _ in range(random.randint(1, self._max_steps)):
+        for n in range(random.randint(1, self._max_steps)):
             if 0 in self._mask:
-                while True:
-                    index = random.randint(0, self.__len__() - 1)
-                    if self._mask[index] == 0:
-                        self._mask[index] = 1
-                        break
-            else:
+                total_count = self.__len__() - sum(self._mask)
+                random_count = random.randint(0, total_count - 1)
+                index = self._get_index_of_nth_occurrence(self._mask,
+                                                          0,
+                                                          random_count,
+                                                          )
+                self._mask[index] = 1
+            elif n == 0:
                 raise RuntimeError("'current_window' is already full")
 
     def _mask_to_selection(self):
@@ -1124,6 +1121,14 @@ class Fader():
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
+
+    @staticmethod
+    def _get_index_of_nth_occurrence(input_list: list,
+                                     entry: Any,
+                                     count: int,
+                                     ) -> int:
+        return tuple(index for index, item in enumerate(input_list)
+                if item == entry)[count]
 
     ### PUBLIC PROPERTIES ###
 

@@ -31,6 +31,7 @@ documentaion of each class and function.
     auxjad.LoopByNotes
     auxjad.LoopByWindow
     auxjad.Phaser
+    auxjad.prettify_rewrite_meter
     auxjad.remove_empty_tuplets
     auxjad.remove_repeated_dynamics
     auxjad.remove_repeated_time_signatures

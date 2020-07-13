@@ -2,19 +2,25 @@ import re
 import os
 import sys
 import shutil
+import textwrap
 
 
 # the pattern below looks for any line containing '>>> abjad.f', then captures
 # all the next lines until either an empty line appears (i.e. a line with just
 # a \n on it) or until the next line contains more Python documentation, which
 # will start with a bunch of spaces followed by '>>>'.
-pattern = (r'''>>> abjad\.f.*
+pattern = r""">>> abjad\.f.*
 ([\s\S]*?)
-(?:\n| *>>>)''')
+(?:\n| *>>>)"""
 
 # header for lilypond file
-ly_header = (r"""\include "lilypond-book-preamble.ly"
+ly_header = r"""
+\include "lilypond-book-preamble.ly"
 \language "english"
+
+\paper {
+    line-width = 17\cm
+}
 
 \layout{
     indent = 0
@@ -22,11 +28,12 @@ ly_header = (r"""\include "lilypond-book-preamble.ly"
     \override Flag.stencil = #flat-flag
     \context {
         \Score
-        \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/32)
+        \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/12)
         \omit BarNumber
     }
 }
-""")
+
+"""
 
 querry = input('Regenerate all images? (y/n) ')
 if querry.lower() in ('y', 'yes'):
@@ -65,13 +72,18 @@ if querry.lower() in ('y', 'yes'):
                         # removing comments from time signatures
                         match = match.replace(r'%%% ', '')
                         match = match.replace(r'%%%', '')
-                        if (r'\new Staff' in match
-                                or r'\new Score' in match):
+                        match = textwrap.dedent(match)
+                        if r'\new Staff' in match or r'\new Score' in match:
                             f.write(match)
-                        else:  # wrap in {} when not starting with \new Staff
-                            f.write('{\n')
+                        elif match[0] == r'{' and match[-1] == r'}':
+                            f.write(r'\new Staff' + '\n')
                             f.write(match)
-                            f.write('\n}')
+                        else:  # wrap in {} otherwise
+                            match = textwrap.indent(match, '    ')
+                            f.write(r'\new Staff' + '\n')
+                            f.write(r'{' + '\n')
+                            f.write(match)
+                            f.write('\n' + r'}')
                     # compiling each newly created lilypond file
                     os.system('lilypond '
                               '-ddelete-intermediate-files '
@@ -96,14 +108,19 @@ if querry.lower() in ('y', 'yes'):
                             # removing comments from time signatures
                             match = match.replace(r'%%% ', '')
                             match = match.replace(r'%%%', '')
+                            match = textwrap.dedent(match)
                             if (r'\new Staff' in match
                                     or r'\new Score' in match):
                                 f.write(match)
-                            else:
-                                # wrap in {} when not starting with \new Staff
-                                f.write('{\n')
+                            elif match[0] == r'{' and match[-1] == r'}':
+                                f.write(r'\new Staff' + '\n')
                                 f.write(match)
-                                f.write('\n}')
+                            else:  # wrap in {} otherwise
+                                match = textwrap.indent(match, '    ')
+                                f.write(r'\new Staff' + '\n')
+                                f.write(r'{' + '\n')
+                                f.write(match)
+                                f.write('\n' + r'}')
                         # compiling each newly created lilypond file
                         os.system('lilypond '
                                   '-ddelete-intermediate-files '
@@ -113,12 +130,9 @@ if querry.lower() in ('y', 'yes'):
                                   '-danti-alias-factor=1 '
                                   + directory + filename)
 
-    # deleting junk
+    # deleting junk files
     files_in_directory = os.listdir('./')
     for filename in files_in_directory:
-        if any(filename.endswith(extension) for extension in ('.eps',
-                                                              '.count',
-                                                              '.tex',
-                                                              '.texi',
-                                                              )):
+        if any(filename.endswith(extension)
+               for extension in ('.eps', '.count', '.tex', '.texi')):
             os.remove(filename)

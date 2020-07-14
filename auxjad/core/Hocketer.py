@@ -1071,12 +1071,19 @@ class Hocketer():
 
     @contents.setter
     def contents(self,
-                 contents: abjad.Container
+                 contents: abjad.Container,
                  ):
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
-        self._contents = copy.deepcopy(contents)
+        if not abjad.select(contents).leaves().are_contiguous_logical_voice():
+            raise ValueError("'contents' must be contiguous logical voice")
+        if isinstance(contents, abjad.Score):
+            self._contents = copy.deepcopy(contents[0])
+        elif isinstance(contents, abjad.Tuplet):
+            self._contents = abjad.Container([copy.deepcopy(contents)])
+        else:
+            self._contents = copy.deepcopy(contents)
         self._time_signatures = time_signature_extractor(contents,
                                                          do_not_use_none=True,
                                                          )

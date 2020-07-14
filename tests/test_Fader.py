@@ -1067,3 +1067,41 @@ def test_Fader_25():
             R1
         }
         """)
+
+
+def test_Fader_26():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(container)
+    assert isinstance(fader(), abjad.Selection)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    fader = auxjad.Fader(tuplet)
+    assert isinstance(fader(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(voice)
+    assert isinstance(fader(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    fader = auxjad.Fader(staff)
+    assert isinstance(fader(), abjad.Selection)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    fader = auxjad.Fader(score)
+    assert isinstance(fader(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    fader = auxjad.Fader(staff)
+    assert isinstance(fader(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    fader = auxjad.Fader(score)
+    assert isinstance(fader(), abjad.Selection)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        fader = auxjad.Fader(staff)
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        fader = auxjad.Fader(score)

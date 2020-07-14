@@ -1160,3 +1160,41 @@ def test_Phaser_23():
             e'2.
         }
         """)
+
+
+def test_Phaser_24():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container)
+    assert isinstance(phaser(), abjad.Selection)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    phaser = auxjad.Phaser(tuplet)
+    assert isinstance(phaser(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(voice)
+    assert isinstance(phaser(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(staff)
+    assert isinstance(phaser(), abjad.Selection)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    phaser = auxjad.Phaser(score)
+    assert isinstance(phaser(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    phaser = auxjad.Phaser(staff)
+    assert isinstance(phaser(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    phaser = auxjad.Phaser(score)
+    assert isinstance(phaser(), abjad.Selection)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        auxjad.Phaser(staff)
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        auxjad.Phaser(score)

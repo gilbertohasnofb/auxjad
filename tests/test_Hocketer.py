@@ -713,3 +713,48 @@ def test_Hocketer_15():
             }
         >>
         """)
+
+
+def test_Hocketer_16():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    hocketer = auxjad.Hocketer(container)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    hocketer = auxjad.Hocketer(tuplet)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    hocketer = auxjad.Hocketer(voice)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    hocketer = auxjad.Hocketer(staff)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    hocketer = auxjad.Hocketer(score)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    hocketer = auxjad.Hocketer(staff)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    hocketer = auxjad.Hocketer(score)
+    for voice in hocketer():
+        assert isinstance(voice, abjad.Staff)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        auxjad.Hocketer(staff)
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        auxjad.Hocketer(score)

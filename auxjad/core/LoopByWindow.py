@@ -1025,9 +1025,16 @@ class LoopByWindow(_LoopParent):
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
-        self._contents = copy.deepcopy(contents)
-        self._contents_length = abjad.inspect(contents[:]).duration()
-        self._contents_no_time_signature = copy.deepcopy(contents)
+        if not abjad.select(contents).leaves().are_contiguous_logical_voice():
+            raise ValueError("'contents' must be contiguous logical voice")
+        if isinstance(contents, abjad.Score):
+            self._contents = copy.deepcopy(contents[0])
+        elif isinstance(contents, abjad.Tuplet):
+            self._contents = abjad.Container([copy.deepcopy(contents)])
+        else:
+            self._contents = copy.deepcopy(contents)
+        self._contents_length = abjad.inspect(self._contents[:]).duration()
+        self._contents_no_time_signature = copy.deepcopy(self._contents)
         self._remove_all_time_signatures(self._contents_no_time_signature)
         self._is_first_window = True
 

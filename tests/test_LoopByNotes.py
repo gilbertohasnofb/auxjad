@@ -670,3 +670,41 @@ def test_LoopByNotes_22():
             f'2
         }
         """)
+
+
+def test_LoopByNotes_23():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByNotes(container, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    looper = auxjad.LoopByNotes(tuplet, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByNotes(voice, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    looper = auxjad.LoopByNotes(staff, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    looper = auxjad.LoopByNotes(score, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    looper = auxjad.LoopByNotes(staff, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    looper = auxjad.LoopByNotes(score, window_size=2)
+    assert isinstance(looper(), abjad.Selection)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        auxjad.LoopByNotes(staff, window_size=2)
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        auxjad.LoopByNotes(score, window_size=2)

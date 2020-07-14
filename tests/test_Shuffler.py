@@ -754,3 +754,41 @@ def test_Shuffler_18():
             d'4
         }
         """)
+
+
+def test_Shuffler_19():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    shuffler = auxjad.Shuffler(container)
+    assert isinstance(shuffler(), abjad.Selection)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    shuffler = auxjad.Shuffler(tuplet, pitch_only=True)
+    assert isinstance(shuffler(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    shuffler = auxjad.Shuffler(voice)
+    assert isinstance(shuffler(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    shuffler = auxjad.Shuffler(staff)
+    assert isinstance(shuffler(), abjad.Selection)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    shuffler = auxjad.Shuffler(score)
+    assert isinstance(shuffler(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    shuffler = auxjad.Shuffler(staff)
+    assert isinstance(shuffler(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    shuffler = auxjad.Shuffler(score)
+    assert isinstance(shuffler(), abjad.Selection)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        auxjad.Shuffler(staff)
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        auxjad.Shuffler(score)

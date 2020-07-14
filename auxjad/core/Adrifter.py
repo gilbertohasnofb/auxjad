@@ -1543,6 +1543,9 @@ class Adrifter():
         if not isinstance(contents_out, abjad.Container):
             raise TypeError("'contents_out' must be 'abjad.Container' or "
                             "child class")
+        leaves = abjad.select(contents_out).leaves()
+        if not leaves.are_contiguous_logical_voice():
+            raise ValueError("'contents_out' must be contiguous logical voice")
         self._contents_out = copy.deepcopy(contents_out)
         self._fader_out.contents = self._contents_out
         self.reset()
@@ -1559,6 +1562,9 @@ class Adrifter():
         if not isinstance(contents_in, abjad.Container):
             raise TypeError("'contents_in' must be 'abjad.Container' or "
                             "child class")
+        leaves = abjad.select(contents_in).leaves()
+        if not leaves.are_contiguous_logical_voice():
+            raise ValueError("'contents_in' must be contiguous logical voice")
         self._contents_in = copy.deepcopy(contents_in)
         self._fader_in.contents = self._contents_in
         self.reset()

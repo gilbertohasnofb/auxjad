@@ -1,5 +1,5 @@
 try:
-    from setuptools import setup, find_packages
+    from setuptools import find_packages, setup
 except ImportError:
     from distutils.core import setup, find_packages
 
@@ -36,4 +36,5 @@ setup(
     classifiers=auxjad_classifiers,
     python_requires='>=3.6',
     install_requires=['abjad==3.1', 'setuptools'],
+    extras_require={'test' : ['flake8', 'isort', 'pytest']},
 )

@@ -16,11 +16,11 @@ import os
 import re
 import sys
 
-import auxjad
-
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
+
+import auxjad
 
 project = 'auxjad'
 copyright = '2020, Gilberto Agostinho'

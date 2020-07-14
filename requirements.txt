@@ -1,3 +1,5 @@
 abjad==3.1
+flake8
+isort
 pytest
 setuptools

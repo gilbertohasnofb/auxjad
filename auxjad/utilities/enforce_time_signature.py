@@ -590,10 +590,19 @@ def enforce_time_signature(container: abjad.Container,
             g'4
             r4
         }
+
+    ..  error::
+
+        The input container must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containings
+        multiple staves), the best approach is to cycle through these
+        subcontainers, applying this function to them individually.
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first argument must be 'abjad.Container' or "
                         "child class")
+    if not abjad.select(container).leaves().are_contiguous_logical_voice():
+        raise ValueError("first argument must be contiguous logical voice")
     if isinstance(time_signatures, list):
         time_signatures_ = time_signatures[:]
     else:
@@ -638,12 +647,10 @@ def enforce_time_signature(container: abjad.Container,
     # slice container at the places where time signatures change
     durations = [time_signature.duration for time_signature
                  in time_signatures_]
-    if cyclic:
-        abjad.mutate(container[:]).split(durations, cyclic=True)
-    else:
+    if not cyclic:
         while sum(durations) < abjad.inspect(container).duration():
             durations.append(durations[-1])
-        abjad.mutate(container[:]).split(durations)
+    abjad.mutate(container[:]).split(durations, cyclic=cyclic)
     # attach new time signatures
     previous_ts = None
     ts_index = 0

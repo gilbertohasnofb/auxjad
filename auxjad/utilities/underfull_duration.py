@@ -73,9 +73,18 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container)
         ValueError: 'container' is malformed, with an underfull bar preceeding
         a time signature change
+
+    ..  error::
+
+        The input container must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containings
+        multiple staves), the best approach is to cycle through these
+        subcontainers, applying this function to them individually.
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
+    if not abjad.select(container).leaves().are_contiguous_logical_voice():
+        raise ValueError("argument must be contiguous logical voice")
     leaves = abjad.select(container).leaves()
     # handling first leaf
     time_signature = abjad.inspect(leaves[0]).effective(abjad.TimeSignature)

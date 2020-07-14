@@ -132,9 +132,18 @@ def remove_empty_tuplets(container: abjad.Container):
             r2.
             r2.
         }
+        
+    ..  error::
+
+        The input container must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containings
+        multiple staves), the best approach is to cycle through these
+        subcontainers, applying this function to them individually.
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
+    if not abjad.select(container).leaves().are_contiguous_logical_voice():
+        raise ValueError("argument must be contiguous logical voice")
 
     tuplets = abjad.select(container).tuplets()
     if len(tuplets) == 0:

@@ -492,6 +492,9 @@ def sync_containers(*containers: abjad.Container,
         if not isinstance(container, abjad.Container):
             raise TypeError("positional arguments must be 'abjad.Container' "
                             "or child class")
+        if not abjad.select(container).leaves().are_contiguous_logical_voice():
+            raise ValueError("positional arguments must each be contiguous "
+                             "logical voice")
         try:
             container_is_full(container)
         except ValueError as err:

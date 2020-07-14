@@ -450,9 +450,19 @@ def prettify_rewrite_meter(container: abjad.Container,
         }
 
         .. figure:: ../_images/image-prettify_rewrite_meter-15.png
+
+    ..  error::
+
+        The input container must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containings
+        multiple staves), the best approach is to cycle through these
+        subcontainers, applying this function to them individually.
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("argument must be 'abjad.Container' or child class")
+        raise TypeError("first argument must be 'abjad.Container' or child "
+                        "class")
+    if not abjad.select(container).leaves().are_contiguous_logical_voice():
+        raise ValueError("first argument must be contiguous logical voice")
     if not isinstance(meter, (tuple, abjad.Meter, abjad.Duration,
                               abjad.TimeSignature)):
         raise TypeError("argument must be 'tuple', 'abjad.Meter', "

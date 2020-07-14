@@ -80,6 +80,17 @@ def containers_are_equal(container1: abjad.Container,
         ...                          "f'4 <g' a'>2 r2")
         >>> auxjad.containers_are_equal(container1, container2)
         True
+
+    ..  note::
+
+        It is important to note it is the contents of the containers which are
+        compared, so containers of different classes can still return a
+        ``True`` value.
+
+        >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.containers_are_equal(container1, container2)
+        True
     """
     if not isinstance(container1, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "

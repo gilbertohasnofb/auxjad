@@ -67,3 +67,9 @@ def test_containers_are_equal_10():
     container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 \grace{b4} d'4 e'4 f'4 <g' a'>2 r2")
     assert not auxjad.containers_are_equal(container1, container2)
+
+
+def test_containers_are_equal_11():
+    container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
+    container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    assert auxjad.containers_are_equal(container1, container2)

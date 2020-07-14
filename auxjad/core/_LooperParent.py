@@ -10,8 +10,8 @@ from ..utilities.remove_repeated_time_signatures import (
 )
 
 
-class _LoopParent():
-    r"""This is the parent class of all LoopByXxxx classes. It implements all
+class _LooperParent():
+    r"""This is the parent class of all Looper classes. It implements all
     common methods and properties, and initialises those using their @setter
     methods.
     """

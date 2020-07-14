@@ -6,9 +6,9 @@ import pytest
 import auxjad
 
 
-def test_LoopByNotes_01():
+def test_LeafLooper_01():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container, window_size=3)
+    looper = auxjad.LeafLooper(container, window_size=3)
     assert format(looper) == abjad.String.normalize(
         r"""
         {
@@ -63,18 +63,18 @@ def test_LoopByNotes_01():
         """)
 
 
-def test_LoopByNotes_02():
+def test_LeafLooper_02():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=3,
-                                step_size=1,
-                                max_steps=2,
-                                repetition_chance=0.25,
-                                forward_bias=0.2,
-                                head_position=0,
-                                omit_time_signatures=False,
-                                processs_on_first_call=True,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               step_size=1,
+                               max_steps=2,
+                               repetition_chance=0.25,
+                               forward_bias=0.2,
+                               head_position=0,
+                               omit_time_signatures=False,
+                               processs_on_first_call=True,
+                               )
     assert looper.window_size == 3
     assert looper.step_size == 1
     assert looper.max_steps == 2
@@ -101,9 +101,9 @@ def test_LoopByNotes_02():
     assert not looper.processs_on_first_call
 
 
-def test_LoopByNotes_03():
+def test_LeafLooper_03():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container, window_size=3)
+    looper = auxjad.LeafLooper(container, window_size=3)
     assert looper.head_position == 0
     looper()
     assert looper.head_position == 0
@@ -113,15 +113,15 @@ def test_LoopByNotes_03():
     assert looper.head_position == 2
 
 
-def test_LoopByNotes_04():
+def test_LeafLooper_04():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container, window_size=3)
+    looper = auxjad.LeafLooper(container, window_size=3)
     assert len(looper) == 5
 
 
-def test_LoopByNotes_05():
+def test_LeafLooper_05():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -141,9 +141,9 @@ def test_LoopByNotes_05():
         """)
 
 
-def test_LoopByNotes_06():
+def test_LeafLooper_06():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container, window_size=3)
+    looper = auxjad.LeafLooper(container, window_size=3)
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -174,12 +174,12 @@ def test_LoopByNotes_06():
         """)
 
 
-def test_LoopByNotes_07():
+def test_LeafLooper_07():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=3,
-                                head_position=2,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               head_position=2,
+                               )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -196,9 +196,9 @@ def test_LoopByNotes_07():
         """)
 
 
-def test_LoopByNotes_08():
+def test_LeafLooper_08():
     container = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -234,9 +234,9 @@ def test_LoopByNotes_08():
         """)
 
 
-def test_LoopByNotes_09():
+def test_LeafLooper_09():
     container = abjad.Container(r"c'4 d'2 e'8")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -273,12 +273,12 @@ def test_LoopByNotes_09():
         assert looper.__next__()
 
 
-def test_LoopByNotes_10():
+def test_LeafLooper_10():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=3,
-                                omit_time_signatures=True,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               omit_time_signatures=True,
+                               )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -292,69 +292,69 @@ def test_LoopByNotes_10():
         """)
 
 
-def test_LoopByNotes_11():
+def test_LeafLooper_11():
     wrong_type_input = 'foo'
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     with pytest.raises(TypeError):
-        assert auxjad.LoopByNotes(wrong_type_input, window_size=3)
-        assert auxjad.LoopByNotes(container, window_size='foobar')
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  step_size='foobar',
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  max_steps='foobar',
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  repetition_chance='foobar',
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  head_position='foobar',
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  omit_time_signatures='foobar',
-                                  )
+        assert auxjad.LeafLooper(wrong_type_input, window_size=3)
+        assert auxjad.LeafLooper(container, window_size='foobar')
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 step_size='foobar',
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 max_steps='foobar',
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 repetition_chance='foobar',
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 head_position='foobar',
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 omit_time_signatures='foobar',
+                                 )
     with pytest.raises(ValueError):
-        assert auxjad.LoopByNotes(container, window_size=100)
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  step_size=-1,
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  step_size=100,
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  max_steps=-1,
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  repetition_chance=-0.3,
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  repetition_chance=1.4,
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  head_position=-1,
-                                  )
-        assert auxjad.LoopByNotes(container,
-                                  window_size=3,
-                                  head_position=100,
-                                  )
+        assert auxjad.LeafLooper(container, window_size=100)
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 step_size=-1,
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 step_size=100,
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 max_steps=-1,
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 repetition_chance=-0.3,
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 repetition_chance=1.4,
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 head_position=-1,
+                                 )
+        assert auxjad.LeafLooper(container,
+                                 window_size=3,
+                                 head_position=100,
+                                 )
 
 
-def test_LoopByNotes_12():
+def test_LeafLooper_12():
     container = abjad.Container(r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=4,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=4,
+                               )
     notes = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -401,9 +401,9 @@ def test_LoopByNotes_12():
         """)
 
 
-def test_LoopByNotes_13():
+def test_LeafLooper_13():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -419,9 +419,9 @@ def test_LoopByNotes_13():
         """)
 
 
-def test_LoopByNotes_14():
+def test_LeafLooper_14():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_n(2, tie_identical_pitches=True)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -438,20 +438,20 @@ def test_LoopByNotes_14():
         """)
 
 
-def test_LoopByNotes_15():
+def test_LeafLooper_15():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     with pytest.raises(RuntimeError):
         looper.output_n(100)
 
 
-def test_LoopByNotes_16():
+def test_LeafLooper_16():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=2,
-                                head_position=2,
-                                forward_bias=0.0,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=2,
+                               head_position=2,
+                               forward_bias=0.0,
+                               )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -469,13 +469,13 @@ def test_LoopByNotes_16():
         """)
 
 
-def test_LoopByNotes_17():
+def test_LeafLooper_17():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=2,
-                                head_position=0,
-                                forward_bias=0.0,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=2,
+                               head_position=0,
+                               forward_bias=0.0,
+                               )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -489,12 +489,12 @@ def test_LoopByNotes_17():
         """)
 
 
-def test_LoopByNotes_18():
+def test_LeafLooper_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=3,
-                                processs_on_first_call=True,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               processs_on_first_call=True,
+                               )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -511,11 +511,11 @@ def test_LoopByNotes_18():
         """)
 
 
-def test_LoopByNotes_19():
+def test_LeafLooper_19():
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=3,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               )
     notes = looper()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -568,14 +568,14 @@ def test_LoopByNotes_19():
         """)
 
 
-def test_LoopByNotes_20():
+def test_LeafLooper_20():
     random.seed(15231)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=3,
-                                head_position=3,
-                                forward_bias=0.5,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               head_position=3,
+                               forward_bias=0.5,
+                               )
     notes = looper.output_n(5)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -602,13 +602,13 @@ def test_LoopByNotes_20():
         """)
 
 
-def test_LoopByNotes_21():
+def test_LeafLooper_21():
     random.seed(55126)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=2,
-                                max_steps=4,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=2,
+                               max_steps=4,
+                               )
     notes = looper.output_n(4)
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
@@ -628,11 +628,11 @@ def test_LoopByNotes_21():
         """)
 
 
-def test_LoopByNotes_22():
+def test_LeafLooper_22():
     container = abjad.Container(r"c'4 d'2 e'8 f'2")
-    looper = auxjad.LoopByNotes(container,
-                                window_size=2,
-                                )
+    looper = auxjad.LeafLooper(container,
+                               window_size=2,
+                               )
     staff = abjad.Staff()
     for window in looper:
         staff.append(window)
@@ -672,39 +672,39 @@ def test_LoopByNotes_22():
         """)
 
 
-def test_LoopByNotes_23():
+def test_LeafLooper_23():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(container, window_size=2)
+    looper = auxjad.LeafLooper(container, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
-    looper = auxjad.LoopByNotes(tuplet, window_size=2)
+    looper = auxjad.LeafLooper(tuplet, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(voice, window_size=2)
+    looper = auxjad.LeafLooper(voice, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LoopByNotes(staff, window_size=2)
+    looper = auxjad.LeafLooper(staff, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
-    looper = auxjad.LoopByNotes(score, window_size=2)
+    looper = auxjad.LeafLooper(score, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
     staff = abjad.Staff([voice])
-    looper = auxjad.LoopByNotes(staff, window_size=2)
+    looper = auxjad.LeafLooper(staff, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     score = abjad.Score([staff])
-    looper = auxjad.LoopByNotes(score, window_size=2)
+    looper = auxjad.LeafLooper(score, window_size=2)
     assert isinstance(looper(), abjad.Selection)
 
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.LoopByNotes(staff, window_size=2)
+        auxjad.LeafLooper(staff, window_size=2)
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.LoopByNotes(score, window_size=2)
+        auxjad.LeafLooper(score, window_size=2)

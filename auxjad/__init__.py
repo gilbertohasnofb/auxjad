@@ -17,12 +17,12 @@ from .core.CartographySelector import CartographySelector
 from .core.Fader import Fader
 from .core.Hocketer import Hocketer
 from .core.LeafDynMaker import LeafDynMaker
-from .core.LoopByList import LoopByList
-from .core.LoopByNotes import LoopByNotes
-from .core.LoopByWindow import LoopByWindow
+from .core.LeafLooper import LeafLooper
+from .core.ListLooper import ListLooper
 from .core.Phaser import Phaser
 from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
+from .core.WindowLooper import WindowLooper
 
 from .score_components.ArtificialHarmonic import ArtificialHarmonic
 from .score_components.HarmonicNote import HarmonicNote
@@ -63,12 +63,12 @@ __all__ = [
     'Fader',
     'Hocketer',
     'LeafDynMaker',
-    'LoopByList',
-    'LoopByNotes',
-    'LoopByWindow',
+    'LeafLooper',
+    'ListLooper',
     'Phaser',
     'Shuffler',
     'TenneySelector',
+    'WindowLooper',
     'ArtificialHarmonic',
     'HarmonicNote',
     'close_container',

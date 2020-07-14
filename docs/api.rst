@@ -26,10 +26,9 @@ documentaion of each class and function.
     auxjad.HarmonicNote
     auxjad.Hocketer
     auxjad.LeafDynMaker
+    auxjad.LeafLooper
     auxjad.leaves_are_tieable
-    auxjad.LoopByList
-    auxjad.LoopByNotes
-    auxjad.LoopByWindow
+    auxjad.ListLooper
     auxjad.Phaser
     auxjad.prettify_rewrite_meter
     auxjad.remove_empty_tuplets
@@ -47,6 +46,7 @@ documentaion of each class and function.
     auxjad.TenneySelector
     auxjad.time_signature_extractor
     auxjad.underfull_duration
+    auxjad.WindowLooper
 
 
 

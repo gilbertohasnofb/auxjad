@@ -4,11 +4,11 @@ from typing import Optional, Union
 
 import abjad
 
-from ._LoopParent import _LoopParent
+from ._LooperParent import _LooperParent
 
 
-class LoopByWindow(_LoopParent):
-    r"""``LoopByWindow`` outputs slices of an ``abjad.Container`` using the
+class WindowLooper(_LooperParent):
+    r"""``WindowLooper`` outputs slices of an ``abjad.Container`` using the
     metaphor of a looping window of a constant size (given by an
     ``abjad.Duration``).
 
@@ -21,7 +21,7 @@ class LoopByWindow(_LoopParent):
         (1, 16), i.e. a step of the length of a sixteenth-note.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container)
+        >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -33,7 +33,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-1.png
+        .. figure:: ../_images/image-WindowLooper-1.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -51,7 +51,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-2.png
+        .. figure:: ../_images/image-WindowLooper-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -72,7 +72,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-3.png
+        .. figure:: ../_images/image-WindowLooper-3.png
 
     Example:
         The very first call will output the input container without processing
@@ -81,7 +81,7 @@ class LoopByWindow(_LoopParent):
         ``processs_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              processs_on_first_call=True,
         ...                              )
         >>> notes = looper()
@@ -100,7 +100,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-4.png
+        .. figure:: ../_images/image-WindowLooper-4.png
 
     Example:
         The optional arguments ``window_size`` and ``step_size`` can be used to
@@ -109,7 +109,7 @@ class LoopByWindow(_LoopParent):
         ``abjad.Duration``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
         ...                              )
@@ -123,7 +123,7 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-5.png
+        .. figure:: ../_images/image-WindowLooper-5.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -138,20 +138,20 @@ class LoopByWindow(_LoopParent):
             e'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-6.png
+        .. figure:: ../_images/image-WindowLooper-6.png
 
     Example:
-        The instances of ``LoopByWindow`` can also be used as an iterator,
+        The instances of ``WindowLooper`` can also be used as an iterator,
         which can then be used in a for loop to exhaust all windows. Notice how
         it appends rests at the end of the container, until it is totally
         exhausted. Note that unlike the methods ``output_n()`` and
         ``output_all()``, time signatures are added to each window returned by
         the shuffler. Use the function
         ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``LoopByWindow`` in this way.
+        using ``WindowLooper`` in this way.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
         ...                              )
@@ -192,7 +192,7 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-7.png
+        .. figure:: ../_images/image-WindowLooper-7.png
 
     Example:
         In order to stop the process when the end of the looping window matches
@@ -201,7 +201,7 @@ class LoopByWindow(_LoopParent):
         Compare the two approaches below.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
@@ -225,10 +225,10 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-8.png
+        .. figure:: ../_images/image-WindowLooper-8.png
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              fill_with_rests=False,
@@ -248,7 +248,7 @@ class LoopByWindow(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-9.png
+        .. figure:: ../_images/image-WindowLooper-9.png
 
     Example:
         This class can take many optional keyword arguments during its
@@ -274,7 +274,7 @@ class LoopByWindow(_LoopParent):
         call.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(5, 8),
         ...                              max_steps=2,
@@ -363,7 +363,7 @@ class LoopByWindow(_LoopParent):
         position).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              head_position=(3, 4),
@@ -386,7 +386,7 @@ class LoopByWindow(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-10.png
+        .. figure:: ../_images/image-WindowLooper-10.png
 
     Example:
         Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
@@ -397,7 +397,7 @@ class LoopByWindow(_LoopParent):
         ``0``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              head_position=(3, 4),
@@ -426,7 +426,7 @@ class LoopByWindow(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-11.png
+        .. figure:: ../_images/image-WindowLooper-11.png
 
     Example:
         Setting the keyword argument ``max_steps`` to a value larger than ``1``
@@ -434,7 +434,7 @@ class LoopByWindow(_LoopParent):
         ``max_steps``) being applied at each call.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(1, 4),
         ...                              step_size=(1, 4),
         ...                              max_steps=4,
@@ -451,24 +451,24 @@ class LoopByWindow(_LoopParent):
             c''4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-12.png
+        .. figure:: ../_images/image-WindowLooper-12.png
 
     Example:
         The function ``len()`` can be used to get the total number of steps
         in the contents (always rounded up).
 
         >>> container = abjad.Container(r"c'1")
-        >>> looper = auxjad.LoopByWindow(container)
+        >>> looper = auxjad.WindowLooper(container)
         >>> len(looper)
         16
         >>> container = abjad.Container(r"c'1")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              step_size=(1, 4),
         ...                              )
         >>> len(looper)
         4
         >>> container = abjad.Container(r"c'2..")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              step_size=(1, 4),
         ...                              window_size=(2, 4),
         ...                              )
@@ -484,7 +484,7 @@ class LoopByWindow(_LoopParent):
         end of the contents (thus not appending rests).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
@@ -507,7 +507,7 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-13.png
+        .. figure:: ../_images/image-WindowLooper-13.png
 
     Example:
         When using ``output_all()``, set the keyword argument
@@ -515,7 +515,7 @@ class LoopByWindow(_LoopParent):
         or chords at the end and beginning of consecutive windows.
 
         >>> container = abjad.Container(r"c'4 <e' f' g'>2 r4 f'2.")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
@@ -544,7 +544,7 @@ class LoopByWindow(_LoopParent):
             r2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-14.png
+        .. figure:: ../_images/image-WindowLooper-14.png
 
     Example:
         To run through just part of the process and output it as a single
@@ -554,7 +554,7 @@ class LoopByWindow(_LoopParent):
         ``tie_identical_pitches`` and ``fill_with_rests`` are available.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 4),
         ...                              )
@@ -572,7 +572,7 @@ class LoopByWindow(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-15.png
+        .. figure:: ../_images/image-WindowLooper-15.png
 
     Example:
         To change the size of the looping window after instantiation, use the
@@ -580,7 +580,7 @@ class LoopByWindow(_LoopParent):
         of size (4, 4), but changes to (3, 8) after three calls.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container)
+        >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -608,7 +608,7 @@ class LoopByWindow(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByWindow-16.png
+        .. figure:: ../_images/image-WindowLooper-16.png
 
         >>> looper.window_size = (3, 8)
         >>> notes = looper.output_n(3)
@@ -625,16 +625,16 @@ class LoopByWindow(_LoopParent):
             d'4.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-17.png
+        .. figure:: ../_images/image-WindowLooper-17.png
 
     Example:
-        To disable time signatures altogether, initialise ``LoopByWindow`` with
+        To disable time signatures altogether, initialise ``WindowLooper`` with
         the keyword argument ``omit_time_signatures`` set to ``True`` (default
         is ``False``), or use the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              omit_time_signatures=True,
         ...                              )
         >>> notes = looper()
@@ -647,7 +647,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-18.png
+        .. figure:: ../_images/image-WindowLooper-18.png
 
     ..  tip::
 
@@ -666,7 +666,7 @@ class LoopByWindow(_LoopParent):
 
         >>> container = abjad.Container(
         ...     r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
-        >>> looper = auxjad.LoopByWindow(container)
+        >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper.output_n(2)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -700,7 +700,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-19.png
+        .. figure:: ../_images/image-WindowLooper-19.png
 
     .. tip::
 
@@ -722,7 +722,7 @@ class LoopByWindow(_LoopParent):
         previous value and must be reset to ``0`` if that's required.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByWindow(container)
+        >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -734,7 +734,7 @@ class LoopByWindow(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByWindow-20.png
+        .. figure:: ../_images/image-WindowLooper-20.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -752,7 +752,7 @@ class LoopByWindow(_LoopParent):
             f'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-21.png
+        .. figure:: ../_images/image-WindowLooper-21.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
@@ -772,7 +772,7 @@ class LoopByWindow(_LoopParent):
             a'16
         }
 
-        .. figure:: ../_images/image-LoopByWindow-22.png
+        .. figure:: ../_images/image-WindowLooper-22.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -788,14 +788,14 @@ class LoopByWindow(_LoopParent):
             g'2.
         }
 
-        .. figure:: ../_images/image-LoopByWindow-23.png
+        .. figure:: ../_images/image-WindowLooper-23.png
 
     Example:
         This function uses the default logical tie splitting algorithm from
         abjad's ``rewrite_meter()``.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
-        >>> looper = auxjad.LoopByWindow(container)
+        >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -807,11 +807,11 @@ class LoopByWindow(_LoopParent):
             e'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-24.png
+        .. figure:: ../_images/image-WindowLooper-24.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              boundary_depth=1,
         ...                              )
         >>> notes = looper()
@@ -827,7 +827,7 @@ class LoopByWindow(_LoopParent):
             e'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-25.png
+        .. figure:: ../_images/image-WindowLooper-25.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -842,7 +842,7 @@ class LoopByWindow(_LoopParent):
         functionality should be considered experimental.
 
         >>> container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-        >>> looper = auxjad.LoopByWindow(container,
+        >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 16))
         >>> notes = looper.output_n(3)
@@ -876,7 +876,7 @@ class LoopByWindow(_LoopParent):
             d'2
         }
 
-        .. figure:: ../_images/image-LoopByWindow-26.png
+        .. figure:: ../_images/image-WindowLooper-26.png
     """
 
     ### CLASS VARIABLES ###

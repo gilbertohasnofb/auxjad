@@ -6,18 +6,18 @@ import pytest
 import auxjad
 
 
-def test_LoopByList_01():
+def test_ListLooper_01():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert format(looper) == "['A', 'B', 'C', 'D', 'E', 'F']"
     assert looper() == ['A', 'B', 'C']
     assert looper() == ['B', 'C', 'D']
     assert looper.current_window == ['B', 'C', 'D']
 
 
-def test_LoopByList_02():
+def test_ListLooper_02():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=3,
                                step_size=1,
                                max_steps=2,
@@ -49,9 +49,9 @@ def test_LoopByList_02():
     assert not looper.processs_on_first_call
 
 
-def test_LoopByList_03():
+def test_ListLooper_03():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert looper.head_position == 0
     looper()
     assert looper.head_position == 0
@@ -61,40 +61,40 @@ def test_LoopByList_03():
     assert looper.head_position == 2
 
 
-def test_LoopByList_04():
+def test_ListLooper_04():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert len(looper) == 6
 
 
-def test_LoopByList_05():
+def test_ListLooper_05():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert looper.output_all() == ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
 
 
-def test_LoopByList_06():
+def test_ListLooper_06():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert looper() == ['A', 'B', 'C']
     looper.window_size = 4
     assert looper() == ['B', 'C', 'D', 'E']
 
 
-def test_LoopByList_07():
+def test_ListLooper_07():
     input_list = [123, 'foo', (3, 4), 3.14]
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert looper() == [123, 'foo', (3, 4)]
 
 
-def test_LoopByList_08():
+def test_ListLooper_08():
     input_list = [
         abjad.Container(r"c'4 d'4 e'4 f'4"),
         abjad.Container(r"fs'1"),
         abjad.Container(r"r2 bf2"),
         abjad.Container(r"c''2. r4"),
     ]
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     staff = abjad.Staff()
     for element in looper.output_all():
         staff.append(element)
@@ -142,9 +142,9 @@ def test_LoopByList_08():
         """)
 
 
-def test_LoopByList_09():
+def test_ListLooper_09():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert looper.__next__() == ['A', 'B', 'C']
     assert looper.__next__() == ['B', 'C', 'D']
     assert looper.__next__() == ['C', 'D']
@@ -153,69 +153,69 @@ def test_LoopByList_09():
         assert looper.__next__()
 
 
-def test_LoopByList_10():
+def test_ListLooper_10():
     wrong_type_input = 'foo'
     input_list = ['A', 'B', 'C', 'D']
     with pytest.raises(TypeError):
-        assert auxjad.LoopByList(wrong_type_input, window_size=3)
-        assert auxjad.LoopByList(input_list, window_size='foobar')
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(wrong_type_input, window_size=3)
+        assert auxjad.ListLooper(input_list, window_size='foobar')
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  step_size='foobar',
                                  )
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  max_steps='foobar',
                                  )
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  repetition_chance='foobar',
                                  )
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  head_position='foobar',
                                  )
     with pytest.raises(ValueError):
-        assert auxjad.LoopByList(input_list, window_size=-1)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list, window_size=-1)
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  step_size=-1)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  step_size=100)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  max_steps=-1)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  repetition_chance=-0.3)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  repetition_chance=1.4)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  head_position=-1)
-        assert auxjad.LoopByList(input_list,
+        assert auxjad.ListLooper(input_list,
                                  window_size=3,
                                  head_position=100)
 
 
-def test_LoopByList_11():
+def test_ListLooper_11():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     assert looper.output_n(2) == ['A', 'B', 'C', 'B', 'C', 'D']
 
 
-def test_LoopByList_12():
+def test_ListLooper_12():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopByList(input_list, window_size=3)
+    looper = auxjad.ListLooper(input_list, window_size=3)
     with pytest.raises(RuntimeError):
         looper.output_n(100)
 
 
-def test_LoopByList_13():
+def test_ListLooper_13():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=2,
                                head_position=2,
                                forward_bias=0.0,
@@ -223,9 +223,9 @@ def test_LoopByList_13():
     assert looper.output_all() == ['C', 'D', 'B', 'C', 'A', 'B']
 
 
-def test_LoopByList_14():
+def test_ListLooper_14():
     input_list = ['A', 'B', 'C', 'D']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=2,
                                head_position=0,
                                forward_bias=0.0,
@@ -233,18 +233,18 @@ def test_LoopByList_14():
     assert looper.output_all() == ['A', 'B']
 
 
-def test_LoopByList_15():
+def test_ListLooper_15():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=3,
                                processs_on_first_call=True,
                                )
     assert looper() == ['B', 'C', 'D']
 
 
-def test_LoopByList_16():
+def test_ListLooper_16():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=3,
                                )
     assert looper.contents == ['A', 'B', 'C', 'D', 'E', 'F']
@@ -257,10 +257,10 @@ def test_LoopByList_16():
     assert looper() == [0, 1, 2]
 
 
-def test_LoopByList_17():
+def test_ListLooper_17():
     random.seed(85162)
     input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=2,
                                head_position=4,
                                forward_bias=0.5,
@@ -268,10 +268,10 @@ def test_LoopByList_17():
     assert looper.output_n(4) == ['E', 'F', 'D', 'E', 'C', 'D', 'B', 'C']
 
 
-def test_LoopByList_18():
+def test_ListLooper_18():
     random.seed(70013)
     input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-    looper = auxjad.LoopByList(input_list,
+    looper = auxjad.ListLooper(input_list,
                                window_size=2,
                                head_position=2,
                                max_steps=4,

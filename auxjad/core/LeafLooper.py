@@ -5,11 +5,11 @@ import abjad
 from ..utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,
 )
-from ._LoopParent import _LoopParent
+from ._LooperParent import _LooperParent
 
 
-class LoopByNotes(_LoopParent):
-    r"""``LoopByNotes`` outputs slices of an ``abjad.Container`` using the
+class LeafLooper(_LooperParent):
+    r"""``LeafLooper`` outputs slices of an ``abjad.Container`` using the
     metaphor of a looping window of a constant number of elements. This number
     is given by the argument ``window_size``, which is an ``int`` representing
     how many notes are to be included in each slice. The duration of the slice
@@ -39,9 +39,9 @@ class LoopByNotes(_LoopParent):
         object will move the window forwards and output the result.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=3,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -53,7 +53,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-1.png
+        .. figure:: ../_images/image-LeafLooper-1.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -68,7 +68,7 @@ class LoopByNotes(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByNotes-2.png
+        .. figure:: ../_images/image-LeafLooper-2.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -86,7 +86,7 @@ class LoopByNotes(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByNotes-3.png
+        .. figure:: ../_images/image-LeafLooper-3.png
 
     Example:
         The very first call will output the input container without processing
@@ -95,11 +95,10 @@ class LoopByNotes(_LoopParent):
         ``processs_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByNotes(
-        ...     container,
-        ...     window_size=3,
-        ...     processs_on_first_call=True,
-        ... )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            processs_on_first_call=True,
+        ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -113,20 +112,20 @@ class LoopByNotes(_LoopParent):
             f'8
         }
 
-        .. figure:: ../_images/image-LoopByNotes-4.png
+        .. figure:: ../_images/image-LeafLooper-4.png
 
     Example:
-        The instances of ``LoopByNotes`` can also be used as an iterator, which
+        The instances of ``LeafLooper`` can also be used as an iterator, which
         can then be used in a for loop to exhaust all windows. Note that unlike
         the methods ``output_n()`` and ``output_all()``, time signatures are
         added to each window returned by the shuffler. Use the function
         ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``LoopByNotes`` in this way.
+        using ``LeafLooper`` in this way.
 
         >>> container = abjad.Container(r"c'4 d'2 e'8 f'2")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=2,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            )
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
@@ -146,7 +145,7 @@ class LoopByNotes(_LoopParent):
             f'2
         }
 
-        .. figure:: ../_images/image-LoopByNotes-5.png
+        .. figure:: ../_images/image-LeafLooper-5.png
 
     Example:
         This class can take many optional keyword arguments during its
@@ -166,16 +165,16 @@ class LoopByNotes(_LoopParent):
         must be an integer and its default value is ``0``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=3,
-        ...                             step_size=1,
-        ...                             max_steps=2,
-        ...                             repetition_chance=0.25,
-        ...                             forward_bias=0.2,
-        ...                             head_position=0,
-        ...                             omit_time_signatures=False,
-        ...                             processs_on_first_call=True,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            step_size=1,
+        ...                            max_steps=2,
+        ...                            repetition_chance=0.25,
+        ...                            forward_bias=0.2,
+        ...                            head_position=0,
+        ...                            omit_time_signatures=False,
+        ...                            processs_on_first_call=True,
+        ...                            )
         >>> looper.window_size
         3
         >>> looper.step_size
@@ -228,11 +227,11 @@ class LoopByNotes(_LoopParent):
         position).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=2,
-        ...                             head_position=2,
-        ...                             forward_bias=0.0,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            head_position=2,
+        ...                            forward_bias=0.0,
+        ...                            )
         >>> notes = looper.output_all()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -247,7 +246,7 @@ class LoopByNotes(_LoopParent):
             d'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-6.png
+        .. figure:: ../_images/image-LeafLooper-6.png
 
     Example:
         Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
@@ -258,11 +257,11 @@ class LoopByNotes(_LoopParent):
         ``0``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=3,
-        ...                             head_position=3,
-        ...                             forward_bias=0.5,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            head_position=3,
+        ...                            forward_bias=0.5,
+        ...                            )
         >>> notes = looper.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -286,7 +285,7 @@ class LoopByNotes(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-7.png
+        .. figure:: ../_images/image-LeafLooper-7.png
 
     Example:
         Setting the keyword argument ``max_steps`` to a value larger than ``1``
@@ -295,10 +294,10 @@ class LoopByNotes(_LoopParent):
 
         >>> container = abjad.Container(
         ...     r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4 e''4")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=2,
-        ...                             max_steps=4,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            max_steps=4,
+        ...                            )
         >>> notes = looper.output_n(4)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -315,19 +314,19 @@ class LoopByNotes(_LoopParent):
             d''4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-8.png
+        .. figure:: ../_images/image-LeafLooper-8.png
 
     Example:
-        To disable time signatures altogether, initialise ``LoopByNotes`` with
+        To disable time signatures altogether, initialise ``LeafLooper`` with
         the keyword argument ``omit_time_signatures`` set to ``True`` (default
         is ``False``), or use the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=3,
-        ...                             omit_time_signatures=True,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            omit_time_signatures=True,
+        ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -338,7 +337,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-9.png
+        .. figure:: ../_images/image-LeafLooper-9.png
 
     ..  tip::
 
@@ -355,9 +354,9 @@ class LoopByNotes(_LoopParent):
         in the contents.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=3,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            )
         >>> len(looper)
         5
 
@@ -367,9 +366,9 @@ class LoopByNotes(_LoopParent):
         last element, use the method ``output_all()``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=2,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
         >>> abjad.f(staff)
@@ -388,7 +387,7 @@ class LoopByNotes(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-10.png
+        .. figure:: ../_images/image-LeafLooper-10.png
 
     Example:
         When using ``output_all()``, set the keyword argument
@@ -397,9 +396,9 @@ class LoopByNotes(_LoopParent):
 
         >>> container = abjad.Container(
         ...     r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=4,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=4,
+        ...                            )
         >>> notes = looper.output_all(tie_identical_pitches=True)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -443,7 +442,7 @@ class LoopByNotes(_LoopParent):
             <e' g'>16
         }
 
-        .. figure:: ../_images/image-LoopByNotes-11.png
+        .. figure:: ../_images/image-LeafLooper-11.png
 
     Example:
         To run through just part of the process and output it as a single
@@ -453,9 +452,9 @@ class LoopByNotes(_LoopParent):
         available for tying pitches.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=2,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            )
         >>> window = looper.output_n(2)
         >>> staff = abjad.Staff(window)
         >>> abjad.f(staff)
@@ -469,7 +468,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-12.png
+        .. figure:: ../_images/image-LeafLooper-12.png
 
     Example:
         To change the size of the looping window after instantiation, use the
@@ -480,9 +479,9 @@ class LoopByNotes(_LoopParent):
         thus outputting the second, third, fourth, and fifth leaves.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=3,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -494,7 +493,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-13.png
+        .. figure:: ../_images/image-LeafLooper-13.png
 
         >>> looper.window_size = 4
         >>> notes = looper()
@@ -511,7 +510,7 @@ class LoopByNotes(_LoopParent):
             g'1
         }
 
-        .. figure:: ../_images/image-LoopByNotes-14.png
+        .. figure:: ../_images/image-LeafLooper-14.png
 
     Example:
         Use the ``contents`` property to read as well as overwrite the contents
@@ -519,7 +518,7 @@ class LoopByNotes(_LoopParent):
         previous value and must be reset to ``0`` if that's required.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-        >>> looper = auxjad.LoopByNotes(container,
+        >>> looper = auxjad.LeafLooper(container,
         >>>                             window_size=3,
         >>>                             )
         >>> notes = looper()
@@ -533,7 +532,7 @@ class LoopByNotes(_LoopParent):
             e'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-15.png
+        .. figure:: ../_images/image-LeafLooper-15.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -546,7 +545,7 @@ class LoopByNotes(_LoopParent):
             f'4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-16.png
+        .. figure:: ../_images/image-LeafLooper-16.png
 
         >>> looper.contents = abjad.Container(
         ...     r"cs'''4 ds'''4 es'''4 fs'''4")
@@ -561,7 +560,7 @@ class LoopByNotes(_LoopParent):
             fs'''4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-17.png
+        .. figure:: ../_images/image-LeafLooper-17.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -575,7 +574,7 @@ class LoopByNotes(_LoopParent):
             es'''4
         }
 
-        .. figure:: ../_images/image-LoopByNotes-18.png
+        .. figure:: ../_images/image-LeafLooper-18.png
 
     ..  warning::
 
@@ -587,9 +586,9 @@ class LoopByNotes(_LoopParent):
         be a bracket spanning all notes.
 
         >>> container = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
-        >>> looper = auxjad.LoopByNotes(container,
-        ...                             window_size=2,
-        ...                             )
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
         >>> abjad.f(staff)
@@ -622,7 +621,7 @@ class LoopByNotes(_LoopParent):
             }
         }
 
-        .. figure:: ../_images/image-LoopByNotes-19.png
+        .. figure:: ../_images/image-LeafLooper-19.png
 
     .. tip::
 

@@ -1,11 +1,11 @@
 import copy
 from typing import Union
 
-from ._LoopParent import _LoopParent
+from ._LooperParent import _LooperParent
 
 
-class LoopByList(_LoopParent):
-    r"""``LoopByList`` outputs slices of a ``list`` using the metaphor of a
+class ListLooper(_LooperParent):
+    r"""``ListLooper`` outputs slices of a ``list`` using the metaphor of a
     looping window of a constant number of elements. This number is given by
     the argument ``window_size``, which is an ``int`` representing how many
     elements are to be included in each slice.
@@ -34,7 +34,7 @@ class LoopByList(_LoopParent):
         output the result.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper()
@@ -53,7 +53,7 @@ class LoopByList(_LoopParent):
         ``processs_on_first_call`` set to ``True``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            processs_on_first_call=True,
         ...                            )
@@ -61,11 +61,11 @@ class LoopByList(_LoopParent):
         ['B', 'C', 'D']
 
     Example:
-        The instances of ``LoopByList`` can also be used as an iterator,
+        The instances of ``ListLooper`` can also be used as an iterator,
         which can then be used in a for loop to exhaust all windows.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            )
         >>> for window in looper:
@@ -98,7 +98,7 @@ class LoopByList(_LoopParent):
         the looping process will be applied on the very first call.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            step_size=1,
         ...                            max_steps=2,
@@ -154,7 +154,7 @@ class LoopByList(_LoopParent):
         position).
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=2,
         ...                            head_position=2,
         ...                            forward_bias=0.0,
@@ -171,7 +171,7 @@ class LoopByList(_LoopParent):
         ``0``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=2,
         ...                            head_position=4,
         ...                            forward_bias=0.5,
@@ -185,7 +185,7 @@ class LoopByList(_LoopParent):
         ``max_steps``) being applied at each call.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=2,
         ...                            head_position=2,
         ...                            max_steps=4,
@@ -198,7 +198,7 @@ class LoopByList(_LoopParent):
         in the container.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> len(looper)
         6
 
@@ -208,7 +208,7 @@ class LoopByList(_LoopParent):
         ``output_n()`` and pass the number of iterations as argument.
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_n(2)
         ['A', 'B', 'C', 'B', 'C', 'D']
 
@@ -218,7 +218,7 @@ class LoopByList(_LoopParent):
         element, use the method ``output_all()``.
 
         >>> input_list = ['A', 'B', 'C', 'D']
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_all()
         ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
 
@@ -232,7 +232,7 @@ class LoopByList(_LoopParent):
         elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper()
         ['A', 'B', 'C']
         >>> looper.window_size = 4
@@ -245,7 +245,7 @@ class LoopByList(_LoopParent):
         previous value and must be reset to ``0`` if that's required.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
-        >>> looper = auxjad.LoopByList(input_list,
+        >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            )
         >>> looper.contents
@@ -267,7 +267,7 @@ class LoopByList(_LoopParent):
         It should be clear that the list can contain any types of elements:
 
         >>> input_list = [123, 'foo', (3, 4), 3.14]
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper()
         [123, 'foo', (3, 4)]
 
@@ -283,7 +283,7 @@ class LoopByList(_LoopParent):
         ...     abjad.Container(r"r2 bf4 c'4"),
         ...     abjad.Container(r"c''2. r4"),
         ... ]
-        >>> looper = auxjad.LoopByList(input_list, window_size=3)
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> staff = abjad.Staff()
         >>> for element in looper.output_all():
         ...     staff.append(element)
@@ -331,7 +331,7 @@ class LoopByList(_LoopParent):
             }
         }
 
-        .. figure:: ../_images/image-LoopByList-1.png
+        .. figure:: ../_images/image-ListLooper-1.png
     """
 
     ### CLASS VARIABLES ###

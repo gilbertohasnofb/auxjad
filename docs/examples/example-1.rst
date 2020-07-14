@@ -98,13 +98,13 @@ using either ``auxjad.respell_chord`` or ``auxjad.respell_container``.
 
 .. figure:: ../_images/image-example-1-2.png
 
-Let's now use this material as input for ``auxjad.LoopByNotes``. This
-is one of the many loopers included in ``auxjad``. It works by selecting groups
-of _n_ elements (given by the argument ``window_size``). With ``window_size``
-set to 4, this looper will first output the first four elements, then output
+Let's now use this material as input for ``auxjad.LeafLooper``. This is one of
+the many loopers included in ``auxjad``. It works by selecting groups of _n_
+elements (given by the argument ``window_size``). With ``window_size`` set to
+``4``, this looper will first output the first four elements, then output
 elements 2 through 5, then 3 through 6, and so on.
 
-    >>> looper = auxjad.LoopByNotes(container, window_size=4)
+    >>> looper = auxjad.LeafLooper(container, window_size=4)
     >>> staff = abjad.Staff()
     >>> notes = looper.output_n(3)
     >>> staff.append(notes)

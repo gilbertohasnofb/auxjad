@@ -54,7 +54,7 @@ def test_complex_music_example_01():
         }
         """)
     # Using a looping window by elements 3 times
-    looper = auxjad.LoopByNotes(container, window_size=4)
+    looper = auxjad.LeafLooper(container, window_size=4)
     staff = abjad.Staff()
     notes = looper.output_n(3)
     staff.append(notes)
@@ -227,7 +227,7 @@ def test_complex_music_example_02():
         }
         """)
     # Using a looping window 3 times with the container created above as input
-    looper = auxjad.LoopByWindow(container)
+    looper = auxjad.WindowLooper(container)
     staff = abjad.Staff()
     notes = looper.output_n(3)
     staff.append(notes)
@@ -239,7 +239,7 @@ def test_complex_music_example_02():
     # continuing with the looping process 3 more times using the last shuffled
     # container
     container = abjad.Container(shuffler.current_window)
-    looper = auxjad.LoopByWindow(container, window_size=(3, 4))
+    looper = auxjad.WindowLooper(container, window_size=(3, 4))
     notes = looper.output_n(3)
     staff.append(notes)
     # removing repeated dynamics

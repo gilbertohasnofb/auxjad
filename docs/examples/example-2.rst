@@ -82,12 +82,12 @@ Let's now add a time signature of the length of the container.
 
 .. figure:: ../_images/image-example-2-1.png
 
-Let's now use ``auxjad.LoopByWindow`` to output loops of windows of the material.
-By default, this class uses a window size of a 4/4 measure, and each step
-forward has the size of a sixteenth-note. These parameters are all adjustable,
-please refer to this library's API for more information.
+Let's now use ``auxjad.WindowLooper`` to output loops of windows of the
+material. By default, this class uses a window size of a 4/4 measure, and each
+step forward has the size of a sixteenth-note. These parameters are all
+adjustable, please refer to this library's API for more information.
 
-    >>> looper = auxjad.LoopByWindow(container)
+    >>> looper = auxjad.WindowLooper(container)
     >>> staff = abjad.Staff()
     >>> notes = looper.output_n(3)
     >>> staff.append(notes)
@@ -199,9 +199,9 @@ Let's use the last output of the shuffler above and feed it into a new looper.
 This time we will use a window of size 3/4.
 
     >>> container = abjad.Container(shuffler.current_window)
-    >>> looper = auxjad.LoopByWindow(container,
-    ...                            window_size=(3, 4),
-    ...                            )
+    >>> looper = auxjad.WindowLooper(container,
+    ...                              window_size=(3, 4),
+    ...                              )
     >>> notes = looper.output_n(3)
     >>> staff.append(notes)
     >>> abjad.f(staff)

@@ -1,5 +1,6 @@
-import abjad
 from typing import Union
+
+import abjad
 
 
 def prettify_rewrite_meter(container: abjad.Container,

@@ -1,6 +1,8 @@
-import auxjad
-import abjad
 import random
+
+import abjad
+
+import auxjad
 
 
 def test_complex_music_example_01():

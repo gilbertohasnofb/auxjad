@@ -37,7 +37,7 @@ from .utilities.prettify_rewrite_meter import prettify_rewrite_meter
 from .utilities.remove_empty_tuplets import remove_empty_tuplets
 from .utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from .utilities.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures
+    remove_repeated_time_signatures,
 )
 from .utilities.repeat_container import repeat_container
 from .utilities.reposition_clefs import reposition_clefs
@@ -46,7 +46,7 @@ from .utilities.respell_container import respell_container
 from .utilities.respell_chord import respell_chord
 from .utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio
+    simplified_time_signature_ratio,
 )
 from .utilities.sync_containers import sync_containers
 from .utilities.time_signature_extractor import time_signature_extractor

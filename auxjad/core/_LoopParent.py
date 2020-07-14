@@ -1,11 +1,13 @@
 import copy
 import random
 from typing import Union
+
 import abjad
-from ..utilities.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures
-)
+
 from ..utilities.leaves_are_tieable import leaves_are_tieable
+from ..utilities.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures,
+)
 
 
 class _LoopParent():

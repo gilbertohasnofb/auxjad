@@ -1,9 +1,8 @@
-import re
 import os
-import sys
+import re
 import shutil
+import sys
 import textwrap
-
 
 # the pattern below looks for any line containing '>>> abjad.f', then captures
 # all the next lines until either an empty line appears (i.e. a line with just

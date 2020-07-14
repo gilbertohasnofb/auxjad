@@ -1,7 +1,9 @@
-import abjad
 from typing import Optional, Union
-from .fill_with_rests import fill_with_rests as fill_with_rests_function
+
+import abjad
+
 from .close_container import close_container as close_container_function
+from .fill_with_rests import fill_with_rests as fill_with_rests_function
 
 
 def enforce_time_signature(container: abjad.Container,

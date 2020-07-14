@@ -1,5 +1,7 @@
-import abjad
 from typing import Optional, Union
+
+import abjad
+
 from ._HarmonicParent import _HarmonicParent
 
 

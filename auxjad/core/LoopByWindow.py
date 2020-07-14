@@ -1,7 +1,9 @@
 import copy
 from math import ceil
 from typing import Optional, Union
+
 import abjad
+
 from ._LoopParent import _LoopParent
 
 

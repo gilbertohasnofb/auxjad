@@ -1,9 +1,11 @@
 import copy
+
 import abjad
-from .reposition_clefs import reposition_clefs
+
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
+from .reposition_clefs import reposition_clefs
 
 
 def repeat_container(container: abjad.Container,

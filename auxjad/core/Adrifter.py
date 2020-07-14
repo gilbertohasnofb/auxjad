@@ -1,11 +1,13 @@
 import copy
 import random
 from typing import Optional, Union
+
 import abjad
-from .Fader import Fader
+
 from ..utilities.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures
+    remove_repeated_time_signatures,
 )
+from .Fader import Fader
 
 
 class Adrifter():

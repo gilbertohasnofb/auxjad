@@ -1,11 +1,13 @@
 import copy
 import random
 from typing import Optional, Union
+
 import abjad
-from ..utilities.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures
-)
+
 from ..utilities.enforce_time_signature import enforce_time_signature
+from ..utilities.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures,
+)
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 

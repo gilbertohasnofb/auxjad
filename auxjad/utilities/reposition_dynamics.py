@@ -1,6 +1,7 @@
 import abjad
+
 from .remove_repeated_dynamics import (
-    remove_repeated_dynamics as remove_repeated_dynamics_
+    remove_repeated_dynamics as remove_repeated_dynamics_,
 )
 
 

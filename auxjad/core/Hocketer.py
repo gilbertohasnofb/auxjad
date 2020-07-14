@@ -1,10 +1,12 @@
 import copy
 import random
 from typing import Optional, Union
+
 import abjad
+
+from ..utilities.remove_empty_tuplets import remove_empty_tuplets
 from ..utilities.reposition_dynamics import reposition_dynamics
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
-from ..utilities.remove_empty_tuplets import remove_empty_tuplets
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 

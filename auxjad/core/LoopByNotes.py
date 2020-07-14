@@ -1,9 +1,11 @@
 import copy
+
 import abjad
-from ._LoopParent import _LoopParent
+
 from ..utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio
+    simplified_time_signature_ratio,
 )
+from ._LoopParent import _LoopParent
 
 
 class LoopByNotes(_LoopParent):

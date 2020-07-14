@@ -41,3 +41,8 @@ latex:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	make -C "$(BUILDDIR)"/latex/
 	mv "$(BUILDDIR)"/latex/*.pdf "$(SOURCEDIR)"
+
+release:
+	make clean
+	make images
+	make html

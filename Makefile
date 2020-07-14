@@ -12,7 +12,7 @@ clean:
 	rm -Rif dist
 
 docs:
-	make -C docs/ clean && make -C docs/ html
+	make -C docs/ release
 
 flake_ignore = --ignore=E203,E266,W503
 flake_exclude = --exclude=./sandbox.py,./docs/conf.py
@@ -65,7 +65,7 @@ reformat:
 	make isort-reformat
 
 release:
-	make -C docs/ clean html
+	make docs
 	make clean
 	make build
 	pip install -U twine

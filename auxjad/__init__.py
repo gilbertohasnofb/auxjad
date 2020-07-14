@@ -12,8 +12,8 @@ Bugs can be reported through the project's Issue Tracker.
 This library is published under the MIT License.
 """
 
-from .core.Adrifter import Adrifter
 from .core.CartographySelector import CartographySelector
+from .core.Drifter import Drifter
 from .core.Fader import Fader
 from .core.Hocketer import Hocketer
 from .core.LeafDynMaker import LeafDynMaker
@@ -58,8 +58,8 @@ __version__ = "0.8.1"
 __all__ = [
     '__author__',
     '__version__',
-    'Adrifter',
     'CartographySelector',
+    'Drifter',
     'Fader',
     'Hocketer',
     'LeafDynMaker',

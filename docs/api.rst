@@ -14,12 +14,12 @@ documentaion of each class and function.
 .. autosummary::
     :toctree: _api_members
 
-    auxjad.Adrifter
     auxjad.ArtificialHarmonic
     auxjad.CartographySelector
     auxjad.close_container
     auxjad.container_is_full
     auxjad.containers_are_equal
+    auxjad.Drifter
     auxjad.enforce_time_signature
     auxjad.Fader
     auxjad.fill_with_rests

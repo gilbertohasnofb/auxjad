@@ -10,8 +10,8 @@ from ..utilities.remove_repeated_time_signatures import (
 from .Fader import Fader
 
 
-class Adrifter():
-    r"""``Adrifter`` takes two ``abjad.Container``'s and gradually drifts from
+class Drifter():
+    r"""``Drifter`` takes two ``abjad.Container``'s and gradually drifts from
     one into the other, by fading out the first while fading in the second. It
     makes uses of ``auxjad.Fader`` for that.
 
@@ -24,7 +24,7 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> selection_a, selection_b = adrifter()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
@@ -47,7 +47,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-1.png
+        .. figure:: ../_images/image-Drifter-1.png
 
         >>> selection_a, selection_b = adrifter()
         >>> score = abjad.Score([
@@ -74,7 +74,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-2.png
+        .. figure:: ../_images/image-Drifter-2.png
 
         >>> selection_a, selection_b = adrifter()
         >>> score = abjad.Score([
@@ -101,7 +101,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-3.png
+        .. figure:: ../_images/image-Drifter-3.png
 
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
@@ -131,7 +131,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-4.png
+        .. figure:: ../_images/image-Drifter-4.png
 
     Example:
         To run through the whole process and output it as a tuple of two
@@ -139,7 +139,7 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -191,7 +191,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-5.png
+        .. figure:: ../_images/image-Drifter-5.png
 
     Example:
         To run through just part of the process and output it as a tuple of two
@@ -200,7 +200,7 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"e'8 fs'4. r2")
         >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = adrifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -233,19 +233,19 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-6.png
+        .. figure:: ../_images/image-Drifter-6.png
 
     Example:
-        The instances of ``Adrifter`` can also be used as an iterator, which
-        can then be used in a for loop to run through the whole process. Note
-        that unlike the methods ``output_n()`` and ``output_all()``, time
-        signatures are added to each window returned by the adrifter. Use the
-        function ``auxjad.remove_repeated_time_signatures()`` to clean the
-        output when using ``Adrifter`` in this way.
+        The instances of ``Drifter`` can also be used as an iterator, which can
+        then be used in a for loop to run through the whole process. Note that
+        unlike the methods ``output_n()`` and ``output_all()``, time signatures
+        are added to each window returned by the adrifter. Use the function
+        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
+        using ``Drifter`` in this way.
 
         >>> container_out = abjad.Container(r"e'8 fs'4. r2")
         >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
         >>> for selection_a, selection_b in adrifter:
@@ -295,7 +295,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-7.png
+        .. figure:: ../_images/image-Drifter-7.png
 
     Example:
         This class can take many optional keyword arguments during its
@@ -326,21 +326,21 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            fade_in_first=True,
-        ...                            fade_out_last=True,
-        ...                            initial_repetitions=3,
-        ...                            final_repetitions=3,
-        ...                            repetition_chance=0.7,
-        ...                            weighted_duration=True,
-        ...                            disable_rewrite_meter=True,
-        ...                            omit_time_signatures=True,
-        ...                            use_multimeasure_rests=True,
-        ...                            boundary_depth=True,
-        ...                            maximum_dot_count=True,
-        ...                            rewrite_tuplets=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           fade_in_first=True,
+        ...                           fade_out_last=True,
+        ...                           initial_repetitions=3,
+        ...                           final_repetitions=3,
+        ...                           repetition_chance=0.7,
+        ...                           weighted_duration=True,
+        ...                           disable_rewrite_meter=True,
+        ...                           omit_time_signatures=True,
+        ...                           use_multimeasure_rests=True,
+        ...                           boundary_depth=True,
+        ...                           maximum_dot_count=True,
+        ...                           rewrite_tuplets=True,
+        ...                           )
         >>> adrifter.fade_in_first
         True
         >>> adrifter.fade_out_last
@@ -411,7 +411,7 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
         >>> for _ in range(3):
@@ -460,7 +460,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-8.png
+        .. figure:: ../_images/image-Drifter-8.png
 
     Example:
         The function ``len()`` returns the sum of the number of pitched logical
@@ -468,17 +468,17 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
         >>> container_in = abjad.Container(r"r2 c''2")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> len(adrifter)
         3
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> len(adrifter)
         5
         >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
         >>> container_in = abjad.Container(r"r2 <c'' e'' g''>2")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> len(adrifter)
         3
 
@@ -492,7 +492,7 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"\time 3/4 r4 c'4 d'4")
         >>> container_in = abjad.Container(r"\time 3/4 a''4 g''2")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -525,12 +525,12 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-9.png
+        .. figure:: ../_images/image-Drifter-9.png
 
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            fade_out_last=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           fade_out_last=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -564,13 +564,13 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-10.png
+        .. figure:: ../_images/image-Drifter-10.png
 
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            fade_in_first=True,
-        ...                            fade_out_last=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           fade_in_first=True,
+        ...                           fade_out_last=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -607,7 +607,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-11.png
+        .. figure:: ../_images/image-Drifter-11.png
 
     Example:
         Setting ``weighted_duration`` to ``True`` will give more weight to the
@@ -618,7 +618,7 @@ class Adrifter():
         >>> container_out = abjad.Container(r"e'2 c'2")
         >>> container_in = abjad.Container(
         ...     r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -711,12 +711,12 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-12.png
+        .. figure:: ../_images/image-Drifter-12.png
 
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            weighted_duration=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           weighted_duration=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -817,7 +817,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-13.png
+        .. figure:: ../_images/image-Drifter-13.png
 
     Example:
         The properties ``initial_repetitions`` and ``final_repetitions`` set
@@ -826,11 +826,11 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"a'4 bf'2 r4")
         >>> container_in = abjad.Container(r"c''2 d''2")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            initial_repetitions=2,
-        ...                            final_repetitions=3,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           initial_repetitions=2,
+        ...                           final_repetitions=3,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -877,7 +877,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-14.png
+        .. figure:: ../_images/image-Drifter-14.png
 
     Example:
         Use ``repetition_chance`` to set the chance of a measure repeating
@@ -886,10 +886,10 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"a'4 bf'2 r4")
         >>> container_in = abjad.Container(r"c''2 d''2")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            repetition_chance=0.8,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           repetition_chance=0.8,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_n(4)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -924,7 +924,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-15.png
+        .. figure:: ../_images/image-Drifter-15.png
 
     Example:
         To disable time signatures altogether, initialise this class with the
@@ -934,10 +934,10 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            omit_time_signatures=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           omit_time_signatures=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -966,7 +966,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-16.png
+        .. figure:: ../_images/image-Drifter-16.png
 
     ..  tip::
 
@@ -985,10 +985,10 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
         >>> container_in = abjad.Container(r"c'2 d'2")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            disable_rewrite_meter=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           disable_rewrite_meter=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -1023,7 +1023,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-17.png
+        .. figure:: ../_images/image-Drifter-17.png
 
         Arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``boundary_depth``, ``maximum_dot_count`` and
@@ -1037,7 +1037,7 @@ class Adrifter():
         >>> container_out = abjad.Container(
         ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}")
         >>> container_in = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> adrifter.contents_out = abjad.Container(r"\time 3/4 a4. bf4.")
         >>> print(adrifter)
         {
@@ -1070,7 +1070,7 @@ class Adrifter():
         ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
         >>> container_in = abjad.Container(
         ...     r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
-        >>> adrifter = auxjad.Adrifter(container_out, container_in)
+        >>> adrifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = adrifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -1121,7 +1121,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-18.png
+        .. figure:: ../_images/image-Drifter-18.png
 
     Example:
         This class can also handle dynamics, articulations, chords, and
@@ -1131,11 +1131,11 @@ class Adrifter():
         >>> container_out = abjad.Container(r"<c' e' g'>4.\p e'8--\f ~ e'2")
         >>> container_in = abjad.Container(
         ...     r"\times 2/3 {f'4-.\pp r4 <d' ef'>4->\f ~ } <d' ef'>2")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            fade_in_first=True,
-        ...                            fade_out_last=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           fade_in_first=True,
+        ...                           fade_out_last=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -1215,7 +1215,7 @@ class Adrifter():
             }
         >>
 
-        .. figure:: ../_images/image-Adrifter-19.png
+        .. figure:: ../_images/image-Drifter-19.png
 
     .. tip::
 
@@ -1241,12 +1241,12 @@ class Adrifter():
 
         >>> container_out = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> container_in = abjad.Container(r"\time 4/4 g'2 a'2")
-        >>> adrifter = auxjad.Adrifter(container_out,
-        ...                            container_in,
-        ...                            fade_in_first=True,
-        ...                            fade_out_last=True,
-        ...                            weighted_duration=True,
-        ...                            )
+        >>> adrifter = auxjad.Drifter(container_out,
+        ...                           container_in,
+        ...                           fade_in_first=True,
+        ...                           fade_out_last=True,
+        ...                           weighted_duration=True,
+        ...                           )
         >>> staff_a, staff_b = adrifter.output_all()
         >>> auxjad.sync_containers(staff_a, staff_b)
         >>> score = abjad.Score([staff_a, staff_b])
@@ -1328,7 +1328,7 @@ class Adrifter():
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/image-Adrifter-20.png
+        .. figure:: ../_images/image-Drifter-20.png
     """
 
     ### CLASS VARIABLES ###

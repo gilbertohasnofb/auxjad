@@ -373,7 +373,7 @@ class CartographySelector():
         and finally appends the new element at the last index.
         """
         self._contents = (self._contents[:n]
-                          + self._contents[n+1:]
+                          + self._contents[n + 1:]
                           + [new_element])
 
     def prepend(self, new_element):

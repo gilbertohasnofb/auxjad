@@ -28,7 +28,8 @@ ly_header = r"""
     \override Flag.stencil = #flat-flag
     \context {
         \Score
-        \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/12)
+        \override SpacingSpanner.base-shortest-duration =
+            #(ly:make-moment 1/12)
         \omit BarNumber
     }
 }

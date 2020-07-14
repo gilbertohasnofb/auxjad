@@ -691,8 +691,8 @@ def test_Shuffler_17():
     random.seed(22047)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     shuffler = auxjad.Shuffler(container,
-                           processs_on_first_call=False,
-                           )
+                               processs_on_first_call=False,
+                               )
     notes = shuffler()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(

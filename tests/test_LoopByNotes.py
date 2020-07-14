@@ -467,7 +467,7 @@ def test_LoopByNotes_16():
         """)
 
 
-def test_LoopByNotes_16():
+def test_LoopByNotes_17():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LoopByNotes(container,
                                 window_size=2,
@@ -477,17 +477,17 @@ def test_LoopByNotes_16():
     notes = looper.output_all()
     staff = abjad.Staff(notes)
     assert format(staff) == abjad.String.normalize(
-    r"""
-    \new Staff
-    {
-        \time 2/4
-        c'4
-        d'4
-    }
-    """)
+        r"""
+        \new Staff
+        {
+            \time 2/4
+            c'4
+            d'4
+        }
+        """)
 
 
-def test_LoopByNotes_17():
+def test_LoopByNotes_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LoopByNotes(container,
                                 window_size=3,
@@ -509,7 +509,7 @@ def test_LoopByNotes_17():
         """)
 
 
-def test_LoopByNotes_18():
+def test_LoopByNotes_19():
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
     looper = auxjad.LoopByNotes(container,
                                 window_size=3,
@@ -566,7 +566,7 @@ def test_LoopByNotes_18():
         """)
 
 
-def test_LoopByNotes_19():
+def test_LoopByNotes_20():
     random.seed(15231)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
     looper = auxjad.LoopByNotes(container,
@@ -600,7 +600,7 @@ def test_LoopByNotes_19():
         """)
 
 
-def test_LoopByNotes_20():
+def test_LoopByNotes_21():
     random.seed(55126)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4")
     looper = auxjad.LoopByNotes(container,
@@ -626,7 +626,7 @@ def test_LoopByNotes_20():
         """)
 
 
-def test_LoopByNotes_21():
+def test_LoopByNotes_22():
     container = abjad.Container(r"c'4 d'2 e'8 f'2")
     looper = auxjad.LoopByNotes(container,
                                 window_size=2,

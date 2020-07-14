@@ -46,24 +46,24 @@ def test_rests_to_multimeasure_rest_03():
 
 
 def test_rests_to_multimeasure_rest_04():
-        container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
-        auxjad.rests_to_multimeasure_rest(container)
-        assert format(container) == abjad.String.normalize(
-            r"""
-            {
-                R1
-            }
-            """)
-        container = abjad.Container(
-            r"r2 \times 2/3 {r2 r4} \times 4/5 {r2. \times 2/3 {r2 r4}}")
-        auxjad.rests_to_multimeasure_rest(container)
-        assert format(container) == abjad.String.normalize(
-            r"""
-            {
-                R1
-                R1
-            }
-            """)
+    container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
+    auxjad.rests_to_multimeasure_rest(container)
+    assert format(container) == abjad.String.normalize(
+        r"""
+        {
+            R1
+        }
+        """)
+    container = abjad.Container(
+        r"r2 \times 2/3 {r2 r4} \times 4/5 {r2. \times 2/3 {r2 r4}}")
+    auxjad.rests_to_multimeasure_rest(container)
+    assert format(container) == abjad.String.normalize(
+        r"""
+        {
+            R1
+            R1
+        }
+        """)
 
 
 def test_rests_to_multimeasure_rest_05():

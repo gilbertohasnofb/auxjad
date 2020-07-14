@@ -15,7 +15,7 @@ def test_HarmonicNote_01():
 
 def test_HarmonicNote_02():
     harm1 = auxjad.HarmonicNote("c''4")
-    harm2 = auxjad.HarmonicNote("c''", 1/4)
+    harm2 = auxjad.HarmonicNote("c''", 1 / 4)
     harm3 = auxjad.HarmonicNote(12, 0.25)
     harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
     harms = [harm1, harm2, harm3, harm4]
@@ -54,13 +54,13 @@ def test_HarmonicNote_04():
 def test_HarmonicNote_05():
     harm = auxjad.HarmonicNote("c''4")
     assert harm.written_pitch == "c''"
-    assert harm.written_duration == 1/4
+    assert harm.written_duration == 1 / 4
     assert harm.style == 'harmonic'
     harm.written_pitch = 18
     harm.written_duration = abjad.Duration(1, 8)
     harm.style = 'harmonic-mixed'
     assert harm.written_pitch == "fs''"
-    assert harm.written_duration == 1/8
+    assert harm.written_duration == 1 / 8
     assert harm.style == 'harmonic-mixed'
 
 
@@ -119,7 +119,6 @@ def test_HarmonicNote_09():
     harm.markup = 'III.'
     with pytest.raises(Exception):
         harm.markup = None
-
 
 
 def test_HarmonicNote_10():

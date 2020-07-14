@@ -887,7 +887,6 @@ class Shuffler:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
-
     ### PUBLIC METHODS ###
 
     def shuffle(self) -> abjad.Selection:
@@ -1159,8 +1158,8 @@ class Shuffler:
                             and leaf is not logical_tie[-1]):
                         abjad.attach(abjad.Tie(), new_leaf)
                 for indicator in abjad.inspect(leaf).indicators():
-                    if pitch is None and isinstance(indicator, (abjad.Tie,
-                            abjad.Articulation)):
+                    if (isinstance(indicator, (abjad.Tie, abjad.Articulation))
+                            and pitch is None):
                         continue
                     if isinstance(indicator, abjad.TimeSignature):
                         abjad.attach(indicator, new_leaf)
@@ -1308,8 +1307,8 @@ class Shuffler:
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: Optional[int],
-                       ):
+                          maximum_dot_count: Optional[int],
+                          ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1324,8 +1323,8 @@ class Shuffler:
 
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
-                       rewrite_tuplets: bool,
-                       ):
+                        rewrite_tuplets: bool,
+                        ):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets

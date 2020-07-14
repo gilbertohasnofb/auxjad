@@ -1142,8 +1142,8 @@ class LoopByWindow(_LoopParent):
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: Optional[int],
-                       ):
+                          maximum_dot_count: Optional[int],
+                          ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1158,8 +1158,8 @@ class LoopByWindow(_LoopParent):
 
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
-                       rewrite_tuplets: bool,
-                       ):
+                        rewrite_tuplets: bool,
+                        ):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1176,7 +1176,7 @@ class LoopByWindow(_LoopParent):
         """
         if self._fill_with_rests:
             return (self._head_position >= self._contents_length
-                or self._head_position < 0)
+                    or self._head_position < 0)
         else:
             return (self._head_position >= self._contents_length
-                - self._head_position or self._head_position < 0)
+                    - self._head_position or self._head_position < 0)

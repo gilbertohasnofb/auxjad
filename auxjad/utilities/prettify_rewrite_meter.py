@@ -488,8 +488,10 @@ def prettify_rewrite_meter(container: abjad.Container,
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if (not offset + base / 2 in (abjad.Offset(0, 1),
-                        abjad.Offset(2 * base), abjad.Offset(4 * base))):
+                if not offset + base / 2 in (abjad.Offset(0, 1),
+                                             abjad.Offset(2 * base),
+                                             abjad.Offset(4 * base),
+                                             ):
                     abjad.mutate(logical_tie).fuse()
 
     if fuse_triple_meter and meter.numerator == 3:
@@ -498,6 +500,7 @@ def prettify_rewrite_meter(container: abjad.Container,
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if (not offset + base / 2
-                        in (abjad.Offset(0, 1), abjad.Offset(3 * base))):
+                if not offset + base / 2 in (abjad.Offset(0, 1),
+                                             abjad.Offset(3 * base),
+                                             ):
                     abjad.mutate(logical_tie).fuse()

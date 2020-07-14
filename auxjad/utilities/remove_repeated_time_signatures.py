@@ -122,7 +122,9 @@ def remove_repeated_time_signatures(container: abjad.Container):
     measures = abjad.select(container[:]).group_by_measure()
 
     head = abjad.select(container).leaf(0)
-    previous_time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
+    previous_time_signature = abjad.inspect(head).indicator(
+        abjad.TimeSignature
+    )
     if previous_time_signature is None:
         previous_time_signature = abjad.TimeSignature((4, 4))
     for measure in measures[1:]:

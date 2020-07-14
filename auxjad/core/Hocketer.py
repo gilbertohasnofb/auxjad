@@ -1190,8 +1190,8 @@ class Hocketer():
 
     @use_multimeasure_rests.setter
     def use_multimeasure_rests(self,
-                              use_multimeasure_rests: bool,
-                              ):
+                               use_multimeasure_rests: bool,
+                               ):
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1219,8 +1219,8 @@ class Hocketer():
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: Optional[int],
-                       ):
+                          maximum_dot_count: Optional[int],
+                          ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1235,8 +1235,8 @@ class Hocketer():
 
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
-                       rewrite_tuplets: bool,
-                       ):
+                        rewrite_tuplets: bool,
+                        ):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets

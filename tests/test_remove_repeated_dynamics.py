@@ -220,7 +220,7 @@ def test_remove_repeated_dynamics_07():
         }
         """)
     staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-    auxjad.remove_repeated_dynamics(staff, reset_after_rests=2/4)
+    auxjad.remove_repeated_dynamics(staff, reset_after_rests=2 / 4)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

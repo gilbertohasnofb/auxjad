@@ -230,15 +230,15 @@ def test_LeafDynMaker_08():
                  abjad.Duration("3/32"),
                  abjad.Duration(0.125),
                  abjad.Duration(5, 32),
-                 abjad.Duration(6/32),
+                 abjad.Duration(6 / 32),
                  ]
     dynamics = ['p',
                 abjad.Dynamic('f'),
                 ]
     articulations = ['>',
-                    abjad.Articulation('-'),
-                    abjad.Staccato(),
-                    ]
+                     abjad.Articulation('-'),
+                     abjad.Staccato(),
+                     ]
     leaf_dyn_maker = auxjad.LeafDynMaker()
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     staff = abjad.Staff(notes)
@@ -261,6 +261,7 @@ def test_LeafDynMaker_08():
             a'8.
         }
         """)
+
 
 def test_LeafDynMaker_09():
     leaf_dyn_maker = auxjad.LeafDynMaker()

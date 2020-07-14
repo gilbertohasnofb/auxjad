@@ -234,12 +234,12 @@ class Adrifter():
         .. figure:: ../_images/image-Adrifter-6.png
 
     Example:
-        The instances of ``Adrifter`` can also be used as an iterator, which can
-        then be used in a for loop to run through the whole process. Note that
-        unlike the methods ``output_n()`` and ``output_all()``, time signatures
-        are added to each window returned by the adrifter. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``Adrifter`` in this way.
+        The instances of ``Adrifter`` can also be used as an iterator, which
+        can then be used in a for loop to run through the whole process. Note
+        that unlike the methods ``output_n()`` and ``output_all()``, time
+        signatures are added to each window returned by the adrifter. Use the
+        function ``auxjad.remove_repeated_time_signatures()`` to clean the
+        output when using ``Adrifter`` in this way.
 
         >>> container_out = abjad.Container(r"e'8 fs'4. r2")
         >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
@@ -1427,7 +1427,7 @@ class Adrifter():
         """
         try:
             return self.__call__()
-        except:
+        except RuntimeError:
             raise StopIteration
 
     def __iter__(self):
@@ -1448,7 +1448,7 @@ class Adrifter():
                 result_a, result_b = self.__call__()
                 output_staff_a.extend(result_a)
                 output_staff_b.extend(result_b)
-            except:
+            except RuntimeError:
                 break
         remove_repeated_time_signatures(output_staff_a)
         remove_repeated_time_signatures(output_staff_b)
@@ -1473,7 +1473,7 @@ class Adrifter():
                 result_a, result_b = self.__call__()
                 output_staff_a.extend(result_a)
                 output_staff_b.extend(result_b)
-            except:
+            except RuntimeError:
                 break
         remove_repeated_time_signatures(output_staff_a)
         remove_repeated_time_signatures(output_staff_b)
@@ -1519,7 +1519,7 @@ class Adrifter():
                                                       weights=self._weights,
                                                       )[0]
                         random_fader()
-                    except:
+                    except RuntimeError:
                         other_fader = self._faders[0]
                         if other_fader is random_fader:
                             other_fader = self._faders[1]
@@ -1577,8 +1577,8 @@ class Adrifter():
 
     @weighted_duration.setter
     def weighted_duration(self,
-                       weighted_duration: bool,
-                       ):
+                          weighted_duration: bool,
+                          ):
         if not isinstance(weighted_duration, bool):
             raise TypeError("'weighted_duration' must be 'bool'")
         self._weighted_duration = weighted_duration
@@ -1753,8 +1753,8 @@ class Adrifter():
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: Optional[int],
-                       ):
+                          maximum_dot_count: Optional[int],
+                          ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1771,8 +1771,8 @@ class Adrifter():
 
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
-                       rewrite_tuplets: bool,
-                       ):
+                        rewrite_tuplets: bool,
+                        ):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets

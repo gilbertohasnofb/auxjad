@@ -26,7 +26,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         many different ways:
 
         >>> harm1 = auxjad.ArtificialHarmonic("<g c'>4")
-        >>> harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1/4)
+        >>> harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1 / 4)
         >>> harm3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
         >>> harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
         >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])

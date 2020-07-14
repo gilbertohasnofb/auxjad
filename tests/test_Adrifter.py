@@ -1,7 +1,7 @@
 import random
 import abjad
-import pytest
 import auxjad
+
 
 def test_Adrifter_01():
     random.seed(17737)
@@ -839,7 +839,8 @@ def test_Adrifter_12():
 def test_Adrifter_13():
     random.seed(81943)
     container_out = abjad.Container(r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
-    container_in = abjad.Container(r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
+    container_in = abjad.Container(
+        r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
     adrifter = auxjad.Adrifter(container_out, container_in)
     staff_a, staff_b = adrifter.output_n(3)
     score = abjad.Score([staff_a, staff_b])
@@ -1093,7 +1094,8 @@ def test_Adrifter_17():
 def test_Adrifter_18():
     random.seed(97142)
     container_out = abjad.Container(r"<c' e' g'>4.\p e'8--\f ~ e'2")
-    container_in = abjad.Container(r"\times 2/3 {f'4-.\pp r4 <d' ef'>4->\f ~ } <d' ef'>2")
+    container_in = abjad.Container(
+        r"\times 2/3 {f'4-.\pp r4 <d' ef'>4->\f ~ } <d' ef'>2")
     adrifter = auxjad.Adrifter(container_out,
                                container_in,
                                fade_in_first=True,

@@ -9,8 +9,8 @@ def test_underfull_duration_01():
     container3 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4")
     container4 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4 d'4 e'4 f'4")
     assert auxjad.underfull_duration(container1) == 0
-    assert auxjad.underfull_duration(container2) == 1/4
-    assert auxjad.underfull_duration(container3) == 3/4
+    assert auxjad.underfull_duration(container2) == 1 / 4
+    assert auxjad.underfull_duration(container3) == 3 / 4
     assert auxjad.underfull_duration(container4) == 0
 
 
@@ -21,8 +21,8 @@ def test_underfull_duration_02():
     container4 = abjad.Container(r"\time 6/8 c'2 ~ c'8")
     assert auxjad.underfull_duration(container1) == 0
     assert auxjad.underfull_duration(container2) == 0
-    assert auxjad.underfull_duration(container3) == 1/2
-    assert auxjad.underfull_duration(container4) == 1/8
+    assert auxjad.underfull_duration(container3) == 1 / 2
+    assert auxjad.underfull_duration(container4) == 1 / 8
 
 
 def test_underfull_duration_03():
@@ -39,8 +39,8 @@ def test_underfull_duration_04():
     container4 = abjad.Container(r"\time 6/8 R1*1/2")
     assert auxjad.underfull_duration(container1) == 0
     assert auxjad.underfull_duration(container2) == 0
-    assert auxjad.underfull_duration(container3) == 3/4
-    assert auxjad.underfull_duration(container4) == 1/4
+    assert auxjad.underfull_duration(container3) == 3 / 4
+    assert auxjad.underfull_duration(container4) == 1 / 4
 
 
 def test_underfull_duration_05():

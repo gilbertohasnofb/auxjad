@@ -1,6 +1,5 @@
 import abjad
 from .remove_empty_tuplets import remove_empty_tuplets
-from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 def rests_to_multimeasure_rest(container: abjad.Container):

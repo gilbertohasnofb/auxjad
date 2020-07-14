@@ -44,45 +44,38 @@ def test_simplified_time_signature_ratio_06():
         r'abjad.TimeSignature((1, 1))')
 
 
-def test_simplified_time_signature_ratio_01():
+def test_simplified_time_signature_ratio_07():
     arg = (4, 8)
     time_signature = auxjad.simplified_time_signature_ratio(arg)
     assert format(time_signature) == abjad.String.normalize(
         r'abjad.TimeSignature((2, 4))')
-
     arg = abjad.Duration((4, 8))
     time_signature = auxjad.simplified_time_signature_ratio(arg)
     assert format(time_signature) == abjad.String.normalize(
         r'abjad.TimeSignature((2, 4))')
-
     arg = abjad.Meter((4, 8))
     time_signature = auxjad.simplified_time_signature_ratio(arg)
     assert format(time_signature) == abjad.String.normalize(
         r'abjad.TimeSignature((2, 4))')
-
     arg = abjad.TimeSignature((4, 8))
     time_signature = auxjad.simplified_time_signature_ratio(arg)
     assert format(time_signature) == abjad.String.normalize(
         r'abjad.TimeSignature((2, 4))')
-
     arg = (4, 8)
     pair = auxjad.simplified_time_signature_ratio(arg,
                                                   output_pair_of_int=True,
                                                   )
     assert pair == (2, 4)
-
     arg = abjad.Duration((4, 8))
     pair = auxjad.simplified_time_signature_ratio(arg,
                                                   output_pair_of_int=True,
                                                   )
     assert pair == (2, 4)
-
     arg = abjad.Meter((4, 8))
     pair = auxjad.simplified_time_signature_ratio(arg,
                                                   output_pair_of_int=True,
                                                   )
     assert pair == (2, 4)
-
     arg = abjad.TimeSignature((4, 8))
     pair = auxjad.simplified_time_signature_ratio(arg,
                                                   output_pair_of_int=True,

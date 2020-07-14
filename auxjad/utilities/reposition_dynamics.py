@@ -397,70 +397,72 @@ def reposition_dynamics(container: abjad.Container,
     shifted_hairpin = None
     active_hairpin = None
     for leaf in leaves:
+        inspector = abjad.inspect(leaf)
         if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)):
-            if abjad.inspect(leaf).indicator(abjad.Dynamic) is not None:
+            if inspector.indicator(abjad.Dynamic) is not None:
                 previous_leaf = abjad.select(leaf).with_previous_leaf()[0]
                 if (allow_rests_with_dynamics_after_hairpins
                         and active_hairpin is not None
-                        and not isinstance(previous_leaf, (abjad.Rest, abjad.MultimeasureRest))):
+                        and not isinstance(
+                            previous_leaf,
+                            (abjad.Rest, abjad.MultimeasureRest),
+                        )):
                     active_hairpin = None
                 else:
-                    shifted_dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
+                    shifted_dynamic = inspector.indicator(abjad.Dynamic)
                     abjad.detach(abjad.Dynamic, leaf)
-            if abjad.inspect(leaf).indicator(abjad.StartHairpin) is not None:
-                shifted_hairpin = abjad.inspect(leaf).indicator(
-                    abjad.StartHairpin)
+            if inspector.indicator(abjad.StartHairpin) is not None:
+                shifted_hairpin = inspector.indicator(abjad.StartHairpin)
                 abjad.detach(abjad.StartHairpin, leaf)
         else:
-            if abjad.inspect(leaf).indicator(abjad.Dynamic) is None:
+            if inspector.indicator(abjad.Dynamic) is None:
                 if shifted_dynamic is not None:
                     abjad.attach(shifted_dynamic, leaf)
-                    if (abjad.inspect(leaf).indicator(abjad.StopHairpin)
-                            is not None):
+                    if inspector.indicator(abjad.StopHairpin) is not None:
                         abjad.detach(abjad.StopHairpin, leaf)
                 if shifted_hairpin is not None:
                     abjad.attach(shifted_hairpin, leaf)
             else:
                 active_hairpin = None
-            if abjad.inspect(leaf).indicator(abjad.StopHairpin) is not None:
+            if inspector.indicator(abjad.StopHairpin) is not None:
                 active_hairpin = None
             shifted_dynamic = None
             shifted_hairpin = None
             if active_hairpin is None:
-                active_hairpin = abjad.inspect(leaf).indicator(abjad.StartHairpin)
+                active_hairpin = inspector.indicator(abjad.StartHairpin)
 
     # stopping hairpins under rests if not allowed
     if not allow_hairpins_under_rests:
         effective_hairpin = None
         for leaf in leaves:
-            start_hairpin = abjad.inspect(leaf).indicator(abjad.StartHairpin)
+            inspector = abjad.inspect(leaf)
+            start_hairpin = inspector.indicator(abjad.StartHairpin)
             if start_hairpin is not None:
                 effective_hairpin = start_hairpin
                 continue
             if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)):
                 if effective_hairpin is not None:
-                    if (abjad.inspect(leaf).indicator(abjad.StopHairpin)
-                            is None):
+                    if inspector.indicator(abjad.StopHairpin) is None:
                         abjad.attach(abjad.StopHairpin(), leaf)
                     effective_hairpin = None
             else:
-                dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
-                stop_hairpin = abjad.inspect(leaf).indicator(abjad.StopHairpin)
+                dynamic = inspector.indicator(abjad.Dynamic)
+                stop_hairpin = inspector.indicator(abjad.StopHairpin)
                 if dynamic is not None or stop_hairpin is not None:
                     effective_hairpin = None
 
     # cleaning up hairpins
     effective_dynamic = None
     for index, leaf in enumerate(leaves[:-1]):
-        if abjad.inspect(leaf).indicator(abjad.Dynamic) is not None:
-            effective_dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
-        start_hairpin = abjad.inspect(leaf).indicator(abjad.StartHairpin)
+        inspector = abjad.inspect(leaf)
+        if inspector.indicator(abjad.Dynamic) is not None:
+            effective_dynamic = inspector.indicator(abjad.Dynamic)
+        start_hairpin = inspector.indicator(abjad.StartHairpin)
         if start_hairpin is not None and check_hairpin_trends:
             for next_leaf in leaves[index + 1:]:
-                if (abjad.inspect(next_leaf).indicator(abjad.Dynamic)
-                        is not None):
-                    next_dynamic = abjad.inspect(next_leaf).indicator(
-                        abjad.Dynamic)
+                next_inspector = abjad.inspect(next_leaf)
+                if next_inspector.indicator(abjad.Dynamic) is not None:
+                    next_dynamic = next_inspector.indicator(abjad.Dynamic)
                     if '<' in start_hairpin.shape:
                         if next_dynamic.ordinal <= effective_dynamic.ordinal:
                             abjad.detach(abjad.StartHairpin, leaf)
@@ -468,25 +470,26 @@ def reposition_dynamics(container: abjad.Container,
                         if next_dynamic.ordinal >= effective_dynamic.ordinal:
                             abjad.detach(abjad.StartHairpin, leaf)
                     break
-                elif (abjad.inspect(next_leaf).indicator(abjad.StopHairpin)
-                        is not None):
+                elif next_inspector.indicator(abjad.StopHairpin) is not None:
                     break
     if abjad.inspect(leaves[-1]).indicator(abjad.StartHairpin) is not None:
         abjad.detach(abjad.StartHairpin, leaves[-1])
 
     # removing unecessary StopHairpin's
     for leaf in leaves:
-        if (abjad.inspect(leaf).indicator(abjad.StopHairpin) is not None
-                and abjad.inspect(leaf).indicator(abjad.Dynamic) is not None):
+        inspector = abjad.inspect(leaf)
+        if (inspector.indicator(abjad.StopHairpin) is not None
+                and inspector.indicator(abjad.Dynamic) is not None):
             abjad.detach(abjad.StopHairpin, leaf)
     target_leaf = None
     for leaf in leaves[::-1]:
-        if abjad.inspect(leaf).indicator(abjad.StopHairpin) is not None:
+        inspector = abjad.inspect(leaf)
+        if inspector.indicator(abjad.StopHairpin) is not None:
             if target_leaf is not None:
                 abjad.detach(abjad.StopHairpin, target_leaf)
             target_leaf = leaf
-        elif (abjad.inspect(leaf).indicator(abjad.StartHairpin) is not None
-                or abjad.inspect(leaf).indicator(abjad.Dynamic)) is not None:
+        elif (inspector.indicator(abjad.StartHairpin) is not None
+                or inspector.indicator(abjad.Dynamic)) is not None:
             target_leaf = None
 
     # removing repeated dynamics if required

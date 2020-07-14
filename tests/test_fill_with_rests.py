@@ -127,6 +127,21 @@ def test_fill_with_rests_03():
             r2.
         }
         """)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                g'4
+                r2.
+            }
+        }
+        """)
 
 
 def test_fill_with_rests_04():

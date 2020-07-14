@@ -272,7 +272,7 @@ def remove_repeated_dynamics(container: abjad.Container,
         But setting the duration to 2/4 forces the dynamic to be restated.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=2/4)
+        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=2 / 4)
         >>> abjad.f(staff)
         \new Staff
         {

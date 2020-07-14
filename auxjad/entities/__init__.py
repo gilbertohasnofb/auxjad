@@ -1,2 +1,2 @@
-from .ArtificialHarmonic import ArtificialHarmonic
-from .HarmonicNote import HarmonicNote
+"""auxjad's score component classes: artificial and natural harmonics.
+"""

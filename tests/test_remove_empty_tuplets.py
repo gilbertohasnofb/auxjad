@@ -3,25 +3,25 @@ import auxjad
 
 
 def test_remove_empty_tuplets_01():
-        container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
-        auxjad.remove_empty_tuplets(container)
-        assert format(container) == abjad.String.normalize(
-            r"""
-            {
-                r1
-            }
-            """)
+    container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
+    auxjad.remove_empty_tuplets(container)
+    assert format(container) == abjad.String.normalize(
+        r"""
+        {
+            r1
+        }
+        """)
 
 
 def test_remove_empty_tuplets_02():
-        container = abjad.Container(r"\times 4/5 {r2. \times 2/3 {r2 r4}}")
-        auxjad.remove_empty_tuplets(container)
-        assert format(container) == abjad.String.normalize(
-            r"""
-            {
-                r1
-            }
-            """)
+    container = abjad.Container(r"\times 4/5 {r2. \times 2/3 {r2 r4}}")
+    auxjad.remove_empty_tuplets(container)
+    assert format(container) == abjad.String.normalize(
+        r"""
+        {
+            r1
+        }
+        """)
 
 
 def test_remove_empty_tuplets_03():

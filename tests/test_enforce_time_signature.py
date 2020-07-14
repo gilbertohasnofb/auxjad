@@ -44,9 +44,9 @@ def test_enforce_time_signature_02():
 def test_enforce_time_signature_03():
     staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
     auxjad.enforce_time_signature(staff,
-                          abjad.TimeSignature((3, 4)),
-                          close_container=True,
-                          )
+                                  abjad.TimeSignature((3, 4)),
+                                  close_container=True,
+                                  )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -72,9 +72,9 @@ def test_enforce_time_signature_03():
 def test_enforce_time_signature_04():
     staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
     auxjad.enforce_time_signature(staff,
-                          abjad.TimeSignature((3, 4)),
-                          fill_with_rests=False,
-                          )
+                                  abjad.TimeSignature((3, 4)),
+                                  fill_with_rests=False,
+                                  )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -365,8 +365,8 @@ def test_enforce_time_signature_13():
                        abjad.TimeSignature((3, 4)),
                        ]
     auxjad.enforce_time_signature(staff,
-                                 time_signatures,
-                                 )
+                                  time_signatures,
+                                  )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -408,8 +408,8 @@ def test_enforce_time_signature_13():
 def test_enforce_time_signature_14():
     staff = abjad.Staff(r"c'4. d'8 e'2")
     auxjad.enforce_time_signature(staff,
-                                 abjad.TimeSignature((4, 4)),
-                                 )
+                                  abjad.TimeSignature((4, 4)),
+                                  )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -422,9 +422,9 @@ def test_enforce_time_signature_14():
         """)
     staff = abjad.Staff(r"c'4. d'8 e'2")
     auxjad.enforce_time_signature(staff,
-                                 abjad.TimeSignature((4, 4)),
-                                 boundary_depth=1,
-                                 )
+                                  abjad.TimeSignature((4, 4)),
+                                  boundary_depth=1,
+                                  )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

@@ -37,6 +37,24 @@ def test_repeat_container_01():
             e'4
         }
         """)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+            }
+        }
+        """)
 
 
 def test_repeat_container_02():

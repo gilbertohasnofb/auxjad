@@ -11,11 +11,14 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
+
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+import auxjad
+import re
 
+
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
@@ -23,9 +26,6 @@ project = 'auxjad'
 copyright = '2020, Gilberto Agostinho'
 author = 'Gilberto Agostinho'
 email = 'gilbertohasnofb@gmail.com'
-
-import auxjad
-import re
 
 # The short X.Y version
 version = re.search(r'(\d+\.\d+).*', auxjad.__version__).group(1)

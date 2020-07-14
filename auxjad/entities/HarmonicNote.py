@@ -23,7 +23,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         many different ways:
 
         >>> harm1 = auxjad.HarmonicNote("c''4")
-        >>> harm2 = auxjad.HarmonicNote("c''", 1/4)
+        >>> harm2 = auxjad.HarmonicNote("c''", 1 / 4)
         >>> harm3 = auxjad.HarmonicNote(12, 0.25)
         >>> harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
         >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])

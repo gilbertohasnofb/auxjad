@@ -18,7 +18,7 @@ def test_ArtificialHarmonic_01():
 
 def test_ArtificialHarmonic_02():
     harm1 = auxjad.ArtificialHarmonic("<g c'>4")
-    harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1/4)
+    harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1 / 4)
     harm3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
     harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
     harms = [harm1, harm2, harm3, harm4]
@@ -83,7 +83,7 @@ def test_ArtificialHarmonic_05():
 def test_ArtificialHarmonic_06():
     harm = auxjad.ArtificialHarmonic("<g c'>4")
     assert harm.written_pitches == abjad.PitchSegment("g c'")
-    assert harm.written_duration == 1/4
+    assert harm.written_duration == 1 / 4
     assert harm.style == 'harmonic'
     assert not harm.is_parenthesized
     harm.written_pitches = [-5, 2]
@@ -91,7 +91,7 @@ def test_ArtificialHarmonic_06():
     harm.style = 'harmonic-mixed'
     harm.is_parenthesized = True
     assert harm.written_pitches == abjad.PitchSegment("g d'")
-    assert harm.written_duration == 1/8
+    assert harm.written_duration == 1 / 8
     assert harm.style == 'harmonic-mixed'
     assert harm.is_parenthesized
 
@@ -224,8 +224,8 @@ def test_ArtificialHarmonic_16():
 
 def test_ArtificialHarmonic_17():
     harm = auxjad.ArtificialHarmonic("<a d'>1",
-                                      markup='I.',
-                                      direction=abjad.Down)
+                                     markup='I.',
+                                     direction=abjad.Down)
     assert harm.direction is abjad.Down
     assert format(harm) == abjad.String.normalize(
         r"""

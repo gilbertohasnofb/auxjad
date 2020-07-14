@@ -160,7 +160,7 @@ class _LoopParent():
     @staticmethod
     def _biased_choice(bias):
         r'Returns either +1 or -1 according to a bias value.'
-        return random.choices([1, -1], weights=[bias, 1.0-bias])[0]
+        return random.choices([1, -1], weights=[bias, 1.0 - bias])[0]
 
     @staticmethod
     def _remove_all_time_signatures(container):
@@ -308,4 +308,4 @@ class _LoopParent():
         head position has overtaken the ``contents`` length).
         """
         return (self._head_position >= self.__len__()
-            or self._head_position < 0)
+                or self._head_position < 0)

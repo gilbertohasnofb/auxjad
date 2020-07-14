@@ -10,10 +10,10 @@ class _HarmonicParent:
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()  # due to subclasses using multiple inheritance, '_markup'
-                    # and '_direction' are added to their __slots__ since you
-                    # cannot inherit from multiple classes with non-empty
-                    # __slots__
+    # due to subclasses using multiple inheritance, '_markup' and '_direction'
+    # are added to their __slots__ since you cannot inherit from multiple
+    # classes with non-empty __slots__
+    __slots__ = ()
 
     ### PUBLIC PROPERTIES ###
 

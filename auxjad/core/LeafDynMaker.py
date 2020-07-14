@@ -253,15 +253,15 @@ class LeafDynMaker(abjad.LeafMaker):
         ...              abjad.Duration("3/32"),
         ...              abjad.Duration(0.125),
         ...              abjad.Duration(5, 32),
-        ...              abjad.Duration(6/32),
+        ...              abjad.Duration(6 / 32),
         ...              ]
         >>> dynamics = ['p',
         ...             abjad.Dynamic('f'),
         ...             ]
         >>> articulations = ['>',
-        ...                 abjad.Articulation('-'),
-        ...                 abjad.Staccato(),
-        ...                 ]
+        ...                  abjad.Articulation('-'),
+        ...                  abjad.Staccato(),
+        ...                  ]
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
@@ -337,7 +337,7 @@ class LeafDynMaker(abjad.LeafMaker):
         logical_ties = leaves.logical_ties()
 
         pitches_ = self._listify(pitches)
-        durations_ =  self._listify(durations)
+        durations_ = self._listify(durations)
         dynamics_ = self._listify(dynamics)
         articulations_ = self._listify(articulations)
 
@@ -356,7 +356,7 @@ class LeafDynMaker(abjad.LeafMaker):
                                                       dynamics_,
                                                       articulations_):
             if (dynamic is not None and (not omit_repeated_dynamics
-                    or dynamic != previous_dynamic)):
+                                         or dynamic != previous_dynamic)):
                 abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic
             if articulation is not None:

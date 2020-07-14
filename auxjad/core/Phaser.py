@@ -1139,7 +1139,8 @@ class Phaser():
             abjad.mutate(dummy_container[:]).split([pivot])
             # finding start and end indeces for the window
             for start in range(len(dummy_container)):
-                if abjad.inspect(dummy_container[:start+1]).duration() > pivot:
+                if (abjad.inspect(dummy_container[:start + 1]).duration()
+                        > pivot):
                     break
             last_leaf = dummy_container[:start].leaf(-1)
             # copying indicators to both leaves
@@ -1154,8 +1155,8 @@ class Phaser():
                         first_leaf = dummy_container[start:].leaf(0)
                         abjad.attach(indicator, first_leaf)
             # removing ties of splitted logical tie if necessary
-            if (self._remove_unterminated_ties and
-                    abjad.inspect(last_leaf).indicator(abjad.Tie)):
+            if (self._remove_unterminated_ties
+                    and abjad.inspect(last_leaf).indicator(abjad.Tie)):
                 abjad.detach(abjad.Tie, last_leaf)
             # joining two subcontainers
             dummy_end_container = abjad.Container(
@@ -1191,7 +1192,7 @@ class Phaser():
     @staticmethod
     def _biased_choice(bias):
         r'Returns either +1 or -1 according to a bias value.'
-        return random.choices([1, -1], weights=[bias, 1.0-bias])[0]
+        return random.choices([1, -1], weights=[bias, 1.0 - bias])[0]
 
     @staticmethod
     def _remove_all_time_signatures(container):
@@ -1337,8 +1338,8 @@ class Phaser():
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: Optional[int],
-                       ):
+                          maximum_dot_count: Optional[int],
+                          ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1353,8 +1354,8 @@ class Phaser():
 
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
-                       rewrite_tuplets: bool,
-                       ):
+                        rewrite_tuplets: bool,
+                        ):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets

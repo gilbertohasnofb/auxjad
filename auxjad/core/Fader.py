@@ -1074,7 +1074,7 @@ class Fader():
                                                           )
                 self._mask[index] = 0
             elif n == 0:
-                    raise RuntimeError("'current_window' is already empty")
+                raise RuntimeError("'current_window' is already empty")
 
     def _add_element(self):
         r'Sets a random element of the mask to ``True``.'
@@ -1128,7 +1128,7 @@ class Fader():
                                      count: int,
                                      ) -> int:
         return tuple(index for index, item in enumerate(input_list)
-                if item == entry)[count]
+                     if item == entry)[count]
 
     ### PUBLIC PROPERTIES ###
 
@@ -1275,8 +1275,8 @@ class Fader():
 
     @maximum_dot_count.setter
     def maximum_dot_count(self,
-                       maximum_dot_count: Optional[int],
-                       ):
+                          maximum_dot_count: Optional[int],
+                          ):
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1291,8 +1291,8 @@ class Fader():
 
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
-                       rewrite_tuplets: bool,
-                       ):
+                        rewrite_tuplets: bool,
+                        ):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets

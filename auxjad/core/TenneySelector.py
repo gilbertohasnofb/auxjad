@@ -401,7 +401,7 @@ class TenneySelector():
         self._previous_index = random.choices(
             [n for n in range(self.__len__())],
             weights=self._probabilities,
-            )[0]
+        )[0]
         self._regenerate_counts()
         self._generate_probabilities()
         return self._contents[self._previous_index]

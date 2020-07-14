@@ -105,6 +105,7 @@ def test_prettify_rewrite_meter_02():
         }
         """)
 
+
 def test_prettify_rewrite_meter_03():
     staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
     meter = abjad.Meter((6, 4))

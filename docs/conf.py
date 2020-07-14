@@ -17,10 +17,9 @@ import re
 import sys
 
 sys.path.insert(0, os.path.abspath('..'))
+import auxjad  # noqa: E402
 
 # -- Project information -----------------------------------------------------
-
-import auxjad
 
 project = 'auxjad'
 copyright = '2020, Gilberto Agostinho'

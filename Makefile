@@ -23,7 +23,8 @@ flake8:
 docs-webpage:
 	rm -Rf auxjad-docs/
 	git clone https://github.com/gilbertohasnofb/auxjad-docs auxjad-docs
-	rsync -rtv --del --exclude=.git --exclude=README.rst docs/_build/html/ auxjad-docs/
+	rsync -rtv --del --exclude=.git --exclude=README.rst \
+	docs/_build/html/ auxjad-docs/
 	cd auxjad-docs && \
 		touch .nojekyll && \
 		git add -A && \

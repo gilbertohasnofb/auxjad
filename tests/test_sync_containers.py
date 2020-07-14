@@ -457,3 +457,52 @@ def test_sync_containers_15():
             R1 * 1/4
         }
         """)
+
+
+def test_sync_containers_16():
+    staff1 = abjad.Staff(r"\time 3/8 c'4. | d'4")
+    staff2 = abjad.Staff(r"\time 3/8 c'4. | d'8")
+    staff3 = abjad.Staff(r"\time 3/8 c'4. | d'16")
+    staff4 = abjad.Staff(r"\time 3/8 c'4.")
+    score = abjad.Score([staff1,
+                         staff2,
+                         staff3,
+                         staff4,
+                         ])
+    auxjad.sync_containers(score)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                d'4
+            }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                d'8
+                r8
+            }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                d'16
+                r8.
+            }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                R1 * 1/4
+            }
+        >>
+        """)

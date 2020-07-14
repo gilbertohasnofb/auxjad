@@ -258,6 +258,57 @@ def sync_containers(*containers: abjad.Container,
         .. figure:: ../_images/image-sync_containers-17.png
 
     Example:
+        This function can also receive an ``abjad.Score`` instead of multiple
+        ``abjad.Container``'s or ``abjad.Staff``'s.
+
+        >>> staff1 = abjad.Staff(r"\time 3/8 c'4. | d'4")
+        >>> staff2 = abjad.Staff(r"\time 3/8 c'4. | d'8")
+        >>> staff3 = abjad.Staff(r"\time 3/8 c'4. | d'16")
+        >>> staff4 = abjad.Staff(r"\time 3/8 c'4.")
+        >>> score = abjad.Score([staff1,
+        ...                      staff2,
+        ...                      staff3,
+        ...                      staff4,
+        ...                      ])
+        >>> auxjad.sync_containers(score)
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                d'4
+            }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                d'8
+                r8
+            }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                d'16
+                r8.
+            }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \time 1/4
+                R1 * 1/4
+            }
+        >>
+
+        .. figure:: ../_images/image-sync_containers-18.png
+
+    Example:
         The containers can be of different length, can have different time
         signatures, and can contain time signature changes as well.
 
@@ -282,7 +333,7 @@ def sync_containers(*containers: abjad.Container,
             R1*1/4
         }
 
-        .. figure:: ../_images/image-sync_containers-18.png
+        .. figure:: ../_images/image-sync_containers-19.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -294,7 +345,7 @@ def sync_containers(*containers: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-19.png
+        .. figure:: ../_images/image-sync_containers-20.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -305,7 +356,7 @@ def sync_containers(*containers: abjad.Container,
             g''4
         }
 
-        .. figure:: ../_images/image-sync_containers-20.png
+        .. figure:: ../_images/image-sync_containers-21.png
 
         >>> abjad.f(container4)
         \new Staff
@@ -317,8 +368,9 @@ def sync_containers(*containers: abjad.Container,
             R1*1/2
         }
 
-        .. figure:: ../_images/image-sync_containers-21.png
+        .. figure:: ../_images/image-sync_containers-22.png
 
+    Example:
         It's important to note that LilyPond does not support simultanoues
         staves with different time signatures (i.e. polymetric notation) by
         default. In order to enable it, the ``"Timing_translator"`` and
@@ -420,7 +472,7 @@ def sync_containers(*containers: abjad.Container,
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/image-sync_containers-22.png
+        .. figure:: ../_images/image-sync_containers-23.png
 
     ..  error::
 
@@ -434,6 +486,8 @@ def sync_containers(*containers: abjad.Container,
         ValueError: at least one 'container' is malformed, with an underfull
         bar preceeding a time signature change
     """
+    if len(containers) == 1 and isinstance(containers[0], abjad.Score):
+        containers = containers[0][:]
     for container in containers:
         if not isinstance(container, abjad.Container):
             raise TypeError("positional arguments must be 'abjad.Container' "

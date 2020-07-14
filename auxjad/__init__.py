@@ -24,8 +24,8 @@ from .core.Phaser import Phaser
 from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 
-from .entities.ArtificialHarmonic import ArtificialHarmonic
-from .entities.HarmonicNote import HarmonicNote
+from .score_components.ArtificialHarmonic import ArtificialHarmonic
+from .score_components.HarmonicNote import HarmonicNote
 
 from .utilities.close_container import close_container
 from .utilities.container_is_full import container_is_full

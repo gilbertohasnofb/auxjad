@@ -7,8 +7,10 @@ from .fill_with_rests import fill_with_rests as fill_with_rests_function
 
 
 def enforce_time_signature(container: abjad.Container,
-                           time_signatures: Union[abjad.TimeSignature, tuple,
-                                                  list],
+                           time_signatures: Union[abjad.TimeSignature,
+                                                  tuple,
+                                                  list,
+                                                  ],
                            *,
                            cyclic: bool = False,
                            fill_with_rests: bool = True,

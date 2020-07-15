@@ -4,6 +4,7 @@ import abjad
 def reposition_slurs(container: abjad.Container,
                      *,
                      allow_slurs_under_rests: bool = False,
+                     remove_unterminated_slurs: bool = True,
                      ):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value; this function repositions all slurs that
@@ -150,6 +151,53 @@ def reposition_slurs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_slurs-8.png
 
+    Example:
+        By default, unterminated slurs are removed.
+
+        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
+        >>> auxjad.reposition_slurs(staff)
+        >>> abjad.f(staff)
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                e'2
+                (
+                f'2
+                )
+                g'1
+            }
+
+
+        .. figure:: ../_images/image-reposition_slurs-9.png
+
+        Set the optional keyword argument ``remove_unterminated_slurs`` to
+        ``True`` to disable this behaviour.
+
+        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
+        >>> auxjad.reposition_slurs(staff, remove_unterminated_slurs=False)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+            (
+        }
+
+        .. figure:: ../_images/image-reposition_slurs-10.png
+
     ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
@@ -165,6 +213,18 @@ def reposition_slurs(container: abjad.Container,
         raise TypeError("'allow_slurs_under_rests' must be 'bool'")
 
     leaves = abjad.select(container[:]).leaves()
+
+    # checking for unfinished slurs
+    if remove_unterminated_slurs:
+        for n, leaf in enumerate(leaves[::-1]):
+            inspector = abjad.inspect(leaf)
+            if inspector.indicator(abjad.StartSlur) is not None:
+                if n == 0:
+                    abjad.detach(abjad.StartSlur(), leaf)
+                else:
+                    abjad.attach(abjad.StopSlur(), leaves[-1])
+            if inspector.indicator(abjad.StopSlur) is not None:
+                break
 
     # shifting slurs from rests to notes
     shifted_startslur = None
@@ -192,7 +252,7 @@ def reposition_slurs(container: abjad.Container,
                     abjad.attach(shifted_stopslur, leaf)
                     shifted_stopslur = None
 
-    # removing repeated dynamics if required
+    # splitting slurs under rests
     if not allow_slurs_under_rests:
         active_slur = False
         for n, leaf in enumerate(leaves):
@@ -200,6 +260,8 @@ def reposition_slurs(container: abjad.Container,
             if inspector.indicator(abjad.StartSlur) is not None:
                 active_slur = True
             elif inspector.indicator(abjad.StopSlur) is not None:
+                if not active_slur:
+                    abjad.detach(abjad.StopSlur, leaf)
                 active_slur = False
             if (isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest))
                     and active_slur):

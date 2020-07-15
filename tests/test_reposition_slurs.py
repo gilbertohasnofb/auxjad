@@ -180,3 +180,43 @@ def test_reposition_slurs_10():
             e'1
         }
         """)
+
+
+def test_reposition_slurs_11():
+    staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
+    auxjad.reposition_slurs(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
+    auxjad.reposition_slurs(staff, remove_unterminated_slurs=False)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+            (
+        }
+        """)

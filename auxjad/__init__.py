@@ -42,6 +42,7 @@ from .utilities.remove_repeated_time_signatures import (
 from .utilities.repeat_container import repeat_container
 from .utilities.reposition_clefs import reposition_clefs
 from .utilities.reposition_dynamics import reposition_dynamics
+from .utilities.reposition_slurs import reposition_slurs
 from .utilities.respell_container import respell_container
 from .utilities.respell_chord import respell_chord
 from .utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
@@ -84,6 +85,7 @@ __all__ = [
     'repeat_container',
     'reposition_clefs',
     'reposition_dynamics',
+    'reposition_slurs',
     'respell_container',
     'respell_chord',
     'rests_to_multimeasure_rest',

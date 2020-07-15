@@ -37,6 +37,7 @@ documentaion of each class and function.
     auxjad.repeat_container
     auxjad.reposition_clefs
     auxjad.reposition_dynamics
+    auxjad.reposition_slurs
     auxjad.respell_chord
     auxjad.respell_container
     auxjad.rests_to_multimeasure_rest

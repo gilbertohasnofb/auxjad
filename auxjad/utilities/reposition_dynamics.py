@@ -504,4 +504,4 @@ def reposition_dynamics(container: abjad.Container,
 
     # removing repeated dynamics if required
     if remove_repeated_dynamics:
-        remove_repeated_dynamics_(container, ignore_hairpins=True)
+        remove_repeated_dynamics_(container)

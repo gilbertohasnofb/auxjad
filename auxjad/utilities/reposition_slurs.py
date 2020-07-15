@@ -157,21 +157,19 @@ def reposition_slurs(container: abjad.Container,
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
         >>> auxjad.reposition_slurs(staff)
         >>> abjad.f(staff)
-
-            \new Staff
-            {
-                c'1
-                (
-                d'2
-                )
-                r2
-                e'2
-                (
-                f'2
-                )
-                g'1
-            }
-
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+        }
 
         .. figure:: ../_images/image-reposition_slurs-9.png
 

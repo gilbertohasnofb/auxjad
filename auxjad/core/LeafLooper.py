@@ -631,11 +631,10 @@ class LeafLooper(_LooperParent):
 
     ..  warning::
 
-        Do note that elements that span multiple notes (such as hairpins,
-        ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the looping process
-        has ended.
+        Do note that some elements that span multiple notes (such as ottava
+        indicators, manual beams, etc.) can become problematic when notes
+        containing them are split into two. As a rule of thumb, it is always
+        better to attach those to the music after the fading process has ended.
     """
 
     ### CLASS VARIABLES ###

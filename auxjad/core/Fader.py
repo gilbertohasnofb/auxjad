@@ -5,9 +5,12 @@ from typing import Any, Optional, Union
 import abjad
 
 from ..utilities.enforce_time_signature import enforce_time_signature
+from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
+from ..utilities.reposition_dynamics import reposition_dynamics
+from ..utilities.reposition_slurs import reposition_slurs
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from ..utilities.time_signature_extractor import time_signature_extractor
 
@@ -830,8 +833,7 @@ class Fader():
         ``rewrite_meter()``.
 
     Example:
-        This class can handle dynamics and articulations too. Hairpins might
-        need manual tweaking if the leaf under which they terminate is removed.
+        This class can handle dynamics and articulations too.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 <e' g' b'>8->\f d'8\p ~ d'4 f'8..-- g'32-.")
@@ -875,6 +877,102 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-33.png
 
+    Example:
+        Slurs and hairpins are also supported. Slurs are split when rests
+        appear in the middle of a slurred phrase, while hairpins are shortened
+        and adjusted as required.
+
+        >>> container = abjad.Container(r"\times 2/3 {c'2(\p\< d'2 e'2\f} "
+        >>>                             r"f'4\p\> g'2 a'4\pp)")
+        >>> fader = auxjad.Fader(container)
+        >>> notes = fader.output_n(5)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \times 2/3 {
+                \time 4/4
+                c'2
+                \p
+                \<
+                (
+                d'2
+                e'2
+                \f
+            }
+            f'4
+            \p
+            \>
+            g'2
+            a'4
+            \pp
+            )
+            \times 2/3 {
+                c'2
+                \p
+                \<
+                (
+                d'2
+                e'2
+                \f
+                )
+            }
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+            \times 2/3 {
+                r2
+                d'2
+                \p
+                \<
+                (
+                e'2
+                \f
+                )
+            }
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+            \times 2/3 {
+                r2
+                d'2
+                \p
+                \<
+                r2
+                \f
+                )
+            }
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+            R1
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+        }
+
+        .. figure:: ../_images/image-Fader-34.png
+
     .. tip::
 
         The functions ``auxjad.remove_repeated_dynamics()`` and
@@ -883,11 +981,10 @@ class Fader():
 
     ..  warning::
 
-        Do note that elements that span multiple notes (such as hairpins,
-        ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the fading process
-        has ended.
+        Do note that some elements that span multiple notes (such as ottava
+        indicators, manual beams, etc.) can become problematic when notes
+        containing them are split into two. As a rule of thumb, it is always
+        better to attach those to the music after the fading process has ended.
 
     Example:
         This class can handle tuplets.
@@ -923,7 +1020,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-34.png
+        .. figure:: ../_images/image-Fader-35.png
     """
 
     ### CLASS VARIABLES ###
@@ -1021,6 +1118,7 @@ class Fader():
             if self._done:
                 break
         remove_repeated_time_signatures(dummy_container)
+        remove_repeated_dynamics(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1040,6 +1138,7 @@ class Fader():
         for _ in range(n):
             dummy_container.append(self.__call__())
         remove_repeated_time_signatures(dummy_container)
+        remove_repeated_dynamics(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1099,8 +1198,29 @@ class Fader():
         for mask_value, logical_tie in zip(self._mask, logical_ties):
             if mask_value == 0:
                 for leaf in logical_tie:
-                    abjad.mutate(leaf).replace(
-                        abjad.Rest(leaf.written_duration))
+                    rest = abjad.Rest(leaf.written_duration)
+                    for indicator in abjad.inspect(leaf).indicators():
+                        if isinstance(indicator, (abjad.TimeSignature,
+                                                  abjad.Dynamic,
+                                                  abjad.StartHairpin,
+                                                  abjad.StopHairpin,
+                                                  abjad.StartSlur,
+                                                  abjad.StopSlur,
+                                                  abjad.Clef,
+                                                  abjad.Fermata,
+                                                  abjad.KeySignature,
+                                                  abjad.Ottava,
+                                                  abjad.LilyPondLiteral,
+                                                  abjad.MetronomeMark,
+                                                  abjad.StaffChange,
+                                                  abjad.StartPhrasingSlur,
+                                                  abjad.StopPhrasingSlur,
+                                                  )):
+                            abjad.attach(indicator, rest)
+                    abjad.mutate(leaf).replace(rest)
+        # handling dynamics and slurs
+        reposition_dynamics(dummy_container)
+        reposition_slurs(dummy_container)
         # applying time signatures and rewrite meter
         enforce_time_signature(
             dummy_container,

@@ -4,6 +4,7 @@ from typing import Optional, Union
 
 import abjad
 
+from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
@@ -1160,13 +1161,11 @@ class Drifter():
                 e'2
                 r4.
                 e'8
-                \f
                 - \tenuto
                 ~
                 e'2
                 r4.
                 e'8
-                \f
                 - \tenuto
                 ~
                 e'2
@@ -1185,14 +1184,12 @@ class Drifter():
                 r2
                 \times 2/3 {
                     f'4
-                    \pp
                     - \staccato
                     r2
                 }
                 r2
                 \times 2/3 {
                     f'4
-                    \pp
                     - \staccato
                     r4
                     <d' ef'>4
@@ -1225,11 +1222,10 @@ class Drifter():
 
     ..  warning::
 
-        Do note that elements that span multiple notes (such as hairpins,
-        ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the drifting process
-        has ended.
+        Do note that some elements that span multiple notes (such as ottava
+        indicators, manual beams, etc.) can become problematic when notes
+        containing them are split into two. As a rule of thumb, it is always
+        better to attach those to the music after the fading process has ended.
 
     Example:
         It is possible to use this class with containers of different lengths
@@ -1454,6 +1450,8 @@ class Drifter():
                 break
         remove_repeated_time_signatures(output_staff_a)
         remove_repeated_time_signatures(output_staff_b)
+        remove_repeated_dynamics(output_staff_a)
+        remove_repeated_dynamics(output_staff_b)
         return (output_staff_a, output_staff_b)
 
     def output_n(self,
@@ -1479,6 +1477,8 @@ class Drifter():
                 break
         remove_repeated_time_signatures(output_staff_a)
         remove_repeated_time_signatures(output_staff_b)
+        remove_repeated_dynamics(output_staff_a)
+        remove_repeated_dynamics(output_staff_b)
         return (output_staff_a, output_staff_b)
 
     def reset(self):

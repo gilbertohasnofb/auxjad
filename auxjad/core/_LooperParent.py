@@ -5,6 +5,7 @@ from typing import Union
 import abjad
 
 from ..utilities.leaves_are_tieable import leaves_are_tieable
+from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
@@ -106,6 +107,7 @@ class _LooperParent():
             except RuntimeError:
                 break
         remove_repeated_time_signatures(dummy_container)
+        remove_repeated_dynamics(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -137,6 +139,7 @@ class _LooperParent():
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)
         remove_repeated_time_signatures(dummy_container)
+        remove_repeated_dynamics(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output

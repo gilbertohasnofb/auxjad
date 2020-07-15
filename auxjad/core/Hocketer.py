@@ -6,6 +6,7 @@ import abjad
 
 from ..utilities.remove_empty_tuplets import remove_empty_tuplets
 from ..utilities.reposition_dynamics import reposition_dynamics
+from ..utilities.reposition_slurs import reposition_slurs
 from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from ..utilities.time_signature_extractor import time_signature_extractor
 
@@ -890,11 +891,10 @@ class Hocketer():
 
     ..  warning::
 
-        Do note that elements that span multiple notes (such as hairpins,
-        ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the hocketing process
-        has ended.
+        Do note that some elements that span multiple notes (such as ottava
+        indicators, manual beams, etc.) can become problematic when notes
+        containing them are split into two. As a rule of thumb, it is always
+        better to attach those to the music after the fading process has ended.
     """
 
     ### CLASS VARIABLES ###
@@ -1022,6 +1022,15 @@ class Hocketer():
                                                       abjad.Dynamic,
                                                       abjad.StartHairpin,
                                                       abjad.StopHairpin,
+                                                      abjad.Clef,
+                                                      abjad.Fermata,
+                                                      abjad.KeySignature,
+                                                      abjad.Ottava,
+                                                      abjad.LilyPondLiteral,
+                                                      abjad.MetronomeMark,
+                                                      abjad.StaffChange,
+                                                      abjad.StartPhrasingSlur,
+                                                      abjad.StopPhrasingSlur,
                                                       )):
                                 abjad.attach(indicator, rest)
                         abjad.mutate(leaf).replace(rest)
@@ -1029,6 +1038,7 @@ class Hocketer():
         # handling dynamics
         for voice in dummy_voices:
             reposition_dynamics(voice)
+            reposition_slurs(voice)
 
         # rewriting meter
         if not self._disable_rewrite_meter:

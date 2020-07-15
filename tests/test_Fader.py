@@ -1105,3 +1105,97 @@ def test_Fader_26():
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         fader = auxjad.Fader(score)
+
+
+def test_Fader_27():
+    random.seed(41888)
+    container = abjad.Container(r"\times 2/3 {c'2(\p\< d'2 e'2\f} "
+                                r"f'4\p\> g'2 a'4\pp)")
+    fader = auxjad.Fader(container)
+    notes = fader.output_n(5)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \times 2/3 {
+                \time 4/4
+                c'2
+                \p
+                \<
+                (
+                d'2
+                e'2
+                \f
+            }
+            f'4
+            \p
+            \>
+            g'2
+            a'4
+            \pp
+            )
+            \times 2/3 {
+                c'2
+                \p
+                \<
+                (
+                d'2
+                e'2
+                \f
+                )
+            }
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+            \times 2/3 {
+                r2
+                d'2
+                \p
+                \<
+                (
+                e'2
+                \f
+                )
+            }
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+            \times 2/3 {
+                r2
+                d'2
+                \p
+                \<
+                r2
+                \f
+                )
+            }
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+            R1
+            r4
+            g'2
+            \p
+            \>
+            (
+            a'4
+            \pp
+            )
+        }
+        """)

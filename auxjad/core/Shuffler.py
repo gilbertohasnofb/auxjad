@@ -5,9 +5,12 @@ from typing import Optional, Union
 import abjad
 
 from ..utilities.enforce_time_signature import enforce_time_signature
+from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
+from ..utilities.reposition_dynamics import reposition_dynamics
+from ..utilities.reposition_slurs import reposition_slurs
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -649,11 +652,14 @@ class Shuffler:
 
     ..  warning::
 
-        Do note that elements that span multiple notes (such as hairpins,
-        ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the shuffling process
-        has ended.
+        Do note that some elements that span multiple notes (such as ottava
+        indicators, manual beams, etc.) can become problematic when notes
+        containing them are split into two. As a rule of thumb, it is always
+        better to attach those to the music after the fading process has ended.
+        In the case of shuffling logical ties, slurs and hairpins can also
+        become a problem, since their start and end position can shift around.
+        Dynamics are shuffled together with their leaves, so the initial leaf
+        may lack a dynamic marking.
 
     Example:
         Use the property ``contents`` to get the input container upon which the
@@ -951,6 +957,7 @@ class Shuffler:
         for _ in range(n):
             dummy_container.append(self.__call__())
         remove_repeated_time_signatures(dummy_container)
+        remove_repeated_dynamics(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -973,6 +980,7 @@ class Shuffler:
             dummy_container.append(self.rotate(n_rotations=n_rotations,
                                                anticlockwise=anticlockwise))
         remove_repeated_time_signatures(dummy_container)
+        remove_repeated_dynamics(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1121,6 +1129,9 @@ class Shuffler:
                                self._time_signatures,
                                disable_rewrite_meter=True,
                                )
+        # handling dynamics and slurs
+        reposition_dynamics(dummy_container)
+        reposition_slurs(dummy_container)
         # rewrite meter
         if not self._disable_rewrite_meter:
             measures = abjad.select(dummy_container[:]).group_by_measure()

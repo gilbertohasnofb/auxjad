@@ -1128,13 +1128,11 @@ def test_Drifter_18():
                 e'2
                 r4.
                 e'8
-                \f
                 - \tenuto
                 ~
                 e'2
                 r4.
                 e'8
-                \f
                 - \tenuto
                 ~
                 e'2
@@ -1153,14 +1151,12 @@ def test_Drifter_18():
                 r2
                 \times 2/3 {
                     f'4
-                    \pp
                     - \staccato
                     r2
                 }
                 r2
                 \times 2/3 {
                     f'4
-                    \pp
                     - \staccato
                     r4
                     <d' ef'>4

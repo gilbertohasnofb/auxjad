@@ -9,6 +9,8 @@ from ..utilities.leaves_are_tieable import leaves_are_tieable
 from ..utilities.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
+from ..utilities.reposition_dynamics import reposition_dynamics
+from ..utilities.reposition_slurs import reposition_slurs
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -678,7 +680,6 @@ class Phaser():
             - \accent
             f'4
             c'8
-            \p
             - \staccato
             \<
             d'8
@@ -695,7 +696,6 @@ class Phaser():
             ~
             f'8
             c'8
-            \p
             - \staccato
             d'4
             \f
@@ -705,9 +705,7 @@ class Phaser():
             - \accent
             f'4
             c'4
-            \p
             - \staccato
-            \<
             d'8
             \f
             - \tenuto
@@ -720,7 +718,6 @@ class Phaser():
             ~
             f'8
             c'8
-            \p
             - \staccato
             ~
             c'8
@@ -733,7 +730,6 @@ class Phaser():
             - \accent
             f'4
             c'4
-            \p
             - \staccato
             \<
             d'4
@@ -743,6 +739,132 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-17.png
 
+    Example:
+        Slurs and hairpins are also supported.
+
+        >>> container = abjad.Container(
+        ...     r"c'2(\p\< d'4. e'8\f f'4\p\> g'2 a'4\pp)")
+        >>> phaser = auxjad.Phaser(container)
+        >>> notes = phaser.output_n(5)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'2
+            \p
+            \<
+            (
+            d'4.
+            e'8
+            \f
+            f'4
+            \p
+            \>
+            g'2
+            a'4
+            \pp
+            )
+            c'4..
+            \p
+            \<
+            (
+            d'16
+            ~
+            d'4
+            ~
+            d'16
+            e'16
+            \f
+            ~
+            e'16
+            f'16
+            \p
+            ~
+            f'8.
+            \>
+            g'16
+            ~
+            g'4..
+            a'16
+            \pp
+            ~
+            a'8.
+            )
+            c'16
+            \p
+            (
+            c'4.
+            \<
+            (
+            d'4.
+            e'8
+            \f
+            f'8
+            \p
+            ~
+            f'8
+            \>
+            g'8
+            ~
+            g'4.
+            a'8
+            \pp
+            ~
+            a'8
+            )
+            c'8
+            \p
+            (
+            c'4
+            ~
+            (
+            c'16
+            \<
+            d'8.
+            ~
+            d'8.
+            e'16
+            \f
+            ~
+            e'16
+            f'8.
+            \p
+            ~
+            f'16
+            \>
+            g'8.
+            ~
+            g'4
+            ~
+            g'16
+            a'8.
+            \pp
+            ~
+            a'16
+            )
+            c'8.
+            \p
+            (
+            c'4
+            \<
+            (
+            d'4.
+            e'8
+            \f
+            f'4
+            \p
+            \>
+            g'2
+            a'4
+            \pp
+            )
+            c'4
+            \p
+        }
+
+        .. figure:: ../_images/image-Phaser-18.png
+
     .. tip::
 
         The functions ``auxjad.remove_repeated_dynamics()`` and
@@ -751,11 +873,10 @@ class Phaser():
 
     ..  warning::
 
-        Do note that elements that span multiple notes (such as hairpins,
-        ottava indicators, manual beams, etc.) can become problematic when
-        notes containing them are split into two. As a rule of thumb, it is
-        always better to attach those to the music after the looping process
-        has ended.
+        Do note that some elements that span multiple notes (such as ottava
+        indicators, manual beams, etc.) can become problematic when notes
+        containing them are split into two. As a rule of thumb, it is always
+        better to attach those to the music after the fading process has ended.
 
     Example:
         Use the ``contents`` property to read as well as overwrite the contents
@@ -776,7 +897,7 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-18.png
+        .. figure:: ../_images/image-Phaser-19.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -797,7 +918,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-19.png
+        .. figure:: ../_images/image-Phaser-20.png
 
         >>> phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = phaser()
@@ -813,7 +934,7 @@ class Phaser():
             g'2.
         }
 
-        .. figure:: ../_images/image-Phaser-20.png
+        .. figure:: ../_images/image-Phaser-21.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -832,7 +953,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-21.png
+        .. figure:: ../_images/image-Phaser-22.png
 
     Example:
         This function uses the default logical tie splitting algorithm from
@@ -851,7 +972,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-22.png
+        .. figure:: ../_images/image-Phaser-23.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -871,7 +992,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-23.png
+        .. figure:: ../_images/image-Phaser-24.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -910,7 +1031,7 @@ class Phaser():
             c'4
         }
 
-        .. figure:: ../_images/image-Phaser-24.png
+        .. figure:: ../_images/image-Phaser-25.png
 
     ..  tip::
 
@@ -973,7 +1094,7 @@ class Phaser():
             }
         }
 
-        .. figure:: ../_images/image-Phaser-25.png
+        .. figure:: ../_images/image-Phaser-26.png
     """
 
     ### CLASS VARIABLES ###
@@ -1093,6 +1214,8 @@ class Phaser():
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
         remove_repeated_time_signatures(dummy_container)
+        reposition_dynamics(dummy_container)
+        reposition_slurs(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1119,6 +1242,8 @@ class Phaser():
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
         remove_repeated_time_signatures(dummy_container)
+        reposition_dynamics(dummy_container)
+        reposition_slurs(dummy_container)
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1156,7 +1281,19 @@ class Phaser():
                                               abjad.Articulation,
                                               abjad.Staccato,
                                               abjad.Staccatissimo,
+                                              abjad.StartHairpin,
+                                              abjad.StopHairpin,
+                                              abjad.StartSlur,
+                                              abjad.StopSlur,
+                                              abjad.Clef,
                                               abjad.Fermata,
+                                              abjad.KeySignature,
+                                              abjad.Ottava,
+                                              abjad.LilyPondLiteral,
+                                              abjad.MetronomeMark,
+                                              abjad.StaffChange,
+                                              abjad.StartPhrasingSlur,
+                                              abjad.StopPhrasingSlur,
                                               )):
                         first_leaf = dummy_container[start:].leaf(0)
                         abjad.attach(indicator, first_leaf)
@@ -1173,6 +1310,8 @@ class Phaser():
             )
             dummy_container.extend(dummy_end_container)
             dummy_end_container[:] = []
+        # dealing with dynamics and slurs
+        reposition_dynamics(dummy_container)
         # adding time signatures back and rewriting meter
         enforce_time_signature(
             dummy_container,

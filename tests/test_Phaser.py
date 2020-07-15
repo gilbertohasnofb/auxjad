@@ -758,7 +758,6 @@ def test_Phaser_16():
             - \accent
             f'4
             c'8
-            \p
             - \staccato
             \<
             d'8
@@ -775,7 +774,6 @@ def test_Phaser_16():
             ~
             f'8
             c'8
-            \p
             - \staccato
             d'4
             \f
@@ -785,9 +783,7 @@ def test_Phaser_16():
             - \accent
             f'4
             c'4
-            \p
             - \staccato
-            \<
             d'8
             \f
             - \tenuto
@@ -800,7 +796,6 @@ def test_Phaser_16():
             ~
             f'8
             c'8
-            \p
             - \staccato
             ~
             c'8
@@ -813,7 +808,6 @@ def test_Phaser_16():
             - \accent
             f'4
             c'4
-            \p
             - \staccato
             \<
             d'4
@@ -1198,3 +1192,127 @@ def test_Phaser_24():
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         auxjad.Phaser(score)
+
+
+def test_Phaser_25():
+    container = abjad.Container(r"c'2(\p\< d'4. e'8\f f'4\p\> g'2 a'4\pp)")
+    phaser = auxjad.Phaser(container)
+    notes = phaser.output_n(5)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'2
+            \p
+            \<
+            (
+            d'4.
+            e'8
+            \f
+            f'4
+            \p
+            \>
+            g'2
+            a'4
+            \pp
+            )
+            c'4..
+            \p
+            \<
+            (
+            d'16
+            ~
+            d'4
+            ~
+            d'16
+            e'16
+            \f
+            ~
+            e'16
+            f'16
+            \p
+            ~
+            f'8.
+            \>
+            g'16
+            ~
+            g'4..
+            a'16
+            \pp
+            ~
+            a'8.
+            )
+            c'16
+            \p
+            (
+            c'4.
+            \<
+            (
+            d'4.
+            e'8
+            \f
+            f'8
+            \p
+            ~
+            f'8
+            \>
+            g'8
+            ~
+            g'4.
+            a'8
+            \pp
+            ~
+            a'8
+            )
+            c'8
+            \p
+            (
+            c'4
+            ~
+            (
+            c'16
+            \<
+            d'8.
+            ~
+            d'8.
+            e'16
+            \f
+            ~
+            e'16
+            f'8.
+            \p
+            ~
+            f'16
+            \>
+            g'8.
+            ~
+            g'4
+            ~
+            g'16
+            a'8.
+            \pp
+            ~
+            a'16
+            )
+            c'8.
+            \p
+            (
+            c'4
+            \<
+            (
+            d'4.
+            e'8
+            \f
+            f'4
+            \p
+            \>
+            g'2
+            a'4
+            \pp
+            )
+            c'4
+            \p
+        }
+        """)

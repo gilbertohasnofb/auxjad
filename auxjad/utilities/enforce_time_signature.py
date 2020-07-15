@@ -591,7 +591,7 @@ def enforce_time_signature(container: abjad.Container,
             r4
         }
 
-    ..  error::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

@@ -116,7 +116,7 @@ def remove_repeated_time_signatures(container: abjad.Container):
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-6.png
 
-    ..  error::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

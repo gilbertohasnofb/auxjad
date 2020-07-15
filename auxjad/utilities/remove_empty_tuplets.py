@@ -132,8 +132,8 @@ def remove_empty_tuplets(container: abjad.Container):
             r2.
             r2.
         }
-        
-    ..  error::
+
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

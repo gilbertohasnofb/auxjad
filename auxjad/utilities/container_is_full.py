@@ -77,7 +77,7 @@ def container_is_full(container: abjad.Container) -> bool:
         ValueError: 'container' is malformed, with an underfull bar preceeding
         a time signature change
 
-    ..  error::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

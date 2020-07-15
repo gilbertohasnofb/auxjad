@@ -175,8 +175,8 @@ def fill_with_rests(container: abjad.Container):
         >>> auxjad.fill_with_rests(container)
         ValueError: 'container' is malformed, with an underfull bar preceeding
         a time signature change
-    
-    ..  error::
+
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

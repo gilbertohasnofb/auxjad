@@ -368,7 +368,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-22.png
 
-    ..  error::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

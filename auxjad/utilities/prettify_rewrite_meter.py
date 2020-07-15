@@ -451,7 +451,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-15.png
 
-    ..  error::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

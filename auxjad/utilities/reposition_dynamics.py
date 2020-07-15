@@ -382,7 +382,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-18.png
 
-    ..  error::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containings

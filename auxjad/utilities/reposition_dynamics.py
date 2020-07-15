@@ -124,7 +124,7 @@ def reposition_dynamics(container: abjad.Container,
         .. figure:: ../_images/image-reposition_dynamics-6.png
 
     Example:
-        This function will shorten hairpins until rests by default
+        This function will shorten hairpins until rests by default.
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
         >>> abjad.f(staff)
@@ -142,7 +142,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-7.png
 
-        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
         >>> auxjad.reposition_dynamics(staff)
         >>> abjad.f(staff)
         \new Staff
@@ -163,7 +163,7 @@ def reposition_dynamics(container: abjad.Container,
         Set the optional keyword argument ``allow_hairpins_under_rests`` to
         ``True`` to allow hairpins to extend cross rests.
 
-        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
+        >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
         >>> auxjad.reposition_dynamics(staff, allow_hairpins_under_rests=True)
         >>> abjad.f(staff)
         \new Staff

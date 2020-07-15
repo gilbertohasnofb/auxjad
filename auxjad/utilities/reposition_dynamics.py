@@ -471,8 +471,8 @@ def reposition_dynamics(container: abjad.Container,
         if start_hairpin is not None and check_hairpin_trends:
             for next_leaf in leaves[index + 1:]:
                 next_inspector = abjad.inspect(next_leaf)
-                if next_inspector.indicator(abjad.Dynamic) is not None:
-                    next_dynamic = next_inspector.indicator(abjad.Dynamic)
+                next_dynamic = next_inspector.indicator(abjad.Dynamic)
+                if next_dynamic is not None and effective_dynamic is not None:
                     if '<' in start_hairpin.shape:
                         if next_dynamic.ordinal <= effective_dynamic.ordinal:
                             abjad.detach(abjad.StartHairpin, leaf)

@@ -221,7 +221,8 @@ def reposition_slurs(container: abjad.Container,
             if inspector.indicator(abjad.StartSlur) is not None:
                 if n == 0:
                     abjad.detach(abjad.StartSlur(), leaf)
-                else:
+                elif (abjad.inspect(leaves[-1]).indicator(abjad.StopSlur)
+                        is None):
                     abjad.attach(abjad.StopSlur(), leaves[-1])
             if inspector.indicator(abjad.StopSlur) is not None:
                 break

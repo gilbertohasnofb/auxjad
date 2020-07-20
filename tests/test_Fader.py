@@ -620,7 +620,7 @@ def test_Fader_14():
 def test_Fader_15():
     random.seed(71324)
     container = abjad.Container(
-        r"\time 3/4 <e' g' b'>8->\f d'8\p ~ d'4 f'8..-- g'32-.")
+        r"\time 3/4 c'8->\f d'8\p ~ d'4 e'8..-- f'32-.")
     fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
@@ -629,30 +629,30 @@ def test_Fader_15():
         \new Staff
         {
             \time 3/4
-            <e' g' b'>8
+            c'8
             \f
             - \accent
             d'4.
             \p
-            f'8..
+            e'8..
             - \tenuto
-            g'32
+            f'32
             - \staccato
-            <e' g' b'>8
+            c'8
             \f
             - \accent
             d'4.
             \p
             r8..
-            g'32
+            f'32
             - \staccato
-            <e' g' b'>8
+            c'8
             \f
             - \accent
             d'4.
             \p
             r4
-            <e' g' b'>8
+            c'8
             \f
             - \accent
             r8
@@ -739,15 +739,21 @@ def test_Fader_17():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     fader = auxjad.Fader(container)
     assert len(fader) == 4
-    container = abjad.Container(r"<c' e' g'>4 d'4 <e' g' b'>4 f'4")
-    fader = auxjad.Fader(container)
-    assert len(fader) == 4
     container = abjad.Container(r"c'4 ~ c'8 d'8 e'4 ~ e'8 f'8")
     fader = auxjad.Fader(container)
     assert len(fader) == 4
     container = abjad.Container(r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16")
     fader = auxjad.Fader(container)
     assert len(fader) == 4
+    container = abjad.Container(r"<c' e' g'>2 <d' f'>2")
+    fader = auxjad.Fader(container)
+    assert len(fader) == 5
+    container = abjad.Container(r"<c' e' g'>4 ~ <c' e' g'>16 r8. <d' f'>2")
+    fader = auxjad.Fader(container)
+    assert len(fader) == 5
+    container = abjad.Container(r"<c' e' g'>4 d'4 <e' g' b'>4 r4")
+    fader = auxjad.Fader(container)
+    assert len(fader) == 7
 
 
 def test_Fader_18():
@@ -1197,5 +1203,76 @@ def test_Fader_27():
             a'4
             \pp
             )
+        }
+        """)
+
+
+def test_Fader_28():
+    random.seed(17613)
+    container = abjad.Container(r"<c' e'>4 ~ <c' e'>16 d'8. <gs e'>8  "
+                                r"<bf f' a'>8 ~ <bf f' a'>4")
+    fader = auxjad.Fader(container)
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            <c' e'>4
+            ~
+            <c' e'>16
+            d'8.
+            <gs e'>8
+            <bf f' a'>4.
+            <c' e'>4
+            ~
+            <c' e'>16
+            d'8.
+            gs8
+            <bf f' a'>4.
+            <c' e'>4
+            ~
+            <c' e'>16
+            d'8.
+            gs8
+            <bf a'>4.
+            c'4
+            ~
+            c'16
+            d'8.
+            gs8
+            <bf a'>4.
+            r4
+            r16
+            d'8.
+            gs8
+            <bf a'>4.
+            r4
+            r16
+            d'8.
+            gs8
+            bf4.
+            r2
+            gs8
+            bf4.
+            r2
+            r8
+            bf4.
+            R1
+        }
+        """)
+
+
+def test_Fader_29():
+    container = abjad.Container(r"c'2 <d' e' f' g'>2")
+    fader = auxjad.Fader(container, mask=[1, 0, 1, 1, 0])
+    staff = abjad.Staff(fader())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'2
+            <e' f'>2
         }
         """)

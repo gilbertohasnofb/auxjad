@@ -113,7 +113,7 @@ def test_Drifter_02():
     container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
     container_in = abjad.Container(r"r2 <c'' e'' g''>2")
     adrifter = auxjad.Drifter(container_out, container_in)
-    assert len(adrifter) == 3
+    assert len(adrifter) == 5
 
 
 def test_Drifter_03():
@@ -1095,9 +1095,9 @@ def test_Drifter_17():
 
 def test_Drifter_18():
     random.seed(97142)
-    container_out = abjad.Container(r"<c' e' g'>4.\p e'8--\f ~ e'2")
+    container_out = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
     container_in = abjad.Container(
-        r"\times 2/3 {f'4-.\pp r4 <d' ef'>4->\f ~ } <d' ef'>2")
+        r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2")
     adrifter = auxjad.Drifter(container_out,
                               container_in,
                               fade_in_first=True,
@@ -1112,14 +1112,14 @@ def test_Drifter_18():
             \new Staff
             {
                 \time 4/4
-                <c' e' g'>4.
+                c'4.
                 \p
                 e'8
                 \f
                 - \tenuto
                 ~
                 e'2
-                <c' e' g'>4.
+                c'4.
                 \p
                 e'8
                 \f
@@ -1159,23 +1159,94 @@ def test_Drifter_18():
                     f'4
                     - \staccato
                     r4
-                    <d' ef'>4
+                    d'4
                     \f
                     - \accent
                     ~
                 }
-                <d' ef'>2
+                d'2
                 \times 2/3 {
                     f'4
                     \pp
                     - \staccato
                     r4
-                    <d' ef'>4
+                    d'4
                     \f
                     - \accent
                     ~
                 }
-                <d' ef'>2
+                d'2
+            }
+        >>
+        """)
+
+
+def test_Drifter_19():
+    random.seed(25519)
+    container_out = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
+    container_in = abjad.Container(r"<d' ef'>2. <bf a'>4")
+    adrifter = auxjad.Drifter(container_out,
+                              container_in,
+                              fade_in_first=True,
+                              fade_out_last=True,
+                              )
+    staff_a, staff_b = adrifter.output_all()
+    score = abjad.Score([staff_a, staff_b])
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \times 2/3 {
+                    \time 4/4
+                    <c' e'>2
+                    g'1
+                }
+                \times 2/3 {
+                    <c' e'>2
+                    g'1
+                }
+                \times 2/3 {
+                    <c' e'>2
+                    g'1
+                }
+                \times 2/3 {
+                    <c' e'>2
+                    g'1
+                }
+                \times 2/3 {
+                    c'2
+                    g'1
+                }
+                \times 2/3 {
+                    c'2
+                    g'1
+                }
+                \times 2/3 {
+                    c'2
+                    r1
+                }
+                R1
+            }
+            \new Staff
+            {
+                \time 4/4
+                R1
+                ef'2.
+                r4
+                <d' ef'>2.
+                r4
+                <d' ef'>2.
+                bf4
+                <d' ef'>2.
+                bf4
+                <d' ef'>2.
+                <bf a'>4
+                <d' ef'>2.
+                <bf a'>4
+                <d' ef'>2.
+                <bf a'>4
             }
         >>
         """)

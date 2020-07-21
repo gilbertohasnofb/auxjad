@@ -1275,7 +1275,7 @@ class Phaser():
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
-    def _phase_contents(self):
+    def _phase_contents(self) -> abjad.Container:
         r"""This method phases ``contents`` using ``_pivot_point`` as the
         pivot point.
         """

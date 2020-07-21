@@ -985,12 +985,10 @@ class Hocketer():
         """
         # distributing logical ties into voices
         dummy_voices = self._hocket_process()
-
         # handling dynamics and slurs
         for voice in dummy_voices:
             reposition_dynamics(voice)
             reposition_slurs(voice)
-
         # rewriting meter
         if not self._disable_rewrite_meter:
             for voice in dummy_voices:
@@ -1003,20 +1001,18 @@ class Hocketer():
                         maximum_dot_count=self._maximum_dot_count,
                         rewrite_tuplets=self._rewrite_tuplets,
                     )
-
         # handling empty tuplets and multi-measure rests
         for voice in dummy_voices:
             remove_empty_tuplets(voice)
             if self._use_multimeasure_rests:
                 rests_to_multimeasure_rest(voice)
-
         # output
         self._voices = []
         for voice in dummy_voices:
             self._voices.append(voice[:])
             voice[:] = []
 
-    def _hocket_process(self):
+    def _hocket_process(self) -> abjad.Container:
         r"""Replaces notes and chords for silences if voice not in the selected
         list for a given logical tie.
         """

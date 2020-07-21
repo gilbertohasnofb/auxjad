@@ -469,7 +469,7 @@ class Fader():
 
     Example:
         To run through just part of the process and output it as a single
-        container, use the method``output_n()`` and pass the number of
+        container, use the method ``output_n()`` and pass the number of
         iterations as argument.
 
         >>> container = abjad.Container(r"c'4. d'8 e'16 f'16 g'4.")
@@ -1288,7 +1288,7 @@ class Fader():
                 raise RuntimeError("'current_window' is already full")
 
     def _mask_to_selection(self):
-        r'Applies the mask to the current window.'
+        r'Applies the mask to ``contents``.'
         dummy_container = copy.deepcopy(self._contents)
         logical_ties = abjad.select(dummy_container).logical_ties(pitched=True)
         mask_index = 0

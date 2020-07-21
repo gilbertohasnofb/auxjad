@@ -1067,7 +1067,7 @@ class Hocketer():
 
     @staticmethod
     def _remove_all_time_signatures(container):
-        r'Removes all time signatures of an ``abjad.Container``'
+        r'Removes all time signatures of an ``abjad.Container``.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1202,9 +1202,7 @@ class Hocketer():
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r"""When ``True``, the rests in any bars filled only with rests will be
-        replaced by a multi-measure rest.
-        """
+        r'When ``True``, multi-measure rests will be used for silent measures.'
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter

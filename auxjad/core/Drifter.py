@@ -25,8 +25,8 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> selection_a, selection_b = adrifter()
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> selection_a, selection_b = drifter()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -50,7 +50,7 @@ class Drifter():
 
         .. figure:: ../_images/image-Drifter-1.png
 
-        >>> selection_a, selection_b = adrifter()
+        >>> selection_a, selection_b = drifter()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -77,7 +77,7 @@ class Drifter():
 
         .. figure:: ../_images/image-Drifter-2.png
 
-        >>> selection_a, selection_b = adrifter()
+        >>> selection_a, selection_b = drifter()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -107,7 +107,7 @@ class Drifter():
         The property ``current_window`` can be used to access the current
         window without moving the head forwards.
 
-        >>> notes = adrifter.current_window()
+        >>> notes = drifter.current_window()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -140,8 +140,8 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -201,8 +201,8 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"e'8 fs'4. r2")
         >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = adrifter.output_n(3)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> staff_a, staff_b = drifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -240,16 +240,16 @@ class Drifter():
         The instances of ``Drifter`` can also be used as an iterator, which can
         then be used in a for loop to run through the whole process. Note that
         unlike the methods ``output_n()`` and ``output_all()``, time signatures
-        are added to each window returned by the adrifter. Use the function
+        are added to each window returned by the drifter. Use the function
         ``auxjad.remove_repeated_time_signatures()`` to clean the output when
         using ``Drifter`` in this way.
 
         >>> container_out = abjad.Container(r"e'8 fs'4. r2")
         >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
-        >>> for selection_a, selection_b in adrifter:
+        >>> for selection_a, selection_b in drifter:
         ...     staff_a.extend(selection_a)
         ...     staff_b.extend(selection_b)
         >>> auxjad.remove_repeated_time_signatures(staff_a)
@@ -327,100 +327,100 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           fade_in_first=True,
-        ...                           fade_out_last=True,
-        ...                           initial_repetitions=3,
-        ...                           final_repetitions=3,
-        ...                           repetition_chance=0.7,
-        ...                           weighted_duration=True,
-        ...                           disable_rewrite_meter=True,
-        ...                           omit_time_signatures=True,
-        ...                           use_multimeasure_rests=True,
-        ...                           boundary_depth=True,
-        ...                           maximum_dot_count=True,
-        ...                           rewrite_tuplets=True,
-        ...                           )
-        >>> adrifter.fade_in_first
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          fade_in_first=True,
+        ...                          fade_out_last=True,
+        ...                          initial_repetitions=3,
+        ...                          final_repetitions=3,
+        ...                          repetition_chance=0.7,
+        ...                          weighted_duration=True,
+        ...                          disable_rewrite_meter=True,
+        ...                          omit_time_signatures=True,
+        ...                          use_multimeasure_rests=True,
+        ...                          boundary_depth=True,
+        ...                          maximum_dot_count=True,
+        ...                          rewrite_tuplets=True,
+        ...                          )
+        >>> drifter.fade_in_first
         True
-        >>> adrifter.fade_out_last
+        >>> drifter.fade_out_last
         True
-        >>> adrifter.initial_repetitions
+        >>> drifter.initial_repetitions
         3
-        >>> adrifter.final_repetitions
+        >>> drifter.final_repetitions
         3
-        >>> adrifter.repetition_chance
+        >>> drifter.repetition_chance
         0.7
-        >>> adrifter.weighted_duration
+        >>> drifter.weighted_duration
         True
-        >>> adrifter.disable_rewrite_meter
+        >>> drifter.disable_rewrite_meter
         True
-        >>> adrifter.omit_time_signatures
+        >>> drifter.omit_time_signatures
         True
-        >>> adrifter.use_multimeasure_rests
+        >>> drifter.use_multimeasure_rests
         True
-        >>> adrifter.boundary_depth
+        >>> drifter.boundary_depth
         True
-        >>> adrifter.maximum_dot_count
+        >>> drifter.maximum_dot_count
         True
-        >>> adrifter.rewrite_tuplets
+        >>> drifter.rewrite_tuplets
         True
 
         Use the properties below to change these values after initialisation.
 
-        >>> adrifter.fade_in_first = False
-        >>> adrifter.fade_out_last = False
-        >>> adrifter.initial_repetitions = 4
-        >>> adrifter.final_repetitions = 7
-        >>> adrifter.repetition_chance = 0.23
-        >>> adrifter.weighted_duration = False
-        >>> adrifter.disable_rewrite_meter = False
-        >>> adrifter.omit_time_signatures = False
-        >>> adrifter.use_multimeasure_rests = False
-        >>> adrifter.boundary_depth = False
-        >>> adrifter.maximum_dot_count = False
-        >>> adrifter.rewrite_tuplets = False
-        >>> adrifter.fade_in_first
+        >>> drifter.fade_in_first = False
+        >>> drifter.fade_out_last = False
+        >>> drifter.initial_repetitions = 4
+        >>> drifter.final_repetitions = 7
+        >>> drifter.repetition_chance = 0.23
+        >>> drifter.weighted_duration = False
+        >>> drifter.disable_rewrite_meter = False
+        >>> drifter.omit_time_signatures = False
+        >>> drifter.use_multimeasure_rests = False
+        >>> drifter.boundary_depth = False
+        >>> drifter.maximum_dot_count = False
+        >>> drifter.rewrite_tuplets = False
+        >>> drifter.fade_in_first
         False
-        >>> adrifter.fade_out_last
+        >>> drifter.fade_out_last
         False
-        >>> assert adrifter.initial_repetitions
+        >>> assert drifter.initial_repetitions
         4
-        >>> assert adrifter.final_repetitions
+        >>> assert drifter.final_repetitions
         7
-        >>> assert adrifter.repetition_chance
+        >>> assert drifter.repetition_chance
         0.23
-        >>> adrifter.weighted_duration
+        >>> drifter.weighted_duration
         False
-        >>> adrifter.disable_rewrite_meter
+        >>> drifter.disable_rewrite_meter
         False
-        >>> adrifter.omit_time_signatures
+        >>> drifter.omit_time_signatures
         False
-        >>> adrifter.use_multimeasure_rests
+        >>> drifter.use_multimeasure_rests
         False
-        >>> adrifter.boundary_depth
+        >>> drifter.boundary_depth
         False
-        >>> adrifter.maximum_dot_count
+        >>> drifter.maximum_dot_count
         False
-        >>> adrifter.rewrite_tuplets
+        >>> drifter.rewrite_tuplets
         False
 
     Example:
-        Use the ``reset()`` method to reset the adrifter to its initial state.
+        Use the ``reset()`` method to reset the drifter to its initial state.
         This can be used to restart the process at any time.
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
         >>> for _ in range(3):
-        ...     selection_a, selection_b = adrifter()
+        ...     selection_a, selection_b = drifter()
         ...     staff_a.extend(selection_a)
         ...     staff_b.extend(selection_b)
-        >>> adrifter.reset()
-        >>> selection_a, selection_b = adrifter()
+        >>> drifter.reset()
+        >>> selection_a, selection_b = drifter()
         >>> staff_a.extend(selection_a)
         >>> staff_b.extend(selection_b)
         >>> auxjad.remove_repeated_time_signatures(staff_a)
@@ -469,12 +469,12 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
         >>> container_in = abjad.Container(r"<d' ef'>2. <bf a'>4")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           fade_in_first=True,
-        ...                           fade_out_last=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          fade_in_first=True,
+        ...                          fade_out_last=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -541,18 +541,18 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
         >>> container_in = abjad.Container(r"r2 c''2")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> len(adrifter)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> len(drifter)
         3
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> len(adrifter)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> len(drifter)
         5
         >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
         >>> container_in = abjad.Container(r"r2 <c'' e'' g''>2")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> len(adrifter)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> len(drifter)
         5
 
     Example:
@@ -565,8 +565,8 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"\time 3/4 r4 c'4 d'4")
         >>> container_in = abjad.Container(r"\time 3/4 a''4 g''2")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -600,11 +600,11 @@ class Drifter():
 
         .. figure:: ../_images/image-Drifter-10.png
 
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           fade_out_last=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          fade_out_last=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -639,12 +639,12 @@ class Drifter():
 
         .. figure:: ../_images/image-Drifter-11.png
 
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           fade_in_first=True,
-        ...                           fade_out_last=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          fade_in_first=True,
+        ...                          fade_out_last=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -691,8 +691,8 @@ class Drifter():
         >>> container_out = abjad.Container(r"e'2 c'2")
         >>> container_in = abjad.Container(
         ...     r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -786,11 +786,11 @@ class Drifter():
 
         .. figure:: ../_images/image-Drifter-13.png
 
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           weighted_duration=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          weighted_duration=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -899,12 +899,12 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"a'4 bf'2 r4")
         >>> container_in = abjad.Container(r"c''2 d''2")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           initial_repetitions=2,
-        ...                           final_repetitions=3,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          initial_repetitions=2,
+        ...                          final_repetitions=3,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -959,11 +959,11 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"a'4 bf'2 r4")
         >>> container_in = abjad.Container(r"c''2 d''2")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           repetition_chance=0.8,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_n(4)
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          repetition_chance=0.8,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_n(4)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1007,11 +1007,11 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
         >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           omit_time_signatures=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_n(3)
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          omit_time_signatures=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1058,11 +1058,11 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
         >>> container_in = abjad.Container(r"c'2 d'2")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           disable_rewrite_meter=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_n(3)
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          disable_rewrite_meter=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1110,9 +1110,9 @@ class Drifter():
         >>> container_out = abjad.Container(
         ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}")
         >>> container_in = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> adrifter.contents_out = abjad.Container(r"\time 3/4 a4. bf4.")
-        >>> print(adrifter)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> drifter.contents_out = abjad.Container(r"\time 3/4 a4. bf4.")
+        >>> print(drifter)
         {
             %%% \time 3/4 %%%
             a4.
@@ -1143,8 +1143,8 @@ class Drifter():
         ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
         >>> container_in = abjad.Container(
         ...     r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
-        >>> adrifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = adrifter.output_n(3)
+        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> staff_a, staff_b = drifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1204,12 +1204,12 @@ class Drifter():
         >>> container_out = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
         >>> container_in = abjad.Container(
         ...     r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           fade_in_first=True,
-        ...                           fade_out_last=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          fade_in_first=True,
+        ...                          fade_out_last=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1309,13 +1309,13 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> container_in = abjad.Container(r"\time 4/4 g'2 a'2")
-        >>> adrifter = auxjad.Drifter(container_out,
-        ...                           container_in,
-        ...                           fade_in_first=True,
-        ...                           fade_out_last=True,
-        ...                           weighted_duration=True,
-        ...                           )
-        >>> staff_a, staff_b = adrifter.output_all()
+        >>> drifter = auxjad.Drifter(container_out,
+        ...                          container_in,
+        ...                          fade_in_first=True,
+        ...                          fade_out_last=True,
+        ...                          weighted_duration=True,
+        ...                          )
+        >>> staff_a, staff_b = drifter.output_all()
         >>> auxjad.sync_containers(staff_a, staff_b)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> lilypond_file = abjad.LilyPondFile.new()
@@ -1486,7 +1486,7 @@ class Drifter():
 
     def __call__(self) -> tuple:
         r'Calls the drifting process, returning a `tuple` of ``abjad.Staff``.'
-        self._adrift_process()
+        self._drift_process()
         self._current_window = (self._fader_out.current_window,
                                 self._fader_in.current_window)
         return self.current_window
@@ -1564,8 +1564,8 @@ class Drifter():
 
     ### PRIVATE METHODS ###
 
-    def _adrift_process(self):
-        r'Processes both faders according to the adrift process.'
+    def _drift_process(self):
+        r'Processes both faders according to the drifting process.'
         if self._is_first_window:
             self._fader_out()
             self._fader_in()

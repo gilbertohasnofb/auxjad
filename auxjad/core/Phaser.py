@@ -1341,7 +1341,7 @@ class Phaser():
 
     @staticmethod
     def _remove_all_time_signatures(container):
-        r'Removes all time signatures of an ``abjad.Container``'
+        r'Removes all time signatures of an ``abjad.Container``.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)

@@ -959,7 +959,7 @@ class Hocketer():
 
     def __call__(self) -> tuple:
         r'Calls the hocket process, returning a `tuple` of ``abjad.Staff``.'
-        self._hocket_process()
+        self._make_music()
         return self.current_window
 
     def __getitem__(self, key: int) -> abjad.Selection:
@@ -976,66 +976,17 @@ class Hocketer():
 
     ### PRIVATE METHODS ###
 
-    def _hocket_process(self):
+    def _make_music(self):
         r"""Runs the hocket process, returning a tuple of
         ``abjad.Container()``. It distributes the logical ties from the
         ``contents`` into different voices. Voices can have different weights,
         and the process of distributing a same logical tie can be run more than
         once (defined by the attribute ``k``).
         """
-        # creating multiple copies of contents. The process actually removes
-        # unwanted logical ties instead of writing them to empty containers
-        dummy_voices = [copy.deepcopy(self._contents)
-                        for _ in range(self._n_voices)]
+        # distributing logical ties into voices
+        dummy_voices = self._hocket_process()
 
-        # creating a list of selected voices for each logical tie
-        selected_voices = []
-        if not self._force_k_voices:
-            for _ in abjad.select(self._contents).logical_ties():
-                item = random.choices(list(range(self._n_voices)),
-                                      weights=self._weights,
-                                      k=self._k,
-                                      )
-                selected_voices.append(item)
-        else:
-            for _ in abjad.select(self._contents).logical_ties():
-                item = []
-                while len(item) < self._k:
-                    voice = random.choices(list(range(self._n_voices)),
-                                           weights=self._weights,
-                                           k=self._k,
-                                           )[0]
-                    if voice not in item:
-                        item.append(voice)
-                selected_voices.append(item)
-
-        # replacing notes and chords for silences if voice not in the selected
-        # list for a given logical tie
-        for voice_index, voice in enumerate(dummy_voices):
-            for logical_tie_index, logical_tie in \
-                    enumerate(abjad.select(voice).logical_ties()):
-                if voice_index not in selected_voices[logical_tie_index]:
-                    for leaf in logical_tie:
-                        rest = abjad.Rest(leaf.written_duration)
-                        for indicator in abjad.inspect(leaf).indicators():
-                            if isinstance(indicator, (abjad.TimeSignature,
-                                                      abjad.Dynamic,
-                                                      abjad.StartHairpin,
-                                                      abjad.StopHairpin,
-                                                      abjad.Clef,
-                                                      abjad.Fermata,
-                                                      abjad.KeySignature,
-                                                      abjad.Ottava,
-                                                      abjad.LilyPondLiteral,
-                                                      abjad.MetronomeMark,
-                                                      abjad.StaffChange,
-                                                      abjad.StartPhrasingSlur,
-                                                      abjad.StopPhrasingSlur,
-                                                      )):
-                                abjad.attach(indicator, rest)
-                        abjad.mutate(leaf).replace(rest)
-
-        # handling dynamics
+        # handling dynamics and slurs
         for voice in dummy_voices:
             reposition_dynamics(voice)
             reposition_slurs(voice)
@@ -1064,6 +1015,61 @@ class Hocketer():
         for voice in dummy_voices:
             self._voices.append(voice[:])
             voice[:] = []
+
+    def _hocket_process(self):
+        r"""Replaces notes and chords for silences if voice not in the selected
+        list for a given logical tie.
+        """
+        dummy_voices = [copy.deepcopy(self._contents)
+                        for _ in range(self._n_voices)]
+        selected_voices = self._selecting_voices()
+        for voice_index, voice in enumerate(dummy_voices):
+            for logical_tie_index, logical_tie in \
+                    enumerate(abjad.select(voice).logical_ties()):
+                if voice_index not in selected_voices[logical_tie_index]:
+                    for leaf in logical_tie:
+                        rest = abjad.Rest(leaf.written_duration)
+                        for indicator in abjad.inspect(leaf).indicators():
+                            if isinstance(indicator, (abjad.TimeSignature,
+                                                      abjad.Dynamic,
+                                                      abjad.StartHairpin,
+                                                      abjad.StopHairpin,
+                                                      abjad.Clef,
+                                                      abjad.Fermata,
+                                                      abjad.KeySignature,
+                                                      abjad.Ottava,
+                                                      abjad.LilyPondLiteral,
+                                                      abjad.MetronomeMark,
+                                                      abjad.StaffChange,
+                                                      abjad.StartPhrasingSlur,
+                                                      abjad.StopPhrasingSlur,
+                                                      )):
+                                abjad.attach(indicator, rest)
+                        abjad.mutate(leaf).replace(rest)
+        return dummy_voices
+
+    def _selecting_voices(self) -> list:
+        r'Creates a list of selected voices for each logical tie.'
+        selected_voices = []
+        if not self._force_k_voices:
+            for _ in abjad.select(self._contents).logical_ties():
+                item = random.choices(list(range(self._n_voices)),
+                                      weights=self._weights,
+                                      k=self._k,
+                                      )
+                selected_voices.append(item)
+        else:
+            for _ in abjad.select(self._contents).logical_ties():
+                item = []
+                while len(item) < self._k:
+                    voice = random.choices(list(range(self._n_voices)),
+                                           weights=self._weights,
+                                           k=self._k,
+                                           )[0]
+                    if voice not in item:
+                        item.append(voice)
+                selected_voices.append(item)
+        return selected_voices
 
     @staticmethod
     def _remove_all_time_signatures(container):

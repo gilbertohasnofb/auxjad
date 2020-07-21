@@ -265,7 +265,9 @@ def reposition_slurs(container: abjad.Container,
             if (isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest))
                     and active_slur):
                 previous_leaf = abjad.select(leaf).with_previous_leaf()[0]
-                abjad.attach(abjad.StopSlur(), previous_leaf)
+                if (abjad.inspect(previous_leaf).indicator(abjad.StopSlur)
+                        is None):
+                    abjad.attach(abjad.StopSlur(), previous_leaf)
                 for next_leaf in leaves[n + 1:]:
                     if not isinstance(next_leaf, (abjad.Rest,
                                                   abjad.MultimeasureRest)):
@@ -279,3 +281,12 @@ def reposition_slurs(container: abjad.Container,
                     and inspector.indicator(abjad.StopSlur) is not None):
                 abjad.detach(abjad.StartSlur, leaf)
                 abjad.detach(abjad.StopSlur, leaf)
+
+    # removing slurs spanning a single logical tie
+    for logical_tie in abjad.select(container[:]).logical_ties():
+        inspector_head = abjad.inspect(logical_tie[0])
+        inspector_tail = abjad.inspect(logical_tie[-1])
+        if (inspector_head.indicator(abjad.StartSlur) is not None
+                and inspector_tail.indicator(abjad.StopSlur) is not None):
+            abjad.detach(abjad.StartSlur, logical_tie[0])
+            abjad.detach(abjad.StopSlur, logical_tie[-1])

@@ -396,7 +396,7 @@ class TenneySelector():
         r'Returns the length of ``contents``.'
         return len(self._contents)
 
-    def __call__(self):
+    def __call__(self) -> Any:
         r'Calls the selection process and outputs one element of ``contents``.'
         self._previous_index = random.choices(
             [n for n in range(self.__len__())],
@@ -406,11 +406,11 @@ class TenneySelector():
         self._generate_probabilities()
         return self._contents[self._previous_index]
 
-    def __next__(self):
+    def __next__(self) -> Any:
         r'Calls the selection process and outputs one element of ``contents``.'
         return self.__call__()
 
-    def __getitem__(self, key: int):
+    def __getitem__(self, key: int) -> Any:
         r"""Returns one or more elements of ``contents`` through indexing or
         slicing.
         """

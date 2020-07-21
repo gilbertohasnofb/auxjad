@@ -312,7 +312,7 @@ class CartographySelector():
     def __call__(self,
                  *,
                  no_repeat: bool = False,
-                 ):
+                 ) -> Any:
         r'Calls the selection process and outputs one element of ``contents``.'
         if not isinstance(no_repeat, bool):
             raise TypeError("'no_repeat' must be 'bool")
@@ -331,14 +331,11 @@ class CartographySelector():
         self._previous_index = new_index
         return self._contents[self._previous_index]
 
-    def __next__(self,
-                 *,
-                 no_repeat: bool = False,
-                 ):
+    def __next__(self) -> Any:
         r'Calls the selection process and outputs one element of ``contents``.'
-        return self.__call__(no_repeat=no_repeat)
+        return self.__call__()
 
-    def __getitem__(self, key: int):
+    def __getitem__(self, key: int) -> Any:
         r"""Returns one or more elements of ``contents`` through indexing or
         slicing.
         """
@@ -438,7 +435,7 @@ class CartographySelector():
 
     @contents.setter
     def contents(self,
-                 contents: list
+                 contents: list,
                  ):
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")

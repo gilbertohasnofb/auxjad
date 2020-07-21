@@ -214,10 +214,10 @@ def reposition_slurs(container: abjad.Container,
 
     # checking for unfinished slurs
     if remove_unterminated_slurs:
-        for n, leaf in enumerate(leaves[::-1]):
+        for leaf in leaves[::-1]:
             inspector = abjad.inspect(leaf)
             if inspector.indicator(abjad.StartSlur) is not None:
-                if n == 0:
+                if leaf is leaves[-1]:
                     abjad.detach(abjad.StartSlur(), leaf)
                 elif (abjad.inspect(leaves[-1]).indicator(abjad.StopSlur)
                         is None):
@@ -254,7 +254,7 @@ def reposition_slurs(container: abjad.Container,
     # splitting slurs under rests
     if not allow_slurs_under_rests:
         active_slur = False
-        for n, leaf in enumerate(leaves):
+        for index, leaf in enumerate(leaves):
             inspector = abjad.inspect(leaf)
             if inspector.indicator(abjad.StartSlur) is not None:
                 active_slur = True
@@ -268,7 +268,7 @@ def reposition_slurs(container: abjad.Container,
                 if (abjad.inspect(previous_leaf).indicator(abjad.StopSlur)
                         is None):
                     abjad.attach(abjad.StopSlur(), previous_leaf)
-                for next_leaf in leaves[n + 1:]:
+                for next_leaf in leaves[index + 1:]:
                     if not isinstance(next_leaf, (abjad.Rest,
                                                   abjad.MultimeasureRest)):
                         if (abjad.inspect(next_leaf).indicator(abjad.StartSlur)

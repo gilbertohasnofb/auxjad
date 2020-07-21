@@ -209,13 +209,13 @@ def respell_chord(chord: abjad.Chord,
                 else:
                     # respelling all matching pitch-classes
                     if p1.accidental == abjad.Accidental('f'):
-                        for k, p in enumerate(chord.written_pitches):
+                        for j, p in enumerate(chord.written_pitches):
                             if p.pitch_class == p1.pitch_class:
-                                pitch_accidentals[k] = abjad.Accidental('s')
+                                pitch_accidentals[j] = abjad.Accidental('s')
                     elif p1.accidental == abjad.Accidental(''):
-                        for k, p in enumerate(chord.written_pitches):
+                        for j, p in enumerate(chord.written_pitches):
                             if p.pitch_class == p2.pitch_class:
-                                pitch_accidentals[k] = abjad.Accidental('f')
+                                pitch_accidentals[j] = abjad.Accidental('f')
     else:
         # dealing with augmented unisons as well as augmented 8as, 15ths, etc.
         for i in range(len(chord.written_pitches) - 1):

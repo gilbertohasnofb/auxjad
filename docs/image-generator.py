@@ -46,8 +46,7 @@ for member in dir(auxjad):
         matches = re.findall(pattern, docstring)
         if matches is not None:
             for n, match in enumerate(matches):
-                filename = ('image-' + str(member) + '-'
-                            + str(n + 1) + '.ly')
+                filename = ('image-' + str(member) + '-' + str(n + 1) + '.ly')
                 with open(directory + filename, 'w+') as f:
                     f.write(ly_header)
                     # removing comments from time signatures

@@ -1018,11 +1018,13 @@ class Hocketer():
         """
         dummy_voices = [copy.deepcopy(self._contents)
                         for _ in range(self._n_voices)]
-        selected_voices = self._selecting_voices()
+        selected_voices = self._select_voices()
         for voice_index, voice in enumerate(dummy_voices):
-            for logical_tie_index, logical_tie in \
-                    enumerate(abjad.select(voice).logical_ties()):
-                if voice_index not in selected_voices[logical_tie_index]:
+            logical_ties = abjad.select(voice).logical_ties()
+            for logical_tie, selected_indeces in zip(logical_ties,
+                                                     selected_voices,
+                                                     ):
+                if voice_index not in selected_indeces:
                     for leaf in logical_tie:
                         rest = abjad.Rest(leaf.written_duration)
                         for indicator in abjad.inspect(leaf).indicators():
@@ -1044,7 +1046,7 @@ class Hocketer():
                         abjad.mutate(leaf).replace(rest)
         return dummy_voices
 
-    def _selecting_voices(self) -> list:
+    def _select_voices(self) -> list:
         r'Creates a list of selected voices for each logical tie.'
         selected_voices = []
         if not self._force_k_voices:

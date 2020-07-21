@@ -131,10 +131,10 @@ def time_signature_extractor(container: abjad.Container,
     measures = abjad.select(container[:]).group_by_measure()
     time_signatures = []
 
-    for i, measure in enumerate(measures):
+    for measure in measures:
         head = abjad.select(measure).leaf(0)
         time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
-        if i == 0 and time_signature is None:
+        if measure is measures[0] and time_signature is None:
             if implicit_common_time:
                 time_signature = abjad.TimeSignature((4, 4))
         time_signatures.append(time_signature)

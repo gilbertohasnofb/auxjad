@@ -610,8 +610,7 @@ def enforce_time_signature(container: abjad.Container,
     if time_signatures_[0] is None:
         raise ValueError("first element of the input list must not be 'None'")
     # converting all elements to abjad.TimeSignature
-    for index in range(len(time_signatures_)):
-        time_signature = time_signatures_[index]
+    for index, time_signature in enumerate(time_signatures_):
         if time_signature is None:
             previous_ts_duration = time_signatures_[index - 1].pair
             time_signatures_[index] = abjad.TimeSignature(previous_ts_duration)
@@ -653,24 +652,24 @@ def enforce_time_signature(container: abjad.Container,
     abjad.mutate(container[:]).split(durations, cyclic=cyclic)
     # attach new time signatures
     previous_ts = None
-    ts_index = 0
+    index = 0
     duration = abjad.Duration(0)
     previous_ts_duration = abjad.Duration(0)
     for leaf in abjad.select(container).leaves():
         if duration == previous_ts_duration:
             duration = abjad.Duration(0)
-            previous_ts_duration = durations[ts_index]
-            if partial_time_signature is not None and ts_index in (0, 1):
+            previous_ts_duration = durations[index]
+            if partial_time_signature is not None and index in (0, 1):
                 ts = partial_time_signature
             else:
-                ts = time_signatures_[ts_index]
+                ts = time_signatures_[index]
             if ts != previous_ts:
                 abjad.attach(ts, leaf)
             previous_ts = ts
-            ts_index += 1
-            if ts_index == len(time_signatures_):
+            index += 1
+            if index == len(time_signatures_):
                 if cyclic:
-                    ts_index = 0
+                    index = 0
                 else:
                     break
         duration += abjad.inspect(leaf).duration()

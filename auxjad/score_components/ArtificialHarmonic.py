@@ -355,8 +355,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         if len(written_pitches_) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "
                              "pitches")
-        for i, pitch in enumerate(written_pitches_):
-            self._note_heads[i].written_pitch = pitch
+        for index, pitch in enumerate(written_pitches_):
+            self._note_heads[index].written_pitch = pitch
 
     @property
     def style(self) -> str:

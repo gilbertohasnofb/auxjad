@@ -1041,11 +1041,11 @@ class Shuffler:
                                        destination_list: list,
                                        ) -> list:
         r'Substitutes back an altered list while preserving rests.'
-        index = 0
-        for i, pitch in enumerate(self._pitches):
+        counter = 0
+        for index, pitch in enumerate(self._pitches):
             if pitch is not None:
-                destination_list[i] = input_list[index]
-                index += 1
+                destination_list[index] = input_list[counter]
+                counter += 1
 
     def _shuffle_logical_selections(self) -> abjad.Selection:
         r'Shuffles the logical ties of ``contents``.'
@@ -1153,10 +1153,10 @@ class Shuffler:
 
     def _rewrite_pitches(self):
         r'Rewrites the pitches of the current window.'
-        index = 0
         dummy_container = abjad.Container(
             abjad.mutate(self._current_window[:]).copy()
         )
+        leaf_counter = 0
         for pitch, logical_selection in zip(self._pitches,
                                             self._logical_selections):
             logical_tie = logical_selection.leaves()
@@ -1181,9 +1181,9 @@ class Shuffler:
                         abjad.attach(indicator, new_leaf)
                     else:
                         abjad.attach(indicator, new_leaf)
-                selection = abjad.select(dummy_container).leaf(index)
+                selection = abjad.select(dummy_container).leaf(leaf_counter)
                 abjad.mutate(selection).replace(new_leaf)
-                index += 1
+                leaf_counter += 1
         # attaching time signature structure
         enforce_time_signature(dummy_container,
                                self._time_signatures,
@@ -1205,8 +1205,9 @@ class Shuffler:
     @staticmethod
     def _force_dynamics(container):
         logical_ties = abjad.select(container).logical_ties()
-        for index, logical_tie in enumerate(logical_ties):
+        for logical_tie in logical_ties[1:]:
             if abjad.inspect(logical_tie[0]).indicator(abjad.Dynamic) is None:
+                index = logical_ties.index(logical_tie)
                 previous_logical_tie = logical_ties[index - 1]
                 inspector = abjad.inspect(previous_logical_tie[0])
                 if inspector.indicator(abjad.Dynamic) is not None:

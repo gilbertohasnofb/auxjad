@@ -1166,7 +1166,7 @@ class Phaser():
         """
         if not self._is_first_window or self._processs_on_first_call:
             self._move_pivot_point()
-        self._phase_contents()
+        self._make_music()
         self._is_first_window = False
         return self.current_window
 
@@ -1178,7 +1178,7 @@ class Phaser():
             self._move_pivot_point()
             if self._done:
                 raise StopIteration
-        self._phase_contents()
+        self._make_music()
         self._is_first_window = False
         return self.current_window
 
@@ -1258,13 +1258,29 @@ class Phaser():
         diretion = self._biased_choice(self._forward_bias)
         self._pivot_point += step * diretion
 
+    def _make_music(self):
+        r'Applies the phasing process and handles the output container.'
+        dummy_container = self._phase_contents()
+        # dealing with dynamics
+        reposition_dynamics(dummy_container)
+        # adding time signatures back and rewriting meter
+        time_signatures = time_signature_extractor(self._contents)
+        enforce_time_signature(
+            dummy_container,
+            time_signatures,
+            boundary_depth=self._boundary_depth,
+            maximum_dot_count=self._maximum_dot_count,
+            rewrite_tuplets=self._rewrite_tuplets,
+        )
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
+
     def _phase_contents(self):
         r"""This method phases ``contents`` using ``_pivot_point`` as the
         pivot point.
         """
-        pivot = self._pivot_point % self._contents_length
         dummy_container = copy.deepcopy(self._contents)
-        time_signatures = time_signature_extractor(dummy_container)
+        pivot = self._pivot_point % self._contents_length
         # splitting leaves at both slicing points
         if pivot > abjad.Duration(0):
             abjad.mutate(dummy_container[:]).split([pivot])
@@ -1310,18 +1326,7 @@ class Phaser():
             )
             dummy_container.extend(dummy_end_container)
             dummy_end_container[:] = []
-        # dealing with dynamics and slurs
-        reposition_dynamics(dummy_container)
-        # adding time signatures back and rewriting meter
-        enforce_time_signature(
-            dummy_container,
-            time_signatures,
-            boundary_depth=self._boundary_depth,
-            maximum_dot_count=self._maximum_dot_count,
-            rewrite_tuplets=self._rewrite_tuplets,
-        )
-        self._current_window = dummy_container[:]
-        dummy_container[:] = []
+        return dummy_container
 
     @staticmethod
     def _tie_identical_pitches(currrent_selection, previous_container):

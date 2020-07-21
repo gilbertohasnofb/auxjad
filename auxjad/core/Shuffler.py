@@ -602,44 +602,46 @@ class Shuffler:
         \new Staff
         {
             \time 4/4
-            r4
-            f'4
-            \f
-            - \marcato
-            d'8
-            - \staccato
-            <c' e' g'>8
+            e'8
             \p
-            - \tenuto
-            ~
-            <c' e' g'>8
-            e'8
+            - \staccato
+            d'8
             - \staccato
             f'4
             \f
             - \marcato
-            d'8
-            - \staccato
-            <c' e' g'>8
-            \p
-            - \tenuto
-            ~
-            <c' e' g'>8
-            r8
-            r8
-            e'8
-            - \staccato
-            f'4
-            \f
-            - \marcato
-            r4
-            e'8
-            - \staccato
-            d'8
-            - \staccato
             <c' e' g'>4
             \p
             - \tenuto
+            r4
+            r4
+            d'8
+            - \staccato
+            f'8
+            \f
+            - \marcato
+            ~
+            f'8
+            <c' e' g'>8
+            \p
+            - \tenuto
+            ~
+            <c' e' g'>8
+            e'8
+            - \staccato
+            f'4
+            \f
+            - \marcato
+            e'8
+            \p
+            - \staccato
+            <c' e' g'>8
+            - \tenuto
+            ~
+            <c' e' g'>8
+            d'8
+            - \staccato
+            r4
         }
 
         .. figure:: ../_images/image-Shuffler-19.png
@@ -1115,9 +1117,10 @@ class Shuffler:
         r'Rewrites the logical selections of the current window.'
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
+        logical_selections = copy.deepcopy(self._logical_selections)
+        self._force_dynamics(logical_selections)
         for index in self._logical_selections_indeces:
-            logical_selection = copy.deepcopy(
-                self._logical_selections[index])
+            logical_selection = logical_selections[index]
             dummy_container.append(logical_selection.leaves())
         # splitting leaves at bar line points
         abjad.mutate(dummy_container[:]).split(
@@ -1198,6 +1201,18 @@ class Shuffler:
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
+
+    @staticmethod
+    def _force_dynamics(container):
+        logical_ties = abjad.select(container).logical_ties()
+        for index, logical_tie in enumerate(logical_ties):
+            if abjad.inspect(logical_tie[0]).indicator(abjad.Dynamic) is None:
+                previous_logical_tie = logical_ties[index - 1]
+                inspector = abjad.inspect(previous_logical_tie[0])
+                if inspector.indicator(abjad.Dynamic) is not None:
+                    abjad.attach(inspector.indicator(abjad.Dynamic),
+                                 logical_tie[0],
+                                 )
 
     @staticmethod
     def _rotate_list(input_list: list,

@@ -488,7 +488,7 @@ def test_Shuffler_10():
 
 
 def test_Shuffler_11():
-    random.seed(87234)
+    random.seed(87233)
     container = abjad.Container(r"<c' e' g'>4--\p d'8-. e'8-. f'4-^\f r4")
     shuffler = auxjad.Shuffler(container)
     notes = shuffler.shuffle_n(3)
@@ -498,44 +498,46 @@ def test_Shuffler_11():
         \new Staff
         {
             \time 4/4
-            r4
-            f'4
-            \f
-            - \marcato
-            d'8
-            - \staccato
-            <c' e' g'>8
+            e'8
             \p
-            - \tenuto
-            ~
-            <c' e' g'>8
-            e'8
+            - \staccato
+            d'8
             - \staccato
             f'4
             \f
             - \marcato
-            d'8
-            - \staccato
-            <c' e' g'>8
-            \p
-            - \tenuto
-            ~
-            <c' e' g'>8
-            r8
-            r8
-            e'8
-            - \staccato
-            f'4
-            \f
-            - \marcato
-            r4
-            e'8
-            - \staccato
-            d'8
-            - \staccato
             <c' e' g'>4
             \p
             - \tenuto
+            r4
+            r4
+            d'8
+            - \staccato
+            f'8
+            \f
+            - \marcato
+            ~
+            f'8
+            <c' e' g'>8
+            \p
+            - \tenuto
+            ~
+            <c' e' g'>8
+            e'8
+            - \staccato
+            f'4
+            \f
+            - \marcato
+            e'8
+            \p
+            - \staccato
+            <c' e' g'>8
+            - \tenuto
+            ~
+            <c' e' g'>8
+            d'8
+            - \staccato
+            r4
         }
         """)
 

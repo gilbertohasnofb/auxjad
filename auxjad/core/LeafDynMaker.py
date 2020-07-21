@@ -1,3 +1,5 @@
+from typing import Any
+
 import abjad
 
 
@@ -305,7 +307,6 @@ class LeafDynMaker(abjad.LeafMaker):
                  cyclic_dynamics: bool = False,
                  cyclic_articulations: bool = False,
                  ) -> abjad.Selection:
-
         r"""Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
         and ``articulations``, returning an ``abjad.Selection``.
         """
@@ -351,6 +352,25 @@ class LeafDynMaker(abjad.LeafMaker):
                         cyclic=cyclic_articulations,
                         )
 
+        self._add_dynamics_and_articulations(logical_ties,
+                                             dynamics_,
+                                             articulations_,
+                                             omit_repeated_dynamics,
+                                             )
+
+        output = dummy_container[:]
+        dummy_container[:] = []
+        return output
+
+    ### PRIVATE METHODS ###
+
+    def _add_dynamics_and_articulations(self,
+                                        logical_ties,
+                                        dynamics_,
+                                        articulations_,
+                                        omit_repeated_dynamics,
+                                        ):
+        r'Adds dynamics and articulations to logical ties.'
         previous_dynamic = None
         for logical_tie, dynamic, articulation in zip(logical_ties,
                                                       dynamics_,
@@ -367,14 +387,8 @@ class LeafDynMaker(abjad.LeafMaker):
                 else:
                     abjad.attach(articulation, logical_tie.head)
 
-        output = dummy_container[:]
-        dummy_container[:] = []
-        return output
-
-    ### PRIVATE METHODS ###
-
     @staticmethod
-    def _listify(argument):
+    def _listify(argument) -> list:
         r'Returns a list if argument is not a list.'
         if argument:
             if isinstance(argument, list):
@@ -388,7 +402,7 @@ class LeafDynMaker(abjad.LeafMaker):
     def _fill_list(input_list,
                    length: int,
                    cyclic: bool = False,
-                   default=None):
+                   default: Any = None):
         r"""Extends a list to a certain length, filling it with a default
         value. If ``cyclic`` is ``True``, then it fills the list by cycling the
         original ``input_list``.

@@ -1046,3 +1046,59 @@ def test_WindowLooper_27():
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         auxjad.WindowLooper(score)
+
+
+def test_WindowLooper_28():
+    container = abjad.Container(r"c'4.\p( d'8 e'8\f) f'4.\p( ~ f'4 g'1\pp)")
+    looper = auxjad.WindowLooper(container, step_size=(1, 4))
+    notes = looper.output_n(6)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            \p
+            (
+            d'8
+            e'8
+            \f
+            )
+            f'4.
+            \p
+            c'8
+            (
+            d'8
+            e'8
+            \f
+            )
+            f'8
+            \p
+            ~
+            f'2
+            e'8
+            \f
+            f'8
+            \p
+            (
+            ~
+            f'2
+            g'4
+            \pp
+            )
+            f'2
+            \p
+            (
+            g'2
+            \pp
+            )
+            f'4
+            \p
+            (
+            g'2.
+            \pp
+            )
+            g'1
+        }
+        """)

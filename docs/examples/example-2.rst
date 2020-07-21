@@ -293,7 +293,7 @@ This time we will use a window of size 3/4.
 .. figure:: ../_images/image-example-2-4.png
 
 At this point, let's use ``auxjad.remove_repeated_dynamics`` to remove all
-repeated dyanmics. The final result is shown below.
+repeated dynamics. The final result is shown below.
 
     >>> auxjad.remove_repeated_dynamics(staff)
     >>> abjad.f(staff)

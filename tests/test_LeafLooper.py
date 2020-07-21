@@ -708,3 +708,60 @@ def test_LeafLooper_23():
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         auxjad.LeafLooper(score, window_size=2)
+
+
+def test_LeafLooper_24():
+    container = abjad.Container(r"c'4\p( d'2 e'4\f) f'2( ~ f'8 g'4 a'1\pp)")
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               )
+    notes = looper.output_n(5)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            \p
+            (
+            d'2
+            e'4
+            \f
+            )
+            \time 11/8
+            d'2
+            \p
+            (
+            e'4
+            \f
+            )
+            f'2
+            ~
+            f'8
+            \time 9/8
+            e'4
+            f'2
+            (
+            ~
+            f'8
+            g'4
+            )
+            \time 15/8
+            f'2
+            (
+            ~
+            f'8
+            g'4
+            a'1
+            \pp
+            )
+            \time 5/4
+            g'4
+            \f
+            (
+            a'1
+            \pp
+            )
+        }
+        """)

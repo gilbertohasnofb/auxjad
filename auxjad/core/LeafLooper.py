@@ -2,6 +2,8 @@ import copy
 
 import abjad
 
+from ..utilities.reposition_dynamics import reposition_dynamics
+from ..utilities.reposition_slurs import reposition_slurs
 from ..utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,
 )
@@ -576,6 +578,65 @@ class LeafLooper(_LooperParent):
 
         .. figure:: ../_images/image-LeafLooper-18.png
 
+    Example:
+        This class supports dynamics and slurs.
+
+        >>> container = abjad.Container(
+        ...     r"c'4\p( d'2 e'4\f) f'2( ~ f'8 g'4 a'1\pp)")
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            )
+        >>> notes = looper.output_n(5)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            \p
+            (
+            d'2
+            e'4
+            \f
+            )
+            \time 11/8
+            d'2
+            \p
+            (
+            e'4
+            \f
+            )
+            f'2
+            ~
+            f'8
+            \time 9/8
+            e'4
+            f'2
+            (
+            ~
+            f'8
+            g'4
+            )
+            \time 15/8
+            f'2
+            (
+            ~
+            f'8
+            g'4
+            a'1
+            \pp
+            )
+            \time 5/4
+            g'4
+            \f
+            (
+            a'1
+            \pp
+            )
+        }
+
+        .. figure:: ../_images/image-LeafLooper-19.png
+
     ..  warning::
 
         This class can handle tuplets, but the engraving of the output is not
@@ -621,7 +682,7 @@ class LeafLooper(_LooperParent):
             }
         }
 
-        .. figure:: ../_images/image-LeafLooper-19.png
+        .. figure:: ../_images/image-LeafLooper-20.png
 
     .. tip::
 
@@ -701,6 +762,32 @@ class LeafLooper(_LooperParent):
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature = simplified_time_signature_ratio(time_signature)
             abjad.attach(time_signature, abjad.select(dummy_container).leaf(0))
+        self._notate_music(dummy_container, start)
+
+    def _notate_music(self,
+                      dummy_container: abjad.Container,
+                      start: int,
+                      ):
+        r'Handles the notation aspects of the looping window.'
+        start_head = abjad.select(dummy_container).logical_tie(0)[0]
+        start_tail = abjad.select(dummy_container).logical_tie(0)[-1]
+        if (abjad.inspect(start_head).indicator(abjad.StartSlur) is None
+                and abjad.inspect(start_tail).indicator(abjad.StopSlur)
+                is None):
+            for leaf in self._contents_logical_ties[start - 1::-1].leaves():
+                if abjad.inspect(leaf).indicator(abjad.StartSlur) is not None:
+                    abjad.attach(abjad.StartSlur(), start_head)
+                    break
+                elif abjad.inspect(leaf).indicator(abjad.StopSlur) is not None:
+                    break
+        if abjad.inspect(start_head).indicator(abjad.Dynamic) is None:
+            for leaf in self._contents_logical_ties[start - 1::-1].leaves():
+                dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
+                if dynamic is not None:
+                    abjad.attach(dynamic, start_head)
+                    break
+        reposition_dynamics(dummy_container)
+        reposition_slurs(dummy_container)
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 

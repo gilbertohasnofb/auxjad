@@ -159,7 +159,9 @@ class _LooperParent():
         self._is_first_window = False
 
     def _slice_contents(self):
-        r'Will be defined for each individual child class.'
+        r"""Slices ``contents``, will be defined for each individual child
+        class.
+        """
         pass
 
     @staticmethod

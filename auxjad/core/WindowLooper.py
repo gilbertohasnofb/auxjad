@@ -981,6 +981,15 @@ class WindowLooper(_LooperParent):
                 break
         else:
             end = len(dummy_container)
+        self._notate_music(dummy_container, start, end)
+
+    def _notate_music(self,
+                      dummy_container: abjad.Container,
+                      start: int,
+                      end: int,
+                      ):
+        r'Handles the notation aspects of the looping window.'
+        window_size = self._window_size
         # passing on indicators from the head of an initial splitted leaf
         for index in range(start - 1, -1, -1):
             if abjad.inspect(dummy_container[index]).indicator(abjad.Tie):

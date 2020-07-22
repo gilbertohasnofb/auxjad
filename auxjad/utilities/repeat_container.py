@@ -248,8 +248,8 @@ def repeat_container(container: abjad.Container,
     container_ = copy.deepcopy(container)
     if not container_is_full(container_):
         close_container(container_)
-    output_container = type(container_)()
-    for _ in range(n):
+    output_container = copy.deepcopy(container_)
+    for _ in range(n - 1):
         output_container.extend(copy.deepcopy(container_))
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)

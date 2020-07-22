@@ -498,7 +498,7 @@ def sync_containers(*containers: abjad.Container,
         try:
             container_is_full(container)
         except ValueError as err:
-            raise ValueError("at least one container is malformed, with an "
+            raise ValueError("at least one 'container' is malformed, with an "
                              "underfull bar preceeding a time signature "
                              "change") from err
     if not isinstance(use_multimeasure_rests, bool):

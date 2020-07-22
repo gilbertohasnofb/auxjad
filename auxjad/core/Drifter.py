@@ -1477,7 +1477,7 @@ class Drifter():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpret representation of  both contents.'
+        r'Returns interpreter representation of  both contents.'
         return format(self._fader_out) + '\n' + format(self._fader_in)
 
     def __len__(self) -> int:

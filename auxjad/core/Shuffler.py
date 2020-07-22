@@ -876,7 +876,7 @@ class Shuffler:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpret representation of ``contents``.'
+        r'Returns interpreter representation of ``contents``.'
         return format(self._contents)
 
     def __len__(self) -> int:

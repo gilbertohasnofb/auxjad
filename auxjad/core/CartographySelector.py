@@ -302,7 +302,7 @@ class CartographySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpret representation of ``contents``.'
+        r'Returns interpreter representation of ``contents``.'
         return str(self._contents)
 
     def __len__(self) -> int:

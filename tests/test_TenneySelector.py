@@ -152,3 +152,13 @@ def test_TenneySelector_09():
     result += next(selector)
     result += next(selector)
     assert result == 'DBDFAE'
+
+
+def test_TenneySelector_10():
+    selector = auxjad.TenneySelector(
+        ['A', 'B', 'C', 'D', 'E', 'F'],
+        weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
+    )
+    assert selector.weights == [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
+    selector.weights = None
+    assert selector.weights == [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]

@@ -92,7 +92,7 @@ class TenneySelector():
         This class can take two optional keywords argument during its
         instantiation, namely ``weights`` and ``curvature``. ``weights`` takes
         a list of floats with the individual weights of each element; by
-        default,  all weights are set to 1.0. These weights affects the
+        default, all weights are set to 1.0. These weights affects the
         effective probability of each element. The other argument,
         ``curvature``, is the exponent of the growth function for all elements.
         The growth function takes as input the number of iterations since an
@@ -245,6 +245,18 @@ class TenneySelector():
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
         >>> selector.probabilities
         [7.0, 12.0, 10.0, 15.0, 0.0, 20.0]
+
+        Set ``weights`` to ``None`` to reset it to a uniform distribution.
+
+        >>> selector = auxjad.TenneySelector(
+        ...     ['A', 'B', 'C', 'D', 'E', 'F'],
+        ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
+        >>> )
+        >>> selector.weights
+        [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
+        >>> selector.weights = None
+        >>> selector.weights
+        [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
     Example:
         To reset the probability distribution of all elements to its initial
@@ -494,17 +506,20 @@ class TenneySelector():
 
     @weights.setter
     def weights(self,
-                weights: list,
+                weights: Optional[list],
                 ):
-        if not isinstance(weights, list):
-            raise TypeError("'weights' must be 'list'")
-        if not self.__len__() == len(weights):
-            raise ValueError("'weights' must have the same length as the "
-                             "contents of the object")
-        if not all(isinstance(weight, (int, float))
-                   for weight in weights):
-            raise TypeError("'weights' elements must be 'int' or 'float'")
-        self._weights = weights[:]
+        if weights is not None:
+            if not isinstance(weights, list):
+                raise TypeError("'weights' must be 'list'")
+            if not self.__len__() == len(weights):
+                raise ValueError("'weights' must have the same length as the "
+                                 "contents of the object")
+            if not all(isinstance(weight, (int, float))
+                       for weight in weights):
+                raise TypeError("'weights' elements must be 'int' or 'float'")
+            self._weights = weights[:]
+        else:
+            self._weights = [1.0 for _ in range(self.__len__())]
         self._generate_probabilities(reset=True)
 
     @property

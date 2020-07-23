@@ -15,9 +15,9 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
-    r"""``Shuffler`` takes an input ``abjad.Container`` and shuffles or rotates
-    its logical ties or pitches. When shuffling or rotating pitches only,
-    tuplets are supported, otherwise tuplets are not supported.
+    r"""``Shuffler`` takes an input ``abjad.Container`` (or child class) and
+    shuffles or rotates its logical ties or pitches. When shuffling or rotating
+    pitches only, tuplets are supported, otherwise tuplets are not supported.
 
     Example:
         Calling the object will output a shuffled selection of the input
@@ -143,15 +143,13 @@ class Shuffler:
         ``disable_rewrite_meter`` disables the ``rewrite_meter()`` mutation
         which is applied to the container after every call, and
         ``omit_time_signatures`` will remove all time signatures from the
-        output (both are ``False`` by default). By default, the first time
-        signature is attached only to the first leaf of the first call (unless
-        time signature changes require it). The properties ``boundary_depth``,
-        ``maximum_dot_count``, and ``rewrite_tuplets`` are passed as arguments
-        to abjad's ``rewrite_meter()``, see its documentation for more
-        information. By default, calling the object will first return the
-        original container and subsequent calls will process it; set
-        ``processs_on_first_call`` to ``True`` and the looping process will be
-        applied on the very first call.
+        output (both are ``False`` by default). The properties
+        ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
+        passed as arguments to abjad's ``rewrite_meter()``, see its
+        documentation for more information. By default, calling the object will
+        first return the original container and subsequent calls will process
+        it; set ``processs_on_first_call`` to ``True`` and the shuffling
+        process will be applied on the very first call.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -419,7 +417,7 @@ class Shuffler:
 
     Example:
         To output several shuffled containers at once, use the methods
-        ``shuffle_n`` and ``rotate_n``, inputting the desired number of
+        ``shuffle_n()`` and ``rotate_n()``, inputting the desired number of
         iterations. ``rotate_n`` can also take the optional arguments
         ``n_rotations`` and ``anticlockwise``, similarly to ``rotate()``.
 

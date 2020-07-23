@@ -30,6 +30,7 @@ documentaion of each class and function.
     auxjad.leaves_are_tieable
     auxjad.ListLooper
     auxjad.Phaser
+    auxjad.PitchRandomiser
     auxjad.prettify_rewrite_meter
     auxjad.remove_empty_tuplets
     auxjad.remove_repeated_dynamics

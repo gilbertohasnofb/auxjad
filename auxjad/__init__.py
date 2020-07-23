@@ -20,6 +20,7 @@ from .core.LeafDynMaker import LeafDynMaker
 from .core.LeafLooper import LeafLooper
 from .core.ListLooper import ListLooper
 from .core.Phaser import Phaser
+from .core.PitchRandomiser import PitchRandomiser
 from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
@@ -67,6 +68,7 @@ __all__ = [
     'LeafLooper',
     'ListLooper',
     'Phaser',
+    'PitchRandomiser',
     'Shuffler',
     'TenneySelector',
     'WindowLooper',

@@ -1402,7 +1402,9 @@ class Fader():
             self._contents = abjad.Container([copy.deepcopy(contents)])
         else:
             self._contents = copy.deepcopy(contents)
-        self._current_window = copy.deepcopy(self._contents)[:]
+        dummy_container = copy.deepcopy(contents)
+        self._current_window = dummy_container[:]
+        dummy_container[:] = []
         self._time_signatures = time_signature_extractor(self._contents,
                                                          do_not_use_none=True,
                                                          )

@@ -27,7 +27,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         And similarly to ``abjad.Chord``, pitch and duration can be input in
         many different ways:
 
-        >>> harm1 = auxjad.ArtificialHarmonic("<g c'>4")
+        >>> harm1 = auxjad.ArtificialHarmonic(r"<g c'>4")
         >>> harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1 / 4)
         >>> harm3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
         >>> harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
@@ -66,7 +66,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         exactly two pitches. Any other number of pitches will raise a
         ``ValueError``:
 
-        >>> auxjad.ArtificialHarmonic("<g c' d'>4")
+        >>> auxjad.ArtificialHarmonic(r"<g c' d'>4")
         ValueError: 'ArtificialHarmonic' requires exactly two 'note_heads' for
         initialisation
 
@@ -75,7 +75,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ``style`` to set a different type of note head for the top note, such
         as ``'harmonic-mixed'``:
 
-        >>> harm = auxjad.ArtificialHarmonic("<g c'>4",
+        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  style='harmonic-mixed',
         ...                                  )
         >>> harm.style
@@ -94,7 +94,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         string at the bottom of the interval, set the keyword
         ``is_parenthesized`` to ``True``.
 
-        >>> harm = auxjad.ArtificialHarmonic("<g c'>4",
+        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  is_parenthesized=True,
         ...                                  )
         >>> harm.is_parenthesized
@@ -114,7 +114,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         Similarly to ``abjad.Chord``, ``ArtificialHarmonic`` can take
         multipliers:
 
-        >>> harm = auxjad.ArtificialHarmonic("<g c'>4",
+        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  multiplier=(2, 3),
         ...                                  )
         >>> harm.multiplier
@@ -133,7 +133,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         class also includes two new properties named ``style`` and
         ``is_parenthesized``:
 
-        >>> harm = auxjad.ArtificialHarmonic("<g c'>4")
+        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4")
         >>> harm.written_pitches
         "g c'"
         >>> harm.written_duration
@@ -164,11 +164,11 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         sounding pitch and sounding note, respectively. Their types are
         ``abjad.Pitch`` and ``abjad.Note``, respectively.
 
-        >>> harmonics = [ArtificialHarmonic("<g b>4"),
-        ...              ArtificialHarmonic("<g c'>4"),
-        ...              ArtificialHarmonic("<g d'>4"),
-        ...              ArtificialHarmonic("<g e'>4"),
-        ...              ArtificialHarmonic("<g g'>4"),
+        >>> harmonics = [ArtificialHarmonic(r"<g b>4"),
+        ...              ArtificialHarmonic(r"<g c'>4"),
+        ...              ArtificialHarmonic(r"<g d'>4"),
+        ...              ArtificialHarmonic(r"<g e'>4"),
+        ...              ArtificialHarmonic(r"<g g'>4"),
         ...              ]
         >>> for harmonic in harmonics:
         ...     print(harmonic.sounding_pitch())
@@ -192,11 +192,11 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         overridden using the keyword ``direction``, which can take strings as
         well as ``abjad.Up`` and ``abjad.Down``:
 
-        >>> harm1 = auxjad.ArtificialHarmonic("<a d'>1")
-        >>> harm2 = auxjad.ArtificialHarmonic("<a d'>1",
+        >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1")
+        >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
         ...                                   markup='I.',
         ...                                   )
-        >>> harm3 = auxjad.ArtificialHarmonic("<a d'>1",
+        >>> harm3 = auxjad.ArtificialHarmonic(r"<a d'>1",
         ...                                   markup='I.',
         ...                                   direction=abjad.Down)
         >>> staff = abjad.Staff([harm1, harm2, harm3])
@@ -226,7 +226,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         Setting ``markup`` to ``None`` will remove the markup from the note.
 
-        >>> harm = auxjad.ArtificialHarmonic("<a d'>1",
+        >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1",
         ...                                  markup='I.',
         ...                                  )
         >>> harm.markup = None
@@ -244,7 +244,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         If another markup is attached to the harmonic note, trying to set the
         ``markup`` to ``None`` will raise an exception:
 
-        >>> harm = auxjad.ArtificialHarmonic("<a d'>1")
+        >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> abjad.attach(abjad.Markup('test'), harm)
         >>> harm.markup = 'I.'
         >>> harm.markup = None
@@ -268,9 +268,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ValueError exception when it cannot calculate the sounding pitch for
         the given interval.
 
-        >>> ArtificialHarmonic("<g ef'>4").sounding_pitch()
+        >>> ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
         ValueError: cannot calculate sounding pitch for given interval
-        >>> ArtificialHarmonic("<g ef'>4").sounding_note()
+        >>> ArtificialHarmonic(r"<g ef'>4").sounding_note()
         ValueError: cannot calculate sounding pitch for given interval
     """
 

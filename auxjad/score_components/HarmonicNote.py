@@ -12,7 +12,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     Example:
         Usage is similar to ``abjad.Note``:
 
-        >>> harm = auxjad.HarmonicNote("c''4")
+        >>> harm = auxjad.HarmonicNote(r"c''4")
         >>> harm.style
         'harmonic'
         >>> abjad.f(harm)
@@ -24,8 +24,8 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         And similarly to ``abjad.Note``, pitch and duration can be input in
         many different ways:
 
-        >>> harm1 = auxjad.HarmonicNote("c''4")
-        >>> harm2 = auxjad.HarmonicNote("c''", 1 / 4)
+        >>> harm1 = auxjad.HarmonicNote(r"c''4")
+        >>> harm2 = auxjad.HarmonicNote(r"c''", 1 / 4)
         >>> harm3 = auxjad.HarmonicNote(12, 0.25)
         >>> harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
         >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])
@@ -48,7 +48,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         When creating an ``HarmonicNote``, use the keyword argument ``style``
         to set a different type of note head, such as ``'harmonic-mixed'``:
 
-        >>> harm = auxjad.HarmonicNote("c''4",
+        >>> harm = auxjad.HarmonicNote(r"c''4",
         ...                            style='harmonic-mixed',
         ...                            )
         >>> harm.style
@@ -62,7 +62,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     Example:
         Similarly to ``abjad.Note``, ``HarmonicNote`` can take multipliers:
 
-        >>> harm = auxjad.HarmonicNote("c''4",
+        >>> harm = auxjad.HarmonicNote(r"c''4",
         ...                            multiplier=(2, 3),
         ...                            )
         >>> harm.multiplier
@@ -77,7 +77,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         All properties of ``abjad.Note`` are also available to be read. This
         class also includes a new property named ``style``:
 
-        >>> harm = auxjad.HarmonicNote("c''4")
+        >>> harm = auxjad.HarmonicNote(r"c''4")
         >>> harm.written_pitch
         "c''"
         >>> harm.written_duration
@@ -102,7 +102,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         To create a harmonic note with a regular note head and with a flageolet
         circle above it, use the style ``'flageolet'``:
 
-        >>> harm = auxjad.HarmonicNote("c''1",
+        >>> harm = auxjad.HarmonicNote(r"c''1",
         ...                            style='flageolet',
         ...                            )
         >>> harm.style
@@ -120,11 +120,11 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         the keyword ``direction``, which can take strings as well as
         ``abjad.Up`` and ``abjad.Down``:
 
-        >>> harm1 = auxjad.HarmonicNote("d''1")
-        >>> harm2 = auxjad.HarmonicNote("d''1",
+        >>> harm1 = auxjad.HarmonicNote(r"d''1")
+        >>> harm2 = auxjad.HarmonicNote(r"d''1",
         ...                             markup='III.',
         ...                             )
-        >>> harm3 = auxjad.HarmonicNote("d''1",
+        >>> harm3 = auxjad.HarmonicNote(r"d''1",
         ...                             markup='III.',
         ...                             direction=abjad.Down)
         >>> staff = abjad.Staff([harm1, harm2, harm3])
@@ -145,7 +145,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         Setting ``markup`` to ``None`` will remove the markup from the note.
 
-        >>> harm = auxjad.HarmonicNote("d''1",
+        >>> harm = auxjad.HarmonicNote(r"d''1",
         ...                            markup='III.',
         ...                            )
         >>> harm.markup = None
@@ -160,7 +160,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         If another markup is attached to the harmonic note, trying to set the
         ``markup`` to ``None`` will raise an exception:
 
-        >>> harm = auxjad.HarmonicNote("d''1")
+        >>> harm = auxjad.HarmonicNote(r"d''1")
         >>> abjad.attach(abjad.Markup('test'), harm)
         >>> harm.markup = 'III.'
         >>> harm.markup = None

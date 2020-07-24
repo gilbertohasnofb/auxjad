@@ -5,7 +5,7 @@ import auxjad
 
 
 def test_HarmonicNote_01():
-    harm = auxjad.HarmonicNote("c''4")
+    harm = auxjad.HarmonicNote(r"c''4")
     assert harm.style == 'harmonic'
     assert format(harm) == abjad.String.normalize(
         r"""
@@ -15,8 +15,8 @@ def test_HarmonicNote_01():
 
 
 def test_HarmonicNote_02():
-    harm1 = auxjad.HarmonicNote("c''4")
-    harm2 = auxjad.HarmonicNote("c''", 1 / 4)
+    harm1 = auxjad.HarmonicNote(r"c''4")
+    harm2 = auxjad.HarmonicNote(r"c''", 1 / 4)
     harm3 = auxjad.HarmonicNote(12, 0.25)
     harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
     harms = [harm1, harm2, harm3, harm4]
@@ -29,7 +29,7 @@ def test_HarmonicNote_02():
 
 
 def test_HarmonicNote_03():
-    harm = auxjad.HarmonicNote("c''4",
+    harm = auxjad.HarmonicNote(r"c''4",
                                style='harmonic-mixed',
                                )
     assert harm.style == 'harmonic-mixed'
@@ -41,7 +41,7 @@ def test_HarmonicNote_03():
 
 
 def test_HarmonicNote_04():
-    harm = auxjad.HarmonicNote("c''4",
+    harm = auxjad.HarmonicNote(r"c''4",
                                multiplier=(2, 3),
                                )
     assert harm.multiplier == abjad.Multiplier(2, 3)
@@ -53,7 +53,7 @@ def test_HarmonicNote_04():
 
 
 def test_HarmonicNote_05():
-    harm = auxjad.HarmonicNote("c''4")
+    harm = auxjad.HarmonicNote(r"c''4")
     assert harm.written_pitch == "c''"
     assert harm.written_duration == 1 / 4
     assert harm.style == 'harmonic'
@@ -66,7 +66,7 @@ def test_HarmonicNote_05():
 
 
 def test_HarmonicNote_06():
-    harm = auxjad.HarmonicNote("c''1",
+    harm = auxjad.HarmonicNote(r"c''1",
                                style='flageolet',
                                )
     assert harm.style == 'flageolet'
@@ -78,11 +78,11 @@ def test_HarmonicNote_06():
 
 
 def test_HarmonicNote_07():
-    harm1 = auxjad.HarmonicNote("d''1")
-    harm2 = auxjad.HarmonicNote("d''1",
+    harm1 = auxjad.HarmonicNote(r"d''1")
+    harm2 = auxjad.HarmonicNote(r"d''1",
                                 markup='III.',
                                 )
-    harm3 = auxjad.HarmonicNote("d''1",
+    harm3 = auxjad.HarmonicNote(r"d''1",
                                 markup='III.',
                                 direction=abjad.Down)
     staff = abjad.Staff([harm1, harm2, harm3])
@@ -103,7 +103,7 @@ def test_HarmonicNote_07():
 
 
 def test_HarmonicNote_08():
-    harm = auxjad.HarmonicNote("d''1",
+    harm = auxjad.HarmonicNote(r"d''1",
                                markup='III.',
                                )
     harm.markup = None
@@ -115,7 +115,7 @@ def test_HarmonicNote_08():
 
 
 def test_HarmonicNote_09():
-    harm = auxjad.HarmonicNote("d''1")
+    harm = auxjad.HarmonicNote(r"d''1")
     abjad.attach(abjad.Markup('test'), harm)
     harm.markup = 'III.'
     with pytest.raises(Exception):
@@ -123,7 +123,7 @@ def test_HarmonicNote_09():
 
 
 def test_HarmonicNote_10():
-    harm = auxjad.HarmonicNote("d''1",
+    harm = auxjad.HarmonicNote(r"d''1",
                                markup='III.',
                                direction=abjad.Down)
     assert harm.direction is abjad.Down

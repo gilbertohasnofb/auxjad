@@ -5,7 +5,7 @@ import auxjad
 
 
 def test_ArtificialHarmonic_01():
-    harm = auxjad.ArtificialHarmonic("<g c'>4")
+    harm = auxjad.ArtificialHarmonic(r"<g c'>4")
     assert harm.style == 'harmonic'
     assert format(harm) == abjad.String.normalize(
         r"""
@@ -18,7 +18,7 @@ def test_ArtificialHarmonic_01():
 
 
 def test_ArtificialHarmonic_02():
-    harm1 = auxjad.ArtificialHarmonic("<g c'>4")
+    harm1 = auxjad.ArtificialHarmonic(r"<g c'>4")
     harm2 = auxjad.ArtificialHarmonic(["g", "c'"], 1 / 4)
     harm3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
     harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
@@ -35,7 +35,7 @@ def test_ArtificialHarmonic_02():
 
 
 def test_ArtificialHarmonic_03():
-    harm = auxjad.ArtificialHarmonic("<g c'>4",
+    harm = auxjad.ArtificialHarmonic(r"<g c'>4",
                                      style='harmonic-mixed',
                                      )
     assert harm.style == 'harmonic-mixed'
@@ -50,7 +50,7 @@ def test_ArtificialHarmonic_03():
 
 
 def test_ArtificialHarmonic_04():
-    harm = auxjad.ArtificialHarmonic("<g c'>4",
+    harm = auxjad.ArtificialHarmonic(r"<g c'>4",
                                      is_parenthesized=True,
                                      )
     assert harm.is_parenthesized
@@ -67,7 +67,7 @@ def test_ArtificialHarmonic_04():
 
 
 def test_ArtificialHarmonic_05():
-    harm = auxjad.ArtificialHarmonic("<g c'>4",
+    harm = auxjad.ArtificialHarmonic(r"<g c'>4",
                                      multiplier=(2, 3),
                                      )
     assert harm.multiplier == abjad.Multiplier(2, 3)
@@ -82,8 +82,8 @@ def test_ArtificialHarmonic_05():
 
 
 def test_ArtificialHarmonic_06():
-    harm = auxjad.ArtificialHarmonic("<g c'>4")
-    assert harm.written_pitches == abjad.PitchSegment("g c'")
+    harm = auxjad.ArtificialHarmonic(r"<g c'>4")
+    assert harm.written_pitches == abjad.PitchSegment(r"g c'")
     assert harm.written_duration == 1 / 4
     assert harm.style == 'harmonic'
     assert not harm.is_parenthesized
@@ -91,7 +91,7 @@ def test_ArtificialHarmonic_06():
     harm.written_duration = abjad.Duration(1, 8)
     harm.style = 'harmonic-mixed'
     harm.is_parenthesized = True
-    assert harm.written_pitches == abjad.PitchSegment("g d'")
+    assert harm.written_pitches == abjad.PitchSegment(r"g d'")
     assert harm.written_duration == 1 / 8
     assert harm.style == 'harmonic-mixed'
     assert harm.is_parenthesized
@@ -99,21 +99,21 @@ def test_ArtificialHarmonic_06():
 
 def test_ArtificialHarmonic_07():
     with pytest.raises(ValueError):
-        auxjad.ArtificialHarmonic("<g c' d'>4")
+        auxjad.ArtificialHarmonic(r"<g c' d'>4")
 
 
 def test_ArtificialHarmonic_08():
-    harmonics = [auxjad.ArtificialHarmonic("<g b>4").sounding_pitch(),
-                 auxjad.ArtificialHarmonic("<g c'>4").sounding_pitch(),
-                 auxjad.ArtificialHarmonic("<g d'>4").sounding_pitch(),
-                 auxjad.ArtificialHarmonic("<g e'>4").sounding_pitch(),
-                 auxjad.ArtificialHarmonic("<g g'>4").sounding_pitch(),
+    harmonics = [auxjad.ArtificialHarmonic(r"<g b>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic(r"<g c'>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic(r"<g d'>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic(r"<g e'>4").sounding_pitch(),
+                 auxjad.ArtificialHarmonic(r"<g g'>4").sounding_pitch(),
                  ]
-    notes = [abjad.Note("b''4"),
-             abjad.Note("g''4"),
-             abjad.Note("d''4"),
-             abjad.Note("b''4"),
-             abjad.Note("g'4"),
+    notes = [abjad.Note(r"b''4"),
+             abjad.Note(r"g''4"),
+             abjad.Note(r"d''4"),
+             abjad.Note(r"b''4"),
+             abjad.Note(r"g'4"),
              ]
     for harmonic_pitch, note in zip(harmonics, notes):
         assert harmonic_pitch == note.written_pitch
@@ -121,21 +121,21 @@ def test_ArtificialHarmonic_08():
 
 def test_ArtificialHarmonic_09():
     with pytest.raises(ValueError):
-        auxjad.ArtificialHarmonic("<g ef'>4").sounding_pitch()
+        auxjad.ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
 
 
 def test_ArtificialHarmonic_10():
-    harmonics = [auxjad.ArtificialHarmonic("<g b>4").sounding_note(),
-                 auxjad.ArtificialHarmonic("<g c'>4").sounding_note(),
-                 auxjad.ArtificialHarmonic("<g d'>4").sounding_note(),
-                 auxjad.ArtificialHarmonic("<g e'>4").sounding_note(),
-                 auxjad.ArtificialHarmonic("<g g'>4").sounding_note(),
+    harmonics = [auxjad.ArtificialHarmonic(r"<g b>4").sounding_note(),
+                 auxjad.ArtificialHarmonic(r"<g c'>4").sounding_note(),
+                 auxjad.ArtificialHarmonic(r"<g d'>4").sounding_note(),
+                 auxjad.ArtificialHarmonic(r"<g e'>4").sounding_note(),
+                 auxjad.ArtificialHarmonic(r"<g g'>4").sounding_note(),
                  ]
-    notes = [abjad.Note("b''4"),
-             abjad.Note("g''4"),
-             abjad.Note("d''4"),
-             abjad.Note("b''4"),
-             abjad.Note("g'4"),
+    notes = [abjad.Note(r"b''4"),
+             abjad.Note(r"g''4"),
+             abjad.Note(r"d''4"),
+             abjad.Note(r"b''4"),
+             abjad.Note(r"g'4"),
              ]
     for harmonic, note in zip(harmonics, notes):
         assert harmonic.written_pitch == note.written_pitch
@@ -154,24 +154,24 @@ def test_ArtificialHarmonic_11():
 
 def test_ArtificialHarmonic_12():
     with pytest.raises(ValueError):
-        auxjad.ArtificialHarmonic("<g ef'>4").sounding_note()
+        auxjad.ArtificialHarmonic(r"<g ef'>4").sounding_note()
 
 
 def test_ArtificialHarmonic_13():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4")
-    assert harm.written_pitches == abjad.PitchSegment("g c'")
+    assert harm.written_pitches == abjad.PitchSegment(r"g c'")
     harm.written_pitches = r"a d'"
-    assert harm.written_pitches == abjad.PitchSegment("a d'")
+    assert harm.written_pitches == abjad.PitchSegment(r"a d'")
     with pytest.raises(ValueError):
         harm.written_pitches = r"a d' e'"
 
 
 def test_ArtificialHarmonic_14():
-    harm1 = auxjad.ArtificialHarmonic("<a d'>1")
-    harm2 = auxjad.ArtificialHarmonic("<a d'>1",
+    harm1 = auxjad.ArtificialHarmonic(r"<a d'>1")
+    harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
                                       markup='I.',
                                       )
-    harm3 = auxjad.ArtificialHarmonic("<a d'>1",
+    harm3 = auxjad.ArtificialHarmonic(r"<a d'>1",
                                       markup='I.',
                                       direction=abjad.Down)
     staff = abjad.Staff([harm1, harm2, harm3])
@@ -201,7 +201,7 @@ def test_ArtificialHarmonic_14():
 
 
 def test_ArtificialHarmonic_15():
-    harm = auxjad.ArtificialHarmonic("<a d'>1",
+    harm = auxjad.ArtificialHarmonic(r"<a d'>1",
                                      markup='I.',
                                      )
     harm.markup = None
@@ -216,7 +216,7 @@ def test_ArtificialHarmonic_15():
 
 
 def test_ArtificialHarmonic_16():
-    harm = auxjad.ArtificialHarmonic("<a d'>1")
+    harm = auxjad.ArtificialHarmonic(r"<a d'>1")
     abjad.attach(abjad.Markup('test'), harm)
     harm.markup = 'I.'
     with pytest.raises(Exception):
@@ -224,7 +224,7 @@ def test_ArtificialHarmonic_16():
 
 
 def test_ArtificialHarmonic_17():
-    harm = auxjad.ArtificialHarmonic("<a d'>1",
+    harm = auxjad.ArtificialHarmonic(r"<a d'>1",
                                      markup='I.',
                                      direction=abjad.Down)
     assert harm.direction is abjad.Down

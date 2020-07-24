@@ -49,12 +49,3 @@ documentaion of each class and function.
     auxjad.time_signature_extractor
     auxjad.underfull_duration
     auxjad.WindowLooper
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

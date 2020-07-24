@@ -17,7 +17,7 @@ def prettify_rewrite_meter(container: abjad.Container,
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
     in place and has no return value; this function fuses pitched leaves
     according to the rules shown below, improving the default output of
-    ``abjad.rewrite_meter()``.
+    ``abjad.mutate().rewrite_meter()``.
 
     Example:
         Meters whose denominators are a crotchet or longer get tied notes

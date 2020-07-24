@@ -6,15 +6,18 @@
 Examples of usage
 =================
 
-In this page there are two more complex examples showcasing the types of
-manipulation that ``auxjad``'s functions and classes can accomplish. These
-examples do not make use of all functions and classes, nor does it show all the
-features of the used ones. Please refer to ``auxjad``'s API in the left pane
-for the documentation of specific functions and classes.
+In this page you will find some practical examples showcasing the types of
+algorithmic manipulation that ``auxjad`` can accomplish. These examples do not
+make use of all functions and classes, nor do they show all the features of the
+ones that are used. Please refer to ``auxjad``'s API in the left pane for the
+documentation of specific functions and classes.
 
 .. toctree::
     :maxdepth: 2
     :caption: List of Examples of Usage
 
-    example-1
-    example-2
+    example-1-clapping-music
+    example-2-looping
+    example-3-looping
+    example-4-hocket-with-random-pitches
+    example-5-shuffling-harmonics

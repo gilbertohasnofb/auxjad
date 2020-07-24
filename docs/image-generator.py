@@ -53,7 +53,7 @@ for member in dir(auxjad):
                     match = match.replace(r'%%% ', '')
                     match = match.replace(r'%%%', '')
                     match = textwrap.dedent(match)
-                    if r'\new Staff' in match or r'\new Score' in match:
+                    if r'\new' in match:
                         f.write(match)
                     elif match[0] == r'{' and match[-1] == r'}':
                         f.write(r'\new Staff' + '\n')
@@ -80,8 +80,7 @@ for read_file in os.listdir('./examples'):
                         match = match.replace(r'%%% ', '')
                         match = match.replace(r'%%%', '')
                         match = textwrap.dedent(match)
-                        if (r'\new Staff' in match
-                                or r'\new Score' in match):
+                        if r'\new' in match:
                             f.write(match)
                         elif match[0] == r'{' and match[-1] == r'}':
                             f.write(r'\new Staff' + '\n')

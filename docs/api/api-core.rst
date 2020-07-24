@@ -18,7 +18,7 @@ Below is the full list of classes included in ``core``. Click on their names
 for their individual documentation.
 
 .. autosummary::
-    :toctree: _api_members
+    :toctree: ../_api_members
 
     auxjad.CartographySelector
     auxjad.Drifter

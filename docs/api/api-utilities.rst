@@ -18,7 +18,7 @@ Below is the full list of functions included in ``utilities``. Click on their
 names for their individual documentation.
 
 .. autosummary::
-    :toctree: _api_members
+    :toctree: ../_api_members
 
     auxjad.close_container
     auxjad.container_is_full

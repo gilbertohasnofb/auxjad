@@ -17,7 +17,7 @@ Below is the full list of classes included in ``score_components``. Click on
 their names for their individual documentation.
 
 .. autosummary::
-    :toctree: _api_members
+    :toctree: ../_api_members
 
     auxjad.ArtificialHarmonic
     auxjad.HarmonicNote

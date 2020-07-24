@@ -1,4 +1,3 @@
-import copy
 from math import ceil
 from typing import Optional, Union
 
@@ -965,7 +964,7 @@ class WindowLooper(_LooperParent):
         """
         head = self._head_position
         window_size = self._window_size
-        dummy_container = copy.deepcopy(self._contents_no_time_signature)
+        dummy_container = abjad.mutate(self._contents_no_time_signature).copy()
         # splitting leaves at both slicing points
         if head > abjad.Duration(0):
             abjad.mutate(dummy_container[:]).split([head,
@@ -1059,7 +1058,7 @@ class WindowLooper(_LooperParent):
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be sliced and looped.'
-        return copy.deepcopy(self._contents)
+        return abjad.mutate(self._contents).copy()
 
     @contents.setter
     def contents(self,
@@ -1071,13 +1070,13 @@ class WindowLooper(_LooperParent):
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = copy.deepcopy(contents[0])
+            self._contents = abjad.mutate(contents[0]).copy()
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([copy.deepcopy(contents)])
+            self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
-            self._contents = copy.deepcopy(contents)
+            self._contents = abjad.mutate(contents).copy()
         self._contents_length = abjad.inspect(self._contents[:]).duration()
-        self._contents_no_time_signature = copy.deepcopy(self._contents)
+        self._contents_no_time_signature = abjad.mutate(self._contents).copy()
         self._remove_all_time_signatures(self._contents_no_time_signature)
         self._is_first_window = True
 

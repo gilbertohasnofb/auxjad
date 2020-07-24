@@ -1,5 +1,3 @@
-import copy
-
 import abjad
 
 from .close_container import close_container
@@ -245,12 +243,12 @@ def repeat_container(container: abjad.Container,
     if not isinstance(force_identical_time_signatures, bool):
         raise TypeError("'force_identical_time_signatures' must be 'bool'")
 
-    container_ = copy.deepcopy(container)
+    container_ = abjad.mutate(container).copy()
     if not container_is_full(container_):
         close_container(container_)
-    output_container = copy.deepcopy(container_)
+    output_container = abjad.mutate(container_).copy()
     for _ in range(n - 1):
-        output_container.extend(copy.deepcopy(container_))
+        output_container.extend(abjad.mutate(container_).copy())
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)
     reposition_clefs(output_container)

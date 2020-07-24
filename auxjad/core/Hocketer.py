@@ -1,4 +1,3 @@
-import copy
 import random
 from typing import Optional, Union
 
@@ -966,7 +965,7 @@ class Hocketer():
         r"""Returns one or more voices of the output of the hocketer through
         indexing or slicing.
         """
-        return copy.deepcopy(self._voices[key])
+        return abjad.mutate(self._voices[key]).copy()
 
     ### PUBLIC METHODS ###
 
@@ -1016,7 +1015,7 @@ class Hocketer():
         r"""Replaces notes and chords for silences if voice not in the selected
         list for a given logical tie.
         """
-        dummy_voices = [copy.deepcopy(self._contents)
+        dummy_voices = [abjad.mutate(self._contents).copy()
                         for _ in range(self._n_voices)]
         selected_voices = self._select_voices()
         for voice_index, voice in enumerate(dummy_voices):
@@ -1081,7 +1080,7 @@ class Hocketer():
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be hocketed.'
-        return copy.deepcopy(self._contents)
+        return abjad.mutate(self._contents).copy()
 
     @contents.setter
     def contents(self,
@@ -1093,11 +1092,11 @@ class Hocketer():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = copy.deepcopy(contents[0])
+            self._contents = abjad.mutate(contents[0]).copy()
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([copy.deepcopy(contents)])
+            self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
-            self._contents = copy.deepcopy(contents)
+            self._contents = abjad.mutate(contents).copy()
         self._time_signatures = time_signature_extractor(contents,
                                                          do_not_use_none=True,
                                                          )
@@ -1270,7 +1269,7 @@ class Hocketer():
         if self._voices is not None:
             output = []
             for voice in self._voices:
-                voice_ = copy.deepcopy(voice)
+                voice_ = abjad.mutate(voice).copy()
                 if self._omit_time_signatures:
                     self._remove_all_time_signatures(voice_)
                 output.append(abjad.Staff([voice_]))

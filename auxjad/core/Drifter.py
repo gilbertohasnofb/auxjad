@@ -1,4 +1,3 @@
-import copy
 import random
 from typing import Optional, Union
 
@@ -1410,7 +1409,6 @@ class Drifter():
                  '_weighted_duration',
                  '_is_first_window',
                  '_is_first_process',
-                 '_current_window',
                  '_repetition_chance',
                  '_initial_repetitions',
                  '_final_repetitions',
@@ -1487,8 +1485,6 @@ class Drifter():
     def __call__(self) -> tuple:
         r'Calls the drifting process, returning a `tuple` of ``abjad.Staff``.'
         self._drift_process()
-        self._current_window = (self._fader_out.current_window,
-                                self._fader_in.current_window)
         return self.current_window
 
     def __next__(self) -> tuple:
@@ -1606,7 +1602,7 @@ class Drifter():
     @property
     def contents_out(self) -> abjad.Container:
         r'The ``abjad.Container`` to be faded out.'
-        return copy.deepcopy(self._contents_out)
+        return abjad.mutate(self._contents_out).copy()
 
     @contents_out.setter
     def contents_out(self,
@@ -1618,14 +1614,14 @@ class Drifter():
         leaves = abjad.select(contents_out).leaves()
         if not leaves.are_contiguous_logical_voice():
             raise ValueError("'contents_out' must be contiguous logical voice")
-        self._contents_out = copy.deepcopy(contents_out)
+        self._contents_out = abjad.mutate(contents_out).copy()
         self._fader_out.contents = self._contents_out
         self.reset()
 
     @property
     def contents_in(self) -> abjad.Container:
         r'The ``abjad.Container`` to be faded in.'
-        return copy.deepcopy(self._contents_in)
+        return abjad.mutate(self._contents_in).copy()
 
     @contents_in.setter
     def contents_in(self,
@@ -1637,16 +1633,16 @@ class Drifter():
         leaves = abjad.select(contents_in).leaves()
         if not leaves.are_contiguous_logical_voice():
             raise ValueError("'contents_in' must be contiguous logical voice")
-        self._contents_in = copy.deepcopy(contents_in)
+        self._contents_in = abjad.mutate(contents_in).copy()
         self._fader_in.contents = self._contents_in
         self.reset()
 
     @property
-    def current_window(self) -> Union[tuple, None]:
+    def current_window(self) -> tuple:
         r"""Read-only property, returns the result of the last operation as a
         `tuple` of ``abjad.Staff``.
         """
-        return copy.deepcopy(self._current_window)
+        return (self._fader_out.current_window, self._fader_in.current_window)
 
     @property
     def weighted_duration(self) -> bool:

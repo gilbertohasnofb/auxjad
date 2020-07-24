@@ -1,4 +1,3 @@
-import copy
 import random
 from typing import Optional, Union
 
@@ -675,7 +674,7 @@ class PitchRandomiser:
 
     def _rewrite_pitches(self):
         r'Rewrites the pitches of the current window.'
-        dummy_container = copy.deepcopy(self._contents)
+        dummy_container = abjad.mutate(self._contents).copy()
         logical_ties = abjad.select(dummy_container).logical_ties()
         for logical_tie in logical_ties:
             if isinstance(logical_tie[0], abjad.Note):
@@ -722,7 +721,7 @@ class PitchRandomiser:
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be shuffled.'
-        return copy.deepcopy(self._contents)
+        return abjad.mutate(self._contents).copy()
 
     @contents.setter
     def contents(self,
@@ -734,12 +733,12 @@ class PitchRandomiser:
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = copy.deepcopy(contents[0])
+            self._contents = abjad.mutate(contents[0]).copy()
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([copy.deepcopy(contents)])
+            self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
-            self._contents = copy.deepcopy(contents)
-        dummy_container = copy.deepcopy(contents)
+            self._contents = abjad.mutate(contents).copy()
+        dummy_container = abjad.mutate(contents).copy()
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         self._is_first_window = True
@@ -835,7 +834,7 @@ class PitchRandomiser:
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the result of the last operation.'
-        current_window = copy.deepcopy(self._current_window)
+        current_window = abjad.mutate(self._current_window).copy()
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

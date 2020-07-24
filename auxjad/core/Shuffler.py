@@ -1,4 +1,3 @@
-import copy
 import random
 from typing import Optional, Union
 
@@ -987,15 +986,9 @@ class Shuffler:
 
     ### PRIVATE METHODS ###
 
-    def _get_logical_selections(self):
+    def _update_logical_selections(self):
         r'Updates the selection of logical ties of ``contents``.'
-        def group_logical_ties(logical_tie):
-            if isinstance(logical_tie.head, abjad.Rest):
-                return True
-            else:
-                return logical_tie.head
-        logical_ties = abjad.select(self._contents).logical_ties()
-        self._logical_selections = logical_ties.group_by(group_logical_ties)
+        self._logical_selections = self._get_logical_selections(self._contents)
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> list:
@@ -1115,7 +1108,8 @@ class Shuffler:
         r'Rewrites the logical selections of the current window.'
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
-        logical_selections = copy.deepcopy(self._logical_selections)
+        logical_selections = self._get_logical_selections(
+            abjad.mutate(self._contents).copy())
         self._force_dynamics(logical_selections)
         for index in self._logical_selections_indeces:
             logical_selection = logical_selections[index]
@@ -1191,7 +1185,18 @@ class Shuffler:
         self._is_first_window = False
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        self._get_logical_selections()  # new logical selections
+        self._update_logical_selections()  # new logical selections
+
+    @staticmethod
+    def _get_logical_selections(container):
+        r'Updates the selection of logical ties of a container.'
+        def group_logical_ties(logical_tie):
+            if isinstance(logical_tie.head, abjad.Rest):
+                return True
+            else:
+                return logical_tie.head
+        logical_ties = abjad.select(container).logical_ties()
+        return logical_ties.group_by(group_logical_ties)
 
     @staticmethod
     def _remove_all_time_signatures(container):
@@ -1233,7 +1238,7 @@ class Shuffler:
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be shuffled.'
-        return copy.deepcopy(self._contents)
+        return abjad.mutate(self._contents).copy()
 
     @contents.setter
     def contents(self,
@@ -1245,15 +1250,15 @@ class Shuffler:
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = copy.deepcopy(contents[0])
+            self._contents = abjad.mutate(contents[0]).copy()
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([copy.deepcopy(contents)])
+            self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
-            self._contents = copy.deepcopy(contents)
-        dummy_container = copy.deepcopy(contents)
+            self._contents = abjad.mutate(contents).copy()
+        dummy_container = abjad.mutate(contents).copy()
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        self._get_logical_selections()
+        self._update_logical_selections()
         self._get_pitch_list()
         self._time_signatures = time_signature_extractor(self._contents,
                                                          do_not_use_none=True,
@@ -1381,7 +1386,7 @@ class Shuffler:
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the result of the last operation.'
-        current_window = copy.deepcopy(self._current_window)
+        current_window = abjad.mutate(self._current_window).copy()
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

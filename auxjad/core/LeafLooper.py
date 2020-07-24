@@ -1,5 +1,3 @@
-import copy
-
 import abjad
 
 from ..utilities.reposition_dynamics import reposition_dynamics
@@ -753,7 +751,7 @@ class LeafLooper(_LooperParent):
         time_signature_duration = 0
         for logical_tie in logical_ties:
             effective_duration = abjad.inspect(logical_tie).duration()
-            logical_tie_ = copy.deepcopy(logical_tie)
+            logical_tie_ = abjad.mutate(logical_tie).copy()
             dummy_container.append(logical_tie_)
             multiplier = effective_duration / logical_tie_.written_duration
             logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
@@ -796,7 +794,7 @@ class LeafLooper(_LooperParent):
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be sliced and looped.'
-        return copy.deepcopy(self._contents)
+        return abjad.mutate(self._contents).copy()
 
     @contents.setter
     def contents(self,
@@ -808,12 +806,12 @@ class LeafLooper(_LooperParent):
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = copy.deepcopy(contents[0])
+            self._contents = abjad.mutate(contents[0]).copy()
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([copy.deepcopy(contents)])
+            self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
-            self._contents = copy.deepcopy(contents)
-        dummy_container = copy.deepcopy(self._contents)
+            self._contents = abjad.mutate(contents).copy()
+        dummy_container = abjad.mutate(self._contents).copy()
         self._remove_all_time_signatures(dummy_container)
         self._contents_logical_ties = abjad.select(
             dummy_container).logical_ties()

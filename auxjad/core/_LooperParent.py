@@ -1,4 +1,3 @@
-import copy
 import random
 from typing import Union
 
@@ -302,7 +301,7 @@ class _LooperParent():
         r'Read-only property, returns the window at the current head position.'
         if self._current_window is None:
             return self._current_window
-        current_window = copy.deepcopy(self._current_window)
+        current_window = abjad.mutate(self._current_window).copy()
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

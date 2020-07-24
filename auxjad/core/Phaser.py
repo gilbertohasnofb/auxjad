@@ -1,4 +1,3 @@
-import copy
 import random
 from typing import Optional, Union
 
@@ -1279,7 +1278,7 @@ class Phaser():
         r"""This method phases ``contents`` using ``_pivot_point`` as the
         pivot point.
         """
-        dummy_container = copy.deepcopy(self._contents)
+        dummy_container = abjad.mutate(self._contents).copy()
         pivot = self._pivot_point % self._contents_length
         # splitting leaves at both slicing points
         if pivot > abjad.Duration(0):
@@ -1356,7 +1355,7 @@ class Phaser():
     @property
     def contents(self) -> abjad.Container:
         r'The ``abjad.Container`` to be phased.'
-        return copy.deepcopy(self._contents)
+        return abjad.mutate(self._contents).copy()
 
     @contents.setter
     def contents(self,
@@ -1368,12 +1367,12 @@ class Phaser():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = copy.deepcopy(contents[0])
+            self._contents = abjad.mutate(contents[0]).copy()
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([copy.deepcopy(contents)])
+            self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
-            self._contents = copy.deepcopy(contents)
-        dummy_container = copy.deepcopy(contents)
+            self._contents = abjad.mutate(contents).copy()
+        dummy_container = abjad.mutate(contents).copy()
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         self._contents_length = abjad.inspect(self._contents[:]).duration()
@@ -1383,7 +1382,7 @@ class Phaser():
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the previously output selection.'
-        current_window = copy.deepcopy(self._current_window)
+        current_window = abjad.mutate(self._current_window).copy()
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

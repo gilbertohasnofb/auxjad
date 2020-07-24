@@ -5,41 +5,11 @@ Below is a table with all classes and functions included in ``auxjad``. Click
 on their their names or use the left side panel to navigate to the individual
 documentaion of each class and function.
 
-.. autosummary::
-    :toctree: _api_members
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: auxjad API
 
-    auxjad.ArtificialHarmonic
-    auxjad.CartographySelector
-    auxjad.close_container
-    auxjad.container_is_full
-    auxjad.containers_are_equal
-    auxjad.Drifter
-    auxjad.enforce_time_signature
-    auxjad.Fader
-    auxjad.fill_with_rests
-    auxjad.HarmonicNote
-    auxjad.Hocketer
-    auxjad.LeafDynMaker
-    auxjad.LeafLooper
-    auxjad.leaves_are_tieable
-    auxjad.ListLooper
-    auxjad.Phaser
-    auxjad.PitchRandomiser
-    auxjad.prettify_rewrite_meter
-    auxjad.remove_empty_tuplets
-    auxjad.remove_repeated_dynamics
-    auxjad.remove_repeated_time_signatures
-    auxjad.repeat_container
-    auxjad.reposition_clefs
-    auxjad.reposition_dynamics
-    auxjad.reposition_slurs
-    auxjad.respell_chord
-    auxjad.respell_container
-    auxjad.rests_to_multimeasure_rest
-    auxjad.Shuffler
-    auxjad.simplified_time_signature_ratio
-    auxjad.sync_containers
-    auxjad.TenneySelector
-    auxjad.time_signature_extractor
-    auxjad.underfull_duration
-    auxjad.WindowLooper
+    api-core
+    api-score_components
+    api-utilities

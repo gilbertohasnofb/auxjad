@@ -761,8 +761,9 @@ class PitchRandomiser:
             self._pitches = pitches
         pitch_list = [pitch for pitch in self._pitches]
         self._tenney_selector = TenneySelector(pitch_list)
-        if len(pitch_list) != len(self._weights):
-            self.weights = None
+        if self._weights is not None:
+            if len(pitch_list) != len(self._weights):
+                self.weights = None
 
     @property
     def weights(self) -> list:

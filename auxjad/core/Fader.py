@@ -3,6 +3,7 @@ from typing import Any, Optional, Union
 
 import abjad
 
+from ..score_components.ArtificialHarmonic import ArtificialHarmonic
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from ..utilities.remove_repeated_time_signatures import (
@@ -1171,7 +1172,9 @@ class Fader():
         length = 0
         for logical_tie in abjad.select(self._contents).logical_ties(
                 pitched=True):
-            if isinstance(logical_tie.head, abjad.Chord):
+            if isinstance(logical_tie.head, ArtificialHarmonic):
+                length += 1
+            elif isinstance(logical_tie.head, abjad.Chord):
                 length += len(logical_tie.head.note_heads)
             else:
                 length += 1
@@ -1292,7 +1295,8 @@ class Fader():
         logical_ties = abjad.select(dummy_container).logical_ties(pitched=True)
         mask_index = 0
         for logical_tie in logical_ties:
-            if isinstance(logical_tie.head, abjad.Chord):
+            if (isinstance(logical_tie.head, abjad.Chord)
+                    and not isinstance(logical_tie.head, ArtificialHarmonic)):
                 chord_len = len(logical_tie.head.note_heads)
                 if 1 not in self._mask[mask_index:mask_index + chord_len]:
                     self._convert_pitched_logical_tie_to_rest(logical_tie)

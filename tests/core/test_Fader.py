@@ -1276,3 +1276,39 @@ def test_Fader_29():
             <e' f'>2
         }
         """)
+
+
+def test_Fader_30():
+    random.seed(39761)
+    container = abjad.Container([
+        auxjad.ArtificialHarmonic(r"<c' f'>2"),
+        abjad.Chord(r"<c' f'>2"),
+    ])
+    fader = auxjad.Fader(container, fader_type='out')
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            <
+                c'
+                \tweak style #'harmonic
+                f'
+            >2
+            <c' f'>2
+            <
+                c'
+                \tweak style #'harmonic
+                f'
+            >2
+            f'2
+            <
+                c'
+                \tweak style #'harmonic
+                f'
+            >2
+            r2
+            R1
+        }
+        """)

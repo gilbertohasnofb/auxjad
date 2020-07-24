@@ -1,5 +1,5 @@
 Shuffling and fading harmonics
-------------------------------
+==============================
 
 In this example, we will use some of ``auxjad``'s classes to manipulate
 some musical material using the ``Shuffler`` and ``Fader`` classes.

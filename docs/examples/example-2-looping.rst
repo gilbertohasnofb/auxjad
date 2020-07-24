@@ -1,5 +1,5 @@
 Looping with ``LeafLooper``
----------------------------
+===========================
 
 In this first example, we will use the class ``auxjad.LeafLooper`` to loop
 through some musical material. ``LeafLooper`` creates subselections of logical

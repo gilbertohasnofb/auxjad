@@ -1,5 +1,5 @@
 Looping with ``WindowLooper``
------------------------------
+=============================
 
 In this next example, we will use some of ``auxjad``'s classes to generate
 a container of randomly selected material, and then use this material as input

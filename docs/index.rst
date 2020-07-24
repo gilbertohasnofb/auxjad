@@ -55,3 +55,4 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
     self
     examples/index
     api/index
+    score_gallery/index

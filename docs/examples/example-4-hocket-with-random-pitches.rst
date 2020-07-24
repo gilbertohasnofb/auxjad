@@ -1,5 +1,5 @@
 Hocket with random pitches
---------------------------
+==========================
 
 In this example, we will use some of ``auxjad``'s classes to generate a hocket
 with random pitches.

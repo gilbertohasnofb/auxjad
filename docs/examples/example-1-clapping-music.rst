@@ -1,5 +1,5 @@
 Steve Reich's *Clapping Music*
-------------------------------
+==============================
 
 In this example, we will use some of ``auxjad``'s classes and functions to
 generate the score of Steve Reich's *Clapping Music*.

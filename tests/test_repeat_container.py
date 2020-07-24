@@ -181,7 +181,7 @@ def test_repeat_container_07():
 
 
 def test_repeat_container_08():
-    container = abjad.Staff(r"\clef bass c4 d4 e4")
+    container = abjad.Staff(r"\clef bass f4\pp( e4) d4(")
     output_staff = auxjad.repeat_container(container, 3)
     assert format(output_staff) == abjad.String.normalize(
         r"""
@@ -189,14 +189,61 @@ def test_repeat_container_08():
         {
             \time 3/4
             \clef "bass"
-            c4
-            d4
+            f4
+            \pp
+            (
             e4
-            c4
+            )
             d4
+            (
+            f4
+            (
             e4
-            c4
+            )
             d4
+            (
+            f4
+            (
             e4
+            )
+            d4
+        }
+        """)
+    container = abjad.Staff(r"\clef bass f4\pp( e4) d4(")
+    output_staff = auxjad.repeat_container(container,
+                                           3,
+                                           reposition_clefs=False,
+                                           reposition_dynamics=False,
+                                           reposition_slurs=False,
+                                           )
+    assert format(output_staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            \clef "bass"
+            f4
+            \pp
+            (
+            e4
+            )
+            d4
+            (
+            \clef "bass"
+            f4
+            \pp
+            (
+            e4
+            )
+            d4
+            (
+            \clef "bass"
+            f4
+            \pp
+            (
+            e4
+            )
+            d4
+            (
         }
         """)

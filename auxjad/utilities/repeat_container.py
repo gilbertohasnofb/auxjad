@@ -3,7 +3,9 @@ import abjad
 from .close_container import close_container
 from .container_is_full import container_is_full
 from .remove_repeated_time_signatures import remove_repeated_time_signatures
-from .reposition_clefs import reposition_clefs
+from .reposition_clefs import reposition_clefs as reposition_clefs_
+from .reposition_dynamics import reposition_dynamics as reposition_dynamics_
+from .reposition_slurs import reposition_slurs as reposition_slurs_
 
 
 def repeat_container(container: abjad.Container,
@@ -11,6 +13,9 @@ def repeat_container(container: abjad.Container,
                      *,
                      omit_time_signatures: bool = False,
                      force_identical_time_signatures: bool = False,
+                     reposition_clefs: bool = True,
+                     reposition_dynamics: bool = True,
+                     reposition_slurs: bool = True,
                      ) -> abjad.Container:
     r"""This function returns an ``abjad.Container`` with ``n`` repetitions of
     an input container (of type ``abjad.Container`` or child class).
@@ -201,27 +206,83 @@ def repeat_container(container: abjad.Container,
         .. figure:: ../_images/image-repeat_container-8.png
 
     Example:
-        This function automatically removes repeated clefs when repeating a
-        container.
+        By default, this function will automatically remove repeated clefs as
+        well as handle slurs and dynamics.
 
-        >>> container = abjad.Staff(r"\clef bass c4 d4 e4")
+        >>> container = abjad.Staff(r"\clef bass f4\pp( e4) d4(")
         >>> output_staff = auxjad.repeat_container(container, 3)
         >>> abjad.f(output_staff)
+        \new Staff
         {
             \time 3/4
-            \clef bass
-            c4
-            d4
+            \clef "bass"
+            f4
+            \pp
+            (
             e4
-            c4
+            )
             d4
+            (
+            f4
+            (
             e4
-            c4
+            )
             d4
+            (
+            f4
+            (
             e4
+            )
+            d4
         }
 
         .. figure:: ../_images/image-repeat_container-9.png
+
+        Set the optional keyword arguments ``reposition_clefs``,
+        ``reposition_dynamics``, and ``reposition_slurs`` to ``False`` to
+        disable these behaviours. Do note that LilyPond automatically ignore
+        repeated indentical clefs as well as repeated slur starts when another
+        slur is already active, but these will still be present in the score's
+        source code.
+
+        >>> container = abjad.Staff(r"\clef bass f4\pp( e4) d4(")
+        >>> output_staff = auxjad.repeat_container(container,
+        ...                                        3,
+        ...                                        reposition_clefs=False,
+        ...                                        reposition_dynamics=False,
+        ...                                        reposition_slurs=False,
+        ...                                        )
+        >>> abjad.f(output_staff)
+        \new Staff
+        {
+            \time 3/4
+            \clef "bass"
+            f4
+            \pp
+            (
+            e4
+            )
+            d4
+            (
+            \clef "bass"
+            f4
+            \pp
+            (
+            e4
+            )
+            d4
+            (
+            \clef "bass"
+            f4
+            \pp
+            (
+            e4
+            )
+            d4
+            (
+        }
+
+        .. figure:: ../_images/image-repeat_container-10.png
 
     ..  error::
 
@@ -251,7 +312,12 @@ def repeat_container(container: abjad.Container,
         output_container.extend(abjad.mutate(container_).copy())
     if not force_identical_time_signatures:
         remove_repeated_time_signatures(output_container)
-    reposition_clefs(output_container)
+    if reposition_clefs:
+        reposition_clefs_(output_container)
+    if reposition_clefs:
+        reposition_dynamics_(output_container)
+    if reposition_clefs:
+        reposition_slurs_(output_container)
     if omit_time_signatures:
         for leaf in abjad.select(output_container).leaves():
             if abjad.inspect(leaf).indicator(abjad.TimeSignature):

@@ -81,8 +81,9 @@ for member in dir(auxjad):
 for read_file in os.listdir('./examples'):
     if read_file.startswith('example-'):
         with open('./examples/' + read_file, 'r') as example_file:
+            example_file_contents = example_file.read()
             # check for sequential numbering
-            matches = re.findall(check_image_numbering, example_file.read())
+            matches = re.findall(check_image_numbering, example_file_contents)
             if matches is not None:
                 for n, match in enumerate(matches):
                     if int(match) != n + 1:
@@ -90,7 +91,7 @@ for read_file in os.listdir('./examples'):
                                          f"{read_file} is wrongly labelled as "
                                          f"{match}")
             # finding lilypond code
-            matches = re.findall(pattern, example_file.read())
+            matches = re.findall(pattern, example_file_contents)
             if matches:
                 for n, match in enumerate(matches):
                     filename = ('image-' + read_file.replace('.rst', '')

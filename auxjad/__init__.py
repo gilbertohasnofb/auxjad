@@ -26,8 +26,8 @@ from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
 
-from .score_components.ArtificialHarmonic import ArtificialHarmonic
-from .score_components.HarmonicNote import HarmonicNote
+from .score.ArtificialHarmonic import ArtificialHarmonic
+from .score.HarmonicNote import HarmonicNote
 
 from .utilities.close_container import close_container
 from .utilities.container_is_full import container_is_full

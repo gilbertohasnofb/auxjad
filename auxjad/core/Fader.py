@@ -3,7 +3,7 @@ from typing import Any, Optional, Union
 
 import abjad
 
-from ..score_components.ArtificialHarmonic import ArtificialHarmonic
+from ..score.ArtificialHarmonic import ArtificialHarmonic
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
 from ..utilities.remove_repeated_time_signatures import (

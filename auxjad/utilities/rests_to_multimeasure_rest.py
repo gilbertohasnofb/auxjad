@@ -68,7 +68,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
             \time 3/4
             R1 * 3/4
         }
-        
+
         .. figure:: ../_images/image-close_container-5.png
 
     Example:

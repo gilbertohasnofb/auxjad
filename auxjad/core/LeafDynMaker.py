@@ -295,6 +295,12 @@ class LeafDynMaker(abjad.LeafMaker):
                  '_cyclic_articulations',
                  )
 
+    ### INITIALISER ###
+
+    def __init__(self):
+        r'Initialises self.'
+        super().__init__()
+
     ### SPECIAL METHODS ###
 
     def __call__(self,

@@ -159,6 +159,7 @@ def test_Fader_03():
                          maximum_dot_count=1,
                          rewrite_tuplets=False,
                          processs_on_first_call=True,
+                         include_empty_measures=False,
                          )
     assert fader.fader_type == 'in'
     assert fader.max_steps == 2
@@ -170,6 +171,7 @@ def test_Fader_03():
     assert fader.maximum_dot_count == 1
     assert not fader.rewrite_tuplets
     assert fader.processs_on_first_call
+    assert not fader.include_empty_measures
     fader.fader_type = 'out'
     fader.max_steps = 1
     fader.disable_rewrite_meter = False
@@ -180,6 +182,7 @@ def test_Fader_03():
     fader.maximum_dot_count = 2
     fader.rewrite_tuplets = True
     fader.processs_on_first_call = False
+    fader.include_empty_measures = True
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
     assert not fader.disable_rewrite_meter
@@ -190,6 +193,7 @@ def test_Fader_03():
     assert fader.maximum_dot_count == 2
     assert fader.rewrite_tuplets
     assert not fader.processs_on_first_call
+    assert fader.include_empty_measures
 
 
 def test_Fader_04():
@@ -1310,5 +1314,192 @@ def test_Fader_30():
             >2
             r2
             R1
+        }
+        """)
+
+
+def test_Fader_31():
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='out',
+                         processs_on_first_call=False,
+                         include_empty_measures=True,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'2
+            r4
+            d'4
+            e'2
+            r2
+            e'2
+            R1
+        }
+        """)
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='out',
+                         processs_on_first_call=True,
+                         include_empty_measures=True,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            r4
+            d'4
+            e'2
+            r2
+            e'2
+            R1
+        }
+        """)
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='out',
+                         processs_on_first_call=False,
+                         include_empty_measures=False,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'2
+            r4
+            d'4
+            e'2
+            r2
+            e'2
+        }
+        """)
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='out',
+                         processs_on_first_call=True,
+                         include_empty_measures=False,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            r4
+            d'4
+            e'2
+            r2
+            e'2
+        }
+        """)
+
+
+def test_Fader_32():
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='in',
+                         processs_on_first_call=False,
+                         include_empty_measures=True,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            R1
+            c'4
+            r2.
+            c'4
+            d'4
+            r2
+            c'4
+            d'4
+            e'2
+        }
+        """)
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='in',
+                         processs_on_first_call=True,
+                         include_empty_measures=True,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            r2.
+            c'4
+            d'4
+            r2
+            c'4
+            d'4
+            e'2
+        }
+        """)
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='in',
+                         processs_on_first_call=False,
+                         include_empty_measures=False,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            r2.
+            c'4
+            d'4
+            r2
+            c'4
+            d'4
+            e'2
+        }
+        """)
+    random.seed(76132)
+    container = abjad.Container(r"c'4 d'4 e'2")
+    fader = auxjad.Fader(container,
+                         fader_type='in',
+                         processs_on_first_call=True,
+                         include_empty_measures=False,
+                         )
+    staff = abjad.Staff(fader.output_all())
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            r2.
+            c'4
+            d'4
+            r2
+            c'4
+            d'4
+            e'2
         }
         """)

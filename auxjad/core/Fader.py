@@ -240,6 +240,57 @@ class Fader():
         .. figure:: ../_images/image-Fader-13.png
 
     Example:
+        When ``fader_type`` is set to ``'out'``, the process will end on an
+        empty measure; when it is set to ``'in'``, it will start on an empty
+        measure. Set ``include_empty_measures`` to ``False`` to exclude the
+        empty measures (default is ``True``). This can be used in conjunction
+        with  ``processs_on_first_call``.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'2")
+        >>> fader = auxjad.Fader(container,
+        ...                      fader_type='in',
+        ...                      include_empty_measures=False,
+        ...                      )
+        >>> staff = abjad.Staff(fader.output_all())
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            r2.
+            c'4
+            d'4
+            r2
+            c'4
+            d'4
+            e'2
+        }
+
+        .. figure:: ../_images/image-Fader-14.png
+
+        >>> container = abjad.Container(r"c'4 d'4 e'2")
+        >>> fader = auxjad.Fader(container,
+        ...                      fader_type='out',
+        ...                      include_empty_measures=False,
+        ...                      )
+        >>> staff = abjad.Staff(fader.output_all())
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'2
+            r4
+            d'4
+            e'2
+            r2
+            e'2
+        }
+
+        .. figure:: ../_images/image-Fader-15.png
+
+    Example:
         The instances of ``Fader`` can also be used as an iterator, which can
         then be used in a for loop to run through the whole process. Note that
         unlike the methods ``output_n()`` and ``output_all()``, time signatures
@@ -274,7 +325,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-14.png
+        .. figure:: ../_images/image-Fader-16.png
 
     Example:
         This class can take many optional keyword arguments during its
@@ -314,6 +365,7 @@ class Fader():
         ...                      maximum_dot_count=1,
         ...                      rewrite_tuplets=False,
         ...                      processs_on_first_call=True,
+        ...                      include_empty_measures=False,
         ...                      )
         >>> fader.fader_type
         'in'
@@ -335,6 +387,8 @@ class Fader():
         False
         >>> fader.processs_on_first_call
         True
+        >>> fader.include_empty_measures
+        False
 
         Use the properties below to change these values after initialisation.
 
@@ -348,6 +402,7 @@ class Fader():
         >>> fader.maximum_dot_count = 2
         >>> fader.rewrite_tuplets = True
         >>> fader.processs_on_first_call = False
+        >>> fader.include_empty_measures = True
         >>> fader.fader_type
         'out'
         >>> fader.max_steps
@@ -368,6 +423,8 @@ class Fader():
         True
         >>> fader.processs_on_first_call
         False
+        >>> fader.include_empty_measures
+        True
 
     Example:
         Use the ``contents`` property to read as well as overwrite the contents
@@ -389,7 +446,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/image-Fader-15.png
+        .. figure:: ../_images/image-Fader-17.png
 
         >>> notes = fader()
         >>> fader.mask
@@ -405,7 +462,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/image-Fader-16.png
+        .. figure:: ../_images/image-Fader-18.png
 
         >>> fader.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> fader.mask
@@ -423,7 +480,7 @@ class Fader():
             g'2.
         }
 
-        .. figure:: ../_images/image-Fader-17.png
+        .. figure:: ../_images/image-Fader-19.png
 
         >>> notes = fader()
         >>> fader.mask
@@ -440,7 +497,7 @@ class Fader():
             g'2.
         }
 
-        .. figure:: ../_images/image-Fader-18.png
+        .. figure:: ../_images/image-Fader-20.png
 
     Example:
         To run through the whole process and output it as a single container,
@@ -465,7 +522,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-19.png
+        .. figure:: ../_images/image-Fader-21.png
 
     Example:
         To run through just part of the process and output it as a single
@@ -497,7 +554,7 @@ class Fader():
             r4.
         }
 
-        .. figure:: ../_images/image-Fader-20.png
+        .. figure:: ../_images/image-Fader-22.png
 
     Example:
         This class also support chords. Their note heads are removed/added one
@@ -554,7 +611,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-21.png
+        .. figure:: ../_images/image-Fader-23.png
 
     Example:
         The function ``len()`` returns the total number of note heads in
@@ -629,7 +686,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/image-Fader-22.png
+        .. figure:: ../_images/image-Fader-24.png
 
     Example:
         The property ``mask`` is used to represent whether each note heads is
@@ -668,7 +725,7 @@ class Fader():
             r2
         }
 
-        .. figure:: ../_images/image-Fader-23.png
+        .. figure:: ../_images/image-Fader-25.png
 
         >>> fader.mask = [1, 0, 1, 1, 0]
         >>> fader.mask
@@ -686,7 +743,7 @@ class Fader():
             r16
         }
 
-        .. figure:: ../_images/image-Fader-24.png
+        .. figure:: ../_images/image-Fader-26.png
 
         >>> fader.reset_mask()
         >>> fader.mask
@@ -700,7 +757,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-25.png
+        .. figure:: ../_images/image-Fader-27.png
 
         When a container has a chord, each of its note heads will be
         represented by an index in the mask, from the lowest pitched one to the
@@ -720,7 +777,7 @@ class Fader():
             <e' f'>2
         }
 
-        .. figure:: ../_images/image-Fader-26.png
+        .. figure:: ../_images/image-Fader-28.png
 
     Example:
         The mask can also be randomised at any point using the method
@@ -743,7 +800,7 @@ class Fader():
             r4
         }
 
-        .. figure:: ../_images/image-Fader-27.png
+        .. figure:: ../_images/image-Fader-29.png
 
         >>> fader.random_mask()
         >>> notes = fader()
@@ -761,7 +818,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/image-Fader-28.png
+        .. figure:: ../_images/image-Fader-30.png
 
     Example:
         Use ``shuffle_mask()`` to shuffle the current mask. This method will
@@ -790,7 +847,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/image-Fader-29.png
+        .. figure:: ../_images/image-Fader-31.png
 
         >>> fader.shuffle_mask()
         >>> notes = fader()
@@ -809,7 +866,7 @@ class Fader():
             c''8
         }
 
-        .. figure:: ../_images/image-Fader-30.png
+        .. figure:: ../_images/image-Fader-32.png
 
     Example:
         By default, all rests in a measure filled only with rests will be
@@ -843,7 +900,7 @@ class Fader():
             r2.
         }
 
-        .. figure:: ../_images/image-Fader-31.png
+        .. figure:: ../_images/image-Fader-33.png
 
     Example:
         To disable time signatures altogether, initialise this class with the
@@ -865,7 +922,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-32.png
+        .. figure:: ../_images/image-Fader-34.png
 
     ..  tip::
 
@@ -894,7 +951,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-33.png
+        .. figure:: ../_images/image-Fader-35.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -914,7 +971,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-34.png
+        .. figure:: ../_images/image-Fader-36.png
 
         Other arguments available for tweaking the output of abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
@@ -964,7 +1021,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/image-Fader-35.png
+        .. figure:: ../_images/image-Fader-37.png
 
     Example:
         Slurs and hairpins are also supported. Slurs are split when rests
@@ -1060,7 +1117,7 @@ class Fader():
             )
         }
 
-        .. figure:: ../_images/image-Fader-36.png
+        .. figure:: ../_images/image-Fader-38.png
 
     .. tip::
 
@@ -1128,6 +1185,7 @@ class Fader():
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
                  '_processs_on_first_call',
+                 '_include_empty_measures',
                  )
 
     ### INITIALISER ###
@@ -1145,6 +1203,7 @@ class Fader():
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
+                 include_empty_measures: bool = True,
                  ):
         r'Initialises self.'
         self.fader_type = fader_type
@@ -1159,6 +1218,7 @@ class Fader():
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
         self.processs_on_first_call = processs_on_first_call
+        self.include_empty_measures = include_empty_measures
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -1189,6 +1249,8 @@ class Fader():
                 self._remove_element()
             else:
                 self._add_element()
+        elif not self._include_empty_measures and self._fader_type == 'in':
+            self._add_element()
         self._mask_to_selection()
         return self.current_window
 
@@ -1574,6 +1636,21 @@ class Fader():
             raise TypeError("'processs_on_first_call' must be 'bool'")
         self._processs_on_first_call = processs_on_first_call
 
+    @property
+    def include_empty_measures(self) -> bool:
+        r"""If ``True`` then an initial or final empty measures will be used,
+        otherwise the process starts/ends with a single logical tie.
+        """
+        return self._include_empty_measures
+
+    @include_empty_measures.setter
+    def include_empty_measures(self,
+                               include_empty_measures: bool,
+                               ):
+        if not isinstance(include_empty_measures, bool):
+            raise TypeError("'include_empty_measures' must be 'bool'")
+        self._include_empty_measures = include_empty_measures
+
     ### PRIVATE PROPERTIES ###
 
     @property
@@ -1583,6 +1660,9 @@ class Fader():
         the mask is filled with ``0``'s with ``fader_type`` set to ``'out'``.
         """
         if self._fader_type == 'out':
-            return 1 not in self._mask
+            if self._include_empty_measures:
+                return 1 not in self._mask
+            else:
+                return sum(self._mask) <= 1
         else:
             return 0 not in self._mask

@@ -1166,7 +1166,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-37.png
+        .. figure:: ../_images/image-Fader-39.png
     """
 
     ### CLASS VARIABLES ###

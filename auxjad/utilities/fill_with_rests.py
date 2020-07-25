@@ -133,6 +133,9 @@ def fill_with_rests(container: abjad.Container):
             g'4
             r2.
         }
+
+        .. figure:: ../_images/image-close_container-8.png
+
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
         {
@@ -144,6 +147,8 @@ def fill_with_rests(container: abjad.Container):
             g'4
             r2.
         }
+
+        .. figure:: ../_images/image-close_container-9.png
 
     Example:
         Correctly handles partial time signatures.

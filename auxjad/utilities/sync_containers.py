@@ -57,6 +57,9 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
+
+        .. figure:: ../_images/image-close_container-3.png
+
         >>> staff = abjad.Staff([container1])
         >>> abjad.f(container1)
         {
@@ -64,6 +67,8 @@ def sync_containers(*containers: abjad.Container,
             g'2.
             r4
         }
+
+        .. figure:: ../_images/image-close_container-4.png
 
     Example:
         If all containers have the same size, no modification is applied.

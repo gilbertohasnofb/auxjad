@@ -14,6 +14,10 @@ pattern = r""">>> abjad\.f.*
 ([\s\S]*?)
 (?:\n| *>>>)"""
 
+# this pattern is used to check that the image numbering is sequential within
+# each file
+check_image_numbering = r"(\d+)\.png"
+
 # header for lilypond file
 ly_header = r"""
 \include "lilypond-book-preamble.ly"
@@ -43,6 +47,14 @@ directory = './_images/lilypond-files/'
 for member in dir(auxjad):
     docstring = getattr(auxjad, member).__doc__
     if docstring is not None:
+        # check for sequential numbering
+        matches = re.findall(check_image_numbering, docstring)
+        if matches is not None:
+            for n, match in enumerate(matches):
+                if int(match) != n + 1:
+                    raise ValueError(f"The image number {n + 1} in {member} "
+                                     f"is wrongly labelled as {match}")
+        # finding lilypond code
         matches = re.findall(pattern, docstring)
         if matches is not None:
             for n, match in enumerate(matches):
@@ -69,6 +81,15 @@ for member in dir(auxjad):
 for read_file in os.listdir('./examples'):
     if read_file.startswith('example-'):
         with open('./examples/' + read_file, 'r') as example_file:
+            # check for sequential numbering
+            matches = re.findall(check_image_numbering, example_file.read())
+            if matches is not None:
+                for n, match in enumerate(matches):
+                    if int(match) != n + 1:
+                        raise ValueError(f"The image number {n + 1} in "
+                                         f"{read_file} is wrongly labelled as "
+                                         f"{match}")
+            # finding lilypond code
             matches = re.findall(pattern, example_file.read())
             if matches:
                 for n, match in enumerate(matches):

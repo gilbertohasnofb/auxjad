@@ -132,6 +132,9 @@ def close_container(container: abjad.Container):
             %%% \time 1/4 %%%
             g'4
         }
+
+        .. figure:: ../_images/image-close_container-8.png
+
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
         {
@@ -143,6 +146,8 @@ def close_container(container: abjad.Container):
             \time 1/4
             g'4
         }
+
+        .. figure:: ../_images/image-close_container-9.png
 
     Example:
         Correctly handles partial time signatures.

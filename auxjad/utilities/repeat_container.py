@@ -64,6 +64,9 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
+
+        .. figure:: ../_images/image-close_container-2.png
+
         >>> staff = abjad.Staff([output_container])
         >>> abjad.f(output_container)
         {
@@ -78,6 +81,8 @@ def repeat_container(container: abjad.Container,
             d'4
             e'4
         }
+
+        .. figure:: ../_images/image-close_container-3.png
 
     Example:
         It handle containers with multiple bars and different time signatures.

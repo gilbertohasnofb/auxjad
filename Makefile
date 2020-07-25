@@ -65,6 +65,7 @@ reformat:
 	make isort-reformat
 
 release:
+	make test
 	make docs
 	make clean
 	make build

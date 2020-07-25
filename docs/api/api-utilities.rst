@@ -1,21 +1,26 @@
 utilities
 =========
 
-The ``utilities`` subpackage contains utility functions which include mutation
+The |utilities|_ subpackage contains utility functions which include mutation
 functions (e.g. to adjust indicators of a container in place) and boolean
 functions (e.g. to check whether a container satisfy some condition).
 
 ..  note::
 
-    These functions are imported directly into the ``auxjad`` namespace.
-    Therefore, to use a function such as :func:`close_container()` you only
-    need to import ``auxjad`` and invoke the function from its namespace:
+    These functions are imported directly into the |auxjad|_ namespace.
+    Therefore, to use a function such as :func:`auxjad.close_container()` you
+    only need to import |auxjad|_ and invoke the function from its namespace:
 
     >>> import auxjad
     >>> auxjad.close_container(container)
 
-Below is the full list of functions included in ``utilities``. Click on their
+Below is the full list of functions included in |utilities|_. Click on their
 names for their individual documentation.
+
+.. |auxjad| replace:: ``auxjad``
+.. _auxjad: index.html
+.. |utilities| replace:: ``utilities``
+.. _utilities: api-utilities.html
 
 .. autosummary::
     :toctree: ../_api_members

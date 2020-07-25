@@ -13,7 +13,7 @@ from .Fader import Fader
 class Drifter():
     r"""This class takes two ``abjad.Container``'s and gradually drifts from
     one into the other, by fading out the first while fading in the
-    second. It makes uses of :class:`auxjad.Fader` for that.
+    second. It makes use of two :class:`auxjad.Fader` for that.
 
     Example:
         Calling the object will return a tuple of two ``abjad.Selection``'s

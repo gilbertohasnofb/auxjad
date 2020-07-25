@@ -1,18 +1,18 @@
 Auxjad API
 ==========
 
-Auxjad is made out of three subpackages: ``core``, ``score``, and
-``utilities``. ``core`` contain most of Auxjad's classes and is focused on
-algorithmic transformations and manipulations of ``abjad.Container`` objects.
-``utilities`` contain a number of utility functions. ``score`` contain a couple
-of classes that can be used as score components, such as artificial harmonics.
+Auxjad is made out of three subpackages: |core|_, |score|_, and |utilities|_.
+|core|_ contain most of Auxjad's classes and is focused on algorithmic
+transformations and manipulations of ``abjad.Container`` objects. |utilities|_
+contain a number of utility functions. |score|_ contain a couple of classes
+that can be used as score components, such as artificial harmonics.
 
 ..  note::
 
-    Auxjad classes and functions are imported directly into the ``auxjad``
-    namespace. Therefore, to use a class such as :class:`CartographySelector`
-    you only need to import ``auxjad`` and instantiate the class from its
-    namespace:
+    Auxjad classes and functions are imported directly into the |auxjad|_
+    namespace. Therefore, to use a class such as
+    :class:`auxjad.CartographySelector` you only need to import |auxjad|_ and
+    instantiate the class from its namespace:
 
     >>> import auxjad
     >>> selector = auxjad.CartographySelector(pitch_list)
@@ -28,6 +28,8 @@ in the navigation pane in the left.
 | |utilities|_ | utility functions                                          |
 +--------------+------------------------------------------------------------+
 
+.. |auxjad| replace:: ``auxjad``
+.. _auxjad: index.html
 .. |core| replace:: ``core``
 .. _core: api-core.html
 .. |score| replace:: ``score``

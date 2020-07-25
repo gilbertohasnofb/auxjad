@@ -3,8 +3,8 @@ Auxjad
 
 |PyPI| |Build| |Python versions| |License| |Bug report| |Documentation|
 
-Auxjad is a library of auxiliary classes and functions for Abjad 3.1 aimed at
-composers of algorithmic music. All classes and functions have a ``__doc__``
+Auxjad is a library of auxiliary classes and functions for `Abjad 3.1`_ aimed
+at composers of algorithmic music. All classes and functions have a ``__doc__``
 attribute with usage instructions.
 
 Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
@@ -25,8 +25,8 @@ Or if you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
-`LilyPond`_.
+You will also need to install `Python 3.6`_ or higher, as well as `Abjad 3.1`_
+and `LilyPond`_.
 
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg
@@ -44,6 +44,6 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad`_ and
 ..  _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
 ..  _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 ..  _pip: https://pip.pypa.io/en/stable/
-..  _Python 3.6: https://www.python.org/
-..  _Abjad: https://abjad.github.io/
+..  _`Python 3.6`: https://www.python.org/
+..  _`Abjad 3.1`: https://abjad.github.io/
 ..  _LilyPond: http://lilypond.org/

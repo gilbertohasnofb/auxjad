@@ -76,13 +76,13 @@ class PitchRandomiser:
         ``PitchRandomiser`` will already process the initial container. To
         disable this behaviour and output the initial container once before
         randomising its pitches, initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``False``.
+        ``process_on_first_call`` set to ``False``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> pitches = r"fs' gs' a' b'"
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,
-        ...                                     processs_on_first_call=False,
+        ...                                     process_on_first_call=False,
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
@@ -137,7 +137,7 @@ class PitchRandomiser:
         representing the weight of each pitch from ``pitches`` (their lengthes
         must also match). ``omit_time_signatures`` will remove all time
         signatures from the output (both are ``False`` by default).
-        ``processs_on_first_call`` to ``True`` and the random pitch process
+        ``process_on_first_call`` to ``True`` and the random pitch process
         will be applied on the very first call. Setting ``use_tenney_selector``
         to ``True`` will make the randomiser use ``auxjad.TenneySelector`` for
         the random selection instead of ``random.choices()`` (default is
@@ -149,7 +149,7 @@ class PitchRandomiser:
         ...     pitches=r"a b cs' ds' e'",
         ...     weights=[1.0, 2.0, 1.0, 1.5, 1.3],
         ...     omit_time_signatures=True,
-        ...     processs_on_first_call=True,
+        ...     process_on_first_call=True,
         ...     use_tenney_selector=True,
         ... )
         >>> randomiser.pitches
@@ -158,7 +158,7 @@ class PitchRandomiser:
         [1.0, 2.0, 1.0, 1.5, 1.3]
         >>> randomiser.omit_time_signatures
         True
-        >>> randomiser.processs_on_first_call
+        >>> randomiser.process_on_first_call
         True
         >>> randomiser.use_tenney_selector
         True
@@ -168,7 +168,7 @@ class PitchRandomiser:
         >>> randomiser.pitches = abjad.PitchSegment(r"c' d' e' f'")
         >>> randomiser.weights = [1, 2, 5, 8]
         >>> randomiser.omit_time_signatures = False
-        >>> randomiser.processs_on_first_call = False
+        >>> randomiser.process_on_first_call = False
         >>> randomiser.use_tenney_selector = False
         >>> assert randomiser.pitches
         <c' d' e' f'>
@@ -176,7 +176,7 @@ class PitchRandomiser:
         [1, 2, 5, 8]
         >>> randomiser.omit_time_signatures
         False
-        >>> randomiser.processs_on_first_call
+        >>> randomiser.process_on_first_call
         False
         >>> randomiser.use_tenney_selector
         False
@@ -589,7 +589,7 @@ class PitchRandomiser:
                  '_pitches',
                  '_weights',
                  '_omit_time_signatures',
-                 '_processs_on_first_call',
+                 '_process_on_first_call',
                  '_use_tenney_selector',
                  '_tenney_selector',
                  '_current_window',
@@ -604,7 +604,7 @@ class PitchRandomiser:
                  *,
                  weights: Optional[list] = None,
                  omit_time_signatures: bool = False,
-                 processs_on_first_call: bool = True,
+                 process_on_first_call: bool = True,
                  use_tenney_selector: bool = False,
                  ):
         r'Initialises self.'
@@ -613,7 +613,7 @@ class PitchRandomiser:
         self.pitches = pitches
         self.weights = weights
         self.omit_time_signatures = omit_time_signatures
-        self.processs_on_first_call = processs_on_first_call
+        self.process_on_first_call = process_on_first_call
         self.use_tenney_selector = use_tenney_selector
         self._is_first_window = True
 
@@ -667,7 +667,7 @@ class PitchRandomiser:
 
     def _randomise(self) -> abjad.Selection:
         r'Randomises pitches of ``contents``.'
-        if self._is_first_window and not self._processs_on_first_call:
+        if self._is_first_window and not self._process_on_first_call:
             self._is_first_window = False
         else:
             self._rewrite_pitches()
@@ -802,19 +802,19 @@ class PitchRandomiser:
         self._omit_time_signatures = omit_time_signatures
 
     @property
-    def processs_on_first_call(self) -> bool:
+    def process_on_first_call(self) -> bool:
         r"""If ``True`` then the ``contents`` will be processed in the very
         first call.
         """
-        return self._processs_on_first_call
+        return self._process_on_first_call
 
-    @processs_on_first_call.setter
-    def processs_on_first_call(self,
-                               processs_on_first_call: bool,
-                               ):
-        if not isinstance(processs_on_first_call, bool):
-            raise TypeError("'processs_on_first_call' must be 'bool'")
-        self._processs_on_first_call = processs_on_first_call
+    @process_on_first_call.setter
+    def process_on_first_call(self,
+                              process_on_first_call: bool,
+                              ):
+        if not isinstance(process_on_first_call, bool):
+            raise TypeError("'process_on_first_call' must be 'bool'")
+        self._process_on_first_call = process_on_first_call
 
     @property
     def use_tenney_selector(self) -> bool:

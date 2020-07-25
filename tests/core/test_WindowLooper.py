@@ -225,7 +225,7 @@ def test_WindowLooper_04():
                                  boundary_depth=0,
                                  maximum_dot_count=1,
                                  rewrite_tuplets=False,
-                                 processs_on_first_call=True,
+                                 process_on_first_call=True,
                                  )
     assert looper.window_size == abjad.Meter((3, 4))
     assert looper.step_size == abjad.Duration((5, 8))
@@ -238,7 +238,7 @@ def test_WindowLooper_04():
     assert looper.boundary_depth == 0
     assert looper.maximum_dot_count == 1
     assert not looper.rewrite_tuplets
-    assert looper.processs_on_first_call
+    assert looper.process_on_first_call
     looper.window_size = (5, 4)
     looper.step_size = (1, 4)
     looper.max_steps = 3
@@ -250,7 +250,7 @@ def test_WindowLooper_04():
     looper.boundary_depth = 1
     looper.maximum_dot_count = 2
     looper.rewrite_tuplets = True
-    looper.processs_on_first_call = False
+    looper.process_on_first_call = False
     assert looper.window_size == abjad.Meter((5, 4))
     assert looper.step_size == abjad.Duration((1, 4))
     assert looper.max_steps == 3
@@ -262,7 +262,7 @@ def test_WindowLooper_04():
     assert looper.boundary_depth == 1
     assert looper.maximum_dot_count == 2
     assert looper.rewrite_tuplets
-    assert not looper.processs_on_first_call
+    assert not looper.process_on_first_call
 
 
 def test_WindowLooper_05():
@@ -661,7 +661,7 @@ def test_WindowLooper_17():
 def test_WindowLooper_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.WindowLooper(container,
-                                 processs_on_first_call=True,
+                                 process_on_first_call=True,
                                  )
     notes = looper()
     staff = abjad.Staff(notes)

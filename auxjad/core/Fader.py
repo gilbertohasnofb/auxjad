@@ -92,11 +92,11 @@ class Fader():
         The very first call will output the input container without processing
         it. To disable this behaviour and apply the fading process on the very
         first call, initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``True``.
+        ``process_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> fader = auxjad.Fader(container,
-        ...                      processs_on_first_call=True,
+        ...                      process_on_first_call=True,
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -244,7 +244,7 @@ class Fader():
         empty measure; when it is set to ``'in'``, it will start on an empty
         measure. Set ``include_empty_measures`` to ``False`` to exclude the
         empty measures (default is ``True``). This can be used in conjunction
-        with  ``processs_on_first_call``.
+        with  ``process_on_first_call``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'2")
         >>> fader = auxjad.Fader(container,
@@ -334,7 +334,7 @@ class Fader():
         between ``1`` and the input value (default is also ``1``). By default,
         calling the object in fade out mode will return the original container,
         and calling it in fade in mode will return a container filled with
-        rests; set ``processs_on_first_call`` to ``True`` and the fade process
+        rests; set ``process_on_first_call`` to ``True`` and the fade process
         will be applied on the very first call.  ``disable_rewrite_meter``
         disables the ``rewrite_meter()`` mutation which is applied to the
         container after every call, and ``omit_time_signatures`` will remove
@@ -364,7 +364,7 @@ class Fader():
         ...                      boundary_depth=0,
         ...                      maximum_dot_count=1,
         ...                      rewrite_tuplets=False,
-        ...                      processs_on_first_call=True,
+        ...                      process_on_first_call=True,
         ...                      include_empty_measures=False,
         ...                      )
         >>> fader.fader_type
@@ -385,7 +385,7 @@ class Fader():
         1
         >>> fader.rewrite_tuplets
         False
-        >>> fader.processs_on_first_call
+        >>> fader.process_on_first_call
         True
         >>> fader.include_empty_measures
         False
@@ -401,7 +401,7 @@ class Fader():
         >>> fader.boundary_depth = 1
         >>> fader.maximum_dot_count = 2
         >>> fader.rewrite_tuplets = True
-        >>> fader.processs_on_first_call = False
+        >>> fader.process_on_first_call = False
         >>> fader.include_empty_measures = True
         >>> fader.fader_type
         'out'
@@ -421,7 +421,7 @@ class Fader():
         2
         >>> fader.rewrite_tuplets
         True
-        >>> fader.processs_on_first_call
+        >>> fader.process_on_first_call
         False
         >>> fader.include_empty_measures
         True
@@ -656,7 +656,7 @@ class Fader():
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> fader = auxjad.Fader(container,
         ...                      max_steps=3,
-        ...                      processs_on_first_call=True,
+        ...                      process_on_first_call=True,
         ...                      )
         >>> notes = fader.output_n(3)
         >>> staff = abjad.Staff(notes)
@@ -1184,7 +1184,7 @@ class Fader():
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
-                 '_processs_on_first_call',
+                 '_process_on_first_call',
                  '_include_empty_measures',
                  )
 
@@ -1195,7 +1195,7 @@ class Fader():
                  *,
                  fader_type: str = 'out',
                  max_steps: int = 1,
-                 processs_on_first_call: bool = False,
+                 process_on_first_call: bool = False,
                  disable_rewrite_meter: bool = False,
                  omit_time_signatures: bool = False,
                  use_multimeasure_rests: bool = True,
@@ -1217,7 +1217,7 @@ class Fader():
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
-        self.processs_on_first_call = processs_on_first_call
+        self.process_on_first_call = process_on_first_call
         self.include_empty_measures = include_empty_measures
         self._is_first_window = True
 
@@ -1244,7 +1244,7 @@ class Fader():
         r"""Calls the fading process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if not self._is_first_window or self._processs_on_first_call:
+        if not self._is_first_window or self._process_on_first_call:
             if self._fader_type == 'out':
                 self._remove_element()
             else:
@@ -1622,19 +1622,19 @@ class Fader():
         self._rewrite_tuplets = rewrite_tuplets
 
     @property
-    def processs_on_first_call(self) -> bool:
+    def process_on_first_call(self) -> bool:
         r"""If ``True`` then the ``contents`` will be processed in the very
         first call.
         """
-        return self._processs_on_first_call
+        return self._process_on_first_call
 
-    @processs_on_first_call.setter
-    def processs_on_first_call(self,
-                               processs_on_first_call: bool,
-                               ):
-        if not isinstance(processs_on_first_call, bool):
-            raise TypeError("'processs_on_first_call' must be 'bool'")
-        self._processs_on_first_call = processs_on_first_call
+    @process_on_first_call.setter
+    def process_on_first_call(self,
+                              process_on_first_call: bool,
+                              ):
+        if not isinstance(process_on_first_call, bool):
+            raise TypeError("'process_on_first_call' must be 'bool'")
+        self._process_on_first_call = process_on_first_call
 
     @property
     def include_empty_measures(self) -> bool:

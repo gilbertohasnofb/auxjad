@@ -73,7 +73,7 @@ def test_LeafLooper_02():
                                forward_bias=0.2,
                                head_position=0,
                                omit_time_signatures=False,
-                               processs_on_first_call=True,
+                               process_on_first_call=True,
                                )
     assert looper.window_size == 3
     assert looper.step_size == 1
@@ -82,7 +82,7 @@ def test_LeafLooper_02():
     assert looper.forward_bias == 0.2
     assert looper.head_position == 0
     assert not looper.omit_time_signatures
-    assert looper.processs_on_first_call
+    assert looper.process_on_first_call
     looper.window_size = 2
     looper.step_size = 2
     looper.max_steps = 3
@@ -90,7 +90,7 @@ def test_LeafLooper_02():
     looper.forward_bias = 0.8
     looper.head_position = 2
     looper.omit_time_signatures = True
-    looper.processs_on_first_call = False
+    looper.process_on_first_call = False
     assert looper.window_size == 2
     assert looper.step_size == 2
     assert looper.max_steps == 3
@@ -98,7 +98,7 @@ def test_LeafLooper_02():
     assert looper.forward_bias == 0.8
     assert looper.head_position == 2
     assert looper.omit_time_signatures
-    assert not looper.processs_on_first_call
+    assert not looper.process_on_first_call
 
 
 def test_LeafLooper_03():
@@ -493,7 +493,7 @@ def test_LeafLooper_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.LeafLooper(container,
                                window_size=3,
-                               processs_on_first_call=True,
+                               process_on_first_call=True,
                                )
     notes = looper()
     staff = abjad.Staff(notes)

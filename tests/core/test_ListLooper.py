@@ -24,7 +24,7 @@ def test_ListLooper_02():
                                repetition_chance=0.25,
                                forward_bias=0.2,
                                head_position=0,
-                               processs_on_first_call=True,
+                               process_on_first_call=True,
                                )
     assert looper.window_size == 3
     assert looper.step_size == 1
@@ -32,21 +32,21 @@ def test_ListLooper_02():
     assert looper.repetition_chance == 0.25
     assert looper.forward_bias == 0.2
     assert looper.head_position == 0
-    assert looper.processs_on_first_call
+    assert looper.process_on_first_call
     looper.window_size = 2
     looper.step_size = 2
     looper.max_steps = 3
     looper.repetition_chance = 0.1
     looper.forward_bias = 0.8
     looper.head_position = 2
-    looper.processs_on_first_call = False
+    looper.process_on_first_call = False
     assert looper.window_size == 2
     assert looper.step_size == 2
     assert looper.max_steps == 3
     assert looper.repetition_chance == 0.1
     assert looper.forward_bias == 0.8
     assert looper.head_position == 2
-    assert not looper.processs_on_first_call
+    assert not looper.process_on_first_call
 
 
 def test_ListLooper_03():
@@ -237,7 +237,7 @@ def test_ListLooper_15():
     input_list = ['A', 'B', 'C', 'D', 'E', 'F']
     looper = auxjad.ListLooper(input_list,
                                window_size=3,
-                               processs_on_first_call=True,
+                               process_on_first_call=True,
                                )
     assert looper() == ['B', 'C', 'D']
 

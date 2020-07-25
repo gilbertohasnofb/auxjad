@@ -50,12 +50,12 @@ class ListLooper(_LooperParent):
         The very first call will output the input list without processing
         it. To disable this behaviour and have the looping window move on the
         very first call, initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``True``.
+        ``process_on_first_call`` set to ``True``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
-        ...                            processs_on_first_call=True,
+        ...                            process_on_first_call=True,
         ...                            )
         >>> looper()
         ['B', 'C', 'D']
@@ -94,7 +94,7 @@ class ListLooper(_LooperParent):
         can be used to offset the starting position of the looping window. It
         must be an integer and its default value is ``0``. By default, calling
         the object will first return the original container and subsequent
-        calls will process it; set ``processs_on_first_call`` to ``True`` and
+        calls will process it; set ``process_on_first_call`` to ``True`` and
         the looping process will be applied on the very first call.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -105,7 +105,7 @@ class ListLooper(_LooperParent):
         ...                            repetition_chance=0.25,
         ...                            forward_bias=0.2,
         ...                            head_position=0,
-        ...                            processs_on_first_call=True,
+        ...                            process_on_first_call=True,
         ...                            )
         >>> looper.window_size
         3
@@ -119,7 +119,7 @@ class ListLooper(_LooperParent):
         2
         >>> looper.head_position
         0
-        >>> looper.processs_on_first_call
+        >>> looper.process_on_first_call
         True
 
         Use the properties below to change these values after initialisation.
@@ -130,7 +130,7 @@ class ListLooper(_LooperParent):
         >>> looper.repetition_chance = 0.1
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 2
-        >>> looper.processs_on_first_call = False
+        >>> looper.process_on_first_call = False
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -143,7 +143,7 @@ class ListLooper(_LooperParent):
         0.8
         >>> looper.head_position
         2
-        >>> looper.processs_on_first_call
+        >>> looper.process_on_first_call
         False
 
     Example:
@@ -349,7 +349,7 @@ class ListLooper(_LooperParent):
                  repetition_chance: float = 0.0,
                  forward_bias: float = 1.0,
                  head_position: int = 0,
-                 processs_on_first_call: bool = False,
+                 process_on_first_call: bool = False,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -359,7 +359,7 @@ class ListLooper(_LooperParent):
                          max_steps,
                          repetition_chance,
                          forward_bias,
-                         processs_on_first_call,
+                         process_on_first_call,
                          )
 
     ### SPECIAL METHODS ###

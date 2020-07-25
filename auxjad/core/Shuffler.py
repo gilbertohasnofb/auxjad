@@ -92,11 +92,11 @@ class Shuffler:
         will already process the initial container. To disable this behaviour
         and output the initial container once before shuffling or rotating it,
         initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``False``.
+        ``process_on_first_call`` set to ``False``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container,
-        ...                            processs_on_first_call=False,
+        ...                            process_on_first_call=False,
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
@@ -147,7 +147,7 @@ class Shuffler:
         passed as arguments to abjad's ``rewrite_meter()``, see its
         documentation for more information. By default, calling the object will
         first return the original container and subsequent calls will process
-        it; set ``processs_on_first_call`` to ``True`` and the shuffling
+        it; set ``process_on_first_call`` to ``True`` and the shuffling
         process will be applied on the very first call.
 
         >>> container = abjad.Container(
@@ -160,7 +160,7 @@ class Shuffler:
         ...                            boundary_depth=0,
         ...                            maximum_dot_count=1,
         ...                            rewrite_tuplets=False,
-        ...                            processs_on_first_call=True,
+        ...                            process_on_first_call=True,
         ...                            )
         >>> shuffler.pitch_only
         False
@@ -176,7 +176,7 @@ class Shuffler:
         1
         >>> shuffler.rewrite_tuplets
         False
-        >>> shuffler.processs_on_first_call
+        >>> shuffler.process_on_first_call
         True
 
         Use the properties below to change these values after initialisation.
@@ -188,7 +188,7 @@ class Shuffler:
         >>> shuffler.boundary_depth = 1
         >>> shuffler.maximum_dot_count = 2
         >>> shuffler.rewrite_tuplets = True
-        >>> shuffler.processs_on_first_call = False
+        >>> shuffler.process_on_first_call = False
         >>> shuffler.pitch_only
         True
         >>> shuffler.preserve_rest_position
@@ -203,7 +203,7 @@ class Shuffler:
         2
         >>> shuffler.rewrite_tuplets
         True
-        >>> shuffler.processs_on_first_call
+        >>> shuffler.process_on_first_call
         False
 
     Example:
@@ -841,7 +841,7 @@ class Shuffler:
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
-                 '_processs_on_first_call',
+                 '_process_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -856,7 +856,7 @@ class Shuffler:
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
-                 processs_on_first_call: bool = True,
+                 process_on_first_call: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -867,7 +867,7 @@ class Shuffler:
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
-        self.processs_on_first_call = processs_on_first_call
+        self.process_on_first_call = process_on_first_call
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -898,7 +898,7 @@ class Shuffler:
 
     def shuffle(self) -> abjad.Selection:
         r'Shuffles logical ties or pitches of ``contents``.'
-        if self._is_first_window and not self._processs_on_first_call:
+        if self._is_first_window and not self._process_on_first_call:
             if not self._pitch_only:
                 self._rewrite_logical_selections()
                 return self.current_window
@@ -923,7 +923,7 @@ class Shuffler:
             raise ValueError("'n_rotations' must be greater than zero")
         if not isinstance(anticlockwise, bool):
             raise TypeError("'anticlockwise' must be 'bool'")
-        if self._is_first_window and not self._processs_on_first_call:
+        if self._is_first_window and not self._process_on_first_call:
             if not self._pitch_only:
                 self._rewrite_logical_selections()
                 return self.current_window
@@ -1369,19 +1369,19 @@ class Shuffler:
         self._rewrite_tuplets = rewrite_tuplets
 
     @property
-    def processs_on_first_call(self) -> bool:
+    def process_on_first_call(self) -> bool:
         r"""If ``True`` then the ``contents`` will be processed in the very
         first call.
         """
-        return self._processs_on_first_call
+        return self._process_on_first_call
 
-    @processs_on_first_call.setter
-    def processs_on_first_call(self,
-                               processs_on_first_call: bool,
-                               ):
-        if not isinstance(processs_on_first_call, bool):
-            raise TypeError("'processs_on_first_call' must be 'bool'")
-        self._processs_on_first_call = processs_on_first_call
+    @process_on_first_call.setter
+    def process_on_first_call(self,
+                              process_on_first_call: bool,
+                              ):
+        if not isinstance(process_on_first_call, bool):
+            raise TypeError("'process_on_first_call' must be 'bool'")
+        self._process_on_first_call = process_on_first_call
 
     @property
     def current_window(self) -> abjad.Selection:

@@ -158,7 +158,7 @@ def test_Fader_03():
                          boundary_depth=0,
                          maximum_dot_count=1,
                          rewrite_tuplets=False,
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          include_empty_measures=False,
                          )
     assert fader.fader_type == 'in'
@@ -170,7 +170,7 @@ def test_Fader_03():
     assert fader.boundary_depth == 0
     assert fader.maximum_dot_count == 1
     assert not fader.rewrite_tuplets
-    assert fader.processs_on_first_call
+    assert fader.process_on_first_call
     assert not fader.include_empty_measures
     fader.fader_type = 'out'
     fader.max_steps = 1
@@ -181,7 +181,7 @@ def test_Fader_03():
     fader.boundary_depth = 1
     fader.maximum_dot_count = 2
     fader.rewrite_tuplets = True
-    fader.processs_on_first_call = False
+    fader.process_on_first_call = False
     fader.include_empty_measures = True
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
@@ -192,7 +192,7 @@ def test_Fader_03():
     assert fader.boundary_depth == 1
     assert fader.maximum_dot_count == 2
     assert fader.rewrite_tuplets
-    assert not fader.processs_on_first_call
+    assert not fader.process_on_first_call
     assert fader.include_empty_measures
 
 
@@ -446,7 +446,7 @@ def test_Fader_10():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     fader = auxjad.Fader(container,
                          max_steps=3,
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          )
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
@@ -543,7 +543,7 @@ def test_Fader_13():
     random.seed(47103)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     fader = auxjad.Fader(container,
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          )
     notes = fader()
     staff = abjad.Staff(notes)
@@ -1323,7 +1323,7 @@ def test_Fader_31():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='out',
-                         processs_on_first_call=False,
+                         process_on_first_call=False,
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1347,7 +1347,7 @@ def test_Fader_31():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='out',
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1368,7 +1368,7 @@ def test_Fader_31():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='out',
-                         processs_on_first_call=False,
+                         process_on_first_call=False,
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1391,7 +1391,7 @@ def test_Fader_31():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='out',
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1414,7 +1414,7 @@ def test_Fader_32():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='in',
-                         processs_on_first_call=False,
+                         process_on_first_call=False,
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1438,7 +1438,7 @@ def test_Fader_32():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='in',
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1461,7 +1461,7 @@ def test_Fader_32():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='in',
-                         processs_on_first_call=False,
+                         process_on_first_call=False,
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
@@ -1484,7 +1484,7 @@ def test_Fader_32():
     container = abjad.Container(r"c'4 d'4 e'2")
     fader = auxjad.Fader(container,
                          fader_type='in',
-                         processs_on_first_call=True,
+                         process_on_first_call=True,
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())

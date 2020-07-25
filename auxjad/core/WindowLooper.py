@@ -79,11 +79,11 @@ class WindowLooper(_LooperParent):
         The very first call will output the input container without processing
         it. To disable this behaviour and have the looping window move on the
         very first call, initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``True``.
+        ``process_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.WindowLooper(container,
-        ...                              processs_on_first_call=True,
+        ...                              process_on_first_call=True,
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -270,7 +270,7 @@ class WindowLooper(_LooperParent):
         ``rewrite_tuplets`` are passed as arguments to abjad's
         ``rewrite_meter()``, see its documentation for more information. By
         default, calling the object will first return the original container
-        and subsequent  calls will process it; set ``processs_on_first_call``
+        and subsequent  calls will process it; set ``process_on_first_call``
         to ``True`` and the looping process will be applied on the very first
         call.
 
@@ -287,7 +287,7 @@ class WindowLooper(_LooperParent):
         ...                              boundary_depth=0,
         ...                              maximum_dot_count=1,
         ...                              rewrite_tuplets=False,
-        ...                              processs_on_first_call=True,
+        ...                              process_on_first_call=True,
         ...                              )
         >>> looper.window_size
         3/4
@@ -317,7 +317,7 @@ class WindowLooper(_LooperParent):
         1
         >>> looper.rewrite_tuplets
         False
-        >>> looper.processs_on_first_call
+        >>> looper.process_on_first_call
         True
 
         Use the properties below to change these values after initialisation.
@@ -332,7 +332,7 @@ class WindowLooper(_LooperParent):
         >>> looper.boundary_depth = 1
         >>> looper.maximum_dot_count = 2
         >>> looper.rewrite_tuplets = True
-        >>> looper.processs_on_first_call = False
+        >>> looper.process_on_first_call = False
         >>> looper.window_size
         5/4
         >>> looper.step_size
@@ -353,7 +353,7 @@ class WindowLooper(_LooperParent):
         2
         >>> looper.rewrite_tuplets
         True
-        >>> looper.processs_on_first_call
+        >>> looper.process_on_first_call
         False
 
     Example:
@@ -912,7 +912,7 @@ class WindowLooper(_LooperParent):
                                       abjad.Duration,
                                       ] = 0,
                  omit_time_signatures: bool = False,
-                 processs_on_first_call: bool = False,
+                 process_on_first_call: bool = False,
                  fill_with_rests: bool = True,
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
@@ -931,7 +931,7 @@ class WindowLooper(_LooperParent):
                          max_steps,
                          repetition_chance,
                          forward_bias,
-                         processs_on_first_call,
+                         process_on_first_call,
                          )
 
     ### SPECIAL METHODS ###

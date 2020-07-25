@@ -27,7 +27,7 @@ class _LooperParent():
                  '_forward_bias',
                  '_current_window',
                  '_is_first_window',
-                 '_processs_on_first_call',
+                 '_process_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -39,18 +39,18 @@ class _LooperParent():
                  max_steps,
                  repetition_chance,
                  forward_bias,
-                 processs_on_first_call,
+                 process_on_first_call,
                  ):
         r'Initialises self.'
-        if not isinstance(processs_on_first_call, bool):
-            raise TypeError("'processs_on_first_call' must be 'bool'")
+        if not isinstance(process_on_first_call, bool):
+            raise TypeError("'process_on_first_call' must be 'bool'")
         self.head_position = head_position
         self.window_size = window_size
         self.step_size = step_size
         self.max_steps = max_steps
         self.repetition_chance = repetition_chance
         self.forward_bias = forward_bias
-        self.processs_on_first_call = processs_on_first_call
+        self.process_on_first_call = process_on_first_call
         self._is_first_window = True
         self._current_window = None
 
@@ -149,7 +149,7 @@ class _LooperParent():
         r"""Moves the head by a certain number of steps of fixed size, either
         forwards or backwards according to the forward bias.
         """
-        if not self._is_first_window or self._processs_on_first_call:
+        if not self._is_first_window or self._process_on_first_call:
             if (self._repetition_chance == 0.0
                     or random.random() > self._repetition_chance):
                 step = self._step_size * random.randint(1, self._max_steps)
@@ -282,19 +282,19 @@ class _LooperParent():
         self._forward_bias = forward_bias
 
     @property
-    def processs_on_first_call(self) -> bool:
+    def process_on_first_call(self) -> bool:
         r"""If ``True`` then the ``contents`` will be processed in the very
         first call.
         """
-        return self._processs_on_first_call
+        return self._process_on_first_call
 
-    @processs_on_first_call.setter
-    def processs_on_first_call(self,
-                               processs_on_first_call: bool,
-                               ):
-        if not isinstance(processs_on_first_call, bool):
-            raise TypeError("'processs_on_first_call' must be 'bool'")
-        self._processs_on_first_call = processs_on_first_call
+    @process_on_first_call.setter
+    def process_on_first_call(self,
+                              process_on_first_call: bool,
+                              ):
+        if not isinstance(process_on_first_call, bool):
+            raise TypeError("'process_on_first_call' must be 'bool'")
+        self._process_on_first_call = process_on_first_call
 
     @property
     def current_window(self) -> Union[abjad.Selection, None]:

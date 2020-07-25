@@ -63,23 +63,23 @@ def test_PitchRandomiser_02():
                                         pitches=r"a b cs' ds' e'",
                                         weights=[1.0, 2.0, 1.0, 1.5, 1.3],
                                         omit_time_signatures=True,
-                                        processs_on_first_call=True,
+                                        process_on_first_call=True,
                                         use_tenney_selector=True,
                                         )
     assert randomiser.pitches == abjad.PitchSegment(r"a b cs' ds' e'")
     assert randomiser.weights == [1.0, 2.0, 1.0, 1.5, 1.3]
     assert randomiser.omit_time_signatures
-    assert randomiser.processs_on_first_call
+    assert randomiser.process_on_first_call
     assert randomiser.use_tenney_selector
     randomiser.pitches = abjad.PitchSegment(r"c' d' e' f'")
     randomiser.weights = [1, 2, 5, 8]
     randomiser.omit_time_signatures = False
-    randomiser.processs_on_first_call = False
+    randomiser.process_on_first_call = False
     randomiser.use_tenney_selector = False
     assert randomiser.pitches == abjad.PitchSegment(r"c' d' e' f'")
     assert randomiser.weights == [1, 2, 5, 8]
     assert not randomiser.omit_time_signatures
-    assert not randomiser.processs_on_first_call
+    assert not randomiser.process_on_first_call
     assert not randomiser.use_tenney_selector
 
 
@@ -421,7 +421,7 @@ def test_PitchRandomiser_16():
     pitches = r"fs' gs' a' b'"
     randomiser = auxjad.PitchRandomiser(container,
                                         pitches,
-                                        processs_on_first_call=False,
+                                        process_on_first_call=False,
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)

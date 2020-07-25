@@ -92,12 +92,12 @@ class LeafLooper(_LooperParent):
         The very first call will output the input container without processing
         it. To disable this behaviour and have the looping window move on the
         very first call, initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``True``.
+        ``process_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=3,
-        ...                            processs_on_first_call=True,
+        ...                            process_on_first_call=True,
         ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -173,7 +173,7 @@ class LeafLooper(_LooperParent):
         ...                            forward_bias=0.2,
         ...                            head_position=0,
         ...                            omit_time_signatures=False,
-        ...                            processs_on_first_call=True,
+        ...                            process_on_first_call=True,
         ...                            )
         >>> looper.window_size
         3
@@ -189,7 +189,7 @@ class LeafLooper(_LooperParent):
         0
         >>> looper.omit_time_signatures
         False
-        >>> looper.processs_on_first_call
+        >>> looper.process_on_first_call
         True
 
         Use the properties below to change these values after initialisation.
@@ -201,7 +201,7 @@ class LeafLooper(_LooperParent):
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 2
         >>> looper.omit_time_signatures = True
-        >>> looper.processs_on_first_call = False
+        >>> looper.process_on_first_call = False
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -216,7 +216,7 @@ class LeafLooper(_LooperParent):
         2
         >>> looper.omit_time_signatures
         True
-        >>> looper.processs_on_first_call
+        >>> looper.process_on_first_call
         False
 
     Example:
@@ -714,7 +714,7 @@ class LeafLooper(_LooperParent):
                  forward_bias: float = 1.0,
                  head_position: int = 0,
                  omit_time_signatures: bool = False,
-                 processs_on_first_call: bool = False,
+                 process_on_first_call: bool = False,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -725,7 +725,7 @@ class LeafLooper(_LooperParent):
                          max_steps,
                          repetition_chance,
                          forward_bias,
-                         processs_on_first_call,
+                         process_on_first_call,
                          )
 
     ### SPECIAL METHODS ###

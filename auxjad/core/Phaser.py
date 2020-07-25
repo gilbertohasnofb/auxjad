@@ -87,11 +87,11 @@ class Phaser():
         The very first call will output the input container without processing
         it. To disable this behaviour and phase on the very first call,
         initialise the class with the keyword argument
-        ``processs_on_first_call`` set to ``True``.
+        ``process_on_first_call`` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
-        ...                        processs_on_first_call=True,
+        ...                        process_on_first_call=True,
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -226,7 +226,7 @@ class Phaser():
         passed as arguments to abjad's ``rewrite_meter()``, see its
         documentation for more information. By default, calling the object will
         first return the original container and subsequent  calls will process
-        it; set ``processs_on_first_call`` to ``True`` and the looping process
+        it; set ``process_on_first_call`` to ``True`` and the looping process
         will be applied on the very first call. Setting the property
         ``omit_time_signatures`` to ``True`` will remove all time signatures
         from the output (``False`` by default).
@@ -241,7 +241,7 @@ class Phaser():
         ...                        boundary_depth=0,
         ...                        maximum_dot_count=1,
         ...                        rewrite_tuplets=False,
-        ...                        processs_on_first_call=True,
+        ...                        process_on_first_call=True,
         ...                        )
         >>> phaser.step_size
         5/8
@@ -259,7 +259,7 @@ class Phaser():
         1
         >>> phaser.rewrite_tuplets
         False
-        >>> phaser.processs_on_first_call
+        >>> phaser.process_on_first_call
         True
 
         Use the properties below to change these values after initialisation.
@@ -272,7 +272,7 @@ class Phaser():
         >>> phaser.boundary_depth = 1
         >>> phaser.maximum_dot_count = 2
         >>> phaser.rewrite_tuplets = True
-        >>> phaser.processs_on_first_call = False
+        >>> phaser.process_on_first_call = False
         >>> phaser.step_size
         1/4
         >>> phaser.max_steps
@@ -289,7 +289,7 @@ class Phaser():
         2
         >>> phaser.rewrite_tuplets
         True
-        >>> phaser.processs_on_first_call
+        >>> phaser.process_on_first_call
         False
 
     Example:
@@ -583,7 +583,7 @@ class Phaser():
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
-        ...                        processs_on_first_call=True,
+        ...                        process_on_first_call=True,
         ...                        remove_unterminated_ties=False,
         ...                        )
         >>> notes = phaser()
@@ -1111,7 +1111,7 @@ class Phaser():
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
-                 '_processs_on_first_call',
+                 '_process_on_first_call',
                  )
 
     ### INITIALISER ###
@@ -1127,7 +1127,7 @@ class Phaser():
                                   ] = (1, 16),
                  max_steps: int = 1,
                  forward_bias: float = 1.0,
-                 processs_on_first_call: bool = False,
+                 process_on_first_call: bool = False,
                  remove_unterminated_ties: bool = True,
                  omit_time_signatures: bool = False,
                  boundary_depth: Optional[int] = None,
@@ -1145,7 +1145,7 @@ class Phaser():
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
-        self.processs_on_first_call = processs_on_first_call
+        self.process_on_first_call = process_on_first_call
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -1163,7 +1163,7 @@ class Phaser():
         r"""Calls the phaser process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if not self._is_first_window or self._processs_on_first_call:
+        if not self._is_first_window or self._process_on_first_call:
             self._move_pivot_point()
         self._make_music()
         self._is_first_window = False
@@ -1173,7 +1173,7 @@ class Phaser():
         r"""Calls the phaser process for one iteration, returning an
         ``abjad.Selection``.
         """
-        if not self._is_first_window or self._processs_on_first_call:
+        if not self._is_first_window or self._process_on_first_call:
             self._move_pivot_point()
             if self._done:
                 raise StopIteration
@@ -1517,19 +1517,19 @@ class Phaser():
         self._rewrite_tuplets = rewrite_tuplets
 
     @property
-    def processs_on_first_call(self) -> bool:
+    def process_on_first_call(self) -> bool:
         r"""If ``True`` then the ``contents`` will be processed in the very
         first call.
         """
-        return self._processs_on_first_call
+        return self._process_on_first_call
 
-    @processs_on_first_call.setter
-    def processs_on_first_call(self,
-                               processs_on_first_call: bool,
-                               ):
-        if not isinstance(processs_on_first_call, bool):
-            raise TypeError("'processs_on_first_call' must be 'bool'")
-        self._processs_on_first_call = processs_on_first_call
+    @process_on_first_call.setter
+    def process_on_first_call(self,
+                              process_on_first_call: bool,
+                              ):
+        if not isinstance(process_on_first_call, bool):
+            raise TypeError("'process_on_first_call' must be 'bool'")
+        self._process_on_first_call = process_on_first_call
 
     ### PRIVATE PROPERTIES ###
 

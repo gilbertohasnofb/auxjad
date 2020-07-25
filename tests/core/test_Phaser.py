@@ -214,7 +214,7 @@ def test_Phaser_04():
                            boundary_depth=0,
                            maximum_dot_count=1,
                            rewrite_tuplets=False,
-                           processs_on_first_call=True,
+                           process_on_first_call=True,
                            )
     assert phaser.step_size == abjad.Duration((5, 8))
     assert phaser.max_steps == 2
@@ -224,7 +224,7 @@ def test_Phaser_04():
     assert phaser.omit_time_signatures
     assert phaser.maximum_dot_count == 1
     assert not phaser.rewrite_tuplets
-    assert phaser.processs_on_first_call
+    assert phaser.process_on_first_call
     phaser.step_size = (1, 4)
     phaser.max_steps = 3
     phaser.forward_bias = 0.8
@@ -233,7 +233,7 @@ def test_Phaser_04():
     phaser.boundary_depth = 1
     phaser.maximum_dot_count = 2
     phaser.rewrite_tuplets = True
-    phaser.processs_on_first_call = False
+    phaser.process_on_first_call = False
     assert phaser.step_size == abjad.Duration((1, 4))
     assert phaser.max_steps == 3
     assert phaser.forward_bias == 0.8
@@ -242,7 +242,7 @@ def test_Phaser_04():
     assert phaser.boundary_depth == 1
     assert phaser.maximum_dot_count == 2
     assert phaser.rewrite_tuplets
-    assert not phaser.processs_on_first_call
+    assert not phaser.process_on_first_call
 
 
 def test_Phaser_05():
@@ -421,7 +421,7 @@ def test_Phaser_08():
         assert auxjad.Phaser(container, step_size=62.3j)
         assert auxjad.Phaser(container, max_steps='foo')
         assert auxjad.Phaser(container, forward_bias='bar')
-        assert auxjad.Phaser(container, processs_on_first_call='xyz')
+        assert auxjad.Phaser(container, process_on_first_call='xyz')
         assert auxjad.Phaser(container, remove_ties_connecting_windows=17j)
     with pytest.raises(ValueError):
         assert auxjad.Phaser(container, max_steps=-1)
@@ -681,7 +681,7 @@ def test_Phaser_13():
 def test_Phaser_14():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     phaser = auxjad.Phaser(container,
-                           processs_on_first_call=True,
+                           process_on_first_call=True,
                            )
     notes = phaser()
     staff = abjad.Staff(notes)
@@ -708,7 +708,7 @@ def test_Phaser_14():
 def test_Phaser_15():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     phaser = auxjad.Phaser(container,
-                           processs_on_first_call=True,
+                           process_on_first_call=True,
                            remove_unterminated_ties=False,
                            )
     notes = phaser()

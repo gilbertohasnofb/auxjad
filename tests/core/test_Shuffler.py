@@ -72,7 +72,7 @@ def test_Shuffler_02():
                                boundary_depth=0,
                                maximum_dot_count=1,
                                rewrite_tuplets=False,
-                               processs_on_first_call=True,
+                               process_on_first_call=True,
                                )
     assert not shuffler.pitch_only
     assert shuffler.preserve_rest_position
@@ -81,7 +81,7 @@ def test_Shuffler_02():
     assert shuffler.boundary_depth == 0
     assert shuffler.maximum_dot_count == 1
     assert not shuffler.rewrite_tuplets
-    assert shuffler.processs_on_first_call
+    assert shuffler.process_on_first_call
     shuffler.pitch_only = True
     shuffler.preserve_rest_position = False
     shuffler.disable_rewrite_meter = True
@@ -89,7 +89,7 @@ def test_Shuffler_02():
     shuffler.boundary_depth = 1
     shuffler.maximum_dot_count = 2
     shuffler.rewrite_tuplets = True
-    shuffler.processs_on_first_call = False
+    shuffler.process_on_first_call = False
     assert shuffler.pitch_only
     assert not shuffler.preserve_rest_position
     assert shuffler.disable_rewrite_meter
@@ -97,7 +97,7 @@ def test_Shuffler_02():
     assert shuffler.boundary_depth == 1
     assert shuffler.maximum_dot_count == 2
     assert shuffler.rewrite_tuplets
-    assert not shuffler.processs_on_first_call
+    assert not shuffler.process_on_first_call
 
 
 def test_Shuffler_03():
@@ -695,7 +695,7 @@ def test_Shuffler_17():
     random.seed(22047)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     shuffler = auxjad.Shuffler(container,
-                               processs_on_first_call=False,
+                               process_on_first_call=False,
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)

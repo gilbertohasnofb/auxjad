@@ -56,7 +56,7 @@ from .utilities.underfull_duration import underfull_duration
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 __all__ = [
     '__author__',
     '__version__',

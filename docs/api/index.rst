@@ -10,8 +10,8 @@ of classes that can be used as score components, such as artificial harmonics.
 ..  note::
 
     Auxjad classes and functions are imported directly into the ``auxjad``
-    namespace. Therefore, to use a class such as ``CartographySelector`` you
-    only need to import ``auxjad`` and instantiate the class from its
+    namespace. Therefore, to use a class such as :class:`CartographySelector`
+    you only need to import ``auxjad`` and instantiate the class from its
     namespace:
 
     >>> import auxjad

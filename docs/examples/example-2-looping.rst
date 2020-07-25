@@ -1,8 +1,8 @@
-Looping with ``LeafLooper``
-===========================
+Looping with :class:`auxjad.LeafLooper`
+=======================================
 
-In this first example, we will use the class ``auxjad.LeafLooper`` to loop
-through some musical material. ``LeafLooper`` creates subselections of logical
+In this first example, we will use the class :class:`auxjad.LeafLooper` to loop
+through some musical material. This class creates subselections of logical
 ties and has a looping window of variable size.
 
 First, we start by importing both ``abjad`` and ``auxjad``.
@@ -11,12 +11,12 @@ First, we start by importing both ``abjad`` and ``auxjad``.
     >>> import auxjad
 
 Let's now create a container with some arbitrary material to be manipulated
-by the looper. For that, let's use ``auxjad.TenneySelector`` to generate the
-random material. This class is an implementation of the Dissonant Counterpoint
-Algorithm by James Tenney. In a nutshell, this algorithm can be used to
-randomly select elements from a list, giving priority to elements that have not
-been chosen for the longest time. It also ensures that elements are not
-repeated.
+by the looper. For that, let's use :class:`auxjad.TenneySelector` to generate
+the random material. This class is an implementation of the Dissonant
+Counterpoint Algorithm by James Tenney. In a nutshell, this algorithm can be
+used to randomly select elements from a list, giving priority to elements that
+have not been chosen for the longest time. It also ensures that elements are
+not repeated.
 
 To start, we create two selectors, one for pitches and one for durations.
 
@@ -72,9 +72,9 @@ of time signatures.
 
     .. figure:: ../_images/image-example-2-looping-1.png
 
-At this point, we can create the ``LeafLooper`` and initialise it using the
-material we generated above. A ``window_size`` of size ``4`` will select four
-notes at each iteration.
+At this point, we can create the :class:`auxjad.LeafLooper` and initialise it
+using the material we generated above. A ``window_size`` of size ``4`` will
+select four notes at each iteration.
 
     >>> looper = auxjad.LeafLooper(container, window_size=4)
 

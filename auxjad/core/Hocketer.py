@@ -11,7 +11,7 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Hocketer():
-    r"""``Hocketer`` is a hocket generator that takes a container as input and
+    r"""This class is a hocket generator that takes a container as input and
     randomly distributes its logical ties among different ``abjad.Staff``'s.
 
     Example:
@@ -275,8 +275,8 @@ class Hocketer():
         .. figure:: ../_images/image-Hocketer-6.png
 
     Example:
-        Applying the ``len()`` function to the hocketer will return the current
-        number of voices to be output by the hocketer.
+        Applying the :func:`len()` function to the hocketer will return the
+        current number of voices to be output by the hocketer.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 ~ | f'2 g'2")
         >>> hocketer = auxjad.Hocketer(container, n_voices=7)
@@ -884,8 +884,8 @@ class Hocketer():
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::

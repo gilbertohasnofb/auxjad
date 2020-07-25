@@ -91,10 +91,10 @@ def remove_empty_tuplets(container: abjad.Container):
 
     ..  tip::
 
-        Use ``auxjad.rests_to_multimeasure_rest()`` to replace bars filled with
-        rests by a single multi-measure rest. That function makes use of
-        ``remove_empty_tuplets()``, so it is not necessary to flatten the
-        empty tuplets beforehand.
+        Use :func:`auxjad.rests_to_multimeasure_rest()` to replace bars filled
+        with rests by a single multi-measure rest. That function makes use of
+        :func:`auxjad.remove_empty_tuplets()`, so it is not necessary to
+        flatten the empty tuplets beforehand.
 
     Example:
         Works with measures with any time signature.

@@ -29,8 +29,8 @@ class CartographySelector():
         >>> selector.weights
         [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
 
-        Applying the ``len()`` function to the selector will return the length
-        of the input list.
+        Applying the :func:`len()` function to the selector will return the
+        length of the input list.
 
         >>> len(selector)
         5
@@ -41,8 +41,8 @@ class CartographySelector():
         >>> selector()
         2
 
-        Alternatively, use the ``next()`` function or ``__next__()`` method to
-        get the next result.
+        Alternatively, use the :func:`next()` function or ``__next__()`` method
+        to get the next result.
 
         >>> selector.__next__()
         1

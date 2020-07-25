@@ -36,9 +36,9 @@ initialise ``abjad.Staff`` with the option ``lilypond_type="RhythmicStaff"``.
 
 .. figure:: ../_images/image-example-1-clapping-music-1.png
 
-Next, we create an instance of ``auxjad.Phaser`` which will be used to create
-the phasing process of the initial material. We initialise it with ``material``
-as well as a ``step_size`` of the length of a quaver.
+Next, we create an instance of :class:`auxjad.Phaser` which will be used to
+create the phasing process of the initial material. We initialise it with
+``material`` as well as a ``step_size`` of the length of a quaver.
 
     >>> phaser = auxjad.Phaser(material,
     ...                        step_size=abjad.Duration((1, 8)),
@@ -218,8 +218,8 @@ measures of the bottom staff.
 
 The upper staff of the composition consists of thirteen measures of the
 material being repeated. We can thus use the function
-``auxjad.repeat_container()`` to generate these repetitions and take care of
-removing the time signatures of the repeated measures.
+:func:`auxjad.repeat_container()` to generate these repetitions and take care
+of removing the time signatures of the repeated measures.
 
     >>> constant_staff = auxjad.repeat_container(material, 13)
     >>> abjad.f(constant_staff)

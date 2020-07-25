@@ -27,9 +27,9 @@ matter at this point since we will randomise them shortly.
 
 .. figure:: ../_images/image-example-4-hocket-with-random-pitches-1.png
 
-Next, let's initialise ``PitchRandomiser`` with this container as well as a
-list representing pitches. This will be the source for the random pitches
-selected by this randomiser.
+Next, let's initialise :class:`auxjad.PitchRandomiser` with this container as
+well as a list representing pitches. This will be the source for the random
+pitches selected by this randomiser.
 
     >>> randomiser = auxjad.PitchRandomiser(container,
     ...                                     pitches=[0, 1, 2, 3, 4, 5, 6],
@@ -226,11 +226,11 @@ that this list has the same length as the number of pitches in ``pitches``.
 
 .. figure:: ../_images/image-example-4-hocket-with-random-pitches-4.png
 
-Let's now feed this staff of music into ``auxjad.Hocketer``. This class will
-distribute each note to a different voice, each given their own staff. See its
-documentation for more information. For a basic usage with three voices, we
-simply initialise ``Hocketer`` with the staff we previously created as well as
-the desired number of voices.
+Let's now feed this staff of music into :class:`auxjad.Hocketer`. This class
+will distribute each note to a different voice, each given their own staff. See
+its documentation for more information. For a basic usage with three voices, we
+simply initialise :class:`auxjad.Hocketer` with the staff we previously created
+as well as the desired number of voices.
 
     >>> hocketer = auxjad.Hocketer(staff,
     ...                            n_voices=3,

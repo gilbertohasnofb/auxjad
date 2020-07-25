@@ -3,11 +3,11 @@ from typing import Any, Optional, Union
 
 
 class TenneySelector():
-    r"""``TenneySelector`` is an implementation of the Dissonant Counterpoint
-    Algorithm by James Tenney. This class can be used to randomly select
-    elements from an input list, giving more weight to elements which have not
-    been selected in recent iterations. In other words, Tenney's algorithm uses
-    feedback in order to lower the weight of recently selected elements.
+    r"""This class is an implementation of the Dissonant Counterpoint Algorithm
+    by James Tenney. This class can be used to randomly select elements from an
+    input list, giving more weight to elements which have not been selected in
+    recent iterations. In other words, Tenney's algorithm uses feedback in
+    order to lower the weight of recently selected elements.
 
     This implementation is based on the paper: Polansky, L., A. Barnett, and
     M. Winter (2011). 'A Few More Words About James Tenney: Dissonant
@@ -22,8 +22,8 @@ class TenneySelector():
         >>> selector.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
 
-        Applying the ``len()`` function to the selector will return the length
-        of the input list.
+        Applying the :func:`len()` function to the selector will return the
+        length of the input list.
 
         >>> len(selector)
         6
@@ -42,8 +42,8 @@ class TenneySelector():
         >>> selector()
         C
 
-        Alternatively, use the ``next()`` function or ``__next__()`` method to
-        get the next result.
+        Alternatively, use the :func:`next()` function or ``__next__()`` method
+        to get the next result.
 
         >>> selector.__next__()
         A

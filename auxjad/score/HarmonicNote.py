@@ -45,8 +45,8 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         .. figure:: ../_images/image-HarmonicNote-2.png
 
     Example:
-        When creating an ``HarmonicNote``, use the keyword argument ``style``
-        to set a different type of note head, such as ``'harmonic-mixed'``:
+        When instantiating this class, use the keyword argument ``style`` to
+        set a different type of note head, such as ``'harmonic-mixed'``:
 
         >>> harm = auxjad.HarmonicNote(r"c''4",
         ...                            style='harmonic-mixed',
@@ -60,7 +60,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         .. figure:: ../_images/image-HarmonicNote-3.png
 
     Example:
-        Similarly to ``abjad.Note``, ``HarmonicNote`` can take multipliers:
+        Similarly to ``abjad.Note``, this class can take multipliers:
 
         >>> harm = auxjad.HarmonicNote(r"c''4",
         ...                            multiplier=(2, 3),

@@ -32,9 +32,9 @@ def respell_container(container: abjad.Container,
         .. figure:: ../_images/image-respell_container-1.png
 
     Example:
-        The example below shows the default spelling of 2-note chords by
-        ``Abjad`` in the upper staff, and the respelt 2-note chords in the
-        bottom staff.
+        The example below shows the default spelling of 2-note chords in
+        Abjad in the upper staff, and the respelt 2-note chords in the bottom
+        staff.
 
         >>> staff1 = abjad.Staff()
         >>> staff2 = abjad.Staff()

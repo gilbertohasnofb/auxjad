@@ -14,7 +14,7 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Phaser():
-    r"""``Phaser`` will shift all leaves of an ``abjad.Container`` by a fixed
+    r"""This class will shift all leaves of an ``abjad.Container`` by a fixed
     amount. Subsequent calls apply further shifts.
 
     Example:
@@ -158,12 +158,12 @@ class Phaser():
         .. figure:: ../_images/image-Phaser-6.png
 
     Example:
-        The instances of ``Phaser`` can also be used as an iterator, which can
-        then be used in a for loop to phase through a full cycle. Note that
+        The instances of :class:`Phaser` can also be used as an iterator, which
+        can then be used in a for loop to phase through a full cycle. Note that
         unlike the methods ``output_n()`` and ``output_all()``, time signatures
         are added to each window returned by the shuffler. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``Phaser`` in this way.
+        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        when using :class:`Phaser` in this way.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
         >>> phaser = auxjad.Phaser(container,
@@ -451,7 +451,7 @@ class Phaser():
         .. figure:: ../_images/image-Phaser-11.png
 
     Example:
-        The function ``len()`` can be used to get the total number of steps
+        The function :func:`len()` can be used to get the total number of steps
         that are necessary to return to the initial container.
 
         >>> container = abjad.Container(r"c'1")
@@ -866,8 +866,8 @@ class Phaser():
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
@@ -1038,7 +1038,7 @@ class Phaser():
         signature to it. The ``output_n()`` and ``output_all()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
         after fusing the selections to remove any unecessary time signature
         changes.
 

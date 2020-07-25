@@ -2,7 +2,8 @@ Shuffling and fading harmonics
 ==============================
 
 In this example, we will use some of ``auxjad``'s classes to manipulate
-some musical material using the ``Shuffler`` and ``Fader`` classes.
+some musical material using the :class:`auxjad.Shuffler` and
+:class:`auxjad.Fader` classes.
 
 First, we start by importing both ``abjad`` and ``auxjad``.
 
@@ -10,8 +11,8 @@ First, we start by importing both ``abjad`` and ``auxjad``.
     >>> import auxjad
 
 Let's now create a container with some arbitrary material to be manipulated.
-Let's use the class ``auxjad.ArtificialHarmonic`` as well as some chords and
-rests.
+Let's use the class :class:`auxjad.ArtificialHarmonic` as well as some chords
+and rests.
 
     >>> container = abjad.Container([
     ...     auxjad.ArtificialHarmonic(r"<ds' gs'>4"),
@@ -54,8 +55,8 @@ rests.
 .. figure:: ../_images/image-example-5-shuffling-harmonics-1.png
 
 The spelling of the chord ``<d' af' a'>`` could be improved. This can be done
-by using either ``auxjad.respell_chord`` on that specific chord or
-``auxjad.respell_container`` on the whole container.
+by using either :func:`auxjad.respell_chord()` on that specific chord or
+:func:`auxjad.respell_container()` on the whole container.
 
     >>> auxjad.respell_container(container)
     >>> abjad.f(container)
@@ -90,8 +91,8 @@ by using either ``auxjad.respell_chord`` on that specific chord or
 
 .. figure:: ../_images/image-example-5-shuffling-harmonics-2.png
 
-Let's now use this material as input for ``auxjad.Shuffler``. This class will
-randomly shuffle the logical ties of the input container.
+Let's now use this material as input for :class:`auxjad.Shuffler`. This class
+will randomly shuffle the logical ties of the input container.
 
     >>> shuffler = auxjad.Shuffler(container,
     ...                            disable_rewrite_meter=True,
@@ -261,10 +262,10 @@ logical ties.
 .. figure:: ../_images/image-example-5-shuffling-harmonics-3.png
 
 We can now grab the last window output by shuffler and use it as the input
-container of a ``Fader``. When its ``fader_type`` is set to ``'out'``, it will
-remove a logical tie one by one at each iteration. Note how ``Fader`` removes
-the notes of chords one by one, but consider ``auxjad.ArtificialHarmonic``'s as
-a single note.
+container of a :class:`auxjad.Fader`. When its ``fader_type`` is set to
+``'out'``, it will remove a logical tie one by one at each iteration. Note how
+:class:`auxjad.Fader` removes the notes of chords one by one, but consider an
+:class:`auxjad.ArtificialHarmonic` as a single note.
 
     >>> container = abjad.Container(shuffler.current_window)
     >>> fader = auxjad.Fader(container, fader_type='out')
@@ -631,14 +632,14 @@ To finalise the score, let's improve the spelling of some rhythms. Most classes
 and functions in this library use Abjad's ``rewrite_meter()`` mutation to
 adjust the spelling of rhythms according to a meter. Unfortunately, this
 mutation sometimes uses ties within a single beat, resulting in rhythms that
-are less ideally notated than they could. ``auxjad.prettify_rewrite_meter()``
-fuses pitched leaves according to some specific list of rules, improving the
-default output of ``rewrite_meter()``.
+are less ideally notated than they could.
+:func:`auxjad.prettify_rewrite_meter()` fuses pitched leaves according to some
+specific list of rules, improving the default output of ``rewrite_meter()``.
 
 Notice that the time signature has been repeated. While the ``output_n()``
 method takes care of repeated time signatures, dynamics, and clefs, consecutive
 calls may result in repetitions. But we can simply use
-``auxjad.remove_repeated_time_signatures()`` to take care of that for us.
+:func:`auxjad.remove_repeated_time_signatures()` to take care of that for us.
 
     >>> auxjad.prettify_rewrite_meter(staff, meter=abjad.Meter((4, 4)))
     >>> auxjad.remove_repeated_time_signatures(staff)

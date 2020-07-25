@@ -16,7 +16,7 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Fader():
-    r"""``Fader`` takes an ``abjad.Container`` (or child class) as input and
+    r"""This class takes an ``abjad.Container`` (or child class) as input and
     gradually removes or adds notes one by one.
 
     Example:
@@ -291,12 +291,12 @@ class Fader():
         .. figure:: ../_images/image-Fader-15.png
 
     Example:
-        The instances of ``Fader`` can also be used as an iterator, which can
+        The instances of this class can also be used as an iterator, which can
         then be used in a for loop to run through the whole process. Note that
         unlike the methods ``output_n()`` and ``output_all()``, time signatures
         are added to each window returned by the fader. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``Fader`` in this way.
+        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        when using this class in this way.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> fader = auxjad.Fader(container)
@@ -614,7 +614,7 @@ class Fader():
         .. figure:: ../_images/image-Fader-23.png
 
     Example:
-        The function ``len()`` returns the total number of note heads in
+        The function :func:`len()` returns the total number of note heads in
         ``contents``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -691,8 +691,8 @@ class Fader():
     Example:
         The property ``mask`` is used to represent whether each note heads is
         hidden or shown. It is a ``list`` of the same length as the number of
-        note heads in the input container (use the ``len()`` function to read
-        that value). When ``fader_type`` is set to ``'out'``, the mask is
+        note heads in the input container (use the :func:`len()` function to
+        read that value). When ``fader_type`` is set to ``'out'``, the mask is
         initialised with ``1``'s, and when it is set to ``'in'``, it is
         initialised with ``0``'s. Change it to a mix of ``1``'s and ``0``'s to
         start the process with some note heads already hidden/shown. Use the
@@ -930,7 +930,7 @@ class Fader():
         signature to it. The ``output_n()`` and ``output_all()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
         after fusing the selections to remove any unecessary time signature
         changes.
 
@@ -1121,8 +1121,8 @@ class Fader():
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::

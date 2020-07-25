@@ -11,9 +11,9 @@ from .Fader import Fader
 
 
 class Drifter():
-    r"""``Drifter`` takes two ``abjad.Container``'s and gradually drifts from
-    one into the other, by fading out the first while fading in the second. It
-    makes uses of ``auxjad.Fader`` for that.
+    r"""This class takes two ``abjad.Container``'s and gradually drifts from
+    one into the other, by fading out the first while fading in the
+    second. It makes uses of :class:`auxjad.Fader` for that.
 
     Example:
         Calling the object will return a tuple of two ``abjad.Selection``'s
@@ -236,12 +236,12 @@ class Drifter():
         .. figure:: ../_images/image-Drifter-6.png
 
     Example:
-        The instances of ``Drifter`` can also be used as an iterator, which can
+        The instances of this class can also be used as an iterator, which can
         then be used in a for loop to run through the whole process. Note that
         unlike the methods ``output_n()`` and ``output_all()``, time signatures
         are added to each window returned by the drifter. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``Drifter`` in this way.
+        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        when using this class in this way.
 
         >>> container_out = abjad.Container(r"e'8 fs'4. r2")
         >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
@@ -535,8 +535,8 @@ class Drifter():
         .. figure:: ../_images/image-Drifter-9.png
 
     Example:
-        The function ``len()`` returns the sum of the number of note heads of
-        both ``contents_in`` and ``contents_out``.
+        The function :func:`len()` returns the sum of the number of note heads
+        of both ``contents_in`` and ``contents_out``.
 
         >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
         >>> container_in = abjad.Container(r"r2 c''2")
@@ -1046,7 +1046,7 @@ class Drifter():
         signature to it. The ``output_n()`` and ``output_all()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
         after fusing the selections to remove any unecessary time signature
         changes.
 
@@ -1287,8 +1287,8 @@ class Drifter():
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
@@ -1303,8 +1303,8 @@ class Drifter():
         and time signatures, although this feature is not fully implemented and
         should be considered experimental. LilyPond must be set up to allow
         different simultaneous time signatures, and
-        ``auxjad.sync_containers()`` can be used to add rests to the end of the
-        shorter staff.
+        :func:`auxjad.sync_containers()` can be used to add rests to the end of
+        the shorter staff.
 
         >>> container_out = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> container_in = abjad.Container(r"\time 4/4 g'2 a'2")

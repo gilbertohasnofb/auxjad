@@ -71,9 +71,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         initialisation
 
     Example:
-        When creating an ``ArtificialHarmonic``, use the keyword argument
-        ``style`` to set a different type of note head for the top note, such
-        as ``'harmonic-mixed'``:
+        When instantiating this class, use the keyword argument ``style`` to
+        set a different type of note head for the top note, such as
+        ``'harmonic-mixed'``:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  style='harmonic-mixed',
@@ -111,8 +111,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         .. figure:: ../_images/image-ArtificialHarmonic-4.png
 
     Example:
-        Similarly to ``abjad.Chord``, ``ArtificialHarmonic`` can take
-        multipliers:
+        Similarly to ``abjad.Chord``, this class can take multipliers:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  multiplier=(2, 3),
@@ -186,6 +185,29 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         g'4
 
     Example:
+        The note created by ``sounding_note()`` inherits all indicators of the
+        artificial harmonic.
+
+        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
+        >>> abjad.f(harm.sounding_note())
+        g''4
+        \pp
+        - \staccato
+
+        .. figure:: ../_images/image-ArtificialHarmonic-6.png
+
+    ..  error::
+
+        Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
+        ValueError exception when it cannot calculate the sounding pitch for
+        the given interval.
+
+        >>> ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
+        ValueError: cannot calculate sounding pitch for given interval
+        >>> ArtificialHarmonic(r"<g ef'>4").sounding_note()
+        ValueError: cannot calculate sounding pitch for given interval
+
+    Example:
         To add a markup expression to the artificial harmonic, use the
         ``markup`` optional keyword argument, which takes strings. By default,
         the markup position is above the harmonic note, but this can be
@@ -222,7 +244,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             _ \markup { I. }
         }
 
-        .. figure:: ../_images/image-ArtificialHarmonic-6.png
+        .. figure:: ../_images/image-ArtificialHarmonic-7.png
 
         Setting ``markup`` to ``None`` will remove the markup from the note.
 
@@ -237,7 +259,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             d'
         >1
 
-        .. figure:: ../_images/image-ArtificialHarmonic-7.png
+        .. figure:: ../_images/image-ArtificialHarmonic-8.png
 
     ..  error::
 
@@ -249,29 +271,6 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> harm.markup = 'I.'
         >>> harm.markup = None
         Exception: multiple indicators attached to client.
-
-    Example:
-        The note created by ``sounding_note()`` inherits all indicators from
-        the ``ArtificialHarmonic``.
-
-        >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
-        >>> abjad.f(harm.sounding_note())
-        g''4
-        \pp
-        - \staccato
-
-        .. figure:: ../_images/image-ArtificialHarmonic-8.png
-
-    ..  error::
-
-        Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
-        ValueError exception when it cannot calculate the sounding pitch for
-        the given interval.
-
-        >>> ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
-        ValueError: cannot calculate sounding pitch for given interval
-        >>> ArtificialHarmonic(r"<g ef'>4").sounding_note()
-        ValueError: cannot calculate sounding pitch for given interval
     """
 
     ### CLASS VARIABLES ###

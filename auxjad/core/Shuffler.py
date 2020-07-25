@@ -14,7 +14,7 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
-    r"""``Shuffler`` takes an input ``abjad.Container`` (or child class) and
+    r"""This class takes an input ``abjad.Container`` (or child class) and
     shuffles or rotates its logical ties or pitches. When shuffling or rotating
     pitches only, tuplets are supported, otherwise tuplets are not supported.
 
@@ -88,10 +88,10 @@ class Shuffler:
 
     ..  warning::
 
-        Unlike the other classes in Auxjad, the very first call of ``Shuffler``
-        will already process the initial container. To disable this behaviour
-        and output the initial container once before shuffling or rotating it,
-        initialise the class with the keyword argument
+        Unlike the other classes in Auxjad, the very first call of an instance
+        of this class will already process the initial container. To disable
+        this behaviour and output the initial container once before shuffling
+        or rotating it, initialise the class with the keyword argument
         ``process_on_first_call`` set to ``False``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -113,8 +113,8 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-5.png
 
     Example:
-        Applying the ``len()`` function to the shuffler will return the number
-        of logical ties of ``contents``.
+        Applying the :func:`len()` function to the shuffler will return the
+        number of logical ties of ``contents``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 ~ | f'2 g'2")
         >>> shuffler = auxjad.Shuffler(container)
@@ -122,9 +122,9 @@ class Shuffler:
         5
 
          Do note that consecutive rests are considered as a single logical tie,
-         so in the example below the ``len()`` function returns ``5`` and not
-         ``6``. When shuffling or rotating logical ties, consecutive rests are
-         also shuffled and rotated together.
+         so in the example below the :func:`len()` function returns ``5`` and
+         not ``6``. When shuffling or rotating logical ties, consecutive rests
+         are also shuffled and rotated together.
 
          >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
          >>> shuffler = auxjad.Shuffler(container)
@@ -510,7 +510,7 @@ class Shuffler:
         signature to it. The ``shuffle_n()`` and ``rotate_n()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
         after fusing the selections to remove any unecessary time signature
         changes.
 
@@ -645,8 +645,8 @@ class Shuffler:
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
@@ -789,14 +789,14 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-26.png
 
     Example:
-        The instances of ``Shuffler`` can also be used as an iterator, which
-        can then be used in a for loop. Note that unlike the methods
+        The instances of this class can also be used as an iterator, which can
+        then be used in a for loop. Note that unlike the methods
         ``shuffle_n()`` and ``rotate_n()``, time signatures are added to each
         window returned by the shuffler. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``Shuffler`` in this way. It is also important to note that a
-        ``break`` statement is needed when using ``Shuffler`` as an iterator.
-        The reason is that shuffling is a process that can happen indefinitely
+        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        when using this class in this way. It is also important to note that a
+        ``break`` statement is needed when using this class as an iterator. The
+        reason is that shuffling is a process that can happen indefinitely
         (unlike some of the other classes in this library).
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")

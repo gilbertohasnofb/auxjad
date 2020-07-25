@@ -11,9 +11,9 @@ from .TenneySelector import TenneySelector
 
 
 class PitchRandomiser:
-    r"""``PitchRandomiser`` takes an input ``abjad.Container`` (or child class)
-    and a series of pitches and randomises the container's pitches using that
-    list. The pitches can be of type ``list``, ``tuple``, ``str``, or
+    r"""This class takes an input ``abjad.Container`` (or child class) and a
+    series of pitches and randomises the container's pitches using that list.
+    The pitches can be of type ``list``, ``tuple``, ``str``, or
     ``abjad.PitchSegment``.
 
     Example:
@@ -72,10 +72,10 @@ class PitchRandomiser:
 
     ..  warning::
 
-        Unlike the other classes in Auxjad, the very first call of
-        ``PitchRandomiser`` will already process the initial container. To
-        disable this behaviour and output the initial container once before
-        randomising its pitches, initialise the class with the keyword argument
+        Unlike the other classes in Auxjad, the very first call of this class
+        will already process the initial container. To disable this behaviour
+        and output the initial container once before randomising its pitches,
+        initialise the class with the keyword argument
         ``process_on_first_call`` set to ``False``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -111,7 +111,7 @@ class PitchRandomiser:
         .. figure:: ../_images/image-PitchRandomiser-5.png
 
     Example:
-        Applying the ``len()`` function to the randomiser will return the
+        Applying the :func:`len()` function to the randomiser will return the
         number of pitches in ``pitches``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -139,9 +139,9 @@ class PitchRandomiser:
         signatures from the output (both are ``False`` by default).
         ``process_on_first_call`` to ``True`` and the random pitch process
         will be applied on the very first call. Setting ``use_tenney_selector``
-        to ``True`` will make the randomiser use ``auxjad.TenneySelector`` for
-        the random selection instead of ``random.choices()`` (default is
-        ``False``).
+        to ``True`` will make the randomiser use :class:`auxjad.TenneySelector`
+        for the random selection instead of :func:`random.choices()` (default
+        is ``False``).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> randomiser = auxjad.PitchRandomiser(
@@ -250,11 +250,11 @@ class PitchRandomiser:
 
     Example:
         Setting ``use_tenney_selector`` to ``True`` will make the randomiser
-        use ``auxjad.TenneySelector`` for the random selection instead of
-        ``random.choices()`` (default is ``False``). ``TenneySelector`` will
-        raise the chance of a pitch being selected the longer it hasn't been
-        selected, and will forbid immediate repetitions of pitches. See its
-        documentation for more information.
+        use :class:`auxjad.TenneySelector` for the random selection instead of
+        :func:`random.choices()` (default is ``False``).
+        :class:`auxjad.TenneySelector` will raise the chance of a pitch being
+        selected the longer it hasn't been selected, and will forbid immediate
+        repetitions of pitches. See its documentation for more information.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
         >>> pitches = r"fs' gs' a' b'"
@@ -537,16 +537,15 @@ class PitchRandomiser:
         .. figure:: ../_images/image-PitchRandomiser-17.png
 
     Example:
-        The instances of ``PitchRandomiser`` can also be used as an iterator,
-        which can then be used in a for loop. Note that unlike the method
-        ``output_n()``, time signatures are added to each window returned by
-        the randomiser. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``PitchRandomiser`` in this way. It is also important to note
-        that a ``break`` statement is needed when using ``PitchRandomiser`` as
-        an iterator. The reason is that pitch randomisation is a process that
-        can happen indefinitely (unlike some of the other classes in this
-        library).
+        The instances of this class can also be used as an iterator, which can
+        then be used in a for loop. Note that unlike the method ``output_n()``,
+        time signatures are added to each window returned by the randomiser.
+        Use the function :func:`auxjad.remove_repeated_time_signatures()` to
+        clean the output when using this class in this way. It is also
+        important to note that a ``break`` statement is needed when using this
+        class as an iterator. The reason is that pitch randomisation is a
+        process that can happen indefinitely (unlike some of the other classes
+        in this library).
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> pitches = r"fs' gs' a' b' cs''"
@@ -578,8 +577,8 @@ class PitchRandomiser:
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
     """
 
@@ -699,8 +698,8 @@ class PitchRandomiser:
         dummy_container[:] = []
 
     def _pick_random_pitch(self) -> abjad.Pitch:
-        r"""Random pitch selector, using either ``random.choices()`` or
-        ``auxjad.TenneySelector``.
+        r"""Random pitch selector, using either :func:`random.choices()` or
+        :class:`auxjad.TenneySelector`.
         """
         if not self._use_tenney_selector:
             return random.choices(self._pitches,

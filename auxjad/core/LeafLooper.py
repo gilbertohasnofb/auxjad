@@ -9,11 +9,11 @@ from ._LooperParent import _LooperParent
 
 
 class LeafLooper(_LooperParent):
-    r"""``LeafLooper`` outputs slices of an ``abjad.Container`` using the
-    metaphor of a looping window of a constant number of elements. This number
-    is given by the argument ``window_size``, which is an ``int`` representing
-    how many notes are to be included in each slice. The duration of the slice
-    will be the sum of the duration of these notes.
+    r"""This class outputs slices of an ``abjad.Container`` using the metaphor
+    of a looping window of a constant number of elements. This number is given
+    by the argument ``window_size``, which is an ``int`` representing how many
+    notes are to be included in each slice. The duration of the slice will be
+    the sum of the duration of these notes.
 
     For instance, if the initial container had the logical ties
     ``[A, B, C, D, E, F]`` (where each letter represents one logical tie) and
@@ -115,12 +115,12 @@ class LeafLooper(_LooperParent):
         .. figure:: ../_images/image-LeafLooper-4.png
 
     Example:
-        The instances of ``LeafLooper`` can also be used as an iterator, which
-        can then be used in a for loop to exhaust all windows. Note that unlike
-        the methods ``output_n()`` and ``output_all()``, time signatures are
-        added to each window returned by the shuffler. Use the function
-        ``auxjad.remove_repeated_time_signatures()`` to clean the output when
-        using ``LeafLooper`` in this way.
+        The instances of this class can also be used as an iterator, which can
+        then be used in a for loop to exhaust all windows. Note that unlike the
+        methods ``output_n()`` and ``output_all()``, time signatures are added
+        to each window returned by the shuffler. Use the function
+        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        when using this class in this way.
 
         >>> container = abjad.Container(r"c'4 d'2 e'8 f'2")
         >>> looper = auxjad.LeafLooper(container,
@@ -317,9 +317,9 @@ class LeafLooper(_LooperParent):
         .. figure:: ../_images/image-LeafLooper-8.png
 
     Example:
-        To disable time signatures altogether, initialise ``LeafLooper`` with
-        the keyword argument ``omit_time_signatures`` set to ``True`` (default
-        is ``False``), or use the ``omit_time_signatures`` property after
+        To disable time signatures altogether, initialise this class with the
+        keyword argument ``omit_time_signatures`` set to ``True`` (default is
+        ``False``), or use the ``omit_time_signatures`` property after
         initialisation.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -345,13 +345,13 @@ class LeafLooper(_LooperParent):
         signature to it. The ``output_n()`` and ``output_all()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        ``auxjad.remove_repeated_time_signatures()`` on the whole container
+        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
         after fusing the selections to remove any unecessary time signature
         changes.
 
     Example:
-        The function ``len()`` can be used to get the total number of elements
-        in the contents.
+        The function :func:`len()` can be used to get the total number of
+        elements in the contents.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LeafLooper(container,
@@ -684,8 +684,8 @@ class LeafLooper(_LooperParent):
 
     .. tip::
 
-        The functions ``auxjad.remove_repeated_dynamics()`` and
-        ``auxjad.reposition_clefs()`` can be used to clean the output and
+        The functions :func:`auxjad.remove_repeated_dynamics()` and
+        :func:`auxjad.reposition_clefs()` can be used to clean the output and
         remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::

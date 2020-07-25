@@ -5,7 +5,7 @@ from ._LooperParent import _LooperParent
 
 
 class ListLooper(_LooperParent):
-    r"""``ListLooper`` outputs slices of a ``list`` using the metaphor of a
+    r"""This class outputs slices of a ``list`` using the metaphor of a
     looping window of a constant number of elements. This number is given by
     the argument ``window_size``, which is an ``int`` representing how many
     elements are to be included in each slice.
@@ -61,8 +61,8 @@ class ListLooper(_LooperParent):
         ['B', 'C', 'D']
 
     Example:
-        The instances of ``ListLooper`` can also be used as an iterator,
-        which can then be used in a for loop to exhaust all windows.
+        The instances of this class can also be used as an iterator, which can
+        then be used in a for loop to exhaust all windows.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list,
@@ -194,8 +194,8 @@ class ListLooper(_LooperParent):
         ['C', 'D', 'D', 'E', 'E', 'F', 'H']
 
     Example:
-        The function ``len()`` can be used to get the total number of elements
-        in the container.
+        The function :func:`len()` can be used to get the total number of
+        elements in the container.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
@@ -272,8 +272,9 @@ class ListLooper(_LooperParent):
         [123, 'foo', (3, 4)]
 
         This also include Abjad's types. Abjad's exclusive membership
-        requirement is respected since each call returns a ``copy.deepcopy`` of
-        the window. The same is true to the ``output_all()`` method.
+        requirement is respected since each call returns a
+        :func:`copy.deepcopy` of the window. The same is true to the
+        ``output_all()`` method.
 
         >>> import abjad
         >>> import copy

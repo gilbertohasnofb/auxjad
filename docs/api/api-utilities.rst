@@ -8,8 +8,8 @@ functions (e.g. to check whether a container satisfy some condition).
 ..  note::
 
     These functions are imported directly into the ``auxjad`` namespace.
-    Therefore, to use a function such as ``close_container`` you only need to
-    import ``auxjad`` and invoke the function from its namespace:
+    Therefore, to use a function such as :func:`close_container()` you only
+    need to import ``auxjad`` and invoke the function from its namespace:
 
     >>> import auxjad
     >>> auxjad.close_container(container)

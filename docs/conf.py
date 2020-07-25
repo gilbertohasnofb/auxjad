@@ -44,10 +44,18 @@ release = auxjad.__version__
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinx.ext.intersphinx',
 ]
 
+# Autosummary settings
 autosummary_generate = True
 autosummary_imported_members = True
+
+# Add mappings
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/3', None),
+    'abjad': ('https://abjad.github.io/', None),
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

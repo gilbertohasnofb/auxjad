@@ -72,7 +72,7 @@ class PitchRandomiser:
 
     ..  warning::
 
-        Unlike the other classes in auxjad, the very first call of
+        Unlike the other classes in Auxjad, the very first call of
         ``PitchRandomiser`` will already process the initial container. To
         disable this behaviour and output the initial container once before
         randomising its pitches, initialise the class with the keyword argument

@@ -88,7 +88,7 @@ class Shuffler:
 
     ..  warning::
 
-        Unlike the other classes in auxjad, the very first call of ``Shuffler``
+        Unlike the other classes in Auxjad, the very first call of ``Shuffler``
         will already process the initial container. To disable this behaviour
         and output the initial container once before shuffling or rotating it,
         initialise the class with the keyword argument

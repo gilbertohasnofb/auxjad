@@ -1,2 +1,3 @@
-"""auxjad's utility functions.
+"""
+Auxjad's utility functions.
 """

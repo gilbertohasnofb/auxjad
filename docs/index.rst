@@ -1,4 +1,4 @@
-Welcome to auxjad's documentation!
+Welcome to Auxjad's documentation!
 ==================================
 
 `GitHub`_ |
@@ -11,8 +11,8 @@ Welcome to auxjad's documentation!
 ..  _PyPI: https://pypi.python.org/pypi/auxjad
 
 
-``auxjad`` is a library of auxiliary classes and functions for Abjad 3.1 aimed
-at composers of algorithmic music. All classes and functions have a ``__doc__``
+Auxjad is a library of auxiliary classes and functions for Abjad 3.1 aimed at
+composers of algorithmic music. All classes and functions have a ``__doc__``
 attribute with usage instructions.
 
 Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
@@ -29,7 +29,7 @@ This library is published under the `MIT License`_.
 Installation
 ============
 
-The recommended way to install ``auxjad`` is via `pip`_::
+The recommended way to install Auxjad is via `pip`_::
 
     ~$ pip install --user auxjad
 

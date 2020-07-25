@@ -1,8 +1,9 @@
-"""auxjad
+"""
+Auxjad
 ======
 
-``auxjad`` is a library of auxiliary classes and functions for Abjad 3.1 aimed
-at composers of algorithmic music. All classes and functions have a ``__doc__``
+Auxjad is a library of auxiliary classes and functions for Abjad 3.1 aimed at
+composers of algorithmic music. All classes and functions have a ``__doc__``
 attribute with usage instructions.
 
 Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.

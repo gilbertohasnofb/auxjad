@@ -17,7 +17,7 @@ def reposition_dynamics(container: abjad.Container,
     rests to the next pitched leaves. It will also adjust hairpins if
     necessary.
 
-    Example:
+    Basic usage:
         This function will shift dynamics under rests to the next pitched leaf.
 
         >>> staff = abjad.Staff(r"c'1\p d'2 r2\f r1 e'1")
@@ -51,7 +51,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-2.png
 
-    Example:
+    Removing dynamics:
         If the next pitched leaf already contain a dynamic, this function will
         simply remove the dynamic under the rest.
 
@@ -88,7 +88,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-4.png
 
-    Example:
+    ``remove_repeated_dynamics``:
         By default indentical repeated dynamics are omitted.
 
         >>> staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
@@ -123,7 +123,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-6.png
 
-    Example:
+    ``allow_hairpins_under_rests``:
         This function will shorten hairpins until rests by default.
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
@@ -180,7 +180,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-9.png
 
-    Example:
+    ``allow_rests_with_dynamics_after_hairpins``:
         Notice that if a hairpin leads to a rest with dynamic, that one is not
         removed.
 
@@ -225,7 +225,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-11.png
 
-    Example:
+    ``check_hairpin_trends``:
         This function will remove any hairpins connecting dynamics that grow in
         the opposite direction to the hairpin's trend, such as a diminuendo
         hairpin from piano to forte.
@@ -292,7 +292,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-14.png
 
-    Example:
+    Types of hairpins:
         This function can handle multiple types of hairpins as well as niente
         dynamics.
 
@@ -352,7 +352,7 @@ def reposition_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_dynamics-16.png
 
-    Example:
+    Multi-measure rests:
         Multi-measure rests are also supported.
 
         >>> staff = abjad.Staff(r"c'1\p R1\f d'1")

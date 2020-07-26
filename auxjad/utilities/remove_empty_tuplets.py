@@ -6,7 +6,7 @@ def remove_empty_tuplets(container: abjad.Container):
     in place and has no return value; this function looks for tuplets filled
     with rests and replaces them with a single rest.
 
-    Example:
+    Basic usage:
         Usage is simple:
 
         >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
@@ -91,12 +91,12 @@ def remove_empty_tuplets(container: abjad.Container):
 
     ..  tip::
 
-        Use :func:`auxjad.rests_to_multimeasure_rest()` to replace bars filled
-        with rests by a single multi-measure rest. That function makes use of
-        :func:`auxjad.remove_empty_tuplets()`, so it is not necessary to
+        Use :func:`auxjad.rests_to_multimeasure_rest()` to replace measures
+        filled with rests by a single multi-measure rest. That function makes
+        use of :func:`auxjad.remove_empty_tuplets()`, so it is not necessary to
         flatten the empty tuplets beforehand.
 
-    Example:
+    Time signature changes:
         Works with measures with any time signature.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")

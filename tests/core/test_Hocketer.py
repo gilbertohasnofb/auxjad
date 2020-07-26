@@ -746,15 +746,104 @@ def test_Hocketer_16():
     hocketer = auxjad.Hocketer(score)
     for voice in hocketer():
         assert isinstance(voice, abjad.Staff)
-
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
         auxjad.Hocketer(staff)
-
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         auxjad.Hocketer(score)
+
+
+def test_Hocketer_17():
+    random.seed(19876)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    hocketer = auxjad.Hocketer(container, n_voices=5, k=3)
+    hocketer()
+    score = abjad.Score()
+    for selection in hocketer[:]:
+        staff = abjad.Staff(selection)
+        score.append(staff)
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                r2.
+                f'4
+            }
+            \new Staff
+            {
+                c'4
+                r4
+                e'4
+                r4
+            }
+            \new Staff
+            {
+                r4
+                d'4
+                e'4
+                r4
+            }
+            \new Staff
+            {
+                c'4
+                d'4
+                r4
+                f'4
+            }
+            \new Staff
+            {
+                c'4
+                r4
+                e'4
+                r4
+            }
+        >>
+        """)
+    staff = abjad.Staff(hocketer[0])
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            r2.
+            f'4
+        }
+        """)
+    partial_score = abjad.Score()
+    for selection in hocketer[1:4]:
+        staff = abjad.Staff(selection)
+        partial_score.append(staff)
+    assert format(partial_score) == abjad.String.normalize(
+        r"""
+
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4
+                r4
+                e'4
+                r4
+            }
+            \new Staff
+            {
+                r4
+                d'4
+                e'4
+                r4
+            }
+            \new Staff
+            {
+                c'4
+                d'4
+                r4
+                f'4
+            }
+        >>
+        """)

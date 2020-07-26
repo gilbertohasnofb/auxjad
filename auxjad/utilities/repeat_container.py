@@ -20,7 +20,7 @@ def repeat_container(container: abjad.Container,
     r"""This function returns an ``abjad.Container`` with ``n`` repetitions of
     an input container (of type ``abjad.Container`` or child class).
 
-    Example:
+    Basic usage:
         The required arguments are an ``abjad.Container`` (or child class) and
         and integer n for the number of repetitions.
 
@@ -84,8 +84,9 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-close_container-3.png
 
-    Example:
-        It handle containers with multiple bars and different time signatures.
+    Time signature changes:
+        It handle containers with multiple measures and different time
+        signatures.
 
         >>> container = abjad.Container(r"\time 3/4 c'2. \time 2/4 r2 g'2")
         >>> output_container = auxjad.repeat_container(container, 3)
@@ -110,7 +111,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-4.png
 
-    Example:
+    Underfull containers:
         It automatically closes a container if necessary.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'2")
@@ -133,7 +134,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-5.png
 
-    Example:
+    ``omit_time_signatures``:
         To omit all time signatures, set the keyword argument
         ``omit_time_signatures`` to ``True``.
 
@@ -158,7 +159,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-6.png
 
-    Example:
+    ``force_identical_time_signatures``:
         To force identical time signatures to be repeated at every repetition,
         set the keyword argument  ``force_identical_time_signatures`` to
         ``True``.
@@ -187,7 +188,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-7.png
 
-    Example:
+    Input types:
         The input container can be of child classes such as ``abjad.Staff``,
         and the output will be of the same type.
 
@@ -210,7 +211,7 @@ def repeat_container(container: abjad.Container,
 
         .. figure:: ../_images/image-repeat_container-8.png
 
-    Example:
+    ``reposition_clefs``, ``reposition_dynamics``, and ``reposition_slurs``:
         By default, this function will automatically remove repeated clefs as
         well as handle slurs and dynamics.
 
@@ -291,13 +292,14 @@ def repeat_container(container: abjad.Container,
 
     ..  error::
 
-        If a container is malformed, i.e. it has an underfilled bar before a
-        time signature change, the function raises a ``ValueError`` exception.
+        If a container is malformed, i.e. it has an underfilled measure before
+        a time signature change, the function raises a ``ValueError``
+        exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
         >>> output_container = auxjad.repeat_container(container)
-        ValueError: 'container' is malformed, with an underfull bar preceeding
-        a time signature change
+        ValueError: 'container' is malformed, with an underfull measure
+        preceeding a time signature change
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "

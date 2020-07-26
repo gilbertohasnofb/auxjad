@@ -10,7 +10,7 @@ def reposition_slurs(container: abjad.Container,
     in place and has no return value; this function repositions all slurs that
     starts or ends on rests.
 
-    Example:
+    Basic usage:
         This function will shift slurs that ends on rests to the previous
         pitched leaf.
 
@@ -45,7 +45,7 @@ def reposition_slurs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_slurs-2.png
 
-    Example:
+    Rests:
         Slurs starting on rests are shifted to the next pitched leaf.
 
         >>> staff = abjad.Staff(r"c'1 r2( d'2 e'1)")
@@ -77,7 +77,7 @@ def reposition_slurs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_slurs-4.png
 
-    Example:
+    Multiple rests:
         This function also works when multiple rests are present.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 r1) e'1")
@@ -111,7 +111,7 @@ def reposition_slurs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_slurs-6.png
 
-    Example:
+    ``allow_slurs_under_rests``:
         By default, a slur crossing a rest is broken into two.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
@@ -151,7 +151,7 @@ def reposition_slurs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_slurs-8.png
 
-    Example:
+    ``remove_unterminated_slurs``:
         By default, unterminated slurs are removed.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")

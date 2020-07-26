@@ -8,7 +8,7 @@ def leaves_are_tieable(leaf1: abjad.Leaf,
     type ``abjad.Leaf`` or child class) have identical pitch(es) and thus can
     be tied.
 
-    Example:
+    Basic usage:
         When the pitches in both leaves are identical, this function returns
         ``True``:
 
@@ -17,7 +17,7 @@ def leaves_are_tieable(leaf1: abjad.Leaf,
         >>> auxjad.leaves_are_tieable(Leaf1, Leaf2)
         True
 
-    Example:
+    Durations:
         Durations do not affect the comparison.
 
         >>> Leaf1 = abjad.Note(r"c'2.")
@@ -30,7 +30,7 @@ def leaves_are_tieable(leaf1: abjad.Leaf,
         >>> auxjad.leaves_are_tieable(Leaf2, Leaf3)
         False
 
-    Example:
+    Chords:
         Handles chords as well as pitches.
 
         >>> chord1 = abjad.Chord(r"<c' e' g'>4")
@@ -43,14 +43,14 @@ def leaves_are_tieable(leaf1: abjad.Leaf,
         >>> auxjad.leaves_are_tieable(chord2, chord3)
         False
 
-    Example:
+    Parentage:
         Leaves can also be part of containers.
 
         >>> container = abjad.Container(r"r4 <c' e'>4 <c' e'>2")
         >>> auxjad.leaves_are_tieable(container[1], container[2])
         True
 
-    Example:
+    Rests:
         If rests are input, the return value is ``False``.
 
         >>> container = abjad.Container(r"r4 g'4 r2")

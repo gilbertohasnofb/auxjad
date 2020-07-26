@@ -9,7 +9,7 @@ class LeafDynMaker(abjad.LeafMaker):
     ``abjad.LeafMaker`` which can take optional lists of dynamics and
     articulations.
 
-    Example:
+    Basic usage:
         Usage is similar to ``abjad.LeafMaker``:
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
@@ -46,7 +46,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-1.png
 
-    Example:
+    ``pitches``:
         Tuple elements in ``pitches`` result in chords. None-valued elements
         in ``pitches`` result in rests:
 
@@ -71,7 +71,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-2.png
 
-    Example:
+    ``omit_repeated_dynamics``:
         Can omit repeated dynamics with the keyword argument
         ``omit_repeated_dynamics``:
 
@@ -104,7 +104,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-3.png
 
-    Example:
+    ``dynamics`` and ``articulations``:
         The lengths ``dynamics`` and ``articulations`` can be shorter than the
         lengths of ``pitches`` and ``durations`` (whatever is the greatest):
 
@@ -133,7 +133,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-4.png
 
-    Example:
+    ``cyclic_dynamics`` and ``cyclic_articulations``:
         If the lengths of either ``dynamics`` and ``articulations`` are shorter
         than the lengths of ``pitches`` and ``durations`` (whatever is the
         greatest), use the optional keyword arguments ``cyclic_dynamics`` and
@@ -177,9 +177,9 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-5.png
 
-    Example:
-        If the length of ``articulations`` or ``dynamics`` is 1, they will be
-        applied only to the first element.
+    ``articulations`` and ``dynamics`` of length ``1``:
+        If the length of ``articulations`` or ``dynamics`` is ``1``, they will
+        be applied only to the first element.
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = (1, 4)
@@ -203,7 +203,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-6.png
 
-    Example:
+    ``cyclic_dynamics`` and ``cyclic_articulations`` and lists of length ``1``:
         To apply them to all elements, use the ``cyclic_dynamics`` and
         ``cyclic_articulations`` optioanl keywords.
 
@@ -239,7 +239,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-7.png
 
-    Example:
+    Accepted types:
         Similarly to Abjad's native classes, it accepts many types of elements
         in its input lists:
 
@@ -248,11 +248,11 @@ class LeafDynMaker(abjad.LeafMaker):
         ...            'E4',
         ...            abjad.NumberedPitch(5),
         ...            abjad.NamedPitch("g'"),
-        ...            abjad.NamedPitch("A4"),
+        ...            abjad.NamedPitch('A4'),
         ...            ]
         >>> durations = [(1, 32),
-        ...              "2/32",
-        ...              abjad.Duration("3/32"),
+        ...              '2/32',
+        ...              abjad.Duration('3/32'),
         ...              abjad.Duration(0.125),
         ...              abjad.Duration(5, 32),
         ...              abjad.Duration(6 / 32),

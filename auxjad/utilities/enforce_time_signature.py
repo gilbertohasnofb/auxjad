@@ -24,7 +24,7 @@ def enforce_time_signature(container: abjad.Container,
     in place and has no return value; this function applies a time signature
     (or a list of time signatures) to the input container.
 
-    Example:
+    Basic usage:
         The function mutates a container in place, applying a time signature
         to it.
 
@@ -53,7 +53,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-2.png
 
-    Example:
+    Single value for second positional argument:
         The second positional argument can take either ``abjad.TimeSignature``
         or a ``tuple`` for a single time signature (for multiple time
         signatures, use a ``list`` as shown further below). By default,
@@ -85,9 +85,9 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-4.png
 
-    Example:
+    ``close_container``:
         Set the optional keyword argument ``close_container`` to ``True`` in
-        order to adjust the last bar's time signature instead of filling it
+        order to adjust the last measure's time signature instead of filling it
         with rests.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
@@ -127,11 +127,11 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-6.png
 
-    Example:
-        Alternatively, to leave the last bar as it is input (i.e. not filling
-        it with rests nor adjusting the time signature), set the optional
-        keyword argument ``fill_with_rests`` to ``False`` (default value is
-        ``True``).
+    ``fill_with_rests``:
+        Alternatively, to leave the last measure as it is input (i.e. not
+        filling it with rests nor adjusting the time signature), set the
+        optional keyword argument ``fill_with_rests`` to ``False`` (default
+        value is ``True``).
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
         >>> abjad.f(staff)
@@ -169,7 +169,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-8.png
 
-    Example:
+    Multiple values for second positional argument:
         The second argument can also take a ``list`` of ``abjad.TimeSignature``
         or ``tuple``.
 
@@ -200,7 +200,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-10.png
 
-    Example:
+    Repeated time signatures:
         Consecutive identical time signatures are omitted. Also note that time
         signatures can also be represented as a ``list`` of ``tuples``.
 
@@ -278,7 +278,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-14.png
 
-    Example:
+    ``cyclic``:
         To cycle through the list of time signatures until the container is
         exhausted, set the optional keyword argument ``cyclic`` to ``True``.
 
@@ -348,8 +348,8 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-16.png
 
-    Example:
-        By default, this function appled the mutation ``rewrite_meter()`` to
+    ``disable_rewrite_meter``:
+        By default, this function applies the mutation ``rewrite_meter()`` to
         its output.
 
         >>> staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
@@ -400,7 +400,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-18.png
 
-    Example:
+    Tuplets:
         The function handles tuplets, even if they must be split.
 
         >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'2 e'2} f'1")
@@ -442,7 +442,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-20.png
 
-    Example:
+    Time signatures in the input container:
         Note that any time signatures in the input container will be ignored.
 
         >>> staff = abjad.Staff(r"\time 3/4 c'2. d'2. e'2. f'2.")
@@ -504,9 +504,9 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-22.png
 
-    Example:
+    Tweaking Abjad's ``rewrite_meter()``:
         This function uses the default logical tie splitting algorithm from
-        abjad's ``rewrite_meter()``.
+        Abjad's ``rewrite_meter()``.
 
         >>> staff = abjad.Staff(r"c'4. d'8 e'2")
         >>> auxjad.enforce_time_signature(staff,
@@ -543,7 +543,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-24.png
 
-        Other arguments available for tweaking the output of abjad's
+        Other arguments available for tweaking the output of Abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
         which work exactly as the identically named arguments of
         ``rewrite_meter()``.

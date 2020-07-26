@@ -7,13 +7,20 @@ class CartographySelector():
     weighted function constructed with a fixed decay rate. The decay rate
     represents the ratio of probabilities of any index given the probability of
     the preceeding one. For instance, if the decay rate is set to ``0.75``
-    (which is its default value), the probability of the element in index 1 of
-    the input list being selected is 75% the probability of the element in
+    (which is its default value), the probability of the element in index ``1``
+    of the input list being selected is 75% the probability of the element in
     index 0, and the probability of the element in index 2 is 56.25% (0.75^2)
-    the probability of the element in index 0. This is the selector used in my
-    *Cartography* series of compositions.
+    the probability of the element in index ``0``. The probability *P(n)* of
+    the *n*-th element can thus be expressed as a relation to the probability
+    of another element *k* indexes apart using:
 
-    Example:
+    .. math::
+
+        P(n) = (3/4)^k \times P(n-k)
+
+    This is the selector used in my *Cartography* series of compositions.
+
+    Basic usage:
         The selector should be initialised with a list of objects. The elements
         of this list can be of any type.
 
@@ -21,35 +28,20 @@ class CartographySelector():
         >>> selector.contents
         [0, 1, 2, 3, 4]
 
-        The default decay rate is 0.75; that is, the weight of any given
-        elements is the weight of the previous one multiplied by 0.75. The
-        weights are associated with the index position, not the elements
-        themselves.
-
-        >>> selector.weights
-        [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
-
-        Applying the :func:`len()` function to the selector will return the
-        length of the input list.
-
-        >>> len(selector)
-        5
-
         Calling the selector will output one of its elements, selected
         according to its weight function.
 
         >>> selector()
         2
 
-        Alternatively, use the :func:`next()` function or ``__next__()`` method
-        to get the next result.
+        The default decay rate is ``0.75``; that is, the weight of any given
+        elements is the weight of the previous one multiplied by ``0.75``. The
+        weights are associated with the index position, not the elements
+        themselves.
 
-        >>> selector.__next__()
-        1
-        >>> next(selector)
-        0
+        >>> selector.weights
+        [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
 
-    Example:
         By default, only the weight function (defined by the decay rate) is
         taken into consideration when selecting an element. This means that
         repeated elements can appear, as shown below.
@@ -60,6 +52,25 @@ class CartographySelector():
         >>> result
         203001402200011111101400310140
 
+    :func:`len()` function:
+        Applying the :func:`len()` function to the selector will return the
+        length of the input list.
+
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> len(selector)
+        5
+
+    :func:`next()` function:
+        Alternatively, use the :func:`next()` function or ``__next__()`` method
+        to get the next result.
+
+        >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+        >>> selector.__next__()
+        1
+        >>> next(selector)
+        0
+
+    ``no_repeat``:
         Calling the selector with the optional keyword argument ``no_repeat``
         set to ``True`` will forbid immediate repetitions among consecutive
         calls.
@@ -71,7 +82,7 @@ class CartographySelector():
         >>> result
         210421021020304024230120241202
 
-    Example:
+    ``decay_rate``:
         The keyword argument ``decay_rate`` can be used to set a different
         decay rate when creating a selector.
 
@@ -95,7 +106,7 @@ class CartographySelector():
         >>> result
         '000001002100000201001030000100'
 
-    Example:
+    ``append()``:
         Appending is a type of content transformation. It discards the first
         element of the selector's ``contents``, shifts all others leftwards,
         and then appends the new element to the last index.
@@ -110,7 +121,7 @@ class CartographySelector():
         >>> selector.contents
         [2, 3, 4, 5, 42]
 
-    Example:
+    ``append_keeping_n()``:
         The method ``append_keeping_n()`` is similar to ``append()``, but it
         keeps the first ``n`` elements of ``contents`` untouched. It thus
         discards the n+1-th element, shifts all the next elements one position
@@ -123,7 +134,7 @@ class CartographySelector():
         >>> selector.contents
         [10, 7, 31, 98, 100]
 
-    Example:
+    ``prepend()``:
         Prepending is another type of content transformation. It discards the
         last element of the ``contents``, shifts all others rightwards, and
         then prepends the new element to the first index.
@@ -138,7 +149,7 @@ class CartographySelector():
         >>> selector.contents
         [71, -1, 0, 1, 2]
 
-    Example:
+    ``rotate()``:
         Rotation is another type of content transformation. It rotates all
         elements rightwards, moving the last element to the first index. If the
         optional keyword argument ``anticlockwise`` is set to ``True``, the
@@ -157,7 +168,7 @@ class CartographySelector():
         >>> selector.contents
         [1, 2, 3, 4, 0]
 
-    Example:
+    ``mirror()``:
         The mirror transformation swaps the element of the input index with its
         complementary element. Complementary elements are defined as the pair
         of elements which share the same distance from the centre of the
@@ -180,7 +191,7 @@ class CartographySelector():
         >>> selector.contents
         [0, 3, 2, 1, 4]
 
-    Example:
+    ``mirror_random()``:
         To mirror a random pair of complementary elements, use the
         ``mirror_random()`` method. In case of a selector with an odd number
         of elements, this method will never pick an element at the pivot point
@@ -199,7 +210,7 @@ class CartographySelector():
         >>> selector.contents
         [4, 1, 2, 3, 0]
 
-    Example:
+    ``shuffle()``:
         The method ``shuffle()`` will shuffle the position of the elements of
         the selector's ``contents``.
 
@@ -210,7 +221,7 @@ class CartographySelector():
         >>> selector.contents
         [1, 4, 3, 0, 2]
 
-    Example:
+    ``contents``:
         The contents of a selector can also be altered after it has been
         initialised using the ``contents`` property. The length of the
         contents can change as well.
@@ -230,7 +241,7 @@ class CartographySelector():
         >>> selector.weights
         [1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]
 
-    Example:
+    ``previous_result`` and ``previous_index``:
         Use the read-only properties ``previous_result`` and ``previous_index``
         to output the previous result and its index.
 
@@ -243,7 +254,7 @@ class CartographySelector():
         >>> selector.previous_result
         14
 
-    Example:
+    Slicing and indexing:
         The ``contents`` of instances of this class can be indexed and sliced.
         This allows reading, assigning, or deleting values from ``contents``.
 

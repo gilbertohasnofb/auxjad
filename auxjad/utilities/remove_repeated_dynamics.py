@@ -10,7 +10,7 @@ def remove_repeated_dynamics(container: abjad.Container,
     in place and has no return value; this function removes all consecutive
     repeated dynamic markings.
 
-    Example:
+    Basic usage:
         When two consecutive leaves have identical dynamics, the second
         one is removed:
 
@@ -46,7 +46,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-2.png
 
-    Example:
+    Dynamic structure:
         The function also removes dynamics that are separated by an arbitrary
         number of leaves without dynamics:
 
@@ -84,7 +84,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-4.png
 
-    Example:
+    Subcontainers:
         The input container can also handle subcontainers:
 
         >>> staff = abjad.Staff([abjad.Note("c'2"),
@@ -127,7 +127,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-6.png
 
-    Example:
+    ``ignore_hairpins``:
         By default, repeated dynamics with hairpins in between are not removed,
         but consecutive ones will.
 
@@ -211,7 +211,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-10.png
 
-    Example:
+    ``reset_after_rests``:
         By default, rests are treated just like any other leaf and thus notes
         with an identical dynamic separated by an arbitrary number of rests
         will be considered as repeated and the second dynamic will be removed.
@@ -246,12 +246,12 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-12.png
 
-    Example:
+    ``reset_after_rests`` and non-boolean values:
         The argument ``reset_after_rests`` takes not only boolean values but
-        also duration (``abjad.Duration``, tuple, float, etc.). This sets the
-        maximum length of rests before which identical dynamics are restated.
-        If the total length of rests falls below that value, then repeated
-        dynamics are removed.
+        also duration (``abjad.Duration``, ``tuple``, ``float``, etc.). This
+        sets the maximum length of rests before which identical dynamics are
+        restated. If the total length of rests falls below that value, then
+        repeated dynamics are removed.
 
         In the case below, a rest of ``r2``. is shorter than a duration of
         (4, 4), so the repeated dynamic is removed.
@@ -269,7 +269,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-13.png
 
-        But setting the duration to 2/4 forces the dynamic to be restated.
+        But setting the duration to ``2/4`` forces the dynamic to be restated.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=2 / 4)
@@ -285,7 +285,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-14.png
 
-    Example:
+    ``reset_after_rests``:
         The function also handles measure rests with ``reset_after_rests``.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp r2. | R1 | c'1\pp")

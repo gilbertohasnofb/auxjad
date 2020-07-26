@@ -5,10 +5,10 @@ from .remove_empty_tuplets import remove_empty_tuplets
 
 def rests_to_multimeasure_rest(container: abjad.Container):
     r"""Mutates an input container (of type ``abjad.Container`` or child class)
-    in place and has no return value; this function looks for bars filled with
-    regular rests and converts them into an ``abjad.MultimeasureRest``.
+    in place and has no return value; this function looks for measures filled
+    with regular rests and converts them into an ``abjad.MultimeasureRest``.
 
-    Example:
+    Basic usage:
         Converts any measure filled with regular rests into a measure with a
         single multi-measure rest.
 
@@ -21,7 +21,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-1.png
 
-    Example:
+    Multiple rests:
         Works with measures with multiple regular rests.
 
         >>> container = abjad.Container(r"r2 r8.. r32 r16 r8 r16")
@@ -71,7 +71,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         .. figure:: ../_images/image-close_container-5.png
 
-    Example:
+    Time signature changes:
         Works with containers with multiple time signatures as well as notes.
 
         >>> container = abjad.Staff(r"\time 3/4 r2. | "
@@ -95,7 +95,7 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-6.png
 
-    Example:
+    Tuplets:
         Works with containers with tuplets.
 
         >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")

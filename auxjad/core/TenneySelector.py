@@ -14,7 +14,7 @@ class TenneySelector():
     Counterpoint and Statistical Feedback'. In: Journal of Mathematics and
     Music 5(2). pp. 63--82.
 
-    Example:
+    Basic usage:
         The selector should be initialised with a list of objects. The elements
         of this list can be of any type.
 
@@ -71,7 +71,7 @@ class TenneySelector():
         >>> selector.previous_index
         2
 
-    Example:
+    ``previous_result`` and ``previous_index``:
         Use the read-only properties ``previous_result`` and ``previous_index``
         to output the previous result and its index. Default values for both
         is ``None``.
@@ -88,7 +88,7 @@ class TenneySelector():
         >>> selector.previous_result
         C
 
-    Example:
+    Arguments and properties:
         This class can take two optional keywords argument during its
         instantiation, namely ``weights`` and ``curvature``. ``weights`` takes
         a list of floats with the individual weights of each element; by
@@ -129,8 +129,9 @@ class TenneySelector():
         >>> selector.probabilities
         [2.0, 0.0, 2.0, 2.0, 2.0, 2.0]
 
-    Example:
-        Using a convex curvature:
+    Convex ``curvature``:
+        Using a convex ``curvature`` (i.e. greater than ``0.0`` and less than
+        ``1.0``):
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
         ...                                  curvature=0.2,
@@ -176,8 +177,8 @@ class TenneySelector():
         which is why there is a high chance of an element being selected again
         just two iterations apart.
 
-    Example:
-        Using a concave curvature:
+    Concave ``curvature``:
+        Using a concave ``curvature`` (i.e. greater than ``1.0``):
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
         ...                                  curvature=15.2,
@@ -223,7 +224,18 @@ class TenneySelector():
         curvature, the higher the difference between these values, making some
         of them much more likely to be selected.
 
-    Example:
+    ``curvature`` property:
+        To change the curvature value at any point, simply set the property
+        ``curvature`` to a different value.
+
+        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector.curvature
+        1.0
+        >>> selector.curvature = 0.25
+        >>> selector.curvature
+        0.25
+
+    ``weights``:
         Each element can also have a fixed weight to themselves. This will
         affect the probability calculation. The example below uses the default
         linear curvature.
@@ -258,7 +270,7 @@ class TenneySelector():
         >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
-    Example:
+    ``reset_probabilities()``:
         To reset the probability distribution of all elements to its initial
         value (an uniform distribution), use the method
         ``reset_probabilities()``.
@@ -272,7 +284,7 @@ class TenneySelector():
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
-    Example:
+    ``contents``:
         The ``contents`` of instances of this class can be indexed and sliced.
         This allows reading, assigning, or deleting values from ``contents``.
         Replacing elements by assignment will not affect the ``probabilities``
@@ -311,7 +323,7 @@ class TenneySelector():
         >>> 'A' in selector
         False
 
-    Example:
+    Changing ``contents`` resets ``probabilities`` and ``weights``:
         A new list of an arbitrary length can be set at any point using the
         property ``contents``. Do notice that both ``probabilities`` and
         ``weights`` will be reset at that point.
@@ -339,17 +351,6 @@ class TenneySelector():
         [1.0, 1.0, 1.0, 1.0]
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0]
-
-    Example:
-        To change the curvature value at any point, simply set the property
-        ``curvature`` to a different value.
-
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
-        >>> selector.curvature
-        1.0
-        >>> selector.curvature = 0.25
-        >>> selector.curvature
-        0.25
     """
 
     ### CLASS VARIABLES ###

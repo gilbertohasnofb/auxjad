@@ -5,9 +5,9 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
     r"""Returns the missing ``abjad.Duration`` of an underfull container (of
     type ``abjad.Container`` or child class).
 
-    Example:
-        Returns the missing duration of the last bar of any container or child
-        class. If no time signature is encountered, it uses LilyPond's
+    Basic usage:
+        Returns the missing duration of the last measure of any container or
+        child class. If no time signature is encountered, it uses LilyPond's
         convention and considers the container as in 4/4.
 
         >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -23,7 +23,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container4)
         0
 
-    Example:
+    Time signature changes:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
@@ -39,7 +39,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container4)
         1/8
 
-    Example:
+    Partial time signatures:
         Correctly handles partial time signatures.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -48,7 +48,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
         >>> auxjad.underfull_duration(container)
         0
 
-    Example:
+    Multi-measure rests:
         It also handles multi-measure rests.
 
         >>> container1 = abjad.Container(r"R1")
@@ -66,13 +66,14 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
 
     ..  error::
 
-        If a container is malformed, i.e. it has an underfilled bar before a
-        time signature change, the function raises a ``ValueError`` exception.
+        If a container is malformed, i.e. it has an underfilled measure before
+        a time signature change, the function raises a ``ValueError``
+        exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
         >>> auxjad.underfull_duration(container)
-        ValueError: 'container' is malformed, with an underfull bar preceeding
-        a time signature change
+        ValueError: 'container' is malformed, with an underfull measure
+        preceeding a time signature change
 
     ..  warning::
 
@@ -104,7 +105,7 @@ def underfull_duration(container: abjad.Container) -> abjad.Duration:
                 and time_signature != effective_time_signature):
             if duration % effective_time_signature.duration != 0:
                 raise ValueError("'container' is malformed, with an underfull "
-                                 "bar preceeding a time signature change")
+                                 "measure preceeding a time signature change")
             effective_time_signature = time_signature
             duration = abjad.Duration(0)
         duration += abjad.inspect(leaf).duration()

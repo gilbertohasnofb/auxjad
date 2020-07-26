@@ -9,9 +9,9 @@ def fill_with_rests(container: abjad.Container):
     in place and has no return value; this function fills a container with
     rests in order to make it full.
 
-    Example:
-        Returns the missing duration of the last bar of any container or child
-        class. If no time signature is encountered, it uses LilyPond's
+    Basic usage:
+        Returns the missing duration of the last measure of any container or
+        child class. If no time signature is encountered, it uses LilyPond's
         convention and considers the container as in 4/4.
 
         >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -68,7 +68,7 @@ def fill_with_rests(container: abjad.Container):
 
         .. figure:: ../_images/image-fill_with_rests-4.png
 
-    Example:
+    Time signature changes:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
@@ -150,7 +150,7 @@ def fill_with_rests(container: abjad.Container):
 
         .. figure:: ../_images/image-close_container-9.png
 
-    Example:
+    Partial time signatures:
         Correctly handles partial time signatures.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
@@ -173,13 +173,14 @@ def fill_with_rests(container: abjad.Container):
 
     ..  error::
 
-        If a container is malformed, i.e. it has an underfilled bar before a
-        time signature change, the function raises a ``ValueError`` exception.
+        If a container is malformed, i.e. it has an underfilled measure before
+        a time signature change, the function raises a ``ValueError``
+        exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
         >>> auxjad.fill_with_rests(container)
-        ValueError: 'container' is malformed, with an underfull bar preceeding
-        a time signature change
+        ValueError: 'container' is malformed, with an underfull measure
+        preceeding a time signature change
 
     ..  warning::
 

@@ -16,7 +16,7 @@ class PitchRandomiser:
     The pitches can be of type ``list``, ``tuple``, ``str``, or
     ``abjad.PitchSegment``.
 
-    Example:
+    Basic usage:
         Calling the object will output a selection of the input container with
         randomised pitches. Pitches are randomly selected from ``pitches``.
 
@@ -110,7 +110,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-5.png
 
-    Example:
+    :func:`len()`:
         Applying the :func:`len()` function to the randomiser will return the
         number of pitches in ``pitches``.
 
@@ -130,7 +130,7 @@ class PitchRandomiser:
         >>> len(randomiser)
         7
 
-    Example:
+    Arguments and properties:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
         below. ``weights`` takes a list of ``int``'s or ``float``'s
@@ -181,7 +181,7 @@ class PitchRandomiser:
         >>> randomiser.use_tenney_selector
         False
 
-    Example:
+    Rests:
         Only pitched logical ties are randomised, rests are left untouched.
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
@@ -204,7 +204,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-6.png
 
-    Example:
+    Chords:
         Each note of a chord is randomised too.
 
         >>> container = abjad.Container(
@@ -248,7 +248,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-8.png
 
-    Example:
+    ``use_tenney_selector``:
         Setting ``use_tenney_selector`` to ``True`` will make the randomiser
         use :class:`auxjad.TenneySelector` for the random selection instead of
         :func:`random.choices()` (default is ``False``).
@@ -279,7 +279,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-9.png
 
-    Example:
+    ``weights``:
         Individual pitches can have different weights, defined by the
         ``weights`` property. It takes a ``list`` of ``float``'s or ``int``'s.
 
@@ -306,7 +306,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-10.png
 
-    Example:
+    ``weights`` and ``use_tenney_selector``:
         Non-uniform ``weights`` can also be used when ``use_tenney_selector``
         is set to ``True``.
 
@@ -334,8 +334,8 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-11.png
 
-    Example:
-        Setting the weights to ``None`` will reset it back to a uniform
+    Resetting ``weights``:
+        Setting ``weights`` to ``None`` will reset it back to a uniform
         distribution.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
@@ -379,7 +379,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-13.png
 
-    Example:
+    Changing ``pitches``:
         When using a custom list of ``weights``, changing the ``pitches`` to a
         series of new values with the same length will preserve the ``weights``
         values. If on the other hand ``pitches`` changes in length, ``weights``
@@ -412,7 +412,7 @@ class PitchRandomiser:
         >>> auxjad.PitchRandomiser(container, pitches, weights=weights)
         ValueError: 'weights' must have the same length as 'pitches'
 
-    Example:
+    ``output_n()``:
         To output several randomised containers at once, use the method
         ``output_n()``, inputting the desired number of iterations.
 
@@ -451,7 +451,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-14.png
 
-    Example:
+    Indicators:
         This class preserves indicators.
 
         >>> container = abjad.Container(
@@ -510,7 +510,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-16.png
 
-    Example:
+    ``omit_time_signatures``:
         To omit time signatures altogether, set ``omit_time_signatures`` to
         ``True`` (default is ``False``).
 
@@ -536,7 +536,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-17.png
 
-    Example:
+    Using as iterator:
         The instances of this class can also be used as an iterator, which can
         then be used in a for loop. Note that unlike the method ``output_n()``,
         time signatures are added to each window returned by the randomiser.

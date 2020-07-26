@@ -19,7 +19,7 @@ def prettify_rewrite_meter(container: abjad.Container,
     according to the rules shown below, improving the default output of
     ``abjad.mutate().rewrite_meter()``.
 
-    Example:
+    Basic usage:
         Meters whose denominators are a crotchet or longer get tied notes
         within a beat after ``rewrite_meter()`` when they are at an offset
         ``denominator / 4``, so a rhythm such as  ``denominator / 4``
@@ -69,7 +69,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-2.png
 
-    Example:
+    Other examples:
         The rhythm of the leaves just before and after the two leaves to be
         fused can be different than ``denominator / 4``, as the function
         searches for logical ties of specific length and offset, and its
@@ -136,7 +136,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-4.png
 
-    Example:
+    ``fuse_across_groups_of_beats``:
         By default, this function also fuses rhythms of type
         ``denominator / 2`` ``denominator / 2`` ``~`` ``denominator / 2``
         ``denominator / 2``, becoming ``denominator / 2`` ``denominator``
@@ -225,7 +225,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-7.png
 
-    Example:
+    ``abjad.Meter`` with ``increase_monotonic=True``:
         The fused notes will respect the beat structures of such meters, even
         when ``increase_monotonic`` is set to the non-default value ``True``.
         Compare the outputs below.
@@ -278,9 +278,9 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-9.png
 
-    Example:
-        This function can take handle multiple bars at once, as long as they
-        share the same meter.
+    Multiple measures:
+        This function can take handle multiple measures at once, as long as
+        they share the same meter.
 
         >>> staff = abjad.Staff(r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
         ...                     r"a'16 b'8 c''8 d''8 e''8 f''16"
@@ -351,7 +351,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-11.png
 
-    Example:
+    ``fuse_quadruple_meter``:
         This function also takes care of two special cases, namely quadruple
         and triple meters. By default, it will fuse leaves in quadruple meters
         across beats 1 and 2, and across beats 3 and 4 (as long as they fulfil
@@ -404,7 +404,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-13.png
 
-    Example:
+    ``fuse_triple_meter``:
         In the case of triple meters, it will fuse leaves across any beat as
         long as the previously mentioned conditions of offset and duration are
         met.

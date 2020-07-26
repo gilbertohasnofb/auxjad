@@ -18,7 +18,7 @@ class Shuffler:
     shuffles or rotates its logical ties or pitches. When shuffling or rotating
     pitches only, tuplets are supported, otherwise tuplets are not supported.
 
-    Example:
+    Basic usage:
         Calling the object will output a shuffled selection of the input
         container.
 
@@ -112,7 +112,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-5.png
 
-    Example:
+    :func:`len()`:
         Applying the :func:`len()` function to the shuffler will return the
         number of logical ties of ``contents``.
 
@@ -131,7 +131,7 @@ class Shuffler:
          >>> len(shuffler)
          5
 
-    Example:
+    Arguments and properties:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
         below. Setting ``pitch_only`` to ``True`` will enable pitch mode; by
@@ -144,7 +144,7 @@ class Shuffler:
         ``omit_time_signatures`` will remove all time signatures from the
         output (both are ``False`` by default). The properties
         ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
-        passed as arguments to abjad's ``rewrite_meter()``, see its
+        passed as arguments to Abjad's ``rewrite_meter()``, see its
         documentation for more information. By default, calling the object will
         first return the original container and subsequent calls will process
         it; set ``process_on_first_call`` to ``True`` and the shuffling
@@ -206,7 +206,7 @@ class Shuffler:
         >>> shuffler.process_on_first_call
         False
 
-    Example:
+    ``pitch_only``:
         By default, the shuffling operation will shuffle logical ties:
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
@@ -255,7 +255,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-7.png
 
-    Example:
+    ``rotate()``:
         Besides shuffling, logical ties and pitches can also be rotated using
         the ``rotate()`` method. Similarly to shuffling, it can be applied to
         logical ties or pitches only depending on the property ``pitch_only``.
@@ -339,7 +339,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-10.png
 
-    Example:
+    ``preserve_rest_position``:
         If ``preserve_rest_position`` is set to ``True``, the positions of all
         rests will remain the same after either shuffling and rotation. In
         pitch mode (when ``pitch_only`` is set to ``True``), this means that
@@ -368,9 +368,9 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-11.png
 
         In logical ties mode, the rests will remain at the same index and will
-        have the same total duration as before, but their position in the bar
-        might vary since the duration of the pitched logical ties preceeding
-        it might change.
+        have the same total duration as before, but their position in the
+        measure might vary since the duration of the pitched logical ties
+        preceeding it might change.
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
         >>> shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
@@ -392,7 +392,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-12.png
 
-    Example:
+    ``disable_rewrite_meter``:
         If ``disable_rewrite_meter`` is set to ``True``, then the automatic
         behaviour of rewriting the leaves according to the meter is disabled.
 
@@ -414,7 +414,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-13.png
 
-    Example:
+    ``shuffle_n()`` and ``rotate_n()``:
         To output several shuffled containers at once, use the methods
         ``shuffle_n()`` and ``rotate_n()``, inputting the desired number of
         iterations. ``rotate_n`` can also take the optional arguments
@@ -474,7 +474,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-15.png
 
-    Example:
+    ``omit_time_signatures``:
         To disable time signatures altogether, initialise this class with the
         keyword argument ``omit_time_signatures`` set to ``True`` (default is
         ``False``), or change the ``omit_time_signatures`` property after
@@ -514,7 +514,7 @@ class Shuffler:
         after fusing the selections to remove any unecessary time signature
         changes.
 
-    Example:
+    Time signature changes:
         This class handles time signature changes too:
 
         >>> container = abjad.Container(
@@ -551,7 +551,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-17.png
 
-    Example:
+    Tuplet support:
         Tuplets are supported when ``pitch_only`` is ``True`` (pitch-only
         mode).
 
@@ -587,7 +587,7 @@ class Shuffler:
         TypeError: 'contents' contain one ore more tuplets, which are not
         currently supported by the shuffle method
 
-    Example:
+    Indicators:
         This class can also handle dynamics and articulations.
 
         >>> container = abjad.Container(
@@ -660,7 +660,7 @@ class Shuffler:
         Dynamics are shuffled together with their leaves, so the initial leaf
         may lack a dynamic marking.
 
-    Example:
+    ``contents``:
         Use the property ``contents`` to get the input container upon which the
         shuffler operates. Notice that ``contents`` remains invariant after
         any shuffling or rotation operations (use ``current_window`` for the
@@ -699,9 +699,9 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-22.png
 
-    Example:
+    Tweaking Abjad's ``rewrite_meter()``:
         This function uses the default logical tie splitting algorithm from
-        abjad's ``rewrite_meter()``.
+        Abjad's ``rewrite_meter()``.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> shuffler = auxjad.Shuffler(container)
@@ -738,13 +738,13 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-24.png
 
-        Other arguments available for tweaking the output of abjad's
+        Other arguments available for tweaking the output of Abjad's
         ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
         which work exactly as the identically named arguments of
         ``rewrite_meter()``.
 
-    Example:
-        By default, this class rewrites uses abjad's ``rewrite_meter()``
+    ``disable_rewrite_meter``:
+        By default, this class rewrites uses Abjad's ``rewrite_meter()``
         mutation.
 
         >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
@@ -788,7 +788,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-26.png
 
-    Example:
+    Using as iterator:
         The instances of this class can also be used as an iterator, which can
         then be used in a for loop. Note that unlike the methods
         ``shuffle_n()`` and ``rotate_n()``, time signatures are added to each
@@ -1114,7 +1114,7 @@ class Shuffler:
         for index in self._logical_selections_indeces:
             logical_selection = logical_selections[index]
             dummy_container.append(logical_selection.leaves())
-        # splitting leaves at bar line points
+        # splitting leaves at measure line points
         abjad.mutate(dummy_container[:]).split(
             [ts.duration for ts in self._time_signatures],
             cyclic=True,
@@ -1325,7 +1325,7 @@ class Shuffler:
 
     @property
     def boundary_depth(self) -> Union[int, None]:
-        r"Sets the argument ``boundary_depth`` of abjad's ``rewrite_meter()``."
+        r"Sets the argument ``boundary_depth`` of Abjad's ``rewrite_meter()``."
         return self._boundary_depth
 
     @boundary_depth.setter
@@ -1339,7 +1339,7 @@ class Shuffler:
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"""Sets the argument ``maximum_dot_count`` of abjad's
+        r"""Sets the argument ``maximum_dot_count`` of Abjad's
         ``rewrite_meter()``.
         """
         return self._maximum_dot_count
@@ -1355,7 +1355,7 @@ class Shuffler:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of abjad's
+        r"""Sets the argument ``rewrite_tuplets`` of Abjad's
         ``rewrite_meter()``.
         """
         return self._rewrite_tuplets

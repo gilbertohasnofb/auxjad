@@ -10,7 +10,7 @@ def respell_chord(chord: abjad.Chord,
     place and has no return value; this function changes the accidentals of
     individual pitches of a chord in order to avoid augmented unisons.
 
-    Example:
+    Basic usage:
         To use this function, apply it to a chord that contains augmented
         unisons.
 
@@ -21,7 +21,7 @@ def respell_chord(chord: abjad.Chord,
 
         .. figure:: ../_images/image-respell_chord-1.png
 
-    Example:
+    2-note chords:
         The example below shows the default spelling of 2-note chords in
         Abjad in the upper staff, and the respelt 2-note chords in the bottom
         staff.
@@ -76,7 +76,7 @@ def respell_chord(chord: abjad.Chord,
 
         .. figure:: ../_images/image-respell_chord-2.png
 
-    Example:
+    augmented unissons in larger chords:
         The function looks for all augmented unissons in chords of 3 or more
         pitches:
 
@@ -108,7 +108,7 @@ def respell_chord(chord: abjad.Chord,
 
         .. figure:: ../_images/image-respell_chord-4.png
 
-    Example:
+    ``include_multiples``:
         By default, this function only changes spelling for pitches that are
         1 semitone apart.
 
@@ -143,7 +143,7 @@ def respell_chord(chord: abjad.Chord,
 
         .. figure:: ../_images/image-respell_chord-6.png
 
-    Example:
+    ``respell_by_pitch_class``:
         By default, when this function changes the spelling of a pitch, it does
         not change the spelling of all other pitches with the same pitch-class.
 

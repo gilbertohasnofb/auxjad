@@ -13,7 +13,7 @@ def respell_container(container: abjad.Container,
     individual pitches of all chords in a container in order to avoid augmented
     unisons.
 
-    Example:
+    Basic usage:
         To use this function, apply it to a container that contains chords
         with augmented unisons.
 
@@ -31,7 +31,7 @@ def respell_container(container: abjad.Container,
 
         .. figure:: ../_images/image-respell_container-1.png
 
-    Example:
+    2-note chords:
         The example below shows the default spelling of 2-note chords in
         Abjad in the upper staff, and the respelt 2-note chords in the bottom
         staff.
@@ -85,7 +85,7 @@ def respell_container(container: abjad.Container,
 
         .. figure:: ../_images/image-respell_container-2.png
 
-    Example:
+    augmented unissons in larger chords:
         The function looks for all augmented unissons in chords of 3 or more
         pitches:
 
@@ -125,7 +125,7 @@ def respell_container(container: abjad.Container,
 
         .. figure:: ../_images/image-respell_container-4.png
 
-    Example:
+    ``include_multiples``:
         By default, this function only changes spelling for pitches that are
         1 semitone apart.
 
@@ -168,7 +168,7 @@ def respell_container(container: abjad.Container,
 
         .. figure:: ../_images/image-respell_container-6.png
 
-    Example:
+    ``respell_by_pitch_class``:
         By default, when this function changes the spelling of a pitch, it does
         not change the spelling of all other pitches with the same pitch-class.
 

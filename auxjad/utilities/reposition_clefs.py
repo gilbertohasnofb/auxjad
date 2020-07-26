@@ -11,7 +11,7 @@ def reposition_clefs(container: abjad.Container,
     repeated clefs. It can also be used to shift clefs from rests to pitched
     leaves.
 
-    Example:
+    Basic usage:
         When consecutive clefs are the same, the second one is removed:
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
@@ -39,7 +39,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-2.png
 
-    Example:
+    LilyPond's fallback clef:
         As seen above, LilyPond automatically omits repeated clefs unless the
         first clef is omitted. In that case, it uses a treble clef as fallback,
         although it won't then remove a subsequent repeated treble clef:
@@ -68,8 +68,8 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-4.png
 
-    Example:
-        The function also removes clefs that are separated by anarbitrary
+    Clef structure:
+        The function also removes clefs that are separated by an arbitrary
         number of leaves without clefs:
 
         >>> staff = abjad.Staff(r"c'1 | d'2 e'4 r4 | f'1")
@@ -100,7 +100,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-6.png
 
-    Example:
+    Inputs with optimal clef structure:
         The function will not alter the container if the clef changes are
         already optimal.
 
@@ -136,7 +136,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-8.png
 
-    Example:
+    Multi-measure rests:
         The function handles rests and multi-measure rests.
 
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | R1 | e'1")
@@ -168,7 +168,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-10.png
 
-    Example:
+    ``shift_clef_to_notes``:
         By default, clefs attached to rests are shifted to the first pitched
         leaf.
 
@@ -221,8 +221,9 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-13.png
 
-    Example:
-        Clefs are shifted even if the container has multi-measure rests.
+    Multiple multi-measure rests:
+        Clefs are shifted even if the container has multiple multi-measure
+        rests.
 
         >>> staff = abjad.Staff(r"\time 3/4 c'2. | d'4 r2 | R1 * 3/4 | e'2.")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
@@ -258,7 +259,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-15.png
 
-    Example:
+    Subcontainers:
         The input container can also handle subcontainers, including cases in
         which the clefs are attached to leaves of subcontainers:
 
@@ -297,7 +298,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-17.png
 
-    Example:
+    ``implicit_clef``:
         By default, when the first leaf doesn't have a clef the function
         assumes that the music is written in treble clef (which is the default
         fallback clef in LilyPond).

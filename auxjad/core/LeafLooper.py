@@ -16,10 +16,10 @@ class LeafLooper(_LooperParent):
     be the sum of the duration of these notes.
 
     For instance, if the initial container had the logical ties
-    ``[A, B, C, D, E, F]`` (where each letter represents one logical tie) and
-    the looping window was size ``3``, the output would be:
+    :math:`[A, B, C, D, E, F]` (where each letter represents one logical tie)
+    and the looping window was size ``3``, the output would be:
 
-    ``A B C B C D C D E D E F E F F``
+    :math:`A B C B C D C D E D E F E F F`
 
     This can be better visualised as:
 
@@ -159,10 +159,11 @@ class LeafLooper(_LooperParent):
         repetition). ``forward_bias`` sets the chance of the window moving
         forward instead of backwards. It should range from ``0.0`` to ``1.0``
         (default ``1.0``, which means the window can only move forwards. A
-        value of ``0.5`` gives 50% chance of moving forwards while a value of
-        ``0.0`` will move the window only backwards). Lastly, ``head_position``
-        can be used to offset the starting position of the looping window. It
-        must be an :obj:`int` and its default value is ``0``.
+        value of ``0.5`` gives :math:`50\%` chance of moving forwards while a
+        value of ``0.0`` will move the window only backwards). Lastly,
+        ``head_position`` can be used to offset the starting position of the
+        looping window. It must be an :obj:`int` and its default value is
+        ``0``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LeafLooper(container,

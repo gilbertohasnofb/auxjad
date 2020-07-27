@@ -265,9 +265,10 @@ class _LooperParent():
     @property
     def forward_bias(self) -> float:
         r"""The chance of the window moving forward instead of backwards. It
-        should range from 0.0 to 1.0 (default 1.0, which means the window can
-        only move forwards. A value of 0.5 gives 50% chance of moving forwards
-        while a value of 0.0 will move the window only backwards).
+        should range from ``0.0`` to ``1.0`` (default ``1.0``, which means the
+        window can only move forwards. A value of ``0.5`` gives :math:`50\%`
+        chance of moving forwards while a value of ``0.0`` will move the window
+        only backwards).
         """
         return self._forward_bias
 

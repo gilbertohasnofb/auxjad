@@ -8,11 +8,12 @@ class CartographySelector():
     represents the ratio of probabilities of any index given the probability of
     the preceeding one. For instance, if the decay rate is set to ``0.75``
     (which is its default value), the probability of the element in index ``1``
-    of the input :obj:`list` being selected is 75% the probability of the
-    element in index ``0``, and the probability of the element in index ``2``
-    is 56.25% (0.75^2) the probability of the element in index ``0``. The
-    probability *P(n)* of the *n*-th element can thus be expressed as a
-    relation to the probability of another element *k* indexes apart using:
+    of the input :obj:`list` being selected is :math:`75\%`` the probability of
+    the element in index ``0``, and the probability of the element in index
+    ``2`` is :math:`56.25\%`` (i.e. :math:`0.75^2`) the probability of the
+    element in index ``0``. The probability :math:`P(n)`` of the :math:`n`-th
+    element can thus be expressed as a relation to the probability of another
+    element :math:`k` indexes apart using:
 
     .. math::
 
@@ -459,9 +460,9 @@ class CartographySelector():
         given the probability of the preceeding one. For instance, if the decay
         rate is set to ``0.75`` (which is its default value), the probability
         of the element in index ``1`` of the input :obj:`list` being selected
-        is 0.75 the probability of the element in index ``0``, and the
-        probability of the element in index ``2`` is 0.5625 (0.75^2) the
-        probability of the element in index ``0``.
+        is ``0.75`` the probability of the element in index ``0``, and the
+        probability of the element in index ``2`` is ``0.5625`` (i.e. ``0.75``
+        squared) the probability of the element in index ``0``.
         """
         return self._decay_rate
 

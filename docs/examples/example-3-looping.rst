@@ -18,9 +18,9 @@ prioritises elements that haven't been select for the longest time. For the
 durations, dynamics, and articulations, the example will use
 :class:`auxjad.CartographySelector`. Each element input into this type of
 selector has a probability of being selected which is dependent on its index.
-By default, the probability of consecutive elements decay with a rate of 0.75.
-For more information on both of these classes, check the |auxjad|_ API page
-(link in the left panel).
+By default, the probability of consecutive elements decay with a rate of
+``0.75``. For more information on both of these classes, check the |auxjad|_
+API page (link in the left panel).
 
     >>> pitch_selector = auxjad.TenneySelector([0, 7, 8, 2, 3, 10])
     >>> duration_selector = auxjad.CartographySelector([(2, 8),

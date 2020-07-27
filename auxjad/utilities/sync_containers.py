@@ -11,7 +11,7 @@ def sync_containers(*containers: abjad.Container,
                     use_multimeasure_rests: bool = True,
                     adjust_last_time_signature: bool = True,
                     ):
-    r"""Mutates two or more input containers (of type ``abjad.Container`` or
+    r"""Mutates two or more input containers (of type |abjad.Container| or
     child class) in place and has no return value; this function finds the
     longest container among the inputs and adds rests to all the shorter ones,
     making them the same length. By default, it rewrites the last time
@@ -45,8 +45,8 @@ def sync_containers(*containers: abjad.Container,
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a ``abjad.Staff``. The present function works
-        with either ``abjad.Container`` and ``abjad.Staff``.
+        containers that belong to a |abjad.Staff|. The present function works
+        with either |abjad.Container| and |abjad.Staff|.
 
         >>> container1 = abjad.Container(r"\time 4/4 g'2.")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
@@ -262,9 +262,9 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-17.png
 
-    Single input ``abjad.Score``:
-        This function can also take a single ``abjad.Score`` instead of
-        multiple ``abjad.Container``'s or ``abjad.Staff``'s.
+    Single input |abjad.Score|:
+        This function can also take a single |abjad.Score| instead of
+        multiple |abjad.Container|'s or |abjad.Staff|'s.
 
         >>> staff1 = abjad.Staff(r"\time 3/8 c'4. | d'4")
         >>> staff2 = abjad.Staff(r"\time 3/8 c'4. | d'8")

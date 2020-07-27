@@ -4,9 +4,9 @@ from .remove_empty_tuplets import remove_empty_tuplets
 
 
 def rests_to_multimeasure_rest(container: abjad.Container):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function looks for measures filled
-    with regular rests and converts them into an ``abjad.MultimeasureRest``.
+    with regular rests and converts them into an |abjad.MultimeasureRest|.
 
     Basic usage:
         Converts any measure filled with regular rests into a measure with a
@@ -49,8 +49,8 @@ def rests_to_multimeasure_rest(container: abjad.Container):
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a ``abjad.Staff``. The present function works
-        with either ``abjad.Container`` and ``abjad.Staff``.
+        containers that belong to a |abjad.Staff|. The present function works
+        with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 r4 r4 r4")
         >>> auxjad.rests_to_multimeasure_rest(container)

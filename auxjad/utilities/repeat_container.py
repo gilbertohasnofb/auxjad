@@ -17,11 +17,11 @@ def repeat_container(container: abjad.Container,
                      reposition_dynamics: bool = True,
                      reposition_slurs: bool = True,
                      ) -> abjad.Container:
-    r"""This function returns an ``abjad.Container`` with ``n`` repetitions of
-    an input container (of type ``abjad.Container`` or child class).
+    r"""This function returns an |abjad.Container| with ``n`` repetitions of
+    an input container (of type |abjad.Container| or child class).
 
     Basic usage:
-        The required arguments are an ``abjad.Container`` (or child class) and
+        The required arguments are an |abjad.Container| (or child class) and
         and integer n for the number of repetitions.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4")
@@ -46,8 +46,8 @@ def repeat_container(container: abjad.Container,
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a ``abjad.Staff``. The present function works
-        with either ``abjad.Container`` and ``abjad.Staff``.
+        containers that belong to a |abjad.Staff|. The present function works
+        with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> output_container = auxjad.repeat_container(container, 3)
@@ -189,7 +189,7 @@ def repeat_container(container: abjad.Container,
         .. figure:: ../_images/image-repeat_container-7.png
 
     Input types:
-        The input container can be of child classes such as ``abjad.Staff``,
+        The input container can be of child classes such as |abjad.Staff|,
         and the output will be of the same type.
 
         >>> container = abjad.Staff(r"c'4 d'4 e'4")

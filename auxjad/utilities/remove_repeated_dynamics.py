@@ -6,7 +6,7 @@ def remove_repeated_dynamics(container: abjad.Container,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
                              ):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function removes all consecutive
     repeated dynamic markings.
 
@@ -248,7 +248,7 @@ def remove_repeated_dynamics(container: abjad.Container,
 
     ``reset_after_rests`` and non-boolean values:
         The argument ``reset_after_rests`` takes not only boolean values but
-        also duration (``abjad.Duration``, ``tuple``, ``float``, etc.). This
+        also duration (|abjad.Duration|, ``tuple``, ``float``, etc.). This
         sets the maximum length of rests before which identical dynamics are
         restated. If the total length of rests falls below that value, then
         repeated dynamics are removed.

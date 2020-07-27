@@ -379,7 +379,7 @@ class ListLooper(_LooperParent):
         r"""Goes through the whole looping process and outputs a single list.
 
         This method replaces the parent's one since the parent's method outputs
-        an ``abjad.Selection``.
+        an |abjad.Selection|.
         """
         dummy_container = []
         while True:
@@ -392,7 +392,7 @@ class ListLooper(_LooperParent):
     def output_n(self, n: int) -> list:
         r"""Goes through ``n`` iterations of the looping process and outputs a
         single list. This method replaces the parent's one since the parent's
-        method outputs an ``abjad.Selection``.
+        method outputs an |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")

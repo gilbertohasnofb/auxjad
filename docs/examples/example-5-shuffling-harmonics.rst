@@ -629,12 +629,13 @@ container of a :class:`auxjad.Fader`. When its ``fader_type`` is set to
 .. figure:: ../_images/image-example-5-shuffling-harmonics-4.png
 
 To finalise the score, let's improve the spelling of some rhythms. Most classes
-and functions in this library use Abjad's ``rewrite_meter()`` mutation to
-adjust the spelling of rhythms according to a meter. Unfortunately, this
+and functions in this library use |abjad.mutate().rewrite_meter()| mutation
+to adjust the spelling of rhythms according to a meter. Unfortunately, this
 mutation sometimes uses ties within a single beat, resulting in rhythms that
 are less ideally notated than they could.
 :func:`auxjad.prettify_rewrite_meter()` fuses pitched leaves according to some
-specific list of rules, improving the default output of ``rewrite_meter()``.
+specific list of rules, improving the default output of
+|abjad.mutate().rewrite_meter()|.
 
 Notice that the time signature has been repeated. While the ``output_n()``
 method takes care of repeated time signatures, dynamics, and clefs, consecutive
@@ -920,3 +921,5 @@ calls may result in repetitions. But we can simply use
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html
+
+.. include:: ../api/abjad-targets.rst

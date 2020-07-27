@@ -6,7 +6,7 @@ def reposition_slurs(container: abjad.Container,
                      allow_slurs_under_rests: bool = False,
                      remove_unterminated_slurs: bool = True,
                      ):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function repositions all slurs that
     starts or ends on rests.
 

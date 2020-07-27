@@ -12,7 +12,7 @@ def reposition_dynamics(container: abjad.Container,
                         remove_repeated_dynamics: bool = True,
                         allow_rests_with_dynamics_after_hairpins: bool = True,
                         ):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function shifts all dynamics from
     rests to the next pitched leaves. It will also adjust hairpins if
     necessary.

@@ -7,10 +7,10 @@ from ._HarmonicParent import _HarmonicParent
 
 class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     r"""Creates a chord with a tweaked top note head for notating artificial
-    harmonics. This is a child class of ``abjad.Chord``.
+    harmonics. This is a child class of |abjad.Chord|.
 
     Basic usage:
-        Usage is similar to ``abjad.Chord``:
+        Usage is similar to |abjad.Chord|:
 
         >>> harm = auxjad.ArtificialHarmonic("<g c'>4")
         >>> harm.style
@@ -24,7 +24,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-1.png
 
-        And similarly to ``abjad.Chord``, pitch and duration can be input in
+        And similarly to |abjad.Chord|, pitch and duration can be input in
         many different ways:
 
         >>> harm1 = auxjad.ArtificialHarmonic(r"<g c'>4")
@@ -111,7 +111,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         .. figure:: ../_images/image-ArtificialHarmonic-4.png
 
     ``multiplier``:
-        Similarly to ``abjad.Chord``, this class can take multipliers:
+        Similarly to |abjad.Chord|, this class can take multipliers:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  multiplier=(2, 3),
@@ -128,7 +128,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         .. figure:: ../_images/image-ArtificialHarmonic-5.png
 
     Properties:
-        All properties of ``abjad.Chord`` are also available to be read. This
+        All properties of |abjad.Chord| are also available to be read. This
         class also includes two new properties named ``style`` and
         ``is_parenthesized``:
 
@@ -161,7 +161,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ``sounding_pitch()`` and ``sounding_note()``:
         The methods ``sounding_pitch()`` and ``sounding_note()`` return the
         sounding pitch and sounding note, respectively. Their types are
-        ``abjad.Pitch`` and ``abjad.Note``, respectively.
+        |abjad.Pitch| and |abjad.Note|, respectively.
 
         >>> harmonics = [ArtificialHarmonic(r"<g b>4"),
         ...              ArtificialHarmonic(r"<g c'>4"),
@@ -212,7 +212,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ``markup`` optional keyword argument, which takes strings. By default,
         the markup position is above the harmonic note, but this can be
         overridden using the keyword ``direction``, which can take strings as
-        well as ``abjad.Up`` and ``abjad.Down``:
+        well as |abjad.Up| and |abjad.Down|:
 
         >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
@@ -305,7 +305,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ### PUBLIC METHODS ###
 
     def sounding_pitch(self) -> abjad.Pitch:
-        r'Returns the sounding pitch of the harmonic as an ``abjad.Pitch``.'
+        r'Returns the sounding pitch of the harmonic as an |abjad.Pitch|.'
         interval = abs(self._note_heads[1].written_pitch
                        - self._note_heads[0].written_pitch).semitones
         sounding_pitch_dict = {1: 48,
@@ -330,7 +330,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         return sounding_pitch
 
     def sounding_note(self) -> abjad.Note:
-        r'Returns the sounding note of the harmonic as an ``abjad.Note``.'
+        r'Returns the sounding note of the harmonic as an |abjad.Note|.'
         note = abjad.Note(self.sounding_pitch(), self._written_duration)
         for indicator in abjad.inspect(self).indicators():
             abjad.attach(indicator, note)

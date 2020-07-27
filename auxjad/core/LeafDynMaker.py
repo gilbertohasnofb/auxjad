@@ -6,11 +6,11 @@ import abjad
 class LeafDynMaker(abjad.LeafMaker):
     r"""This class creates leaves and logical ties from input lists of pitches
     durations, dynamics, and articulations. It is an extension of
-    ``abjad.LeafMaker`` which can take optional lists of dynamics and
+    |abjad.LeafMaker| which can take optional lists of dynamics and
     articulations.
 
     Basic usage:
-        Usage is similar to ``abjad.LeafMaker``:
+        Usage is similar to |abjad.LeafMaker|:
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = [(1, 32), (2, 32), (3, 32), (4, 32), (5, 32), (6, 32)]
@@ -314,7 +314,7 @@ class LeafDynMaker(abjad.LeafMaker):
                  cyclic_articulations: bool = False,
                  ) -> abjad.Selection:
         r"""Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
-        and ``articulations``, returning an ``abjad.Selection``.
+        and ``articulations``, returning an |abjad.Selection|.
         """
         if dynamics is not None:
             for dynamic in dynamics:

@@ -19,3 +19,5 @@ documentation of specific functions and classes.
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html
+
+.. include:: ../api/abjad-targets.rst

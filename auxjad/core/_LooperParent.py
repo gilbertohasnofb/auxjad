@@ -58,7 +58,7 @@ class _LooperParent():
 
     def __call__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
-        ``abjad.Selection``.
+        |abjad.Selection|.
         """
         self._move_head()
         if self._done:
@@ -68,7 +68,7 @@ class _LooperParent():
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
-        ``abjad.Selection``.
+        |abjad.Selection|.
         """
         self._move_head()
         if self._done:
@@ -87,7 +87,7 @@ class _LooperParent():
                    tie_identical_pitches: bool = False,
                    ) -> abjad.Selection:
         r"""Goes through the whole looping process and outputs a single
-        ``abjad.Selection``.
+        |abjad.Selection|.
         """
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")
@@ -117,7 +117,7 @@ class _LooperParent():
                  tie_identical_pitches: bool = False,
                  ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the looping process and outputs a
-        single ``abjad.Selection``.
+        single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
@@ -170,7 +170,7 @@ class _LooperParent():
 
     @staticmethod
     def _remove_all_time_signatures(container):
-        r'Removes all time signatures of an ``abjad.Container``.'
+        r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)

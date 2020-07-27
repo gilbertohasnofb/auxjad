@@ -37,3 +37,5 @@
    {%- endfor %}
    {% endif %}
    {% endblock %}
+
+.. include:: ../api/abjad-targets.rst

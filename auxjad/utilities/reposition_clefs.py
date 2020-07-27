@@ -6,7 +6,7 @@ def reposition_clefs(container: abjad.Container,
                      shift_clef_to_notes: bool = True,
                      implicit_clef: abjad.Clef = abjad.Clef('treble'),
                      ):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function removes all consecutive
     repeated clefs. It can also be used to shift clefs from rests to pitched
     leaves.
@@ -325,7 +325,7 @@ def reposition_clefs(container: abjad.Container,
 
         .. figure:: ../_images/image-reposition_clefs-19.png
 
-        Set the argument ``implicit_clef`` to a different ``abjad.Clef`` to
+        Set the argument ``implicit_clef`` to a different |abjad.Clef| to
         change the implicit clef.
 
         >>> staff = abjad.Staff(r"c1 | d1")

@@ -7,10 +7,10 @@ from ._HarmonicParent import _HarmonicParent
 
 class HarmonicNote(abjad.Note, _HarmonicParent):
     r"""Creates a note with tweaked notehead for harmonics. This is a child
-    class of ``abjad.Note``.
+    class of |abjad.Note|.
 
     Basic usage:
-        Usage is similar to ``abjad.Note``:
+        Usage is similar to |abjad.Note|:
 
         >>> harm = auxjad.HarmonicNote(r"c''4")
         >>> harm.style
@@ -21,7 +21,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-1.png
 
-        And similarly to ``abjad.Note``, pitch and duration can be input in
+        And similarly to |abjad.Note|, pitch and duration can be input in
         many different ways:
 
         >>> harm1 = auxjad.HarmonicNote(r"c''4")
@@ -60,7 +60,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         .. figure:: ../_images/image-HarmonicNote-3.png
 
     ``multiplier``:
-        Similarly to ``abjad.Note``, this class can take multipliers:
+        Similarly to |abjad.Note|, this class can take multipliers:
 
         >>> harm = auxjad.HarmonicNote(r"c''4",
         ...                            multiplier=(2, 3),
@@ -74,7 +74,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         .. figure:: ../_images/image-HarmonicNote-4.png
 
     Properties:
-        All properties of ``abjad.Note`` are also available to be read. This
+        All properties of |abjad.Note| are also available to be read. This
         class also includes a new property named ``style``:
 
         >>> harm = auxjad.HarmonicNote(r"c''4")
@@ -118,7 +118,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         optional keyword argument, which takes strings. By default, the markup
         position is above the harmonic note, but this can be overridden using
         the keyword ``direction``, which can take strings as well as
-        ``abjad.Up`` and ``abjad.Down``:
+        |abjad.Up| and |abjad.Down|:
 
         >>> harm1 = auxjad.HarmonicNote(r"d''1")
         >>> harm2 = auxjad.HarmonicNote(r"d''1",

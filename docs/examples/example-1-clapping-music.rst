@@ -11,7 +11,9 @@ First, we start by importing both :mod:`abjad` and |auxjad|_.
 
 Let's now input the basic material that will be used to generate this
 composition. The original score is notated using a rhythmic staff, so we can
-initialise ``abjad.Staff`` with the option ``lilypond_type="RhythmicStaff"``.
+initialise |abjad.Staff| with the property
+:attr:`lilypond_type <abjad.core.Staff.Staff.lilypond_type>`. set to
+``"RhythmicStaff"``.
 
     >>> material = abjad.Staff(r"\time 12/8 c8 c c r c c r c r c c r",
     ...                        lilypond_type="RhythmicStaff",
@@ -1066,3 +1068,5 @@ score should have a single end repetition bar line.
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html
+
+.. include:: ../api/abjad-targets.rst

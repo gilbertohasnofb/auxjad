@@ -7,7 +7,7 @@ def containers_are_equal(container1: abjad.Container,
                          include_indicators: bool = False,
                          ) -> bool:
     r"""Returns a ``bool`` representing whether two input containers (of type
-    ``abjad.Container`` or child class) are identical or not.
+    |abjad.Container| or child class) are identical or not.
 
     Basic usage:
         When the pitches and effective durations of all leaves in both

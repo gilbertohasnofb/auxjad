@@ -11,10 +11,10 @@ from .TenneySelector import TenneySelector
 
 
 class PitchRandomiser:
-    r"""This class takes an input ``abjad.Container`` (or child class) and a
+    r"""This class takes an input |abjad.Container| (or child class) and a
     series of pitches and randomises the container's pitches using that list.
     The pitches can be of type ``list``, ``tuple``, ``str``, or
-    ``abjad.PitchSegment``.
+    |abjad.PitchSegment|.
 
     Basic usage:
         Calling the object will output a selection of the input container with
@@ -627,13 +627,13 @@ class PitchRandomiser:
         return len(self._pitches)
 
     def __call__(self) -> abjad.Selection:
-        r'Calls the randomise process, returning an ``abjad.Selection``'
+        r'Calls the randomise process, returning an |abjad.Selection|'
         self._randomise()
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the randomise process for one iteration, returning an
-        ``abjad.Selection``.
+        |abjad.Selection|.
         """
         return self.__call__()
 
@@ -647,7 +647,7 @@ class PitchRandomiser:
                  n: int,
                  ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the pitch randomisation process
-        and outputs a single ``abjad.Selection``.
+        and outputs a single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
@@ -710,7 +710,7 @@ class PitchRandomiser:
 
     @staticmethod
     def _remove_all_time_signatures(container):
-        r'Removes all time signatures of an ``abjad.Container``.'
+        r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -719,7 +719,7 @@ class PitchRandomiser:
 
     @property
     def contents(self) -> abjad.Container:
-        r'The ``abjad.Container`` to be shuffled.'
+        r'The |abjad.Container| to be shuffled.'
         return abjad.mutate(self._contents).copy()
 
     @contents.setter

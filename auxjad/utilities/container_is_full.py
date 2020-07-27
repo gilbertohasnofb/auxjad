@@ -5,7 +5,7 @@ from .underfull_duration import underfull_duration
 
 def container_is_full(container: abjad.Container) -> bool:
     r"""Returns a ``bool`` representing whether the last measure of an input
-    container (of type ``abjad.Container`` or child class) is fully filled in
+    container (of type |abjad.Container| or child class) is fully filled in
     or not.
 
     Basic usage:

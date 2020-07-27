@@ -20,7 +20,7 @@ def enforce_time_signature(container: abjad.Container,
                            maximum_dot_count: Optional[int] = None,
                            rewrite_tuplets: bool = True,
                            ):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function applies a time signature
     (or a list of time signatures) to the input container.
 
@@ -54,7 +54,7 @@ def enforce_time_signature(container: abjad.Container,
         .. figure:: ../_images/image-enforce_time_signature-2.png
 
     Single value for second positional argument:
-        The second positional argument can take either ``abjad.TimeSignature``
+        The second positional argument can take either |abjad.TimeSignature|
         or a ``tuple`` for a single time signature (for multiple time
         signatures, use a ``list`` as shown further below). By default,
         rests will be appended to the end of the staff if necessary.
@@ -170,7 +170,7 @@ def enforce_time_signature(container: abjad.Container,
         .. figure:: ../_images/image-enforce_time_signature-8.png
 
     Multiple values for second positional argument:
-        The second argument can also take a ``list`` of ``abjad.TimeSignature``
+        The second argument can also take a ``list`` of |abjad.TimeSignature|
         or ``tuple``.
 
         >>> staff = abjad.Staff(r"c'1 d'1")
@@ -349,8 +349,8 @@ def enforce_time_signature(container: abjad.Container,
         .. figure:: ../_images/image-enforce_time_signature-16.png
 
     ``disable_rewrite_meter``:
-        By default, this function applies the mutation ``rewrite_meter()`` to
-        its output.
+        By default, this function applies the mutation
+        |abjad.mutate().rewrite_meter()| to its output.
 
         >>> staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
         >>> time_signatures = [abjad.TimeSignature((5, 4)),
@@ -504,9 +504,9 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-22.png
 
-    Tweaking Abjad's ``rewrite_meter()``:
+    Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        Abjad's ``rewrite_meter()``.
+        |abjad.mutate().rewrite_meter()|.
 
         >>> staff = abjad.Staff(r"c'4. d'8 e'2")
         >>> auxjad.enforce_time_signature(staff,
@@ -543,18 +543,18 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-24.png
 
-        Other arguments available for tweaking the output of Abjad's
-        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
-        which work exactly as the identically named arguments of
-        ``rewrite_meter()``.
+        Other arguments available for tweaking the output of
+        |abjad.mutate().rewrite_meter()| are ``maximum_dot_count`` and
+        ``rewrite_tuplets``, which work exactly as the identically named
+        arguments of |abjad.mutate().rewrite_meter()|.
 
     .. note::
 
         It is important to notice that the time signatures in the output are
-        commented out with ``%%%`` if the input is of type ``abjad.Container``.
+        commented out with ``%%%`` if the input is of type |abjad.Container|.
         This is because Abjad only applies time signatures to containers that
-        belong to a ``abjad.Staff``. The present function works with either
-        ``abjad.Container`` and ``abjad.Staff``.
+        belong to a |abjad.Staff|. The present function works with either
+        |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
         >>> abjad.f(container)

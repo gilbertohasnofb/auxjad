@@ -237,7 +237,7 @@ as well as the desired number of voices.
     ...                            )
 
 To create the final score, we can simply assign its return value to an
-``abjad.Score``.
+|abjad.Score|.
 
     >>> music = hocketer()
     >>> score = abjad.Score(music)
@@ -367,3 +367,5 @@ To create the final score, we can simply assign its return value to an
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html
+
+.. include:: ../api/abjad-targets.rst

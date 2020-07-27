@@ -17,11 +17,6 @@ algorithmic manipulation of material.
 Below is the full list of classes included in |core|_. Click on their names
 for their individual documentation.
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: index.html
-.. |core| replace:: :mod:`core <auxjad.core>`
-.. _core: api-core.html
-
 .. autosummary::
     :toctree: ../_api_members
 
@@ -37,3 +32,10 @@ for their individual documentation.
     auxjad.Shuffler
     auxjad.TenneySelector
     auxjad.WindowLooper
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: index.html
+.. |core| replace:: :mod:`core <auxjad.core>`
+.. _core: api-core.html
+
+.. include:: abjad-targets.rst

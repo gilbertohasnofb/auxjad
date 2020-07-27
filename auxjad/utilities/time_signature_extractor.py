@@ -7,11 +7,11 @@ def time_signature_extractor(container: abjad.Container,
                              implicit_common_time: bool = True,
                              omit_repeated: bool = False,
                              ):
-    r"""Returns a ``list`` with the ``abjad.TimeSignature`` for all measures of
-    an input ``abjad.Container``.
+    r"""Returns a ``list`` with the |abjad.TimeSignature| for all measures of
+    an input |abjad.Container|.
 
     Basic usage:
-        This function returns a list with one ``abjad.TimeSignature`` per
+        This function returns a list with one |abjad.TimeSignature| per
         measure.
 
         >>> container = abjad.Container(r"\time 3/4 c'2. \time 4/4 e'1")

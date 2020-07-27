@@ -39,7 +39,7 @@ as our basic material.
     ...     pitches.append(pitch_selector())
     ...     durations.append(duration_selector())
 
-We can now use ``abjad.LeafMaker`` to convert those two lists of pitches and
+We can now use |abjad.LeafMaker| to convert those two lists of pitches and
 durations into Notes. It's important to note that there is no time signature
 being imposed at this point, so LilyPond will fallback to a four by four when
 displaying the container below. This is not a problem since this will be used
@@ -212,3 +212,5 @@ This is the final result.
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html
+
+.. include:: ../api/abjad-targets.rst

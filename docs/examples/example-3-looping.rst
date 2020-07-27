@@ -840,3 +840,5 @@ at that transition. The final result is shown below.
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html
+
+.. include:: ../api/abjad-targets.rst

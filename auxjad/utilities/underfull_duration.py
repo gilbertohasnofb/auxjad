@@ -2,8 +2,8 @@ import abjad
 
 
 def underfull_duration(container: abjad.Container) -> abjad.Duration:
-    r"""Returns the missing ``abjad.Duration`` of an underfull container (of
-    type ``abjad.Container`` or child class).
+    r"""Returns the missing |abjad.Duration| of an underfull container (of
+    type |abjad.Container| or child class).
 
     Basic usage:
         Returns the missing duration of the last measure of any container or

@@ -5,7 +5,7 @@ from .underfull_duration import underfull_duration
 
 
 def fill_with_rests(container: abjad.Container):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function fills a container with
     rests in order to make it full.
 
@@ -118,8 +118,8 @@ def fill_with_rests(container: abjad.Container):
 
         Notice that the time signatures in the output are commented out with
         ``%%%.`` This is because Abjad only applies time signatures to
-        containers that belong to a ``abjad.Staff``. The present function works
-        with either ``abjad.Container`` and ``abjad.Staff``.
+        containers that belong to a |abjad.Staff|. The present function works
+        with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
         >>> auxjad.fill_with_rests(container)

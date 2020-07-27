@@ -14,7 +14,7 @@ from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
-    r"""This class takes an input ``abjad.Container`` (or child class) and
+    r"""This class takes an input |abjad.Container| (or child class) and
     shuffles or rotates its logical ties or pitches. When shuffling or rotating
     pitches only, tuplets are supported, otherwise tuplets are not supported.
 
@@ -139,12 +139,12 @@ class Shuffler:
         mode only pitches are shuffled or rotated. By setting
         ``preserve_rest_position`` to ``True`` the shuffle and rotation
         operations will not change the position or duration of rests.
-        ``disable_rewrite_meter`` disables the ``rewrite_meter()`` mutation
-        which is applied to the container after every call, and
+        ``disable_rewrite_meter`` disables the |abjad.mutate().rewrite_meter()|
+        mutation which is applied to the container after every call, and
         ``omit_time_signatures`` will remove all time signatures from the
         output (both are ``False`` by default). The properties
         ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
-        passed as arguments to Abjad's ``rewrite_meter()``, see its
+        passed as arguments to |abjad.mutate().rewrite_meter()|, see its
         documentation for more information. By default, calling the object will
         first return the original container and subsequent calls will process
         it; set ``process_on_first_call`` to ``True`` and the shuffling
@@ -506,7 +506,7 @@ class Shuffler:
 
     ..  tip::
 
-        All methods that return an ``abjad.Selection`` will add an initial time
+        All methods that return an |abjad.Selection| will add an initial time
         signature to it. The ``shuffle_n()`` and ``rotate_n()`` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
@@ -665,7 +665,7 @@ class Shuffler:
         shuffler operates. Notice that ``contents`` remains invariant after
         any shuffling or rotation operations (use ``current_window`` for the
         transformed selection of music). ``contents`` can be used to change the
-        ``abjad.Container`` to be shuffled.
+        |abjad.Container| to be shuffled.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
@@ -699,9 +699,9 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-22.png
 
-    Tweaking Abjad's ``rewrite_meter()``:
+    Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        Abjad's ``rewrite_meter()``.
+        |abjad.mutate().rewrite_meter()|.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> shuffler = auxjad.Shuffler(container)
@@ -738,13 +738,13 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-24.png
 
-        Other arguments available for tweaking the output of Abjad's
-        ``rewrite_meter()`` are ``maximum_dot_count`` and ``rewrite_tuplets``,
-        which work exactly as the identically named arguments of
-        ``rewrite_meter()``.
+        Other arguments available for tweaking the output of
+        |abjad.mutate().rewrite_meter()| are ``maximum_dot_count`` and
+        ``rewrite_tuplets``, which work exactly as the identically named
+        arguments of |abjad.mutate().rewrite_meter()|.
 
     ``disable_rewrite_meter``:
-        By default, this class rewrites uses Abjad's ``rewrite_meter()``
+        By default, this class uses the |abjad.mutate().rewrite_meter()|
         mutation.
 
         >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
@@ -881,12 +881,12 @@ class Shuffler:
         return len(self._logical_selections)
 
     def __call__(self) -> abjad.Selection:
-        r'Calls the shuffling process, returning an ``abjad.Selection``'
+        r'Calls the shuffling process, returning an |abjad.Selection|'
         return self.shuffle()
 
     def __next__(self) -> abjad.Selection:
         r"""Calls the shuffling process for one iteration, returning an
-        ``abjad.Selection``.
+        |abjad.Selection|.
         """
         return self.__call__()
 
@@ -946,7 +946,7 @@ class Shuffler:
                   n: int,
                   ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the shuffling process and outputs
-        a single ``abjad.Selection``.
+        a single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
@@ -968,7 +968,7 @@ class Shuffler:
                  anticlockwise: bool = False,
                  ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the pitch shuffling process and
-        outputs a single ``abjad.Selection``.
+        outputs a single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
@@ -1200,7 +1200,7 @@ class Shuffler:
 
     @staticmethod
     def _remove_all_time_signatures(container):
-        r'Removes all time signatures of an ``abjad.Container``.'
+        r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1237,7 +1237,7 @@ class Shuffler:
 
     @property
     def contents(self) -> abjad.Container:
-        r'The ``abjad.Container`` to be shuffled.'
+        r'The |abjad.Container| to be shuffled.'
         return abjad.mutate(self._contents).copy()
 
     @contents.setter
@@ -1298,7 +1298,7 @@ class Shuffler:
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the ``rewrite_meter`` mutation.
+        rewritten by the |abjad.mutate().rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
 
@@ -1325,7 +1325,9 @@ class Shuffler:
 
     @property
     def boundary_depth(self) -> Union[int, None]:
-        r"Sets the argument ``boundary_depth`` of Abjad's ``rewrite_meter()``."
+        r"""Sets the argument ``boundary_depth`` of
+        |abjad.mutate().rewrite_meter()|.
+        """
         return self._boundary_depth
 
     @boundary_depth.setter
@@ -1339,8 +1341,8 @@ class Shuffler:
 
     @property
     def maximum_dot_count(self) -> Union[int, None]:
-        r"""Sets the argument ``maximum_dot_count`` of Abjad's
-        ``rewrite_meter()``.
+        r"""Sets the argument ``maximum_dot_count`` of
+        |abjad.mutate().rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1355,8 +1357,8 @@ class Shuffler:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of Abjad's
-        ``rewrite_meter()``.
+        r"""Sets the argument ``rewrite_tuplets`` of
+        |abjad.mutate().rewrite_meter()|.
         """
         return self._rewrite_tuplets
 

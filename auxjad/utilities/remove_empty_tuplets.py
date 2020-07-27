@@ -2,7 +2,7 @@ import abjad
 
 
 def remove_empty_tuplets(container: abjad.Container):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function looks for tuplets filled
     with rests and replaces them with a single rest.
 
@@ -114,8 +114,8 @@ def remove_empty_tuplets(container: abjad.Container):
 
         Notice that the time signatures in the output are commented out with
         ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a ``abjad.Staff``. The present function works
-        with either ``abjad.Container`` and ``abjad.Staff``.
+        containers that belong to a |abjad.Staff|. The present function works
+        with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
         >>> auxjad.remove_empty_tuplets(container)

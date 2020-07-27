@@ -2,7 +2,7 @@ import abjad
 
 
 def remove_repeated_time_signatures(container: abjad.Container):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function removes all consecutive
     repeated time signatures.
 

@@ -14,15 +14,15 @@ def prettify_rewrite_meter(container: abjad.Container,
                            fuse_quadruple_meter: bool = True,
                            fuse_triple_meter: bool = True,
                            ):
-    r"""Mutates an input container (of type ``abjad.Container`` or child class)
+    r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function fuses pitched leaves
     according to the rules shown below, improving the default output of
-    ``abjad.mutate().rewrite_meter()``.
+    |abjad.mutate().rewrite_meter()|.
 
     Basic usage:
         Meters whose denominators are a crotchet or longer get tied notes
-        within a beat after ``rewrite_meter()`` when they are at an offset
-        ``denominator / 4``, so a rhythm such as  ``denominator / 4``
+        within a beat after |abjad.mutate().rewrite_meter()| when they are at
+        an offset ``denominator / 4``, so a rhythm such as  ``denominator / 4``
         ``denominator / 2`` ``denominator / 4`` becomes ``denominator / 4``
         ``denominator / 4`` ``~`` ``denominator / 4`` ``denominator / 4``. This
         function looks for those specific cases and fuses them, generating an
@@ -225,7 +225,7 @@ def prettify_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-7.png
 
-    ``abjad.Meter`` with ``increase_monotonic=True``:
+    |abjad.Meter| with ``increase_monotonic=True``:
         The fused notes will respect the beat structures of such meters, even
         when ``increase_monotonic`` is set to the non-default value ``True``.
         Compare the outputs below.

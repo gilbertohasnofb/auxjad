@@ -8,11 +8,11 @@ class CartographySelector():
     represents the ratio of probabilities of any index given the probability of
     the preceeding one. For instance, if the decay rate is set to ``0.75``
     (which is its default value), the probability of the element in index ``1``
-    of the input list being selected is 75% the probability of the element in
-    index 0, and the probability of the element in index 2 is 56.25% (0.75^2)
-    the probability of the element in index ``0``. The probability *P(n)* of
-    the *n*-th element can thus be expressed as a relation to the probability
-    of another element *k* indexes apart using:
+    of the input :obj:`list` being selected is 75% the probability of the
+    element in index ``0``, and the probability of the element in index ``2``
+    is 56.25% (0.75^2) the probability of the element in index ``0``. The
+    probability *P(n)* of the *n*-th element can thus be expressed as a
+    relation to the probability of another element *k* indexes apart using:
 
     .. math::
 
@@ -21,8 +21,8 @@ class CartographySelector():
     This is the selector used in my *Cartography* series of compositions.
 
     Basic usage:
-        The selector should be initialised with a list of objects. The elements
-        of this list can be of any type.
+        The selector should be initialised with a :obj:`list` of objects. The
+        elements of this :obj:`list` can be of any type.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
@@ -54,7 +54,7 @@ class CartographySelector():
 
     :func:`len()` function:
         Applying the :func:`len()` function to the selector will return the
-        length of the input list.
+        length of the input :obj:`list`.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> len(selector)
@@ -441,7 +441,7 @@ class CartographySelector():
 
     @property
     def contents(self) -> list:
-        r'The ``list`` from which the selector picks elements.'
+        r'The :obj:`list` from which the selector picks elements.'
         return self._contents
 
     @contents.setter
@@ -458,10 +458,10 @@ class CartographySelector():
         r"""The decay rate represents the ratio of probabilities of any index
         given the probability of the preceeding one. For instance, if the decay
         rate is set to ``0.75`` (which is its default value), the probability
-        of the element in index 1 of the input list being selected is 0.75 the
-        probability of the element in index 0, and the probability of the
-        element in index 2 is 0.5625 (0.75^2) the probability of the element in
-        index 0.
+        of the element in index ``1`` of the input :obj:`list` being selected
+        is 0.75 the probability of the element in index ``0``, and the
+        probability of the element in index ``2`` is 0.5625 (0.75^2) the
+        probability of the element in index ``0``.
         """
         return self._decay_rate
 

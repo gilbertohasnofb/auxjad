@@ -22,7 +22,7 @@ def enforce_time_signature(container: abjad.Container,
                            ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function applies a time signature
-    (or a list of time signatures) to the input container.
+    (or a :obj:`list` of time signatures) to the input container.
 
     Basic usage:
         The function mutates a container in place, applying a time signature
@@ -55,8 +55,8 @@ def enforce_time_signature(container: abjad.Container,
 
     Single value for second positional argument:
         The second positional argument can take either |abjad.TimeSignature|
-        or a ``tuple`` for a single time signature (for multiple time
-        signatures, use a ``list`` as shown further below). By default,
+        or a :obj:`tuple` for a single time signature (for multiple time
+        signatures, use a :obj:`list` as shown further below). By default,
         rests will be appended to the end of the staff if necessary.
 
         >>> staff = abjad.Staff(r"c'1 d'1")
@@ -170,8 +170,8 @@ def enforce_time_signature(container: abjad.Container,
         .. figure:: ../_images/image-enforce_time_signature-8.png
 
     Multiple values for second positional argument:
-        The second argument can also take a ``list`` of |abjad.TimeSignature|
-        or ``tuple``.
+        The second argument can also take a :obj:`list` of
+        |abjad.TimeSignature| or :obj:`tuple`.
 
         >>> staff = abjad.Staff(r"c'1 d'1")
         >>> abjad.f(staff)
@@ -202,7 +202,7 @@ def enforce_time_signature(container: abjad.Container,
 
     Repeated time signatures:
         Consecutive identical time signatures are omitted. Also note that time
-        signatures can also be represented as a ``list`` of ``tuples``.
+        signatures can also be represented as a :obj:`list` of :obj:`tuple`'s.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
         >>> abjad.f(staff)
@@ -279,8 +279,8 @@ def enforce_time_signature(container: abjad.Container,
         .. figure:: ../_images/image-enforce_time_signature-14.png
 
     ``cyclic``:
-        To cycle through the list of time signatures until the container is
-        exhausted, set the optional keyword argument ``cyclic`` to ``True``.
+        To cycle through the :obj:`list` of time signatures until the container
+        is exhausted, set the optional keyword argument ``cyclic`` to ``True``.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
         >>> abjad.f(staff)

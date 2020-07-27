@@ -2,7 +2,7 @@ utilities
 =========
 
 The |utilities|_ subpackage contains utility functions which include mutation
-functions (e.g. to adjust indicators of a container in place) and boolean
+functions (e.g. to adjust indicators of a container in place) and :obj:`bool`
 functions (e.g. to check whether a container satisfy some condition).
 
 ..  note::

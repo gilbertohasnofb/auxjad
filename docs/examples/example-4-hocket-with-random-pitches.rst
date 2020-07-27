@@ -28,8 +28,8 @@ matter at this point since we will randomise them shortly.
 .. figure:: ../_images/image-example-4-hocket-with-random-pitches-1.png
 
 Next, let's initialise :class:`auxjad.PitchRandomiser` with this container as
-well as a list representing pitches. This will be the source for the random
-pitches selected by this randomiser.
+well as a :obj:`list` representing pitches. This will be the source for the
+random pitches selected by this randomiser.
 
     >>> randomiser = auxjad.PitchRandomiser(container,
     ...                                     pitches=[0, 1, 2, 3, 4, 5, 6],
@@ -72,7 +72,7 @@ method.
 
 .. figure:: ../_images/image-example-4-hocket-with-random-pitches-2.png
 
-Let's now change the pitch list using the property ``pitches`` of the
+Let's now change the pitch :obj:`list` using the property ``pitches`` of the
 randomiser.
 
     >>> randomiser.pitches = [13, 14, 16, 17, 21]
@@ -137,9 +137,10 @@ Generating three more measures results in:
 .. figure:: ../_images/image-example-4-hocket-with-random-pitches-3.png
 
 Up to now, the pitches were being selected with equal weight (i.e. an uniform
-distribution). Changing the ``weights`` property to a list of ``int``'s or
-``float``'s allow us to give more weight to certain pitches. It's important
-that this list has the same length as the number of pitches in ``pitches``.
+distribution). Changing the ``weights`` property to a :obj:`list` of
+:obj:`int`'s or :obj:`float`'s allow us to give more weight to certain pitches.
+It's important that this :obj:`list` has the same length as the number of
+pitches in ``pitches``.
 
     >>> randomiser.weights = [6, 3, 2, 1, 1]
 

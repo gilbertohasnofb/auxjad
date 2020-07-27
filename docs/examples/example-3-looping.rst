@@ -38,13 +38,13 @@ selected by the classes above.
     >>> dynamics = [dynamic_selector() for _ in range(8)]
     >>> articulations = [articulation_selector() for _ in range(8)]
 
-With these lists of pitches, durations, dynamics, and articulations, we can now
-use :class:`auxjad.LeafDynMaker` to create the individual abjad leaves for us.
-It's important to note that there is no time signature being imposed at this
-point, so LilyPond will fallback to a four by four when displaying the
-container below. This is not a problem since this will be used as the basic
-material for the looper, which will then automatically take care of time
-signatures.
+With these :obj:`list`'s' of pitches, durations, dynamics, and articulations,
+we can now use :class:`auxjad.LeafDynMaker` to create the individual abjad
+leaves for us. It's important to note that there is no time signature being
+imposed at this point, so LilyPond will fallback to a four by four when
+displaying the container below. This is not a problem since this will be used
+as the basic material for the looper, which will then automatically take care
+of time signatures.
 
     >>> leaf_dyn_maker = auxjad.LeafDynMaker()
     >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)

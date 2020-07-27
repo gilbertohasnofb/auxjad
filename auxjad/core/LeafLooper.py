@@ -11,9 +11,9 @@ from ._LooperParent import _LooperParent
 class LeafLooper(_LooperParent):
     r"""This class outputs slices of an |abjad.Container| using the metaphor
     of a looping window of a constant number of elements. This number is given
-    by the argument ``window_size``, which is an ``int`` representing how many
-    notes are to be included in each slice. The duration of the slice will be
-    the sum of the duration of these notes.
+    by the argument ``window_size``, which is an :obj:`int` representing how
+    many notes are to be included in each slice. The duration of the slice will
+    be the sum of the duration of these notes.
 
     For instance, if the initial container had the logical ties
     ``[A, B, C, D, E, F]`` (where each letter represents one logical tie) and
@@ -162,7 +162,7 @@ class LeafLooper(_LooperParent):
         value of ``0.5`` gives 50% chance of moving forwards while a value of
         ``0.0`` will move the window only backwards). Lastly, ``head_position``
         can be used to offset the starting position of the looping window. It
-        must be an integer and its default value is ``0``.
+        must be an :obj:`int` and its default value is ``0``.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LeafLooper(container,

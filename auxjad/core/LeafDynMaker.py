@@ -4,9 +4,9 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""This class creates leaves and logical ties from input lists of pitches
-    durations, dynamics, and articulations. It is an extension of
-    |abjad.LeafMaker| which can take optional lists of dynamics and
+    r"""This class creates leaves and logical ties from :obj:`list`'s of
+    pitches, durations, dynamics, and articulations. It is an extension of
+    |abjad.LeafMaker| which can take optional :obj:`list`'s of dynamics and
     articulations.
 
     Basic usage:
@@ -203,7 +203,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         .. figure:: ../_images/image-LeafDynMaker-6.png
 
-    ``cyclic_dynamics`` and ``cyclic_articulations`` and lists of length ``1``:
+    ``cyclic_dynamics`` and ``cyclic_articulations`` of length ``1``:
         To apply them to all elements, use the ``cyclic_dynamics`` and
         ``cyclic_articulations`` optioanl keywords.
 
@@ -241,7 +241,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
     Accepted types:
         Similarly to Abjad's native classes, it accepts many types of elements
-        in its input lists:
+        in its input :obj:`list`'s:
 
         >>> pitches = [0,
         ...            "d'",
@@ -395,7 +395,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
     @staticmethod
     def _listify(argument) -> list:
-        r'Returns a list if argument is not a list.'
+        r'Returns a :obj:`list` if argument is not a :obj:`list`.'
         if argument:
             if isinstance(argument, list):
                 return argument
@@ -409,9 +409,9 @@ class LeafDynMaker(abjad.LeafMaker):
                    length: int,
                    cyclic: bool = False,
                    default: Any = None):
-        r"""Extends a list to a certain length, filling it with a default
-        value. If ``cyclic`` is ``True``, then it fills the list by cycling the
-        original ``input_list``.
+        r"""Extends a :obj:`list` to a certain length, filling it with a
+        default value. If ``cyclic`` is ``True``, then it fills the :obj:`list`
+        by cycling the original ``input_list``.
         """
         if not cyclic:
             while len(input_list) < length:

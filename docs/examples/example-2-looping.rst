@@ -14,9 +14,9 @@ Let's now create a container with some arbitrary material to be manipulated
 by the looper. For that, let's use :class:`auxjad.TenneySelector` to generate
 the random material. This class is an implementation of the Dissonant
 Counterpoint Algorithm by James Tenney. In a nutshell, this algorithm can be
-used to randomly select elements from a list, giving priority to elements that
-have not been chosen for the longest time. It also ensures that elements are
-not repeated.
+used to randomly select elements from a :obj:`list`, giving priority to
+elements that have not been chosen for the longest time. It also ensures that
+elements are not repeated.
 
 To start, we create two selectors, one for pitches and one for durations.
 
@@ -39,12 +39,12 @@ as our basic material.
     ...     pitches.append(pitch_selector())
     ...     durations.append(duration_selector())
 
-We can now use |abjad.LeafMaker| to convert those two lists of pitches and
-durations into Notes. It's important to note that there is no time signature
-being imposed at this point, so LilyPond will fallback to a four by four when
-displaying the container below. This is not a problem since this will be used
-as the basic material for the looper, which will then automatically take care
-of time signatures.
+We can now use |abjad.LeafMaker| to convert those two :obj:`list`'s of pitches
+and durations into notes. It's important to note that there is no time
+signature being imposed at this point, so LilyPond will fallback to a four by
+four when displaying the container below. This is not a problem since this will
+be used as the basic material for the looper, which will then automatically
+take care of time signatures.
 
     >>> notes = abjad.LeafMaker()(pitches, durations)
     >>> container = abjad.Container(notes)

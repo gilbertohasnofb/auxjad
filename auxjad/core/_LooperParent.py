@@ -310,8 +310,8 @@ class _LooperParent():
 
     @property
     def _done(self) -> bool:
-        r"""Boolean indicating whether the process is done (i.e. whether the
-        head position has overtaken the ``contents`` length).
+        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        the head position has overtaken the ``contents`` length).
         """
         return (self._head_position >= self.__len__()
                 or self._head_position < 0)

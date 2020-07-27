@@ -15,8 +15,8 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
     r"""Returns an |abjad.TimeSignature| with the simplified ratio of an
     input ratio according to a minimum denominator value. The input ratio can
     be an |abjad.TimeSignature|, |abjad.Duration|, an |abjad.Meter|, or a
-    ``tuple`` of integers. If the input is a ``tuple``, the return value is
-    also a ``tuple``.
+    :obj:`tuple` of :obj:`int`'s. If the input is a :obj:`tuple`, the return
+    value is also a :obj:`tuple`.
 
     Basic usage:
         By default, the function simplifies the ratio of numerator/denominator
@@ -57,8 +57,8 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
 
     ``output_pair_of_int``:
         By default, the function returns an |abjad.TimeSignature| for
-        whatever type of argument it receives (which can be a ``tuple`` of
-        integers, an |abjad.TimeSignature|, an |abjad.Duration|, or an
+        whatever type of argument it receives (which can be a :obj:`tuple` of
+        :obj:`int`'s, an |abjad.TimeSignature|, an |abjad.Duration|, or an
         |abjad.Meter|).
 
         >>> arg = (4, 8)
@@ -82,8 +82,8 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         abjad.TimeSignature((2, 4))
 
         Call the function with the keyword argument ``output_pair_of_int`` set
-        to ``True`` and the output will be a ``tuple`` of integers, regardless
-        of the input argument.
+        to ``True`` and the output will be a :obj:`tuple` of :obj:`int`'s',
+        regardless of the input argument.
 
         >>> arg = (4, 8)
         >>> pair = auxjad.simplified_time_signature_ratio(

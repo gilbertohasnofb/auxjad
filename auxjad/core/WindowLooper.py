@@ -104,9 +104,9 @@ class WindowLooper(_LooperParent):
 
     ``window_size`` and ``step_size``:
         The optional arguments ``window_size`` and ``step_size`` can be used to
-        set different window and step sizes. ``window_size`` can take a tuple
-        or an |abjad.Meter| as input, while ``step_size`` takes a tuple or an
-        |abjad.Duration|.
+        set different window and step sizes. ``window_size`` can take a
+        :obj:`tuple` or an |abjad.Meter| as input, while ``step_size`` takes a
+        :obj:`tuple` or an |abjad.Duration|.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.WindowLooper(container,
@@ -264,8 +264,8 @@ class WindowLooper(_LooperParent):
         value of ``0.5`` gives 50% chance of moving forwards while a value of
         ``0.0`` will move the window only backwards). ``head_position`` can be
         used to offset the starting position of the  looping window. It must be
-        a tuple or an |abjad.Duration|, and its default value is ``0``. The
-        properties ``boundary_depth``, ``maximum_dot_count``, and
+        a :obj:`tuple` or an |abjad.Duration|, and its default value is ``0``.
+        The properties ``boundary_depth``, ``maximum_dot_count``, and
         ``rewrite_tuplets`` are passed as arguments to
         |abjad.mutate().rewrite_meter()|, see its documentation for more
         information. By default, calling the object will first return the
@@ -1089,7 +1089,8 @@ class WindowLooper(_LooperParent):
                       head_position: Union[tuple, abjad.Duration],
                       ):
         r"""This setter method replaces the parent's one since the parent's
-        method uses integers as input intead of tuples or |abjad.Duration|.
+        method uses :obj:`int` as input intead of :obj:`tuple` or
+        |abjad.Duration|.
         """
         if not isinstance(head_position,
                           (int, float, tuple, str, abjad.Duration),
@@ -1112,7 +1113,8 @@ class WindowLooper(_LooperParent):
                     window_size: Union[int, float, tuple, abjad.Meter],
                     ):
         r"""This setter method replaces the parent's one since the parent's
-        method uses integers as input intead of tuples or |abjad.Duration|.
+        method uses :obj:`int` as input intead of :obj:`tuple` or
+        |abjad.Duration|.
         """
         if not isinstance(window_size,
                           (int, float, tuple, str, abjad.Meter),
@@ -1134,7 +1136,8 @@ class WindowLooper(_LooperParent):
                   step_size: Union[tuple, abjad.Duration],
                   ):
         r"""This setter method replaces the parent's one since the parent's
-        method uses integers as input intead of tuples or |abjad.Duration|.
+        method uses :obj:`int` as input intead of :obj:`tuple` or
+        |abjad.Duration|.
         """
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
@@ -1220,8 +1223,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def _done(self) -> bool:
-        r"""Boolean indicating whether the process is done (i.e. whether the
-        head position has overtaken the ``contents`` length).
+        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        the head position has overtaken the ``contents`` length).
 
         This property replaces the parent's one since the parent's property
         uses the number of indeces of ``contents``.

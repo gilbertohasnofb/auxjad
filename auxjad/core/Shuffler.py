@@ -312,9 +312,9 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-9.png
 
         This method can also take the optional parameters ``n_rotations`` and
-        ``anticlockwise``. The first is an integer setting the number of
-        rotations applied to the material, and the second is a boolean setting
-        the direction of the rotation (default ``False``).
+        ``anticlockwise``. The first is an :obj:`int` setting the number of
+        rotations applied to the material, and the second is a :obj:`bool`
+        setting the direction of the rotation (default ``False``).
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
@@ -993,7 +993,7 @@ class Shuffler:
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> list:
-        r'Creates a list of all pitches in ``contents``.'
+        r'Creates a :obj:`list` of all pitches in ``contents``.'
         self._pitches = []
         for logical_selection in self._logical_selections:
             leaf = logical_selection.leaves()[0]
@@ -1007,7 +1007,7 @@ class Shuffler:
     def _shuffle_list_preserving_rests(self,
                                        input_list: list
                                        ) -> list:
-        r'Shuffles a list while keeping rest indeces unchanged.'
+        r'Shuffles a :obj:`list` while keeping rest indeces unchanged.'
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
         random.shuffle(dummy_list)
@@ -1019,7 +1019,7 @@ class Shuffler:
                                       n_rotations: int = 1,
                                       anticlockwise: bool = False,
                                       ) -> list:
-        r'Rotates a list while keeping rest indeces unchanged.'
+        r'Rotates a :obj:`list` while keeping rest indeces unchanged.'
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
         self._rotate_list(dummy_list,
@@ -1032,7 +1032,7 @@ class Shuffler:
                                        input_list: list,
                                        destination_list: list,
                                        ) -> list:
-        r'Substitutes back an altered list while preserving rests.'
+        r'Substitutes back an altered :obj:`list` while preserving rests.'
         counter = 0
         for index, pitch in enumerate(self._pitches):
             if pitch is not None:
@@ -1225,7 +1225,7 @@ class Shuffler:
                      n_rotations: int = 1,
                      anticlockwise: bool = False,
                      ) -> list:
-        r'Rotates a list.'
+        r'Rotates a :obj:`list`.'
         for _ in range(n_rotations):
             if not anticlockwise:
                 element = input_list.pop(0)

@@ -634,7 +634,7 @@ to adjust the spelling of rhythms according to a meter. Unfortunately, this
 mutation sometimes uses ties within a single beat, resulting in rhythms that
 are less ideally notated than they could.
 :func:`auxjad.prettify_rewrite_meter()` fuses pitched leaves according to some
-specific list of rules, improving the default output of
+specific rules, improving the default output of
 |abjad.mutate().rewrite_meter()|.
 
 Notice that the time signature has been repeated. While the ``output_n()``

@@ -344,7 +344,7 @@ class Fader():
         it). Any measure filled with rests will be rewritten using a
         multi-measure rest; set the ``use_multimeasure_rests`` to ``False`` to
         disable this behaviour. An initial mask for the note heads can be set
-        using ``mask``, which should be a ``list`` of the same length as the
+        using ``mask``, which should be a :obj:`list` of the same length as the
         number of note heads in the input container. When ``fader_type`` is set
         to ``'out'``, the mask is initialised with ``1``'s, and when it is set
         to ``'in'``, it is initialised with ``0``'s. Change it to a mix of
@@ -691,8 +691,8 @@ class Fader():
 
     ``mask`` and ``reset_mask()``:
         The property ``mask`` is used to represent whether each note heads is
-        hidden or shown. It is a ``list`` of the same length as the number of
-        note heads in the input container (use the :func:`len()` function to
+        hidden or shown. It is a :obj:`list` of the same length as the number
+        of note heads in the input container (use the :func:`len()` function to
         read that value). When ``fader_type`` is set to ``'out'``, the mask is
         initialised with ``1``'s, and when it is set to ``'in'``, it is
         initialised with ``0``'s. Change it to a mix of ``1``'s and ``0``'s to
@@ -1442,7 +1442,9 @@ class Fader():
                                      entry: Any,
                                      count: int,
                                      ) -> int:
-        r'Returns the index of the nth occurence of an element in a list.'
+        r"""Returns the index of the nth occurence of an element in a
+        :obj:`list`.
+        """
         return tuple(index for index, item in enumerate(input_list)
                      if item == entry)[count]
 
@@ -1658,9 +1660,10 @@ class Fader():
 
     @property
     def _done(self) -> bool:
-        r"""Boolean indicating whether the process is done, which is when the
-        mask is filled with ``1``'s with ``fader_type`` set to ``'in'`` or when
-        the mask is filled with ``0``'s with ``fader_type`` set to ``'out'``.
+        r""":obj:`bool` indicating whether the process is done, which is when
+        the mask is filled with ``1``'s with ``fader_type`` set to ``'in'`` or
+        when the mask is filled with ``0``'s with ``fader_type`` set to
+        ``'out'``.
         """
         if self._fader_type == 'out':
             if self._include_empty_measures:

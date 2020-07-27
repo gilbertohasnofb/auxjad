@@ -12,8 +12,8 @@ from .TenneySelector import TenneySelector
 
 class PitchRandomiser:
     r"""This class takes an input |abjad.Container| (or child class) and a
-    series of pitches and randomises the container's pitches using that list.
-    The pitches can be of type ``list``, ``tuple``, ``str``, or
+    series of pitches and randomises the container's pitches using that series.
+    The pitches can be of type :obj:`list`, :obj:`tuple`, :obj:`str`, or
     |abjad.PitchSegment|.
 
     Basic usage:
@@ -133,10 +133,10 @@ class PitchRandomiser:
     Arguments and properties:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below. ``weights`` takes a list of ``int``'s or ``float``'s
-        representing the weight of each pitch from ``pitches`` (their lengthes
-        must also match). ``omit_time_signatures`` will remove all time
-        signatures from the output (both are ``False`` by default).
+        below. ``weights`` takes a :obj:`list` of :obj:`int`'s or
+        :obj:`float`'s representing the weight of each pitch from ``pitches``
+        (their lengths must also match). ``omit_time_signatures`` will remove
+        all time signatures from the output (both are ``False`` by default).
         ``process_on_first_call`` to ``True`` and the random pitch process
         will be applied on the very first call. Setting ``use_tenney_selector``
         to ``True`` will make the randomiser use :class:`auxjad.TenneySelector`
@@ -281,7 +281,8 @@ class PitchRandomiser:
 
     ``weights``:
         Individual pitches can have different weights, defined by the
-        ``weights`` property. It takes a ``list`` of ``float``'s or ``int``'s.
+        ``weights`` property. It takes a :obj:`list` of :obj:`float`'s or
+        :obj:`int`'s.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
         >>> pitches = r"fs' gs' a' b'"
@@ -380,10 +381,11 @@ class PitchRandomiser:
         .. figure:: ../_images/image-PitchRandomiser-13.png
 
     Changing ``pitches``:
-        When using a custom list of ``weights``, changing the ``pitches`` to a
-        series of new values with the same length will preserve the ``weights``
-        values. If on the other hand ``pitches`` changes in length, ``weights``
-        is reset to ``None`` (i.e. uniform distribution).
+        When using a custom :obj:`list` of ``weights``, changing the
+        ``pitches`` to a series of new values with the same length will
+        preserve the ``weights`` values. If on the other hand ``pitches``
+        changes in length, ``weights`` is reset to ``None`` (i.e. uniform
+        distribution).
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
         >>> pitches = r"fs' gs' a' b'"
@@ -767,7 +769,7 @@ class PitchRandomiser:
 
     @property
     def weights(self) -> list:
-        r'The ``list`` with weights for each element of ``pitches``'
+        r'The :obj:`list` with weights for each element of ``pitches``'
         return self._weights
 
     @weights.setter

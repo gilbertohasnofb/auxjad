@@ -22,7 +22,7 @@ def repeat_container(container: abjad.Container,
 
     Basic usage:
         The required arguments are an |abjad.Container| (or child class) and
-        and integer n for the number of repetitions.
+        and :obj:`int` for the number of repetitions.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> output_container = auxjad.repeat_container(container, 3)

@@ -116,7 +116,7 @@ class Phaser():
 
     ``step_size``:
         The optional argument ``step_size`` can be used to step sizes for the
-        phasing process. It takes a tuple or an |abjad.Duration|.
+        phasing process. It takes a :obj:`tuple` or an |abjad.Duration|.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -1537,8 +1537,8 @@ class Phaser():
 
     @property
     def _done(self) -> bool:
-        r"""Boolean indicating whether the process is done (i.e. whether the
-        pivot point has overtaken the ``contents`` length). Only
+        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        the pivot point has overtaken the ``contents`` length). Only
         ``__next__()`` and ``output_all()`` make use of it, since regular calls
         make use of the module of the position of the pivot point in relation
         to the duration of ``contents``, allowing for infinitely many calls.

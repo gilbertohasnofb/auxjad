@@ -246,15 +246,15 @@ def remove_repeated_dynamics(container: abjad.Container,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-12.png
 
-    ``reset_after_rests`` and non-boolean values:
-        The argument ``reset_after_rests`` takes not only boolean values but
-        also duration (|abjad.Duration|, ``tuple``, ``float``, etc.). This
-        sets the maximum length of rests before which identical dynamics are
-        restated. If the total length of rests falls below that value, then
-        repeated dynamics are removed.
+    ``reset_after_rests`` and non-:obj:`bool` values:
+        The argument ``reset_after_rests`` takes not only :obj:`bool` values
+        but also durations (|abjad.Duration|, :obj:`tuple`, :obj:`float`,
+        etc.). This sets the maximum length of rests before which identical
+        dynamics are restated. If the total length of rests falls below that
+        value, then repeated dynamics are removed.
 
         In the case below, a rest of ``r2``. is shorter than a duration of
-        (4, 4), so the repeated dynamic is removed.
+        ``(4, 4)``, so the repeated dynamic is removed.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=(4, 4))

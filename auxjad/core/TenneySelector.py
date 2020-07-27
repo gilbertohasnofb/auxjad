@@ -5,9 +5,9 @@ from typing import Any, Optional, Union
 class TenneySelector():
     r"""This class is an implementation of the Dissonant Counterpoint Algorithm
     by James Tenney. This class can be used to randomly select elements from an
-    input list, giving more weight to elements which have not been selected in
-    recent iterations. In other words, Tenney's algorithm uses feedback in
-    order to lower the weight of recently selected elements.
+    input :obj:`list`, giving more weight to elements which have not been
+    selected in recent iterations. In other words, Tenney's algorithm uses
+    feedback in order to lower the weight of recently selected elements.
 
     This implementation is based on the paper: Polansky, L., A. Barnett, and
     M. Winter (2011). 'A Few More Words About James Tenney: Dissonant
@@ -15,21 +15,22 @@ class TenneySelector():
     Music 5(2). pp. 63--82.
 
     Basic usage:
-        The selector should be initialised with a list of objects. The elements
-        of this list can be of any type.
+        The selector should be initialised with a :obj:`list`. The  elements of
+        this :obj:`list` can be of any type.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> selector.contents
         ['A', 'B', 'C', 'D', 'E', 'F']
 
         Applying the :func:`len()` function to the selector will return the
-        length of the input list.
+        length of the input :obj:`list`.
 
         >>> len(selector)
         6
 
         When no other keyword arguments are used, the default probabilities of
-        each element in the list is ``1.0``. Probabilities are not normalised.
+        each element in the :obj:`list` is ``1.0``. Probabilities are not
+        normalised.
 
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
@@ -91,9 +92,9 @@ class TenneySelector():
     Arguments and properties:
         This class can take two optional keywords argument during its
         instantiation, namely ``weights`` and ``curvature``. ``weights`` takes
-        a list of floats with the individual weights of each element; by
-        default, all weights are set to 1.0. These weights affects the
-        effective probability of each element. The other argument,
+        a :obj:`list` of :obj:`float` with the individual weights of each
+        element; by default, all weights are set to 1.0. These weights affects
+        the effective probability of each element. The other argument,
         ``curvature``, is the exponent of the growth function for all elements.
         The growth function takes as input the number of iterations since an
         element has been last selected, and raise this number by the curvature
@@ -324,8 +325,8 @@ class TenneySelector():
         False
 
     Changing ``contents`` resets ``probabilities`` and ``weights``:
-        A new list of an arbitrary length can be set at any point using the
-        property ``contents``. Do notice that both ``probabilities`` and
+        A new :obj:`list` of an arbitrary length can be set at any point using
+        the property ``contents``. Do notice that both ``probabilities`` and
         ``weights`` will be reset at that point.
 
         >>> selector = auxjad.TenneySelector(
@@ -487,7 +488,7 @@ class TenneySelector():
 
     @property
     def contents(self) -> list:
-        r'The ``list`` from which the selector picks elements.'
+        r'The :obj:`list` from which the selector picks elements.'
         return self._contents
 
     @contents.setter
@@ -502,7 +503,7 @@ class TenneySelector():
 
     @property
     def weights(self) -> list:
-        r'The ``list`` with weights for each element of ``contents``.'
+        r'The :obj:`list` with weights for each element of ``contents``.'
         return self._weights
 
     @weights.setter

@@ -4,7 +4,7 @@ import abjad
 def leaves_are_tieable(leaf1: abjad.Leaf,
                        leaf2: abjad.Leaf,
                        ) -> bool:
-    r"""Returns a ``bool`` representing whether or not two input leaves (of
+    r"""Returns a :obj:`bool` representing whether or not two input leaves (of
     type |abjad.Leaf| or child class) have identical pitch(es) and thus can
     be tied.
 

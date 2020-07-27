@@ -17,9 +17,9 @@ functions (e.g. to check whether a container satisfy some condition).
 Below is the full list of functions included in |utilities|_. Click on their
 names for their individual documentation.
 
-.. |auxjad| replace:: ``auxjad``
+.. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html
-.. |utilities| replace:: ``utilities``
+.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
 .. _utilities: api-utilities.html
 
 .. autosummary::

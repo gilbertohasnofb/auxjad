@@ -16,9 +16,9 @@ natural harmonics.
 Below is the full list of classes included in |score|_. Click on their names
 for their individual documentation.
 
-.. |auxjad| replace:: ``auxjad``
+.. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html
-.. |score| replace:: ``score``
+.. |score| replace:: :mod:`score <auxjad.score>`
 .. _score: api-score.html
 
 .. autosummary::

@@ -1,10 +1,10 @@
 Hocket with random pitches
 ==========================
 
-In this example, we will use some of ``auxjad``'s classes to generate a hocket
+In this example, we will use some of |auxjad|_'s classes to generate a hocket
 with random pitches.
 
-First, we start by importing both ``abjad`` and ``auxjad``.
+First, we start by importing both :mod:`abjad` and |auxjad|_.
 
     >>> import abjad
     >>> import auxjad
@@ -364,3 +364,6 @@ To create the final score, we can simply assign its return value to an
     >>
 
 .. figure:: ../_images/image-example-4-hocket-with-random-pitches-5.png
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: ../api/index.html

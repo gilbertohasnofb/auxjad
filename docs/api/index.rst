@@ -28,13 +28,13 @@ in the navigation pane in the left.
 | |utilities|_ | utility functions                                          |
 +--------------+------------------------------------------------------------+
 
-.. |auxjad| replace:: ``auxjad``
+.. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html
-.. |core| replace:: ``core``
+.. |core| replace:: :mod:`core <auxjad.core>`
 .. _core: api-core.html
-.. |score| replace:: ``score``
+.. |score| replace:: :mod:`score <auxjad.score>`
 .. _score: api-score.html
-.. |utilities| replace:: ``utilities``
+.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
 .. _utilities: api-utilities.html
 
 .. toctree::

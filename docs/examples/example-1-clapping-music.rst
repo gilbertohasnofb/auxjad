@@ -1,10 +1,10 @@
 Steve Reich's *Clapping Music*
 ==============================
 
-In this example, we will use some of ``auxjad``'s classes and functions to
+In this example, we will use some of |auxjad|_'s classes and functions to
 generate the score of Steve Reich's *Clapping Music*.
 
-First, we start by importing both ``abjad`` and ``auxjad``.
+First, we start by importing both :mod:`abjad` and |auxjad|_.
 
     >>> import abjad
     >>> import auxjad
@@ -1063,3 +1063,6 @@ score should have a single end repetition bar line.
     >>
 
 .. figure:: ../_images/image-example-1-clapping-music-5.png
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: ../api/index.html

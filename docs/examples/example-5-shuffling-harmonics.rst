@@ -1,11 +1,11 @@
 Shuffling and fading harmonics
 ==============================
 
-In this example, we will use some of ``auxjad``'s classes to manipulate
+In this example, we will use some of |auxjad|_'s classes to manipulate
 some musical material using the :class:`auxjad.Shuffler` and
 :class:`auxjad.Fader` classes.
 
-First, we start by importing both ``abjad`` and ``auxjad``.
+First, we start by importing both :mod:`abjad` and |auxjad|_.
 
     >>> import abjad
     >>> import auxjad
@@ -917,3 +917,6 @@ calls may result in repetitions. But we can simply use
     }
 
 .. figure:: ../_images/image-example-5-shuffling-harmonics-5.png
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: ../api/index.html

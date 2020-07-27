@@ -2,9 +2,9 @@ Examples of usage
 =================
 
 In this page you will find some practical examples showcasing the types of
-algorithmic manipulation that ``auxjad`` can accomplish. These examples do not
+algorithmic manipulation that |auxjad|_ can accomplish. These examples do not
 make use of all functions and classes, nor do they show all the features of the
-ones that are used. Please refer to ``auxjad``'s API in the left pane for the
+ones that are used. Please refer to |auxjad|_'s API in the left pane for the
 documentation of specific functions and classes.
 
 .. toctree::
@@ -16,3 +16,6 @@ documentation of specific functions and classes.
     example-3-looping
     example-4-hocket-with-random-pitches
     example-5-shuffling-harmonics
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: ../api/index.html

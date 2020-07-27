@@ -1,11 +1,11 @@
 Looping with :class:`auxjad.WindowLooper`
 =========================================
 
-In this next example, we will use some of ``auxjad``'s classes to generate
+In this next example, we will use some of |auxjad|_'s classes to generate
 a container of randomly selected material, and then use this material as input
 for the looping and shuffling classes.
 
-First, we start by importing both ``abjad`` and ``auxjad``.
+First, we start by importing both :mod:`abjad` and |auxjad|_.
 
     >>> import abjad
     >>> import auxjad
@@ -19,7 +19,7 @@ durations, dynamics, and articulations, the example will use
 :class:`auxjad.CartographySelector`. Each element input into this type of
 selector has a probability of being selected which is dependent on its index.
 By default, the probability of consecutive elements decay with a rate of 0.75.
-For more information on both of these classes, check the ``auxjad`` API page
+For more information on both of these classes, check the |auxjad|_ API page
 (link in the left panel).
 
     >>> pitch_selector = auxjad.TenneySelector([0, 7, 8, 2, 3, 10])
@@ -837,3 +837,6 @@ at that transition. The final result is shown below.
     }
 
 .. figure:: ../_images/image-example-3-looping-6.png
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: ../api/index.html

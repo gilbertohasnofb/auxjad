@@ -5,7 +5,7 @@ In this first example, we will use the class :class:`auxjad.LeafLooper` to loop
 through some musical material. This class creates subselections of logical
 ties and has a looping window of variable size.
 
-First, we start by importing both ``abjad`` and ``auxjad``.
+First, we start by importing both :mod:`abjad` and |auxjad|_.
 
     >>> import abjad
     >>> import auxjad
@@ -70,7 +70,7 @@ of time signatures.
         e''16
     }
 
-    .. figure:: ../_images/image-example-2-looping-1.png
+.. figure:: ../_images/image-example-2-looping-1.png
 
 At this point, we can create the :class:`auxjad.LeafLooper` and initialise it
 using the material we generated above. A ``window_size`` of size ``4`` will
@@ -132,7 +132,7 @@ process for us. In this case, let's output seven measures.
         d'''4
     }
 
-    .. figure:: ../_images/image-example-2-looping-2.png
+.. figure:: ../_images/image-example-2-looping-2.png
 
 At this point, let's change the ``window_size`` to a smaller value and output
 some more measures.
@@ -208,4 +208,7 @@ This is the final result.
         e''16
     }
 
-    .. figure:: ../_images/image-example-2-looping-3.png
+.. figure:: ../_images/image-example-2-looping-3.png
+
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: ../api/index.html

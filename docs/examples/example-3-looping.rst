@@ -88,8 +88,8 @@ API for more information.
     ...                              step_size=(1, 4),
     ...                              )
 
-We can now use the ``output_n()`` to output several measures of the looping
-process for us. In this case, let's output six measures.
+We can now use the :meth:`~auxjad.WindowLooper.output_n` to output several
+measures of the looping process for us. In this case, let's output six measures.
 
     >>> staff = abjad.Staff()
     >>> notes = looper.output_n(6)
@@ -163,8 +163,8 @@ process for us. In this case, let's output six measures.
 
 .. figure:: ../_images/image-example-3-looping-2.png
 
-Let's now change the value of ``step_size`` from a crotchet into a semiquaver
-and output six more measures.
+Let's now change the value of :attr:`~auxjad.WindowLooper.step_size` from a
+crotchet into a semiquaver and output six more measures.
 
     >>> looper.step_size = (1, 16)
     >>> notes = looper.output_n(6)
@@ -368,10 +368,11 @@ and output six more measures.
 
 .. figure:: ../_images/image-example-3-looping-3.png
 
-Notice that the time signature has been repeated. While the ``output_n()``
-method takes care of repeated time signatures, dynamics, and clefs, consecutive
-calls may result in repetitions. But we can simply use
-:func:`auxjad.remove_repeated_time_signatures()` to take care of that for us.
+Notice that the time signature has been repeated. While the method
+:meth:`~auxjad.WindowLooper.output_n()` takes care of repeated time signatures,
+dynamics, and clefs, consecutive calls may result in repetitions. But we can
+simply use :func:`auxjad.remove_repeated_time_signatures()` to take care of
+that for us.
 
     >>> auxjad.remove_repeated_time_signatures(staff)
     >>> abjad.f(staff)
@@ -507,7 +508,8 @@ calls may result in repetitions. But we can simply use
 
 .. figure:: ../_images/image-example-3-looping-4.png
 
-Let's now change the window size and output some more measures.
+Let's now change the :attr:`~auxjad.WindowLooper.window_size` and output some
+more measures.
 
     >>> looper.window_size = (3, 4)
     >>> notes = looper.output_n(6)
@@ -673,10 +675,11 @@ Let's now change the window size and output some more measures.
 .. figure:: ../_images/image-example-3-looping-5.png
 
 At this point, let's use :func:`auxjad.remove_repeated_dynamics()` to remove
-all repeated dynamics. While the method ``output_n()`` removes repeated
-dynamics, clefs, and time signatures, this is necessary because our example
-invoked ``output_n()`` multiple times, and there is a repetition of a dynamic
-at that transition. The final result is shown below.
+all repeated dynamics. While the method :meth:`~auxjad.WindowLooper.output_n()`
+removes repeated dynamics, clefs, and time signatures, this is necessary
+because our example invoked :meth:`~auxjad.WindowLooper.output_n()` multiple
+times, and there is a repetition of a dynamic at that transition. The final
+result is shown below.
 
     >>> auxjad.remove_repeated_dynamics(staff)
     >>> abjad.f(staff)

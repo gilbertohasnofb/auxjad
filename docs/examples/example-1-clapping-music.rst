@@ -12,7 +12,7 @@ First, we start by importing both :mod:`abjad` and |auxjad|_.
 Let's now input the basic material that will be used to generate this
 composition. The original score is notated using a rhythmic staff, so we can
 initialise |abjad.Staff| with the property
-:attr:`lilypond_type <abjad.core.Staff.Staff.lilypond_type>`. set to
+:attr:`lilypond_type <abjad.core.Staff.Staff.lilypond_type>` set to
 ``"RhythmicStaff"``.
 
     >>> material = abjad.Staff(r"\time 12/8 c8 c c r c c r c r c c r",
@@ -40,15 +40,16 @@ initialise |abjad.Staff| with the property
 
 Next, we create an instance of :class:`auxjad.Phaser` which will be used to
 create the phasing process of the initial material. We initialise it with
-``material`` as well as a ``step_size`` of the length of a quaver.
+``material`` as well as a :attr:`~auxjad.Phaser.step_size` of the length of a
+quaver.
 
     >>> phaser = auxjad.Phaser(material,
     ...                        step_size=abjad.Duration((1, 8)),
     ...                        )
 
 Since Reich's composition phases the material until it is back at its initial
-position, we can use the method ``output_all()`` to generate all thirteen
-measures of the bottom staff.
+position, we can use the method :meth:`~auxjad.Phaser.output_all` to generate
+all thirtee measures of the bottom staff.
 
     >>> notes = phaser.output_all()
     >>> phased_staff = abjad.Staff(notes,

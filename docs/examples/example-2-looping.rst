@@ -73,13 +73,14 @@ take care of time signatures.
 .. figure:: ../_images/image-example-2-looping-1.png
 
 At this point, we can create the :class:`auxjad.LeafLooper` and initialise it
-using the material we generated above. A ``window_size`` of size ``4`` will
-select four notes at each iteration.
+using the material we generated above. A :attr:`~auxjad.LeafLooper.window_size`
+of size ``4`` will select four notes at each iteration.
 
     >>> looper = auxjad.LeafLooper(container, window_size=4)
 
-We can now use the ``output_n()`` to output several measures of the looping
-process for us. In this case, let's output seven measures.
+We can now use the :meth:`~auxjad.LeafLooper.output_n` to output several
+measures of the looping process for us. In this case, let's output seven
+measures.
 
     >>> staff = abjad.Staff(looper.output_n(7))
     >>> abjad.f(container)
@@ -134,8 +135,8 @@ process for us. In this case, let's output seven measures.
 
 .. figure:: ../_images/image-example-2-looping-2.png
 
-At this point, let's change the ``window_size`` to a smaller value and output
-some more measures.
+At this point, let's change the :attr:`~auxjad.LeafLooper.window_size` to a
+smaller value and output some more measures.
 
     >>> looper.window_size = 2
     >>> staff.append(looper.output_n(4))

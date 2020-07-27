@@ -98,8 +98,8 @@ will randomly shuffle the logical ties of the input container.
     ...                            disable_rewrite_meter=True,
     ...                            )
 
-We can now use the method ``shuffle_n()`` to generate some measures of shuffled
-logical ties.
+We can now use the method :meth:`~auxjad.Shuffler.shuffle_n` to generate some
+measures of shuffled logical ties.
 
     >>> staff = abjad.Staff()
     >>> notes = shuffler.shuffle_n(4)
@@ -262,10 +262,11 @@ logical ties.
 .. figure:: ../_images/image-example-5-shuffling-harmonics-3.png
 
 We can now grab the last window output by shuffler and use it as the input
-container of a :class:`auxjad.Fader`. When its ``fader_type`` is set to
-``'out'``, it will remove a logical tie one by one at each iteration. Note how
-:class:`auxjad.Fader` removes the notes of chords one by one, but consider an
-:class:`auxjad.ArtificialHarmonic` as a single note.
+container of a :class:`auxjad.Fader`. When its property
+:attr:`~auxjad.Fader.fader_type` is set to ``'out'``, it will remove a logical
+tie one by one at each iteration. Note how :class:`auxjad.Fader` removes the
+notes of chords one by one, but consider an :class:`auxjad.ArtificialHarmonic`
+as a single note.
 
     >>> container = abjad.Container(shuffler.current_window)
     >>> fader = auxjad.Fader(container, fader_type='out')
@@ -637,10 +638,11 @@ are less ideally notated than they could.
 specific rules, improving the default output of
 |abjad.mutate().rewrite_meter()|.
 
-Notice that the time signature has been repeated. While the ``output_n()``
-method takes care of repeated time signatures, dynamics, and clefs, consecutive
-calls may result in repetitions. But we can simply use
-:func:`auxjad.remove_repeated_time_signatures()` to take care of that for us.
+Notice that the time signature has been repeated. While the method
+:meth:`~auxjad.Fader.output_all()` takes care of repeated time signatures,
+dynamics, and clefs, consecutive calls may result in repetitions. But we can
+simply use :func:`auxjad.remove_repeated_time_signatures()` to take care of
+that for us.
 
     >>> auxjad.prettify_rewrite_meter(staff, meter=abjad.Meter((4, 4)))
     >>> auxjad.remove_repeated_time_signatures(staff)

@@ -59,7 +59,7 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-2.png
 
-        The property ``current_window`` can be used to access the current
+        The property :attr:`current_window` can be used to access the current
         window without moving the head forwards.
 
         >>> notes = phaser.current_window()
@@ -83,11 +83,11 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-3.png
 
-    ``process_on_first_call``:
+    :attr:`process_on_first_call`:
         The very first call will output the input container without processing
         it. To disable this behaviour and phase on the very first call,
         initialise the class with the keyword argument
-        ``process_on_first_call`` set to ``True``.
+        :attr:`process_on_first_call` set to ``True``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -114,9 +114,9 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-4.png
 
-    ``step_size``:
-        The optional argument ``step_size`` can be used to step sizes for the
-        phasing process. It takes a :obj:`tuple` or an |abjad.Duration|.
+    :attr:`step_size`:
+        The optional argument :attr:`step_size` can be used to step sizes for
+        the phasing process. It takes a :obj:`tuple` or an |abjad.Duration|.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -160,10 +160,10 @@ class Phaser():
     Using as iterator:
         The instances of :class:`Phaser` can also be used as an iterator, which
         can then be used in a for loop to phase through a full cycle. Note that
-        unlike the methods ``output_n()`` and ``output_all()``, time signatures
-        are added to each window returned by the shuffler. Use the function
-        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
-        when using :class:`Phaser` in this way.
+        unlike the methods :meth:`output_n` and :meth:`output_all`, time
+        signatures are added to each window returned by the shuffler. Use the
+        function :func:`auxjad.remove_repeated_time_signatures()` to clean the
+        output when using :class:`Phaser` in this way.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
         >>> phaser = auxjad.Phaser(container,
@@ -210,26 +210,27 @@ class Phaser():
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
-        creation, besides ``step_size``. ``max_steps`` sets
-        the maximum number of steps that can be applied for a single call,
-        ranging between ``1`` and the input value (default is also ``1``); if
-        ``max_steps`` is set to a value larger than 1, the number of steps at
-        every call will be randomly chosen. ``forward_bias`` sets the chance of
-        the process moving forward instead of backwards. It should range from
-        ``0.0`` to ``1.0`` (default ``1.0``, which means the process can only
-        move forwards. A value of ``0.5`` gives 50% chance of moving forwards
-        while a value of ``0.0`` will result in the process moving only
-        backwards). By default, when a logical tie is split in between windows,
-        any unterminated ties will be removed; set ``remove_unterminated_ties``
+        creation, besides :attr:`step_size`. :attr:`max_steps` sets the maximum
+        number of steps that can be applied for a single call, ranging between
+        ``1`` and the input value (default is also ``1``); if :attr:`max_steps`
+        is set to a value larger than 1, the number of steps at every call will
+        be randomly chosen. :attr:`forward_bias` sets the chance of the process
+        moving forward instead of backwards. It should range from ``0.0`` to
+        ``1.0`` (default ``1.0``, which means the process can only move
+        forwards. A value of ``0.5`` gives 50% chance of moving forwards while
+        a value of ``0.0`` will result in the process moving only backwards).
+        By default, when a logical tie is split in between windows, any
+        unterminated ties will be removed; set :attr:`remove_unterminated_ties`
         to ``False`` to disable this behaviour. The properties
-        ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
-        passed as arguments to |abjad.mutate().rewrite_meter()|, see its
-        documentation for more information. By default, calling the object will
-        first return the original container and subsequent  calls will process
-        it; set ``process_on_first_call`` to ``True`` and the looping process
-        will be applied on the very first call. Setting the property
-        ``omit_time_signatures`` to ``True`` will remove all time signatures
-        from the output (``False`` by default).
+        :attr:`boundary_depth`, :attr:`maximum_dot_count`, and
+        :attr:`rewrite_tuplets` are passed as arguments to
+        |abjad.mutate().rewrite_meter()|, see its documentation for more
+        information. By default, calling the object will first return the
+        original container and subsequent  calls will process it; set
+        :attr:`process_on_first_call` to ``True`` and the looping process will
+        be applied on the very first call. Setting the property
+        :attr:`omit_time_signatures` to ``True`` will remove all time
+        signatures from the output (``False`` by default).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -292,9 +293,9 @@ class Phaser():
         >>> phaser.process_on_first_call
         False
 
-    Setting ``forward_bias`` to ``0.0``:
-        Set ``forward_bias`` to ``0.0`` to move backwards instead of forwards
-        (default is ``1.0``).
+    Setting :attr:`forward_bias` to ``0.0``:
+        Set :attr:`forward_bias` to ``0.0`` to move backwards instead of
+        forwards (default is ``1.0``).
 
         >>> container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
         >>> phaser = auxjad.Phaser(container)
@@ -350,10 +351,10 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-9.png
 
-    ``forward_bias`` between ``0.0`` and ``1.0``:
-        Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
-        result in random steps being taken forward or backward, according to
-        the bias.
+    :attr:`forward_bias` between ``0.0`` and ``1.0``:
+        Setingt :attr:`forward_bias` to a value in between ``0.0`` and ``1.0``
+        will result in random steps being taken forward or backward, according
+        to the bias.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -390,10 +391,10 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-10.png
 
-    ``max_steps``:
-        Setting the keyword argument ``max_steps`` to a value larger than ``1``
-        will result in a random number of steps (between ``1`` and
-        ``max_steps``) being applied at each call.
+    :attr:`max_steps`:
+        Setting the keyword argument :attr:`max_steps` to a value larger than
+        ``1`` will result in a random number of steps (between ``1`` and
+        :attr:`max_steps`) being applied at each call.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> phaser = auxjad.Phaser(container,
@@ -471,10 +472,10 @@ class Phaser():
         >>> len(phaser)
         3
 
-    ``output_all()``:
+    :meth:`output_all`:
         To run through the whole process and output it as a single container,
         from the initial head position until the process outputs the single
-        last element, use the method ``output_all()``.
+        last element, use the method :meth:`output_all`.
 
         >>> container = abjad.Container(r"\time 3/4 c'4. d'4.")
         >>> phaser = auxjad.Phaser(container,
@@ -501,9 +502,9 @@ class Phaser():
         .. figure:: ../_images/image-Phaser-12.png
 
     ``cycle_back_to_first``:
-        By default, ``output_all()`` will cycle back to the very first window.
-        To stop at the iteration step just before looping back to the initial
-        container, set the keyword argument ``cycle_back_to_first`` to
+        By default, :meth:`output_all` will cycle back to the very first
+        window. To stop at the iteration step just before looping back to the
+        initial container, set the keyword argument ``cycle_back_to_first`` to
         ``False``.
 
         >>> container = abjad.Container(r"\time 3/4 c'4. d'4.")
@@ -528,10 +529,10 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-13.png
 
-    ``output_n()``:
+    :meth:`output_n`:
         To run through just part of the process and output it as a single
         container, starting from the initial head position, use the method
-        ``output_n()`` and pass the number of iterations as argument.
+        :meth:`output_n` and pass the number of iterations as argument.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -573,13 +574,13 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-14.png
 
-    ``remove_unterminated_ties``:
-        All methods that call the phasing process (``__call__()``,
-        ``__next__()``, ``output_all()``, ``output_n()``) remove unterminated
-        ties at the end of a selection, which are a result of a logical tie
-        being split at that point. Use the optional keyword argument
-        ``remove_unterminated_ties=False`` when initialising the phaser to
-        disable this behaviour.
+    :attr:`remove_unterminated_ties`:
+        All methods that call the phasing process (:meth:`__call__`,
+        :meth:`__next__`, :meth:`output_all`, :meth:`output_n`) remove
+        unterminated ties at the end of a selection, which are a result of a
+        logical tie being split at that point. Use the optional keyword
+        argument ``remove_unterminated_ties=False`` when initialising the
+        phaser to disable this behaviour.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container,
@@ -877,10 +878,10 @@ class Phaser():
         containing them are split into two. As a rule of thumb, it is always
         better to attach those to the music after the fading process has ended.
 
-    ``contents``:
-        Use the ``contents`` property to read as well as overwrite the contents
-        of the phaser. Notice that the phasing process will start from the
-        beginning of the new container.
+    :attr:`contents`:
+        Use the :attr:`contents` property to read as well as overwrite the
+        contents of the phaser. Notice that the phasing process will start from
+        the beginning of the new container.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> phaser = auxjad.Phaser(container)
@@ -973,7 +974,8 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-23.png
 
-        Set ``boundary_depth`` to a different number to change its behaviour.
+        Set :attr:`boundary_depth` to a different number to change its
+        behaviour.
 
         >>> phaser = auxjad.Phaser(container,
         ...                        boundary_depth=1,
@@ -994,14 +996,14 @@ class Phaser():
         .. figure:: ../_images/image-Phaser-24.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are ``maximum_dot_count`` and
-        ``rewrite_tuplets``, which work exactly as the identically named
+        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        :attr:`rewrite_tuplets`, which work exactly as the identically named
         arguments of |abjad.mutate().rewrite_meter()|.
 
-    ``omit_time_signatures``:
+    :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
-        keyword argument ``omit_time_signatures`` set to ``True`` (default is
-        ``False``), or use the ``omit_time_signatures`` property after
+        keyword argument :attr:`omit_time_signatures` set to ``True`` (default
+        is ``False``), or use the :attr:`omit_time_signatures` property after
         initialisation.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
@@ -1035,7 +1037,7 @@ class Phaser():
     ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
-        signature to it. The ``output_n()`` and ``output_all()`` methods
+        signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
         :func:`auxjad.remove_repeated_time_signatures()` on the whole container
@@ -1151,11 +1153,13 @@ class Phaser():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  ``contents``.'
+        r'Returns interpreter representation of  :attr:`contents`.'
         return format(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the length of ``contents`` in terms of ``step_size``.'
+        r"""Returns the length of :attr:`contents` in terms of
+        :attr:`step_size`.
+        """
         proportion = self._contents_length / self._step_size
         return int(proportion * proportion.denominator)
 
@@ -1275,7 +1279,7 @@ class Phaser():
         dummy_container[:] = []
 
     def _phase_contents(self) -> abjad.Container:
-        r"""This method phases ``contents`` using ``_pivot_point`` as the
+        r"""This method phases :attr:`contents` using ``_pivot_point`` as the
         pivot point.
         """
         dummy_container = abjad.mutate(self._contents).copy()
@@ -1520,7 +1524,7 @@ class Phaser():
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then the ``contents`` will be processed in the very
+        r"""If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -1538,10 +1542,11 @@ class Phaser():
     @property
     def _done(self) -> bool:
         r""":obj:`bool` indicating whether the process is done (i.e. whether
-        the pivot point has overtaken the ``contents`` length). Only
-        ``__next__()`` and ``output_all()`` make use of it, since regular calls
-        make use of the module of the position of the pivot point in relation
-        to the duration of ``contents``, allowing for infinitely many calls.
+        the pivot point has overtaken the :attr:`contents`'s length). Only
+        :meth:`__next__` and :meth:`output_all` make use of it, since regular
+        calls make use of the module of the position of the pivot point in
+        relation to the duration of :attr:`contents`, allowing for infinitely
+        many calls.
         """
         return (self._pivot_point >= self._contents_length
                 or self._pivot_point <= -self._contents_length)

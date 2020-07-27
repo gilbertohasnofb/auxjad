@@ -161,9 +161,9 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-5.png
 
-    ``current_window``:
+    :attr:`current_window`:
         To get the result of the last operation, use the property
-        ``current_window``.
+        :attr:`current_window`.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> hocketer = auxjad.Hocketer(container)
@@ -216,20 +216,22 @@ class Hocketer():
     Arguments and properties:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below. ``weights`` set the individual weight of a given voice (must
-        be a :obj:`list` of length equal to ``n_voices``). ``k`` defines the
-        number of times that the process is applied to each logical tie.
-        Setting ``force_k_voices`` to ``True`` ensure that a single logical tie
-        is distributed to exactly ``k`` voices. ``disable_rewrite_meter``
-        disables the |abjad.mutate().rewrite_meter()| mutation which is applied
-        to the container after every call. Any measure filled with rests will
-        be rewritten using a multi-measure rest; set the
-        ``use_multimeasure_rests`` to ``False`` to disable this behaviour. The
-        properties ``boundary_depth``, ``maximum_dot_count``, and
-        ``rewrite_tuplets`` are passed as arguments to
+        below. :attr:`weights` set the individual weight of a given voice (must
+        be a :obj:`list` of length equal to :attr:`n_voices`). :attr:`k`
+        defines the number of times that the process is applied to each logical
+        tie. Setting :attr:`force_k_voices` to ``True`` ensure that a single
+        logical tie is distributed to exactly :attr:`k` voices.
+        :attr:`disable_rewrite_meter` disables the
+        |abjad.mutate().rewrite_meter()| mutation which is applied to the
+        container after every call. Any measure filled with rests will be
+        rewritten using a multi-measure rest; set the
+        :attr:`use_multimeasure_rests` to ``False`` to disable this behaviour.
+        The properties :attr:`boundary_depth`, :attr:`maximum_dot_count`, and
+        :attr:`rewrite_tuplets` are passed as arguments to
         |abjad.mutate().rewrite_meter()|, see its documentation for more
-        information. Setting the property ``omit_time_signatures`` to ``True``
-        will remove all time signatures from the output (``False`` by default).
+        information. Setting the property :attr:`omit_time_signatures` to
+        ``True`` will remove all time signatures from the output (``False`` by
+        default).
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 | f'4 g'4 a'4")
         >>> hocketer = auxjad.Hocketer(container,
@@ -298,9 +300,9 @@ class Hocketer():
         >>> hocketer.rewrite_tuplets
         True
 
-    ``n_voices``:
-        Use the optional argument ``n_voices`` to set the number of different
-        staves in the output (default is 2).
+    :attr:`n_voices`:
+        Use the optional argument :attr:`n_voices` to set the number of
+        different staves in the output (default is 2).
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> hocketer = auxjad.Hocketer(container, n_voices=3)
@@ -347,14 +349,14 @@ class Hocketer():
         >>> len(hocketer)
         6
 
-    ``weights``:
-        Set ``weights`` to a :obj:`list` of numbers (either :obj:`float` or
+    :attr:`weights`:
+        Set :attr:`weights` to a :obj:`list` of numbers (either :obj:`float` or
         :obj:`int`) to give different weights to each voice. By default, all
-        voices have equal weight. The :obj:`list` in ``weights`` must have the
-        same length as the number of voices. In the example below, ``weights``
-        is a :obj:`list` of length ``2`` (matching the default two voices). The
-        second voice has a higher weight to it, and receives more notes from
-        the hocket process as expected.
+        voices have equal weight. The :obj:`list` in :attr:`weights` must have
+        the same length as the number of voices. In the example below,
+        :attr:`weights` is a :obj:`list` of length ``2`` (matching the default
+        two voices). The second voice has a higher weight to it, and receives
+        more notes from the hocket process as expected.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> hocketer = auxjad.Hocketer(container,
@@ -389,7 +391,7 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-9.png
 
-        Use the method ``reset_weights()`` to reset the weights back to their
+        Use the method :meth:`reset_weights` to reset the weights back to their
         default values.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
@@ -402,12 +404,12 @@ class Hocketer():
         >>> hocketer.weights
         [1.0, 1.0]
 
-    ``k``:
-        The argument ``k`` is an :obj:`int` defining the number of times that
-        the process is applied to each logical tie. By default, ``k`` is set to
-        ``1``, so each logical tie is assigned to a single voice. Changing this
-        to a higher value will increase the chance of a logical tie appearing
-        for up to ``k`` different voices.
+    :attr:`k`:
+        The argument :attr:`k` is an :obj:`int` defining the number of times
+        that the process is applied to each logical tie. By default, :attr:`k`
+        is set to ``1``, so each logical tie is assigned to a single voice.
+        Changing this to a higher value will increase the chance of a logical
+        tie appearing for up to :attr:`k` different voices.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=2)
@@ -444,14 +446,14 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-10.png
 
-    ``force_k_voices``:
-        It is important to note that changing ``k`` to a higher value does not
-        guarantee each logical tie will appear in ``k`` different voices. By
-        default, ``k`` only defines how many times each logical tie is
-        processed by the hocket process, which may select the same voice more
-        than once. To ensure that each logical tie appears in ``k`` unique
-        voices, set the optional keyword argument ``force_k_voices`` to
-        ``True`` as shown below.
+    :attr:`force_k_voices`:
+        It is important to note that changing :attr:`k` to a higher value does
+        not guarantee each logical tie will appear in :attr:`k` different
+        voices. By default, :attr:`k` only defines how many times each logical
+        tie is processed by the hocket process, which may select the same voice
+        more than once. To ensure that each logical tie appears in :attr:`k`
+        unique voices, set the optional keyword argument :attr:`force_k_voices`
+        to ``True`` as shown below.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> hocketer = auxjad.Hocketer(container,
@@ -501,8 +503,8 @@ class Hocketer():
 
     ..  error::
 
-        Setting ``force_k_voices`` to ``True`` when ``k`` is larger than
-        ``n_voices`` will raise a :exc:`ValueError` exception:
+        Setting :attr:`force_k_voices` to ``True`` when :attr:`k` is larger
+        than :attr:`n_voices` will raise a :exc:`ValueError` exception:
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
         >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
@@ -510,7 +512,7 @@ class Hocketer():
         ValueError: 'force_k_voices' cannot be set to True if 'k' > 'n_voices',
         change 'k' first
 
-    ``disable_rewrite_meter``:
+    :attr:`disable_rewrite_meter`:
         By default, this class uses the |abjad.mutate().rewrite_meter()|
         mutation, which is necessary for cleaning up the rests.
 
@@ -543,7 +545,7 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-12.png
 
-        Set ``disable_rewrite_meter`` to ``True`` in order to disable this
+        Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
         behaviour.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
@@ -581,7 +583,7 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-13.png
 
-    ``use_multimeasure_rests``:
+    :attr:`use_multimeasure_rests`:
         By default, this class rewrites all measures that are filled with
         rests, replacing the rests by a multi-measure rest.
 
@@ -613,7 +615,8 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-14.png
 
-        Set ``use_multimeasure_rests`` to ``False`` to disable this behaviour.
+        Set :attr:`use_multimeasure_rests` to ``False`` to disable this
+        behaviour.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
         >>> hocketer = auxjad.Hocketer(container,
@@ -645,12 +648,12 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-15.png
 
-    ``contents``:
-        Use the property ``contents`` to get the input container upon which the
-        hocketer operates. Notice that ``contents`` remains invariant after
-        any shuffling or rotation operations (use ``current_window`` for the
-        transformed selection of music). ``contents`` can be used to change the
-        |abjad.Container| to be shuffled.
+    :attr:`contents`:
+        Use the property :attr:`contents` to get the input container upon which
+        the hocketer operates. Notice that :attr:`contents` remains invariant
+        after any shuffling or rotation operations (use :attr:`current_window`
+        for the transformed selection of music). :attr:`contents` can be used
+        to change the |abjad.Container| to be shuffled.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> hocketer = auxjad.Hocketer(container)
@@ -707,7 +710,8 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-19.png
 
-        Set ``boundary_depth`` to a different number to change its behaviour.
+        Set :attr:`boundary_depth` to a different number to change its
+        behaviour.
 
         >>> hocketer = auxjad.Hocketer(container,
         ...                            n_voices=1,
@@ -731,8 +735,8 @@ class Hocketer():
         .. figure:: ../_images/image-Hocketer-20.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are ``maximum_dot_count`` and
-        ``rewrite_tuplets``, which work exactly as the identically named
+        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        :attr:`rewrite_tuplets`, which work exactly as the identically named
         arguments of |abjad.mutate().rewrite_meter()|.
 
     Time signature changes and nested tuplets:
@@ -820,13 +824,13 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-21.png
 
-    ``omit_time_signatures``:
+    :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
-        keyword argument ``omit_time_signatures`` set to ``True`` (default is
-        ``False``), or use the ``omit_time_signatures`` property after
+        keyword argument :attr:`omit_time_signatures` set to ``True`` (default
+        is ``False``), or use the :attr:`omit_time_signatures` property after
         initialisation. It is recommended to also set
-        ``use_multimeasure_rests`` to ``False``, as those are created according
-        to the original time signatures.
+        :attr:`use_multimeasure_rests` to ``False``, as those are created
+        according to the original time signatures.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
         >>> hocketer = auxjad.Hocketer(container,
@@ -1014,7 +1018,7 @@ class Hocketer():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of ``contents``.'
+        r'Returns interpreter representation of :attr:`contents`.'
         return format(self._contents)
 
     def __len__(self) -> int:
@@ -1047,9 +1051,9 @@ class Hocketer():
     def _make_music(self):
         r"""Runs the hocket process, returning a :obj:`tuple` of
         |abjad.Container()|. It distributes the logical ties from the
-        ``contents`` into different voices. Voices can have different weights,
-        and the process of distributing a same logical tie can be run more than
-        once (defined by the attribute ``k``).
+        :attr:`contents` into different voices. Voices can have different
+        weights, and the process of distributing a same logical tie can be run
+        more than once (defined by the attribute :attr:`k`).
         """
         # distributing logical ties into voices
         dummy_voices = self._hocket_process()
@@ -1228,7 +1232,7 @@ class Hocketer():
     @property
     def force_k_voices(self) -> bool:
         r"""When ``True``, the hocket process will ensure that each logical tie
-        is distributed among ``k`` voices.
+        is distributed among :attr:`k` voices.
         """
         return self._force_k_voices
 

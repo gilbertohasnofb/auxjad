@@ -44,9 +44,9 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-2.png
 
-    ``style``:
-        When instantiating this class, use the keyword argument ``style`` to
-        set a different type of note head, such as ``'harmonic-mixed'``:
+    :attr:`style`:
+        When instantiating this class, use the keyword argument :attr:`style`
+        to set a different type of note head, such as ``'harmonic-mixed'``:
 
         >>> harm = auxjad.HarmonicNote(r"c''4",
         ...                            style='harmonic-mixed',
@@ -59,7 +59,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-3.png
 
-    ``multiplier``:
+    :attr:`~abjad.core.Note.Note.multiplier`:
         Similarly to |abjad.Note|, this class can take multipliers:
 
         >>> harm = auxjad.HarmonicNote(r"c''4",
@@ -75,7 +75,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     Properties:
         All properties of |abjad.Note| are also available to be read. This
-        class also includes a new property named ``style``:
+        class also includes a new property named :attr:`style`:
 
         >>> harm = auxjad.HarmonicNote(r"c''4")
         >>> harm.written_pitch
@@ -98,7 +98,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.style
         'harmonic-mixed'
 
-    Setting ``style`` to ``'flageolet'``:
+    Setting :attr:`style` to ``'flageolet'``:
         To create a harmonic note with a regular note head and with a flageolet
         circle above it, use the style ``'flageolet'``:
 

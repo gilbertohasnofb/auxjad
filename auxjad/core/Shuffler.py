@@ -53,7 +53,7 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-2.png
 
         To get the result of the last operation, use the property
-        ``current_window``.
+        :attr:`current_window`.
 
         >>> notes = shuffler.current_window
         >>> staff = abjad.Staff(notes)
@@ -70,7 +70,7 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-3.png
 
         Calling the object outputs the same result as using the method
-        ``shuffle()``.
+        :meth:`shuffle`.
 
         >>> notes = shuffler.shuffle()
         >>> staff = abjad.Staff(notes)
@@ -92,7 +92,7 @@ class Shuffler:
         of this class will already process the initial container. To disable
         this behaviour and output the initial container once before shuffling
         or rotating it, initialise the class with the keyword argument
-        ``process_on_first_call`` set to ``False``.
+        :attr:`process_on_first_call` set to ``False``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container,
@@ -114,7 +114,7 @@ class Shuffler:
 
     :func:`len()`:
         Applying the :func:`len()` function to the shuffler will return the
-        number of logical ties of ``contents``.
+        number of logical ties of :attr:`contents`.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 ~ | f'2 g'2")
         >>> shuffler = auxjad.Shuffler(container)
@@ -134,21 +134,22 @@ class Shuffler:
     Arguments and properties:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below. Setting ``pitch_only`` to ``True`` will enable pitch mode; by
-        default, this class shuffles and rotates logical ties, but in pitch
+        below. Setting :attr:`pitch_only` to ``True`` will enable pitch mode;
+        by default, this class shuffles and rotates logical ties, but in pitch
         mode only pitches are shuffled or rotated. By setting
-        ``preserve_rest_position`` to ``True`` the shuffle and rotation
+        :attr:`preserve_rest_position` to ``True`` the shuffle and rotation
         operations will not change the position or duration of rests.
-        ``disable_rewrite_meter`` disables the |abjad.mutate().rewrite_meter()|
-        mutation which is applied to the container after every call, and
-        ``omit_time_signatures`` will remove all time signatures from the
-        output (both are ``False`` by default). The properties
-        ``boundary_depth``, ``maximum_dot_count``, and ``rewrite_tuplets`` are
-        passed as arguments to |abjad.mutate().rewrite_meter()|, see its
-        documentation for more information. By default, calling the object will
-        first return the original container and subsequent calls will process
-        it; set ``process_on_first_call`` to ``True`` and the shuffling
-        process will be applied on the very first call.
+        :attr:`disable_rewrite_meter` disables the
+        |abjad.mutate().rewrite_meter()| mutation which is applied to the
+        container after every call, and :attr:`omit_time_signatures` will
+        remove all time signatures from the output (both are ``False`` by
+        default). The properties :attr:`boundary_depth`,
+        :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
+        arguments to |abjad.mutate().rewrite_meter()|, see its documentation
+        for more information. By default, calling the object will first return
+        the original container and subsequent calls will process it; set
+        :attr:`process_on_first_call` to ``True`` and the shuffling process
+        will be applied on the very first call.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -206,7 +207,7 @@ class Shuffler:
         >>> shuffler.process_on_first_call
         False
 
-    ``pitch_only``:
+    :attr:`pitch_only`:
         By default, the shuffling operation will shuffle logical ties:
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
@@ -231,9 +232,9 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-6.png
 
-        Setting ``pitch_only`` to ``True`` enables pitch mode, so only pitches
-        are shuffled (and not durations). Note how in the example below the
-        duration of each leaf is the same as the input container.
+        Setting :attr:`pitch_only` to ``True`` enables pitch mode, so only
+        pitches are shuffled (and not durations). Note how in the example below
+        the duration of each leaf is the same as the input container.
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
@@ -255,10 +256,11 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-7.png
 
-    ``rotate()``:
+    :meth:`rotate`:
         Besides shuffling, logical ties and pitches can also be rotated using
-        the ``rotate()`` method. Similarly to shuffling, it can be applied to
-        logical ties or pitches only depending on the property ``pitch_only``.
+        the :meth:`rotate` method. Similarly to shuffling, it can be applied to
+        logical ties or pitches only depending on the property
+        :attr:`pitch_only`.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
@@ -339,12 +341,12 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-10.png
 
-    ``preserve_rest_position``:
-        If ``preserve_rest_position`` is set to ``True``, the positions of all
-        rests will remain the same after either shuffling and rotation. In
-        pitch mode (when ``pitch_only`` is set to ``True``), this means that
-        only the pitched notes will be shuffled or rotated, while the rests
-        remain in the exact same place.
+    :attr:`preserve_rest_position`:
+        If :attr:`preserve_rest_position` is set to ``True``, the positions of
+        all rests will remain the same after either shuffling and rotation. In
+        pitch mode (when :attr:`pitch_only` is set to ``True``), this means
+        that only the pitched notes will be shuffled or rotated, while the
+        rests remain in the exact same place.
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
         >>> shuffler = auxjad.Shuffler(container,
@@ -392,8 +394,8 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-12.png
 
-    ``disable_rewrite_meter``:
-        If ``disable_rewrite_meter`` is set to ``True``, then the automatic
+    :attr:`disable_rewrite_meter`:
+        If :attr:`disable_rewrite_meter` is set to ``True``, then the automatic
         behaviour of rewriting the leaves according to the meter is disabled.
 
         >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
@@ -414,11 +416,11 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-13.png
 
-    ``shuffle_n()`` and ``rotate_n()``:
+    :meth:`shuffle_n` and :meth:`rotate_n`:
         To output several shuffled containers at once, use the methods
-        ``shuffle_n()`` and ``rotate_n()``, inputting the desired number of
+        :meth:`shuffle_n` and :meth:`rotate_n`, inputting the desired number of
         iterations. ``rotate_n`` can also take the optional arguments
-        ``n_rotations`` and ``anticlockwise``, similarly to ``rotate()``.
+        ``n_rotations`` and ``anticlockwise``, similarly to :meth:`rotate`.
 
         >>> container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
         >>> shuffler = auxjad.Shuffler(container)
@@ -474,11 +476,11 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-15.png
 
-    ``omit_time_signatures``:
+    :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
-        keyword argument ``omit_time_signatures`` set to ``True`` (default is
-        ``False``), or change the ``omit_time_signatures`` property after
-        initialisation.
+        keyword argument :attr:`omit_time_signatures` set to ``True`` (default
+        is ``False``), or change the :attr:`omit_time_signatures` property
+        after initialisation.
 
         >>> container = abjad.Container(r"\time 3/4 c'16 d'4.. e'4 | r4 f'2")
         >>> shuffler = auxjad.Shuffler(container,
@@ -507,7 +509,7 @@ class Shuffler:
     ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
-        signature to it. The ``shuffle_n()`` and ``rotate_n()`` methods
+        signature to it. The :meth:`shuffle_n` and :meth:`rotate_n` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
         :func:`auxjad.remove_repeated_time_signatures()` on the whole container
@@ -552,7 +554,7 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-17.png
 
     Tuplet support:
-        Tuplets are supported when ``pitch_only`` is ``True`` (pitch-only
+        Tuplets are supported when :attr:`pitch_only` is ``True`` (pitch-only
         mode).
 
         >>> container = abjad.Container(
@@ -577,8 +579,8 @@ class Shuffler:
 
     ..  error::
 
-        Tuplets are not supported when ``pitch_only`` is ``False`` (logical tie
-        mode). Using a container with tuplets and ``pitch_only`` set to
+        Tuplets are not supported when :attr:`pitch_only` is ``False`` (logical
+        tie mode). Using a container with tuplets and :attr:`pitch_only` set to
         ``True`` will raise a :exc:`TypeError` exception.
 
         >>> container = abjad.Container(
@@ -661,12 +663,12 @@ class Shuffler:
         Dynamics are shuffled together with their leaves, so the initial leaf
         may lack a dynamic marking.
 
-    ``contents``:
-        Use the property ``contents`` to get the input container upon which the
-        shuffler operates. Notice that ``contents`` remains invariant after
-        any shuffling or rotation operations (use ``current_window`` for the
-        transformed selection of music). ``contents`` can be used to change the
-        |abjad.Container| to be shuffled.
+    :attr:`contents`:
+        Use the property :attr:`contents` to get the input container upon which
+        the shuffler operates. Notice that :attr:`contents` remains invariant
+        after any shuffling or rotation operations (use :attr:`current_window`
+        for the transformed selection of music). :attr:`contents` can be used
+        to change the |abjad.Container| to be shuffled.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
@@ -719,7 +721,8 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-23.png
 
-        Set ``boundary_depth`` to a different number to change its behaviour.
+        Set :attr:`boundary_depth` to a different number to change its
+        behaviour.
 
         >>> shuffler = auxjad.Shuffler(container,
         ...                            boundary_depth=1,
@@ -740,11 +743,11 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-24.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are ``maximum_dot_count`` and
-        ``rewrite_tuplets``, which work exactly as the identically named
+        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        :attr:`rewrite_tuplets`, which work exactly as the identically named
         arguments of |abjad.mutate().rewrite_meter()|.
 
-    ``disable_rewrite_meter``:
+    :attr:`disable_rewrite_meter`:
         By default, this class uses the |abjad.mutate().rewrite_meter()|
         mutation.
 
@@ -768,7 +771,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-25.png
 
-        Set ``disable_rewrite_meter`` to ``True`` in order to disable this
+        Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
         behaviour.
 
         >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
@@ -792,8 +795,8 @@ class Shuffler:
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
         then be used in a for loop. Note that unlike the methods
-        ``shuffle_n()`` and ``rotate_n()``, time signatures are added to each
-        window returned by the shuffler. Use the function
+        :meth:`shuffle_n` and :meth:`rotate_n`, time signatures are added to
+        each window returned by the shuffler. Use the function
         :func:`auxjad.remove_repeated_time_signatures()` to clean the output
         when using this class in this way. It is also important to note that a
         ``break`` statement is needed when using this class as an iterator. The
@@ -874,11 +877,11 @@ class Shuffler:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of ``contents``.'
+        r'Returns interpreter representation of :attr:`contents`.'
         return format(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of logical ties of ``contents``.'
+        r'Returns the number of logical ties of :attr:`contents`.'
         return len(self._logical_selections)
 
     def __call__(self) -> abjad.Selection:
@@ -898,7 +901,7 @@ class Shuffler:
     ### PUBLIC METHODS ###
 
     def shuffle(self) -> abjad.Selection:
-        r'Shuffles logical ties or pitches of ``contents``.'
+        r'Shuffles logical ties or pitches of :attr:`contents`.'
         if self._is_first_window and not self._process_on_first_call:
             if not self._pitch_only:
                 self._rewrite_logical_selections()
@@ -917,7 +920,7 @@ class Shuffler:
                n_rotations: int = 1,
                anticlockwise: bool = False,
                ) -> abjad.Selection:
-        r'Rotates logical ties or pitches of ``contents``.'
+        r'Rotates logical ties or pitches of :attr:`contents`.'
         if not isinstance(n_rotations, int):
             raise TypeError("'n_rotations' must be 'int'")
         if n_rotations < 1:
@@ -988,12 +991,12 @@ class Shuffler:
     ### PRIVATE METHODS ###
 
     def _update_logical_selections(self):
-        r'Updates the selection of logical ties of ``contents``.'
+        r'Updates the selection of logical ties of :attr:`contents`.'
         self._logical_selections = self._get_logical_selections(self._contents)
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> list:
-        r'Creates a :obj:`list` of all pitches in ``contents``.'
+        r'Creates a :obj:`list` of all pitches in :attr:`contents`.'
         self._pitches = []
         for logical_selection in self._logical_selections:
             leaf = logical_selection.leaves()[0]
@@ -1040,7 +1043,7 @@ class Shuffler:
                 counter += 1
 
     def _shuffle_logical_selections(self) -> abjad.Selection:
-        r'Shuffles the logical ties of ``contents``.'
+        r'Shuffles the logical ties of :attr:`contents`.'
         if len(abjad.select(self._contents).tuplets()) > 0:
             raise ValueError("'contents' contain one ore more tuplets; "
                              "tuplets are currently supported only in "
@@ -1054,7 +1057,7 @@ class Shuffler:
         return self.current_window
 
     def _shuffle_pitches(self) -> abjad.Selection:
-        r'Shuffles only the pitches of ``contents``.'
+        r'Shuffles only the pitches of :attr:`contents`.'
         if not self._preserve_rest_position:
             random.shuffle(self._pitches)
         else:
@@ -1067,7 +1070,7 @@ class Shuffler:
                                    n_rotations: int = 1,
                                    anticlockwise: bool = False,
                                    ) -> abjad.Selection:
-        r'Rotates the logical ties of ``contents``.'
+        r'Rotates the logical ties of :attr:`contents`.'
         if len(abjad.select(self._contents).tuplets()) > 0:
             raise ValueError("'contents' contain one ore more tuplets; "
                              "tuplets are currently supported only in "
@@ -1091,7 +1094,7 @@ class Shuffler:
                         n_rotations: int = 1,
                         anticlockwise: bool = False,
                         ) -> abjad.Selection:
-        r'Rotates the pitches of ``contents``.'
+        r'Rotates the pitches of :attr:`contents`.'
         if not self._preserve_rest_position:
             self._rotate_list(self._pitches,
                               n_rotations=n_rotations,
@@ -1373,7 +1376,7 @@ class Shuffler:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then the ``contents`` will be processed in the very
+        r"""If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call

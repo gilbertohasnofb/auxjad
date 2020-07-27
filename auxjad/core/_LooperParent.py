@@ -158,7 +158,7 @@ class _LooperParent():
         self._is_first_window = False
 
     def _slice_contents(self):
-        r"""Slices ``contents``, will be defined for each individual child
+        r"""Slices :attr:`contents`, will be defined for each individual child
         class.
         """
         pass
@@ -176,6 +176,17 @@ class _LooperParent():
                 abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def contents(self):
+        r""":attr:`contents` property will be defined for each individual child
+        class.
+        """
+        pass
+
+    @contents.setter
+    def contents(self):
+        pass
 
     @property
     def head_position(self) -> int:
@@ -284,7 +295,7 @@ class _LooperParent():
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then the ``contents`` will be processed in the very
+        r"""If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -312,7 +323,7 @@ class _LooperParent():
     @property
     def _done(self) -> bool:
         r""":obj:`bool` indicating whether the process is done (i.e. whether
-        the head position has overtaken the ``contents`` length).
+        the head position has overtaken the :attr:`contents`'s length).
         """
         return (self._head_position >= self.__len__()
                 or self._head_position < 0)

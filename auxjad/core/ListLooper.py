@@ -7,8 +7,8 @@ from ._LooperParent import _LooperParent
 class ListLooper(_LooperParent):
     r"""This class outputs slices of a :obj:`list` using the metaphor of a
     looping window of a constant number of elements. This number is given by
-    the argument ``window_size``, which is an :obj:`int` representing how many
-    elements are to be included in each slice.
+    the argument :attr:`window_size`, which is an :obj:`int` representing how
+    many elements are to be included in each slice.
 
     For instance, if the initial container had the logical ties
     ``[A, B, C, D, E, F]`` (where each letter represents one elemnt of an
@@ -40,17 +40,17 @@ class ListLooper(_LooperParent):
         >>> looper()
         ['B', 'C', 'D']
 
-        The property ``current_window`` can be used to access the current
+        The property :attr:`current_window` can be used to access the current
         window without moving the head forwards.
 
         >>> looper.current_window
         ['B', 'C', 'D']
 
-    ``process_on_first_call``:
+    :attr:`process_on_first_call`:
         The very first call will output the input :obj:`list` without
         processing it. To disable this behaviour and have the looping window
         move on the very first call, initialise the class with the keyword
-        argument ``process_on_first_call`` set to ``True``.
+        argument :attr:`process_on_first_call` set to ``True``.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list,
@@ -79,24 +79,24 @@ class ListLooper(_LooperParent):
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
-        creation. ``step_size`` dictates the size of each individual step in
-        number of elements (default value is ``1``). ``max_steps`` sets the
-        maximum number of steps that the window can advance when the object is
-        called, ranging between ``1`` and the input value (default is also
-        ``1``). ``repetition_chance`` sets the chance of a window result
+        creation. :attr:`step_size` dictates the size of each individual step
+        in number of elements (default value is ``1``). :attr:`max_steps` sets
+        the maximum number of steps that the window can advance when the object
+        is called, ranging between ``1`` and the input value (default is also
+        ``1``). :attr:`repetition_chance` sets the chance of a window result
         repeating itself (that is, the window not moving forwards when called).
         It should range from ``0.0`` to ``1.0`` (default ``0.0``, i.e. no
-        repetition). ``forward_bias`` sets the chance of the window moving
+        repetition). :attr:`forward_bias` sets the chance of the window moving
         forward instead of backwards. It should range from ``0.0`` to ``1.0``
         (default ``1.0``, which means the window can only move forwards. A
         value of ``0.5`` gives 50% chance of moving forwards while a value of
-        ``0.0`` will move the window only backwards). Lastly, ``head_position``
-        can be used to offset the starting position of the looping window. It
-        must be an :obj:`int` and its default value is ``0``. By default,
-        calling the object will first return the original container and
-        subsequent calls will process it; set ``process_on_first_call`` to
-        ``True`` and the looping process will be applied on the very first
-        call.
+        ``0.0`` will move the window only backwards). Lastly,
+        :attr:`head_position` can be used to offset the starting position of
+        the looping window. It must be an :obj:`int` and its default value is
+        ``0``. By default, calling the object will first return the original
+        container and subsequent calls will process it; set
+        :attr:`process_on_first_call` to ``True`` and the looping process will
+        be applied on the very first call.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list,
@@ -147,12 +147,12 @@ class ListLooper(_LooperParent):
         >>> looper.process_on_first_call
         False
 
-    Setting ``forward_bias`` to ``0.0``:
-        Set ``forward_bias`` to ``0.0`` to move backwards instead of forwards
-        (default is ``1.0``). The initial ``head_position`` must be greater
-        than ``0`` otherwise the contents will already be exhausted in the very
-        first call (since it will not be able to move backwards from that
-        position).
+    Setting :attr:`forward_bias` to ``0.0``:
+        Set :attr:`forward_bias` to ``0.0`` to move backwards instead of
+        forwards (default is ``1.0``). The initial :attr:`head_position` must
+        be greater than ``0`` otherwise the contents will already be exhausted
+        in the very first call (since it will not be able to move backwards
+        from that position).
 
         >>> input_list = ['A', 'B', 'C', 'D']
         >>> looper = auxjad.ListLooper(input_list,
@@ -163,11 +163,11 @@ class ListLooper(_LooperParent):
         >>> looper.output_all()
         ['C', 'D', 'B', 'C', 'A', 'B']
 
-    ``forward_bias`` between ``0.0`` and ``1.0``:
-        Setingt ``forward_bias`` to a value in between ``0.0`` and ``1.0`` will
-        result in random steps being taken forward or backward, according to
-        the bias. The initial value of ``head_position`` will once gain play
-        an important role here, as the contents might be exhausted if the
+    :attr:`forward_bias` between ``0.0`` and ``1.0``:
+        Setingt :attr:`forward_bias` to a value in between ``0.0`` and ``1.0``
+        will result in random steps being taken forward or backward, according
+        to the bias. The initial value of :attr:`head_position` will once gain
+        play an important role here, as the contents might be exhausted if the
         looper attempts to move backwards after reaching the head position
         ``0``.
 
@@ -180,10 +180,10 @@ class ListLooper(_LooperParent):
         >>> looper.output_n(4)
         ['E', 'F', 'D', 'E', 'C', 'D', 'B', 'C']
 
-    ``max_steps``:
-        Setting the keyword argument ``max_steps`` to a value larger than ``1``
-        will result in a random number of steps (between ``1`` and
-        ``max_steps``) being applied at each call.
+    :attr:`max_steps`:
+        Setting the keyword argument :attr:`max_steps` to a value larger than
+        ``1`` will result in a random number of steps (between ``1`` and
+        :attr:`max_steps`) being applied at each call.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
         >>> looper = auxjad.ListLooper(input_list,
@@ -203,33 +203,33 @@ class ListLooper(_LooperParent):
         >>> len(looper)
         6
 
-    ``output_all()``:
+    :meth:`output_all`:
         To run through the whole process and output it as a single :obj:`list`,
         from the initial head position until the process outputs the single
-        last element, use the method ``output_all()``.
+        last element, use the method :meth:`output_all`.
 
         >>> input_list = ['A', 'B', 'C', 'D']
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_all()
         ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
 
-    ``output_n()``:
+    :meth:`output_n`:
         To run through just part of the process and output it as a single
         :obj:`list`, starting from the initial head position, use the method
-        ``output_n()`` and pass the number of iterations as argument.
+        :meth:`output_n` and pass the number of iterations as argument.
 
         >>> input_list = ['A', 'B', 'C', 'D']
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_n(2)
         ['A', 'B', 'C', 'B', 'C', 'D']
 
-    ``window_size``:
+    :attr:`window_size`:
         To change the size of the looping window after instantiation, use the
-        property ``window_size``. In the example below, the initial window is
-        of size ``3``, and so the first call of the looper object outputs the
-        first, second, and third elements of the :obj:`list`. The window size
-        is then set to ``4``, and the looper is called again, moving to the
-        element in the next position, thus outputting the second, third,
+        property :attr:`window_size`. In the example below, the initial window
+        is of size ``3``, and so the first call of the looper object outputs
+        the first, second, and third elements of the :obj:`list`. The window
+        size is then set to ``4``, and the looper is called again, moving to
+        the element in the next position, thus outputting the second, third,
         fourth, and fifth elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -240,10 +240,11 @@ class ListLooper(_LooperParent):
         >>> looper()
         ['B', 'C', 'D', 'E']
 
-    ``contents``:
-        Use the ``contents`` property to read as well as overwrite the contents
-        of the looper. Notice that the ``head_position`` will remain on its
-        previous value and must be reset to ``0`` if that's required.
+    :attr:`contents`:
+        Use the :attr:`contents` property to read as well as overwrite the
+        contents of the looper. Notice that the :attr:`head_position` will
+        remain on its previous value and must be reset to ``0`` if that's
+        required.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list,
@@ -275,7 +276,7 @@ class ListLooper(_LooperParent):
         This also include Abjad's types. Abjad's exclusive membership
         requirement is respected since each call returns a
         :func:`copy.deepcopy` of the window. The same is true to the
-        ``output_all()`` method.
+        :meth:`output_all` method.
 
         >>> import abjad
         >>> import copy
@@ -367,11 +368,11 @@ class ListLooper(_LooperParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of ``contents``.'
+        r'Returns interpreter representation of :attr:`contents`.'
         return str(self._contents)
 
     def __len__(self) -> int:
-        r'Returns a length of ``contents``.'
+        r'Returns a length of :attr:`contents`.'
         return len(self._contents)
 
     ### PUBLIC METHODS ###
@@ -406,8 +407,9 @@ class ListLooper(_LooperParent):
     ### PRIVATE METHODS ###
 
     def _slice_contents(self):
-        r"""This method takes a slice with ``window_size`` number of elements
-        out of the contents starting at the current ``head_position``.
+        r"""This method takes a slice with :attr:`window_size` number of
+        elements out of :attr:`contents` starting at the current
+        :attr:`head_position`.
         """
         start = self._head_position
         end = self._head_position + self._window_size

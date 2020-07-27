@@ -43,8 +43,8 @@ class TenneySelector():
         >>> selector()
         C
 
-        Alternatively, use the :func:`next()` function or ``__next__()`` method
-        to get the next result.
+        Alternatively, use the :func:`next()` function or :meth:`__next__`
+        method to get the next result.
 
         >>> selector.__next__()
         A
@@ -64,18 +64,18 @@ class TenneySelector():
         From the result above it is possible to see that there are no immediate
         repetitions of elements (since once selected, their probability is
         always set to 0.0 and will take at least one iteration to grow to a
-        non-zero value). Checking the ``probabilities`` and ``previous_index``
-        properties will return us their current values.
+        non-zero value). Checking the :attr:`probabilities` and
+        :attr:`previous_index` properties will return us their current values.
 
         >>> selector.probabilities
         [6.0, 5.0, 0.0, 3.0, 1.0, 2.0]
         >>> selector.previous_index
         2
 
-    ``previous_result`` and ``previous_index``:
-        Use the read-only properties ``previous_result`` and ``previous_index``
-        to output the previous result and its index. Default values for both
-        is ``None``.
+    :attr:`previous_result` and :attr:`previous_index`:
+        Use the read-only properties :attr:`previous_result` and
+        :attr:`previous_index` to output the previous result and its index.
+        Default values for both is ``None``.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> selector.previous_index
@@ -91,26 +91,26 @@ class TenneySelector():
 
     Arguments and properties:
         This class can take two optional keywords argument during its
-        instantiation, namely ``weights`` and ``curvature``. ``weights`` takes
-        a :obj:`list` of :obj:`float` with the individual weights of each
-        element; by default, all weights are set to 1.0. These weights affects
-        the effective probability of each element. The other argument,
-        ``curvature``, is the exponent of the growth function for all elements.
-        The growth function takes as input the number of iterations since an
-        element has been last selected, and raise this number by the curvature
-        value. If ``curvature`` is set to 1.0 (which is its default value), the
-        growth is linear with each iteration. If set to a value larger than 0.0
-        and less than 1.0, the growth is negative (or concave), so that the
-        chances of an element which is not being selected will grow at ever
-        smaller rates as the number of iterations it has not been selected
-        increase. If the ``curvature`` is set to 1.0, the growth is linear with
-        the number of iterations. If the ``curvature`` is larger than 1.0, the
-        curvature is positive (or convex) and the growth will accelerate as the
-        number of iterations an element has not been selected grows. Setting
-        the curvature to 0.0 will result in an static probability vector with
-        all values set to 1.0, except for the previously selected one which
-        will be set to 0.0; this will result in a uniformly random selection
-        without repetition.
+        instantiation, namely :attr:`weights` and :attr:`curvature`.
+        :attr:`weights` takes a :obj:`list` of :obj:`float` with the individual
+        weights of each element; by default, all weights are set to 1.0. These
+        weights affects the effective probability of each element. The other
+        argument, :attr:`curvature`, is the exponent of the growth function for
+        all elements. The growth function takes as input the number of
+        iterations since an element has been last selected, and raise this
+        number by the curvature value. If :attr:`curvature` is set to 1.0
+        (which is its default value), the growth is linear with each iteration.
+        If set to a value larger than 0.0 and less than 1.0, the growth is
+        negative (or concave), so that the chances of an element which is not
+        being selected will grow at ever smaller rates as the number of
+        iterations it has not been selected increase. If the :attr:`curvature`
+        is set to 1.0, the growth is linear with the number of iterations. If
+        the :attr:`curvature` is larger than 1.0, the curvature is positive (or
+        convex) and the growth will accelerate as the number of iterations an
+        element has not been selected grows. Setting the curvature to 0.0 will
+        result in an static probability vector with all values set to 1.0,
+        except for the previously selected one which will be set to 0.0; this
+        will result in a uniformly random selection without repetition.
 
         With linear curvature (default value of 1.0):
 
@@ -130,9 +130,9 @@ class TenneySelector():
         >>> selector.probabilities
         [2.0, 0.0, 2.0, 2.0, 2.0, 2.0]
 
-    Convex ``curvature``:
-        Using a convex ``curvature`` (i.e. greater than ``0.0`` and less than
-        ``1.0``):
+    Convex :attr:`curvature`:
+        Using a convex :attr:`curvature` (i.e. greater than ``0.0`` and less
+        than ``1.0``):
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
         ...                                  curvature=0.2,
@@ -178,8 +178,8 @@ class TenneySelector():
         which is why there is a high chance of an element being selected again
         just two iterations apart.
 
-    Concave ``curvature``:
-        Using a concave ``curvature`` (i.e. greater than ``1.0``):
+    Concave :attr:`curvature`:
+        Using a concave :attr:`curvature` (i.e. greater than ``1.0``):
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
         ...                                  curvature=15.2,
@@ -225,9 +225,9 @@ class TenneySelector():
         curvature, the higher the difference between these values, making some
         of them much more likely to be selected.
 
-    ``curvature`` property:
+    :attr:`curvature` property:
         To change the curvature value at any point, simply set the property
-        ``curvature`` to a different value.
+        :attr:`curvature` to a different value.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> selector.curvature
@@ -236,7 +236,7 @@ class TenneySelector():
         >>> selector.curvature
         0.25
 
-    ``weights``:
+    :attr:`weights`:
         Each element can also have a fixed weight to themselves. This will
         affect the probability calculation. The example below uses the default
         linear curvature.
@@ -259,7 +259,7 @@ class TenneySelector():
         >>> selector.probabilities
         [7.0, 12.0, 10.0, 15.0, 0.0, 20.0]
 
-        Set ``weights`` to ``None`` to reset it to a uniform distribution.
+        Set :attr:`weights` to ``None`` to reset it to a uniform distribution.
 
         >>> selector = auxjad.TenneySelector(
         ...     ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -271,10 +271,10 @@ class TenneySelector():
         >>> selector.weights
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
-    ``reset_probabilities()``:
+    :meth:`reset_probabilities`:
         To reset the probability distribution of all elements to its initial
         value (an uniform distribution), use the method
-        ``reset_probabilities()``.
+        :meth:`reset_probabilities`.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> for _ in range(30):
@@ -285,10 +285,10 @@ class TenneySelector():
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
-    ``contents``:
-        The ``contents`` of instances of this class can be indexed and sliced.
-        This allows reading, assigning, or deleting values from ``contents``.
-        Replacing elements by assignment will not affect the ``probabilities``
+    :attr:`contents`:
+        The instances of this class can be indexed and sliced. This allows
+        reading, assigning, or deleting values from :attr:`contents`. Replacing
+        elements by assignment will not affect the :attr:`probabilities`
         property, and the new elements will have the same probability as the
         ones it replaced. Deleting element will delete the probability of that
         index.
@@ -324,10 +324,10 @@ class TenneySelector():
         >>> 'A' in selector
         False
 
-    Changing ``contents`` resets ``probabilities`` and ``weights``:
+    Changing :attr:`contents` resets :attr:`probabilities` and :attr:`weights`:
         A new :obj:`list` of an arbitrary length can be set at any point using
-        the property ``contents``. Do notice that both ``probabilities`` and
-        ``weights`` will be reset at that point.
+        the property :attr:`contents`. Do notice that both
+        :attr:`probabilities` and :attr:`weights` will be reset at that point.
 
         >>> selector = auxjad.TenneySelector(
         ...     ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -403,15 +403,17 @@ class TenneySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of ``contents``.'
+        r'Returns interpreter representation of :attr:`contents`.'
         return str(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the length of ``contents``.'
+        r'Returns the length of :attr:`contents`.'
         return len(self._contents)
 
     def __call__(self) -> Any:
-        r'Calls the selection process and outputs one element of ``contents``.'
+        r"""Calls the selection process and outputs one element of
+        :attr:`contents`.
+        """
         self._previous_index = random.choices(
             [n for n in range(self.__len__())],
             weights=self._probabilities,
@@ -421,24 +423,26 @@ class TenneySelector():
         return self._contents[self._previous_index]
 
     def __next__(self) -> Any:
-        r'Calls the selection process and outputs one element of ``contents``.'
+        r"""Calls the selection process and outputs one element of
+        :attr:`contents`.
+        """
         return self.__call__()
 
     def __getitem__(self, key: int) -> Any:
-        r"""Returns one or more elements of ``contents`` through indexing or
-        slicing.
+        r"""Returns one or more elements of :attr:`contents` through indexing
+        or slicing.
         """
         return self._contents[key]
 
     def __setitem__(self, key, value):
-        r"""Assigns values to one or more elements of ``contents`` through
+        r"""Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
         self._contents[key] = value
 
     def __delitem__(self, key):
-        r"""Deletes one or more elements of ``contents`` through indexing or
-        slicing.
+        r"""Deletes one or more elements of :attr:`contents` through indexing
+        or slicing.
         """
         del self._contents[key]
         del self._weights[key]
@@ -503,7 +507,7 @@ class TenneySelector():
 
     @property
     def weights(self) -> list:
-        r'The :obj:`list` with weights for each element of ``contents``.'
+        r'The :obj:`list` with weights for each element of :attr:`contents`.'
         return self._weights
 
     @weights.setter

@@ -70,9 +70,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ValueError: 'ArtificialHarmonic' requires exactly two 'note_heads' for
         initialisation
 
-    ``style``:
-        When instantiating this class, use the keyword argument ``style`` to
-        set a different type of note head for the top note, such as
+    :attr:`style`:
+        When instantiating this class, use the keyword argument :attr:`style`
+        to set a different type of note head for the top note, such as
         ``'harmonic-mixed'``:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
@@ -89,10 +89,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-3.png
 
-    ``is_parenthesized``:
+    :attr:`is_parenthesized`:
         To notate natural harmonics with a parenthesised pitch for the open
         string at the bottom of the interval, set the keyword
-        ``is_parenthesized`` to ``True``.
+        :attr:`is_parenthesized` to ``True``.
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
         ...                                  is_parenthesized=True,
@@ -110,7 +110,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-4.png
 
-    ``multiplier``:
+    :attr:`~abjad.core.Chord.Chord.multiplier`:
         Similarly to |abjad.Chord|, this class can take multipliers:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
@@ -129,8 +129,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     Properties:
         All properties of |abjad.Chord| are also available to be read. This
-        class also includes two new properties named ``style`` and
-        ``is_parenthesized``:
+        class also includes two new properties named :attr:`style` and
+        :attr:`is_parenthesized`:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4")
         >>> harm.written_pitches
@@ -158,8 +158,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> harm.is_parenthesized
         True
 
-    ``sounding_pitch()`` and ``sounding_note()``:
-        The methods ``sounding_pitch()`` and ``sounding_note()`` return the
+    :meth:`sounding_pitch` and :meth:`sounding_note`:
+        The methods :meth:`sounding_pitch` and :meth:`sounding_note` return the
         sounding pitch and sounding note, respectively. Their types are
         |abjad.Pitch| and |abjad.Note|, respectively.
 
@@ -184,9 +184,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         b''4
         g'4
 
-    ``sounding_note()`` and indicators:
-        The note created by ``sounding_note()`` inherits all indicators of the
-        artificial harmonic.
+    :meth:`sounding_note` and indicators:
+        The note created by :meth:`sounding_note` inherits all indicators of
+        the artificial harmonic.
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
         >>> abjad.f(harm.sounding_note())
@@ -198,7 +198,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     ..  error::
 
-        Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
+        Both :meth:`sounding_pitch` and :meth:`sounding_note` methods raise a
         :exc:`ValueError` exception when it cannot calculate the sounding pitch
         for the given interval.
 

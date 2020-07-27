@@ -18,7 +18,7 @@ class PitchRandomiser:
 
     Basic usage:
         Calling the object will output a selection of the input container with
-        randomised pitches. Pitches are randomly selected from ``pitches``.
+        randomised pitches. Pitches are randomly selected from :attr:`pitches`.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
         >>> pitches = r"fs' gs' a' b' cs''"
@@ -54,7 +54,7 @@ class PitchRandomiser:
         .. figure:: ../_images/image-PitchRandomiser-2.png
 
         To get the result of the last operation, use the property
-        ``current_window``.
+        :attr:`current_window`.
 
         >>> notes = randomiser.current_window
         >>> staff = abjad.Staff(notes)
@@ -76,7 +76,7 @@ class PitchRandomiser:
         will already process the initial container. To disable this behaviour
         and output the initial container once before randomising its pitches,
         initialise the class with the keyword argument
-        ``process_on_first_call`` set to ``False``.
+        :attr:`process_on_first_call` set to ``False``.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> pitches = r"fs' gs' a' b'"
@@ -112,7 +112,7 @@ class PitchRandomiser:
 
     :func:`len()`:
         Applying the :func:`len()` function to the randomiser will return the
-        number of pitches in ``pitches``.
+        number of pitches in :attr:`pitches`.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> pitches = r"fs' gs' a' b'"
@@ -133,15 +133,15 @@ class PitchRandomiser:
     Arguments and properties:
         This class has many keyword arguments, all of which can be altered
         after instantiation using properties with the same names as shown
-        below. ``weights`` takes a :obj:`list` of :obj:`int`'s or
-        :obj:`float`'s representing the weight of each pitch from ``pitches``
-        (their lengths must also match). ``omit_time_signatures`` will remove
-        all time signatures from the output (both are ``False`` by default).
-        ``process_on_first_call`` to ``True`` and the random pitch process
-        will be applied on the very first call. Setting ``use_tenney_selector``
-        to ``True`` will make the randomiser use :class:`auxjad.TenneySelector`
-        for the random selection instead of :func:`random.choices()` (default
-        is ``False``).
+        below. :attr:`weights` takes a :obj:`list` of :obj:`int`'s or
+        :obj:`float`'s representing the weight of each pitch from
+        :attr:`pitches` (their lengths must also match).
+        :attr:`omit_time_signatures` will remove all time signatures from the
+        output (both are ``False`` by default). :attr:`process_on_first_call`
+        to ``True`` and the random pitch process will be applied on the very
+        first call. Setting :attr:`use_tenney_selector` to ``True`` will make
+        the randomiser use :class:`auxjad.TenneySelector` for the random
+        selection instead of :func:`random.choices()` (default is ``False``).
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> randomiser = auxjad.PitchRandomiser(
@@ -229,7 +229,7 @@ class PitchRandomiser:
         .. figure:: ../_images/image-PitchRandomiser-7.png
 
         The number of note heads in a chord stay the same unless there are
-        fewer pitches available in ``pitches``.
+        fewer pitches available in :attr:`pitches`.
 
         >>> container = abjad.Container(
         ...     r"<c' e' g' a'>2 <cs' ds' e' f' g' a' b'>2")
@@ -248,10 +248,10 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-8.png
 
-    ``use_tenney_selector``:
-        Setting ``use_tenney_selector`` to ``True`` will make the randomiser
-        use :class:`auxjad.TenneySelector` for the random selection instead of
-        :func:`random.choices()` (default is ``False``).
+    :attr:`use_tenney_selector`:
+        Setting :attr:`use_tenney_selector` to ``True`` will make the
+        randomiser use :class:`auxjad.TenneySelector` for the random selection
+        instead of :func:`random.choices()` (default is ``False``).
         :class:`auxjad.TenneySelector` will raise the chance of a pitch being
         selected the longer it hasn't been selected, and will forbid immediate
         repetitions of pitches. See its documentation for more information.
@@ -279,9 +279,9 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-9.png
 
-    ``weights``:
+    :attr:`weights`:
         Individual pitches can have different weights, defined by the
-        ``weights`` property. It takes a :obj:`list` of :obj:`float`'s or
+        :attr:`weights` property. It takes a :obj:`list` of :obj:`float`'s or
         :obj:`int`'s.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
@@ -307,9 +307,9 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-10.png
 
-    ``weights`` and ``use_tenney_selector``:
-        Non-uniform ``weights`` can also be used when ``use_tenney_selector``
-        is set to ``True``.
+    :attr:`weights` and :attr:`use_tenney_selector`:
+        Non-uniform :attr:`weights` can also be used when
+        :attr:`use_tenney_selector` is set to ``True``.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
         >>> pitches = r"fs' gs' a' b'"
@@ -335,8 +335,8 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-11.png
 
-    Resetting ``weights``:
-        Setting ``weights`` to ``None`` will reset it back to a uniform
+    Resetting :attr:`weights`:
+        Setting :attr:`weights` to ``None`` will reset it back to a uniform
         distribution.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
@@ -380,12 +380,12 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-13.png
 
-    Changing ``pitches``:
-        When using a custom :obj:`list` of ``weights``, changing the
-        ``pitches`` to a series of new values with the same length will
-        preserve the ``weights`` values. If on the other hand ``pitches``
-        changes in length, ``weights`` is reset to ``None`` (i.e. uniform
-        distribution).
+    Changing :attr:`pitches`:
+        When using a custom :obj:`list` of :attr:`weights`, changing the
+        :attr:`pitches` to a series of new values with the same length will
+        preserve the :attr:`weights` values. If on the other hand
+        :attr:`pitches` changes in length, :attr:`weights` is reset to ``None``
+        (i.e. uniform distribution).
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c'8")
         >>> pitches = r"fs' gs' a' b'"
@@ -406,8 +406,9 @@ class PitchRandomiser:
 
     ..  error::
 
-        Note that ``weights`` must always have the same length as ``pitches``,
-        otherwise a :exc:`ValueError` exception will be raised.
+        Note that :attr:`weights` must always have the same length as
+        :attr:`pitches`, otherwise a :exc:`ValueError` exception will be
+        raised.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> pitches = r"fs' gs' a' b'"
@@ -415,9 +416,9 @@ class PitchRandomiser:
         >>> auxjad.PitchRandomiser(container, pitches, weights=weights)
         ValueError: 'weights' must have the same length as 'pitches'
 
-    ``output_n()``:
+    :meth:`output_n`:
         To output several randomised containers at once, use the method
-        ``output_n()``, inputting the desired number of iterations.
+        :meth:`output_n`, inputting the desired number of iterations.
 
         >>> container = abjad.Container(r"c'4 ~ c'16 r8. d'4 e'8. r16")
         >>> pitches = [6, 7, 8, 9, 10]
@@ -513,8 +514,8 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-16.png
 
-    ``omit_time_signatures``:
-        To omit time signatures altogether, set ``omit_time_signatures`` to
+    :attr:`omit_time_signatures`:
+        To omit time signatures altogether, set :attr:`omit_time_signatures` to
         ``True`` (default is ``False``).
 
         >>> container = abjad.Container(
@@ -541,14 +542,14 @@ class PitchRandomiser:
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
-        then be used in a for loop. Note that unlike the method ``output_n()``,
-        time signatures are added to each window returned by the randomiser.
-        Use the function :func:`auxjad.remove_repeated_time_signatures()` to
-        clean the output when using this class in this way. It is also
-        important to note that a ``break`` statement is needed when using this
-        class as an iterator. The reason is that pitch randomisation is a
-        process that can happen indefinitely (unlike some of the other classes
-        in this library).
+        then be used in a for loop. Note that unlike the method
+        :meth:`output_n`, time signatures are added to each window returned by
+        the randomiser. Use the function
+        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        when using this class in this way. It is also important to note that a
+        ``break`` statement is needed when using this class as an iterator. The
+        reason is that pitch randomisation is a process that can happen
+        indefinitely (unlike some of the other classes in this library).
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> pitches = r"fs' gs' a' b' cs''"
@@ -622,11 +623,11 @@ class PitchRandomiser:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of ``pitches``.'
+        r'Returns interpreter representation of :attr:`pitches`.'
         return repr(self._pitches)
 
     def __len__(self) -> int:
-        r'Returns the number of available ``pitches``.'
+        r'Returns the number of available :attr:`pitches`.'
         return len(self._pitches)
 
     def __call__(self) -> abjad.Selection:
@@ -668,7 +669,7 @@ class PitchRandomiser:
     ### PRIVATE METHODS ###
 
     def _randomise(self) -> abjad.Selection:
-        r'Randomises pitches of ``contents``.'
+        r'Randomises pitches of :attr:`contents`.'
         if self._is_first_window and not self._process_on_first_call:
             self._is_first_window = False
         else:
@@ -769,7 +770,7 @@ class PitchRandomiser:
 
     @property
     def weights(self) -> list:
-        r'The :obj:`list` with weights for each element of ``pitches``'
+        r'The :obj:`list` with weights for each element of :attr:`pitches`'
         return self._weights
 
     @weights.setter
@@ -805,7 +806,7 @@ class PitchRandomiser:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then the ``contents`` will be processed in the very
+        r"""If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call

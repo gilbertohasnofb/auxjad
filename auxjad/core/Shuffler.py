@@ -578,7 +578,8 @@ class Shuffler:
     ..  error::
 
         Tuplets are not supported when ``pitch_only`` is ``False`` (logical tie
-        mode).
+        mode). Using a container with tuplets and ``pitch_only`` set to
+        ``True`` will raise a :exc:`TypeError` exception.
 
         >>> container = abjad.Container(
         ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")

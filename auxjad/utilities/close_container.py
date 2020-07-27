@@ -173,7 +173,7 @@ def close_container(container: abjad.Container):
     ..  error::
 
         If a container is malformed, i.e. it has an underfilled measure before
-        a time signature change, the function raises a ``ValueError``
+        a time signature change, the function raises a :exc:`ValueError`
         exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")

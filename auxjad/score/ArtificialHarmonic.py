@@ -64,7 +64,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     .. error::
         It is important to note that this class can only be initialised with
         exactly two pitches. Any other number of pitches will raise a
-        ``ValueError``:
+        :exc:`ValueError`:
 
         >>> auxjad.ArtificialHarmonic(r"<g c' d'>4")
         ValueError: 'ArtificialHarmonic' requires exactly two 'note_heads' for
@@ -199,8 +199,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ..  error::
 
         Both ``sounding_pitch()`` and ``sounding_note()`` methods raise a
-        ValueError exception when it cannot calculate the sounding pitch for
-        the given interval.
+        :exc:`ValueError` exception when it cannot calculate the sounding pitch
+        for the given interval.
 
         >>> ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
         ValueError: cannot calculate sounding pitch for given interval
@@ -264,7 +264,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
-        ``markup`` to ``None`` will raise an exception:
+        ``markup`` to ``None`` will raise an :exc:`Exception`:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> abjad.attach(abjad.Markup('test'), harm)

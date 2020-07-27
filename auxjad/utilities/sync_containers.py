@@ -483,7 +483,7 @@ def sync_containers(*containers: abjad.Container,
 
         If one or more containers is malformed, i.e. it has an underfilled
         measure before a time signature change, the function raises a
-        ``ValueError`` exception.
+        :exc:`ValueError` exception.
 
         >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Container(r"\time 5/4 c'1 | \time 4/4 d'4")

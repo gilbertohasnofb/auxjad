@@ -404,7 +404,8 @@ class PitchRandomiser:
 
     ..  error::
 
-        Note that ``weights`` must always have the same length as ``pitches``.
+        Note that ``weights`` must always have the same length as ``pitches``,
+        otherwise a :exc:`ValueError` exception will be raised.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> pitches = r"fs' gs' a' b'"

@@ -158,7 +158,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
-        ``markup`` to ``None`` will raise an exception:
+        ``markup`` to ``None`` will raise an :exc:`Exception`:
 
         >>> harm = auxjad.HarmonicNote(r"d''1")
         >>> abjad.attach(abjad.Markup('test'), harm)

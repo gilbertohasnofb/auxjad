@@ -113,6 +113,9 @@
 .. |abjad.Postscript| replace:: :class:`abjad.Postscript <abjad.markups.Postscript>`
 .. |abjad.PostscriptOperator| replace:: :class:`abjad.PostscriptOperator <abjad.markups.PostscriptOperator>`
 
+.. |abjad.Up| replace:: :attr:`abjad.Up <abjad.markups.Markup.direction>`
+.. |abjad.Down| replace:: :attr:`abjad.Down <abjad.markups.Markup.direction>`
+
 .. |abjad.Meter| replace:: :class:`abjad.Meter <abjad.meter.Meter>`
 .. |abjad.MeterList| replace:: :class:`abjad.MeterList <abjad.meter.MeterList>`
 .. |abjad.MetricAccentKernel| replace:: :class:`abjad.MetricAccentKernel <abjad.meter.MetricAccentKernel>`

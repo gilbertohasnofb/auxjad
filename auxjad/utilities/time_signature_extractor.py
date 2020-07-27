@@ -62,7 +62,7 @@ def time_signature_extractor(container: abjad.Container,
     ..  error::
 
         Setting both ``do_not_use_none`` and ``omit_repeated`` to ``True``
-        will raise an exception:
+        will raise a :exc:`ValueError` exception:
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2.")
@@ -96,7 +96,7 @@ def time_signature_extractor(container: abjad.Container,
 
         Setting ``do_not_use_none`` to ``True`` and ``implicit_common_time`` to
         ``False`` on a container that starts with no time signature will raise
-        an exception:
+        a :exc:`ValueError` exception:
 
         >>> container = abjad.Container(r"c'1 d'1 e'1 f'1")
         >>> time_signatures = auxjad.time_signature_extractor(

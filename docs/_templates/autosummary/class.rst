@@ -4,6 +4,7 @@
 
 .. autoclass:: {{ objname }}
    :members:
+   :inherited-members:
    :special-members: __init__, __repr__, __len__, __call__, __next__, __iter__, __getitem__, __setitem__, __delitem__
 
    {% block methods %}

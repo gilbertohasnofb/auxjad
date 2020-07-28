@@ -113,11 +113,11 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-5.png
 
-    ``markup``:
-        To add a markup expression to the harmonic note, use the ``markup``
+    :attr:`markup`:
+        To add a markup expression to the harmonic note, use the :attr:`markup`
         optional keyword argument, which takes strings. By default, the markup
         position is above the harmonic note, but this can be overridden using
-        the keyword ``direction``, which can take strings as well as
+        the keyword :attr:`direction`, which can take strings as well as
         |abjad.Up| and |abjad.Down|:
 
         >>> harm1 = auxjad.HarmonicNote(r"d''1")
@@ -143,7 +143,8 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-6.png
 
-        Setting ``markup`` to ``None`` will remove the markup from the note.
+        Setting :attr:`markup` to ``None`` will remove the markup from the
+        note.
 
         >>> harm = auxjad.HarmonicNote(r"d''1",
         ...                            markup='III.',
@@ -158,7 +159,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
-        ``markup`` to ``None`` will raise an :exc:`Exception`:
+        :attr:`markup` to ``None`` will raise an :exc:`Exception`:
 
         >>> harm = auxjad.HarmonicNote(r"d''1")
         >>> abjad.attach(abjad.Markup('test'), harm)

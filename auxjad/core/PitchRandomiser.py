@@ -822,8 +822,8 @@ class PitchRandomiser:
     @property
     def use_tenney_selector(self) -> bool:
         r"""If ``True`` then the pitches will be selected using
-        ``TenneySelector``, otherwise they are chosen using a uniform random
-        distribution.
+        :class:`auxjad.TenneySelector`, otherwise they are chosen using a
+        uniform random distribution.
         """
         return self._use_tenney_selector
 

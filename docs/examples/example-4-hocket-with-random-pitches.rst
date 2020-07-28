@@ -35,8 +35,8 @@ random pitches selected by this randomiser.
     ...                                     pitches=[0, 1, 2, 3, 4, 5, 6],
     ...                                     )
 
-We can now output three measures with random pitches using the ``output_n``
-method.
+We can now output three measures with random pitches using the method
+:meth:`auxjad.PitchRandomiser.output_n`.
 
     >>> staff = abjad.Staff()
     >>> notes = randomiser.output_n(3)

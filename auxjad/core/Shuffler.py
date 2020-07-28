@@ -419,7 +419,7 @@ class Shuffler:
     :meth:`shuffle_n` and :meth:`rotate_n`:
         To output several shuffled containers at once, use the methods
         :meth:`shuffle_n` and :meth:`rotate_n`, inputting the desired number of
-        iterations. ``rotate_n`` can also take the optional arguments
+        iterations. :meth:`rotate_n` can also take the optional arguments
         ``n_rotations`` and ``anticlockwise``, similarly to :meth:`rotate`.
 
         >>> container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")

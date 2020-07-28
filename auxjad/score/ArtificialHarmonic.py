@@ -207,12 +207,12 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> ArtificialHarmonic(r"<g ef'>4").sounding_note()
         ValueError: cannot calculate sounding pitch for given interval
 
-    ``markup``:
+    :attr:`markup`:
         To add a markup expression to the artificial harmonic, use the
-        ``markup`` optional keyword argument, which takes strings. By default,
-        the markup position is above the harmonic note, but this can be
-        overridden using the keyword ``direction``, which can take strings as
-        well as |abjad.Up| and |abjad.Down|:
+        :attr:`markup` optional keyword argument, which takes strings. By
+        default, the markup position is above the harmonic note, but this can
+        be overridden using the keyword :attr:`direction`, which can take
+        strings as well as |abjad.Up| and |abjad.Down|:
 
         >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
@@ -246,7 +246,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-7.png
 
-        Setting ``markup`` to ``None`` will remove the markup from the note.
+        Setting :attr:`markup` to ``None`` will remove the markup from the
+        note.
 
         >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1",
         ...                                  markup='I.',
@@ -264,7 +265,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
-        ``markup`` property to ``None`` will raise an :exc:`Exception`:
+        :attr:`markup` property to ``None`` will raise an :exc:`Exception`:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> abjad.attach(abjad.Markup('test'), harm)

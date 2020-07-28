@@ -6,6 +6,13 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
+"""
+Sphinx configuration file
+=========================
+
+isort:skip_file
+"""
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -190,3 +197,35 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+
+
+# -- Adding Abjad's custom 'docs' directive ----------------------------------
+
+import typing
+from docutils.parsers.rst import Directive, directives
+
+class HiddenDoctestDirective(Directive):
+    """
+    An hidden doctest directive.
+    Contributes no formatting to documents built by Sphinx.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __documentation_ignore_inherited__ = True
+
+    has_content = True
+    required_arguments = 0
+    optional_arguments = 0
+    final_argument_whitespace = True
+    option_spec: typing.Dict[str, str] = {}
+
+    ### PUBLIC METHODS ###
+
+    def run(self):
+        """Executes the directive."""
+        self.assert_has_content()
+        return []
+
+def setup(app):
+    app.add_directive("docs", HiddenDoctestDirective)

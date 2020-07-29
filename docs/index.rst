@@ -58,7 +58,8 @@ and `LilyPond`_.
 .. |Build| image:: https://travis-ci.org/gilbertohasnofb/auxjad.svg?branch=master
    :target: https://travis-ci.org/gilbertohasnofb/auxjad
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg
-.. |License| image:: https://img.shields.io/github/license/gilbertohasnofb/auxjad.svg
+   :target: https://www.python.org/downloads/release/python-360/
+.. |License| image:: https://img.shields.io/badge/license-MIT-blue
    :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 .. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg
    :target: https://github.com/gilbertohasnofb/auxjad/issues

@@ -17,7 +17,6 @@ from .core.CartographySelector import CartographySelector
 from .core.Drifter import Drifter
 from .core.Fader import Fader
 from .core.Hocketer import Hocketer
-from .core.LeafDynMaker import LeafDynMaker
 from .core.LeafLooper import LeafLooper
 from .core.ListLooper import ListLooper
 from .core.Phaser import Phaser
@@ -28,6 +27,7 @@ from .core.WindowLooper import WindowLooper
 
 from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
+from .score.LeafDynMaker import LeafDynMaker
 
 from .utilities.close_container import close_container
 from .utilities.container_is_full import container_is_full
@@ -65,7 +65,6 @@ __all__ = [
     'Drifter',
     'Fader',
     'Hocketer',
-    'LeafDynMaker',
     'LeafLooper',
     'ListLooper',
     'Phaser',
@@ -75,6 +74,7 @@ __all__ = [
     'WindowLooper',
     'ArtificialHarmonic',
     'HarmonicNote',
+    'LeafDynMaker',
     'close_container',
     'container_is_full',
     'containers_are_equal',

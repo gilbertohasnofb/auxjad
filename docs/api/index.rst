@@ -4,8 +4,9 @@ Auxjad API
 Auxjad is made out of three subpackages: |core|_, |score|_, and |utilities|_.
 |core|_ contain most of Auxjad's classes and is focused on algorithmic
 transformations and manipulations of |abjad.Container| objects. |utilities|_
-contain a number of utility functions. |score|_ contain a couple of classes
-that can be used as score components, such as artificial harmonics.
+contain a number of utility functions. |score|_ contain score component and
+component maker classes, such as an expanded leaf maker as well as harmonic
+leaves.
 
 ..  note::
 

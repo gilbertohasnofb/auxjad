@@ -1,8 +1,8 @@
 score
 =====
 
-The |score|_ subpackage include score component classes such as artificial and
-natural harmonics.
+The |score|_ subpackage include score component and component maker classes
+such as an expanded leaf maker as well as harmonic leaves.
 
 ..  note::
 
@@ -21,6 +21,7 @@ for their individual documentation.
 
     auxjad.ArtificialHarmonic
     auxjad.HarmonicNote
+    auxjad.LeafDynMaker
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

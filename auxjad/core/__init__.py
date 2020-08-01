@@ -2,5 +2,6 @@
 core
 ====
 
-Auxjad's core classes: loopers, shufflers, phasers, selectors, etc.
+Auxjad's core classes for algorithmic manipulations: loopers, shufflers,
+phasers, selectors, etc.
 """

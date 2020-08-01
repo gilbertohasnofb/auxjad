@@ -24,7 +24,6 @@ for their individual documentation.
     auxjad.Drifter
     auxjad.Fader
     auxjad.Hocketer
-    auxjad.LeafDynMaker
     auxjad.LeafLooper
     auxjad.ListLooper
     auxjad.Phaser

@@ -180,7 +180,7 @@ def fill_with_rests(container: abjad.Container):
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
         >>> auxjad.fill_with_rests(container)
         ValueError: 'container' is malformed, with an underfull measure
-        preceeding a time signature change
+        preceding a time signature change
 
     ..  warning::
 

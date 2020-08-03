@@ -12,22 +12,22 @@ def leaves_are_tieable(leaf1: abjad.Leaf,
         When the pitches in both leaves are identical, this function returns
         ``True``:
 
-        >>> Leaf1 = abjad.Note(r"c'4")
-        >>> Leaf2 = abjad.Note(r"c'4")
-        >>> auxjad.leaves_are_tieable(Leaf1, Leaf2)
+        >>> leaf1 = abjad.Note(r"c'4")
+        >>> leaf2 = abjad.Note(r"c'4")
+        >>> auxjad.leaves_are_tieable(leaf1, leaf2)
         True
 
     Durations:
         Durations do not affect the comparison.
 
-        >>> Leaf1 = abjad.Note(r"c'2.")
-        >>> Leaf2 = abjad.Note(r"c'16")
-        >>> Leaf3 = abjad.Note(r"f'''16")
-        >>> auxjad.leaves_are_tieable(Leaf1, Leaf2)
+        >>> leaf1 = abjad.Note(r"c'2.")
+        >>> leaf2 = abjad.Note(r"c'16")
+        >>> leaf3 = abjad.Note(r"f'''16")
+        >>> auxjad.leaves_are_tieable(leaf1, leaf2)
         True
-        >>> auxjad.leaves_are_tieable(Leaf1, Leaf3)
+        >>> auxjad.leaves_are_tieable(leaf1, leaf3)
         False
-        >>> auxjad.leaves_are_tieable(Leaf2, Leaf3)
+        >>> auxjad.leaves_are_tieable(leaf2, leaf3)
         False
 
     Chords:

@@ -372,7 +372,7 @@ class Shuffler:
         In logical ties mode, the rests will remain at the same index and will
         have the same total duration as before, but their position in the
         measure might vary since the duration of the pitched logical ties
-        preceeding it might change.
+        preceding it might change.
 
         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
         >>> shuffler = auxjad.Shuffler(container, preserve_rest_position=True)

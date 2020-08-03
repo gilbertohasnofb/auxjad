@@ -50,7 +50,7 @@ def containers_are_equal(container1: abjad.Container,
         ...                             container2,
         ...                             include_indicators=True,
         ...                             )
-        True
+        False
 
     Grace notes:
         This function also handles grace notes:

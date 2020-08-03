@@ -10,8 +10,8 @@ class ListLooper(_LooperParent):
     the argument :attr:`window_size`, which is an :obj:`int` representing how
     many elements are to be included in each slice.
 
-    For instance, if the initial container had the logical ties
-    ``[A, B, C, D, E, F]`` (where each letter represents one elemnt of an
+    For instance, if the initial container had the elements
+    ``[A, B, C, D, E, F]`` (where each letter represents an element of an
     arbitrary  type) and the looping window was size ``3``, the output would
     be:
 

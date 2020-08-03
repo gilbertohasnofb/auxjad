@@ -299,7 +299,7 @@ def repeat_container(container: abjad.Container,
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
         >>> output_container = auxjad.repeat_container(container)
         ValueError: 'container' is malformed, with an underfull measure
-        preceeding a time signature change
+        preceding a time signature change
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "

@@ -489,7 +489,7 @@ def sync_containers(*containers: abjad.Container,
         >>> container2 = abjad.Container(r"\time 5/4 c'1 | \time 4/4 d'4")
         >>> auxjad.sync_containers(container1, container2)
         ValueError: at least one 'container' is malformed, with an underfull
-        measure preceeding a time signature change
+        measure preceding a time signature change
     """
     if len(containers) == 1 and isinstance(containers[0], abjad.Score):
         containers = containers[0][:]
@@ -504,7 +504,7 @@ def sync_containers(*containers: abjad.Container,
             container_is_full(container)
         except ValueError as err:
             raise ValueError("at least one 'container' is malformed, with an "
-                             "underfull measure preceeding a time signature "
+                             "underfull measure preceding a time signature "
                              "change") from err
     if not isinstance(use_multimeasure_rests, bool):
         raise TypeError("'use_multimeasure_rests' must be 'bool'")

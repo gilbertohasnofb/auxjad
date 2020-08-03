@@ -52,8 +52,9 @@ class TenneySelector():
         D
 
         After each call, the object updates all probability values, setting the
-        previously selected element's probability at 0.0 and raising all other
-        probabilities according to a growth function (more on this below).
+        previously selected element's probability at ``0.0`` and raising all
+        other probabilities according to a growth function (more on this
+        below).
 
         >>> result = ''
         >>> for _ in range(30):
@@ -93,26 +94,27 @@ class TenneySelector():
         This class can take two optional keywords argument during its
         instantiation, namely :attr:`weights` and :attr:`curvature`.
         :attr:`weights` takes a :obj:`list` of :obj:`float` with the individual
-        weights of each element; by default, all weights are set to 1.0. These
-        weights affects the effective probability of each element. The other
-        argument, :attr:`curvature`, is the exponent of the growth function for
-        all elements. The growth function takes as input the number of
-        iterations since an element has been last selected, and raise this
-        number by the curvature value. If :attr:`curvature` is set to 1.0
-        (which is its default value), the growth is linear with each iteration.
-        If set to a value larger than 0.0 and less than 1.0, the growth is
-        negative (or concave), so that the chances of an element which is not
-        being selected will grow at ever smaller rates as the number of
-        iterations it has not been selected increase. If the :attr:`curvature`
-        is set to 1.0, the growth is linear with the number of iterations. If
-        the :attr:`curvature` is larger than 1.0, the curvature is positive (or
-        convex) and the growth will accelerate as the number of iterations an
-        element has not been selected grows. Setting the curvature to 0.0 will
-        result in an static probability vector with all values set to 1.0,
-        except for the previously selected one which will be set to 0.0; this
-        will result in a uniformly random selection without repetition.
+        weights of each element; by default, all weights are set to ``1.0``.
+        These weights affects the effective probability of each element. The
+        other argument, :attr:`curvature`, is the exponent of the growth
+        function for all elements. The growth function takes as input the
+        number of iterations since an element has been last selected, and raise
+        this number by the curvature value. If :attr:`curvature` is set to
+        ``1.0`` (which is its default value), the growth is linear with each
+        iteration. If set to a value larger than ``0.0`` and less than ``1.0``,
+        the growth is negative (or concave), so that the chances of an element
+        which is not being selected will grow at ever smaller rates as the
+        number of iterations it has not been selected increase. If the
+        :attr:`curvature` is set to ``1.0``, the growth is linear with the
+        number of iterations. If the :attr:`curvature` is larger than ``1.0``,
+        the curvature is positive (or convex) and the growth will accelerate as
+        the number of iterations an element has not been selected grows.
+        Setting the curvature to ``0.0`` will result in an static probability
+        vector with all values set to ``1.0``, except for the previously
+        selected one which will be set to ``0.0``; this will result in a
+        uniformly random selection without repetition.
 
-        With linear curvature (default value of 1.0):
+        With linear curvature (default value of ``1.0``):
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
         >>> selector.curvature
@@ -160,7 +162,7 @@ class TenneySelector():
         results in sequences which have more chances of a same element being
         near each other. In the sequence below, note how there are many cases
         of a same element being separated only by a single other one, such as
-        ``'ACA'`` in index 6.
+        ``'ACA'`` in index ``6``.
 
         >>> result = ''
         >>> for _ in range(30):
@@ -205,8 +207,8 @@ class TenneySelector():
         increases. The larger the curvature is, the larger difference there
         will be between any non-previously selected elements. This results in
         sequences which have less chances of a same element being near each
-        other. In the sequence below, with a curvature of 15.2, note how the
-        elements are as far apart from each other, resulting in a repeating
+        other. In the sequence below, with a curvature of ``15.2``, note how
+        the elements are as far apart from each other, resulting in a repeating
         string of ``'DFAECB'``.
 
         >>> result = ''

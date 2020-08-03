@@ -179,7 +179,7 @@ def close_container(container: abjad.Container):
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
         >>> auxjad.close_container(container)
         ValueError: 'container' is malformed, with an underfull measure
-        preceeding a time signature change
+        preceding a time signature change
 
     ..  warning::
 

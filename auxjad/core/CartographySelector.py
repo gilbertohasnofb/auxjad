@@ -6,7 +6,7 @@ class CartographySelector():
     r"""A selector used to store, manipulate, and select objects using a
     weighted function constructed with a fixed decay rate. The decay rate
     represents the ratio of probabilities of any index given the probability of
-    the preceeding one. For instance, if the decay rate is set to ``0.75``
+    the preceding one. For instance, if the decay rate is set to ``0.75``
     (which is its default value), the probability of the element in index ``1``
     of the input :obj:`list` being selected is :math:`75\%`` the probability of
     the element in index ``0``, and the probability of the element in index
@@ -463,7 +463,7 @@ class CartographySelector():
     @property
     def decay_rate(self) -> float:
         r"""The decay rate represents the ratio of probabilities of any index
-        given the probability of the preceeding one. For instance, if the decay
+        given the probability of the preceding one. For instance, if the decay
         rate is set to ``0.75`` (which is its default value), the probability
         of the element in index ``1`` of the input :obj:`list` being selected
         is ``0.75`` the probability of the element in index ``0``, and the

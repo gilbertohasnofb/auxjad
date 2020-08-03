@@ -77,7 +77,7 @@ def container_is_full(container: abjad.Container) -> bool:
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
         >>> auxjad.container_is_full(container)
         ValueError: 'container' is malformed, with an underfull measure
-        preceeding a time signature change
+        preceding a time signature change
 
     ..  warning::
 

@@ -71,7 +71,7 @@ class CartographySelector():
         >>> next(selector)
         0
 
-    ``no_repeat``:
+    :meth:`__call__` and argument ``no_repeat``:
         Calling the selector with the optional keyword argument ``no_repeat``
         set to ``True`` will forbid immediate repetitions among consecutive
         calls.
@@ -107,47 +107,46 @@ class CartographySelector():
         >>> result
         '000001002100000201001030000100'
 
-    :meth:`append`:
-        Appending is a type of content transformation. It discards the first
-        element of the selector's :attr:`contents`, shifts all others
-        leftwards, and then appends the new element to the last index.
+    :meth:`drop_first_and_append`:
+        This is a type of content transformation, it drops the first element of
+        :attr:`contents`, shifts all others leftwards, and appends the new
+        element to the last index.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> selector.append(5)
+        >>> selector.drop_first_and_append(5)
         >>> selector.contents
         [1, 2, 3, 4, 5]
-        >>> selector.append(42)
+        >>> selector.drop_first_and_append(42)
         >>> selector.contents
         [2, 3, 4, 5, 42]
 
-    :meth:`append_keeping_n`:
-        The method :meth:`append_keeping_n` is similar to :meth:`append`, but
-        it keeps the first ``n`` elements of :attr:`contents` untouched. It
-        thus discards the :math:`n+1`-th element, shifts all the next elements
-        one position lefwards, and finally appends the new element at the last
-        index.
+    :meth:`drop_n_and_append`:
+        This is a type of content transformation similar to
+        :meth:`drop_first_and_append`, it drops the element at index ``n`` of
+        :attr:`contents`, shifts all the next elements one position lefwards,
+        and appends the new element at the last index.
 
         >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
         >>> selector.contents
         [10, 7, 14, 31, 98]
-        >>> selector.append_keeping_n(100, 2)
+        >>> selector.drop_n_and_append(100, 2)
         >>> selector.contents
         [10, 7, 31, 98, 100]
 
-    :meth:`prepend`:
-        Prepending is another type of content transformation. It discards the
-        last element of :attr:`contents`, shifts all others rightwards, and
-        then prepends the new element to the first index.
+    :meth:`drop_last_and_prepend`:
+        A type of content transformation, it drops the last element of
+        :attr:`contents`, shifts all others rightwards, and then prepends
+        the new element to the first index.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> selector.prepend(-1)
+        >>> selector.drop_last_and_prepend(-1)
         >>> selector.contents
         [-1, 0, 1, 2, 3]
-        >>> selector.prepend(71)
+        >>> selector.drop_last_and_prepend(71)
         >>> selector.contents
         [71, -1, 0, 1, 2]
 
@@ -170,45 +169,46 @@ class CartographySelector():
         >>> selector.contents
         [1, 2, 3, 4, 0]
 
-    :meth:`mirror`:
-        The mirror transformation swaps the element of the input index with its
-        complementary element. Complementary elements are defined as the pair
-        of elements which share the same distance from the centre of the
-        :attr:`contents` (in terms of number of indeces), and are located at
-        either side.
+    :meth:`mirror_swap`:
+        The mirror swap transformation swaps takes an input index and swaps the
+        element at tit with its complementary element. Complementary elements
+        are defined as the pair of elements which share the same distance from
+        the centre of the :attr:`contents` (in terms of number of indeces), and
+        are located at either side of this centre.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> selector.mirror(0)
+        >>> selector.mirror_swap(0)
         >>> selector.contents
         [4, 1, 2, 3, 0]
-        >>> selector.mirror(0)
+        >>> selector.mirror_swap(0)
         >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> selector.mirror(3)
+        >>> selector.mirror_swap(3)
         >>> selector.contents
         [0, 3, 2, 1, 4]
-        >>> selector.mirror(2)
+        >>> selector.mirror_swap(2)
         >>> selector.contents
         [0, 3, 2, 1, 4]
 
-    :meth:`mirror_random`:
-        To mirror a random pair of complementary elements, use the
-        :meth:`mirror_random` method. In case of a selector with an odd number
-        of elements, this method will never pick an element at the pivot point
-        since the operation would not change the contents.
+    :meth:`mirror_random_swap`:
+        A type of content transformation which will apply  :meth:`mirror_swap`
+        to a random pair of complementary elements. In case of a selector with
+        an odd number of elements, this method will never pick the element at
+        the central index since that is the pivot point of the operation and it
+        would not result in any changes.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
         >>> selector.contents
         [0, 1, 2, 3, 4]
-        >>> selector.mirror_random()
+        >>> selector.mirror_random_swap()
         >>> selector.contents
         [4, 1, 2, 3, 0]
-        >>> selector.mirror_random()
+        >>> selector.mirror_random_swap()
         >>> selector.contents
         [4, 3, 2, 1, 0]
-        >>> selector.mirror_random()
+        >>> selector.mirror_random_swap()
         >>> selector.contents
         [4, 1, 2, 3, 0]
 
@@ -373,27 +373,26 @@ class CartographySelector():
 
     ### PUBLIC METHODS ###
 
-    def append(self, new_element):
-        r"""A type of content transformation, it discards the first element of
-        the :attr:`contents`, shifts all others leftwards, and then appends the
-        new element to the last index.
+    def drop_first_and_append(self, new_element):
+        r"""A type of content transformation, it drops the first element of
+        :attr:`contents`, shifts all others leftwards, and appends the new
+        element to the last index.
         """
         self._contents = self._contents[1:] + [new_element]
 
-    def append_keeping_n(self, new_element, n: int):
-        r"""A type of content transformation similar to :meth:`append`, it
-        keeps the first ``n`` elements of :attr:`contents` untouched, it then
-        discards the :math:`n+1`-th element, shifts all the next elements one
-        position lefwards, and finally appends the new element at the last
-        index.
+    def drop_n_and_append(self, new_element, n: int):
+        r"""A type of content transformation similar to
+        :meth:`drop_first_and_append`, it drops the element at index ``n`` of
+        :attr:`contents`, shifts all the next elements one position lefwards,
+        and appends the new element at the last index.
         """
         self._contents = (self._contents[:n]
                           + self._contents[n + 1:]
                           + [new_element])
 
-    def prepend(self, new_element):
-        r"""A type of content transformation, it discards the last element of
-        the :attr:`contents`, shifts all others rightwards, and then prepends
+    def drop_last_and_prepend(self, new_element):
+        r"""A type of content transformation, it drops the last element of
+        :attr:`contents`, shifts all others rightwards, and then prepends
         the new element to the first index.
         """
         self._contents = [new_element] + self._contents[:-1]
@@ -409,26 +408,26 @@ class CartographySelector():
         else:
             self._contents = self._contents[-1:] + self._contents[:-1]
 
-    def mirror(self, index: int):
-        r"""A type of content transformation which swaps the element of the
-        input index with its complementary element. Complementary elements are
-        defined as the pair of elements which share the same distance from the
-        centre of the :attr:`contents` (in terms of number of indeces), and are
-        located at either side.
+    def mirror_swap(self, index: int):
+        r"""A type of content transformation which swaps takes an input index
+        and swaps the element at tit with its complementary element.
+        Complementary elements  are defined as the pair of elements which share
+        the same distance from  the centre of the :attr:`contents` (in terms of
+        number of indeces), and  are located at either side of this centre.
         """
         aux = self._contents[index]
         self._contents[index] = self._contents[-1 - index]
         self._contents[-1 - index] = aux
 
-    def mirror_random(self):
-        r"""A type of content transformation which swaps the element of a
-        random index with its complementary element. Complementary elements are
-        defined as the pair of elements which share the same distance from the
-        centre of the :attr:`contents` (in terms of number of indeces), and are
-        located at either side.
+    def mirror_random_swap(self):
+        r"""A type of content transformation which will apply
+        :meth:`mirror_swap` to a random pair of complementary elements. In case
+        of a selector with an odd number of elements, this method will never
+        pick the element at the central index since that is the pivot point of
+        the operation and it would not result in any changes.
         """
         max_index = self.__len__() // 2 - 1
-        self.mirror(random.randint(0, max_index))
+        self.mirror_swap(random.randint(0, max_index))
 
     def shuffle(self):
         r'Shuffles the position of the elements of :attr:`contents`.'

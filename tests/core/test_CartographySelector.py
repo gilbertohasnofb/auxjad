@@ -32,23 +32,23 @@ def test_CartographySelector_02():
 
 def test_CartographySelector_03():
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    selector.append(5)
+    selector.drop_first_and_append(5)
     assert selector.contents == [1, 2, 3, 4, 5]
-    selector.append(42)
+    selector.drop_first_and_append(42)
     assert selector.contents == [2, 3, 4, 5, 42]
 
 
 def test_CartographySelector_04():
     selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
-    selector.append_keeping_n(100, 2)
+    selector.drop_n_and_append(100, 2)
     assert selector.contents == [10, 7, 31, 98, 100]
 
 
 def test_CartographySelector_05():
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    selector.prepend(-1)
+    selector.drop_last_and_prepend(-1)
     assert selector.contents == [-1, 0, 1, 2, 3]
-    selector.prepend(71)
+    selector.drop_last_and_prepend(71)
     assert selector.contents == [71, -1, 0, 1, 2]
 
 
@@ -139,24 +139,24 @@ def test_CartographySelector_12():
 
 def test_CartographySelector_13():
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    selector.mirror(0)
+    selector.mirror_swap(0)
     assert selector.contents == [4, 1, 2, 3, 0]
-    selector.mirror(0)
+    selector.mirror_swap(0)
     assert selector.contents == [0, 1, 2, 3, 4]
-    selector.mirror(3)
+    selector.mirror_swap(3)
     assert selector.contents == [0, 3, 2, 1, 4]
-    selector.mirror(2)
+    selector.mirror_swap(2)
     assert selector.contents == [0, 3, 2, 1, 4]
 
 
 def test_CartographySelector_14():
     random.seed(90129)
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    selector.mirror_random()
+    selector.mirror_random_swap()
     assert selector.contents == [4, 1, 2, 3, 0]
-    selector.mirror_random()
+    selector.mirror_random_swap()
     assert selector.contents == [4, 3, 2, 1, 0]
-    selector.mirror_random()
+    selector.mirror_random_swap()
     assert selector.contents == [4, 1, 2, 3, 0]
 
 

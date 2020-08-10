@@ -215,3 +215,4 @@ This is the final result.
 .. _auxjad: ../api/index.html
 
 .. include:: ../api/abjad-targets.rst
+.. include:: ../api/auxjad-targets.rst

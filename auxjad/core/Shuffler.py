@@ -3,13 +3,14 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.enforce_time_signature import enforce_time_signature
-from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
-from ..utilities.remove_repeated_time_signatures import (
+from ..mutations.remove_empty_tuplets import remove_empty_tuplets
+from ..mutations.remove_repeated_dynamics import remove_repeated_dynamics
+from ..mutations.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
-from ..utilities.reposition_dynamics import reposition_dynamics
-from ..utilities.reposition_slurs import reposition_slurs
+from ..mutations.reposition_dynamics import reposition_dynamics
+from ..mutations.reposition_slurs import reposition_slurs
+from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -959,8 +960,8 @@ class Shuffler:
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        remove_repeated_time_signatures(dummy_container)
-        remove_repeated_dynamics(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -982,8 +983,8 @@ class Shuffler:
         for _ in range(n):
             dummy_container.append(self.rotate(n_rotations=n_rotations,
                                                anticlockwise=anticlockwise))
-        remove_repeated_time_signatures(dummy_container)
-        remove_repeated_dynamics(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -992,7 +993,8 @@ class Shuffler:
 
     def _update_logical_selections(self):
         r'Updates the selection of logical ties of :attr:`contents`.'
-        self._logical_selections = self._get_logical_selections(self._contents)
+        self._logical_selections = self._get_logical_selections(
+            self._contents)
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> list:
@@ -1129,8 +1131,8 @@ class Shuffler:
                                disable_rewrite_meter=True,
                                )
         # handling dynamics and slurs
-        reposition_dynamics(dummy_container)
-        reposition_slurs(dummy_container)
+        reposition_dynamics(dummy_container[:])
+        reposition_slurs(dummy_container[:])
         # rewrite meter
         if not self._disable_rewrite_meter:
             measures = abjad.select(dummy_container[:]).group_by_measure()
@@ -1150,7 +1152,7 @@ class Shuffler:
     def _rewrite_pitches(self):
         r'Rewrites the pitches of the current window.'
         dummy_container = abjad.Container(
-            abjad.mutate(self._current_window[:]).copy()
+            abjad.mutate(self._contents[:]).copy()
         )
         leaf_counter = 0
         for pitch, logical_selection in zip(self._pitches,
@@ -1181,6 +1183,7 @@ class Shuffler:
                 abjad.mutate(selection).replace(new_leaf)
                 leaf_counter += 1
         # attaching time signature structure
+        remove_empty_tuplets(dummy_container[:])
         enforce_time_signature(dummy_container,
                                self._time_signatures,
                                disable_rewrite_meter=True,
@@ -1189,7 +1192,6 @@ class Shuffler:
         self._is_first_window = False
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        self._update_logical_selections()  # new logical selections
 
     @staticmethod
     def _get_logical_selections(container):
@@ -1283,6 +1285,12 @@ class Shuffler:
         if not isinstance(pitch_only, bool):
             raise TypeError("'pitch_only' must be 'bool'")
         self._pitch_only = pitch_only
+        # potentially new logical selections when shifting from pitch-only mode
+        # to logical selections mode
+        self._update_logical_selections()
+        self._get_pitch_list()
+        self._contents = abjad.Container(
+            abjad.mutate(self._current_window).copy())
 
     @property
     def preserve_rest_position(self) -> bool:

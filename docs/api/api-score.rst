@@ -29,3 +29,4 @@ for their individual documentation.
 .. _score: api-score.html
 
 .. include:: abjad-targets.rst
+.. include:: auxjad-targets.rst

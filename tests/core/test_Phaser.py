@@ -1119,7 +1119,7 @@ def test_Phaser_23():
             e'2.
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff)
+    auxjad.remove_repeated_time_signatures(staff[:])
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

@@ -1,9 +1,10 @@
 utilities
 =========
 
-The |utilities|_ subpackage contains utility functions which include mutation
-functions (e.g. to adjust indicators of a container in place) and :obj:`bool`
-functions (e.g. to check whether a container satisfy some condition).
+The |utilities|_ subpackage contains utility functions. Most of these act on
+one or more |abjad.Container| as input. Some (but not all) have no return value
+and will transform a container in place. Check their individual documentation
+pages from the list below for each specific function.
 
 ..  note::
 
@@ -21,26 +22,12 @@ names for their individual documentation.
     :toctree: ../_api_members
 
     auxjad.close_container
-    auxjad.container_is_full
-    auxjad.containers_are_equal
     auxjad.enforce_time_signature
     auxjad.fill_with_rests
-    auxjad.leaves_are_tieable
-    auxjad.prettify_rewrite_meter
-    auxjad.remove_empty_tuplets
-    auxjad.remove_repeated_dynamics
-    auxjad.remove_repeated_time_signatures
     auxjad.repeat_container
-    auxjad.reposition_clefs
-    auxjad.reposition_dynamics
-    auxjad.reposition_slurs
-    auxjad.respell_chord
-    auxjad.respell_container
-    auxjad.rests_to_multimeasure_rest
     auxjad.simplified_time_signature_ratio
     auxjad.sync_containers
     auxjad.time_signature_extractor
-    auxjad.underfull_duration
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html
@@ -48,3 +35,4 @@ names for their individual documentation.
 .. _utilities: api-utilities.html
 
 .. include:: abjad-targets.rst
+.. include:: auxjad-targets.rst

@@ -55,10 +55,11 @@ and rests.
 .. figure:: ../_images/image-example-5-shuffling-harmonics-1.png
 
 The spelling of the chord ``<d' af' a'>`` could be improved. This can be done
-by using either :func:`auxjad.respell_chord()` on that specific chord or
-:func:`auxjad.respell_container()` on the whole container.
+by using either :func:`auxjad.respell_accidentals()` on a selection or using
+the identical method |abjad.mutate().respell_accidentals()| which Auxjad adds
+to |abjad.mutate()|.
 
-    >>> auxjad.respell_container(container)
+    >>> abjad.mutate(container[:]).respell_accidentals()
     >>> abjad.f(container)
     {
         <
@@ -636,16 +637,20 @@ mutation sometimes uses ties within a single beat, resulting in rhythms that
 are less ideally notated than they could.
 :func:`auxjad.prettify_rewrite_meter()` fuses pitched leaves according to some
 specific rules, improving the default output of
-|abjad.mutate().rewrite_meter()|.
+|abjad.mutate().rewrite_meter()|. This function is also available as the method
+|abjad.mutate().prettify_rewrite_meter()| which Auxjad adds to
+|abjad.mutate()|.
 
 Notice that the time signature has been repeated. While the method
 :meth:`~auxjad.Fader.output_all()` takes care of repeated time signatures,
 dynamics, and clefs, consecutive calls may result in repetitions. But we can
 simply use :func:`auxjad.remove_repeated_time_signatures()` to take care of
-that for us.
+that for us. This function is also available as the method
+|abjad.mutate().remove_repeated_time_signatures()| which Auxjad adds to
+|abjad.mutate()|.
 
-    >>> auxjad.prettify_rewrite_meter(staff, meter=abjad.Meter((4, 4)))
-    >>> auxjad.remove_repeated_time_signatures(staff)
+    >>> abjad.mutate(staff[:]).prettify_rewrite_meter(abjad.Meter((4, 4)))
+    >>> abjad.mutate(staff[:]).remove_repeated_time_signatures()
     >>> abjad.f(staff)
     \new Staff
     {
@@ -925,3 +930,4 @@ that for us.
 .. _auxjad: ../api/index.html
 
 .. include:: ../api/abjad-targets.rst
+.. include:: ../api/auxjad-targets.rst

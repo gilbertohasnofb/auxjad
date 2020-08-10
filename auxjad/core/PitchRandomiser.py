@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
-from ..utilities.remove_repeated_time_signatures import (
+from ..mutations.remove_repeated_dynamics import remove_repeated_dynamics
+from ..mutations.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
 from .TenneySelector import TenneySelector
@@ -660,8 +660,8 @@ class PitchRandomiser:
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        remove_repeated_time_signatures(dummy_container)
-        remove_repeated_dynamics(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output

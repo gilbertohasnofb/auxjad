@@ -739,7 +739,7 @@ def test_Shuffler_18():
             d'4
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff)
+    auxjad.remove_repeated_time_signatures(staff[:])
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -794,3 +794,90 @@ def test_Shuffler_19():
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         auxjad.Shuffler(score)
+
+
+def test_Shuffler_20():
+    random.seed(76123)
+    container = abjad.Container(r"\times 2/3 {\time 3/4 r8 d'8 r8} c'4 r4")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler.shuffle_n(5)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \times 2/3 {
+                \time 3/4
+                r8
+                d'8
+                r8
+            }
+            r4
+            c'4
+            \times 2/3 {
+                d'8
+                c'8
+                r8
+            }
+            r4
+            r4
+            r4
+            d'4
+            c'4
+            \times 2/3 {
+                r8
+                d'8
+                c'8
+            }
+            r4
+            r4
+            \times 2/3 {
+                c'8
+                r8
+                r8
+            }
+            d'4
+            r4
+        }
+        """)
+
+
+def test_Shuffler_21():
+    random.seed(98141)
+    container = abjad.Container(r"c'4.. d'16 e'4. f'8")
+    shuffler = auxjad.Shuffler(container, pitch_only=True)
+    notes = shuffler.shuffle_n(2)
+    staff = abjad.Staff(notes)
+    shuffler.pitch_only = False
+    notes = shuffler.shuffle_n(2)
+    staff.append(notes)
+    auxjad.remove_repeated_time_signatures(staff[:])
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            d'4..
+            c'16
+            f'4.
+            e'8
+            d'4..
+            f'16
+            c'4.
+            e'8
+            f'16
+            d'4..
+            e'8
+            c'4.
+            c'4.
+            d'8
+            ~
+            d'4
+            ~
+            d'16
+            e'16
+            ~
+            e'16
+            f'16
+        }
+        """)

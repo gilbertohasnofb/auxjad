@@ -38,3 +38,4 @@ for their individual documentation.
 .. _core: api-core.html
 
 .. include:: abjad-targets.rst
+.. include:: auxjad-targets.rst

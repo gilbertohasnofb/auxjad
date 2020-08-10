@@ -3,13 +3,13 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.enforce_time_signature import enforce_time_signature
-from ..utilities.leaves_are_tieable import leaves_are_tieable
-from ..utilities.remove_repeated_time_signatures import (
+from ..inspections.leaves_are_tieable import leaves_are_tieable
+from ..mutations.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
-from ..utilities.reposition_dynamics import reposition_dynamics
-from ..utilities.reposition_slurs import reposition_slurs
+from ..mutations.reposition_dynamics import reposition_dynamics
+from ..mutations.reposition_slurs import reposition_slurs
+from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -1216,9 +1216,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        remove_repeated_time_signatures(dummy_container)
-        reposition_dynamics(dummy_container)
-        reposition_slurs(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        reposition_dynamics(dummy_container[:])
+        reposition_slurs(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1244,9 +1244,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        remove_repeated_time_signatures(dummy_container)
-        reposition_dynamics(dummy_container)
-        reposition_slurs(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        reposition_dynamics(dummy_container[:])
+        reposition_slurs(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1265,7 +1265,7 @@ class Phaser():
         r'Applies the phasing process and handles the output container.'
         dummy_container = self._phase_contents()
         # dealing with dynamics
-        reposition_dynamics(dummy_container)
+        reposition_dynamics(dummy_container[:])
         # adding time signatures back and rewriting meter
         time_signatures = time_signature_extractor(self._contents)
         enforce_time_signature(

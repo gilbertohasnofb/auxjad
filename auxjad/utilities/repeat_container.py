@@ -1,11 +1,15 @@
 import abjad
 
+from ..inspections.selection_is_full import selection_is_full
+from ..mutations.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures,
+)
+from ..mutations.reposition_clefs import reposition_clefs as reposition_clefs_
+from ..mutations.reposition_dynamics import (
+    reposition_dynamics as reposition_dynamics_,
+)
+from ..mutations.reposition_slurs import reposition_slurs as reposition_slurs_
 from .close_container import close_container
-from .container_is_full import container_is_full
-from .remove_repeated_time_signatures import remove_repeated_time_signatures
-from .reposition_clefs import reposition_clefs as reposition_clefs_
-from .reposition_dynamics import reposition_dynamics as reposition_dynamics_
-from .reposition_slurs import reposition_slurs as reposition_slurs_
 
 
 def repeat_container(container: abjad.Container,
@@ -312,19 +316,19 @@ def repeat_container(container: abjad.Container,
         raise TypeError("'force_identical_time_signatures' must be 'bool'")
 
     container_ = abjad.mutate(container).copy()
-    if not container_is_full(container_):
+    if not selection_is_full(container_[:]):
         close_container(container_)
     output_container = abjad.mutate(container_).copy()
     for _ in range(n - 1):
         output_container.extend(abjad.mutate(container_).copy())
     if not force_identical_time_signatures:
-        remove_repeated_time_signatures(output_container)
+        remove_repeated_time_signatures(output_container[:])
     if reposition_clefs:
-        reposition_clefs_(output_container)
+        reposition_clefs_(output_container[:])
     if reposition_clefs:
-        reposition_dynamics_(output_container)
+        reposition_dynamics_(output_container[:])
     if reposition_clefs:
-        reposition_slurs_(output_container)
+        reposition_slurs_(output_container[:])
     if omit_time_signatures:
         for leaf in abjad.select(output_container).leaves():
             if abjad.inspect(leaf).indicator(abjad.TimeSignature):

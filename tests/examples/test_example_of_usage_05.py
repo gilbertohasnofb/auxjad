@@ -15,7 +15,7 @@ def test_example_of_usage_05():
         abjad.Chord([2, 8, 9], (1, 8)),
         auxjad.ArtificialHarmonic(r"<d' a'>8", is_parenthesized=True),
     ])
-    auxjad.respell_container(container)
+    abjad.mutate(container[:]).respell_accidentals()
     shuffler = auxjad.Shuffler(container)
     staff = abjad.Staff()
     notes = shuffler.shuffle_n(4)
@@ -24,8 +24,8 @@ def test_example_of_usage_05():
     fader = auxjad.Fader(container, fader_type='out')
     notes = fader.output_all()
     staff.append(notes)
-    auxjad.prettify_rewrite_meter(staff, meter=abjad.Meter((4, 4)))
-    auxjad.remove_repeated_time_signatures(staff)
+    abjad.mutate(staff[:]).prettify_rewrite_meter(abjad.Meter((4, 4)))
+    abjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

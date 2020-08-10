@@ -370,3 +370,4 @@ To create the final score, we can simply assign its return value to an
 .. _auxjad: ../api/index.html
 
 .. include:: ../api/abjad-targets.rst
+.. include:: ../api/auxjad-targets.rst

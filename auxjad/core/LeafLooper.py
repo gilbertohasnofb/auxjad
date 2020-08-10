@@ -1,7 +1,7 @@
 import abjad
 
-from ..utilities.reposition_dynamics import reposition_dynamics
-from ..utilities.reposition_slurs import reposition_slurs
+from ..mutations.reposition_dynamics import reposition_dynamics
+from ..mutations.reposition_slurs import reposition_slurs
 from ..utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,
 )
@@ -787,8 +787,8 @@ class LeafLooper(_LooperParent):
                 if dynamic is not None:
                     abjad.attach(dynamic, start_head)
                     break
-        reposition_dynamics(dummy_container)
-        reposition_slurs(dummy_container)
+        reposition_dynamics(dummy_container[:])
+        reposition_slurs(dummy_container[:])
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 

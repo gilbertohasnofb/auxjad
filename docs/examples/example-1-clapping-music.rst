@@ -1071,3 +1071,4 @@ score should have a single end repetition bar line.
 .. _auxjad: ../api/index.html
 
 .. include:: ../api/abjad-targets.rst
+.. include:: ../api/auxjad-targets.rst

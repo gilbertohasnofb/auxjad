@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
-from ..utilities.remove_repeated_time_signatures import (
+from ..mutations.remove_repeated_dynamics import remove_repeated_dynamics
+from ..mutations.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
 from .Fader import Fader
@@ -1514,10 +1514,10 @@ class Drifter():
                 output_staff_b.extend(result_b)
             except RuntimeError:
                 break
-        remove_repeated_time_signatures(output_staff_a)
-        remove_repeated_time_signatures(output_staff_b)
-        remove_repeated_dynamics(output_staff_a)
-        remove_repeated_dynamics(output_staff_b)
+        remove_repeated_time_signatures(output_staff_a[:])
+        remove_repeated_time_signatures(output_staff_b[:])
+        remove_repeated_dynamics(output_staff_a[:])
+        remove_repeated_dynamics(output_staff_b[:])
         return (output_staff_a, output_staff_b)
 
     def output_n(self,
@@ -1541,10 +1541,10 @@ class Drifter():
                 output_staff_b.extend(result_b)
             except RuntimeError:
                 break
-        remove_repeated_time_signatures(output_staff_a)
-        remove_repeated_time_signatures(output_staff_b)
-        remove_repeated_dynamics(output_staff_a)
-        remove_repeated_dynamics(output_staff_b)
+        remove_repeated_time_signatures(output_staff_a[:])
+        remove_repeated_time_signatures(output_staff_b[:])
+        remove_repeated_dynamics(output_staff_a[:])
+        remove_repeated_dynamics(output_staff_b[:])
         return (output_staff_a, output_staff_b)
 
     def reset(self):

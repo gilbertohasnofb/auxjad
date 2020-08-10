@@ -3,15 +3,16 @@ from typing import Any, Optional, Union
 
 import abjad
 
-from ..score.ArtificialHarmonic import ArtificialHarmonic
-from ..utilities.enforce_time_signature import enforce_time_signature
-from ..utilities.remove_repeated_dynamics import remove_repeated_dynamics
-from ..utilities.remove_repeated_time_signatures import (
+from ..mutations.remove_empty_tuplets import remove_empty_tuplets
+from ..mutations.remove_repeated_dynamics import remove_repeated_dynamics
+from ..mutations.remove_repeated_time_signatures import (
     remove_repeated_time_signatures,
 )
-from ..utilities.reposition_dynamics import reposition_dynamics
-from ..utilities.reposition_slurs import reposition_slurs
-from ..utilities.rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from ..mutations.reposition_dynamics import reposition_dynamics
+from ..mutations.reposition_slurs import reposition_slurs
+from ..mutations.rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from ..score.ArtificialHarmonic import ArtificialHarmonic
+from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -1282,8 +1283,8 @@ class Fader():
             dummy_container.append(self.__call__())
             if self._done:
                 break
-        remove_repeated_time_signatures(dummy_container)
-        remove_repeated_dynamics(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1302,8 +1303,8 @@ class Fader():
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        remove_repeated_time_signatures(dummy_container)
-        remove_repeated_dynamics(dummy_container)
+        remove_repeated_time_signatures(dummy_container[:])
+        remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1390,9 +1391,10 @@ class Fader():
                 mask_index += 1
             else:
                 mask_index += 1
-        # handling dynamics and slurs
-        reposition_dynamics(dummy_container)
-        reposition_slurs(dummy_container)
+        # handling dynamics and slurs and empty tuplets
+        reposition_dynamics(dummy_container[:])
+        reposition_slurs(dummy_container[:])
+        remove_empty_tuplets(dummy_container[:])
         # applying time signatures and rewrite meter
         enforce_time_signature(
             dummy_container,
@@ -1403,7 +1405,7 @@ class Fader():
             rewrite_tuplets=self._rewrite_tuplets,
         )
         if self._use_multimeasure_rests:
-            rests_to_multimeasure_rest(dummy_container)
+            rests_to_multimeasure_rest(dummy_container[:])
         # output
         self._current_window = dummy_container[:]
         dummy_container[:] = []

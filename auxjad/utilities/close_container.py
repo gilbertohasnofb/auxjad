@@ -1,8 +1,8 @@
 import abjad
 
-from .container_is_full import container_is_full
+from ..inspections.selection_is_full import selection_is_full
+from ..inspections.underfull_duration import underfull_duration
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
-from .underfull_duration import underfull_duration
 
 
 def close_container(container: abjad.Container):
@@ -192,8 +192,8 @@ def close_container(container: abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
     if not abjad.select(container).leaves().are_contiguous_logical_voice():
         raise ValueError("argument must be contiguous logical voice")
-    if not container_is_full(container):
-        missing_duration = underfull_duration(container)
+    if not selection_is_full(container[:]):
+        missing_duration = underfull_duration(container[:])
         leaves = abjad.select(container).leaves()
         for leaf in leaves[::-1]:
             time_signature = abjad.inspect(leaf).effective(abjad.TimeSignature)

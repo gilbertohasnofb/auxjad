@@ -1,10 +1,10 @@
 import abjad
 
+from ..inspections.selection_is_full import selection_is_full
+from ..inspections.underfull_duration import underfull_duration
+from ..mutations.rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .close_container import close_container
-from .container_is_full import container_is_full
-from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
-from .underfull_duration import underfull_duration
 
 
 def sync_containers(*containers: abjad.Container,
@@ -501,7 +501,7 @@ def sync_containers(*containers: abjad.Container,
             raise ValueError("positional arguments must each be contiguous "
                              "logical voice")
         try:
-            container_is_full(container)
+            selection_is_full(container[:])
         except ValueError as err:
             raise ValueError("at least one 'container' is malformed, with an "
                              "underfull measure preceding a time signature "
@@ -518,8 +518,8 @@ def sync_containers(*containers: abjad.Container,
         duration_difference = max_duration - duration
         if duration_difference > abjad.Duration(0):
             # handling duration left in the last measure, if any
-            if not container_is_full(container):
-                duration_left = underfull_duration(container)
+            if not selection_is_full(container[:]):
+                duration_left = underfull_duration(container[:])
                 underfull_rests_duration = min(duration_difference,
                                                duration_left,
                                                )
@@ -558,8 +558,9 @@ def sync_containers(*containers: abjad.Container,
                         abjad.attach(rests_time_signature, rests[0])
                 container.extend(rests)
             if use_multimeasure_rests:
-                rests_to_multimeasure_rest(container)
+                rests_to_multimeasure_rest(container[:])
         else:
             # closing longest container if necessary
-            if adjust_last_time_signature and not container_is_full(container):
+            if (adjust_last_time_signature
+                    and not selection_is_full(container[:])):
                 close_container(container)

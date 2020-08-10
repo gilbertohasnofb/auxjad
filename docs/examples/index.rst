@@ -21,3 +21,4 @@ documentation of specific functions and classes.
 .. _auxjad: ../api/index.html
 
 .. include:: ../api/abjad-targets.rst
+.. include:: ../api/auxjad-targets.rst

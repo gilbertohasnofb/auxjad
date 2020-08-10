@@ -42,3 +42,4 @@
    {% endblock %}
 
 .. include:: ../api/abjad-targets.rst
+.. include:: ../api/auxjad-targets.rst

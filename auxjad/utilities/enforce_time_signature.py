@@ -677,7 +677,9 @@ def enforce_time_signature(container: abjad.Container,
     if close_container:
         close_container_function(container)
     elif fill_with_rests:
-        fill_with_rests_function(container)
+        fill_with_rests_function(container,
+                                 disable_rewrite_meter=disable_rewrite_meter,
+                                 )
     # rewrite meter
     if not disable_rewrite_meter:
         measures = abjad.select(container[:]).group_by_measure()

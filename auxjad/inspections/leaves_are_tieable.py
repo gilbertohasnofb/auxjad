@@ -1,10 +1,14 @@
-from typing import Union
+import collections
+from typing import Iterable, Union
 
 import abjad
 
 
-def leaves_are_tieable(leaf1: Union[abjad.Leaf, abjad.Selection],
-                       leaf2: Union[abjad.Leaf, abjad.Selection],
+def leaves_are_tieable(leaves: Union[abjad.Selection,
+                                     Iterable[Union[abjad.Component,
+                                                    abjad.LogicalTie,
+                                                    ]],
+                                     ],
                        ) -> bool:
     r"""Returns a :obj:`bool` representing whether or not two input leaves (of
     type |abjad.Leaf| or child class) have identical pitch(es) and thus can
@@ -59,40 +63,38 @@ def leaves_are_tieable(leaf1: Union[abjad.Leaf, abjad.Selection],
         >>> auxjad.leaves_are_tieable(container[0], container[2])
         False
     """
-    if not isinstance(leaf1, (abjad.Leaf, abjad.Selection)):
-        raise TypeError("first positional argument must be 'abjad.Selection', "
-                        "'abjad.Leaf' or child class")
-    if not isinstance(leaf2, (abjad.Leaf, abjad.Selection)):
-        raise TypeError("second positional argument must be "
-                        "'abjad.Selection', 'abjad.Leaf' or child class")
-    if isinstance(leaf1, abjad.Selection):
-        leaf1 = leaf1.leaf(-1)
-    if isinstance(leaf2, abjad.Selection):
-        leaf2 = leaf2.leaf(0)
-    if not isinstance(leaf1, type(leaf2)):
-        return False
-    if isinstance(leaf1, abjad.Rest):
-        return False
-    if isinstance(leaf1, abjad.MultimeasureRest):
-        return False
-    if (isinstance(leaf1, abjad.Note)
-            and leaf1.written_pitch != leaf2.written_pitch):
-        return False
-    if (isinstance(leaf1, abjad.Chord)
-            and leaf1.written_pitches != leaf2.written_pitches):
-        return False
-    if not isinstance(abjad.inspect(leaf1).before_grace_container(),
-                      type(abjad.inspect(leaf2).before_grace_container())):
-        return False
+    if not isinstance(leaves, (abjad.Selection,
+                               collections.abc.Iterable,
+                               )):
+        raise TypeError("argument must be 'abjad.Selection' or non-string "
+                        "iterable of components")
+    for index, leaf1 in enumerate(leaves[:-1]):
+        for leaf2 in leaves[index + 1:]:
+            if isinstance(leaf1, abjad.LogicalTie):
+                leaf1 = leaf1[0]
+            if isinstance(leaf2, abjad.LogicalTie):
+                leaf2 = leaf2[0]
+            if not isinstance(leaf1, type(leaf2)):
+                return False
+            if isinstance(leaf1, abjad.Rest):
+                return False
+            if isinstance(leaf1, abjad.MultimeasureRest):
+                return False
+            if (isinstance(leaf1, abjad.Note)
+                    and leaf1.written_pitch != leaf2.written_pitch):
+                return False
+            if (isinstance(leaf1, abjad.Chord)
+                    and leaf1.written_pitches != leaf2.written_pitches):
+                return False
+            leaf1_graces = abjad.inspect(leaf1).before_grace_container()
+            leaf2_graces = abjad.inspect(leaf2).before_grace_container()
+            if not isinstance(leaf1_graces, type(leaf2_graces)):
+                return False
     return True
 
 
-def _leaves_are_tieable(self,
-                        leaf2: abjad.Leaf
-                        ):
-    return leaves_are_tieable(self._client,
-                              leaf2=leaf2,
-                              )
+def _leaves_are_tieable(self):
+    return leaves_are_tieable(self._client)
 
 
 abjad.Inspection.leaves_are_tieable = _leaves_are_tieable

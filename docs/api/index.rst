@@ -25,17 +25,17 @@ leaves.
 The documentation for the members of each subpackage can be below, as well as
 in the navigation pane in the left.
 
-+----------------+-------------------------------------------------------------------------------+
-| |core|_        | core classes: loopers, shufflers, phasers, selectors, etc.                    |
-+----------------+-------------------------------------------------------------------------------+
-| |inspections|_ | inspection functions, also included as extension methods in |abjad.inspect()| |
-+----------------+-------------------------------------------------------------------------------+
-| |mutations|_   | mutation functions, also included as extension methods in |abjad.mutate()|    |
-+----------------+-------------------------------------------------------------------------------+
-| |score|_       | score component classes: artificial and natural harmonics.                    |
-+----------------+-------------------------------------------------------------------------------+
-| |utilities|_   | utility functions                                                             |
-+----------------+-------------------------------------------------------------------------------+
++----------------+------------------------------------------------------------------------------------------------+
+| |core|_        | core classes: loopers, shufflers, phasers, selectors, etc.                                     |
++----------------+------------------------------------------------------------------------------------------------+
+| |inspections|_ | inspect agent with inspection methods, also included as extension methods in |abjad.inspect()| |
++----------------+------------------------------------------------------------------------------------------------+
+| |mutations|_   | mutate agent with mutation methods, also included as extension methods in |abjad.mutate()|     |
++----------------+------------------------------------------------------------------------------------------------+
+| |score|_       | score component classes: artificial and natural harmonics.                                     |
++----------------+------------------------------------------------------------------------------------------------+
+| |utilities|_   | utility functions                                                                              |
++----------------+------------------------------------------------------------------------------------------------+
 
 .. toctree::
     :hidden:

@@ -1,10 +1,10 @@
 inspections
 ===========
 
-The |inspections|_ subpackage contains inspection functions. Auxjad
-automatically adds them as extension methods to |abjad.inspect()|. They all
-take |abjad.Selection| as input type and return either a :obj:`bool` value or
-an |abjad.Duration| in the case of :func:`auxjad.underfull_duration()`.
+The |inspections|_ subpackage contains functions that inspect conmponents.
+Auxjad automatically adds them as extension methods to |abjad.inspect()|. They
+all take |abjad.Selection| as input type and return either a :obj:`bool` value
+or an |abjad.Duration| in the case of :func:`auxjad.underfull_duration()`.
 
 ..  note::
 
@@ -28,10 +28,8 @@ names for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
-    auxjad.leaves_are_tieable
-    auxjad.selection_is_full
-    auxjad.selections_are_equal
-    auxjad.underfull_duration
+    auxjad.inspect
+    auxjad.Inspection
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

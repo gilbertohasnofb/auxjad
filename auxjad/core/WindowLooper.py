@@ -3,8 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..mutations.reposition_dynamics import reposition_dynamics
-from ..mutations.reposition_slurs import reposition_slurs
+from ..mutations.mutate import mutate
 from ._LooperParent import _LooperParent
 
 
@@ -1052,8 +1051,8 @@ class WindowLooper(_LooperParent):
         abjad.attach(abjad.TimeSignature(window_size),
                      abjad.select(dummy_container).leaf(0),
                      )
-        reposition_dynamics(dummy_container[:])
-        reposition_slurs(dummy_container[:])
+        mutate(dummy_container[:]).reposition_dynamics()
+        mutate(dummy_container[:]).reposition_slurs()
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 

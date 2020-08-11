@@ -3,12 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
-from ..inspections.leaves_are_tieable import leaves_are_tieable
-from ..mutations.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures,
-)
-from ..mutations.reposition_dynamics import reposition_dynamics
-from ..mutations.reposition_slurs import reposition_slurs
+from ..inspections.inspect import inspect
+from ..mutations.mutate import mutate
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
@@ -1216,9 +1212,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        remove_repeated_time_signatures(dummy_container[:])
-        reposition_dynamics(dummy_container[:])
-        reposition_slurs(dummy_container[:])
+        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate(dummy_container[:]).reposition_dynamics()
+        mutate(dummy_container[:]).reposition_slurs()
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1244,9 +1240,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        remove_repeated_time_signatures(dummy_container[:])
-        reposition_dynamics(dummy_container[:])
-        reposition_slurs(dummy_container[:])
+        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate(dummy_container[:]).reposition_dynamics()
+        mutate(dummy_container[:]).reposition_slurs()
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1265,7 +1261,7 @@ class Phaser():
         r'Applies the phasing process and handles the output container.'
         dummy_container = self._phase_contents()
         # dealing with dynamics
-        reposition_dynamics(dummy_container[:])
+        mutate(dummy_container[:]).reposition_dynamics()
         # adding time signatures back and rewriting meter
         time_signatures = time_signature_extractor(self._contents)
         enforce_time_signature(
@@ -1338,7 +1334,7 @@ class Phaser():
             return
         first_leaf = currrent_selection.leaf(0)
         last_leaf = abjad.select(previous_container).leaf(-1)
-        if (leaves_are_tieable(first_leaf, last_leaf) and not
+        if (inspect((first_leaf, last_leaf)).leaves_are_tieable() and not
                 abjad.inspect(last_leaf).indicators(abjad.Tie)):
             abjad.attach(abjad.Tie(), last_leaf)
 

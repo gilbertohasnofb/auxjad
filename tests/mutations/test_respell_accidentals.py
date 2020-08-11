@@ -5,7 +5,7 @@ import auxjad
 
 def test_respell_accidentals_01():
     staff = abjad.Staff(r"c'4 r4 <ef' e'>4 g'4 <c' cs'>4 r2.")
-    auxjad.respell_accidentals(staff[:])
+    auxjad.mutate(staff[:]).respell_accidentals()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -24,7 +24,7 @@ def test_respell_accidentals_02():
     staff = abjad.Staff()
     for pitch in range(12):
         staff.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
-    auxjad.respell_accidentals(staff[:])
+    auxjad.mutate(staff[:]).respell_accidentals()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -47,7 +47,7 @@ def test_respell_accidentals_02():
 
 def test_respell_accidentals_03():
     staff = abjad.Staff(r"<a c' cs' f'>1")
-    auxjad.respell_accidentals(staff[:])
+    auxjad.mutate(staff[:]).respell_accidentals()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -59,7 +59,7 @@ def test_respell_accidentals_03():
 
 def test_respell_accidentals_04():
     staff = abjad.Staff(r"<e' cs' g' ef'>1")
-    auxjad.respell_accidentals(staff[:])
+    auxjad.mutate(staff[:]).respell_accidentals()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -71,7 +71,7 @@ def test_respell_accidentals_04():
 
 def test_respell_accidentals_05():
     staff = abjad.Staff(r"<c' cs''>1")
-    auxjad.respell_accidentals(staff[:])
+    auxjad.mutate(staff[:]).respell_accidentals()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -79,7 +79,7 @@ def test_respell_accidentals_05():
             <c' cs''>1
         }
         """)
-    auxjad.respell_accidentals(staff[:], include_multiples=True)
+    auxjad.mutate(staff[:]).respell_accidentals(include_multiples=True)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -91,7 +91,7 @@ def test_respell_accidentals_05():
 
 def test_respell_accidentals_06():
     staff = abjad.Staff(r"<c' cs' cs''>1")
-    auxjad.respell_accidentals(staff[:])
+    auxjad.mutate(staff[:]).respell_accidentals()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -100,7 +100,7 @@ def test_respell_accidentals_06():
         }
         """)
     staff = abjad.Staff(r"<c' cs' cs''>1")
-    auxjad.respell_accidentals(staff[:], respell_by_pitch_class=True)
+    auxjad.mutate(staff[:]).respell_accidentals(respell_by_pitch_class=True)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

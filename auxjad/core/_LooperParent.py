@@ -3,11 +3,8 @@ from typing import Union
 
 import abjad
 
-from ..inspections.leaves_are_tieable import leaves_are_tieable
-from ..mutations.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures,
-)
-from ..mutations.reposition_dynamics import reposition_dynamics
+from ..inspections.inspect import inspect
+from ..mutations.mutate import mutate
 
 
 class _LooperParent():
@@ -100,13 +97,13 @@ class _LooperParent():
                     new_window = self.__call__()
                     leaf1 = abjad.select(new_window).leaf(0)
                     leaf2 = abjad.select(dummy_container).leaf(-1)
-                    if leaves_are_tieable(leaf1, leaf2):
+                    if inspect((leaf1, leaf2)).leaves_are_tieable():
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
             except RuntimeError:
                 break
-        remove_repeated_time_signatures(dummy_container[:])
-        reposition_dynamics(dummy_container[:])
+        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate(dummy_container[:]).reposition_dynamics()
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -134,11 +131,11 @@ class _LooperParent():
                 new_window = self.__call__()
                 leaf1 = abjad.select(new_window).leaf(0)
                 leaf2 = abjad.select(dummy_container).leaf(-1)
-                if leaves_are_tieable(leaf1, leaf2):
+                if inspect((leaf1, leaf2)).leaves_are_tieable():
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)
-        remove_repeated_time_signatures(dummy_container[:])
-        reposition_dynamics(dummy_container[:])
+        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate(dummy_container[:]).reposition_dynamics()
         output = dummy_container[:]
         dummy_container[:] = []
         return output

@@ -3,13 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..mutations.remove_empty_tuplets import remove_empty_tuplets
-from ..mutations.remove_repeated_dynamics import remove_repeated_dynamics
-from ..mutations.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures,
-)
-from ..mutations.reposition_dynamics import reposition_dynamics
-from ..mutations.reposition_slurs import reposition_slurs
+from ..mutations.mutate import mutate
 from ..utilities.enforce_time_signature import enforce_time_signature
 from ..utilities.time_signature_extractor import time_signature_extractor
 
@@ -960,8 +954,8 @@ class Shuffler:
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        remove_repeated_time_signatures(dummy_container[:])
-        remove_repeated_dynamics(dummy_container[:])
+        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate(dummy_container[:]).remove_repeated_dynamics()
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -983,8 +977,8 @@ class Shuffler:
         for _ in range(n):
             dummy_container.append(self.rotate(n_rotations=n_rotations,
                                                anticlockwise=anticlockwise))
-        remove_repeated_time_signatures(dummy_container[:])
-        remove_repeated_dynamics(dummy_container[:])
+        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate(dummy_container[:]).remove_repeated_dynamics()
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1131,8 +1125,8 @@ class Shuffler:
                                disable_rewrite_meter=True,
                                )
         # handling dynamics and slurs
-        reposition_dynamics(dummy_container[:])
-        reposition_slurs(dummy_container[:])
+        mutate(dummy_container[:]).reposition_dynamics()
+        mutate(dummy_container[:]).reposition_slurs()
         # rewrite meter
         if not self._disable_rewrite_meter:
             measures = abjad.select(dummy_container[:]).group_by_measure()
@@ -1183,7 +1177,7 @@ class Shuffler:
                 abjad.mutate(selection).replace(new_leaf)
                 leaf_counter += 1
         # attaching time signature structure
-        remove_empty_tuplets(dummy_container[:])
+        mutate(dummy_container[:]).remove_empty_tuplets()
         enforce_time_signature(dummy_container,
                                self._time_signatures,
                                disable_rewrite_meter=True,

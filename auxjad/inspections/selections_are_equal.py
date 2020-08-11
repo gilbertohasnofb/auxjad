@@ -1,8 +1,12 @@
+import collections
+from typing import Iterable, Union
+
 import abjad
 
 
-def selections_are_equal(selection1: abjad.Selection,
-                         selection2: abjad.Selection,
+def selections_are_equal(selections: Union[Iterable[abjad.Component],
+                                           Iterable[abjad.Selection],
+                                           ],
                          *,
                          include_indicators: bool = False,
                          ) -> bool:
@@ -91,46 +95,44 @@ def selections_are_equal(selection1: abjad.Selection,
         >>> auxjad.selections_are_equal(container1, container2)
         True
     """
-    if not isinstance(selection1, abjad.Selection):
-        raise TypeError("first positional argument must be 'abjad.Selection'")
-    if not isinstance(selection2, abjad.Selection):
-        raise TypeError("second positional argument must be 'abjad.Selection'")
+    if not isinstance(selections, collections.abc.Iterable):
+        raise TypeError("argument must be an iterable of 'abjad.Selection's")
     if not isinstance(include_indicators, bool):
         raise TypeError("'include_indicators' must be 'bool'")
 
-    leaves1 = [leaf for leaf in selection1.leaves()]
-    leaves2 = [leaf for leaf in selection2.leaves()]
-
-    if len(leaves1) != len(leaves2):
-        return False
-
-    for leaf1, leaf2 in zip(leaves1, leaves2):
-        if not isinstance(leaf1, type(leaf2)):
-            return False
-        if abjad.inspect(leaf1).duration() != abjad.inspect(leaf2).duration():
-            return False
-        if (isinstance(leaf1, abjad.Note)
-                and leaf1.written_pitch != leaf2.written_pitch):
-            return False
-        if (isinstance(leaf1, abjad.Chord)
-                and leaf1.written_pitches != leaf2.written_pitches):
-            return False
-        if not isinstance(abjad.inspect(leaf1).before_grace_container(),
-                          type(abjad.inspect(leaf2).before_grace_container())):
-            return False
-        if (include_indicators and abjad.inspect(leaf1).indicators()
-                != abjad.inspect(leaf2).indicators()):
-            return False
+    for index, selection1 in enumerate(selections[:-1]):
+        for selection2 in selections[index + 1:]:
+            leaves1 = [leaf for leaf in selection1.leaves()]
+            leaves2 = [leaf for leaf in selection2.leaves()]
+            if len(leaves1) != len(leaves2):
+                return False
+            for leaf1, leaf2 in zip(leaves1, leaves2):
+                if not isinstance(leaf1, type(leaf2)):
+                    return False
+                if (abjad.inspect(leaf1).duration()
+                        != abjad.inspect(leaf2).duration()):
+                    return False
+                if (isinstance(leaf1, abjad.Note)
+                        and leaf1.written_pitch != leaf2.written_pitch):
+                    return False
+                if (isinstance(leaf1, abjad.Chord)
+                        and leaf1.written_pitches != leaf2.written_pitches):
+                    return False
+                leaf1_graces = abjad.inspect(leaf1).before_grace_container()
+                leaf2_graces = abjad.inspect(leaf2).before_grace_container()
+                if not isinstance(leaf1_graces, type(leaf2_graces)):
+                    return False
+                if (include_indicators and abjad.inspect(leaf1).indicators()
+                        != abjad.inspect(leaf2).indicators()):
+                    return False
     return True
 
 
 def _selections_are_equal(self,
-                          selection2: abjad.Selection,
                           *,
                           include_indicators: bool = False,
                           ):
     return selections_are_equal(self._client,
-                                selection2=selection2,
                                 include_indicators=include_indicators,
                                 )
 

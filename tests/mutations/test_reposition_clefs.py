@@ -17,7 +17,7 @@ def test_reposition_clefs_01():
             d'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -38,7 +38,7 @@ def test_reposition_clefs_01():
             d'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -66,7 +66,7 @@ def test_reposition_clefs_02():
             f'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -93,7 +93,7 @@ def test_reposition_clefs_02():
             f'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -126,7 +126,7 @@ def test_reposition_clefs_03():
             f'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -157,7 +157,7 @@ def test_reposition_clefs_03():
             f'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -190,7 +190,7 @@ def test_reposition_clefs_04():
             e'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -217,7 +217,7 @@ def test_reposition_clefs_04():
             e'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -247,7 +247,7 @@ def test_reposition_clefs_05():
             fs1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -273,7 +273,7 @@ def test_reposition_clefs_05():
             fs1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -303,7 +303,7 @@ def test_reposition_clefs_06():
             fs1
         }
         """)
-    auxjad.reposition_clefs(staff[:], shift_clef_to_notes=False)
+    auxjad.mutate(staff[:]).reposition_clefs(shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -329,7 +329,7 @@ def test_reposition_clefs_06():
             fs1
         }
         """)
-    auxjad.reposition_clefs(staff[:], shift_clef_to_notes=False)
+    auxjad.mutate(staff[:]).reposition_clefs(shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -365,7 +365,7 @@ def test_reposition_clefs_07():
             }
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -399,7 +399,7 @@ def test_reposition_clefs_07():
             }
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -427,7 +427,7 @@ def test_reposition_clefs_08():
             d'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -450,7 +450,7 @@ def test_reposition_clefs_09():
             d1
         }
         """)
-    auxjad.reposition_clefs(staff[:], implicit_clef=abjad.Clef('bass'))
+    auxjad.mutate(staff[:]).reposition_clefs(implicit_clef=abjad.Clef('bass'))
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -476,7 +476,7 @@ def test_reposition_clefs_10():
             d'1
         }
         """)
-    auxjad.reposition_clefs(staff[:], shift_clef_to_notes=False)
+    auxjad.mutate(staff[:]).reposition_clefs(shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -488,7 +488,7 @@ def test_reposition_clefs_10():
             d'1
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -518,7 +518,7 @@ def test_reposition_clefs_11():
             e'2.
         }
         """)
-    auxjad.reposition_clefs(staff[:], shift_clef_to_notes=False)
+    auxjad.mutate(staff[:]).reposition_clefs(shift_clef_to_notes=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -533,7 +533,7 @@ def test_reposition_clefs_11():
             e'2.
         }
         """)
-    auxjad.reposition_clefs(staff[:])
+    auxjad.mutate(staff[:]).reposition_clefs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

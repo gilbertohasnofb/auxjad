@@ -1030,7 +1030,7 @@ def test_Fader_24():
             R1
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -1062,7 +1062,7 @@ def test_Fader_25():
     staff = abjad.Staff()
     for window in fader:
         staff.append(window)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

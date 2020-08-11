@@ -5,7 +5,7 @@ import auxjad
 
 def test_reposition_dynamics_01():
     staff = abjad.Staff(r"c'1\p d'2 r2\f r1 e'1")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -23,7 +23,7 @@ def test_reposition_dynamics_01():
 
 def test_reposition_dynamics_02():
     staff = abjad.Staff(r"c'1\p d'1 e'1\f e'1")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -40,7 +40,7 @@ def test_reposition_dynamics_02():
 
 def test_reposition_dynamics_03():
     staff = abjad.Staff(r"c'1\p d'2 r2\f r1\mf e'1\pp")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -58,7 +58,7 @@ def test_reposition_dynamics_03():
 
 def test_reposition_dynamics_04():
     staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -74,7 +74,7 @@ def test_reposition_dynamics_04():
 
 def test_reposition_dynamics_05():
     staff = abjad.Staff(r"c'1\p d'1 e'1\p f'1")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -87,7 +87,7 @@ def test_reposition_dynamics_05():
         }
         """)
     staff = abjad.Staff(r"c'1\p d'1 e'1\p f'1")
-    auxjad.reposition_dynamics(staff[:], remove_repeated_dynamics=False)
+    auxjad.mutate(staff[:]).reposition_dynamics(remove_repeated_dynamics=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -104,7 +104,7 @@ def test_reposition_dynamics_05():
 
 def test_reposition_dynamics_06():
     staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -117,7 +117,7 @@ def test_reposition_dynamics_06():
         }
         """)
     staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
-    auxjad.reposition_dynamics(staff[:], remove_repeated_dynamics=False)
+    auxjad.mutate(staff[:]).reposition_dynamics(remove_repeated_dynamics=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -134,7 +134,7 @@ def test_reposition_dynamics_06():
 
 def test_reposition_dynamics_07():
     staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -154,7 +154,8 @@ def test_reposition_dynamics_07():
 
 def test_reposition_dynamics_08():
     staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
-    auxjad.reposition_dynamics(staff[:], allow_hairpins_under_rests=True)
+    auxjad.mutate(staff[:]).reposition_dynamics(
+        allow_hairpins_under_rests=True)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -173,7 +174,7 @@ def test_reposition_dynamics_08():
 
 def test_reposition_dynamics_09():
     staff = abjad.Staff(r"c'1\p\> d'1\f\> e'1\p")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -188,7 +189,7 @@ def test_reposition_dynamics_09():
         }
     """)
     staff = abjad.Staff(r"c'1\p\> d'1\f\> e'1\p")
-    auxjad.reposition_dynamics(staff[:], check_hairpin_trends=False)
+    auxjad.mutate(staff[:]).reposition_dynamics(check_hairpin_trends=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -207,7 +208,7 @@ def test_reposition_dynamics_09():
 
 def test_reposition_dynamics_10():
     staff = abjad.Staff(r"c'1\p\> d'1\! e'1\f\> f'1\p")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -233,7 +234,7 @@ def test_reposition_dynamics_11():
     abjad.attach(abjad.StartHairpin('o<'), staff[0])
     abjad.attach(abjad.StartHairpin('>o'), staff[4])
     abjad.attach(abjad.StopHairpin(), staff[7])
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -260,7 +261,7 @@ def test_reposition_dynamics_11():
 def test_reposition_dynamics_12():
     staff = abjad.Staff(r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp")
     abjad.attach(abjad.StartHairpin('--'), staff[0])
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -287,7 +288,7 @@ def test_reposition_dynamics_12():
 
 def test_reposition_dynamics_13():
     staff = abjad.Staff(r"c'1\p R1\f d'1")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -303,7 +304,7 @@ def test_reposition_dynamics_13():
 
 def test_reposition_dynamics_14():
     staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
-    auxjad.reposition_dynamics(staff[:])
+    auxjad.mutate(staff[:]).reposition_dynamics()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -319,9 +320,9 @@ def test_reposition_dynamics_14():
         }
         """)
     staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
-    auxjad.reposition_dynamics(staff[:],
-                               allow_hairpin_to_rest_with_dynamic=False,
-                               )
+    auxjad.mutate(staff[:]).reposition_dynamics(
+        allow_hairpin_to_rest_with_dynamic=False,
+    )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

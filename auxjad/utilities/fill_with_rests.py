@@ -1,7 +1,6 @@
 import abjad
 
-from ..inspections.selection_is_full import selection_is_full
-from ..inspections.underfull_duration import underfull_duration
+from ..inspections.inspect import inspect
 from .time_signature_extractor import time_signature_extractor
 
 
@@ -237,10 +236,11 @@ def fill_with_rests(container: abjad.Container,
         raise TypeError("argument must be 'abjad.Container' or child class")
     if not abjad.select(container).leaves().are_contiguous_logical_voice():
         raise ValueError("argument must be contiguous logical voice")
-    if not selection_is_full(container[:]):
-        underfull_rests = abjad.LeafMaker()(None,
-                                            underfull_duration(container[:]),
-                                            )
+    if not inspect(container[:]).selection_is_full():
+        underfull_rests = abjad.LeafMaker()(
+            None,
+            inspect(container[:]).underfull_duration(),
+        )
         container.extend(underfull_rests)
     if not disable_rewrite_meter:
         time_signatures = time_signature_extractor(container,

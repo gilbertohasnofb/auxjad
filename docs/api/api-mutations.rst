@@ -1,7 +1,7 @@
 mutations
 =========
 
-The |mutations|_ subpackage contains mutation functions, which mutate an input
+The |mutations|_ subpackage contains functions that mutate an input
 |abjad.Selection| in place and have no return value. Auxjad automatically adds
 them as extension methods to |abjad.mutate()|.
 
@@ -26,15 +26,8 @@ names for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
-    auxjad.prettify_rewrite_meter
-    auxjad.remove_empty_tuplets
-    auxjad.remove_repeated_dynamics
-    auxjad.remove_repeated_time_signatures
-    auxjad.reposition_clefs
-    auxjad.reposition_dynamics
-    auxjad.reposition_slurs
-    auxjad.respell_accidentals
-    auxjad.rests_to_multimeasure_rest
+    auxjad.mutate
+    auxjad.Mutation
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

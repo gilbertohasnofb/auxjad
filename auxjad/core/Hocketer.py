@@ -3,10 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..mutations.remove_empty_tuplets import remove_empty_tuplets
-from ..mutations.reposition_dynamics import reposition_dynamics
-from ..mutations.reposition_slurs import reposition_slurs
-from ..mutations.rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from ..mutations.mutate import mutate
 from ..utilities.time_signature_extractor import time_signature_extractor
 
 
@@ -1059,8 +1056,8 @@ class Hocketer():
         dummy_voices = self._hocket_process()
         # handling dynamics and slurs
         for voice in dummy_voices:
-            reposition_dynamics(voice[:])
-            reposition_slurs(voice[:])
+            mutate(voice[:]).reposition_dynamics()
+            mutate(voice[:]).reposition_slurs()
         # rewriting meter
         if not self._disable_rewrite_meter:
             for voice in dummy_voices:
@@ -1075,9 +1072,9 @@ class Hocketer():
                     )
         # handling empty tuplets and multi-measure rests
         for voice in dummy_voices:
-            remove_empty_tuplets(voice[:])
+            mutate(voice[:]).remove_empty_tuplets()
             if self._use_multimeasure_rests:
-                rests_to_multimeasure_rest(voice[:])
+                mutate(voice[:]).rests_to_multimeasure_rest()
         # output
         self._voices = []
         for voice in dummy_voices:

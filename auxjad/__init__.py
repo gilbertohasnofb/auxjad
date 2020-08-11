@@ -29,22 +29,11 @@ from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
 
-from .inspections.leaves_are_tieable import leaves_are_tieable
-from .inspections.selection_is_full import selection_is_full
-from .inspections.selections_are_equal import selections_are_equal
-from .inspections.underfull_duration import underfull_duration
+from .inspections.inspect import Inspection
+from .inspections.inspect import inspect
 
-from .mutations.prettify_rewrite_meter import prettify_rewrite_meter
-from .mutations.remove_empty_tuplets import remove_empty_tuplets
-from .mutations.remove_repeated_dynamics import remove_repeated_dynamics
-from .mutations.remove_repeated_time_signatures import (
-    remove_repeated_time_signatures,
-)
-from .mutations.reposition_clefs import reposition_clefs
-from .mutations.reposition_dynamics import reposition_dynamics
-from .mutations.reposition_slurs import reposition_slurs
-from .mutations.respell_accidentals import respell_accidentals
-from .mutations.rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from .mutations.mutate import Mutation
+from .mutations.mutate import mutate
 
 from .utilities.close_container import close_container
 from .utilities.enforce_time_signature import enforce_time_signature
@@ -76,19 +65,10 @@ __all__ = [
     'ArtificialHarmonic',
     'HarmonicNote',
     'LeafDynMaker',
-    'leaves_are_tieable',
-    'selection_is_full',
-    'selections_are_equal',
-    'underfull_duration',
-    'prettify_rewrite_meter',
-    'remove_empty_tuplets',
-    'remove_repeated_dynamics',
-    'remove_repeated_time_signatures',
-    'reposition_clefs',
-    'reposition_dynamics',
-    'reposition_slurs',
-    'respell_accidentals',
-    'rests_to_multimeasure_rest',
+    'Inspection',
+    'inspect',
+    'Mutation',
+    'mutate',
     'close_container',
     'enforce_time_signature',
     'fill_with_rests',

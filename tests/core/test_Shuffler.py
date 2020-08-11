@@ -739,7 +739,7 @@ def test_Shuffler_18():
             d'4
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -851,7 +851,7 @@ def test_Shuffler_21():
     shuffler.pitch_only = False
     notes = shuffler.shuffle_n(2)
     staff.append(notes)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

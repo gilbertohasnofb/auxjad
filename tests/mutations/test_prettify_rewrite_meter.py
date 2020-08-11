@@ -26,7 +26,7 @@ def test_prettify_rewrite_meter_01():
             d''16
         }
         """)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -81,7 +81,7 @@ def test_prettify_rewrite_meter_02():
             g''32
         }
         """)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -135,7 +135,7 @@ def test_prettify_rewrite_meter_03():
             b'8
         }
         """)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -182,10 +182,10 @@ def test_prettify_rewrite_meter_04():
             b'8
         }
         """)
-    auxjad.prettify_rewrite_meter(staff[:],
-                                  meter,
-                                  fuse_across_groups_of_beats=False,
-                                  )
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(
+        meter,
+        fuse_across_groups_of_beats=False,
+    )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -216,7 +216,7 @@ def test_prettify_rewrite_meter_05():
     staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
     meter = abjad.Meter((7, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -239,7 +239,7 @@ def test_prettify_rewrite_meter_05():
     staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
     meter = abjad.Meter((7, 4), increase_monotonic=True)
     abjad.mutate(staff[:]).rewrite_meter(meter)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -305,7 +305,7 @@ def test_prettify_rewrite_meter_06():
         }
         """)
     for measure in abjad.select(staff).group_by_measure():
-        auxjad.prettify_rewrite_meter(measure, meter)
+        auxjad.mutate(measure).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -336,7 +336,7 @@ def test_prettify_rewrite_meter_07():
     staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
     meter = abjad.Meter((4, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -354,10 +354,9 @@ def test_prettify_rewrite_meter_07():
     staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
     meter = abjad.Meter((4, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
-    auxjad.prettify_rewrite_meter(staff[:],
-                                  meter,
-                                  fuse_quadruple_meter=False,
-                                  )
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter,
+                                                   fuse_quadruple_meter=False,
+                                                   )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -382,7 +381,7 @@ def test_prettify_rewrite_meter_08():
     staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
     meter = abjad.Meter((3, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -397,10 +396,9 @@ def test_prettify_rewrite_meter_08():
     staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
     meter = abjad.Meter((3, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
-    auxjad.prettify_rewrite_meter(staff[:],
-                                  meter,
-                                  fuse_triple_meter=False,
-                                  )
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter,
+                                                   fuse_triple_meter=False,
+                                                   )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -451,7 +449,7 @@ def test_prettify_rewrite_meter_09():
             r32
         }
         """)
-    auxjad.prettify_rewrite_meter(staff[:], meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

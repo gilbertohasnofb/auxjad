@@ -19,7 +19,7 @@ def test_remove_repeated_time_signatures_01():
             d'8
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -50,7 +50,7 @@ def test_remove_repeated_time_signatures_02():
             d'8
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -87,7 +87,7 @@ def test_remove_repeated_time_signatures_03():
             }
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -107,7 +107,7 @@ def test_remove_repeated_time_signatures_03():
 def test_remove_repeated_time_signatures_04():
     staff = abjad.Staff(r"c'2 d'2 | e'2 d'2")
     abjad.attach(abjad.TimeSignature((4, 4)), staff[2])
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

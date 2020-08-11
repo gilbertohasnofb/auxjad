@@ -653,7 +653,7 @@ def test_LeafLooper_22():
             f'2
         }
         """)
-    auxjad.remove_repeated_time_signatures(staff[:])
+    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

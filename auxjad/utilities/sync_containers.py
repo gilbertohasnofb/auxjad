@@ -1,8 +1,7 @@
 import abjad
 
-from ..inspections.selection_is_full import selection_is_full
-from ..inspections.underfull_duration import underfull_duration
-from ..mutations.rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from ..inspections.inspect import inspect
+from ..mutations.mutate import mutate
 from .close_container import close_container
 from .simplified_time_signature_ratio import simplified_time_signature_ratio
 
@@ -501,7 +500,7 @@ def sync_containers(*containers: abjad.Container,
             raise ValueError("positional arguments must each be contiguous "
                              "logical voice")
         try:
-            selection_is_full(container[:])
+            inspect(container[:]).selection_is_full()
         except ValueError as err:
             raise ValueError("at least one 'container' is malformed, with an "
                              "underfull measure preceding a time signature "
@@ -518,8 +517,8 @@ def sync_containers(*containers: abjad.Container,
         duration_difference = max_duration - duration
         if duration_difference > abjad.Duration(0):
             # handling duration left in the last measure, if any
-            if not selection_is_full(container[:]):
-                duration_left = underfull_duration(container[:])
+            if not inspect(container[:]).selection_is_full():
+                duration_left = inspect(container[:]).underfull_duration()
                 underfull_rests_duration = min(duration_difference,
                                                duration_left,
                                                )
@@ -558,9 +557,9 @@ def sync_containers(*containers: abjad.Container,
                         abjad.attach(rests_time_signature, rests[0])
                 container.extend(rests)
             if use_multimeasure_rests:
-                rests_to_multimeasure_rest(container[:])
+                mutate(container[:]).rests_to_multimeasure_rest()
         else:
             # closing longest container if necessary
             if (adjust_last_time_signature
-                    and not selection_is_full(container[:])):
+                    and not inspect(container[:]).selection_is_full()):
                 close_container(container)

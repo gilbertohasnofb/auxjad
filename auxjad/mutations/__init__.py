@@ -2,7 +2,8 @@
 mutations
 =========
 
-Auxjad's mutation functions. These can be accesses via:
+Auxjad's mutation functions. These can be accesses via either:
 
->>> abjad.mutation(container).auxjad_function()
+>>> abjad.mutate(container).auxjad_method()
+>>> auxjad.mutate(container).auxjad_method()
 """

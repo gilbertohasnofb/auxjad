@@ -44,38 +44,41 @@ ly_header = r"""
 directory = './_images/lilypond-files/'
 
 # generating lilypond files from docstrings
-for member in dir(auxjad):
-    docstring = getattr(auxjad, member).__doc__
-    if docstring is not None:
-        # check for sequential numbering
-        matches = re.findall(check_image_numbering, docstring)
-        if matches is not None:
-            for n, match in enumerate(matches):
-                if int(match) != n + 1:
-                    raise ValueError(f"The image number {n + 1} in {member} "
-                                     f"is wrongly labelled as {match}")
-        # finding lilypond code
-        matches = re.findall(pattern, docstring)
-        if matches is not None:
-            for n, match in enumerate(matches):
-                filename = ('image-' + str(member) + '-' + str(n + 1) + '.ly')
-                with open(directory + filename, 'w+') as f:
-                    f.write(ly_header)
-                    # removing comments from time signatures
-                    match = match.replace(r'%%% ', '')
-                    match = match.replace(r'%%%', '')
-                    match = textwrap.dedent(match)
-                    if r'\new' in match:
-                        f.write(match)
-                    elif match[0] == r'{' and match[-1] == r'}':
-                        f.write(r'\new Staff' + '\n')
-                        f.write(match)
-                    else:  # wrap in {} otherwise
-                        match = textwrap.indent(match, '    ')
-                        f.write(r'\new Staff' + '\n')
-                        f.write(r'{' + '\n')
-                        f.write(match)
-                        f.write('\n' + r'}')
+for namespace in (auxjad, auxjad.Mutation, auxjad.Inspection):
+    for member in dir(namespace):
+        docstring = getattr(namespace, member).__doc__
+        if docstring is not None:
+            # check for sequential numbering
+            matches = re.findall(check_image_numbering, docstring)
+            if matches is not None:
+                for n, match in enumerate(matches):
+                    if int(match) != n + 1:
+                        raise ValueError(f"The image number {n + 1} in "
+                                         f"{member} is wrongly labelled as "
+                                         f"{match}")
+            # finding lilypond code
+            matches = re.findall(pattern, docstring)
+            if matches is not None:
+                for n, match in enumerate(matches):
+                    filename = ('image-' + str(member) + '-' + str(n + 1)
+                                + '.ly')
+                    with open(directory + filename, 'w+') as f:
+                        f.write(ly_header)
+                        # removing comments from time signatures
+                        match = match.replace(r'%%% ', '')
+                        match = match.replace(r'%%%', '')
+                        match = textwrap.dedent(match)
+                        if r'\new' in match:
+                            f.write(match)
+                        elif match[0] == r'{' and match[-1] == r'}':
+                            f.write(r'\new Staff' + '\n')
+                            f.write(match)
+                        else:  # wrap in {} otherwise
+                            match = textwrap.indent(match, '    ')
+                            f.write(r'\new Staff' + '\n')
+                            f.write(r'{' + '\n')
+                            f.write(match)
+                            f.write('\n' + r'}')
 
 # generating lilypond files from example-n.rst files
 for read_file in os.listdir('./examples'):

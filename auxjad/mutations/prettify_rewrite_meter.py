@@ -10,10 +10,9 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                            fuse_quadruple_meter: bool = True,
                            fuse_triple_meter: bool = True,
                            ):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function fuses pitched leaves
-    according to the rules shown below, improving the default output of
-    |abjad.mutate().rewrite_meter()|.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function fuses pitched leaves according to the rules shown below,
+    improving the default output of |abjad.mutate().rewrite_meter()|.
 
     Basic usage:
         Meters whose denominators are a crotchet or longer get tied notes
@@ -47,7 +46,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-1.png
 
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -64,6 +63,16 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         }
 
         .. figure:: ../_images/image-prettify_rewrite_meter-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines 
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).prettify_rewrite_meter(meter)
 
     Other examples:
         The rhythm of the leaves just before and after the two leaves to be
@@ -107,7 +116,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-3.png
 
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -168,7 +177,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-5.png
 
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -192,10 +201,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
         >>> meter = abjad.Meter((6, 4))
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff,
-        ...                               meter,
-        ...                               fuse_across_groups_of_beats=False,
-        ...                               )
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(
+        ...     meter,
+        ...     fuse_across_groups_of_beats=False,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -229,7 +238,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4))
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -253,7 +262,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -321,7 +330,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-10.png
 
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -356,7 +365,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
         >>> meter = abjad.Meter((4, 4))
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -377,10 +386,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
         >>> meter = abjad.Meter((4, 4))
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff,
-        ...                               meter,
-        ...                               fuse_quadruple_meter=False,
-        ...                               )
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(
+        ...     meter,
+        ...     fuse_quadruple_meter=False,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -408,7 +417,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
         >>> meter = abjad.Meter((3, 4))
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff, meter)
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -427,10 +436,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
         >>> meter = abjad.Meter((3, 4))
         >>> abjad.mutate(staff).rewrite_meter(meter)
-        >>> auxjad.prettify_rewrite_meter(staff,
-        ...                               meter,
-        ...                               fuse_triple_meter=False,
-        ...                               )
+        >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(
+        ...     meter,
+        ...     fuse_triple_meter=False,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -449,8 +458,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -509,22 +518,3 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                                              abjad.Offset(3 * base),
                                              ):
                     abjad.mutate(logical_tie).fuse()
-
-
-def _prettify_rewrite_meter(self,
-                            meter,
-                            *,
-                            fuse_across_groups_of_beats: bool = True,
-                            fuse_quadruple_meter: bool = True,
-                            fuse_triple_meter: bool = True,
-                            ):
-    prettify_rewrite_meter(
-        self._client,
-        meter,
-        fuse_across_groups_of_beats=fuse_across_groups_of_beats,
-        fuse_quadruple_meter=fuse_quadruple_meter,
-        fuse_triple_meter=fuse_triple_meter,
-    )
-
-
-abjad.Mutation.prettify_rewrite_meter = _prettify_rewrite_meter

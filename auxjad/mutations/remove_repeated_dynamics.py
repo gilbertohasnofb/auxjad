@@ -6,9 +6,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
                              ):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function removes all consecutive
-    repeated dynamic markings.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function removes all consecutive repeated dynamic markings.
 
     Basic usage:
         When two consecutive leaves have identical dynamics, the second
@@ -31,7 +30,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-1.png
 
-        >>> auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -45,6 +44,16 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         }
 
         .. figure:: ../_images/image-remove_repeated_dynamics-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
+        >>> abjad.mutate(staff[:]).remove_repeated_dynamics()
 
     Dynamic structure:
         The function also removes dynamics that are separated by an arbitrary
@@ -68,7 +77,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-3.png
 
-        >>> auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -85,7 +94,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-remove_repeated_dynamics-4.png
 
     Subcontainers:
-        The input container can also handle subcontainers:
+        The container from which the selection is made can also have
+        subcontainers:
 
         >>> staff = abjad.Staff([abjad.Note("c'2"),
         ...                      abjad.Chord("<d' f'>2"),
@@ -111,7 +121,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-5.png
 
-        >>> auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -151,7 +161,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-7.png
 
-        >>> auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -193,7 +203,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-9.png
 
-        >>> auxjad.remove_repeated_dynamics(staff, ignore_hairpins=True)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
+        ...     ignore_hairpins=True)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -217,7 +228,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         will be considered as repeated and the second dynamic will be removed.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-        >>> auxjad.remove_repeated_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -233,7 +244,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         dynamics will always be restated after a rest.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=True)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
+        ...     reset_after_rests=True)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -257,7 +269,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         ``(4, 4)``, so the repeated dynamic is removed.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=(4, 4))
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
+        ...     reset_after_rests=(4, 4))
         >>> abjad.f(staff)
         \new Staff
         {
@@ -272,7 +285,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         But setting the duration to ``2/4`` forces the dynamic to be restated.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-        >>> auxjad.remove_repeated_dynamics(staff, reset_after_rests=2 / 4)
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
+        ...     reset_after_rests=2 / 4)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -289,8 +303,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         The function also handles measure rests with ``reset_after_rests``.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp r2. | R1 | c'1\pp")
-        >>> auxjad.remove_repeated_dynamics(
-        ...     staff,
+        >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
         ...     reset_after_rests=abjad.Duration(4, 4),
         ... )
         >>> abjad.f(staff)
@@ -310,8 +323,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -357,17 +370,3 @@ def remove_repeated_dynamics(selection: abjad.Selection,
                 previous_dynamic = current_dynamic
             elif current_dynamic is not None:
                 abjad.detach(abjad.Dynamic, leaf)
-
-
-def _remove_repeated_dynamics(self,
-                              *,
-                              ignore_hairpins: bool = False,
-                              reset_after_rests: bool = False,
-                              ):
-    remove_repeated_dynamics(self._client,
-                             ignore_hairpins=ignore_hairpins,
-                             reset_after_rests=reset_after_rests,
-                             )
-
-
-abjad.Mutation.remove_repeated_dynamics = _remove_repeated_dynamics

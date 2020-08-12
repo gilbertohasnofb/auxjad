@@ -186,8 +186,8 @@ def repeat_container(container: abjad.Container,
         .. figure:: ../_images/image-repeat_container-7.png
 
     Input types:
-        The input container can be of child classes such as |abjad.Staff|,
-        and the output will be of the same type.
+        The input container can be |abjad.Container| or any of its child
+        classes such as |abjad.Staff|. The output will be of the same type.
 
         >>> container = abjad.Staff(r"c'4 d'4 e'4")
         >>> output_staff = auxjad.repeat_container(container, 3)
@@ -309,8 +309,12 @@ def repeat_container(container: abjad.Container,
         raise TypeError("'force_identical_time_signatures' must be 'bool'")
 
     container_ = abjad.mutate(container).copy()
-    if not inspect(container_[:]).selection_is_full():
-        close_container(container_)
+    try:
+        if not inspect(container_[:]).selection_is_full():
+            close_container(container_)
+    except ValueError as err:
+        raise ValueError("'container' is malformed, with an underfull measure "
+                         "preceding a time signature change") from err
     output_container = abjad.mutate(container_).copy()
     for _ in range(n - 1):
         output_container.extend(abjad.mutate(container_).copy())

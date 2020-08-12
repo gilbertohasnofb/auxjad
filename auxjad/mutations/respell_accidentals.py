@@ -6,17 +6,16 @@ def respell_accidentals(selection: abjad.Selection,
                         include_multiples: bool = False,
                         respell_by_pitch_class: bool = False,
                         ):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function changes the accidentals of
-    individual pitches of all chords in a container in order to avoid augmented
-    unisons.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function changes the accidentals of individual pitches of all chords
+    in a container in order to avoid augmented unisons.
 
     Basic usage:
-        To use this function, apply it to a container that contains chords
-        with augmented unisons.
+        To use this function, apply it to a selection that contains chords that
+        have augmented unisons.
 
         >>> container = abjad.Container(r"c'4 r4 <ef' e'>4 g'4 <c' cs'>4 r2.")
-        >>> auxjad.respell_accidentals(container)
+        >>> auxjad.mutate(container[:]).respell_accidentals()
         >>> abjad.f(container)
         {
             c'4
@@ -29,6 +28,16 @@ def respell_accidentals(selection: abjad.Selection,
 
         .. figure:: ../_images/image-respell_accidentals-1.png
 
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).respell_accidentals()
+        >>> abjad.mutate(staff[:]).respell_accidentals()
+
     2-note chords:
         The example below shows the default spelling of 2-note chords in
         Abjad in the upper staff, and the respelt 2-note chords in the bottom
@@ -39,7 +48,7 @@ def respell_accidentals(selection: abjad.Selection,
         >>> for pitch in range(12):
         ...     staff1.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
         ...     staff2.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
-        >>> auxjad.respell_accidentals(staff2)
+        >>> auxjad.mutate(staff2[:]).respell_accidentals()
         >>> literal = abjad.LilyPondLiteral(r'\accidentalStyle dodecaphonic')
         >>> abjad.attach(literal, staff1)
         >>> abjad.attach(literal, staff2)
@@ -89,7 +98,7 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container1 = abjad.Container(r"<a c' cs' f'>1")
         >>> container2 = abjad.Container(r"<a c' cs' f'>1")
-        >>> auxjad.respell_accidentals(container2)
+        >>> auxjad.mutate(container2[:]).respell_accidentals()
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -108,7 +117,7 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container1 = abjad.Container(r"<e' cs' g' ef'>1")
         >>> container2 = abjad.Container(r"<e' cs' g' ef'>1")
-        >>> auxjad.respell_accidentals(container2)
+        >>> auxjad.mutate(container2[:]).respell_accidentals()
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -129,7 +138,7 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container1 = abjad.Container(r"<c' cs''>1")
         >>> container2 = abjad.Container(r"<c' cs''>1")
-        >>> auxjad.respell_accidentals(container2)
+        >>> auxjad.mutate(container2[:]).respell_accidentals()
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -151,7 +160,8 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container1 = abjad.Container(r"<c' cs''>1")
         >>> container2 = abjad.Container(r"<c' cs''>1")
-        >>> auxjad.respell_accidentals(container2, include_multiples=True)
+        >>> auxjad.mutate(container2[:]).respell_accidentals(
+        ...     include_multiples=True)
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -172,7 +182,7 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container1 = abjad.Container(r"<c' cs' cs''>1")
         >>> container2 = abjad.Container(r"<c' cs' cs''>1")
-        >>> auxjad.respell_accidentals(container2)
+        >>> auxjad.mutate(container2[:]).respell_accidentals()
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -192,7 +202,8 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container1 = abjad.Container(r"<c' cs' cs''>1")
         >>> container2 = abjad.Container(r"<c' cs' cs''>1")
-        >>> auxjad.respell_accidentals(container2, respell_by_pitch_class=True)
+        >>> auxjad.mutate(container2[:]).respell_accidentals(
+        ...     respell_by_pitch_class=True)
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -282,17 +293,3 @@ def respell_accidentals(selection: abjad.Selection,
                 else:
                     respelt_pitches.append(pitch)
             leaf.written_pitches = respelt_pitches
-
-
-def _respell_accidentals(self,
-                         *,
-                         include_multiples: bool = False,
-                         respell_by_pitch_class: bool = False,
-                         ):
-    respell_accidentals(self._client,
-                        include_multiples=include_multiples,
-                        respell_by_pitch_class=respell_by_pitch_class,
-                        )
-
-
-abjad.Mutation.respell_accidentals = _respell_accidentals

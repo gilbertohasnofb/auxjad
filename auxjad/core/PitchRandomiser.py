@@ -542,7 +542,7 @@ class PitchRandomiser:
         then be used in a for loop. Note that unlike the method
         :meth:`output_n`, time signatures are added to each window returned by
         the randomiser. Use the function
-        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
         when using this class in this way. It is also important to note that a
         ``break`` statement is needed when using this class as an iterator. The
         reason is that pitch randomisation is a process that can happen
@@ -578,9 +578,9 @@ class PitchRandomiser:
 
     .. tip::
 
-        The functions :func:`auxjad.remove_repeated_dynamics()` and
-        :func:`auxjad.reposition_clefs()` can be used to clean the output and
-        remove repeated dynamics and unnecessary clef changes.
+        The functions |auxjad.mutate().remove_repeated_dynamics()| and
+        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        and remove repeated dynamics and unnecessary clef changes.
     """
 
     ### CLASS VARIABLES ###

@@ -228,7 +228,7 @@ def fill_with_rests(container: abjad.Container,
     ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -236,12 +236,16 @@ def fill_with_rests(container: abjad.Container,
         raise TypeError("argument must be 'abjad.Container' or child class")
     if not abjad.select(container).leaves().are_contiguous_logical_voice():
         raise ValueError("argument must be contiguous logical voice")
-    if not inspect(container[:]).selection_is_full():
-        underfull_rests = abjad.LeafMaker()(
-            None,
-            inspect(container[:]).underfull_duration(),
-        )
-        container.extend(underfull_rests)
+    try:
+        if not inspect(container[:]).selection_is_full():
+            underfull_rests = abjad.LeafMaker()(
+                None,
+                inspect(container[:]).underfull_duration(),
+            )
+            container.extend(underfull_rests)
+    except ValueError as err:
+        raise ValueError("'container' is malformed, with an underfull measure "
+                         "preceding a time signature change") from err
     if not disable_rewrite_meter:
         time_signatures = time_signature_extractor(container,
                                                    do_not_use_none=True,

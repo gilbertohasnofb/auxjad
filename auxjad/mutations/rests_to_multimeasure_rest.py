@@ -2,22 +2,32 @@ import abjad
 
 
 def rests_to_multimeasure_rest(selection: abjad.Selection):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function looks for measures filled
-    with regular rests and converts them into an |abjad.MultimeasureRest|.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function looks for measures filled with regular rests and converts
+    them into an |abjad.MultimeasureRest|.
 
     Basic usage:
         Converts any measure filled with regular rests into a measure with a
         single multi-measure rest.
 
         >>> container = abjad.Container(r"r1")
-        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
         {
             R1
         }
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-1.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).rests_to_multimeasure_rest()
+        >>> abjad.mutate(staff[:]).rests_to_multimeasure_rest()
 
     Multiple rests:
         Works with measures with multiple regular rests.
@@ -35,7 +45,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-2.png
 
-        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
         {
             R1
@@ -51,7 +61,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
         with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 r4 r4 r4")
-        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
@@ -70,13 +80,14 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
         .. figure:: ../_images/image-close_container-5.png
 
     Time signature changes:
-        Works with containers with multiple time signatures as well as notes.
+        Works with selections from containers with multiple time signatures as
+        well as notes.
 
         >>> container = abjad.Staff(r"\time 3/4 r2. | "
         ...                         "\time 6/8 r2. | "
         ...                         "\time 5/4 c'1 ~ c'4 | r1 r4"
         ...                         )
-        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
         \new Staff
         {
@@ -108,7 +119,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-7.png
 
-        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
         {
             R1
@@ -138,7 +149,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-9.png
 
-        >>> auxjad.rests_to_multimeasure_rest(container)
+        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
         {
             R1
@@ -149,8 +160,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -178,10 +189,3 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
                 if time_signature is not None:
                     abjad.attach(time_signature, multimeasure_rest)
                 abjad.mutate(measure).replace(multimeasure_rest)
-
-
-def _rests_to_multimeasure_rest(self):
-    rests_to_multimeasure_rest(self._client)
-
-
-abjad.Mutation.rests_to_multimeasure_rest = _rests_to_multimeasure_rest

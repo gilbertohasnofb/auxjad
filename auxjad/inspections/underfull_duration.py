@@ -2,26 +2,38 @@ import abjad
 
 
 def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
-    r"""Returns the missing |abjad.Duration| of an underfull container (of
-    type |abjad.Container| or child class).
+    r"""Returns a |abjad.Duration| representing the duration missing in the
+    last measure of an input |abjad.Selection| which is not fully filled in.
 
     Basic usage:
-        Returns the missing duration of the last measure of any container or
-        child class. If no time signature is encountered, it uses LilyPond's
-        convention and considers the container as in 4/4.
+        Returns the missing duration of the last measure of an
+        |abjad.Selection|. If no time signature is encountered, it uses
+        LilyPond's fallback time signature of ``4/4``.
 
         >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Container(r"c'4 d'4 e'4")
         >>> container3 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4")
         >>> container4 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4 d'4 e'4 f'4")
-        >>> auxjad.underfull_duration(container1)
+        >>> auxjad.inspect(container1[:]).underfull_duration()
         0
-        >>> auxjad.underfull_duration(container2)
+        >>> auxjad.inspect(container2[:]).underfull_duration()
         1/4
-        >>> auxjad.underfull_duration(container3)
+        >>> auxjad.inspect(container3[:]).underfull_duration()
         3/4
-        >>> auxjad.underfull_duration(container4)
+        >>> auxjad.inspect(container4[:]).underfull_duration()
         0
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.inspect()|. Therefore it can be used from either
+        :func:`auxjad.inspect()` or |abjad.inspect()|, as shown below:
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4")
+        >>> auxjad.inspect(container[:]).underfull_duration()
+        1/4
+        >>> abjad.inspect(container[:]).underfull_duration()
+        1/4
 
     Time signature changes:
         Handles any time signatures as well as changes of time signature.
@@ -30,13 +42,13 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         >>> container2 = abjad.Container(r"\time 3/4 a2. \time 2/4 r2")
         >>> container3 = abjad.Container(r"\time 5/4 g1 ~ g4 \time 4/4 af'2")
         >>> container4 = abjad.Container(r"\time 6/8 c'2 ~ c'8")
-        >>> auxjad.underfull_duration(container1)
+        >>> auxjad.inspect(container1[:]).underfull_duration()
         0
-        >>> auxjad.underfull_duration(container2)
+        >>> auxjad.inspect(container2[:]).underfull_duration()
         0
-        >>> auxjad.underfull_duration(container3)
+        >>> auxjad.inspect(container3[:]).underfull_duration()
         1/2
-        >>> auxjad.underfull_duration(container4)
+        >>> auxjad.inspect(container4[:]).underfull_duration()
         1/8
 
     Partial time signatures:
@@ -45,7 +57,7 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> time_signature = abjad.TimeSignature((3, 4), partial=(1, 4))
         >>> abjad.attach(time_signature, container[0])
-        >>> auxjad.underfull_duration(container)
+        >>> auxjad.inspect(container[:]).underfull_duration()
         0
 
     Multi-measure rests:
@@ -55,30 +67,31 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         >>> container2 = abjad.Container(r"\time 3/4 R1*3/4 \time 2/4 r2")
         >>> container3 = abjad.Container(r"\time 5/4 R1*5/4 \time 4/4 g''4")
         >>> container4 = abjad.Container(r"\time 6/8 R1*1/2")
-        >>> auxjad.underfull_duration(container1)
+        >>> auxjad.inspect(container1[:]).underfull_duration()
         0
-        >>> auxjad.underfull_duration(container2)
+        >>> auxjad.inspect(container2[:]).underfull_duration()
         0
-        >>> auxjad.underfull_duration(container3)
+        >>> auxjad.inspect(container3[:]).underfull_duration()
         3/4
-        >>> auxjad.underfull_duration(container4)
+        >>> auxjad.inspect(container4[:]).underfull_duration()
         1/4
 
     ..  error::
 
-        If a container is malformed, i.e. it has an underfilled measure before
+        If a selection is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
-        exception.
+        exception. This is also the case when a selection starts in the middle
+        of a measure.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
-        >>> auxjad.underfull_duration(container)
-        ValueError: 'container' is malformed, with an underfull measure
+        >>> auxjad.inspect(container[:]).underfull_duration()
+        ValueError: 'selection' is malformed, with an underfull measure
         preceding a time signature change
 
     ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -104,7 +117,7 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         if (time_signature is not None
                 and time_signature != effective_time_signature):
             if duration % effective_time_signature.duration != 0:
-                raise ValueError("'container' is malformed, with an underfull "
+                raise ValueError("'selection' is malformed, with an underfull "
                                  "measure preceding a time signature change")
             effective_time_signature = time_signature
             duration = abjad.Duration(0)
@@ -114,10 +127,3 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
     if duration_last_bar > abjad.Duration(0):
         duration_left = effective_time_signature.duration - duration_last_bar
     return duration_left
-
-
-def _underfull_duration(self):
-    return underfull_duration(self._client)
-
-
-abjad.Inspection.underfull_duration = _underfull_duration

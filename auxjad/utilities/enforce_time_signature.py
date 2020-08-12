@@ -594,7 +594,7 @@ def enforce_time_signature(container: abjad.Container,
     ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """

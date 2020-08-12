@@ -12,10 +12,9 @@ def reposition_dynamics(selection: abjad.Selection,
                         remove_repeated_dynamics: bool = True,
                         allow_hairpin_to_rest_with_dynamic: bool = True,
                         ):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function shifts all dynamics from
-    rests to the next pitched leaves. It will also adjust hairpins if
-    necessary.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function shifts all dynamics from rests to the next pitched leaves. It
+    will also adjust hairpins if necessary.
 
     Basic usage:
         This function will shift dynamics under rests to the next pitched leaf.
@@ -36,7 +35,7 @@ def reposition_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_dynamics-1.png
 
         >>> staff = abjad.Staff(r"c'1\p d'2 r2\f r1 e'1")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -50,6 +49,16 @@ def reposition_dynamics(selection: abjad.Selection,
         }
 
         .. figure:: ../_images/image-reposition_dynamics-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
+        >>> abjad.mutate(staff[:]).reposition_dynamics()
 
     Removing dynamics:
         If the next pitched leaf already contain a dynamic, this function will
@@ -73,7 +82,7 @@ def reposition_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_dynamics-3.png
 
         >>> staff = abjad.Staff(r"c'1\p d'2 r2\f r1\mf e'1\pp")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -92,7 +101,7 @@ def reposition_dynamics(selection: abjad.Selection,
         By default indentical repeated dynamics are omitted.
 
         >>> staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -109,7 +118,8 @@ def reposition_dynamics(selection: abjad.Selection,
         ``False`` to disable this behaviour.
 
         >>> staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
-        >>> auxjad.reposition_dynamics(staff, remove_repeated_dynamics=False)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics(
+        ...     remove_repeated_dynamics=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -143,7 +153,7 @@ def reposition_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_dynamics-7.png
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -164,7 +174,8 @@ def reposition_dynamics(selection: abjad.Selection,
         ``True`` to allow hairpins to extend cross rests.
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
-        >>> auxjad.reposition_dynamics(staff, allow_hairpins_under_rests=True)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics(
+        ...     allow_hairpins_under_rests=True)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -185,7 +196,7 @@ def reposition_dynamics(selection: abjad.Selection,
         removed.
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -205,10 +216,8 @@ def reposition_dynamics(selection: abjad.Selection,
         disable this behaviour.
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
-        >>> auxjad.reposition_dynamics(
-        ...     staff,
-        ...     allow_hairpin_to_rest_with_dynamic=False,
-        ... )
+        >>> auxjad.mutate(staff[:]).reposition_dynamics(
+        ...     allow_hairpin_to_rest_with_dynamic=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -231,7 +240,7 @@ def reposition_dynamics(selection: abjad.Selection,
         hairpin from piano to forte.
 
         >>> staff = abjad.Staff(r"c'1\p\> d'1\f\> e'1\p")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -250,7 +259,8 @@ def reposition_dynamics(selection: abjad.Selection,
         ``check_hairpin_trends`` to ``False``.
 
         >>> staff = abjad.Staff(r"c'1\p\> d'1\f\> e'1\p")
-        >>> auxjad.reposition_dynamics(staff, check_hairpin_trends=False)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics(
+        ...     check_hairpin_trends=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -274,7 +284,7 @@ def reposition_dynamics(selection: abjad.Selection,
         to be connecting dynamics of the opposite trend.
 
         >>> staff = abjad.Staff(r"c'1\p\> d'1\! e'1\f\> f'1\p")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -302,7 +312,7 @@ def reposition_dynamics(selection: abjad.Selection,
         >>> abjad.attach(abjad.StartHairpin('o<'), staff[0])
         >>> abjad.attach(abjad.StartHairpin('>o'), staff[4])
         >>> abjad.attach(abjad.StopHairpin(), staff[7])
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -328,7 +338,7 @@ def reposition_dynamics(selection: abjad.Selection,
         >>> staff = abjad.Staff(
         ...     r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp")
         >>> abjad.attach(abjad.StartHairpin('--'), staff[0])
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -369,7 +379,7 @@ def reposition_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_dynamics-17.png
 
         >>> staff = abjad.Staff(r"c'1\p R1\f d'1")
-        >>> auxjad.reposition_dynamics(staff)
+        >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -384,8 +394,8 @@ def reposition_dynamics(selection: abjad.Selection,
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -507,23 +517,3 @@ def reposition_dynamics(selection: abjad.Selection,
     # removing repeated dynamics if required
     if remove_repeated_dynamics:
         remove_repeated_dynamics_(selection)
-
-
-def _reposition_dynamics(
-    self,
-    *,
-    allow_hairpins_under_rests: bool = False,
-    check_hairpin_trends: bool = True,
-    remove_repeated_dynamics: bool = True,
-    allow_hairpin_to_rest_with_dynamic: bool = True,
-):
-    reposition_dynamics(
-        self._client,
-        allow_hairpins_under_rests=allow_hairpins_under_rests,
-        check_hairpin_trends=check_hairpin_trends,
-        remove_repeated_dynamics=remove_repeated_dynamics,
-        allow_hairpin_to_rest_with_dynamic=allow_hairpin_to_rest_with_dynamic,
-    )
-
-
-abjad.Mutation.reposition_dynamics = _reposition_dynamics

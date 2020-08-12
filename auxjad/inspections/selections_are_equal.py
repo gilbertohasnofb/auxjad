@@ -8,22 +8,38 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
                                            Iterable[abjad.Selection],
                                            ],
                          *,
-                         include_indicators: bool = False,
+                         include_indicators: bool = True,
                          ) -> bool:
-    r"""Returns a :obj:`bool` representing whether two input containers (of
-    type |abjad.Container| or child class) are identical or not.
+    r"""Returns a :obj:`bool` representing whether two or more selections are
+    identical or not. Input argument must be an iterable of two or more
+    |abjad.Selection|'s.
 
     Basic usage:
-        When the pitches and effective durations of all leaves in both
-        containers are identical, this function returns ``True``:
+        When the pitches and effective durations of all leaves in all
+        selections are identical, this function returns ``True``:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1, container2)
+        >>> selections = [container1[:], container2[:]]
+        >>> auxjad.inspect(selections).selections_are_equal()
+        True
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.inspect()|. Therefore it can be used from either
+        :func:`auxjad.inspect()` or |abjad.inspect()|, as shown below:
+
+        >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> selections = [container1[:], container2[:]]
+        >>> auxjad.inspect(selections).selections_are_equal()
+        True
+        >>> abjad.inspect(selections).selections_are_equal()
         True
 
     Effective durations:
-        Even if all leaves of both containers are identical in relation to both
+        Even if all leaves of both selections are identical in relation to both
         pitches and written durations, the function considers the effective
         durations. This means that situations like the one below do not yield a
         false positive:
@@ -31,58 +47,77 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "
         ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1, container2)
+        >>> selections = [container1[:], container2[:]]
+        >>> auxjad.inspect(selections).selections_are_equal()
         False
 
     ``include_indicators``:
-        By default, this function ignores indicators, so the containers in the
-        example below are understood to be identical:
+        By default, this function includes indicators in the comparison, so the
+        containers in the example below are understood to be different:
 
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1, container2)
-        True
-
-        Setting the argument ``include_indicators`` to ``True`` forces the
-        function to include indicators in its comparison. In that case, the
-        containers in the example above are not considered identical any
-        longer:
-
-        >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
-        >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1,
-        ...                             container2,
-        ...                             include_indicators=True,
-        ...                             )
+        >>> selections = [container1[:], container2[:]]
+        >>> auxjad.inspect(selections).selections_are_equal()
         False
 
+        Set the argument ``include_indicators`` to ``False`` to ignore
+        indicators when comparison selections. In that case, the containers
+        in the example above are then considered identical:
+
+        >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
+        >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> selections = [container1[:], container2[:]]
+        >>> auxjad.inspect(selections).selections_are_equal(
+        ...     include_indicators=False)
+        True
+
     Grace notes:
-        This function also handles grace notes:
+        This function also handles grace notes.
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Staff(r"c'4 \grace{d'4} d'4 e'4 f'4")
-        >>> auxjad.selections_are_equal(container1, container2)
+        >>> selection1 = abjad.select(container1)
+        >>> selection2 = abjad.select(container2)
+        >>> selections = [selection1, selection2]
+        >>> auxjad.inspect(selections).selections_are_equal()
         False
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
-        ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1, container2)
+        ...                          r"f'4 <g' a'>2 r2")
+        >>> selection1 = abjad.select(container1)
+        >>> selection2 = abjad.select(container2)
+        >>> selections = [selection1, selection2]
+        >>> auxjad.inspect(selections).selections_are_equal()
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
-        ...                          "f'4 <g' a'>2 r2")
+        ...                          r"f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 "
-        ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1, container2)
+        ...                          r"f'4 <g' a'>2 r2")
+        >>> selection1 = abjad.select(container1)
+        >>> selection2 = abjad.select(container2)
+        >>> selections = [selection1, selection2]
+        >>> auxjad.inspect(selections).selections_are_equal()
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
-        ...                          "f'4 <g' a'>2 r2")
+        ...                          r"f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
-        ...                          "f'4 <g' a'>2 r2")
-        >>> auxjad.selections_are_equal(container1, container2)
+        ...                          r"f'4 <g' a'>2 r2")
+        >>> selection1 = abjad.select(container1)
+        >>> selection2 = abjad.select(container2)
+        >>> selections = [selection1, selection2]
+        >>> auxjad.inspect(selections).selections_are_equal()
         True
+
+    ..  warning::
+
+        It is important though to create selections using |abjad.select()| as
+        shown in the example above instead of using the syntax
+        ``container[:]``, since the latter selects only leaves which are not
+        grace notes.
 
     ..  note::
 
@@ -92,7 +127,8 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
 
         >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
-        >>> auxjad.selections_are_equal(container1, container2)
+        >>> selections = [container1[:], container2[:]]
+        >>> auxjad.inspect(selections).selections_are_equal()
         True
     """
     if not isinstance(selections, collections.abc.Iterable):
@@ -126,15 +162,3 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
                         != abjad.inspect(leaf2).indicators()):
                     return False
     return True
-
-
-def _selections_are_equal(self,
-                          *,
-                          include_indicators: bool = False,
-                          ):
-    return selections_are_equal(self._client,
-                                include_indicators=include_indicators,
-                                )
-
-
-abjad.Inspection.selections_are_equal = _selections_are_equal

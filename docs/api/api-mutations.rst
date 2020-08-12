@@ -9,7 +9,7 @@ them as extension methods to |abjad.mutate()|.
 
     These functions are imported directly into the |auxjad|_ namespace.
     Therefore, to use a function such as
-    :func:`auxjad.rests_to_multimeasure_rest()` you only need to import
+    |auxjad.mutate().rests_to_multimeasure_rest()| you only need to import
     |auxjad|_ and invoke the function from its namespace:
 
     >>> import auxjad
@@ -28,6 +28,15 @@ names for their individual documentation.
 
     auxjad.mutate
     auxjad.Mutation
+    auxjad.Mutation.prettify_rewrite_meter
+    auxjad.Mutation.remove_empty_tuplets
+    auxjad.Mutation.remove_repeated_dynamics
+    auxjad.Mutation.remove_repeated_time_signatures
+    auxjad.Mutation.reposition_clefs
+    auxjad.Mutation.reposition_dynamics
+    auxjad.Mutation.reposition_slurs
+    auxjad.Mutation.respell_accidentals
+    auxjad.Mutation.rests_to_multimeasure_rest
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

@@ -6,10 +6,9 @@ def reposition_clefs(selection: abjad.Selection,
                      shift_clef_to_notes: bool = True,
                      implicit_clef: abjad.Clef = abjad.Clef('treble'),
                      ):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function removes all consecutive
-    repeated clefs. It can also be used to shift clefs from rests to pitched
-    leaves.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function removes all consecutive repeated clefs. It can also be used
+    to shift clefs from rests to pitched leaves.
 
     Basic usage:
         When consecutive clefs are the same, the second one is removed:
@@ -28,7 +27,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-1.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -38,6 +37,16 @@ def reposition_clefs(selection: abjad.Selection,
         }
 
         .. figure:: ../_images/image-reposition_clefs-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
+        >>> abjad.mutate(staff[:]).reposition_clefs()
 
     LilyPond's fallback clef:
         As seen above, LilyPond automatically omits repeated clefs unless the
@@ -58,7 +67,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         This function handles fallback clefs too:
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -87,7 +96,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-5.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -121,7 +130,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-7.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -155,7 +164,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-9.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -188,7 +197,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-11.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -207,7 +216,7 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('bass'), staff[2])
-        >>> auxjad.reposition_clefs(staff, shift_clef_to_notes=False)
+        >>> auxjad.mutate(staff[:]).reposition_clefs(shift_clef_to_notes=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -243,7 +252,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-14.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -260,8 +269,9 @@ def reposition_clefs(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_clefs-15.png
 
     Subcontainers:
-        The input container can also handle subcontainers, including cases in
-        which the clefs are attached to leaves of subcontainers:
+        The container from which the selection is made can also have
+        subcontainers, including cases in which the clefs are attached to
+        leaves of subcontainers:
 
         >>> staff = abjad.Staff([abjad.Note("c'2"),
         ...                      abjad.Chord("<d' f'>2"),
@@ -283,7 +293,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-16.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -315,7 +325,7 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-18.png
 
-        >>> auxjad.reposition_clefs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_clefs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -340,7 +350,8 @@ def reposition_clefs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_clefs-20.png
 
-        >>> auxjad.reposition_clefs(staff, implicit_clef=abjad.Clef('bass'))
+        >>> auxjad.mutate(staff[:]).reposition_clefs(
+        ...     implicit_clef=abjad.Clef('bass'))
         >>> abjad.f(staff)
         \new Staff
         {
@@ -371,8 +382,8 @@ def reposition_clefs(selection: abjad.Selection,
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -412,17 +423,3 @@ def reposition_clefs(selection: abjad.Selection,
             abjad.detach(abjad.Clef, leaf)
         elif clef is not None:
             previous_clef = clef
-
-
-def _reposition_clefs(self,
-                      *,
-                      shift_clef_to_notes: bool = True,
-                      implicit_clef: abjad.Clef = abjad.Clef('treble'),
-                      ):
-    reposition_clefs(self._client,
-                     shift_clef_to_notes=shift_clef_to_notes,
-                     implicit_clef=implicit_clef,
-                     )
-
-
-abjad.Mutation.reposition_clefs = _reposition_clefs

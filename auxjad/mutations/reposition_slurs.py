@@ -6,9 +6,8 @@ def reposition_slurs(selection: abjad.Selection,
                      allow_slurs_under_rests: bool = False,
                      remove_unterminated_slurs: bool = True,
                      ):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function repositions all slurs that
-    starts or ends on rests.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function repositions all slurs that starts or ends on rests.
 
     Basic usage:
         This function will shift slurs that ends on rests to the previous
@@ -30,7 +29,7 @@ def reposition_slurs(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_slurs-1.png
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
-        >>> auxjad.reposition_slurs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -44,6 +43,16 @@ def reposition_slurs(selection: abjad.Selection,
         }
 
         .. figure:: ../_images/image-reposition_slurs-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
+        >>> abjad.mutate(staff[:]).reposition_slurs()
 
     Rests:
         Slurs starting on rests are shifted to the next pitched leaf.
@@ -63,7 +72,7 @@ def reposition_slurs(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_slurs-3.png
 
         >>> staff = abjad.Staff(r"c'1 r2( d'2 e'1)")
-        >>> auxjad.reposition_slurs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -96,7 +105,7 @@ def reposition_slurs(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_slurs-5.png
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 r1) e'1")
-        >>> auxjad.reposition_slurs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -115,7 +124,7 @@ def reposition_slurs(selection: abjad.Selection,
         By default, a slur crossing a rest is broken into two.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
-        >>> auxjad.reposition_slurs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -136,7 +145,8 @@ def reposition_slurs(selection: abjad.Selection,
         ``True`` to allow slurs under rests.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
-        >>> auxjad.reposition_slurs(staff, allow_slurs_under_rests=True)
+        >>> auxjad.mutate(staff[:]).reposition_slurs(
+        ...     allow_slurs_under_rests=True)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -155,7 +165,7 @@ def reposition_slurs(selection: abjad.Selection,
         By default, unterminated slurs are removed.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
-        >>> auxjad.reposition_slurs(staff)
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -177,7 +187,8 @@ def reposition_slurs(selection: abjad.Selection,
         ``True`` to disable this behaviour.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
-        >>> auxjad.reposition_slurs(staff, remove_unterminated_slurs=False)
+        >>> auxjad.mutate(staff[:]).reposition_slurs(
+        ...     remove_unterminated_slurs=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -198,8 +209,8 @@ def reposition_slurs(selection: abjad.Selection,
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -290,17 +301,3 @@ def reposition_slurs(selection: abjad.Selection,
                 and inspector_tail.indicator(abjad.StopSlur) is not None):
             abjad.detach(abjad.StartSlur, logical_tie[0])
             abjad.detach(abjad.StopSlur, logical_tie[-1])
-
-
-def _reposition_slurs(self,
-                      *,
-                      allow_slurs_under_rests: bool = False,
-                      remove_unterminated_slurs: bool = False,
-                      ):
-    reposition_slurs(self._client,
-                     allow_slurs_under_rests=allow_slurs_under_rests,
-                     remove_unterminated_slurs=remove_unterminated_slurs,
-                     )
-
-
-abjad.Mutation.reposition_slurs = _reposition_slurs

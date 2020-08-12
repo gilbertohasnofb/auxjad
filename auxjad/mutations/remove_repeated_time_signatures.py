@@ -2,9 +2,8 @@ import abjad
 
 
 def remove_repeated_time_signatures(selection: abjad.Selection):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function removes all consecutive
-    repeated time signatures.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function removes all consecutive repeated time signatures.
 
     Basic usage:
         When two consecutive measures have identical time signatures, the
@@ -26,7 +25,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-1.png
 
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -38,6 +37,16 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
         }
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
+        >>> abjad.mutate(staff[:]).remove_repeated_time_signatures()
 
     Time signature structure:
         The function also removes time signatures that are separated by an
@@ -60,7 +69,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-3.png
 
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -75,8 +84,9 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
         .. figure:: ../_images/image-remove_repeated_time_signatures-4.png
 
     Subcontainers:
-        The input container can also handle subcontainers, including cases in
-        which the time signatures are attached to leaves of subcontainers:
+        The container from which the selection is made can also have
+        subcontainers, including cases in which the time signatures are
+        attached to leaves of subcontainers:
 
         >>> staff = abjad.Staff([abjad.Note("c'2"),
         ...                      abjad.Chord("<d' f'>2"),
@@ -100,7 +110,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_repeated_time_signatures-5.png
 
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -118,8 +128,8 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -142,12 +152,3 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             abjad.detach(abjad.TimeSignature, head)
         elif time_signature is not None:
             previous_time_signature = time_signature
-
-
-def _remove_repeated_time_signatures(self):
-    remove_repeated_time_signatures(self._client)
-
-
-abjad.Mutation.remove_repeated_time_signatures = (
-    _remove_repeated_time_signatures
-)

@@ -17,12 +17,23 @@ class Inspection:
         >>> staff = abjad.Staff("c'4 e'4 d'4 f'4")
         >>> auxjad.inspect(staff[2:])
         Inspection(client=Selection([Note("d'4"), Note("f'4")]))
+
+    ..  note::
+
+        Auxjad automatically adds all methods of :class:`Inspection` as
+        extension methods to |abjad.inspect()|. Therefore they can be used from
+        either :func:`auxjad.inspect()` or |abjad.inspect()|, as shown below:
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.inspect(container[:]).selection_is_full()
+        True
+        >>> abjad.inspect(container[:]).selection_is_full()
+        True
     """
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_client',
-                 )
+    __slots__ = ('_client',)
 
     ### INITIALISER ###
 
@@ -31,6 +42,7 @@ class Inspection:
                                Iterable[abjad.Component],
                                ] = None,
                  ):
+        r'Initialises self.'
         assert not isinstance(client, str), repr(client)
         if not isinstance(client, (abjad.Component,
                                    collections.abc.Iterable,
@@ -56,7 +68,7 @@ class Inspection:
 
     def selections_are_equal(self,
                              *,
-                             include_indicators: bool = False,
+                             include_indicators: bool = True,
                              ) -> bool:
         return selections_are_equal(self._client,
                                     include_indicators=include_indicators,
@@ -91,12 +103,52 @@ def inspect(client):
     r"""Makes an inspection agent. See :class:`Inspection` for the
     documentation of all of its methods.
 
-    Using |abjad.inspect()|:
-        All of the methods in :class:`auxjad.Inspection` are automatically
-        added as aextension methods to |abjad.inspect()|. Example:
+    Example:
 
-        >>> staff = abjad.Staff(r"\time 3/4 c'4 e'4 d'4 f'4 g'4")
-        >>> abjad.inspect(staff[:]).selection_is_full()
-        False
+        >>> staff = abjad.Staff("c'4 e'4 d'4 f'4")
+        >>> auxjad.inspect(staff[2:])
+        Inspection(client=Selection([Note("d'4"), Note("f'4")]))
+
+    ..  note::
+
+        Auxjad automatically adds all methods of :class:`Inspection` as
+        extension methods to |abjad.inspect()|. Therefore they can be used from
+        either :func:`auxjad.inspect()` or |abjad.inspect()|, as shown below:
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.inspect(container[:]).selection_is_full()
+        True
+        >>> abjad.inspect(container[:]).selection_is_full()
+        True
     """
     return Inspection(client)
+
+
+### EXTENSION METHODS ###
+
+
+def _leaves_are_tieable(self):
+    return leaves_are_tieable(self._client)
+
+
+def _selection_is_full(self):
+    return selection_is_full(self._client)
+
+
+def _selections_are_equal(self,
+                          *,
+                          include_indicators: bool = True,
+                          ):
+    return selections_are_equal(self._client,
+                                include_indicators=include_indicators,
+                                )
+
+
+def _underfull_duration(self):
+    return underfull_duration(self._client)
+
+
+abjad.Inspection.leaves_are_tieable = _leaves_are_tieable
+abjad.Inspection.selection_is_full = _selection_is_full
+abjad.Inspection.selections_are_equal = _selections_are_equal
+abjad.Inspection.underfull_duration = _underfull_duration

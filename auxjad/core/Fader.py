@@ -289,8 +289,8 @@ class Fader():
         then be used in a for loop to run through the whole process. Note that
         unlike the methods :meth:`output_n` and :meth:`output_all`, time
         signatures are added to each window returned by the fader. Use the
-        function :func:`auxjad.remove_repeated_time_signatures()` to clean the
-        output when using this class in this way.
+        function |auxjad.mutate().remove_repeated_time_signatures()| to clean
+        the output when using this class in this way.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> fader = auxjad.Fader(container)
@@ -928,9 +928,9 @@ class Fader():
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
-        after fusing the selections to remove any unecessary time signature
-        changes.
+        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        container after fusing the selections to remove any unecessary time
+        signature changes.
 
     Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
@@ -1120,9 +1120,9 @@ class Fader():
 
     .. tip::
 
-        The functions :func:`auxjad.remove_repeated_dynamics()` and
-        :func:`auxjad.reposition_clefs()` can be used to clean the output and
-        remove repeated dynamics and unnecessary clef changes.
+        The functions |auxjad.mutate().remove_repeated_dynamics()| and
+        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        and remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
 

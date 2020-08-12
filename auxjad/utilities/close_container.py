@@ -183,7 +183,7 @@ def close_container(container: abjad.Container):
     ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -191,25 +191,30 @@ def close_container(container: abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
     if not abjad.select(container).leaves().are_contiguous_logical_voice():
         raise ValueError("argument must be contiguous logical voice")
-    if not inspect(container[:]).selection_is_full():
-        missing_duration = inspect(container[:]).underfull_duration()
-        leaves = abjad.select(container).leaves()
-        for leaf in leaves[::-1]:
-            time_signature = abjad.inspect(leaf).effective(abjad.TimeSignature)
-            if time_signature is not None:
-                last_time_signature = time_signature
-                break
-        else:
-            last_time_signature = abjad.TimeSignature((4, 4))
-        last_bar_duration = last_time_signature.duration - missing_duration
-        final_bar_time_signature = abjad.TimeSignature(last_bar_duration)
-        final_bar_time_signature = simplified_time_signature_ratio(
-            final_bar_time_signature)
-        duration = 0
-        for leaf in leaves[::-1]:
-            duration += abjad.inspect(leaf).duration()
-            if duration == last_bar_duration:
-                if abjad.inspect(leaf).indicators(abjad.TimeSignature):
-                    abjad.detach(abjad.TimeSignature, leaf)
-                abjad.attach(final_bar_time_signature, leaf)
-                break
+    try:
+        if not inspect(container[:]).selection_is_full():
+            missing_duration = inspect(container[:]).underfull_duration()
+            leaves = abjad.select(container).leaves()
+            for leaf in leaves[::-1]:
+                time_signature = abjad.inspect(leaf).effective(
+                    abjad.TimeSignature)
+                if time_signature is not None:
+                    last_time_signature = time_signature
+                    break
+            else:
+                last_time_signature = abjad.TimeSignature((4, 4))
+            last_bar_duration = last_time_signature.duration - missing_duration
+            final_bar_time_signature = abjad.TimeSignature(last_bar_duration)
+            final_bar_time_signature = simplified_time_signature_ratio(
+                final_bar_time_signature)
+            duration = 0
+            for leaf in leaves[::-1]:
+                duration += abjad.inspect(leaf).duration()
+                if duration == last_bar_duration:
+                    if abjad.inspect(leaf).indicators(abjad.TimeSignature):
+                        abjad.detach(abjad.TimeSignature, leaf)
+                    abjad.attach(final_bar_time_signature, leaf)
+                    break
+    except ValueError as err:
+        raise ValueError("'container' is malformed, with an underfull measure "
+                         "preceding a time signature change") from err

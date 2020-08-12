@@ -507,9 +507,9 @@ class Shuffler:
         signature to it. The :meth:`shuffle_n` and :meth:`rotate_n` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        :func:`auxjad.remove_repeated_time_signatures()` on the whole container
-        after fusing the selections to remove any unecessary time signature
-        changes.
+        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        container after fusing the selections to remove any unecessary time
+        signature changes.
 
     Time signature changes:
         This class handles time signature changes too:
@@ -643,9 +643,9 @@ class Shuffler:
 
     .. tip::
 
-        The functions :func:`auxjad.remove_repeated_dynamics()` and
-        :func:`auxjad.reposition_clefs()` can be used to clean the output and
-        remove repeated dynamics and unnecessary clef changes.
+        The functions |auxjad.mutate().remove_repeated_dynamics()| and
+        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        and remove repeated dynamics and unnecessary clef changes.
 
     ..  warning::
 
@@ -792,7 +792,7 @@ class Shuffler:
         then be used in a for loop. Note that unlike the methods
         :meth:`shuffle_n` and :meth:`rotate_n`, time signatures are added to
         each window returned by the shuffler. Use the function
-        :func:`auxjad.remove_repeated_time_signatures()` to clean the output
+        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
         when using this class in this way. It is also important to note that a
         ``break`` statement is needed when using this class as an iterator. The
         reason is that shuffling is a process that can happen indefinitely

@@ -2,9 +2,9 @@ import abjad
 
 
 def remove_empty_tuplets(selection: abjad.Selection):
-    r"""Mutates an input container (of type |abjad.Container| or child class)
-    in place and has no return value; this function looks for tuplets filled
-    with rests and replaces them with a single rest.
+    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    this function looks for tuplets filled with rests and replaces them with a
+    single rest.
 
     Basic usage:
         Usage is simple:
@@ -21,7 +21,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_empty_tuplets-1.png
 
-        >>> auxjad.remove_empty_tuplets(container)
+        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
         >>> abjad.f(container)
         {
             r1
@@ -45,7 +45,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_empty_tuplets-3.png
 
-        >>> auxjad.remove_empty_tuplets(container)
+        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
         >>> abjad.f(container)
         {
             r1
@@ -53,7 +53,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_empty_tuplets-4.png
 
-        This function also simplifies a mix of tuplets of rests and tuplets
+        This function also simplifies a mixture of tuplets of rests and tuplets
         with notes.
 
         >>> container = abjad.Container(
@@ -76,7 +76,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_empty_tuplets-5.png
 
-        >>> auxjad.remove_empty_tuplets(container)
+        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
         >>> abjad.f(container)
         {
             r2
@@ -89,18 +89,28 @@ def remove_empty_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/image-remove_empty_tuplets-6.png
 
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).remove_empty_tuplets()
+        >>> abjad.mutate(staff[:]).remove_empty_tuplets()
+
     ..  tip::
 
-        Use :func:`auxjad.rests_to_multimeasure_rest()` to replace measures
+        Use |auxjad.mutate().rests_to_multimeasure_rest()| to replace measures
         filled with rests by a single multi-measure rest. That function makes
-        use of :func:`auxjad.remove_empty_tuplets()`, so it is not necessary to
-        flatten the empty tuplets beforehand.
+        use of |auxjad.mutate().remove_empty_tuplets()|, so it is not necessary
+        to flatten the empty tuplets beforehand.
 
     Time signature changes:
         Works with measures with any time signature.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
-        >>> auxjad.remove_empty_tuplets(container)
+        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
@@ -118,7 +128,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
         with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
-        >>> auxjad.remove_empty_tuplets(container)
+        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
@@ -135,8 +145,8 @@ def remove_empty_tuplets(selection: abjad.Selection):
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containings
+        The input selection must be a contiguous logical voice. When dealing
+        with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
         subcontainers, applying this function to them individually.
     """
@@ -157,10 +167,3 @@ def remove_empty_tuplets(selection: abjad.Selection):
             if time_signature is not None:
                 abjad.attach(time_signature, rest)
             abjad.mutate(tuplet).replace(rest)
-
-
-def _remove_empty_tuplets(self):
-    remove_empty_tuplets(self._client)
-
-
-abjad.Mutation.remove_empty_tuplets = _remove_empty_tuplets

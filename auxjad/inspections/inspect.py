@@ -140,18 +140,18 @@ def inspect(client):
 
 ### EXTENSION METHODS ###
 
-def _leaves_are_tieable(self):
+def _leaves_are_tieable(self) -> bool:
     return leaves_are_tieable(self._client)
 
 
-def _selection_is_full(self):
+def _selection_is_full(self) -> bool:
     return selection_is_full(self._client)
 
 
 def _selections_are_equal(self,
                           *,
                           include_indicators: bool = True,
-                          ):
+                          ) -> bool:
     return selections_are_equal(self._client,
                                 include_indicators=include_indicators,
                                 )
@@ -170,7 +170,7 @@ def _time_signature_extractor(self,
                                     )
 
 
-def _underfull_duration(self):
+def _underfull_duration(self) -> abjad.Duration:
     return underfull_duration(self._client)
 
 

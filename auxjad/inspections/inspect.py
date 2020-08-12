@@ -6,6 +6,7 @@ import abjad
 from .leaves_are_tieable import leaves_are_tieable
 from .selection_is_full import selection_is_full
 from .selections_are_equal import selections_are_equal
+from .time_signature_extractor import time_signature_extractor
 from .underfull_duration import underfull_duration
 
 
@@ -74,6 +75,19 @@ class Inspection:
                                     include_indicators=include_indicators,
                                     )
 
+    def time_signature_extractor(self,
+                                 *,
+                                 do_not_use_none: bool = False,
+                                 implicit_common_time: bool = True,
+                                 omit_repeated: bool = False,
+                                 ) -> list:
+        return time_signature_extractor(
+            self._client,
+            do_not_use_none=do_not_use_none,
+            implicit_common_time=implicit_common_time,
+            omit_repeated=omit_repeated,
+        )
+
     def underfull_duration(self) -> abjad.Duration:
         return underfull_duration(self._client)
 
@@ -93,11 +107,11 @@ class Inspection:
 Inspection.leaves_are_tieable.__doc__ = leaves_are_tieable.__doc__
 Inspection.selection_is_full.__doc__ = selection_is_full.__doc__
 Inspection.selections_are_equal.__doc__ = selections_are_equal.__doc__
+Inspection.time_signature_extractor.__doc__ = time_signature_extractor.__doc__
 Inspection.underfull_duration.__doc__ = underfull_duration.__doc__
 
 
 ### FUNCTIONS ###
-
 
 def inspect(client):
     r"""Makes an inspection agent. See :class:`Inspection` for the
@@ -126,7 +140,6 @@ def inspect(client):
 
 ### EXTENSION METHODS ###
 
-
 def _leaves_are_tieable(self):
     return leaves_are_tieable(self._client)
 
@@ -144,6 +157,19 @@ def _selections_are_equal(self,
                                 )
 
 
+def _time_signature_extractor(self,
+                              *,
+                              do_not_use_none: bool = False,
+                              implicit_common_time: bool = True,
+                              omit_repeated: bool = False,
+                              ) -> list:
+    return time_signature_extractor(self._client,
+                                    do_not_use_none=do_not_use_none,
+                                    implicit_common_time=implicit_common_time,
+                                    omit_repeated=omit_repeated,
+                                    )
+
+
 def _underfull_duration(self):
     return underfull_duration(self._client)
 
@@ -151,4 +177,5 @@ def _underfull_duration(self):
 abjad.Inspection.leaves_are_tieable = _leaves_are_tieable
 abjad.Inspection.selection_is_full = _selection_is_full
 abjad.Inspection.selections_are_equal = _selections_are_equal
+abjad.Inspection.time_signature_extractor = _time_signature_extractor
 abjad.Inspection.underfull_duration = _underfull_duration

@@ -1,7 +1,10 @@
-from typing import Union
+from typing import Optional, Union
 
 import abjad
 
+from .close_container import close_container
+from .enforce_time_signature import enforce_time_signature
+from .fill_with_rests import fill_with_rests
 from .prettify_rewrite_meter import prettify_rewrite_meter
 from .remove_empty_tuplets import remove_empty_tuplets
 from .remove_repeated_dynamics import remove_repeated_dynamics
@@ -11,6 +14,7 @@ from .reposition_dynamics import reposition_dynamics
 from .reposition_slurs import reposition_slurs
 from .respell_accidentals import respell_accidentals
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from .sync_containers import sync_containers
 
 
 class Mutation:
@@ -53,6 +57,44 @@ class Mutation:
         return abjad.StorageFormatManager(self).get_repr_format()
 
     ### PUBLIC METHODS ###
+
+    def close_container(self):
+        return close_container(self.client)
+
+    def enforce_time_signature(self,
+                               time_signatures: Union[abjad.TimeSignature,
+                                                      tuple,
+                                                      list,
+                                                      ],
+                               *,
+                               cyclic: bool = False,
+                               fill_with_rests: bool = True,
+                               close_container: bool = False,
+                               disable_rewrite_meter: bool = False,
+                               boundary_depth: Optional[int] = None,
+                               maximum_dot_count: Optional[int] = None,
+                               rewrite_tuplets: bool = True,
+                               ):
+        return enforce_time_signature(
+            self.client,
+            time_signatures=time_signatures,
+            cyclic=cyclic,
+            fill_with_rests=fill_with_rests,
+            close_container=close_container,
+            disable_rewrite_meter=disable_rewrite_meter,
+            boundary_depth=boundary_depth,
+            maximum_dot_count=maximum_dot_count,
+            rewrite_tuplets=rewrite_tuplets,
+        )
+
+    def fill_with_rests(self,
+                        *,
+                        disable_rewrite_meter: bool = False,
+                        ):
+        return fill_with_rests(
+            self.client,
+            disable_rewrite_meter=disable_rewrite_meter,
+        )
 
     def prettify_rewrite_meter(self,
                                meter: Union[abjad.Meter, abjad.TimeSignature],
@@ -138,6 +180,17 @@ class Mutation:
     def rests_to_multimeasure_rest(self):
         return rests_to_multimeasure_rest(self._client)
 
+    def sync_containers(self,
+                        *,
+                        use_multimeasure_rests: bool = True,
+                        adjust_last_time_signature: bool = True,
+                        ):
+        return sync_containers(
+            self._client,
+            use_multimeasure_rests=use_multimeasure_rests,
+            adjust_last_time_signature=adjust_last_time_signature,
+        )
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -148,6 +201,9 @@ class Mutation:
 
 ### METHOD DOCSTRINGS ###
 
+Mutation.close_container.__doc__ = close_container.__doc__
+Mutation.enforce_time_signature.__doc__ = enforce_time_signature.__doc__
+Mutation.fill_with_rests.__doc__ = fill_with_rests.__doc__
 Mutation.prettify_rewrite_meter.__doc__ = prettify_rewrite_meter.__doc__
 Mutation.remove_empty_tuplets.__doc__ = remove_empty_tuplets.__doc__
 Mutation.remove_repeated_dynamics.__doc__ = remove_repeated_dynamics.__doc__
@@ -161,10 +217,10 @@ Mutation.respell_accidentals.__doc__ = respell_accidentals.__doc__
 Mutation.rests_to_multimeasure_rest.__doc__ = (
     rests_to_multimeasure_rest.__doc__
 )
+Mutation.sync_containers.__doc__ = sync_containers.__doc__
 
 
 ### FUNCTIONS ###
-
 
 def mutate(client):
     r"""Makes a mutation agent. See :class:`Mutation` for the documentation
@@ -193,6 +249,44 @@ def mutate(client):
 
 
 ### EXTENSION METHODS ###
+
+def _close_container(self):
+    close_container(self.client)
+
+
+def _enforce_time_signature(self,
+                            time_signatures: Union[abjad.TimeSignature,
+                                                   tuple,
+                                                   list,
+                                                   ],
+                            *,
+                            cyclic: bool = False,
+                            fill_with_rests: bool = True,
+                            close_container: bool = False,
+                            disable_rewrite_meter: bool = False,
+                            boundary_depth: Optional[int] = None,
+                            maximum_dot_count: Optional[int] = None,
+                            rewrite_tuplets: bool = True,
+                            ):
+    enforce_time_signature(self.client,
+                           time_signatures=time_signatures,
+                           cyclic=cyclic,
+                           fill_with_rests=fill_with_rests,
+                           close_container=close_container,
+                           disable_rewrite_meter=disable_rewrite_meter,
+                           boundary_depth=boundary_depth,
+                           maximum_dot_count=maximum_dot_count,
+                           rewrite_tuplets=rewrite_tuplets,
+                           )
+
+
+def _fill_with_rests(self,
+                     *,
+                     disable_rewrite_meter: bool = False,
+                     ):
+    fill_with_rests(self.client,
+                    disable_rewrite_meter=disable_rewrite_meter,
+                    )
 
 
 def _prettify_rewrite_meter(self,
@@ -284,6 +378,20 @@ def _rests_to_multimeasure_rest(self):
     rests_to_multimeasure_rest(self._client)
 
 
+def _sync_containers(self,
+                     *,
+                     use_multimeasure_rests: bool = True,
+                     adjust_last_time_signature: bool = True,
+                     ):
+    sync_containers(self._client,
+                    use_multimeasure_rests=use_multimeasure_rests,
+                    adjust_last_time_signature=adjust_last_time_signature,
+                    )
+
+
+abjad.Mutation.close_container = _close_container
+abjad.Mutation.enforce_time_signature = _enforce_time_signature
+abjad.Mutation.fill_with_rests = _fill_with_rests
 abjad.Mutation.prettify_rewrite_meter = _prettify_rewrite_meter
 abjad.Mutation.remove_empty_tuplets = _remove_empty_tuplets
 abjad.Mutation.remove_repeated_dynamics = _remove_repeated_dynamics
@@ -295,3 +403,4 @@ abjad.Mutation.reposition_dynamics = _reposition_dynamics
 abjad.Mutation.reposition_slurs = _reposition_slurs
 abjad.Mutation.respell_accidentals = _respell_accidentals
 abjad.Mutation.rests_to_multimeasure_rest = _rests_to_multimeasure_rest
+abjad.Mutation.sync_containers = _sync_containers

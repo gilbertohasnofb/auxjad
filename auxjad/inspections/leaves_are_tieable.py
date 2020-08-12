@@ -12,8 +12,8 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
                        ) -> bool:
     r"""Returns a :obj:`bool` representing whether or not two or more input
     leaves have identical pitch(es) and thus can be tied. Input argument can
-    be a single |abjad.Selection| with multiple leaves, or an iterable of
-    of type |abjad.Leaf| or child classes.
+    be a single |abjad.Selection| with multiple leaves, or an iterable with
+    elements of type |abjad.Leaf| or child classes.
 
     Basic usage:
         When the pitches in both leaves are identical, this function returns
@@ -44,7 +44,7 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
         >>> leaf2 = abjad.Note(r"c'16")
         >>> leaf3 = abjad.Note(r"f'''16")
         >>> auxjad.inspect([leaf1, leaf2]).leaves_are_tieable()
-        Trueselection2
+        True
         >>> auxjad.inspect([leaf1, leaf3]).leaves_are_tieable()
         False
         >>> auxjad.inspect([leaf2, leaf3]).leaves_are_tieable()

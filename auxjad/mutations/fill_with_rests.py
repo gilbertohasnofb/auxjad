@@ -1,7 +1,6 @@
 import abjad
 
 from ..inspections.inspect import inspect
-from .time_signature_extractor import time_signature_extractor
 
 
 def fill_with_rests(container: abjad.Container,
@@ -21,10 +20,10 @@ def fill_with_rests(container: abjad.Container,
         >>> container2 = abjad.Container(r"c'4 d'4 e'4")
         >>> container3 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4")
         >>> container4 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4 d'4 e'4 f'4")
-        >>> auxjad.fill_with_rests(container1)
-        >>> auxjad.fill_with_rests(container2)
-        >>> auxjad.fill_with_rests(container3)
-        >>> auxjad.fill_with_rests(container4)
+        >>> auxjad.mutate(container1).fill_with_rests()
+        >>> auxjad.mutate(container2).fill_with_rests()
+        >>> auxjad.mutate(container3).fill_with_rests()
+        >>> auxjad.mutate(container4).fill_with_rests()
         >>> abjad.f(container1)
         {
             c'4
@@ -71,15 +70,25 @@ def fill_with_rests(container: abjad.Container,
 
         .. figure:: ../_images/image-fill_with_rests-4.png
 
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff).fill_with_rests()
+        >>> abjad.mutate(staff).fill_with_rests()
+
     Time signature changes:
         Handles any time signatures as well as changes of time signature.
 
         >>> staff1 = abjad.Staff(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
         >>> staff2 = abjad.Staff(r"\time 3/4 a2. \time 2/4 c'4")
         >>> staff3 = abjad.Staff(r"\time 5/4 g1 ~ g4 \time 4/4 af'2")
-        >>> auxjad.fill_with_rests(staff1)
-        >>> auxjad.fill_with_rests(staff2)
-        >>> auxjad.fill_with_rests(staff3)
+        >>> auxjad.mutate(staff1).fill_with_rests()
+        >>> auxjad.mutate(staff2).fill_with_rests()
+        >>> auxjad.mutate(staff3).fill_with_rests()
         >>> abjad.f(staff1)
         {
             \time 4/4
@@ -125,7 +134,7 @@ def fill_with_rests(container: abjad.Container,
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
-        >>> auxjad.fill_with_rests(container)
+        >>> auxjad.mutate(container).fill_with_rests()
         >>> abjad.f(container)
         {
             %%% \time 4/4 %%%
@@ -159,7 +168,7 @@ def fill_with_rests(container: abjad.Container,
         >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4 g'4")
         >>> time_signature = abjad.TimeSignature((3, 4), partial=(1, 4))
         >>> abjad.attach(time_signature, staff[0])
-        >>> auxjad.fill_with_rests(staff)
+        >>> auxjad.mutate(staff).fill_with_rests()
         >>> abjad.f(staff)
         {
             \partial 4
@@ -179,7 +188,7 @@ def fill_with_rests(container: abjad.Container,
         mutation.
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'8")
-        >>> auxjad.fill_with_rests(staff)
+        >>> auxjad.mutate(staff).fill_with_rests()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -199,7 +208,7 @@ def fill_with_rests(container: abjad.Container,
         behaviour.
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'8")
-        >>> auxjad.fill_with_rests(staff, disable_rewrite_meter=True)
+        >>> auxjad.mutate(staff, disable_rewrite_meter=True).fill_with_rests()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -212,8 +221,6 @@ def fill_with_rests(container: abjad.Container,
 
         .. figure:: ../_images/image-fill_with_rests-12.png
 
-    disable_rewrite_meter
-
     ..  error::
 
         If a container is malformed, i.e. it has an underfilled measure before
@@ -221,7 +228,7 @@ def fill_with_rests(container: abjad.Container,
         exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
-        >>> auxjad.fill_with_rests(container)
+        >>> auxjad.mutate(container).fill_with_rests()
         ValueError: 'container' is malformed, with an underfull measure
         preceding a time signature change
 
@@ -247,8 +254,8 @@ def fill_with_rests(container: abjad.Container,
         raise ValueError("'container' is malformed, with an underfull measure "
                          "preceding a time signature change") from err
     if not disable_rewrite_meter:
-        time_signatures = time_signature_extractor(container,
-                                                   do_not_use_none=True,
-                                                   )
+        time_signatures = inspect(container).time_signature_extractor(
+            do_not_use_none=True,
+        )
         measures = abjad.select(container[:]).group_by_measure()
         abjad.mutate(measures[-1]).rewrite_meter(time_signatures[-1])

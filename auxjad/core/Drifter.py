@@ -248,8 +248,8 @@ class Drifter():
         >>> for selection_a, selection_b in drifter:
         ...     staff_a.extend(selection_a)
         ...     staff_b.extend(selection_b)
-        >>> auxjad.remove_repeated_time_signatures(staff_a)
-        >>> auxjad.remove_repeated_time_signatures(staff_b)
+        >>> auxjad.mutate(staff_a).remove_repeated_time_signatures()
+        >>> auxjad.mutate(staff_b).remove_repeated_time_signatures()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -421,8 +421,8 @@ class Drifter():
         >>> selection_a, selection_b = drifter()
         >>> staff_a.extend(selection_a)
         >>> staff_b.extend(selection_b)
-        >>> auxjad.remove_repeated_time_signatures(staff_a)
-        >>> auxjad.remove_repeated_time_signatures(staff_b)
+        >>> auxjad.mutate(staff_a).remove_repeated_time_signatures()
+        >>> auxjad.mutate(staff_b).remove_repeated_time_signatures()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1296,8 +1296,8 @@ class Drifter():
         and time signatures, although this feature is not fully implemented and
         should be considered experimental. LilyPond must be set up to allow
         different simultaneous time signatures, and
-        :func:`auxjad.sync_containers()` can be used to add rests to the end of
-        the shorter staff.
+        |auxjad.mutate().sync_containers()| can be used to add rests to the end
+        of the shorter staff.
 
         >>> container_out = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> container_in = abjad.Container(r"\time 4/4 g'2 a'2")
@@ -1308,7 +1308,7 @@ class Drifter():
         ...                          weighted_duration=True,
         ...                          )
         >>> staff_a, staff_b = drifter.output_all()
-        >>> auxjad.sync_containers(staff_a, staff_b)
+        >>> abjad.mutate([staff_a, staff_b]).sync_containers()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> lilypond_file = abjad.LilyPondFile.new()
         >>> score_block = abjad.Block(name='score')

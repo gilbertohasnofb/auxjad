@@ -68,7 +68,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
-        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines 
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
         below are equivalent:
 
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)

@@ -992,7 +992,7 @@ def test_Drifter_16():
                              weighted_duration=True,
                              )
     staff_a, staff_b = drifter.output_all()
-    auxjad.sync_containers(staff_a, staff_b)
+    auxjad.mutate([staff_a, staff_b]).sync_containers()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""

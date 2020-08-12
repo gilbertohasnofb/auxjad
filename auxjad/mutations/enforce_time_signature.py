@@ -38,7 +38,9 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-1.png
 
-        >>> auxjad.enforce_time_signature(staff, abjad.TimeSignature((2, 4)))
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((2, 4))
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -52,6 +54,20 @@ def enforce_time_signature(container: abjad.Container,
         }
 
         .. figure:: ../_images/image-enforce_time_signature-2.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((2, 4))
+        ... )
+        >>> abjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((2, 4))
+        ... )
 
     Single value for second positional argument:
         The second positional argument can take either |abjad.TimeSignature|
@@ -69,7 +85,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-3.png
 
-        >>> auxjad.enforce_time_signature(staff, (3, 4))
+        >>> auxjad.mutate(staff).enforce_time_signature((3, 4))
         >>> abjad.f(staff)
         \new Staff
         {
@@ -102,10 +118,10 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-5.png
 
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               abjad.TimeSignature((3, 4)),
-        ...                               close_container=True,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((3, 4)),
+        ...     close_container=True,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -145,10 +161,10 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-7.png
 
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               abjad.TimeSignature((3, 4)),
-        ...                               fill_with_rests=False,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((3, 4)),
+        ...     fill_with_rests=False,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -186,7 +202,7 @@ def enforce_time_signature(container: abjad.Container,
         >>> time_signatures = [abjad.TimeSignature((3, 4)),
         ...                    abjad.TimeSignature((5, 4)),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff, time_signatures)
+        >>> auxjad.mutate(staff).enforce_time_signature(time_signatures)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -220,7 +236,7 @@ def enforce_time_signature(container: abjad.Container,
         ...                    (2, 4),
         ...                    (4, 4),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff, time_signatures)
+        >>> auxjad.mutate(staff).enforce_time_signature(time_signatures)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -257,7 +273,7 @@ def enforce_time_signature(container: abjad.Container,
         ...                    None,
         ...                    (4, 4),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff, time_signatures)
+        >>> auxjad.mutate(staff).enforce_time_signature(time_signatures)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -297,10 +313,10 @@ def enforce_time_signature(container: abjad.Container,
         >>> time_signatures = [abjad.TimeSignature((3, 8)),
         ...                    abjad.TimeSignature((2, 8)),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               time_signatures,
-        ...                               cyclic=True,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     time_signatures,
+        ...     cyclic=True,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -356,9 +372,7 @@ def enforce_time_signature(container: abjad.Container,
         >>> time_signatures = [abjad.TimeSignature((5, 4)),
         ...                    abjad.TimeSignature((3, 4)),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               time_signatures,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(time_signatures)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -381,10 +395,10 @@ def enforce_time_signature(container: abjad.Container,
         >>> time_signatures = [abjad.TimeSignature((5, 4)),
         ...                    abjad.TimeSignature((3, 4)),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               time_signatures,
-        ...                               disable_rewrite_meter=True,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     time_signatures,
+        ...     disable_rewrite_meter=True,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -420,7 +434,7 @@ def enforce_time_signature(container: abjad.Container,
         >>> time_signatures = [abjad.TimeSignature((2, 4)),
         ...                    abjad.TimeSignature((3, 4)),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff, time_signatures)
+        >>> auxjad.mutate(staff).enforce_time_signature(time_signatures)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -462,10 +476,10 @@ def enforce_time_signature(container: abjad.Container,
         ...                    abjad.TimeSignature((1, 16)),
         ...                    abjad.TimeSignature((2, 4)),
         ...                    ]
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               time_signatures,
-        ...                               cyclic=True,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     time_signatures,
+        ...     cyclic=True,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -509,9 +523,9 @@ def enforce_time_signature(container: abjad.Container,
         |abjad.mutate().rewrite_meter()|.
 
         >>> staff = abjad.Staff(r"c'4. d'8 e'2")
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               abjad.TimeSignature((4, 4)),
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((4, 4)),
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -526,10 +540,10 @@ def enforce_time_signature(container: abjad.Container,
         Set ``boundary_depth`` to a different number to change its behaviour.
 
         >>> staff = abjad.Staff(r"c'4. d'8 e'2")
-        >>> auxjad.enforce_time_signature(staff,
-        ...                               abjad.TimeSignature((4, 4)),
-        ...                               boundary_depth=1,
-        ...                               )
+        >>> auxjad.mutate(staff).enforce_time_signature(
+        ...     abjad.TimeSignature((4, 4)),
+        ...     boundary_depth=1,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -566,9 +580,9 @@ def enforce_time_signature(container: abjad.Container,
             f'4
             g'4
         }
-        >>> auxjad.enforce_time_signature(container,
-        ...                               abjad.TimeSignature((3, 4)),
-        ...                               )
+        >>> auxjad.mutate(container).enforce_time_signature(
+        ...     abjad.TimeSignature((3, 4)),
+        ... )
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
@@ -677,9 +691,10 @@ def enforce_time_signature(container: abjad.Container,
     if close_container:
         close_container_function(container)
     elif fill_with_rests:
-        fill_with_rests_function(container,
-                                 disable_rewrite_meter=disable_rewrite_meter,
-                                 )
+        fill_with_rests_function(
+            container,
+            disable_rewrite_meter=disable_rewrite_meter,
+        )
     # rewrite meter
     if not disable_rewrite_meter:
         measures = abjad.select(container[:]).group_by_measure()

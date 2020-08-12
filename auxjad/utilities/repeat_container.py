@@ -2,7 +2,6 @@ import abjad
 
 from ..inspections.inspect import inspect
 from ..mutations.mutate import mutate
-from .close_container import close_container
 
 
 def repeat_container(container: abjad.Container,
@@ -62,7 +61,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-close_container-2.png
+        .. figure:: ../_images/image-repeat_container-2.png
 
         >>> staff = abjad.Staff([output_container])
         >>> abjad.f(output_container)
@@ -79,7 +78,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-close_container-3.png
+        .. figure:: ../_images/image-repeat_container-3.png
 
     Time signature changes:
         It handle containers with multiple measures and different time
@@ -311,7 +310,7 @@ def repeat_container(container: abjad.Container,
     container_ = abjad.mutate(container).copy()
     try:
         if not inspect(container_[:]).selection_is_full():
-            close_container(container_)
+            mutate(container_).close_container()
     except ValueError as err:
         raise ValueError("'container' is malformed, with an underfull measure "
                          "preceding a time signature change") from err

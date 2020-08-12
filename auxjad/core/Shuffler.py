@@ -3,9 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
+from ..inspections.inspect import inspect
 from ..mutations.mutate import mutate
-from ..utilities.enforce_time_signature import enforce_time_signature
-from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Shuffler:
@@ -805,7 +804,7 @@ class Shuffler:
         ...     staff.append(window)
         ...     if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
         ...         break
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -1120,10 +1119,10 @@ class Shuffler:
             cyclic=True,
         )
         # attaching time signature structure
-        enforce_time_signature(dummy_container,
-                               self._time_signatures,
-                               disable_rewrite_meter=True,
-                               )
+        mutate(dummy_container).enforce_time_signature(
+            self._time_signatures,
+            disable_rewrite_meter=True,
+        )
         # handling dynamics and slurs
         mutate(dummy_container[:]).reposition_dynamics()
         mutate(dummy_container[:]).reposition_slurs()
@@ -1178,10 +1177,10 @@ class Shuffler:
                 leaf_counter += 1
         # attaching time signature structure
         mutate(dummy_container[:]).remove_empty_tuplets()
-        enforce_time_signature(dummy_container,
-                               self._time_signatures,
-                               disable_rewrite_meter=True,
-                               )
+        mutate(dummy_container).enforce_time_signature(
+            self._time_signatures,
+            disable_rewrite_meter=True,
+        )
         # output
         self._is_first_window = False
         self._current_window = dummy_container[:]
@@ -1260,9 +1259,10 @@ class Shuffler:
         dummy_container[:] = []
         self._update_logical_selections()
         self._get_pitch_list()
-        self._time_signatures = time_signature_extractor(self._contents,
-                                                         do_not_use_none=True,
-                                                         )
+        inspector = inspect(self._contents)
+        self._time_signatures = inspector.time_signature_extractor(
+            do_not_use_none=True,
+        )
         self._is_first_window = True
 
     @property

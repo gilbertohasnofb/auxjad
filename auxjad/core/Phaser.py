@@ -5,8 +5,6 @@ import abjad
 
 from ..inspections.inspect import inspect
 from ..mutations.mutate import mutate
-from ..utilities.enforce_time_signature import enforce_time_signature
-from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Phaser():
@@ -168,7 +166,7 @@ class Phaser():
         >>> staff = abjad.Staff()
         >>> for window in phaser:
         ...     staff.append(window)
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -1263,9 +1261,8 @@ class Phaser():
         # dealing with dynamics
         mutate(dummy_container[:]).reposition_dynamics()
         # adding time signatures back and rewriting meter
-        time_signatures = time_signature_extractor(self._contents)
-        enforce_time_signature(
-            dummy_container,
+        time_signatures = inspect(self._contents).time_signature_extractor()
+        mutate(dummy_container).enforce_time_signature(
             time_signatures,
             boundary_depth=self._boundary_depth,
             maximum_dot_count=self._maximum_dot_count,

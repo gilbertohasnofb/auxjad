@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
+from ..inspections.inspect import inspect
 from ..mutations.mutate import mutate
-from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Hocketer():
@@ -1167,9 +1167,9 @@ class Hocketer():
             self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
             self._contents = abjad.mutate(contents).copy()
-        self._time_signatures = time_signature_extractor(contents,
-                                                         do_not_use_none=True,
-                                                         )
+        self._time_signatures = inspect(contents).time_signature_extractor(
+            do_not_use_none=True,
+        )
 
     @property
     def n_voices(self) -> int:

@@ -7,7 +7,7 @@ import auxjad
 def test_sync_containers_01():
     container1 = abjad.Container(r"\time 4/4 g'2.")
     container2 = abjad.Container(r"\time 4/4 c'1")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -30,7 +30,7 @@ def test_sync_containers_01():
 def test_sync_containers_02():
     container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
     container2 = abjad.Container(r"\time 4/4 c'1")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -56,7 +56,7 @@ def test_sync_containers_02():
 def test_sync_containers_03():
     container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
     container2 = abjad.Container(r"\time 4/4 c'1 | d'1")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -81,7 +81,7 @@ def test_sync_containers_03():
 def test_sync_containers_04():
     container1 = abjad.Container(r"\time 4/4 g'1")
     container2 = abjad.Container(r"\time 4/4 c'1 | d'1")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -105,10 +105,9 @@ def test_sync_containers_04():
 def test_sync_containers_05():
     container1 = abjad.Container(r"\time 4/4 g'1")
     container2 = abjad.Container(r"\time 4/4 c'1 | d'1")
-    auxjad.sync_containers(container1,
-                           container2,
-                           use_multimeasure_rests=False,
-                           )
+    auxjad.mutate([container1, container2]).sync_containers(
+        use_multimeasure_rests=False,
+    )
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -132,7 +131,7 @@ def test_sync_containers_05():
 def test_sync_containers_06():
     container1 = abjad.Container(r"\time 3/4 g'2.")
     container2 = abjad.Container(r"\time 3/4 c'2. | d'2.")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -158,7 +157,8 @@ def test_sync_containers_07():
     container2 = abjad.Container(r"\time 4/4 c'1 | g'2")
     container3 = abjad.Container(r"\time 4/4 c'1 | g'2.")
     container4 = abjad.Container(r"\time 4/4 c'1")
-    auxjad.sync_containers(container1, container2, container3, container4)
+    containers = [container1, container2, container3, container4]
+    auxjad.mutate(containers).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration()
             == abjad.inspect(container3).duration()
@@ -208,12 +208,14 @@ def test_sync_containers_08():
     container2 = abjad.Container(r"\time 4/4 c'1 | g'2")
     container3 = abjad.Container(r"\time 4/4 c'1 | g'2.")
     container4 = abjad.Container(r"\time 4/4 c'1")
-    auxjad.sync_containers(container1,
-                           container2,
-                           container3,
-                           container4,
-                           use_multimeasure_rests=False,
-                           )
+    containers = [container1,
+                  container2,
+                  container3,
+                  container4,
+                  ]
+    auxjad.mutate(containers).sync_containers(
+        use_multimeasure_rests=False,
+    )
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration()
             == abjad.inspect(container3).duration()
@@ -263,12 +265,14 @@ def test_sync_containers_09():
     container2 = abjad.Container(r"\time 4/4 c'1 | g'2")
     container3 = abjad.Container(r"\time 4/4 c'1 | g'2.")
     container4 = abjad.Container(r"\time 4/4 c'1")
-    auxjad.sync_containers(container1,
-                           container2,
-                           container3,
-                           container4,
-                           adjust_last_time_signature=False,
-                           )
+    containers = [container1,
+                  container2,
+                  container3,
+                  container4,
+                  ]
+    auxjad.mutate(containers).sync_containers(
+        adjust_last_time_signature=False,
+    )
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration()
             == abjad.inspect(container3).duration()
@@ -314,7 +318,8 @@ def test_sync_containers_10():
     container2 = abjad.Container(r"\time 3/4 a2. \time 4/4 c'4")
     container3 = abjad.Container(r"\time 5/4 g''1 ~ g''4")
     container4 = abjad.Container(r"\time 6/8 c'2")
-    auxjad.sync_containers(container1, container2, container3, container4)
+    containers = [container1, container2, container3, container4]
+    auxjad.mutate(containers).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration()
             == abjad.inspect(container3).duration()
@@ -366,13 +371,13 @@ def test_sync_containers_11():
     container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
     container2 = abjad.Container(r"\time 5/4 c'1 | \time 4/4 d'4")
     with pytest.raises(ValueError):
-        assert auxjad.sync_containers(container1, container2)
+        assert auxjad.mutate([container1, container2]).sync_containers()
 
 
 def test_sync_containers_12():
     container1 = abjad.Staff(r"\time 4/4 g'2.")
     container2 = abjad.Staff(r"\time 4/4 c'1")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -397,7 +402,7 @@ def test_sync_containers_12():
 def test_sync_containers_13():
     container1 = abjad.Container(r"\time 3/4 g'2.")
     container2 = abjad.Container(r"\time 3/4 c'2.")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -419,7 +424,7 @@ def test_sync_containers_13():
 def test_sync_containers_14():
     container1 = abjad.Container(r"\time 5/4 g'1~g'4 | R1 * 5/4")
     container2 = abjad.Container(r"\time 5/4 c'2.")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert (abjad.inspect(container1).duration()
             == abjad.inspect(container2).duration())
     assert format(container1) == abjad.String.normalize(
@@ -446,7 +451,7 @@ def test_sync_containers_14():
 def test_sync_containers_15():
     container1 = abjad.Container(r"\time 7/4 a'1 ~ a'2.")
     container2 = abjad.Container(r"\time 3/4 c'2.")
-    auxjad.sync_containers(container1, container2)
+    auxjad.mutate([container1, container2]).sync_containers()
     assert format(container2) == abjad.String.normalize(
         r"""
         {
@@ -469,7 +474,7 @@ def test_sync_containers_16():
                          staff3,
                          staff4,
                          ])
-    auxjad.sync_containers(score)
+    auxjad.mutate(score).sync_containers()
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score

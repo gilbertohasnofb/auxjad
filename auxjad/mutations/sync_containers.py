@@ -1,20 +1,26 @@
+import collections
+from typing import Iterable, Union
+
 import abjad
 
 from ..inspections.inspect import inspect
-from ..mutations.mutate import mutate
+from ..utilities.simplified_time_signature_ratio import (
+    simplified_time_signature_ratio,
+)
 from .close_container import close_container
-from .simplified_time_signature_ratio import simplified_time_signature_ratio
+from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 
 
-def sync_containers(*containers: abjad.Container,
+def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
+                    *,
                     use_multimeasure_rests: bool = True,
                     adjust_last_time_signature: bool = True,
                     ):
-    r"""Mutates two or more input containers (of type |abjad.Container| or
-    child class) in place and has no return value; this function finds the
-    longest container among the inputs and adds rests to all the shorter ones,
-    making them the same length. By default, it rewrites the last time
-    signature if necessary, and uses multi-measure rests whenever possible.
+    r"""Mutates two or more input containers in place and has no return value;
+    this function finds the longest container among the inputs and adds rests
+    to all the shorter ones, making them the same length. Input argument can
+    be a single |abjad.Score| with multiple containers, or an iterable with
+    elements of type |abjad.Container| or child classes.
 
     Basic usage:
         Input two or more containers. This function will fill the shortest ones
@@ -22,7 +28,7 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Container(r"\time 4/4 g'2.")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
-        >>> auxjad.sync_containers(container1, container2)
+        >>> auxjad.mutate([container1, container2]).sync_containers()
         >>> abjad.f(container1)
         {
             %%% \time 4/4 %%%
@@ -40,6 +46,16 @@ def sync_containers(*containers: abjad.Container,
 
         .. figure:: ../_images/image-sync_containers-2.png
 
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate([container1, container2]).sync_containers()
+        >>> abjad.mutate([container1, container2]).sync_containers()
+
     .. note::
 
         Notice that the time signatures in the output are commented out with
@@ -49,7 +65,7 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Container(r"\time 4/4 g'2.")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
-        >>> auxjad.sync_containers(container1, container2)
+        >>> auxjad.mutate([container1, container2]).sync_containers()
         >>> abjad.f(container1)
         {
             %%% \time 4/4 %%%
@@ -74,7 +90,7 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Staff(r"\time 3/4 g'2.")
         >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
-        >>> auxjad.sync_containers(container1, container2)
+        >>> auxjad.mutate([container1, container2]).sync_containers()
         >>> abjad.f(container1)
         \new Staff
         {
@@ -100,7 +116,7 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Staff(r"\time 4/4 c'1")
-        >>> auxjad.sync_containers(container1, container2)
+        >>> auxjad.mutate([container1, container2]).sync_containers()
         >>> abjad.f(container1)
         \new Staff
         {
@@ -129,10 +145,9 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Container(r"\time 4/4 c'1")
-        >>> auxjad.sync_containers(container1,
-        ...                        container2,
-        ...                        adjust_last_time_signature=False,
-        ...                        )
+        >>> auxjad.mutate([container1, container2]).sync_containers(
+        ...     adjust_last_time_signature=False,
+        ... )
         >>> abjad.f(container1)
         {
             %%% \time 4/4 %%%
@@ -157,10 +172,9 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Staff(r"\time 4/4 c'1")
-        >>> auxjad.sync_containers(container1,
-        ...                        container2,
-        ...                        use_multimeasure_rests=False,
-        ...                        )
+        >>> auxjad.mutate([container1, container2]).sync_containers(
+        ...     use_multimeasure_rests=False,
+        ... )
         >>> abjad.f(container1)
         \new Staff
         {
@@ -190,7 +204,7 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Staff(r"\time 7/4 a'1 ~ a'2.")
         >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
-        >>> auxjad.sync_containers(container1, container2)
+        >>> auxjad.mutate([container1, container2]).sync_containers()
         >>> abjad.f(container2)
         \new Staff
         {
@@ -210,11 +224,12 @@ def sync_containers(*containers: abjad.Container,
         >>> container2 = abjad.Staff(r"\time 4/4 c'1 | g'2")
         >>> container3 = abjad.Staff(r"\time 4/4 c'1 | g'2.")
         >>> container4 = abjad.Staff(r"\time 4/4 c'1")
-        >>> auxjad.sync_containers(container1,
-        ...                        container2,
-        ...                        container3,
-        ...                        container4,
-        ...                        )
+        >>> containers = [container1,
+        ...               container2,
+        ...               container3,
+        ...               container4,
+        ...               ]
+        >>> auxjad.mutate(containers).sync_containers()
         >>> abjad.f(container1)
         \new Staff
         {
@@ -274,7 +289,7 @@ def sync_containers(*containers: abjad.Container,
         ...                      staff3,
         ...                      staff4,
         ...                      ])
-        >>> auxjad.sync_containers(score)
+        >>> auxjad.mutate(score).sync_containers()
         >>> abjad.f(score)
         \new Score
         <<
@@ -320,11 +335,12 @@ def sync_containers(*containers: abjad.Container,
         >>> container2 = abjad.Staff(r"\time 3/4 a2. \time 4/4 c'4")
         >>> container3 = abjad.Staff(r"\time 5/4 g''1 ~ g''4")
         >>> container4 = abjad.Staff(r"\time 6/8 c'2")
-        >>> auxjad.sync_containers(container1,
-        ...                        container2,
-        ...                        container3,
-        ...                        container4,
-        ...                        )
+        >>> containers = [container1,
+        ...               container2,
+        ...               container3,
+        ...               container4,
+        ...               ]
+        >>> auxjad.mutate(containers).sync_containers()
         >>> abjad.f(container1)
         \new Staff
         {
@@ -386,11 +402,12 @@ def sync_containers(*containers: abjad.Container,
         >>> container2 = abjad.Container(r"\time 3/4 a2. \time 4/4 c'4")
         >>> container3 = abjad.Container(r"\time 5/4 g''1 ~ g''4")
         >>> container4 = abjad.Container(r"\time 6/8 c'2")
-        >>> auxjad.sync_containers(container1,
-        ...                        container2,
-        ...                        container3,
-        ...                        container4,
-        ...                        )
+        >>> containers = [container1,
+        ...               container2,
+        ...               container3,
+        ...               container4,
+        ...               ]
+        >>> auxjad.mutate(containers).sync_containers()
         >>> staves = [abjad.Staff([container1]),
         ...           abjad.Staff([container2]),
         ...           abjad.Staff([container3]),
@@ -486,19 +503,21 @@ def sync_containers(*containers: abjad.Container,
 
         >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Container(r"\time 5/4 c'1 | \time 4/4 d'4")
-        >>> auxjad.sync_containers(container1, container2)
+        >>> auxjad.mutate([container1, container2]).sync_containers()
         ValueError: at least one 'container' is malformed, with an underfull
         measure preceding a time signature change
     """
-    if len(containers) == 1 and isinstance(containers[0], abjad.Score):
-        containers = containers[0][:]
+    if not isinstance(containers, (collections.abc.Iterable, abjad.Score)):
+        raise TypeError("argument must be 'abjad.Score' or iterable of "
+                        "'abjad.Container's")
+    if isinstance(containers, abjad.Score):
+        containers = containers[:]
     for container in containers:
         if not isinstance(container, abjad.Container):
-            raise TypeError("positional arguments must be 'abjad.Container' "
-                            "or child class")
+            raise TypeError("argument must be 'abjad.Score' or iterable of "
+                            "'abjad.Container's")
         if not abjad.select(container).leaves().are_contiguous_logical_voice():
-            raise ValueError("positional arguments must each be contiguous "
-                             "logical voice")
+            raise ValueError("argument must each be contiguous logical voice")
         try:
             inspect(container[:]).selection_is_full()
         except ValueError as err:
@@ -557,7 +576,7 @@ def sync_containers(*containers: abjad.Container,
                         abjad.attach(rests_time_signature, rests[0])
                 container.extend(rests)
             if use_multimeasure_rests:
-                mutate(container[:]).rests_to_multimeasure_rest()
+                rests_to_multimeasure_rest(container[:])
         else:
             # closing longest container if necessary
             if (adjust_last_time_signature

@@ -1,7 +1,9 @@
 import abjad
 
 from ..inspections.inspect import inspect
-from .simplified_time_signature_ratio import simplified_time_signature_ratio
+from ..utilities.simplified_time_signature_ratio import (
+    simplified_time_signature_ratio,
+)
 
 
 def close_container(container: abjad.Container):
@@ -18,10 +20,10 @@ def close_container(container: abjad.Container):
         >>> container2 = abjad.Container(r"c'4 d'4 e'4")
         >>> container3 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4")
         >>> container4 = abjad.Container(r"c'4 d'4 e'4 f'4 | c'4 d'4 e'4 f'4")
-        >>> auxjad.close_container(container1)
-        >>> auxjad.close_container(container2)
-        >>> auxjad.close_container(container3)
-        >>> auxjad.close_container(container4)
+        >>> auxjad.mutate(container1).close_container()
+        >>> auxjad.mutate(container2).close_container()
+        >>> auxjad.mutate(container3).close_container()
+        >>> auxjad.mutate(container4).close_container()
         >>> abjad.f(container1)
         {
             c'4
@@ -68,15 +70,25 @@ def close_container(container: abjad.Container):
 
         .. figure:: ../_images/image-close_container-4.png
 
+    ..  note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff).close_containers()
+        >>> abjad.mutate(staff).close_containers()
+
     Time signature changes:
         Handles any time signatures as well as changes of time signature.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'")
         >>> container2 = abjad.Container(r"\time 3/4 a2. \time 2/4 c'4")
         >>> container3 = abjad.Container(r"\time 5/4 g1 ~ g4 \time 4/4 af'2")
-        >>> auxjad.close_container(container1)
-        >>> auxjad.close_container(container2)
-        >>> auxjad.close_container(container3)
+        >>> auxjad.mutate(container1).close_container()
+        >>> auxjad.mutate(container2).close_container()
+        >>> auxjad.mutate(container3).close_container()
         >>> abjad.f(container1)
         {
             %%% \time 4/4 %%%
@@ -120,7 +132,7 @@ def close_container(container: abjad.Container):
         with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
-        >>> auxjad.close_container(container)
+        >>> auxjad.mutate(container).close_container()
         >>> abjad.f(container)
         {
             %%% \time 4/4 %%%
@@ -154,7 +166,7 @@ def close_container(container: abjad.Container):
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
         >>> time_signature = abjad.TimeSignature((3, 4), partial=(1, 4))
         >>> abjad.attach(time_signature, container[0])
-        >>> auxjad.close_container(container)
+        >>> auxjad.mutate(container).close_container()
         >>> abjad.f(container)
         {
             %%% \partial 4 %%%
@@ -176,7 +188,7 @@ def close_container(container: abjad.Container):
         exception.
 
         >>> container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'4")
-        >>> auxjad.close_container(container)
+        >>> auxjad.mutate(container).close_container()
         ValueError: 'container' is malformed, with an underfull measure
         preceding a time signature change
 

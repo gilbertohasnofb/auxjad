@@ -558,7 +558,7 @@ class PitchRandomiser:
         ...     staff.append(window)
         ...     if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
         ...         break
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {

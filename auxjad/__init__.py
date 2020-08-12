@@ -35,15 +35,10 @@ from .inspections.inspect import inspect
 from .mutations.mutate import Mutation
 from .mutations.mutate import mutate
 
-from .utilities.close_container import close_container
-from .utilities.enforce_time_signature import enforce_time_signature
-from .utilities.fill_with_rests import fill_with_rests
 from .utilities.repeat_container import repeat_container
 from .utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,
 )
-from .utilities.sync_containers import sync_containers
-from .utilities.time_signature_extractor import time_signature_extractor
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
@@ -69,11 +64,6 @@ __all__ = [
     'inspect',
     'Mutation',
     'mutate',
-    'close_container',
-    'enforce_time_signature',
-    'fill_with_rests',
     'repeat_container',
     'simplified_time_signature_ratio',
-    'sync_containers',
-    'time_signature_extractor',
 ]

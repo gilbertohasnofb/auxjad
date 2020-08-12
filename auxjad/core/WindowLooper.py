@@ -158,7 +158,7 @@ class WindowLooper(_LooperParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {

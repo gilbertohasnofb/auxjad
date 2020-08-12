@@ -3,10 +3,9 @@ from typing import Any, Optional, Union
 
 import abjad
 
+from ..inspections.inspect import inspect
 from ..mutations.mutate import mutate
 from ..score.ArtificialHarmonic import ArtificialHarmonic
-from ..utilities.enforce_time_signature import enforce_time_signature
-from ..utilities.time_signature_extractor import time_signature_extractor
 
 
 class Fader():
@@ -297,7 +296,7 @@ class Fader():
         >>> staff = abjad.Staff()
         >>> for window in fader:
         ...     staff.append(window)
-        >>> auxjad.remove_repeated_time_signatures(staff)
+        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -1389,8 +1388,7 @@ class Fader():
         mutate(dummy_container[:]).reposition_slurs()
         mutate(dummy_container[:]).remove_empty_tuplets()
         # applying time signatures and rewrite meter
-        enforce_time_signature(
-            dummy_container,
+        mutate(dummy_container).enforce_time_signature(
             self._time_signatures,
             disable_rewrite_meter=self._disable_rewrite_meter,
             boundary_depth=self._boundary_depth,
@@ -1472,9 +1470,10 @@ class Fader():
         dummy_container = abjad.mutate(contents).copy()
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        self._time_signatures = time_signature_extractor(self._contents,
-                                                         do_not_use_none=True,
-                                                         )
+        inspector = inspect(self._contents)
+        self._time_signatures = inspector.time_signature_extractor(
+            do_not_use_none=True,
+        )
         self.reset_mask()
         self._is_first_window = True
 

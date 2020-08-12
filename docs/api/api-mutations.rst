@@ -1,9 +1,9 @@
 mutations
 =========
 
-The |mutations|_ subpackage contains functions that mutate an input
-|abjad.Selection| in place and have no return value. Auxjad automatically adds
-them as extension methods to |abjad.mutate()|.
+The |mutations|_ subpackage contains functions that mutate an input in place
+and have no return value. Auxjad automatically adds them as extension methods
+to |abjad.mutate()|.
 
 ..  note::
 
@@ -13,7 +13,7 @@ them as extension methods to |abjad.mutate()|.
     |auxjad|_ and invoke the function from its namespace:
 
     >>> import auxjad
-    >>> auxjad.rests_to_multimeasure_rest(container[:])
+    >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
 
     Alternatively, these functions are added as extension methods to
     |abjad.mutate()| too:
@@ -28,6 +28,9 @@ names for their individual documentation.
 
     auxjad.mutate
     auxjad.Mutation
+    auxjad.Mutation.close_container
+    auxjad.Mutation.enforce_time_signature
+    auxjad.Mutation.fill_with_rests
     auxjad.Mutation.prettify_rewrite_meter
     auxjad.Mutation.remove_empty_tuplets
     auxjad.Mutation.remove_repeated_dynamics
@@ -37,6 +40,7 @@ names for their individual documentation.
     auxjad.Mutation.reposition_slurs
     auxjad.Mutation.respell_accidentals
     auxjad.Mutation.rests_to_multimeasure_rest
+    auxjad.Mutation.sync_containers
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

@@ -479,6 +479,128 @@ def test_prettify_rewrite_meter_09():
 
 
 def test_prettify_rewrite_meter_10():
+    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
+                        r"a'8 b'4 c''8 d''16 e''4 f''8.")
+    meter = abjad.Meter((4, 4))
+    for measure in abjad.select(staff[:]).group_by_measure():
+        abjad.mutate(measure).rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            f'8
+            ~
+            f'8
+            g'8
+            a'8
+            b'8
+            ~
+            b'8
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+        """)
+    for measure in abjad.select(staff[:]).group_by_measure():
+        auxjad.mutate(measure).prettify_rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'4
+            e'8
+            ~
+            e'8
+            f'4
+            g'8
+            a'8
+            b'4
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_11():
+    staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
+                        r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8.")
+    meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
+    for meter, measure in zip(meters,
+                              abjad.select(staff[:]).group_by_measure(),
+                              ):
+        abjad.mutate(measure).rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            f'16
+            g'16
+            \time 4/4
+            a'8
+            b'8
+            ~
+            b'8
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+        """)
+    for meter, measure in zip(meters,
+                              abjad.select(staff[:]).group_by_measure(),
+                              ):
+        auxjad.mutate(measure).prettify_rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'4
+            e'4
+            f'16
+            g'16
+            \time 4/4
+            a'8
+            b'4
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_12():
     staff = abjad.Staff(
         r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16")
     meter = abjad.Meter((3, 4))

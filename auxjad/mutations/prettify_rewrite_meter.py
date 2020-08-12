@@ -456,6 +456,143 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-15.png
 
+    Multiple measures:
+        Similarly to |abjad.mutate().rewrite_meter()|, this function accepts
+        selections of multiple measures:
+
+        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
+        ...                     r"a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> meter = abjad.Meter((4, 4))
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
+        ...     abjad.mutate(measure).rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            f'8
+            ~
+            f'8
+            g'8
+            a'8
+            b'8
+            ~
+            b'8
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/image-prettify_rewrite_meter-16.png
+
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
+        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'4
+            e'8
+            ~
+            e'8
+            f'4
+            g'8
+            a'8
+            b'4
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/image-prettify_rewrite_meter-17.png
+
+    Multiple measures with different meters:
+        If the measures have different meters, they can be passed on
+        individually using :func:`zip()` as shown below.
+
+        >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
+        ...                     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
+        >>> for meter, measure in zip(
+        ...     meters,
+        ...     abjad.select(staff[:]).group_by_measure(),
+        ... ):
+        ...     abjad.mutate(measure).rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            f'16
+            g'16
+            \time 4/4
+            a'8
+            b'8
+            ~
+            b'8
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/image-prettify_rewrite_meter-18.png
+
+        >>> for meter, measure in zip(
+        ...     meters,
+        ...     abjad.select(staff[:]).group_by_measure(),
+        ... ):
+        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'4
+            e'4
+            f'16
+            g'16
+            \time 4/4
+            a'8
+            b'4
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/image-prettify_rewrite_meter-19.png
+
+    ..  tip::
+
+        Use :func:`auxjad.auto_rewrite_meter()` to automatically apply
+        |abjad.mutate().rewrite_meter()| and
+        |auxjad.mutate().prettify_rewrite_meter()| to a container with multiple
+        time signatures.
+
     ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
@@ -478,10 +615,12 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         raise TypeError("'fuse_triple_meter' must be 'bool'")
 
     logical_ties = selection.logical_ties(pitched=True)
+    initial_offset = abjad.inspect(logical_ties[0]).timespan().start_offset
     base = 1 / meter.denominator
 
     for logical_tie in logical_ties.filter_duration("==", base / 2):
         offset = abjad.inspect(logical_tie).timespan().start_offset
+        offset -= initial_offset
         offset %= base
         if offset == base / 4:
             abjad.mutate(logical_tie).fuse()
@@ -489,6 +628,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     if fuse_across_groups_of_beats:
         for logical_tie in logical_ties.filter_duration("==", base):
             offset = abjad.inspect(logical_tie).timespan().start_offset
+            offset -= initial_offset
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
@@ -499,6 +639,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     if fuse_quadruple_meter and meter.numerator == 4:
         for logical_tie in logical_ties.filter_duration("==", base):
             offset = abjad.inspect(logical_tie).timespan().start_offset
+            offset -= initial_offset
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
@@ -511,6 +652,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     if fuse_triple_meter and meter.numerator == 3:
         for logical_tie in logical_ties.filter_duration("==", base):
             offset = abjad.inspect(logical_tie).timespan().start_offset
+            offset -= initial_offset
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:

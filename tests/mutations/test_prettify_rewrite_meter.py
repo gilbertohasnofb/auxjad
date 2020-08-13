@@ -601,6 +601,21 @@ def test_prettify_rewrite_meter_11():
 
 
 def test_prettify_rewrite_meter_12():
+    container1 = abjad.Staff(
+        r"\time 4/4 c'8 d'8 ~ d'8 e'8 c'16 d'16 ~ d'16 e'16 r4 "
+        r"c'8 d'8 ~ d'8 e'8 c'16 d'16 ~ d'16 e'16 r4"
+    )
+    container2 = abjad.mutate(container1).copy()
+    meter = abjad.Meter((4, 4))
+    abjad.mutate(container1[:]).prettify_rewrite_meter(meter)
+    for measure in abjad.select(container2[:]).group_by_measure():
+        abjad.mutate(measure).prettify_rewrite_meter(meter)
+    selections = [container1[:], container2[:]]
+    assert auxjad.inspect(selections).selections_are_equal()
+
+
+
+def test_prettify_rewrite_meter_13():
     staff = abjad.Staff(
         r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16")
     meter = abjad.Meter((3, 4))

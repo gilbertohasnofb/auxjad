@@ -1221,7 +1221,7 @@ class Shuffler:
                 abjad.mutate(selection).replace(new_leaf)
                 leaf_counter += 1
         # attaching time signature structure
-        mutate(dummy_container[:]).remove_empty_tuplets()
+        mutate(dummy_container[:]).extract_trivial_tuplets()
         mutate(dummy_container).enforce_time_signature(
             self._time_signatures,
             disable_rewrite_meter=True,

@@ -1,33 +1,42 @@
 import abjad
 
 
-def remove_empty_tuplets(selection: abjad.Selection):
+def extract_trivial_tuplets(selection: abjad.Selection):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
-    this function looks for tuplets filled with rests and replaces them with a
-    single rest.
+    this function looks for tuplets filled with rests or with tied notes or
+    chords and replaces them with a single leaf.
 
     Basic usage:
         Usage is simple:
 
-        >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
+        >>> staff = abjad.Staff(
+        ...     r"\times 2/3 {r4 r2} \times 2/3 {c'8 ~ c'8 ~ c'2}"
+        ... )
         >>> abjad.f(container)
         {
             \times 2/3 {
+                r4
                 r2
-                r2
-                r2
+            }
+            \times 2/3 {
+                c'8
+                ~
+                c'8
+                ~
+                c'2
             }
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-1.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-1.png
 
-        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
-            r1
+            r2
+            c'2
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-2.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-2.png
 
         It also works with containers with tuplets within tuplets.
 
@@ -43,18 +52,44 @@ def remove_empty_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-3.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-3.png
 
-        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             r1
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-4.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-4.png
 
-        This function also simplifies a mixture of tuplets of rests and tuplets
-        with notes.
+        >>> container = abjad.Container(
+        ...     r"\times 4/5 {c'2. ~ \times 2/3 {c'2 ~ c'4}}"
+        ... )
+        >>> abjad.f(container)
+        {
+            \times 4/5 {
+                c'2.
+                ~
+                \times 2/3 {
+                    c'2
+                    ~
+                    c'4
+                }
+            }
+        }
+
+        .. figure:: ../_images/image-extract_trivial_tuplets-5.png
+
+        >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
+        >>> abjad.f(container)
+        {
+            c'1
+        }
+
+        .. figure:: ../_images/image-extract_trivial_tuplets-6.png
+
+    Partial extraction:
+        This function also extracts tuplets within tuplets.
 
         >>> container = abjad.Container(
         ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {c'2. \times 2/3 {r2 r4}}")
@@ -74,9 +109,9 @@ def remove_empty_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-5.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-7.png
 
-        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             r2
@@ -87,7 +122,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-6.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-8.png
 
     ..  note::
 
@@ -96,21 +131,21 @@ def remove_empty_tuplets(selection: abjad.Selection):
         :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
         below are equivalent:
 
-        >>> auxjad.mutate(staff[:]).remove_empty_tuplets()
-        >>> abjad.mutate(staff[:]).remove_empty_tuplets()
+        >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
+        >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
 
     ..  tip::
 
         Use |auxjad.mutate().rests_to_multimeasure_rest()| to replace measures
         filled with rests by a single multi-measure rest. That function makes
-        use of |auxjad.mutate().remove_empty_tuplets()|, so it is not necessary
+        use of |auxjad.mutate().extract_trivial_tuplets()|, so it is not necessary
         to flatten the empty tuplets beforehand.
 
     Time signature changes:
         Works with measures with any time signature.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
-        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
@@ -118,7 +153,7 @@ def remove_empty_tuplets(selection: abjad.Selection):
             r2.
         }
 
-        .. figure:: ../_images/image-remove_empty_tuplets-7.png
+        .. figure:: ../_images/image-extract_trivial_tuplets-9.png
 
     .. note::
 
@@ -128,13 +163,16 @@ def remove_empty_tuplets(selection: abjad.Selection):
         with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
-        >>> auxjad.mutate(container[:]).remove_empty_tuplets()
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
             r2.
             r2.
         }
+
+        .. figure:: ../_images/image-extract_trivial_tuplets-10.png
+
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
         {
@@ -142,6 +180,8 @@ def remove_empty_tuplets(selection: abjad.Selection):
             r2.
             r2.
         }
+
+        .. figure:: ../_images/image-extract_trivial_tuplets-11.png
 
     ..  warning::
 
@@ -167,3 +207,15 @@ def remove_empty_tuplets(selection: abjad.Selection):
             if time_signature is not None:
                 abjad.attach(time_signature, rest)
             abjad.mutate(tuplet).replace(rest)
+        if tuplet.sustained():
+            duration = tuplet.multiplied_duration
+            n_elements = len(tuplet)
+            for _ in range(n_elements - 1):
+                tuplet.pop(-1)
+            abjad.detach(abjad.Tie(), leaves[0])
+            leaves[0].written_duration = duration
+            abjad.mutate(tuplet).extract()
+    for tuplet in tuplets:
+        if tuplet.trivializable():
+            tuplet.trivialize()
+            abjad.mutate(tuplet).extract()

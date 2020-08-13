@@ -2,6 +2,10 @@ from typing import Union
 
 import abjad
 
+from .extract_trivial_tuplets import (
+    extract_trivial_tuplets as extract_trivial_tuplets_function
+)
+
 
 def prettify_rewrite_meter(selection: abjad.Selection,
                            meter: Union[abjad.Meter, abjad.TimeSignature],
@@ -9,6 +13,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                            fuse_across_groups_of_beats: bool = True,
                            fuse_quadruple_meter: bool = True,
                            fuse_triple_meter: bool = True,
+                           extract_trivial_tuplets: bool = True,
                            ):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function fuses pitched leaves according to the rules shown below,
@@ -456,6 +461,63 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-15.png
 
+    ``extract_trivial_tuplets``:
+        By default, this function extracts the contents of tuples that consist
+        solely of rests, or solely of tied notes and chords.
+
+        >>> staff = abjad.Staff(
+        ...     r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
+        ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
+        ... )
+        >>> meter = abjad.Meter((4, 4))
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            \times 2/3 {
+                d'8
+                r4
+            }
+            r4
+            <e' g'>4
+        }
+
+        .. figure:: ../_images/image-prettify_rewrite_meter-16.png
+
+        Set ``extract_trivial_tuplets`` to ``False`` to disable this behaviour.
+
+        >>> staff = abjad.Staff(
+        ...     r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
+        ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
+        ... )
+        >>> meter = abjad.Meter((4, 4))
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).prettify_rewrite_meter(
+        ...     meter,
+        ...     extract_trivial_tuplets=False,
+        ... )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \times 2/3 {
+                c'4.
+            }
+            \times 2/3 {
+                d'8
+                r4
+            }
+            \times 2/3 {
+                r4.
+            }
+            \times 2/3 {
+                <e' g'>4.
+            }
+        }
+
+        .. figure:: ../_images/image-prettify_rewrite_meter-17.png
+
     Multiple measures:
         Similarly to |abjad.mutate().rewrite_meter()|, this function accepts
         selections of multiple measures:
@@ -492,7 +554,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-16.png
+        .. figure:: ../_images/image-prettify_rewrite_meter-18.png
 
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
@@ -517,7 +579,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-17.png
+        .. figure:: ../_images/image-prettify_rewrite_meter-19.png
 
     Multiple measures with different meters:
         If the measures have different meters, they can be passed on
@@ -557,7 +619,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-18.png
+        .. figure:: ../_images/image-prettify_rewrite_meter-20.png
 
         >>> for meter, measure in zip(
         ...     meters,
@@ -584,7 +646,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-19.png
+        .. figure:: ../_images/image-prettify_rewrite_meter-21.png
 
     ..  tip::
 
@@ -613,6 +675,9 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         raise TypeError("'fuse_quadruple_meter' must be 'bool'")
     if not isinstance(fuse_triple_meter, bool):
         raise TypeError("'fuse_triple_meter' must be 'bool'")
+
+    if isinstance(meter, abjad.TimeSignature):
+        meter = abjad.Meter(meter.pair)
 
     logical_ties = selection.logical_ties(pitched=True)
     initial_offset = abjad.inspect(logical_ties[0]).timespan().start_offset
@@ -660,3 +725,6 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                                              abjad.Offset(3 * base),
                                              ):
                     abjad.mutate(logical_tie).fuse()
+
+    if extract_trivial_tuplets:
+        extract_trivial_tuplets_function(selection)

@@ -1386,7 +1386,7 @@ class Fader():
         # handling dynamics and slurs and empty tuplets
         mutate(dummy_container[:]).reposition_dynamics()
         mutate(dummy_container[:]).reposition_slurs()
-        mutate(dummy_container[:]).remove_empty_tuplets()
+        mutate(dummy_container[:]).extract_trivial_tuplets()
         # applying time signatures and rewrite meter
         mutate(dummy_container).enforce_time_signature(
             self._time_signatures,

@@ -5,7 +5,8 @@ import auxjad
 
 def test_prettify_rewrite_meter_01():
     staff = abjad.Staff(
-        r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16")
+        r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
+    )
     meter = abjad.Meter((3, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
@@ -614,8 +615,62 @@ def test_prettify_rewrite_meter_12():
     assert auxjad.inspect(selections).selections_are_equal()
 
 
-
 def test_prettify_rewrite_meter_13():
+    staff = abjad.Staff(
+        r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
+        r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
+    )
+    meter = abjad.Meter((4, 4))
+    abjad.mutate(staff[:]).rewrite_meter(meter)
+    abjad.mutate(staff[:]).prettify_rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            \times 2/3 {
+                d'8
+                r4
+            }
+            r4
+            <e' g'>4
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_14():
+    staff = abjad.Staff(
+        r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
+        r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
+    )
+    meter = abjad.Meter((4, 4))
+    abjad.mutate(staff[:]).rewrite_meter(meter)
+    abjad.mutate(staff[:]).prettify_rewrite_meter(
+        meter,
+        extract_trivial_tuplets=False,
+    )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \times 2/3 {
+                c'4.
+            }
+            \times 2/3 {
+                d'8
+                r4
+            }
+            \times 2/3 {
+                r4.
+            }
+            \times 2/3 {
+                <e' g'>4.
+            }
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_15():
     staff = abjad.Staff(
         r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16")
     meter = abjad.Meter((3, 4))

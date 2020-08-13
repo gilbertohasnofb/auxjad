@@ -1072,7 +1072,7 @@ class Hocketer():
                     )
         # handling empty tuplets and multi-measure rests
         for voice in dummy_voices:
-            mutate(voice[:]).remove_empty_tuplets()
+            mutate(voice[:]).extract_trivial_tuplets()
             if self._use_multimeasure_rests:
                 mutate(voice[:]).rests_to_multimeasure_rest()
         # output

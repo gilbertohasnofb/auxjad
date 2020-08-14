@@ -304,7 +304,7 @@ class Drifter():
         first container is removed (default ``False``). The arguments
         :attr:`initial_repetitions` and :attr:`final_repetitions` set the
         number of repetitions of the initial and final measures (default ``1``
-        for both). :attr:`repetition_chance` sets the chance of a measure
+        for both). :attr:`repetition_chance` sets the chance of a window
         repeating itself, from ``0.0`` to ``1.0`` (default is ``0.0``, i.e. no
         repetitions). Setting :attr:`weighted_duration` to ``True`` will give
         more weight to the larger container (considering both its number of

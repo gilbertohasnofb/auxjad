@@ -151,6 +151,7 @@ def test_Fader_03():
     fader = auxjad.Fader(container,
                          fader_type='in',
                          max_steps=2,
+                         repetition_chance=0.7,
                          disable_rewrite_meter=True,
                          omit_time_signatures=True,
                          use_multimeasure_rests=False,
@@ -163,6 +164,7 @@ def test_Fader_03():
                          )
     assert fader.fader_type == 'in'
     assert fader.max_steps == 2
+    assert fader.repetition_chance == 0.7
     assert fader.disable_rewrite_meter
     assert fader.omit_time_signatures
     assert not fader.use_multimeasure_rests
@@ -174,6 +176,7 @@ def test_Fader_03():
     assert not fader.include_empty_measures
     fader.fader_type = 'out'
     fader.max_steps = 1
+    fader.repetition_chance = 0.23
     fader.disable_rewrite_meter = False
     fader.omit_time_signatures = False
     fader.use_multimeasure_rests = True
@@ -185,6 +188,7 @@ def test_Fader_03():
     fader.include_empty_measures = True
     assert fader.fader_type == 'out'
     assert fader.max_steps == 1
+    assert fader.repetition_chance == 0.23
     assert not fader.disable_rewrite_meter
     assert not fader.omit_time_signatures
     assert fader.use_multimeasure_rests
@@ -1503,5 +1507,41 @@ def test_Fader_32():
             c'4
             d'4
             e'2
+        }
+        """)
+
+
+def test_Fader_33():
+    random.seed(85909)
+    container = abjad.Container(r"c'4. d'8 e'4.. f'16")
+    fader = auxjad.Fader(container,
+                         repetition_chance=0.5,
+                         )
+    notes = fader.output_n(5)
+    staff = abjad.Staff(notes)
+    abjad.f(staff)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'4..
+            f'16
+            c'4.
+            d'8
+            e'4..
+            r16
+            c'4.
+            d'8
+            e'4..
+            r16
+            c'4.
+            d'8
+            r2
+            c'4.
+            d'8
+            r2
         }
         """)

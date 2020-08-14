@@ -322,13 +322,15 @@ class Fader():
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
-        creation, besides :attr:`fader_type`. :attr:`max_steps` sets the
-        maximum number of note that can be faded in/out at each iteration,
-        ranging between ``1`` and the input value (default is also ``1``). By
-        default, calling the object in fade out mode will return the original
-        container, and calling it in fade in mode will return a container
-        filled with rests; set :attr:`process_on_first_call` to ``True`` and
-        the fade process will be applied on the very first call.
+        creation, besides :attr:`fader_type`. By default, calling the object in
+        fade out mode will return the original container, and calling it in
+        fade in mode will return a container filled with rests; set
+        :attr:`process_on_first_call` to ``True`` and the fade process will be
+        applied on the very first call. :attr:`max_steps` sets the maximum
+        number of note that can be faded in/out at each iteration, ranging
+        between ``1`` and the input value (default is also ``1``).
+        :attr:`repetition_chance` sets the chance of a window repeating itself,
+        from ``0.0`` to ``1.0`` (default is ``0.0``, i.e. no repetitions).
         :attr:`disable_rewrite_meter` disables the
         |abjad.mutate().rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
@@ -353,6 +355,7 @@ class Fader():
         >>> fader = auxjad.Fader(container,
         ...                      fader_type='in',
         ...                      max_steps=2,
+        ...                      repetition_chance=0.7,
         ...                      disable_rewrite_meter=True,
         ...                      omit_time_signatures=True,
         ...                      use_multimeasure_rests=False,
@@ -367,6 +370,8 @@ class Fader():
         'in'
         >>> fader.max_steps
         2
+        >>> fader.repetition_chance
+        0.7
         >>> fader.disable_rewrite_meter
         True
         >>> fader.omit_time_signatures
@@ -390,6 +395,7 @@ class Fader():
 
         >>> fader.fader_type = 'out'
         >>> fader.max_steps = 1
+        >>> fader.repetition_chance = 0.23
         >>> fader.disable_rewrite_meter = False
         >>> fader.omit_time_signatures = False
         >>> fader.use_multimeasure_rests = True
@@ -403,6 +409,8 @@ class Fader():
         'out'
         >>> fader.max_steps
         1
+        >>> fader.repetition_chance
+        0.23
         >>> fader.disable_rewrite_meter
         False
         >>> fader.omit_time_signatures
@@ -686,6 +694,43 @@ class Fader():
 
         .. figure:: ../_images/image-Fader-24.png
 
+    :attr:`repetition_chance`:
+        Use :attr:`repetition_chance` to set the chance of a measure repeating
+        itself, ranging from ``0.0`` to ``1.0`` (default is ``0.0``,
+        i.e. no repetitions).
+
+        >>> container = abjad.Container(r"c'4. d'8 e'4.. f'16")
+        >>> fader = auxjad.Fader(container,
+        ...                      repetition_chance=0.5,
+        ...                      )
+        >>> notes = fader.output_n(5)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4.
+            d'8
+            e'4..
+            f'16
+            c'4.
+            d'8
+            e'4..
+            r16
+            c'4.
+            d'8
+            e'4..
+            r16
+            c'4.
+            d'8
+            r2
+            c'4.
+            d'8
+            r2
+        }
+
+        .. figure:: ../_images/image-Fader-25.png
+
     :attr:`mask` and :meth:`reset_mask`:
         The property :attr:`mask` is used to represent whether each note is
         hidden or present. It is a :obj:`list` of the same length as the number
@@ -723,7 +768,7 @@ class Fader():
             r2
         }
 
-        .. figure:: ../_images/image-Fader-25.png
+        .. figure:: ../_images/image-Fader-26.png
 
         >>> fader.mask = [1, 0, 1, 1, 0]
         >>> fader.mask
@@ -741,7 +786,7 @@ class Fader():
             r16
         }
 
-        .. figure:: ../_images/image-Fader-26.png
+        .. figure:: ../_images/image-Fader-27.png
 
         >>> fader.reset_mask()
         >>> fader.mask
@@ -755,7 +800,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-27.png
+        .. figure:: ../_images/image-Fader-28.png
 
         When a container has chords, each of their notes will be represented by
         an index in the mask, from the lowest pitched one to the highest
@@ -775,7 +820,7 @@ class Fader():
             <e' f'>2
         }
 
-        .. figure:: ../_images/image-Fader-28.png
+        .. figure:: ../_images/image-Fader-29.png
 
     :meth:`random_mask`:
         The mask can also be randomised at any point using the method
@@ -798,7 +843,7 @@ class Fader():
             r4
         }
 
-        .. figure:: ../_images/image-Fader-29.png
+        .. figure:: ../_images/image-Fader-30.png
 
         >>> fader.random_mask()
         >>> notes = fader()
@@ -816,7 +861,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/image-Fader-30.png
+        .. figure:: ../_images/image-Fader-31.png
 
     :meth:`shuffle_mask`:
         Use :meth:`shuffle_mask` to shuffle the current mask. This method will
@@ -845,7 +890,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/image-Fader-31.png
+        .. figure:: ../_images/image-Fader-32.png
 
         >>> fader.shuffle_mask()
         >>> notes = fader()
@@ -864,7 +909,7 @@ class Fader():
             c''8
         }
 
-        .. figure:: ../_images/image-Fader-32.png
+        .. figure:: ../_images/image-Fader-33.png
 
     :attr:`use_multimeasure_rests` and :attr:`disable_rewrite_meter`:
         By default, all rests in a measure filled only with rests will be
@@ -898,7 +943,7 @@ class Fader():
             r2.
         }
 
-        .. figure:: ../_images/image-Fader-33.png
+        .. figure:: ../_images/image-Fader-34.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -920,7 +965,7 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/image-Fader-34.png
+        .. figure:: ../_images/image-Fader-35.png
 
     .. tip::
 
@@ -949,7 +994,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-35.png
+        .. figure:: ../_images/image-Fader-36.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -970,7 +1015,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/image-Fader-36.png
+        .. figure:: ../_images/image-Fader-37.png
 
         Other arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -1021,7 +1066,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/image-Fader-37.png
+        .. figure:: ../_images/image-Fader-38.png
 
     Slurs and hairpins:
         Slurs and hairpins are also supported. Slurs are split when rests
@@ -1117,7 +1162,7 @@ class Fader():
             )
         }
 
-        .. figure:: ../_images/image-Fader-38.png
+        .. figure:: ../_images/image-Fader-39.png
 
     .. tip::
 
@@ -1166,7 +1211,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/image-Fader-39.png
+        .. figure:: ../_images/image-Fader-40.png
     """
 
     ### CLASS VARIABLES ###
@@ -1186,6 +1231,7 @@ class Fader():
                  '_rewrite_tuplets',
                  '_process_on_first_call',
                  '_include_empty_measures',
+                 '_repetition_chance',
                  )
 
     ### INITIALISER ###
@@ -1195,6 +1241,7 @@ class Fader():
                  *,
                  fader_type: str = 'out',
                  max_steps: int = 1,
+                 repetition_chance: float = 0.0,
                  process_on_first_call: bool = False,
                  disable_rewrite_meter: bool = False,
                  omit_time_signatures: bool = False,
@@ -1219,6 +1266,7 @@ class Fader():
         self.rewrite_tuplets = rewrite_tuplets
         self.process_on_first_call = process_on_first_call
         self.include_empty_measures = include_empty_measures
+        self.repetition_chance = repetition_chance
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -1244,13 +1292,15 @@ class Fader():
         r"""Calls the fading process for one iteration, returning an
         |abjad.Selection|.
         """
-        if not self._is_first_window or self._process_on_first_call:
-            if self._fader_type == 'out':
-                self._remove_element()
-            else:
+        if (self._repetition_chance == 0.0
+                or random.random() > self._repetition_chance):
+            if not self._is_first_window or self._process_on_first_call:
+                if self._fader_type == 'out':
+                    self._remove_element()
+                else:
+                    self._add_element()
+            elif not self._include_empty_measures and self._fader_type == 'in':
                 self._add_element()
-        elif not self._include_empty_measures and self._fader_type == 'in':
-            self._add_element()
         self._mask_to_selection()
         return self.current_window
 
@@ -1655,6 +1705,23 @@ class Fader():
         if not isinstance(include_empty_measures, bool):
             raise TypeError("'include_empty_measures' must be 'bool'")
         self._include_empty_measures = include_empty_measures
+
+    @property
+    def repetition_chance(self) -> float:
+        r"""The chance of not processing :attr:`contents` on a call, thus
+        repeating the previous output.
+        """
+        return self._repetition_chance
+
+    @repetition_chance.setter
+    def repetition_chance(self,
+                          repetition_chance: float,
+                          ):
+        if not isinstance(repetition_chance, float):
+            raise TypeError("'repetition_chance' must be 'float'")
+        if repetition_chance < 0.0 or repetition_chance > 1.0:
+            raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
+        self._repetition_chance = repetition_chance
 
     ### PRIVATE PROPERTIES ###
 

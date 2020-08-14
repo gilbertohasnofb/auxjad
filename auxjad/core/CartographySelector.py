@@ -411,9 +411,9 @@ class CartographySelector():
     def mirror_swap(self, index: int):
         r"""A type of content transformation which swaps takes an input index
         and swaps the element at tit with its complementary element.
-        Complementary elements  are defined as the pair of elements which share
-        the same distance from  the centre of the :attr:`contents` (in terms of
-        number of indeces), and  are located at either side of this centre.
+        Complementary elements are defined as the pair of elements which share
+        the same distance from the centre of the :attr:`contents` (in terms of
+        number of indeces), and are located at either side of this centre.
         """
         aux = self._contents[index]
         self._contents[index] = self._contents[-1 - index]

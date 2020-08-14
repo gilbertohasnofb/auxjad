@@ -413,7 +413,8 @@ def test_Fader_08():
 def test_Fader_09():
     random.seed(14812)
     container = abjad.Container(
-        r"\time 3/8 c'4. \time 2/4 d'2 \time 3/8 e'4.")
+        r"\time 3/8 c'4. \time 2/4 d'2 \time 3/8 e'4."
+    )
     fader = auxjad.Fader(container)
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
@@ -624,7 +625,8 @@ def test_Fader_14():
 def test_Fader_15():
     random.seed(71324)
     container = abjad.Container(
-        r"\time 3/4 c'8->\f d'8\p ~ d'4 e'8..-- f'32-.")
+        r"\time 3/4 c'8->\f d'8\p ~ d'4 e'8..-- f'32-."
+    )
     fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)

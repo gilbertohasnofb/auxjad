@@ -672,7 +672,8 @@ def test_prettify_rewrite_meter_14():
 
 def test_prettify_rewrite_meter_15():
     staff = abjad.Staff(
-        r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16")
+        r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
+    )
     meter = abjad.Meter((3, 4))
     abjad.mutate(staff[:]).rewrite_meter(meter)
     abjad.mutate(staff[:]).prettify_rewrite_meter(meter)

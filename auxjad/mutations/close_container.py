@@ -210,7 +210,8 @@ def close_container(container: abjad.Container):
             leaves = abjad.select(container).leaves()
             for leaf in leaves[::-1]:
                 time_signature = abjad.inspect(leaf).effective(
-                    abjad.TimeSignature)
+                    abjad.TimeSignature
+                )
                 if time_signature is not None:
                     last_time_signature = time_signature
                     break
@@ -219,7 +220,8 @@ def close_container(container: abjad.Container):
             last_bar_duration = last_time_signature.duration - missing_duration
             final_bar_time_signature = abjad.TimeSignature(last_bar_duration)
             final_bar_time_signature = simplified_time_signature_ratio(
-                final_bar_time_signature)
+                final_bar_time_signature
+            )
             duration = 0
             for leaf in leaves[::-1]:
                 duration += abjad.inspect(leaf).duration()

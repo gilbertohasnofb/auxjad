@@ -291,7 +291,8 @@ def test_PitchRandomiser_11():
                                         )
     randomiser.pitches = r"c'' d'' e'' f'' g'' a'' b''"
     assert randomiser.pitches == abjad.PitchSegment(
-        r"c'' d'' e'' f'' g'' a'' b''")
+        r"c'' d'' e'' f'' g'' a'' b''"
+    )
     assert randomiser.weights is None
 
 
@@ -336,7 +337,8 @@ def test_PitchRandomiser_12():
 def test_PitchRandomiser_13():
     random.seed(88112)
     container = abjad.Container(
-        r"c'4\p\< ~ c'8. d'16-.\f e'4--\pp f'8.( g'16)")
+        r"c'4\p\< ~ c'8. d'16-.\f e'4--\pp f'8.( g'16)"
+    )
     pitches = [6, 7, 8, 9, 10, 11, 12]
     randomiser = auxjad.PitchRandomiser(container,
                                         pitches,

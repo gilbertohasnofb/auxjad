@@ -351,7 +351,8 @@ def reposition_clefs(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_clefs-20.png
 
         >>> auxjad.mutate(staff[:]).reposition_clefs(
-        ...     implicit_clef=abjad.Clef('bass'))
+        ...     implicit_clef=abjad.Clef('bass')
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {

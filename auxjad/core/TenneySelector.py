@@ -15,7 +15,7 @@ class TenneySelector():
     Music 5(2). pp. 63--82.
 
     Basic usage:
-        The selector should be initialised with a :obj:`list`. The  elements of
+        The selector should be initialised with a :obj:`list`. The elements of
         this :obj:`list` can be of any type.
 
         >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])

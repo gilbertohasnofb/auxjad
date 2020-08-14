@@ -146,7 +146,8 @@ def reposition_slurs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
         >>> auxjad.mutate(staff[:]).reposition_slurs(
-        ...     allow_slurs_under_rests=True)
+        ...     allow_slurs_under_rests=True
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -188,7 +189,8 @@ def reposition_slurs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
         >>> auxjad.mutate(staff[:]).reposition_slurs(
-        ...     remove_unterminated_slurs=False)
+        ...     remove_unterminated_slurs=False
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {

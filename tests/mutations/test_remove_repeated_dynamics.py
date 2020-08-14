@@ -238,7 +238,7 @@ def test_remove_repeated_dynamics_07():
 def test_remove_repeated_dynamics_08():
     staff = abjad.Staff(r"c'4\pp r2. | R1 | c'1\pp")
     auxjad.mutate(staff[:]).remove_repeated_dynamics(
-        reset_after_rests=abjad.Duration(4, 4),
+        reset_after_rests=abjad.Duration(4, 4)
     )
     assert format(staff) == abjad.String.normalize(
         r"""

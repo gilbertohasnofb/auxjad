@@ -558,7 +558,8 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             # finding out last effective time signature
             for leaf in abjad.select(container).leaves()[::-1]:
                 effective_time_signature = abjad.inspect(leaf).effective(
-                    abjad.TimeSignature)
+                    abjad.TimeSignature
+                )
                 if effective_time_signature is not None:
                     break
             else:
@@ -573,9 +574,11 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
                 rests = abjad.LeafMaker()(None, duration_difference)
                 if adjust_last_time_signature:
                     rests_time_signature = abjad.TimeSignature(
-                        duration_difference)
+                        duration_difference
+                    )
                     rests_time_signature = simplified_time_signature_ratio(
-                        rests_time_signature)
+                        rests_time_signature
+                    )
                     if rests_time_signature != effective_time_signature:
                         abjad.attach(rests_time_signature, rests[0])
                 container.extend(rests)

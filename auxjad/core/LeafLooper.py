@@ -293,7 +293,8 @@ class LeafLooper(_LooperParent):
         :attr:`max_steps`) being applied at each call.
 
         >>> container = abjad.Container(
-        ...     r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4 e''4")
+        ...     r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4 e''4"
+        ... )
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=2,
         ...                            max_steps=4,
@@ -362,7 +363,8 @@ class LeafLooper(_LooperParent):
         or chords at the end and beginning of consecutive windows.
 
         >>> container = abjad.Container(
-        ...     r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16")
+        ...     r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16"
+        ... )
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=4,
         ...                            )
@@ -549,7 +551,8 @@ class LeafLooper(_LooperParent):
         .. figure:: ../_images/image-LeafLooper-16.png
 
         >>> looper.contents = abjad.Container(
-        ...     r"cs'''4 ds'''4 es'''4 fs'''4")
+        ...     r"cs'''4 ds'''4 es'''4 fs'''4"
+        ... )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -581,7 +584,8 @@ class LeafLooper(_LooperParent):
         This class supports dynamics and slurs.
 
         >>> container = abjad.Container(
-        ...     r"c'4\p( d'2 e'4\f) f'2( ~ f'8 g'4 a'1\pp)")
+        ...     r"c'4\p( d'2 e'4\f) f'2( ~ f'8 g'4 a'1\pp)"
+        ... )
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=3,
         ...                            )
@@ -815,8 +819,8 @@ class LeafLooper(_LooperParent):
             self._contents = abjad.mutate(contents).copy()
         dummy_container = abjad.mutate(self._contents).copy()
         self._remove_all_time_signatures(dummy_container)
-        self._contents_logical_ties = abjad.select(
-            dummy_container).logical_ties()
+        selector = abjad.select(dummy_container)
+        self._contents_logical_ties = selector.logical_ties()
         self._is_first_window = True
 
     @property

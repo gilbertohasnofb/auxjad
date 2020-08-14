@@ -264,12 +264,12 @@ class WindowLooper(_LooperParent):
         can only move forwards. A value of ``0.5`` gives 50% chance of moving
         forwards while a value of ``0.0`` will move the window only backwards).
         :attr:`head_position` can be used to offset the starting position of
-        the  looping window. It must be a :obj:`tuple` or an |abjad.Duration|,
+        the looping window. It must be a :obj:`tuple` or an |abjad.Duration|,
         and its default value is ``0``. The properties :attr:`boundary_depth`,
         :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
         arguments to |abjad.mutate().rewrite_meter()|, see its documentation
         for more information. By default, calling the object will first return
-        the original container and subsequent  calls will process it; set
+        the original container and subsequent calls will process it; set
         :attr:`process_on_first_call` to ``True`` and the looping process will
         be applied on the very first call.
 
@@ -740,7 +740,8 @@ class WindowLooper(_LooperParent):
         articulations are still applied to it.
 
         >>> container = abjad.Container(
-        ...     r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
+        ...     r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8"
+        ... )
         >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper.output_n(2)
         >>> staff = abjad.Staff(notes)

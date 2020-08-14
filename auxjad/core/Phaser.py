@@ -220,7 +220,7 @@ class Phaser():
         :attr:`rewrite_tuplets` are passed as arguments to
         |abjad.mutate().rewrite_meter()|, see its documentation for more
         information. By default, calling the object will first return the
-        original container and subsequent  calls will process it; set
+        original container and subsequent calls will process it; set
         :attr:`process_on_first_call` to ``True`` and the looping process will
         be applied on the very first call. Setting the property
         :attr:`omit_time_signatures` to ``True`` will remove all time
@@ -607,7 +607,8 @@ class Phaser():
         This class handles time signature changes.
 
         >>> container = abjad.Container(
-        ...     r"\time 2/4 c'2 \time 3/8 d'4. \time 2/4 e'2")
+        ...     r"\time 2/4 c'2 \time 3/8 d'4. \time 2/4 e'2"
+        ... )
         >>> phaser = auxjad.Phaser(container,
         ...                        step_size=(1, 8),
         ...                        )
@@ -737,7 +738,8 @@ class Phaser():
         Slurs and hairpins are also supported.
 
         >>> container = abjad.Container(
-        ...     r"c'2(\p\< d'4. e'8\f f'4\p\> g'2 a'4\pp)")
+        ...     r"c'2(\p\< d'4. e'8\f f'4\p\> g'2 a'4\pp)"
+        ... )
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser.output_n(5)
         >>> staff = abjad.Staff(notes)

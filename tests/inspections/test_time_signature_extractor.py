@@ -57,7 +57,8 @@ def test_time_signature_extractor_04():
 
 def test_time_signature_extractor_05():
     container = abjad.Container(
-        r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2.")
+        r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."
+    )
     with pytest.raises(ValueError):
         auxjad.inspect(container).time_signature_extractor(
             do_not_use_none=True,

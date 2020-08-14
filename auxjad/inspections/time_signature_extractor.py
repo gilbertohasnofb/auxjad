@@ -36,7 +36,8 @@ def time_signature_extractor(container: abjad.Container,
         not have an explicit time signature.
 
         >>> container = abjad.Container(
-        ...     r"\time 5/8 c'4 ~ c'16 \time 3/8 d'4. e'4.")
+        ...     r"\time 5/8 c'4 ~ c'16 \time 3/8 d'4. e'4."
+        ... )
         >>> time_sigs = auxjad.inspect(container).time_signature_extractor()
         >>> time_sigs
         [TimeSignature((5, 8)), TimeSignature((3, 8)), None]
@@ -55,7 +56,8 @@ def time_signature_extractor(container: abjad.Container,
         if there are multiple instances of a same time signature.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2.")
+        ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."
+        ... )
         >>> time_sigs = auxjad.inspect(container).time_signature_extractor()
         >>> time_sigs
         [abjad.TimeSignature((3, 4)), None, abjad.TimeSignature((3, 4)), None]
@@ -75,7 +77,8 @@ def time_signature_extractor(container: abjad.Container,
         will raise a :exc:`ValueError` exception:
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2.")
+        ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."
+        ... )
         >>> time_sigs = auxjad.inspect(container).time_signature_extractor(
         ...     do_not_use_none=True,
         ...     omit_repeated=True,
@@ -94,8 +97,7 @@ def time_signature_extractor(container: abjad.Container,
 
         To disable this behaviour, set ``implicit_common_time`` to ``False``.
 
-        >>> time_sigs = auxjad.inspect(
-        ...).time_signature_extractor(     container,
+        >>> time_sigs = auxjad.inspect(container).time_signature_extractor(
         ...     implicit_common_time=False,
         ... )
         >>> time_sigs
@@ -129,8 +131,8 @@ def time_signature_extractor(container: abjad.Container,
         raise ValueError("'omit_repeated' and 'do_not_use_none' cannot be "
                          "both set to 'True'")
     if not implicit_common_time and do_not_use_none:
-        if not abjad.inspect(abjad.select(container).leaf(0)).indicator(
-                abjad.TimeSignature):
+        head_leaf = abjad.select(container).leaf(0)
+        if not abjad.inspect(head_leaf).indicator(abjad.TimeSignature):
             raise ValueError("container does not have a time signature "
                              "attached to its first leaf, with "
                              "'implicit_common_time' set to 'False' and "
@@ -153,14 +155,16 @@ def time_signature_extractor(container: abjad.Container,
         for i in range(1, len(time_signatures)):
             if time_signatures[i] is None:
                 time_signatures[i] = abjad.TimeSignature(
-                    time_signatures[i - 1].pair)
+                    time_signatures[i - 1].pair
+                )
     elif omit_repeated:
         effective_time_signature = None
         for i in range(len(time_signatures)):
             current_time_signature = time_signatures[i]
             if current_time_signature is not None:
                 current_time_signature = abjad.TimeSignature(
-                    current_time_signature.pair)
+                    current_time_signature.pair
+                )
             if current_time_signature == effective_time_signature:
                 time_signatures[i] = None
             else:

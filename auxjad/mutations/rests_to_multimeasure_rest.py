@@ -133,7 +133,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
         It also works with containers with tuplets within tuplets.
 
         >>> container = abjad.Container(
-        ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {r2. \times 2/3 {r2 r4}}")
+        ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {r2. \times 2/3 {r2 r4}}"
+        ... )
         >>> abjad.f(container)
         {
             r2
@@ -188,7 +189,9 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
                 else:
                     multiplier = abjad.Multiplier(duration)
                 multimeasure_rest = abjad.MultimeasureRest(
-                    (4, 4), multiplier=multiplier)
+                    (4, 4),
+                    multiplier=multiplier,
+                )
                 if time_signature is not None:
                     abjad.attach(time_signature, multimeasure_rest)
                 abjad.mutate(measure).replace(multimeasure_rest)

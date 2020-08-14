@@ -92,7 +92,8 @@ def extract_trivial_tuplets(selection: abjad.Selection):
         This function also extracts tuplets within tuplets.
 
         >>> container = abjad.Container(
-        ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {c'2. \times 2/3 {r2 r4}}")
+        ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {c'2. \times 2/3 {r2 r4}}"
+        ... )
         >>> abjad.f(container)
         {
             r2
@@ -205,7 +206,8 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             duration = tuplet.multiplied_duration
             rest = abjad.Rest(duration)
             time_signature = abjad.inspect(leaves[0]).indicator(
-                abjad.TimeSignature)
+                abjad.TimeSignature
+            )
             if time_signature is not None:
                 abjad.attach(time_signature, rest)
             abjad.mutate(tuplet).replace(rest)

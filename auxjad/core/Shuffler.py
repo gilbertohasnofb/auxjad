@@ -146,7 +146,8 @@ class Shuffler:
         will be applied on the very first call.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
+        ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4"
+        ... )
         >>> shuffler = auxjad.Shuffler(container,
         ...                            pitch_only=False,
         ...                            preserve_rest_position=True,
@@ -302,7 +303,8 @@ class Shuffler:
         :attr:`pitch_only`.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32"
+        ... )
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.rotate()
         >>> staff = abjad.Staff(notes)
@@ -330,7 +332,8 @@ class Shuffler:
         .. figure:: ../_images/image-Shuffler-9.png
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32"
+        ... )
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler.rotate()
         >>> staff = abjad.Staff(notes)
@@ -358,7 +361,8 @@ class Shuffler:
         setting the direction of the rotation (default ``False``).
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32")
+        ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32"
+        ... )
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
         >>> staff = abjad.Staff(notes)
@@ -559,7 +563,8 @@ class Shuffler:
         This class handles time signature changes too:
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'8. d'4 r8 r8. \time 2/4 e'16 f'4..")
+        ...     r"\time 3/4 c'8. d'4 r8 r8. \time 2/4 e'16 f'4.."
+        ... )
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.shuffle_n(2)
         >>> staff = abjad.Staff(notes)
@@ -597,7 +602,8 @@ class Shuffler:
         mode).
 
         >>> container = abjad.Container(
-        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"
+        ... )
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
@@ -623,7 +629,8 @@ class Shuffler:
         ``True`` will raise a :exc:`TypeError` exception.
 
         >>> container = abjad.Container(
-        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8")
+        ...     r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"
+        ... )
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         TypeError: 'contents' contain one ore more tuplets, which are not
@@ -633,7 +640,8 @@ class Shuffler:
         This class can also handle dynamics and articulations.
 
         >>> container = abjad.Container(
-        ...     r"<c' e' g'>4--\p d'8-. e'8-. f'4-^\f r4")
+        ...     r"<c' e' g'>4--\p d'8-. e'8-. f'4-^\f r4"
+        ... )
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.shuffle_n(3)
         >>> staff = abjad.Staff(notes)
@@ -1032,7 +1040,8 @@ class Shuffler:
     def _update_logical_selections(self):
         r'Updates the selection of logical ties of :attr:`contents`.'
         self._logical_selections = self._get_logical_selections(
-            self._contents)
+            self._contents
+        )
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> list:
@@ -1092,7 +1101,8 @@ class Shuffler:
             random.shuffle(self._logical_selections_indeces)
         else:
             self._shuffle_list_preserving_rests(
-                self._logical_selections_indeces)
+                self._logical_selections_indeces
+            )
         self._rewrite_logical_selections()
         return self.current_window
 
@@ -1153,7 +1163,8 @@ class Shuffler:
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
         logical_selections = self._get_logical_selections(
-            abjad.mutate(self._contents).copy())
+            abjad.mutate(self._contents).copy()
+        )
         self._force_dynamics(logical_selections)
         for index in self._logical_selections_indeces:
             logical_selection = logical_selections[index]
@@ -1329,7 +1340,8 @@ class Shuffler:
         self._update_logical_selections()
         self._get_pitch_list()
         self._contents = abjad.Container(
-            abjad.mutate(self._current_window).copy())
+            abjad.mutate(self._current_window).copy()
+        )
 
     @property
     def preserve_rest_position(self) -> bool:

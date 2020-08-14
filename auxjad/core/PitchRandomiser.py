@@ -205,7 +205,8 @@ class PitchRandomiser:
         Each note of a chord is randomised too.
 
         >>> container = abjad.Container(
-        ...     r"<c' e' g'>8. d'4 r8 r8. e'16 <f' a'>8.")
+        ...     r"<c' e' g'>8. d'4 r8 r8. e'16 <f' a'>8."
+        ... )
         >>> pitches = [6, 7, 8, 9, 10, 11]
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,
@@ -229,7 +230,8 @@ class PitchRandomiser:
         pitches available in :attr:`pitches`.
 
         >>> container = abjad.Container(
-        ...     r"<c' e' g' a'>2 <cs' ds' e' f' g' a' b'>2")
+        ...     r"<c' e' g' a'>2 <cs' ds' e' f' g' a' b'>2"
+        ... )
         >>> pitches = [6, 7, 8]
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,
@@ -456,7 +458,8 @@ class PitchRandomiser:
         This class preserves indicators.
 
         >>> container = abjad.Container(
-        ...     r"c'4\p\< ~ c'8. d'16-.\f e'4--\pp f'8.( g'16)")
+        ...     r"c'4\p\< ~ c'8. d'16-.\f e'4--\pp f'8.( g'16)"
+        ... )
         >>> pitches = [6, 7, 8, 9, 10, 11, 12]
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,
@@ -489,7 +492,8 @@ class PitchRandomiser:
         This class also preserves the time signature structure.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'4 d'2 \time 2/4 e'8 f'8 g'8 a'8")
+        ...     r"\time 3/4 c'4 d'2 \time 2/4 e'8 f'8 g'8 a'8"
+        ... )
         >>> pitches = r"fs' gs' a' b'"
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,
@@ -516,7 +520,8 @@ class PitchRandomiser:
         ``True`` (default is ``False``).
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'4 d'2 \time 2/4 e'8 f'8 g'8 a'8")
+        ...     r"\time 3/4 c'4 d'2 \time 2/4 e'8 f'8 g'8 a'8"
+        ... )
         >>> pitches = r"fs' gs' a' b'"
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,

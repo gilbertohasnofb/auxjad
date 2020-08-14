@@ -9,7 +9,7 @@ algorithmic manipulation of material.
 
     These classes are imported directly into the |auxjad|_ namespace.
     Therefore, to use a class such as :class:`auxjad.CartographySelector` you
-    only  need to import |auxjad|_ and instantiate the class from itsnamespace:
+    only need to import |auxjad|_ and instantiate the class from itsnamespace:
 
     >>> import auxjad
     >>> selector = auxjad.CartographySelector(pitch_list)

@@ -119,7 +119,8 @@ def reposition_dynamics(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
         >>> auxjad.mutate(staff[:]).reposition_dynamics(
-        ...     remove_repeated_dynamics=False)
+        ...     remove_repeated_dynamics=False
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -175,7 +176,8 @@ def reposition_dynamics(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
         >>> auxjad.mutate(staff[:]).reposition_dynamics(
-        ...     allow_hairpins_under_rests=True)
+        ...     allow_hairpins_under_rests=True
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -217,7 +219,8 @@ def reposition_dynamics(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
         >>> auxjad.mutate(staff[:]).reposition_dynamics(
-        ...     allow_hairpin_to_rest_with_dynamic=False)
+        ...     allow_hairpin_to_rest_with_dynamic=False
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -260,7 +263,8 @@ def reposition_dynamics(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1\p\> d'1\f\> e'1\p")
         >>> auxjad.mutate(staff[:]).reposition_dynamics(
-        ...     check_hairpin_trends=False)
+        ...     check_hairpin_trends=False
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -336,7 +340,8 @@ def reposition_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-reposition_dynamics-15.png
 
         >>> staff = abjad.Staff(
-        ...     r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp")
+        ...     r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp"
+        ... )
         >>> abjad.attach(abjad.StartHairpin('--'), staff[0])
         >>> auxjad.mutate(staff[:]).reposition_dynamics()
         >>> abjad.f(staff)

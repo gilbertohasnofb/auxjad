@@ -161,7 +161,8 @@ def respell_accidentals(selection: abjad.Selection,
         >>> container1 = abjad.Container(r"<c' cs''>1")
         >>> container2 = abjad.Container(r"<c' cs''>1")
         >>> auxjad.mutate(container2[:]).respell_accidentals(
-        ...     include_multiples=True)
+        ...     include_multiples=True
+        ... )
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff
@@ -203,7 +204,8 @@ def respell_accidentals(selection: abjad.Selection,
         >>> container1 = abjad.Container(r"<c' cs' cs''>1")
         >>> container2 = abjad.Container(r"<c' cs' cs''>1")
         >>> auxjad.mutate(container2[:]).respell_accidentals(
-        ...     respell_by_pitch_class=True)
+        ...     respell_by_pitch_class=True
+        ... )
         >>> staff = abjad.Staff([container1, container2])
         >>> abjad.f(staff)
         \new Staff

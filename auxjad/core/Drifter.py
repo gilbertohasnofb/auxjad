@@ -688,7 +688,8 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"e'2 c'2")
         >>> container_in = abjad.Container(
-        ...     r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8")
+        ...     r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8"
+        ... )
         >>> drifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = drifter.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
@@ -1108,7 +1109,8 @@ class Drifter():
         the process.
 
         >>> container_out = abjad.Container(
-        ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}")
+        ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}"
+        ... )
         >>> container_in = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
         >>> drifter = auxjad.Drifter(container_out, container_in)
         >>> drifter.contents_out = abjad.Container(r"\time 3/4 a4. bf4.")
@@ -1132,9 +1134,11 @@ class Drifter():
         This class can handle time signature changes.
 
         >>> container_out = abjad.Container(
-        ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
+        ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4"
+        ... )
         >>> container_in = abjad.Container(
-        ...     r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
+        ...     r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2"
+        ... )
         >>> drifter = auxjad.Drifter(container_out, container_in)
         >>> staff_a, staff_b = drifter.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
@@ -1195,7 +1199,8 @@ class Drifter():
 
         >>> container_out = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
         >>> container_in = abjad.Container(
-        ...     r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2")
+        ...     r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2"
+        ... )
         >>> drifter = auxjad.Drifter(container_out,
         ...                          container_in,
         ...                          fade_in_first=True,
@@ -1326,7 +1331,8 @@ class Drifter():
         ...         \Staff
         ...         \consists "Timing_translator"
         ...         \consists "Default_bar_line_engraver"
-        ...     }''')
+        ...     }'''
+        ... )
         >>> abjad.f(score)
         \version "2.19.82"  %! abjad.LilyPondFile._get_format_pieces()
         \language "english" %! abjad.LilyPondFile._get_format_pieces()
@@ -1468,7 +1474,7 @@ class Drifter():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  both contents.'
+        r'Returns interpreter representation of both contents.'
         return format(self._fader_out) + '\n' + format(self._fader_in)
 
     def __len__(self) -> int:

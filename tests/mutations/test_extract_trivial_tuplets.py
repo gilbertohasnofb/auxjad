@@ -54,7 +54,8 @@ def test_extract_trivial_tuplets_04():
 
 def test_extract_trivial_tuplets_05():
     staff = abjad.Staff(
-        r"\times 2/3 {r2 r1} \times 4/5 {c'2. \times 2/3 {r2 r4}}")
+        r"\times 2/3 {r2 r1} \times 4/5 {c'2. \times 2/3 {r2 r4}}"
+    )
     auxjad.mutate(staff[:]).extract_trivial_tuplets()
     assert format(staff) == abjad.String.normalize(
         r"""

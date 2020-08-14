@@ -155,7 +155,8 @@ def test_reposition_dynamics_07():
 def test_reposition_dynamics_08():
     staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
     auxjad.mutate(staff[:]).reposition_dynamics(
-        allow_hairpins_under_rests=True)
+        allow_hairpins_under_rests=True
+    )
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

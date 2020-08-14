@@ -621,9 +621,10 @@ def enforce_time_signature(container: abjad.Container,
     if time_signatures_[0].partial is not None:
         partial_time_signature = time_signatures_[0]
         time_signatures_[0] = abjad.TimeSignature(
-            partial_time_signature.duration)
-        time_signatures_.insert(0, abjad.TimeSignature(
-            partial_time_signature.partial))
+            partial_time_signature.duration
+        )
+        partial_element = abjad.TimeSignature(partial_time_signature.partial)
+        time_signatures_.insert(0, partial_element)
     if not isinstance(cyclic, bool):
         raise TypeError("'cyclic' must be 'bool'")
     if not isinstance(fill_with_rests, bool):

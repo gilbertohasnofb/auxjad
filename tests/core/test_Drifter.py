@@ -842,7 +842,8 @@ def test_Drifter_13():
     random.seed(81943)
     container_out = abjad.Container(r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
     container_in = abjad.Container(
-        r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
+        r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2"
+    )
     drifter = auxjad.Drifter(container_out, container_in)
     staff_a, staff_b = drifter.output_n(3)
     score = abjad.Score([staff_a, staff_b])
@@ -1097,7 +1098,8 @@ def test_Drifter_18():
     random.seed(97142)
     container_out = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
     container_in = abjad.Container(
-        r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2")
+        r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2"
+    )
     drifter = auxjad.Drifter(container_out,
                              container_in,
                              fade_in_first=True,

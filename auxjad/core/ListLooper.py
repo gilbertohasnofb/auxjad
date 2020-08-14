@@ -12,8 +12,7 @@ class ListLooper(_LooperParent):
 
     For instance, if the initial container had the elements
     ``[A, B, C, D, E, F]`` (where each letter represents an element of an
-    arbitrary  type) and the looping window was size ``3``, the output would
-    be:
+    arbitrary type) and the looping window was size ``3``, the output would be:
 
     ``A B C B C D C D E D E F E F F``
 

@@ -623,7 +623,8 @@ class Fader():
         >>> len(fader)
         4
         >>> container = abjad.Container(
-        ...     r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16")
+        ...     r"c'4 ~ c'16 r16 d'8 e'4 ~ e'8 f'16 r16"
+        ... )
         >>> fader = auxjad.Fader(container)
         >>> len(fader)
         4
@@ -635,7 +636,8 @@ class Fader():
         >>> len(fader)
         5
         >>> container = abjad.Container(
-        ...     r"<c' e' g'>4 ~ <c' e' g'>16 r8. <d' f'>2")
+        ...     r"<c' e' g'>4 ~ <c' e' g'>16 r8. <d' f'>2"
+        ... )
         >>> fader = auxjad.Fader(container)
         >>> len(fader)
         5
@@ -979,7 +981,8 @@ class Fader():
         This class can handle dynamics and articulations too.
 
         >>> container = abjad.Container(
-        ...     r"\time 3/4 c'8->\f d'8\p ~ d'4 e'8..-- f'32-.")
+        ...     r"\time 3/4 c'8->\f d'8\p ~ d'4 e'8..-- f'32-."
+        ... )
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
@@ -1227,8 +1230,8 @@ class Fader():
     def __len__(self) -> int:
         r'Returns the number of notes of :attr:`contents`.'
         length = 0
-        for logical_tie in abjad.select(self._contents).logical_ties(
-                pitched=True):
+        logical_ties = abjad.select(self._contents).logical_ties(pitched=True)
+        for logical_tie in logical_ties:
             if isinstance(logical_tie.head, ArtificialHarmonic):
                 length += 1
             elif isinstance(logical_tie.head, abjad.Chord):

@@ -20,11 +20,12 @@ def repeat_container(container: abjad.Container,
         The required arguments are an |abjad.Container| (or child class) and
         and :obj:`int` for the number of repetitions.
 
-        >>> container = abjad.Container(r"c'4 d'4 e'4")
-        >>> output_container = auxjad.repeat_container(container, 3)
+        >>> staff = abjad.Staff(r"c'4 d'4 e'4")
+        >>> output_staff = auxjad.repeat_container(container, 3)
         >>> abjad.f(output_container)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             c'4
             d'4
             e'4
@@ -40,42 +41,32 @@ def repeat_container(container: abjad.Container,
 
     .. note::
 
-        Notice that the time signatures in the output are commented out with
-        ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a |abjad.Staff|. The present function works
-        with either |abjad.Container| and |abjad.Staff|.
+        When using |abjad.Container|'s, all time signatures in the output will
+        be commented out with ``%%%.`` This is because Abjad only applies time
+        signatures to containers that belong to a |abjad.Staff|. The present
+        function works with either |abjad.Container| and |abjad.Staff|.
 
-        >>> container = abjad.Container(r"c'4 d'4 e'4")
-        >>> output_container = auxjad.repeat_container(container, 3)
-        >>> abjad.f(output_container)
+        >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
+        >>> abjad.f(container)
         {
-            %%% \time 3/4 %%%
+            %%% \time 4/4 %%%
             c'4
             d'4
             e'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
+            f'4
         }
 
         .. figure:: ../_images/image-repeat_container-2.png
 
-        >>> staff = abjad.Staff([output_container])
-        >>> abjad.f(output_container)
+        >>> staff = abjad.Staff([container])
+        >>> abjad.f(container)
+        \new Staff
         {
-            \time 3/4
+            \time 4/4
             c'4
             d'4
             e'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
+            f'4
         }
 
         .. figure:: ../_images/image-repeat_container-3.png
@@ -84,23 +75,24 @@ def repeat_container(container: abjad.Container,
         It handle containers with multiple measures and different time
         signatures.
 
-        >>> container = abjad.Container(r"\time 3/4 c'2. \time 2/4 r2 g'2")
-        >>> output_container = auxjad.repeat_container(container, 3)
+        >>> staff = abjad.Staff(r"\time 3/4 c'2. \time 2/4 r2 g'2")
+        >>> output_container = auxjad.repeat_container(staff, 3)
         >>> abjad.f(output_container)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
-            %%% \time 2/4 %%%
+            \time 2/4
             r2
             g'2
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
-            %%% \time 2/4 %%%
+            \time 2/4
             r2
             g'2
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
-            %%% \time 2/4 %%%
+            \time 2/4
             r2
             g'2
         }
@@ -110,21 +102,22 @@ def repeat_container(container: abjad.Container,
     Underfull containers:
         It automatically closes a container if necessary.
 
-        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'2")
-        >>> output_container = auxjad.repeat_container(container, 2)
+        >>> staff = abjad.Staff(r"\time 3/4 c'4 d'4 e'4 f'2")
+        >>> output_container = auxjad.repeat_container(staff, 2)
         >>> abjad.f(output_container)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             c'4
             d'4
             e'4
-            %%% \time 2/4 %%%
+            \time 2/4
             f'2
-            %%% \time 3/4 %%%
+            \time 3/4
             c'4
             d'4
             e'4
-            %%% \time 2/4 %%%
+            \time 2/4
             f'2
         }
 
@@ -160,52 +153,30 @@ def repeat_container(container: abjad.Container,
         set the keyword argument  ``force_identical_time_signatures`` to
         ``True``.
 
-        >>> container = abjad.Container(r"\time 5/4 c'2. d'4 e'4")
+        >>> staff = abjad.Staff(r"\time 5/4 c'2. d'4 e'4")
         >>> output_container = auxjad.repeat_container(
-        ...     container,
+        ...     staff,
         ...     3,
         ...     force_identical_time_signatures=True,
         ... )
         >>> abjad.f(output_container)
+        \new Staff
         {
-            %%% \time 5/4 %%%
+            \time 5/4
             c'2.
             d'4
             e'4
-            %%% \time 5/4 %%%
+            \time 5/4
             c'2.
             d'4
             e'4
-            %%% \time 5/4 %%%
+            \time 5/4
             c'2.
             d'4
             e'4
         }
 
         .. figure:: ../_images/image-repeat_container-7.png
-
-    Input types:
-        The input container can be |abjad.Container| or any of its child
-        classes such as |abjad.Staff|. The output will be of the same type.
-
-        >>> container = abjad.Staff(r"c'4 d'4 e'4")
-        >>> output_staff = auxjad.repeat_container(container, 3)
-        >>> abjad.f(output_staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-        }
-
-        .. figure:: ../_images/image-repeat_container-8.png
 
     ``reposition_clefs``, ``reposition_dynamics``, and ``reposition_slurs``:
         By default, this function will automatically remove repeated clefs as
@@ -238,7 +209,7 @@ def repeat_container(container: abjad.Container,
             d4
         }
 
-        .. figure:: ../_images/image-repeat_container-9.png
+        .. figure:: ../_images/image-repeat_container-8.png
 
         Set the optional keyword arguments ``reposition_clefs``,
         ``reposition_dynamics``, and ``reposition_slurs`` to ``False`` to
@@ -284,9 +255,9 @@ def repeat_container(container: abjad.Container,
             (
         }
 
-        .. figure:: ../_images/image-repeat_container-10.png
+        .. figure:: ../_images/image-repeat_container-9.png
 
-    ..  error::
+    .. error::
 
         If a container is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`

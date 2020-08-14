@@ -50,7 +50,7 @@ def reposition_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_dynamics-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -276,7 +276,7 @@ def reposition_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_dynamics-13.png
 
-    ..  note::
+    .. note::
 
         The behaviour described above is only applicable when a hairpin ends
         on a dynamic. Using the hairpin terminator ``\!`` before a dynamic
@@ -392,7 +392,7 @@ def reposition_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_dynamics-18.png
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

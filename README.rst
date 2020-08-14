@@ -42,9 +42,9 @@ and `LilyPond`_.
 .. |Documentation| image:: https://img.shields.io/badge/docs-auxjad.docs-yellow
    :target: https://gilbertohasnofb.github.io/auxjad-docs/
 
-..  _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
-..  _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
-..  _pip: https://pip.pypa.io/en/stable/
-..  _`Python 3.6`: https://www.python.org/
-..  _`Abjad 3.1`: https://abjad.github.io/
-..  _LilyPond: http://lilypond.org/
+.. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
+.. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
+.. _pip: https://pip.pypa.io/en/stable/
+.. _`Python 3.6`: https://www.python.org/
+.. _`Abjad 3.1`: https://abjad.github.io/
+.. _LilyPond: http://lilypond.org/

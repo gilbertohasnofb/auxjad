@@ -3,7 +3,7 @@ utilities
 
 The |utilities|_ subpackage contains utility functions.
 
-..  note::
+.. note::
 
     These functions are imported directly into the |auxjad|_ namespace.
     Therefore, to use a function such as

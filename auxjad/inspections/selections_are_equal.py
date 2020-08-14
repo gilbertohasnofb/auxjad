@@ -24,7 +24,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> auxjad.inspect(selections).selections_are_equal()
         True
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.inspect()|. Therefore it can be used from either
@@ -112,14 +112,14 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> auxjad.inspect(selections).selections_are_equal()
         True
 
-    ..  warning::
+    .. warning::
 
         It is important though to create selections using |abjad.select()| as
         shown in the example above instead of using the syntax
         ``container[:]``, since the latter selects only leaves which are not
         grace notes.
 
-    ..  note::
+    .. note::
 
         It is important to note it is the contents of the containers which are
         compared, so containers of different classes can still return a

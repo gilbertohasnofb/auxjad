@@ -80,7 +80,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-4.png
 
-    ..  warning::
+    .. warning::
 
         Unlike the other classes in Auxjad, the very first call of an instance
         of this class will already process the initial container. To disable
@@ -545,7 +545,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-17.png
 
-    ..  tip::
+    .. tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`shuffle_n` and :meth:`rotate_n` methods
@@ -616,7 +616,7 @@ class Shuffler:
 
         .. figure:: ../_images/image-Shuffler-19.png
 
-    ..  error::
+    .. error::
 
         Tuplets are not supported when :attr:`pitch_only` is ``False`` (logical
         tie mode). Using a container with tuplets and :attr:`pitch_only` set to
@@ -691,7 +691,7 @@ class Shuffler:
         |auxjad.mutate().reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    ..  warning::
+    .. warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes

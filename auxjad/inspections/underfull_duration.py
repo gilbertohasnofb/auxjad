@@ -23,7 +23,7 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         >>> auxjad.inspect(container4[:]).underfull_duration()
         0
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.inspect()|. Therefore it can be used from either
@@ -76,7 +76,7 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         >>> auxjad.inspect(container4[:]).underfull_duration()
         1/4
 
-    ..  error::
+    .. error::
 
         If a selection is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
@@ -88,7 +88,7 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
         ValueError: 'selection' is malformed, with an underfull measure
         preceding a time signature change
 
-    ..  warning::
+    .. warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

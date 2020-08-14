@@ -26,27 +26,29 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
         Input two or more containers. This function will fill the shortest ones
         with rests ensuring all their lengths become the same.
 
-        >>> container1 = abjad.Container(r"\time 4/4 g'2.")
-        >>> container2 = abjad.Container(r"\time 4/4 c'1")
-        >>> auxjad.mutate([container1, container2]).sync_containers()
-        >>> abjad.f(container1)
+        >>> staff1 = abjad.Staff(r"\time 4/4 g'2.")
+        >>> staff2 = abjad.Staff(r"\time 4/4 c'1")
+        >>> auxjad.mutate([staff1, staff2]).sync_containers()
+        >>> abjad.f(staff1)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             g'2.
             r4
         }
 
         .. figure:: ../_images/image-sync_containers-1.png
 
-        >>> abjad.f(container2)
+        >>> abjad.f(staff2)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
         }
 
         .. figure:: ../_images/image-sync_containers-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -58,32 +60,32 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
 
     .. note::
 
-        Notice that the time signatures in the output are commented out with
-        ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a |abjad.Staff|. The present function works
-        with either |abjad.Container| and |abjad.Staff|.
+        When using |abjad.Container|'s, all time signatures in the output will
+        be commented out with ``%%%.`` This is because Abjad only applies time
+        signatures to containers that belong to a |abjad.Staff|. The present
+        function works with either |abjad.Container| and |abjad.Staff|.
 
-        >>> container1 = abjad.Container(r"\time 4/4 g'2.")
-        >>> container2 = abjad.Container(r"\time 4/4 c'1")
-        >>> auxjad.mutate([container1, container2]).sync_containers()
-        >>> abjad.f(container1)
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> abjad.f(container)
         {
-            %%% \time 4/4 %%%
-            g'2.
-            r4
+            %%% \time 3/4 %%%
+            c'4
+            d'4
+            e'4
         }
 
-        .. figure:: ../_images/image-close_container-3.png
+        .. figure:: ../_images/image-sync_containers-3.png
 
-        >>> staff = abjad.Staff([container1])
-        >>> abjad.f(container1)
+        >>> staff = abjad.Staff([container])
+        >>> abjad.f(container)
         {
-            \time 4/4
-            g'2.
-            r4
+            \time 3/4
+            c'4
+            d'4
+            e'4
         }
 
-        .. figure:: ../_images/image-close_container-4.png
+        .. figure:: ../_images/image-sync_containers-4.png
 
     Containers of same size:
         If all containers have the same size, no modification is applied.
@@ -143,14 +145,15 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
         To allow containers to be left open (with underfull measures), set the
         keyword argument ``adjust_last_time_signature`` to ``False``.
 
-        >>> container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
-        >>> container2 = abjad.Container(r"\time 4/4 c'1")
+        >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
+        >>> container2 = abjad.Staff(r"\time 4/4 c'1")
         >>> auxjad.mutate([container1, container2]).sync_containers(
         ...     adjust_last_time_signature=False,
         ... )
         >>> abjad.f(container1)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             g'1
             f'4
         }
@@ -158,8 +161,9 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
         .. figure:: ../_images/image-sync_containers-9.png
 
         >>> abjad.f(container2)
+        \new Staff
         {
-            %%% \time 4/4 %%%
+            \time 4/4
             c'1
             r4
         }
@@ -495,7 +499,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
 
         .. figure:: ../_images/image-sync_containers-23.png
 
-    ..  error::
+    .. error::
 
         If one or more containers is malformed, i.e. it has an underfilled
         measure before a time signature change, the function raises a

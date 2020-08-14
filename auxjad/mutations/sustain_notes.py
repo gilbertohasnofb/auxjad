@@ -1,9 +1,5 @@
 import abjad
 
-from ..inspections.inspect import inspect
-from ..utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio,
-)
 from .auto_rewrite_meter import auto_rewrite_meter
 
 
@@ -44,7 +40,7 @@ def sustain_notes(container: abjad.Container):
 
         .. figure:: ../_images/image-sustain_notes-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -164,7 +160,8 @@ def sustain_notes(container: abjad.Container):
         >>> staff = abjad.Staff(r"c'16 r8. d'16 r8. r8 r32 <e' g'>32 r16 r4 "
         ...                     r"\times 2/3 {r4 f'4 r4} r4 g'8 r8 a'4 ~ "
         ...                     r"a'16 r8. b'4 c''8 r8 "
-        ...                     r"r4. d''8 \times 4/5 {r8 d''2} ")
+        ...                     r"r4. d''8 \times 4/5 {r8 d''2}"
+        ...                     )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -238,7 +235,7 @@ def sustain_notes(container: abjad.Container):
 
         .. figure:: ../_images/image-sustain_notes-10.png
 
-    ..  warning::
+    .. warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing
@@ -260,8 +257,8 @@ def sustain_notes(container: abjad.Container):
                                               )
             elif pitches is not None:
                 replacement_leaf = abjad.Chord(pitches,
-                                              leaf.written_duration,
-                                              )
+                                               leaf.written_duration,
+                                               )
             if pitch is not None or pitches is not None:
                 abjad.mutate(leaf).replace(replacement_leaf)
                 previous_leaf = abjad.select(container).leaves()[index - 1]

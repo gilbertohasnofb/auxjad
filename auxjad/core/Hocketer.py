@@ -498,7 +498,7 @@ class Hocketer():
 
         .. figure:: ../_images/image-Hocketer-11.png
 
-    ..  error::
+    .. error::
 
         Setting :attr:`force_k_voices` to ``True`` when :attr:`k` is larger
         than :attr:`n_voices` will raise a :exc:`ValueError` exception:
@@ -954,7 +954,7 @@ class Hocketer():
         |auxjad.mutate().reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    ..  warning::
+    .. warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes

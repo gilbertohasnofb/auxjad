@@ -44,7 +44,7 @@ def reposition_slurs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_slurs-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -207,7 +207,7 @@ def reposition_slurs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_slurs-10.png
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

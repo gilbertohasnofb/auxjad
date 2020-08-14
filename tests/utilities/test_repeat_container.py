@@ -59,24 +59,25 @@ def test_repeat_container_01():
 
 
 def test_repeat_container_02():
-    container = abjad.Container(r"\time 3/4 c'2. \time 2/4 r2 g'2")
-    output_container = auxjad.repeat_container(container, 3)
+    staff = abjad.Staff(r"\time 3/4 c'2. \time 2/4 r2 g'2")
+    output_container = auxjad.repeat_container(staff, 3)
     assert format(output_container) == abjad.String.normalize(
         r"""
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
-            %%% \time 2/4 %%%
+            \time 2/4
             r2
             g'2
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
-            %%% \time 2/4 %%%
+            \time 2/4
             r2
             g'2
-            %%% \time 3/4 %%%
+            \time 3/4
             c'2.
-            %%% \time 2/4 %%%
+            \time 2/4
             r2
             g'2
         }
@@ -84,35 +85,37 @@ def test_repeat_container_02():
 
 
 def test_repeat_container_03():
-    container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'2")
-    output_container = auxjad.repeat_container(container, 2)
+    staff = abjad.Staff(r"\time 3/4 c'4 d'4 e'4 f'2")
+    output_container = auxjad.repeat_container(staff, 2)
     assert format(output_container) == abjad.String.normalize(
         r"""
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             c'4
             d'4
             e'4
-            %%% \time 2/4 %%%
+            \time 2/4
             f'2
-            %%% \time 3/4 %%%
+            \time 3/4
             c'4
             d'4
             e'4
-            %%% \time 2/4 %%%
+            \time 2/4
             f'2
         }
         """)
 
 
 def test_repeat_container_04():
-    container = abjad.Container(r"c'4 d'4 e'4")
+    container = abjad.Staff(r"c'4 d'4 e'4")
     output_container = auxjad.repeat_container(container,
                                                3,
                                                omit_time_signatures=True,
                                                )
     assert format(output_container) == abjad.String.normalize(
         r"""
+        \new Staff
         {
             c'4
             d'4
@@ -128,24 +131,25 @@ def test_repeat_container_04():
 
 
 def test_repeat_container_05():
-    container = abjad.Container(r"\time 5/4 c'2. d'4 e'4")
+    staff = abjad.Staff(r"\time 5/4 c'2. d'4 e'4")
     output_container = auxjad.repeat_container(
-        container,
+        staff,
         3,
         force_identical_time_signatures=True,
     )
     assert format(output_container) == abjad.String.normalize(
         r"""
+        \new Staff
         {
-            %%% \time 5/4 %%%
+            \time 5/4
             c'2.
             d'4
             e'4
-            %%% \time 5/4 %%%
+            \time 5/4
             c'2.
             d'4
             e'4
-            %%% \time 5/4 %%%
+            \time 5/4
             c'2.
             d'4
             e'4

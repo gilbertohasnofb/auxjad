@@ -26,7 +26,7 @@ def selection_is_full(selection: abjad.Selection) -> bool:
         >>> auxjad.inspect(container4[:]).selection_is_full()
         True
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.inspect()|. Therefore it can be used from either
@@ -79,7 +79,7 @@ def selection_is_full(selection: abjad.Selection) -> bool:
         >>> auxjad.inspect(container4[:]).selection_is_full()
         False
 
-    ..  error::
+    .. error::
 
         If a selection is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
@@ -91,7 +91,7 @@ def selection_is_full(selection: abjad.Selection) -> bool:
         ValueError: 'selection' is malformed, with an underfull measure
         preceding a time signature change
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

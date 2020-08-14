@@ -6,7 +6,7 @@ from ._HarmonicParent import _HarmonicParent
 
 
 class HarmonicNote(abjad.Note, _HarmonicParent):
-    r"""Creates a note with tweaked notehead for harmonics. This is a child
+    r"""Creates a note with tweaked note head for harmonics. This is a child
     class of |abjad.Note|.
 
     Basic usage:
@@ -156,7 +156,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/image-HarmonicNote-7.png
 
-    ..  error::
+    .. error::
 
         If another markup is attached to the harmonic note, trying to set the
         :attr:`markup` to ``None`` will raise an :exc:`Exception`:

@@ -196,7 +196,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-6.png
 
-    ..  error::
+    .. error::
 
         Both :meth:`sounding_pitch` and :meth:`sounding_note` methods raise a
         :exc:`ValueError` exception when it cannot calculate the sounding pitch
@@ -262,7 +262,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         .. figure:: ../_images/image-ArtificialHarmonic-8.png
 
-    ..  error::
+    .. error::
 
         If another markup is attached to the harmonic note, trying to set the
         :attr:`markup` property to ``None`` will raise an :exc:`Exception`:

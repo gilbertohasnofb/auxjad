@@ -12,7 +12,7 @@ which take an |abjad.Container| as input. |score|_ contain score component and
 component maker classes, such as an expanded leaf maker as well as harmonic
 leaves.
 
-..  note::
+.. note::
 
     Auxjad classes and functions are imported directly into the |auxjad|_
     namespace. Therefore, to use a class such as

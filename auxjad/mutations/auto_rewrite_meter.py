@@ -2,7 +2,7 @@ import abjad
 
 from ..inspections.inspect import inspect
 from .extract_trivial_tuplets import (
-    extract_trivial_tuplets as extract_trivial_tuplets_function
+    extract_trivial_tuplets as extract_trivial_tuplets_function,
 )
 from .prettify_rewrite_meter import prettify_rewrite_meter
 
@@ -50,7 +50,7 @@ def auto_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/image-auto_rewrite_meter-1.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either

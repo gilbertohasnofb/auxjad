@@ -19,7 +19,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-1.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -55,29 +55,32 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
     .. note::
 
-        Notice that the time signatures in the output are commented out with
-        ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a |abjad.Staff|. The present function works
-        with either |abjad.Container| and |abjad.Staff|.
+        When using |abjad.Container|'s, all time signatures in the output will
+        be commented out with ``%%%.`` This is because Abjad only applies time
+        signatures to containers that belong to a |abjad.Staff|. The present
+        function works with either |abjad.Container| and |abjad.Staff|.
 
-        >>> container = abjad.Container(r"\time 3/4 r4 r4 r4")
-        >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
-            R1 * 3/4
+            c'4
+            d'4
+            e'4
         }
 
-        .. figure:: ../_images/image-close_container-4.png
+        .. figure:: ../_images/image-rests_to_multimeasure_rest-4.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
         {
             \time 3/4
-            R1 * 3/4
+            c'4
+            d'4
+            e'4
         }
 
-        .. figure:: ../_images/image-close_container-5.png
+        .. figure:: ../_images/image-rests_to_multimeasure_rest-5.png
 
     Time signature changes:
         Works with selections from containers with multiple time signatures as
@@ -158,7 +161,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
         .. figure:: ../_images/image-rests_to_multimeasure_rest-10.png
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

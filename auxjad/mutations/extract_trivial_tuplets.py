@@ -124,7 +124,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/image-extract_trivial_tuplets-8.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -134,21 +134,22 @@ def extract_trivial_tuplets(selection: abjad.Selection):
         >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
 
-    ..  tip::
+    .. tip::
 
         Use |auxjad.mutate().rests_to_multimeasure_rest()| to replace measures
         filled with rests by a single multi-measure rest. That function makes
-        use of |auxjad.mutate().extract_trivial_tuplets()|, so it is not necessary
-        to flatten the empty tuplets beforehand.
+        use of |auxjad.mutate().extract_trivial_tuplets()|, so it is not
+        necessary to flatten the empty tuplets beforehand.
 
     Time signature changes:
         Works with measures with any time signature.
 
-        >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
+        >>> container = abjad.Staff(r"\time 3/4 r2. \times 3/2 {r4 r4}")
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
+        \new Staff
         {
-            %%% \time 3/4 %%%
+            \time 3/4
             r2.
             r2.
         }
@@ -157,18 +158,18 @@ def extract_trivial_tuplets(selection: abjad.Selection):
 
     .. note::
 
-        Notice that the time signatures in the output are commented out with
-        ``%%%``. This is because Abjad only applies time signatures to
-        containers that belong to a |abjad.Staff|. The present function works
-        with either |abjad.Container| and |abjad.Staff|.
+        When using |abjad.Container|'s, all time signatures in the output will
+        be commented out with ``%%%.`` This is because Abjad only applies time
+        signatures to containers that belong to a |abjad.Staff|. The present
+        function works with either |abjad.Container| and |abjad.Staff|.
 
-        >>> container = abjad.Container(r"\time 3/4 r2. \times 3/2 {r4 r4}")
-        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
-            r2.
-            r2.
+            c'4
+            d'4
+            e'4
         }
 
         .. figure:: ../_images/image-extract_trivial_tuplets-10.png
@@ -177,13 +178,14 @@ def extract_trivial_tuplets(selection: abjad.Selection):
         >>> abjad.f(container)
         {
             \time 3/4
-            r2.
-            r2.
+            c'4
+            d'4
+            e'4
         }
 
         .. figure:: ../_images/image-extract_trivial_tuplets-11.png
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

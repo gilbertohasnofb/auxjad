@@ -94,7 +94,7 @@ def test_LeafDynMaker_03():
 
 
 def test_LeafDynMaker_04():
-    pitches = [0, 2, 4, 5, 7, 9]
+    pitches = [0, 2, 4, 5, 7, 9, 11, 12]
     durations = (1, 4)
     dynamics = ['p', 'f', 'ff']
     articulations = ['.', '>']
@@ -116,12 +116,14 @@ def test_LeafDynMaker_04():
             f'4
             g'4
             a'4
+            b'4
+            c''4
         }
         """)
 
 
 def test_LeafDynMaker_05():
-    pitches = [0, 2, 4, 5, 7, 9]
+    pitches = [0, 2, 4, 5, 7, 9, 11, 12]
     durations = (1, 4)
     dynamics = ['p', 'f', 'ff']
     articulations = ['.', '>']
@@ -156,12 +158,18 @@ def test_LeafDynMaker_05():
             a'4
             \ff
             - \accent
+            b'4
+            \p
+            - \staccato
+            c''4
+            \f
+            - \accent
         }
         """)
 
 
 def test_LeafDynMaker_06():
-    pitches = [0, 2, 4, 5, 7, 9]
+    pitches = [0, 2, 4, 5, 7, 9, 11, 12]
     durations = (1, 4)
     dynamics = 'p'
     articulations = '.'
@@ -180,12 +188,14 @@ def test_LeafDynMaker_06():
             f'4
             g'4
             a'4
+            b'4
+            c''4
         }
         """)
 
 
 def test_LeafDynMaker_07():
-    pitches = [0, 2, 4, 5, 7, 9]
+    pitches = [0, 2, 4, 5, 7, 9, 11, 12]
     durations = (1, 4)
     dynamics = 'p'
     articulations = '.'
@@ -213,6 +223,10 @@ def test_LeafDynMaker_07():
             g'4
             - \staccato
             a'4
+            - \staccato
+            b'4
+            - \staccato
+            c''4
             - \staccato
         }
         """)

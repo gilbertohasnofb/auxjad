@@ -28,7 +28,7 @@ def respell_accidentals(selection: abjad.Selection,
 
         .. figure:: ../_images/image-respell_accidentals-1.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either

@@ -28,7 +28,7 @@ class Mutation:
         >>> auxjad.mutate(staff[2:])
         Mutation(client=Selection([Note("d'4"), Note("f'4")]))
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds all methods of :class:`Mutation` as
         extension methods to |abjad.mutate()|. Therefore they can be used from
@@ -72,7 +72,6 @@ class Mutation:
             prettify=prettify,
             extract_trivial_tuplets=extract_trivial_tuplets,
         )
-
 
     def close_container(self):
         close_container(self.client)
@@ -152,9 +151,9 @@ class Mutation:
                          implicit_clef: abjad.Clef = abjad.Clef('treble'),
                          ):
         reposition_clefs(self._client,
-                                shift_clef_to_notes=shift_clef_to_notes,
-                                implicit_clef=implicit_clef,
-                                )
+                         shift_clef_to_notes=shift_clef_to_notes,
+                         implicit_clef=implicit_clef,
+                         )
 
     def reposition_dynamics(self,
                             *,
@@ -255,7 +254,7 @@ def mutate(client):
         >>> auxjad.mutate(staff[2:])
         Mutation(client=Selection([Note("d'4"), Note("f'4")]))
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds all methods of :class:`Mutation` as
         extension methods to |abjad.mutate()|. Therefore they can be used from

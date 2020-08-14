@@ -70,7 +70,7 @@ def fill_with_rests(container: abjad.Container,
 
         .. figure:: ../_images/image-fill_with_rests-4.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -126,41 +126,34 @@ def fill_with_rests(container: abjad.Container,
 
         .. figure:: ../_images/image-fill_with_rests-7.png
 
-    ..  note::
+    .. note::
 
         When using |abjad.Container|'s, all time signatures in the output will
         be commented out with ``%%%.`` This is because Abjad only applies time
         signatures to containers that belong to a |abjad.Staff|. The present
         function works with either |abjad.Container| and |abjad.Staff|.
 
-        >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
-        >>> auxjad.mutate(container).fill_with_rests()
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> abjad.f(container)
         {
-            %%% \time 4/4 %%%
+            %%% \time 3/4 %%%
             c'4
             d'4
             e'4
-            f'4
-            g'4
-            r2.
         }
 
-        .. figure:: ../_images/image-close_container-8.png
+        .. figure:: ../_images/image-fill_with_rests-8.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
         {
-            \time 4/4
+            \time 3/4
             c'4
             d'4
             e'4
-            f'4
-            g'4
-            r2.
         }
 
-        .. figure:: ../_images/image-close_container-9.png
+        .. figure:: ../_images/image-fill_with_rests-9.png
 
     Partial time signatures:
         Correctly handles partial time signatures.
@@ -221,7 +214,7 @@ def fill_with_rests(container: abjad.Container,
 
         .. figure:: ../_images/image-fill_with_rests-12.png
 
-    ..  error::
+    .. error::
 
         If a container is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
@@ -232,7 +225,7 @@ def fill_with_rests(container: abjad.Container,
         ValueError: 'container' is malformed, with an underfull measure
         preceding a time signature change
 
-    ..  warning::
+    .. warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

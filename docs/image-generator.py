@@ -64,10 +64,6 @@ for namespace in (auxjad, auxjad.Mutation, auxjad.Inspection):
                                 + '.ly')
                     with open(directory + filename, 'w+') as f:
                         f.write(ly_header)
-                        # removing comments from time signatures
-                        match = match.replace(r'%%% ', '')
-                        match = match.replace(r'%%%', '')
-                        match = textwrap.dedent(match)
                         if r'\new' in match:
                             f.write(match)
                         elif match[0] == r'{' and match[-1] == r'}':
@@ -101,10 +97,6 @@ for read_file in os.listdir('./examples'):
                                 + '-' + str(n + 1) + '.ly')
                     with open(directory + filename, 'w+') as f:
                         f.write(ly_header)
-                        # removing comments from time signatures
-                        match = match.replace(r'%%% ', '')
-                        match = match.replace(r'%%%', '')
-                        match = textwrap.dedent(match)
                         if r'\new' in match:
                             f.write(match)
                         elif match[0] == r'{' and match[-1] == r'}':

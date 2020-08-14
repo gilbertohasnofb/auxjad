@@ -19,7 +19,7 @@ def time_signature_extractor(container: abjad.Container,
         >>> time_sigs
         [TimeSignature((3, 4)), TimeSignature((4, 4))]
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.inspect()|. Therefore it can be used from either
@@ -69,7 +69,7 @@ def time_signature_extractor(container: abjad.Container,
         >>> time_sigs
         [abjad.TimeSignature((3, 4)), None, None, None]
 
-    ..  error::
+    .. error::
 
         Setting both ``do_not_use_none`` and ``omit_repeated`` to ``True``
         will raise a :exc:`ValueError` exception:
@@ -101,7 +101,7 @@ def time_signature_extractor(container: abjad.Container,
         >>> time_sigs
         [None, None, None, None]
 
-    ..  error::
+    .. error::
 
         Setting ``do_not_use_none`` to ``True`` and ``implicit_common_time`` to
         ``False`` on a container that starts with no time signature will raise

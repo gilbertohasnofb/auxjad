@@ -19,7 +19,7 @@ class Inspection:
         >>> auxjad.inspect(staff[2:])
         Inspection(client=Selection([Note("d'4"), Note("f'4")]))
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds all methods of :class:`Inspection` as
         extension methods to |abjad.inspect()|. Therefore they can be used from
@@ -123,7 +123,7 @@ def inspect(client):
         >>> auxjad.inspect(staff[2:])
         Inspection(client=Selection([Note("d'4"), Note("f'4")]))
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds all methods of :class:`Inspection` as
         extension methods to |abjad.inspect()|. Therefore they can be used from

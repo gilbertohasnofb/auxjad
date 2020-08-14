@@ -460,7 +460,7 @@ class LeafLooper(_LooperParent):
 
         .. figure:: ../_images/image-LeafLooper-12.png
 
-    ..  tip::
+    .. tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
@@ -636,7 +636,7 @@ class LeafLooper(_LooperParent):
 
         .. figure:: ../_images/image-LeafLooper-19.png
 
-    ..  warning::
+    .. warning::
 
         This class can handle tuplets, but the engraving of the output is not
         ideal and so this functionality should be considered experimental. Time
@@ -689,7 +689,7 @@ class LeafLooper(_LooperParent):
         |auxjad.mutate().reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    ..  warning::
+    .. warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes

@@ -55,7 +55,7 @@ def enforce_time_signature(container: abjad.Container,
 
         .. figure:: ../_images/image-enforce_time_signature-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -564,35 +564,22 @@ def enforce_time_signature(container: abjad.Container,
 
     .. note::
 
-        It is important to notice that the time signatures in the output are
-        commented out with ``%%%`` if the input is of type |abjad.Container|.
-        This is because Abjad only applies time signatures to containers that
-        belong to a |abjad.Staff|. The present function works with either
-        |abjad.Container| and |abjad.Staff|.
+        When using |abjad.Container|'s, all time signatures in the output will
+        be commented out with ``%%%.`` This is because Abjad only applies time
+        signatures to containers that belong to a |abjad.Staff|. The present
+        function works with either |abjad.Container| and |abjad.Staff|.
 
-        >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4 g'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 4/4 %%%
-            c'4
-            d'4
-            e'4
-            f'4
-            g'4
-        }
-        >>> auxjad.mutate(container).enforce_time_signature(
-        ...     abjad.TimeSignature((3, 4)),
-        ... )
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> abjad.f(container)
         {
             %%% \time 3/4 %%%
             c'4
             d'4
             e'4
-            f'4
-            g'4
-            r4
         }
+
+        .. figure:: ../_images/image-enforce_time_signature-25.png
+
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
         {
@@ -600,12 +587,12 @@ def enforce_time_signature(container: abjad.Container,
             c'4
             d'4
             e'4
-            f'4
-            g'4
-            r4
         }
 
-    ..  warning::
+        .. figure:: ../_images/image-enforce_time_signature-26.png
+
+
+    .. warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

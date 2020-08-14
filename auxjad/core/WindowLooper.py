@@ -596,7 +596,7 @@ class WindowLooper(_LooperParent):
 
         .. figure:: ../_images/image-WindowLooper-16.png
 
-    ..  tip::
+    .. tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
@@ -783,7 +783,7 @@ class WindowLooper(_LooperParent):
         |auxjad.mutate().reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    ..  warning::
+    .. warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes
@@ -835,7 +835,7 @@ class WindowLooper(_LooperParent):
         :attr:`rewrite_tuplets`, which work exactly as the identically named
         arguments of |abjad.mutate().rewrite_meter()|.
 
-    ..  warning::
+    .. warning::
 
         This class can handle tuplets, but the output is often quite complex.
         Although the result will be rhythmically correct, consecutive tuplets

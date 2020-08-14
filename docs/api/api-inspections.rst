@@ -7,7 +7,7 @@ all return a :obj:`bool` value with the exception of
 |auxjad.inspect().underfull_duration()| which returns an |abjad.Duration|.
 
 
-..  note::
+.. note::
 
     These functions are imported directly into the |auxjad|_ namespace.
     Therefore, to use a function such as |auxjad.inspect().selection_is_full()|
@@ -32,11 +32,6 @@ names for their individual documentation.
 
     auxjad.inspect
     auxjad.Inspection
-    auxjad.Inspection.selection_is_full
-    auxjad.Inspection.selections_are_equal
-    auxjad.Inspection.leaves_are_tieable
-    auxjad.Inspection.time_signature_extractor
-    auxjad.Inspection.underfull_duration
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

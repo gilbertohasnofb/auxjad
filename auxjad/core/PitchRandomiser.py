@@ -67,7 +67,7 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-3.png
 
-    ..  warning::
+    .. warning::
 
         Unlike the other classes in Auxjad, the very first call of this class
         will already process the initial container. To disable this behaviour
@@ -225,8 +225,8 @@ class PitchRandomiser:
 
         .. figure:: ../_images/image-PitchRandomiser-7.png
 
-        The number of note heads in a chord stay the same unless there are
-        fewer pitches available in :attr:`pitches`.
+        The number of notes in a chord stay the same unless there are fewer
+        pitches available in :attr:`pitches`.
 
         >>> container = abjad.Container(
         ...     r"<c' e' g' a'>2 <cs' ds' e' f' g' a' b'>2")
@@ -401,7 +401,7 @@ class PitchRandomiser:
         >>> randomiser.weights
         None
 
-    ..  error::
+    .. error::
 
         Note that :attr:`weights` must always have the same length as
         :attr:`pitches`, otherwise a :exc:`ValueError` exception will be

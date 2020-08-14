@@ -24,7 +24,7 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
         >>> auxjad.inspect([leaf1, leaf2]).leaves_are_tieable()
         True
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.inspect()|. Therefore it can be used from either

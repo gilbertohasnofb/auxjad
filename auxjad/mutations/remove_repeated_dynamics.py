@@ -45,7 +45,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -321,7 +321,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         .. figure:: ../_images/image-remove_repeated_dynamics-15.png
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

@@ -108,7 +108,7 @@ class LeafDynMaker(abjad.LeafMaker):
         The lengths ``dynamics`` and ``articulations`` can be shorter than the
         lengths of ``pitches`` and ``durations`` (whatever is the greatest):
 
-        >>> pitches = [0, 2, 4, 5, 7, 9]
+        >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
         >>> dynamics = ['p', 'f', 'ff']
         >>> articulations = ['.', '>']
@@ -129,6 +129,8 @@ class LeafDynMaker(abjad.LeafMaker):
             f'4
             g'4
             a'4
+            b'4
+            c''4
         }
 
         .. figure:: ../_images/image-LeafDynMaker-4.png
@@ -139,7 +141,7 @@ class LeafDynMaker(abjad.LeafMaker):
         greatest), use the optional keyword arguments ``cyclic_dynamics`` and
         ``cyclic_articulations`` to apply those parameters cyclically:
 
-        >>> pitches = [0, 2, 4, 5, 7, 9]
+        >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
         >>> dynamics = ['p', 'f', 'ff']
         >>> articulations = ['.', '>']
@@ -173,6 +175,12 @@ class LeafDynMaker(abjad.LeafMaker):
             a'4
             \ff
             - \accent
+            b'4
+            \p
+            - \staccato
+            c''4
+            \f
+            - \accent
         }
 
         .. figure:: ../_images/image-LeafDynMaker-5.png
@@ -181,7 +189,7 @@ class LeafDynMaker(abjad.LeafMaker):
         If the length of ``articulations`` or ``dynamics`` is ``1``, they will
         be applied only to the first element.
 
-        >>> pitches = [0, 2, 4, 5, 7, 9]
+        >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
         >>> dynamics = 'p'
         >>> articulations = '.'
@@ -199,6 +207,8 @@ class LeafDynMaker(abjad.LeafMaker):
             f'4
             g'4
             a'4
+            b'4
+            c''4
         }
 
         .. figure:: ../_images/image-LeafDynMaker-6.png
@@ -207,7 +217,7 @@ class LeafDynMaker(abjad.LeafMaker):
         To apply them to all elements, use the ``cyclic_dynamics`` and
         ``cyclic_articulations`` optioanl keywords.
 
-        >>> pitches = [0, 2, 4, 5, 7, 9]
+        >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
         >>> dynamics = 'p'
         >>> articulations = '.'
@@ -235,6 +245,10 @@ class LeafDynMaker(abjad.LeafMaker):
             -\staccato
             a'4
             -\staccato
+            b'4
+            - \staccato
+            c''4
+            - \staccato
         }
 
         .. figure:: ../_images/image-LeafDynMaker-7.png

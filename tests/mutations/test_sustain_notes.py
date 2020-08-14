@@ -68,11 +68,12 @@ def test_sustain_notes_04():
         """)
 
 
-def test_sustain_notes_04():
+def test_sustain_notes_05():
     staff = abjad.Staff(r"c'16 r8. d'16 r8. r8 r32 <e' g'>32 r16 r4 "
                         r"\times 2/3 {r4 f'4 r4} r4 g'8 r8 a'4 ~ "
                         r"a'16 r8. b'4 c''8 r8 "
-                        r"r4. d''8 \times 4/5 {r8 d''2} ")
+                        r"r4. d''8 \times 4/5 {r8 d''2}"
+                        )
     auxjad.mutate(staff).sustain_notes()
     assert format(staff) == abjad.String.normalize(
         r"""

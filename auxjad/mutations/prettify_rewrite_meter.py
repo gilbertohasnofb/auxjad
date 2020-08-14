@@ -3,7 +3,7 @@ from typing import Union
 import abjad
 
 from .extract_trivial_tuplets import (
-    extract_trivial_tuplets as extract_trivial_tuplets_function
+    extract_trivial_tuplets as extract_trivial_tuplets_function,
 )
 
 
@@ -69,7 +69,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-2.png
 
-    ..  note::
+    .. note::
 
         Auxjad automatically adds this function as an extension method to
         |abjad.mutate()|. It can thus be used from either
@@ -648,14 +648,14 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/image-prettify_rewrite_meter-21.png
 
-    ..  tip::
+    .. tip::
 
         Use :func:`auxjad.auto_rewrite_meter()` to automatically apply
         |abjad.mutate().rewrite_meter()| and
         |auxjad.mutate().prettify_rewrite_meter()| to a container with multiple
         time signatures.
 
-    ..  warning::
+    .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

@@ -1,9 +1,7 @@
 import abjad
 
-from ..inspections.inspect import inspect
-from ..utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio,
-)
+from ..inspect import inspect
+from ..simplified_time_signature_ratio import simplified_time_signature_ratio
 
 
 def close_container(container: abjad.Container):

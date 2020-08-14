@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..mutations.mutate import mutate
+from ..utilities.mutate import mutate
 from .TenneySelector import TenneySelector
 
 

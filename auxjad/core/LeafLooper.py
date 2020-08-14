@@ -1,6 +1,6 @@
 import abjad
 
-from ..mutations.mutate import mutate
+from ..utilities.mutate import mutate
 from ..utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,
 )

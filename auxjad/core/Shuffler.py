@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
-from ..inspections.inspect import inspect
-from ..mutations.mutate import mutate
+from ..utilities.inspect import inspect
+from ..utilities.mutate import mutate
 
 
 class Shuffler:

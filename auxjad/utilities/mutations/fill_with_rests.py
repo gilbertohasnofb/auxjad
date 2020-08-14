@@ -1,6 +1,6 @@
 import abjad
 
-from ..inspections.inspect import inspect
+from ..inspect import inspect
 
 
 def fill_with_rests(container: abjad.Container,

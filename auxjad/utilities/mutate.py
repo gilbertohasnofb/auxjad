@@ -2,21 +2,23 @@ from typing import Optional, Union
 
 import abjad
 
-from .auto_rewrite_meter import auto_rewrite_meter
-from .close_container import close_container
-from .enforce_time_signature import enforce_time_signature
-from .extract_trivial_tuplets import extract_trivial_tuplets
-from .fill_with_rests import fill_with_rests
-from .prettify_rewrite_meter import prettify_rewrite_meter
-from .remove_repeated_dynamics import remove_repeated_dynamics
-from .remove_repeated_time_signatures import remove_repeated_time_signatures
-from .reposition_clefs import reposition_clefs
-from .reposition_dynamics import reposition_dynamics
-from .reposition_slurs import reposition_slurs
-from .respell_accidentals import respell_accidentals
-from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
-from .sustain_notes import sustain_notes
-from .sync_containers import sync_containers
+from .mutations.auto_rewrite_meter import auto_rewrite_meter
+from .mutations.close_container import close_container
+from .mutations.enforce_time_signature import enforce_time_signature
+from .mutations.extract_trivial_tuplets import extract_trivial_tuplets
+from .mutations.fill_with_rests import fill_with_rests
+from .mutations.prettify_rewrite_meter import prettify_rewrite_meter
+from .mutations.remove_repeated_dynamics import remove_repeated_dynamics
+from .mutations.remove_repeated_time_signatures import (
+    remove_repeated_time_signatures,
+)
+from .mutations.reposition_clefs import reposition_clefs
+from .mutations.reposition_dynamics import reposition_dynamics
+from .mutations.reposition_slurs import reposition_slurs
+from .mutations.respell_accidentals import respell_accidentals
+from .mutations.rests_to_multimeasure_rest import rests_to_multimeasure_rest
+from .mutations.sustain_notes import sustain_notes
+from .mutations.sync_containers import sync_containers
 
 
 class Mutation:

@@ -1,6 +1,6 @@
 import abjad
 
-from ..inspections.inspect import inspect
+from ..inspect import inspect
 from .extract_trivial_tuplets import (
     extract_trivial_tuplets as extract_trivial_tuplets_function,
 )

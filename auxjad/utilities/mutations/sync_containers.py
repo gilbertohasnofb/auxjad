@@ -3,10 +3,8 @@ from typing import Iterable, Union
 
 import abjad
 
-from ..inspections.inspect import inspect
-from ..utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio,
-)
+from ..inspect import inspect
+from ..simplified_time_signature_ratio import simplified_time_signature_ratio
 from .close_container import close_container
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 

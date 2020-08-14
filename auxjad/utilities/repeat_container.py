@@ -1,7 +1,7 @@
 import abjad
 
-from ..inspections.inspect import inspect
-from ..mutations.mutate import mutate
+from .inspect import inspect
+from .mutate import mutate
 
 
 def repeat_container(container: abjad.Container,

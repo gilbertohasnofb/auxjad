@@ -3,11 +3,11 @@ from typing import Iterable, Union
 
 import abjad
 
-from .leaves_are_tieable import leaves_are_tieable
-from .selection_is_full import selection_is_full
-from .selections_are_equal import selections_are_equal
-from .time_signature_extractor import time_signature_extractor
-from .underfull_duration import underfull_duration
+from .inspections.leaves_are_tieable import leaves_are_tieable
+from .inspections.selection_is_full import selection_is_full
+from .inspections.selections_are_equal import selections_are_equal
+from .inspections.time_signature_extractor import time_signature_extractor
+from .inspections.underfull_duration import underfull_duration
 
 
 class Inspection:

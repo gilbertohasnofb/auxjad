@@ -29,12 +29,10 @@ from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
 
-from .inspections.inspect import Inspection
-from .inspections.inspect import inspect
-
-from .mutations.mutate import Mutation
-from .mutations.mutate import mutate
-
+from .utilities.inspect import Inspection
+from .utilities.inspect import inspect
+from .utilities.mutate import Mutation
+from .utilities.mutate import mutate
 from .utilities.repeat_container import repeat_container
 from .utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,

@@ -201,13 +201,11 @@ def test_repeat_container_08():
             d4
             (
             f4
-            (
             e4
             )
             d4
             (
             f4
-            (
             e4
             )
             d4

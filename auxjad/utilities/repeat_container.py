@@ -197,13 +197,11 @@ def repeat_container(container: abjad.Container,
             d4
             (
             f4
-            (
             e4
             )
             d4
             (
             f4
-            (
             e4
             )
             d4

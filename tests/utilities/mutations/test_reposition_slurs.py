@@ -183,6 +183,68 @@ def test_reposition_slurs_10():
 
 
 def test_reposition_slurs_11():
+    staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
+    auxjad.mutate(staff[:]).reposition_slurs()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+            (
+            a'1
+            )
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
+    auxjad.mutate(staff[:]).reposition_slurs(
+        close_unterminated_final_slur=False
+    )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+            (
+            a'1
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( r1")
+    auxjad.mutate(staff[:]).reposition_slurs()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+            r1
+        }
+        """)
     staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
     auxjad.mutate(staff[:]).reposition_slurs()
     assert format(staff) == abjad.String.normalize(
@@ -201,8 +263,11 @@ def test_reposition_slurs_11():
             g'1
         }
         """)
-    staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
-    auxjad.mutate(staff[:]).reposition_slurs(remove_unterminated_slurs=False)
+
+
+def test_reposition_slurs_12():
+    staff = abjad.Staff(r"c'1( d'2) e'2) f'2( g'2( a'1)")
+    auxjad.mutate(staff[:]).reposition_slurs()
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -211,18 +276,17 @@ def test_reposition_slurs_11():
             (
             d'2
             )
-            r2
             e'2
-            (
             f'2
-            )
-            g'1
             (
+            g'2
+            a'1
+            )
         }
         """)
 
 
-def test_reposition_slurs_12():
+def test_reposition_slurs_13():
     staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
     abjad.mutate(staff[:]).reposition_slurs()
     assert format(staff) == abjad.String.normalize(

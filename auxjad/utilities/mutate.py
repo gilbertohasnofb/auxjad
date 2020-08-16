@@ -177,12 +177,12 @@ class Mutation:
     def reposition_slurs(self,
                          *,
                          allow_slurs_under_rests: bool = False,
-                         remove_unterminated_slurs: bool = True,
+                         close_unterminated_final_slur: bool = True,
                          ):
         reposition_slurs(
             self._client,
             allow_slurs_under_rests=allow_slurs_under_rests,
-            remove_unterminated_slurs=remove_unterminated_slurs,
+            close_unterminated_final_slur=close_unterminated_final_slur,
         )
 
     def respell_accidentals(self,
@@ -395,12 +395,13 @@ def _reposition_dynamics(
 def _reposition_slurs(self,
                       *,
                       allow_slurs_under_rests: bool = False,
-                      remove_unterminated_slurs: bool = False,
+                      close_unterminated_final_slur: bool = False,
                       ):
-    reposition_slurs(self._client,
-                     allow_slurs_under_rests=allow_slurs_under_rests,
-                     remove_unterminated_slurs=remove_unterminated_slurs,
-                     )
+    reposition_slurs(
+        self._client,
+        allow_slurs_under_rests=allow_slurs_under_rests,
+        close_unterminated_final_slur=close_unterminated_final_slur,
+    )
 
 
 def _respell_accidentals(self,

@@ -839,7 +839,6 @@ class Phaser():
             (
             c'4.
             \<
-            (
             d'4.
             e'8
             \f
@@ -861,7 +860,6 @@ class Phaser():
             (
             c'4
             ~
-            (
             c'16
             \<
             d'8.
@@ -891,7 +889,6 @@ class Phaser():
             (
             c'4
             \<
-            (
             d'4.
             e'8
             \f

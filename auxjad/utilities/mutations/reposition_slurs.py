@@ -4,7 +4,7 @@ import abjad
 def reposition_slurs(selection: abjad.Selection,
                      *,
                      allow_slurs_under_rests: bool = False,
-                     remove_unterminated_slurs: bool = True,
+                     close_unterminated_final_slur: bool = True,
                      ):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function repositions all slurs that starts or ends on rests.
@@ -162,10 +162,11 @@ def reposition_slurs(selection: abjad.Selection,
 
         .. figure:: ../_images/image-reposition_slurs-8.png
 
-    ``remove_unterminated_slurs``:
-        By default, unterminated slurs are removed.
+    ``close_unterminated_final_slur``:
+        By default, unterminated slurs at the end of the selection are closed
+        when possible or removed when not.
 
-        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
+        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
         >>> auxjad.mutate(staff[:]).reposition_slurs()
         >>> abjad.f(staff)
         \new Staff
@@ -180,16 +181,19 @@ def reposition_slurs(selection: abjad.Selection,
             f'2
             )
             g'1
+            (
+            a'1
+            )
         }
 
         .. figure:: ../_images/image-reposition_slurs-9.png
 
-        Set the optional keyword argument ``remove_unterminated_slurs`` to
-        ``True`` to disable this behaviour.
+        Set the optional keyword argument ``close_unterminated_final_slur`` to
+        ``False`` to disable this behaviour.
 
-        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
+        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
         >>> auxjad.mutate(staff[:]).reposition_slurs(
-        ...     remove_unterminated_slurs=False
+        ...     close_unterminated_final_slur=False
         ... )
         >>> abjad.f(staff)
         \new Staff
@@ -205,9 +209,58 @@ def reposition_slurs(selection: abjad.Selection,
             )
             g'1
             (
+            a'1
         }
 
         .. figure:: ../_images/image-reposition_slurs-10.png
+
+        When there are no pitched leaves left after an unterminated open slur,
+        it is removed.
+
+        >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( r1")
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            r2
+            e'2
+            (
+            f'2
+            )
+            g'1
+            r1
+        }
+
+        .. figure:: ../_images/image-reposition_slurs-11.png
+
+    .. note::
+
+        Duplicate slur starts or stops are removed. Note that the score output
+        will not change, as LilyPond also ignores duplicate slurs, but the
+        output of |abjad.f()| will be cleaner.
+
+        >>> staff = abjad.Staff(r"c'1( d'2) e'2) f'2( g'2( a'1)")
+        >>> auxjad.mutate(staff[:]).reposition_slurs()
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'1
+            (
+            d'2
+            )
+            e'2
+            f'2
+            (
+            g'2
+            a'1
+            )
+        }
+
+        .. figure:: ../_images/image-reposition_slurs-12.png
 
     .. warning::
 
@@ -222,11 +275,13 @@ def reposition_slurs(selection: abjad.Selection,
         raise ValueError("argument must be contiguous logical voice")
     if not isinstance(allow_slurs_under_rests, bool):
         raise TypeError("'allow_slurs_under_rests' must be 'bool'")
+    if not isinstance(close_unterminated_final_slur, bool):
+        raise TypeError("'close_unterminated_final_slur' must be 'bool'")
 
     leaves = selection.leaves()
 
-    # checking for unfinished slurs
-    if remove_unterminated_slurs:
+    # checking for final unfinished slurs
+    if close_unterminated_final_slur:
         for leaf in leaves[::-1]:
             inspector = abjad.inspect(leaf)
             if inspector.indicator(abjad.StartSlur) is not None:
@@ -237,6 +292,22 @@ def reposition_slurs(selection: abjad.Selection,
                     abjad.attach(abjad.StopSlur(), leaves[-1])
             if inspector.indicator(abjad.StopSlur) is not None:
                 break
+
+    # checking for duplicate open or close slurs
+    start_slur_count = 0
+    stop_slur_count = 0
+    for leaf in leaves:
+        inspector = abjad.inspect(leaf)
+        if inspector.indicator(abjad.StartSlur) is not None:
+            start_slur_count += 1
+            stop_slur_count = 0
+            if start_slur_count > 1:
+                abjad.detach(abjad.StartSlur(), leaf)
+        elif inspector.indicator(abjad.StopSlur) is not None:
+            stop_slur_count += 1
+            start_slur_count = 0
+            if stop_slur_count > 1:
+                abjad.detach(abjad.StopSlur(), leaf)
 
     # shifting slurs from rests to notes
     shifted_startslur = None

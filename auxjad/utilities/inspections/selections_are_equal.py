@@ -69,7 +69,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> selections = [container1[:], container2[:]]
         >>> auxjad.inspect(selections).selections_are_equal(
-        ...     include_indicators=False
+        ...     include_indicators=False,
         ... )
         True
 

@@ -204,7 +204,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         .. figure:: ../_images/image-remove_repeated_dynamics-9.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
-        ...     ignore_hairpins=True
+        ...     ignore_hairpins=True,
         ... )
         >>> abjad.f(staff)
         \new Staff
@@ -246,7 +246,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
-        ...     reset_after_rests=True
+        ...     reset_after_rests=True,
         ... )
         >>> abjad.f(staff)
         \new Staff

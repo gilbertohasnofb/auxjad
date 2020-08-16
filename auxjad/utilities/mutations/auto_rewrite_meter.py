@@ -308,7 +308,7 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
         ... )
         >>> auxjad.mutate(staff).auto_rewrite_meter(
-        ...     extract_trivial_tuplets=False
+        ...     extract_trivial_tuplets=False,
         ... )
         >>> abjad.f(staff)
         \new Staff

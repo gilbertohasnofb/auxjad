@@ -1057,7 +1057,7 @@ class Shuffler:
                 self._pitches.append(leaf.written_pitches)
 
     def _shuffle_list_preserving_rests(self,
-                                       input_list: list
+                                       input_list: list,
                                        ) -> list:
         r'Shuffles a :obj:`list` while keeping rest indeces unchanged.'
         dummy_list = [input_list[i] for i in range(len(input_list))

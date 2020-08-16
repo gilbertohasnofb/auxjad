@@ -164,14 +164,13 @@ class Mutation:
                             remove_repeated_dynamics: bool = True,
                             allow_hairpin_to_rest_with_dynamic: bool = True,
                             ):
+        allow_hairpin_to_rest_with_dyn = allow_hairpin_to_rest_with_dynamic
         reposition_dynamics(
             self._client,
             allow_hairpins_under_rests=allow_hairpins_under_rests,
             check_hairpin_trends=check_hairpin_trends,
             remove_repeated_dynamics=remove_repeated_dynamics,
-            allow_hairpin_to_rest_with_dynamic=(
-                allow_hairpin_to_rest_with_dynamic
-            ),
+            allow_hairpin_to_rest_with_dynamic=allow_hairpin_to_rest_with_dyn,
         )
 
     def reposition_slurs(self,

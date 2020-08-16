@@ -1316,3 +1316,98 @@ def test_Phaser_25():
             \p
         }
         """)
+
+
+def test_Phaser_26():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 32),
+                           )
+    notes = phaser.output_n(3, tie_identical_pitches=True)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'4
+            f'4
+            c'8..
+            d'32
+            ~
+            d'8..
+            e'32
+            ~
+            e'8..
+            f'32
+            ~
+            f'8..
+            c'32
+            ~
+            c'8.
+            d'16
+            ~
+            d'8.
+            e'16
+            ~
+            e'8.
+            f'16
+            ~
+            f'8.
+            c'16
+        }
+        """)
+
+
+def test_Phaser_27():
+    container = abjad.Container(r"c'2 d'2")
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 8),
+                           )
+    notes = phaser.output_all(tie_identical_pitches=True)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'2
+            d'2
+            c'4.
+            d'8
+            ~
+            d'4.
+            c'8
+            ~
+            c'4
+            d'2
+            c'4
+            ~
+            c'8
+            d'8
+            ~
+            d'4.
+            c'4.
+            d'2
+            c'2
+            d'4.
+            c'8
+            ~
+            c'4.
+            d'8
+            ~
+            d'4
+            c'2
+            d'4
+            ~
+            d'8
+            c'8
+            ~
+            c'4.
+            d'4.
+            c'2
+            d'2
+        }
+        """)

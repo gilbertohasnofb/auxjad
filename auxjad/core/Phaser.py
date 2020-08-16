@@ -568,6 +568,53 @@ class Phaser():
 
         .. figure:: ../_images/image-Phaser-14.png
 
+    ``tie_identical_pitches``:
+        Both :meth:`output_n` and :meth:`output_all` methods can receive the
+        keyword argument ``tie_identical_pitches``, which will tie identical
+        pitches across iterations of the process when set to ``True`` (default
+        is ``False``). Compare the output below with the example just above.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> phaser = auxjad.Phaser(container,
+        ...                        step_size=(1, 32),
+        ...                        )
+        >>> notes = phaser.output_n(3, tie_identical_pitches=True)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            d'4
+            e'4
+            f'4
+            c'8..
+            d'32
+            ~
+            d'8..
+            e'32
+            ~
+            e'8..
+            f'32
+            ~
+            f'8..
+            c'32
+            ~
+            c'8.
+            d'16
+            ~
+            d'8.
+            e'16
+            ~
+            e'8.
+            f'16
+            ~
+            f'8.
+            c'16
+        }
+
+        .. figure:: ../_images/image-Phaser-15.png
+
     :attr:`remove_unterminated_ties`:
         All methods that call the phasing process (:meth:`__call__`,
         :meth:`__next__`, :meth:`output_all`, :meth:`output_n`) remove
@@ -601,7 +648,7 @@ class Phaser():
             ~
         }
 
-        .. figure:: ../_images/image-Phaser-15.png
+        .. figure:: ../_images/image-Phaser-16.png
 
     Time signature changes:
         This class handles time signature changes.
@@ -645,7 +692,7 @@ class Phaser():
             c'4
         }
 
-        .. figure:: ../_images/image-Phaser-16.png
+        .. figure:: ../_images/image-Phaser-17.png
 
     Indicators:
         This class can handle dynamics and articulations too. When a logical
@@ -732,7 +779,7 @@ class Phaser():
             - \tenuto
         }
 
-        .. figure:: ../_images/image-Phaser-17.png
+        .. figure:: ../_images/image-Phaser-18.png
 
     Slurs and hairpins:
         Slurs and hairpins are also supported.
@@ -859,7 +906,7 @@ class Phaser():
             \p
         }
 
-        .. figure:: ../_images/image-Phaser-18.png
+        .. figure:: ../_images/image-Phaser-19.png
 
     .. tip::
 
@@ -893,7 +940,7 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-19.png
+        .. figure:: ../_images/image-Phaser-20.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -914,7 +961,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-20.png
+        .. figure:: ../_images/image-Phaser-21.png
 
         >>> phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = phaser()
@@ -930,7 +977,7 @@ class Phaser():
             g'2.
         }
 
-        .. figure:: ../_images/image-Phaser-21.png
+        .. figure:: ../_images/image-Phaser-22.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -949,7 +996,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-22.png
+        .. figure:: ../_images/image-Phaser-23.png
 
     Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
@@ -968,7 +1015,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-23.png
+        .. figure:: ../_images/image-Phaser-24.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -989,7 +1036,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-24.png
+        .. figure:: ../_images/image-Phaser-25.png
 
         Other arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -1028,7 +1075,7 @@ class Phaser():
             c'4
         }
 
-        .. figure:: ../_images/image-Phaser-25.png
+        .. figure:: ../_images/image-Phaser-26.png
 
     .. tip::
 
@@ -1091,7 +1138,7 @@ class Phaser():
             }
         }
 
-        .. figure:: ../_images/image-Phaser-26.png
+        .. figure:: ../_images/image-Phaser-27.png
     """
 
     ### CLASS VARIABLES ###

@@ -32,7 +32,7 @@ def fill_with_rests(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-fill_with_rests-1.png
+        .. figure:: ../_images/fill_with_rests-up297scg6t.png
 
         >>> abjad.f(container2)
         {
@@ -42,7 +42,7 @@ def fill_with_rests(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/image-fill_with_rests-2.png
+        .. figure:: ../_images/fill_with_rests-azrrw0z0buw.png
 
         >>> abjad.f(container3)
         {
@@ -54,7 +54,7 @@ def fill_with_rests(container: abjad.Container,
             r2.
         }
 
-        .. figure:: ../_images/image-fill_with_rests-3.png
+        .. figure:: ../_images/fill_with_rests-jtyw5ikc0k.png
 
         >>> abjad.f(container4)
         {
@@ -68,7 +68,7 @@ def fill_with_rests(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-fill_with_rests-4.png
+        .. figure:: ../_images/fill_with_rests-xjkm2vzjfpr.png
 
     .. note::
 
@@ -100,7 +100,7 @@ def fill_with_rests(container: abjad.Container,
             r2.
         }
 
-        .. figure:: ../_images/image-fill_with_rests-5.png
+        .. figure:: ../_images/fill_with_rests-7zydps2jsb.png
 
         >>> abjad.f(staff2)
         {
@@ -111,7 +111,7 @@ def fill_with_rests(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/image-fill_with_rests-6.png
+        .. figure:: ../_images/fill_with_rests-1lphcrl5pnr.png
 
         >>> abjad.f(staff3)
         {
@@ -124,7 +124,7 @@ def fill_with_rests(container: abjad.Container,
             r2
         }
 
-        .. figure:: ../_images/image-fill_with_rests-7.png
+        .. figure:: ../_images/fill_with_rests-e00jvx986r.png
 
     .. note::
 
@@ -142,7 +142,7 @@ def fill_with_rests(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-fill_with_rests-8.png
+        .. figure:: ../_images/fill_with_rests-b0qflg50qfn.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -153,7 +153,7 @@ def fill_with_rests(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-fill_with_rests-9.png
+        .. figure:: ../_images/fill_with_rests-qtaswjiecg.png
 
     Partial time signatures:
         Correctly handles partial time signatures.
@@ -174,7 +174,7 @@ def fill_with_rests(container: abjad.Container,
             r2
         }
 
-        .. figure:: ../_images/image-fill_with_rests-10.png
+        .. figure:: ../_images/fill_with_rests-9smva9ajdi.png
 
     ``disable_rewrite_meter``:
         By default, this class uses the |abjad.mutate().rewrite_meter()|
@@ -194,7 +194,7 @@ def fill_with_rests(container: abjad.Container,
             r2
         }
 
-        .. figure:: ../_images/image-fill_with_rests-11.png
+        .. figure:: ../_images/fill_with_rests-n83nmnfh92c.png
 
         Call this function with the optional keyword argument
         ``disable_rewrite_meter`` set to ``True`` in order to disable this
@@ -212,7 +212,7 @@ def fill_with_rests(container: abjad.Container,
             r2
         }
 
-        .. figure:: ../_images/image-fill_with_rests-12.png
+        .. figure:: ../_images/fill_with_rests-9rg2i4n1vhr.png
 
     .. error::
 

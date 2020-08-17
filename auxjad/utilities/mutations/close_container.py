@@ -31,7 +31,7 @@ def close_container(container: abjad.Container):
             f'4
         }
 
-        .. figure:: ../_images/image-close_container-1.png
+        .. figure:: ../_images/close_container-nfnk06s90x.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -42,7 +42,7 @@ def close_container(container: abjad.Container):
             e'4
         }
 
-        .. figure:: ../_images/image-close_container-2.png
+        .. figure:: ../_images/close_container-swyxwiup8pm.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -55,7 +55,7 @@ def close_container(container: abjad.Container):
             c'4
         }
 
-        .. figure:: ../_images/image-close_container-3.png
+        .. figure:: ../_images/close_container-mms5hiysbwe.png
 
         >>> abjad.f(container4)
         \new Staff
@@ -70,7 +70,7 @@ def close_container(container: abjad.Container):
             f'4
         }
 
-        .. figure:: ../_images/image-close_container-4.png
+        .. figure:: ../_images/close_container-aky7avbla4w.png
 
     .. note::
 
@@ -103,7 +103,7 @@ def close_container(container: abjad.Container):
             g'4
         }
 
-        .. figure:: ../_images/image-close_container-5.png
+        .. figure:: ../_images/close_container-3tgyty245cq.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -114,7 +114,7 @@ def close_container(container: abjad.Container):
             c'4
         }
 
-        .. figure:: ../_images/image-close_container-6.png
+        .. figure:: ../_images/close_container-st5d89zofoh.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -127,7 +127,7 @@ def close_container(container: abjad.Container):
             af'2
         }
 
-        .. figure:: ../_images/image-close_container-7.png
+        .. figure:: ../_images/close_container-wd5irlm76l.png
 
     .. note::
 
@@ -145,7 +145,7 @@ def close_container(container: abjad.Container):
             e'4
         }
 
-        .. figure:: ../_images/image-close_container-8.png
+        .. figure:: ../_images/close_container-xrwkorhtl5.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -156,7 +156,7 @@ def close_container(container: abjad.Container):
             e'4
         }
 
-        .. figure:: ../_images/image-close_container-9.png
+        .. figure:: ../_images/close_container-ys6pcdlywy.png
 
     Partial time signatures:
         Correctly handles partial time signatures.
@@ -178,7 +178,7 @@ def close_container(container: abjad.Container):
             g'4
         }
 
-        .. figure:: ../_images/image-close_container-10.png
+        .. figure:: ../_images/close_container-rfskjbbfnu.png
 
     .. error::
 

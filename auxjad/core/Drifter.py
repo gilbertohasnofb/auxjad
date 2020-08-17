@@ -44,7 +44,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-1.png
+        .. figure:: ../_images/Drifter-gdofr6vtutv.png
 
         >>> selection_a, selection_b = drifter()
         >>> score = abjad.Score([
@@ -71,7 +71,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-2.png
+        .. figure:: ../_images/Drifter-ge0qzrwa7fr.png
 
         >>> selection_a, selection_b = drifter()
         >>> score = abjad.Score([
@@ -98,7 +98,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-3.png
+        .. figure:: ../_images/Drifter-0iynx7xenvmp.png
 
         The property :attr:`current_window` can be used to access the current
         window without processing it.
@@ -128,7 +128,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-4.png
+        .. figure:: ../_images/Drifter-kinei9zncl.png
 
     :meth:`output_all`:
         To run through the whole process and output it as a :obj:`tuple` of two
@@ -188,7 +188,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-5.png
+        .. figure:: ../_images/Drifter-0t206fb4ycne.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a :obj:`tuple`
@@ -230,7 +230,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-6.png
+        .. figure:: ../_images/Drifter-8o5fjalw1px.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -292,7 +292,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-7.png
+        .. figure:: ../_images/Drifter-3g9fv4ew4h9.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -459,7 +459,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-8.png
+        .. figure:: ../_images/Drifter-pauqe26ke8e.png
 
     Chords:
         This class also support chords. Each of their individual notes are
@@ -531,7 +531,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-9.png
+        .. figure:: ../_images/Drifter-lm8byjxoayn.png
 
     :func:`len()`:
         The function :func:`len()` returns the sum of the number of notes of
@@ -596,7 +596,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-10.png
+        .. figure:: ../_images/Drifter-sm9qcruxat.png
 
         >>> drifter = auxjad.Drifter(container_out,
         ...                          container_in,
@@ -635,7 +635,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-11.png
+        .. figure:: ../_images/Drifter-2a4cyxsyxrg.png
 
         >>> drifter = auxjad.Drifter(container_out,
         ...                          container_in,
@@ -678,7 +678,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-12.png
+        .. figure:: ../_images/Drifter-oap1pnwrfqc.png
 
     :attr:`weighted_duration`:
         Setting :attr:`weighted_duration` to ``True`` will give more weight to
@@ -783,7 +783,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-13.png
+        .. figure:: ../_images/Drifter-o58h79ijsdf.png
 
         >>> drifter = auxjad.Drifter(container_out,
         ...                          container_in,
@@ -889,7 +889,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-14.png
+        .. figure:: ../_images/Drifter-l3dc3vxfpdnsxdym4gql.png
 
     :attr:`initial_repetitions` and :attr:`final_repetitions`:
         The properties :attr:`initial_repetitions` and
@@ -949,7 +949,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-15.png
+        .. figure:: ../_images/Drifter-e480tbrvwg.png
 
     :attr:`repetition_chance`:
         Use :attr:`repetition_chance` to set the chance of a measure repeating
@@ -996,7 +996,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-16.png
+        .. figure:: ../_images/Drifter-743rxr2n02o.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -1038,7 +1038,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-17.png
+        .. figure:: ../_images/Drifter-aypzofmynwe.png
 
     .. tip::
 
@@ -1095,7 +1095,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-18.png
+        .. figure:: ../_images/Drifter-vprhoh84quk.png
 
         Arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are :attr:`boundary_depth`,
@@ -1190,7 +1190,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-19.png
+        .. figure:: ../_images/Drifter-w99zcui5rj.png
 
     Indicators:
         This class can also handle dynamics, articulations, chords, and
@@ -1281,7 +1281,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/image-Drifter-20.png
+        .. figure:: ../_images/Drifter-o0yetbq5wqj.png
 
     .. tip::
 
@@ -1394,7 +1394,7 @@ class Drifter():
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/image-Drifter-21.png
+        .. figure:: ../_images/Drifter-5qvaan79w8p.png
     """
 
     ### CLASS VARIABLES ###

@@ -27,7 +27,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-1.png
+        .. figure:: ../_images/extract_trivial_tuplets-4htz2xebxwf.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -36,7 +36,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             c'2
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-2.png
+        .. figure:: ../_images/extract_trivial_tuplets-2dbuwo4erhb.png
 
         It also works with containers with tuplets within tuplets.
 
@@ -52,7 +52,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-3.png
+        .. figure:: ../_images/extract_trivial_tuplets-8d5bcyxcmhc.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -60,7 +60,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             r1
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-4.png
+        .. figure:: ../_images/extract_trivial_tuplets-2a2fvwimyrx.png
 
         >>> container = abjad.Container(
         ...     r"\times 4/5 {c'2. ~ \times 2/3 {c'2 ~ c'4}}"
@@ -78,7 +78,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-5.png
+        .. figure:: ../_images/extract_trivial_tuplets-xka6r5iyo4l.png
 
         >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -86,7 +86,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             c'1
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-6.png
+        .. figure:: ../_images/extract_trivial_tuplets-f1qxi44xcsw.png
 
     Partial extraction:
         This function also extracts tuplets within tuplets.
@@ -110,7 +110,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-7.png
+        .. figure:: ../_images/extract_trivial_tuplets-adibnkb1mbs.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -123,7 +123,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-8.png
+        .. figure:: ../_images/extract_trivial_tuplets-xldohyedqs.png
 
     .. note::
 
@@ -155,7 +155,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             r2.
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-9.png
+        .. figure:: ../_images/extract_trivial_tuplets-sa1tqmvtkx.png
 
     .. note::
 
@@ -173,7 +173,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             e'4
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-10.png
+        .. figure:: ../_images/extract_trivial_tuplets-6wymsb7z1n4.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -184,7 +184,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             e'4
         }
 
-        .. figure:: ../_images/image-extract_trivial_tuplets-11.png
+        .. figure:: ../_images/extract_trivial_tuplets-moavfyqtxza.png
 
     .. warning::
 

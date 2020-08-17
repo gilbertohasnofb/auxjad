@@ -35,7 +35,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-1.png
+        .. figure:: ../_images/sync_containers-akcdf8t9e5.png
 
         >>> abjad.f(staff2)
         \new Staff
@@ -44,7 +44,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             c'1
         }
 
-        .. figure:: ../_images/image-sync_containers-2.png
+        .. figure:: ../_images/sync_containers-l7tru1tjoli.png
 
     .. note::
 
@@ -72,7 +72,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             e'4
         }
 
-        .. figure:: ../_images/image-sync_containers-3.png
+        .. figure:: ../_images/sync_containers-9sl3dnd2uwn.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -83,7 +83,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             e'4
         }
 
-        .. figure:: ../_images/image-sync_containers-4.png
+        .. figure:: ../_images/sync_containers-08v2pv2tmqqn.png
 
     Containers of same size:
         If all containers have the same size, no modification is applied.
@@ -98,7 +98,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             g'2.
         }
 
-        .. figure:: ../_images/image-sync_containers-5.png
+        .. figure:: ../_images/sync_containers-e0yszxejbh.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -107,7 +107,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             c'2.
         }
 
-        .. figure:: ../_images/image-sync_containers-6.png
+        .. figure:: ../_images/sync_containers-2cgt4zds3h7.png
 
     Underfull containers:
         By default, this function closes the longest container by rewriting the
@@ -126,7 +126,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             f'4
         }
 
-        .. figure:: ../_images/image-sync_containers-7.png
+        .. figure:: ../_images/sync_containers-nztndgecrof.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -137,7 +137,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             R1*1/4
         }
 
-        .. figure:: ../_images/image-sync_containers-8.png
+        .. figure:: ../_images/sync_containers-iaag195ty1d.png
 
     ``adjust_last_time_signature``:
         To allow containers to be left open (with underfull measures), set the
@@ -156,7 +156,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             f'4
         }
 
-        .. figure:: ../_images/image-sync_containers-9.png
+        .. figure:: ../_images/sync_containers-37iesjp4dqs.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -166,7 +166,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-10.png
+        .. figure:: ../_images/sync_containers-lqm4itxlwu.png
 
     ``use_multimeasure_rests``:
         To disable multi-measure rests, set the keyword argument
@@ -186,7 +186,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             f'4
         }
 
-        .. figure:: ../_images/image-sync_containers-11.png
+        .. figure:: ../_images/sync_containers-rhagiugx42o.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -197,7 +197,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-12.png
+        .. figure:: ../_images/sync_containers-oss03t1qnf8.png
 
     Adjusting last time signatures:
         When adjusting the last time signature, this function will maintain the
@@ -217,7 +217,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             R1 * 1/4
         }
 
-        .. figure:: ../_images/image-sync_containers-13.png
+        .. figure:: ../_images/sync_containers-jhx0r9skgwi.png
 
     Multiple input containers:
         This function can take an arbitrary number of containers.
@@ -242,7 +242,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             r2
         }
 
-        .. figure:: ../_images/image-sync_containers-14.png
+        .. figure:: ../_images/sync_containers-1wbsyvks33r.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -254,7 +254,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-15.png
+        .. figure:: ../_images/sync_containers-td1whqky24b.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -265,7 +265,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             g'2.
         }
 
-        .. figure:: ../_images/image-sync_containers-16.png
+        .. figure:: ../_images/sync_containers-g07scyil9jh.png
 
         >>> abjad.f(container4)
         \new Staff
@@ -276,7 +276,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             R1*3/4
         }
 
-        .. figure:: ../_images/image-sync_containers-17.png
+        .. figure:: ../_images/sync_containers-8b6vn3azaom.png
 
     Single input |abjad.Score|:
         This function can also take a single |abjad.Score| instead of
@@ -327,7 +327,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             }
         >>
 
-        .. figure:: ../_images/image-sync_containers-18.png
+        .. figure:: ../_images/sync_containers-0g0651fs0luq.png
 
     Time signature changes:
         The containers can be of different length, can have different time
@@ -355,7 +355,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             R1*1/4
         }
 
-        .. figure:: ../_images/image-sync_containers-19.png
+        .. figure:: ../_images/sync_containers-mec52wgbrz9.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -367,7 +367,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             r4
         }
 
-        .. figure:: ../_images/image-sync_containers-20.png
+        .. figure:: ../_images/sync_containers-33odhzqyo6r.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -378,7 +378,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             g''4
         }
 
-        .. figure:: ../_images/image-sync_containers-21.png
+        .. figure:: ../_images/sync_containers-s7rmadmd1f.png
 
         >>> abjad.f(container4)
         \new Staff
@@ -390,7 +390,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             R1*1/2
         }
 
-        .. figure:: ../_images/image-sync_containers-22.png
+        .. figure:: ../_images/sync_containers-msu922pcn6e.png
 
     Polymetric notation:
         It's important to note that LilyPond does not support simultanoues
@@ -495,7 +495,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/image-sync_containers-23.png
+        .. figure:: ../_images/sync_containers-1lbrepesgil.png
 
     .. error::
 

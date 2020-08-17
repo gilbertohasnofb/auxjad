@@ -52,7 +52,7 @@ and rests.
         >8
     }
 
-.. figure:: ../_images/image-example-5-shuffling-harmonics-1.png
+.. figure:: ../_images/example-5-shuffling-harmonics-vuu4ho4hjk7.png
 
 The spelling of the chord ``<d' af' a'>`` could be improved. This can be done
 by using either |auxjad.mutate().respell_accidentals()| on a selection. Auxjad
@@ -90,7 +90,7 @@ it can also be accessed using |abjad.mutate().respell_accidentals()|.
         >8
     }
 
-.. figure:: ../_images/image-example-5-shuffling-harmonics-2.png
+.. figure:: ../_images/example-5-shuffling-harmonics-yast6lxvpz.png
 
 Let's now use this material as input for :class:`auxjad.Shuffler`. This class
 will randomly shuffle the logical ties of the input container.
@@ -260,7 +260,7 @@ measures of shuffled logical ties.
         r4
     }
 
-.. figure:: ../_images/image-example-5-shuffling-harmonics-3.png
+.. figure:: ../_images/example-5-shuffling-harmonics-rnpvdobaxw.png
 
 We can now grab the last window output by shuffler and use it as the input
 container of a :class:`auxjad.Fader`. When its property
@@ -628,7 +628,7 @@ as a single note.
         R1
     }
 
-.. figure:: ../_images/image-example-5-shuffling-harmonics-4.png
+.. figure:: ../_images/example-5-shuffling-harmonics-1rxgv2my0lr.png
 
 To finalise the score, let's improve the spelling of some rhythms. Most classes
 and functions in this library use |abjad.mutate().rewrite_meter()| mutation
@@ -924,7 +924,7 @@ adds to |abjad.mutate()|.
         R1
     }
 
-.. figure:: ../_images/image-example-5-shuffling-harmonics-5.png
+.. figure:: ../_images/example-5-shuffling-harmonics-rmw99goyuc.png
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html

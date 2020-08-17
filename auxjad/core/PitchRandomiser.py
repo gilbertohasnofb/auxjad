@@ -34,7 +34,7 @@ class PitchRandomiser:
             fs'4
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-1.png
+        .. figure:: ../_images/PitchRandomiser-134lqskbb6o.png
 
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
@@ -48,7 +48,7 @@ class PitchRandomiser:
             fs'4
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-2.png
+        .. figure:: ../_images/PitchRandomiser-z66g1fy8nm8.png
 
         To get the result of the last operation, use the property
         :attr:`current_window`.
@@ -65,7 +65,7 @@ class PitchRandomiser:
             fs'4
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-3.png
+        .. figure:: ../_images/PitchRandomiser-x0e6yduogh.png
 
     .. warning::
 
@@ -92,7 +92,7 @@ class PitchRandomiser:
             f'4
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-4.png
+        .. figure:: ../_images/PitchRandomiser-640x6vsjwtk.png
 
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
@@ -105,7 +105,7 @@ class PitchRandomiser:
             fs'4
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-5.png
+        .. figure:: ../_images/PitchRandomiser-vsjdj8gkanj.png
 
     :func:`len()`:
         Applying the :func:`len()` function to the randomiser will return the
@@ -199,7 +199,7 @@ class PitchRandomiser:
             a'8.
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-6.png
+        .. figure:: ../_images/PitchRandomiser-u4294ozm92.png
 
     Chords:
         Each note of a chord is randomised too.
@@ -224,7 +224,7 @@ class PitchRandomiser:
             <fs' bf'>8.
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-7.png
+        .. figure:: ../_images/PitchRandomiser-318eldj7tzc.png
 
         The number of notes in a chord stay the same unless there are fewer
         pitches available in :attr:`pitches`.
@@ -245,7 +245,7 @@ class PitchRandomiser:
             <fs' g' af'>2
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-8.png
+        .. figure:: ../_images/PitchRandomiser-cciyee49qrj.png
 
     :attr:`use_tenney_selector`:
         Setting :attr:`use_tenney_selector` to ``True`` will make the
@@ -276,7 +276,7 @@ class PitchRandomiser:
             fs'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-9.png
+        .. figure:: ../_images/PitchRandomiser-tmxllu13pa8.png
 
     :attr:`weights`:
         Individual pitches can have different weights, defined by the
@@ -304,7 +304,7 @@ class PitchRandomiser:
             a'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-10.png
+        .. figure:: ../_images/PitchRandomiser-zkvbzd1brgq.png
 
     :attr:`weights` and :attr:`use_tenney_selector`:
         Non-uniform :attr:`weights` can also be used when
@@ -332,7 +332,7 @@ class PitchRandomiser:
             b'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-11.png
+        .. figure:: ../_images/PitchRandomiser-cq1nobkjozg.png
 
     Resetting :attr:`weights`:
         Setting :attr:`weights` to ``None`` will reset it back to a uniform
@@ -359,7 +359,7 @@ class PitchRandomiser:
             fs'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-12.png
+        .. figure:: ../_images/PitchRandomiser-wtl5o15q5qp.png
 
         >>> randomiser.weights = None
         >>> notes = randomiser()
@@ -377,7 +377,7 @@ class PitchRandomiser:
             b'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-13.png
+        .. figure:: ../_images/PitchRandomiser-4bqe6cbawg6.png
 
     Changing :attr:`pitches`:
         When using a custom :obj:`list` of :attr:`weights`, changing the
@@ -452,7 +452,7 @@ class PitchRandomiser:
             r16
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-14.png
+        .. figure:: ../_images/PitchRandomiser-fvwaaz3vgi.png
 
     Indicators:
         This class preserves indicators.
@@ -486,7 +486,7 @@ class PitchRandomiser:
             )
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-15.png
+        .. figure:: ../_images/PitchRandomiser-2e647eng8yc.png
 
     Example:
         This class also preserves the time signature structure.
@@ -513,7 +513,7 @@ class PitchRandomiser:
             gs'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-16.png
+        .. figure:: ../_images/PitchRandomiser-c9t7r3thrqg.png
 
     :attr:`omit_time_signatures`:
         To omit time signatures altogether, set :attr:`omit_time_signatures` to
@@ -540,7 +540,7 @@ class PitchRandomiser:
             gs'8
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-17.png
+        .. figure:: ../_images/PitchRandomiser-mwruvbmgu3o.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -579,7 +579,7 @@ class PitchRandomiser:
             cs''4
         }
 
-        .. figure:: ../_images/image-PitchRandomiser-18.png
+        .. figure:: ../_images/PitchRandomiser-2c9zzip8tpc.png
 
     .. tip::
 

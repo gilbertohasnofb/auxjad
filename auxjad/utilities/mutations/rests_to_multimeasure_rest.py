@@ -17,7 +17,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             R1
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-1.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-uvebc7ft1zo.png
 
     .. note::
 
@@ -43,7 +43,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             r16
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-2.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-jk4m1wzsyfa.png
 
         >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
@@ -51,7 +51,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             R1
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-3.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-z8u0cs3fzdi.png
 
     .. note::
 
@@ -69,7 +69,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             e'4
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-4.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-qtq55xbkkts.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -80,7 +80,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             e'4
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-5.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-9hceg93vrmv.png
 
     Time signature changes:
         Works with selections from containers with multiple time signatures as
@@ -105,7 +105,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             R1 * 5/4
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-6.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-a9sqdcznoq.png
 
     Tuplets:
         Works with containers with tuplets.
@@ -120,7 +120,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-7.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-480a9zqvk2a.png
 
         >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
@@ -128,7 +128,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             R1
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-8.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-r5yg3a3f97q.png
 
         It also works with containers with tuplets within tuplets.
 
@@ -151,7 +151,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-9.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-codydc205jw.png
 
         >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
         >>> abjad.f(container)
@@ -160,7 +160,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
             R1
         }
 
-        .. figure:: ../_images/image-rests_to_multimeasure_rest-10.png
+        .. figure:: ../_images/rests_to_multimeasure_rest-f647t5j3jgw.png
 
     .. warning::
 

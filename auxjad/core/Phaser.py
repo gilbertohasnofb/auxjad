@@ -30,7 +30,7 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-1.png
+        .. figure:: ../_images/Phaser-953j4yo4hlo.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -51,7 +51,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-2.png
+        .. figure:: ../_images/Phaser-3l0a96vbfbi.png
 
         The property :attr:`current_window` can be used to access the current
         window without moving the head forwards.
@@ -75,7 +75,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-3.png
+        .. figure:: ../_images/Phaser-pn2qf2z6vzr.png
 
     :attr:`process_on_first_call`:
         The very first call will output the input container without processing
@@ -106,7 +106,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-4.png
+        .. figure:: ../_images/Phaser-fx0ywlw5u25.png
 
     :attr:`step_size`:
         The optional argument :attr:`step_size` can be used to step sizes for
@@ -128,7 +128,7 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-5.png
+        .. figure:: ../_images/Phaser-zfxas2f5o87.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -149,7 +149,7 @@ class Phaser():
             c'8
         }
 
-        .. figure:: ../_images/image-Phaser-6.png
+        .. figure:: ../_images/Phaser-2e9dzvji4wg.png
 
     Using as iterator:
         The instances of :class:`Phaser` can also be used as an iterator, which
@@ -200,7 +200,7 @@ class Phaser():
             e'2.
         }
 
-        .. figure:: ../_images/image-Phaser-7.png
+        .. figure:: ../_images/Phaser-jd1h0w8pbpp.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -315,7 +315,7 @@ class Phaser():
             c'8
         }
 
-        .. figure:: ../_images/image-Phaser-8.png
+        .. figure:: ../_images/Phaser-x1gn7mv4jq.png
 
         >>> container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
         >>> phaser = auxjad.Phaser(container,
@@ -343,7 +343,7 @@ class Phaser():
             d'8
         }
 
-        .. figure:: ../_images/image-Phaser-9.png
+        .. figure:: ../_images/Phaser-g6y94qiwfro.png
 
     :attr:`forward_bias` between ``0.0`` and ``1.0``:
         Setingt :attr:`forward_bias` to a value in between ``0.0`` and ``1.0``
@@ -383,7 +383,7 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-10.png
+        .. figure:: ../_images/Phaser-lu2p8o1g6p.png
 
     :attr:`max_steps`:
         Setting the keyword argument :attr:`max_steps` to a value larger than
@@ -443,7 +443,7 @@ class Phaser():
             g'8
         }
 
-        .. figure:: ../_images/image-Phaser-11.png
+        .. figure:: ../_images/Phaser-pvbugjwu5qd.png
 
     :func:`len()`:
         The function :func:`len()` can be used to get the total number of steps
@@ -493,7 +493,7 @@ class Phaser():
             d'4.
         }
 
-        .. figure:: ../_images/image-Phaser-12.png
+        .. figure:: ../_images/Phaser-y6r36v26mk7.png
 
     ``cycle_back_to_first``:
         By default, :meth:`output_all` will cycle back to the very first
@@ -521,7 +521,7 @@ class Phaser():
             d'8
         }
 
-        .. figure:: ../_images/image-Phaser-13.png
+        .. figure:: ../_images/Phaser-1lc6vkz1wuf.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a single
@@ -566,7 +566,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-14.png
+        .. figure:: ../_images/Phaser-ii58nvyi3c.png
 
     ``tie_identical_pitches``:
         Both :meth:`output_n` and :meth:`output_all` methods can receive the
@@ -613,7 +613,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-15.png
+        .. figure:: ../_images/Phaser-gvzlwz9gol6.png
 
     :attr:`remove_unterminated_ties`:
         All methods that call the phasing process (:meth:`__call__`,
@@ -648,7 +648,7 @@ class Phaser():
             ~
         }
 
-        .. figure:: ../_images/image-Phaser-16.png
+        .. figure:: ../_images/Phaser-hg27xwbz4t.png
 
     Time signature changes:
         This class handles time signature changes.
@@ -692,7 +692,7 @@ class Phaser():
             c'4
         }
 
-        .. figure:: ../_images/image-Phaser-17.png
+        .. figure:: ../_images/Phaser-vw3gfizbkg.png
 
     Indicators:
         This class can handle dynamics and articulations too. When a logical
@@ -779,7 +779,7 @@ class Phaser():
             - \tenuto
         }
 
-        .. figure:: ../_images/image-Phaser-18.png
+        .. figure:: ../_images/Phaser-978yobu5f2q.png
 
     Slurs and hairpins:
         Slurs and hairpins are also supported.
@@ -903,7 +903,7 @@ class Phaser():
             \p
         }
 
-        .. figure:: ../_images/image-Phaser-19.png
+        .. figure:: ../_images/Phaser-pxj7axmh58e.png
 
     .. tip::
 
@@ -937,7 +937,7 @@ class Phaser():
             f'4
         }
 
-        .. figure:: ../_images/image-Phaser-20.png
+        .. figure:: ../_images/Phaser-ns0dbcanp5.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -958,7 +958,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-21.png
+        .. figure:: ../_images/Phaser-utcxb4w611s.png
 
         >>> phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = phaser()
@@ -974,7 +974,7 @@ class Phaser():
             g'2.
         }
 
-        .. figure:: ../_images/image-Phaser-22.png
+        .. figure:: ../_images/Phaser-w0whe6c7jp.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
@@ -993,7 +993,7 @@ class Phaser():
             c'16
         }
 
-        .. figure:: ../_images/image-Phaser-23.png
+        .. figure:: ../_images/Phaser-cmo73lo14wo.png
 
     Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
@@ -1012,7 +1012,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-24.png
+        .. figure:: ../_images/Phaser-uhfkf8mzu4i.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -1033,7 +1033,7 @@ class Phaser():
             e'2
         }
 
-        .. figure:: ../_images/image-Phaser-25.png
+        .. figure:: ../_images/Phaser-l6pvwhsj1hh.png
 
         Other arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -1072,7 +1072,7 @@ class Phaser():
             c'4
         }
 
-        .. figure:: ../_images/image-Phaser-26.png
+        .. figure:: ../_images/Phaser-1rdkecll151.png
 
     .. tip::
 
@@ -1135,7 +1135,7 @@ class Phaser():
             }
         }
 
-        .. figure:: ../_images/image-Phaser-27.png
+        .. figure:: ../_images/Phaser-lqvc5p5i25b.png
     """
 
     ### CLASS VARIABLES ###

@@ -25,7 +25,7 @@ matter at this point since we will randomise them shortly.
         r8.
     }
 
-.. figure:: ../_images/image-example-4-hocket-with-random-pitches-1.png
+.. figure:: ../_images/example-4-hocket-with-random-pitches-h990mzwoa7f.png
 
 Next, let's initialise :class:`auxjad.PitchRandomiser` with this container as
 well as a :obj:`list` representing pitches. This will be the source for the
@@ -70,7 +70,7 @@ We can now output three measures with random pitches using the method
         r8.
     }
 
-.. figure:: ../_images/image-example-4-hocket-with-random-pitches-2.png
+.. figure:: ../_images/example-4-hocket-with-random-pitches-5s17pjm02j5.png
 
 Let's now change the pitch :obj:`list` using the property
 :attr:`~auxjad.PitchRandomiser.pitches` of the randomiser.
@@ -134,7 +134,7 @@ Generating three more measures results in:
         r8.
     }
 
-.. figure:: ../_images/image-example-4-hocket-with-random-pitches-3.png
+.. figure:: ../_images/example-4-hocket-with-random-pitches-xnmxj4w1d0s.png
 
 Up to now, the pitches were being selected with equal weight (i.e. an uniform
 distribution). Changing the :attr:`~auxjad.PitchRandomiser.weights` property to
@@ -225,7 +225,7 @@ the number of pitches in :attr:`~auxjad.PitchRandomiser.pitches`.
             r8.
         }
 
-.. figure:: ../_images/image-example-4-hocket-with-random-pitches-4.png
+.. figure:: ../_images/example-4-hocket-with-random-pitches-7vipmn3n2ts.png
 
 Let's now feed this staff of music into :class:`auxjad.Hocketer`. This class
 will distribute each note to a different voice, each given their own staff. See
@@ -364,7 +364,7 @@ To create the final score, we can simply assign its return value to an
         }
     >>
 
-.. figure:: ../_images/image-example-4-hocket-with-random-pitches-5.png
+.. figure:: ../_images/example-4-hocket-with-random-pitches-af08ul3iyut.png
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html

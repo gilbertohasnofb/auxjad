@@ -75,7 +75,7 @@ of time signatures.
         af'8
     }
 
-.. figure:: ../_images/image-example-3-looping-1.png
+.. figure:: ../_images/example-3-looping-wcsvsyfmwm.png
 
 Let's now use :class:`auxjad.WindowLooper` to output loops of windows of the
 material. By default, this class uses a window size of a 4/4 measure, and each
@@ -161,7 +161,7 @@ measures of the looping process for us. In this case, let's output six measures.
         bf'2
     }
 
-.. figure:: ../_images/image-example-3-looping-2.png
+.. figure:: ../_images/example-3-looping-002erek662ml6.png
 
 Let's now change the value of :attr:`~auxjad.WindowLooper.step_size` from a
 crotchet into a semiquaver and output six more measures.
@@ -366,7 +366,7 @@ crotchet into a semiquaver and output six more measures.
         - \tenuto
     }
 
-.. figure:: ../_images/image-example-3-looping-3.png
+.. figure:: ../_images/example-3-looping-qodelstkbvo.png
 
 Notice that the time signature has been repeated. While the method
 :meth:`~auxjad.WindowLooper.output_n()` takes care of repeated time signatures,
@@ -509,7 +509,7 @@ adds to |abjad.mutate()|.
         - \tenuto
     }
 
-.. figure:: ../_images/image-example-3-looping-4.png
+.. figure:: ../_images/example-3-looping-5vih5zhn6de.png
 
 Let's now change the :attr:`~auxjad.WindowLooper.window_size` and output some
 more measures.
@@ -675,7 +675,7 @@ more measures.
         - \tenuto
     }
 
-.. figure:: ../_images/image-example-3-looping-5.png
+.. figure:: ../_images/example-3-looping-snpku7bedo.png
 
 At this point, let's use |auxjad.mutate().remove_repeated_dynamics()| to remove
 all repeated dynamics. While the method :meth:`~auxjad.WindowLooper.output_n()`
@@ -847,7 +847,7 @@ The final result is shown below.
         - \tenuto
     }
 
-.. figure:: ../_images/image-example-3-looping-6.png
+.. figure:: ../_images/example-3-looping-16f4hdprg8k.png
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html

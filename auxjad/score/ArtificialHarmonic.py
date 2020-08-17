@@ -22,7 +22,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4
 
-        .. figure:: ../_images/image-ArtificialHarmonic-1.png
+        .. figure:: ../_images/ArtificialHarmonic-16am9cj6p9u.png
 
         And similarly to |abjad.Chord|, pitch and duration can be input in
         many different ways:
@@ -57,9 +57,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             >4
         }
 
-        .. figure:: ../_images/image-ArtificialHarmonic-2.png
-
-
+        .. figure:: ../_images/ArtificialHarmonic-je277bmakgs.png
 
     .. error::
         It is important to note that this class can only be initialised with
@@ -87,7 +85,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4
 
-        .. figure:: ../_images/image-ArtificialHarmonic-3.png
+        .. figure:: ../_images/ArtificialHarmonic-ohqb65228iq.png
 
     :attr:`is_parenthesized`:
         To notate natural harmonics with a parenthesised pitch for the open
@@ -108,7 +106,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4
 
-        .. figure:: ../_images/image-ArtificialHarmonic-4.png
+        .. figure:: ../_images/ArtificialHarmonic-2q3jkx33yvl.png
 
     :attr:`~abjad.core.Chord.Chord.multiplier`:
         Similarly to |abjad.Chord|, this class can take multipliers:
@@ -125,7 +123,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4 * 2/3
 
-        .. figure:: ../_images/image-ArtificialHarmonic-5.png
+        .. figure:: ../_images/ArtificialHarmonic-ouhdk3ugkcs.png
 
     Properties:
         All properties of |abjad.Chord| are also available to be read. This
@@ -194,7 +192,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         \pp
         - \staccato
 
-        .. figure:: ../_images/image-ArtificialHarmonic-6.png
+        .. figure:: ../_images/ArtificialHarmonic-dfabdv155mu.png
 
     .. error::
 
@@ -244,7 +242,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             _ \markup { I. }
         }
 
-        .. figure:: ../_images/image-ArtificialHarmonic-7.png
+        .. figure:: ../_images/ArtificialHarmonic-teysjphrrpn.png
 
         Setting :attr:`markup` to ``None`` will remove the markup from the
         note.
@@ -260,7 +258,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             d'
         >1
 
-        .. figure:: ../_images/image-ArtificialHarmonic-8.png
+        .. figure:: ../_images/ArtificialHarmonic-nov336z64r.png
 
     .. error::
 

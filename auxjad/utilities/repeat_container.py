@@ -37,7 +37,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-repeat_container-1.png
+        .. figure:: ../_images/repeat_container-6v2j69stl89.png
 
     .. note::
 
@@ -56,7 +56,7 @@ def repeat_container(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-repeat_container-2.png
+        .. figure:: ../_images/repeat_container-bb1qgmv46rh.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -69,7 +69,7 @@ def repeat_container(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-repeat_container-3.png
+        .. figure:: ../_images/repeat_container-sivxzw6hm7.png
 
     Time signature changes:
         It handle containers with multiple measures and different time
@@ -97,7 +97,7 @@ def repeat_container(container: abjad.Container,
             g'2
         }
 
-        .. figure:: ../_images/image-repeat_container-4.png
+        .. figure:: ../_images/repeat_container-be33nivtxno.png
 
     Underfull containers:
         It automatically closes a container if necessary.
@@ -121,7 +121,7 @@ def repeat_container(container: abjad.Container,
             f'2
         }
 
-        .. figure:: ../_images/image-repeat_container-5.png
+        .. figure:: ../_images/repeat_container-aiknox0nc27.png
 
     ``omit_time_signatures``:
         To omit all time signatures, set the keyword argument
@@ -146,7 +146,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-repeat_container-6.png
+        .. figure:: ../_images/repeat_container-e6htof6qeju.png
 
     ``force_identical_time_signatures``:
         To force identical time signatures to be repeated at every repetition,
@@ -176,7 +176,7 @@ def repeat_container(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-repeat_container-7.png
+        .. figure:: ../_images/repeat_container-tfp5ucamct.png
 
     ``reposition_clefs``, ``reposition_dynamics``, and ``reposition_slurs``:
         By default, this function will automatically remove repeated clefs as
@@ -207,7 +207,7 @@ def repeat_container(container: abjad.Container,
             d4
         }
 
-        .. figure:: ../_images/image-repeat_container-8.png
+        .. figure:: ../_images/repeat_container-zpywofiddib.png
 
         Set the optional keyword arguments ``reposition_clefs``,
         ``reposition_dynamics``, and ``reposition_slurs`` to ``False`` to
@@ -253,7 +253,7 @@ def repeat_container(container: abjad.Container,
             (
         }
 
-        .. figure:: ../_images/image-repeat_container-9.png
+        .. figure:: ../_images/repeat_container-gi1duw90zzo.png
 
     .. error::
 

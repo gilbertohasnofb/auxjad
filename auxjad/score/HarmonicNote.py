@@ -19,7 +19,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         \tweak style #'harmonic
         c''4
 
-        .. figure:: ../_images/image-HarmonicNote-1.png
+        .. figure:: ../_images/HarmonicNote-jslykzpz7en.png
 
         And similarly to |abjad.Note|, pitch and duration can be input in
         many different ways:
@@ -42,7 +42,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
             c''4
         }
 
-        .. figure:: ../_images/image-HarmonicNote-2.png
+        .. figure:: ../_images/HarmonicNote-kdx8pmkdspn.png
 
     :attr:`style`:
         When instantiating this class, use the keyword argument :attr:`style`
@@ -57,7 +57,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         \tweak style #'harmonic-mixed
         c''4
 
-        .. figure:: ../_images/image-HarmonicNote-3.png
+        .. figure:: ../_images/HarmonicNote-z48i5il6vf.png
 
     :attr:`~abjad.core.Note.Note.multiplier`:
         Similarly to |abjad.Note|, this class can take multipliers:
@@ -71,7 +71,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         \tweak style #'harmonic
         c''4 * 2/3
 
-        .. figure:: ../_images/image-HarmonicNote-4.png
+        .. figure:: ../_images/HarmonicNote-4qbhly2hfi.png
 
     Properties:
         All properties of |abjad.Note| are also available to be read. This
@@ -111,7 +111,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         c''1
         \flageolet
 
-        .. figure:: ../_images/image-HarmonicNote-5.png
+        .. figure:: ../_images/HarmonicNote-4q2q7rz65lj.png
 
     :attr:`markup`:
         To add a markup expression to the harmonic note, use the :attr:`markup`
@@ -141,7 +141,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
             _ \markup { III. }
         }
 
-        .. figure:: ../_images/image-HarmonicNote-6.png
+        .. figure:: ../_images/HarmonicNote-v9uer4i864.png
 
         Setting :attr:`markup` to ``None`` will remove the markup from the
         note.
@@ -154,7 +154,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         \tweak style #'harmonic
         d''1
 
-        .. figure:: ../_images/image-HarmonicNote-7.png
+        .. figure:: ../_images/HarmonicNote-2gqky0o8dgt.png
 
     .. error::
 

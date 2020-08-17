@@ -36,7 +36,7 @@ def enforce_time_signature(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-1.png
+        .. figure:: ../_images/enforce_time_signature-9bf9zmnm19k.png
 
         >>> auxjad.mutate(staff).enforce_time_signature(
         ...     abjad.TimeSignature((2, 4))
@@ -53,7 +53,7 @@ def enforce_time_signature(container: abjad.Container,
             d'2
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-2.png
+        .. figure:: ../_images/enforce_time_signature-kerf9uos62i.png
 
     .. note::
 
@@ -83,7 +83,7 @@ def enforce_time_signature(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-3.png
+        .. figure:: ../_images/enforce_time_signature-218f65bsco3.png
 
         >>> auxjad.mutate(staff).enforce_time_signature((3, 4))
         >>> abjad.f(staff)
@@ -99,7 +99,7 @@ def enforce_time_signature(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-4.png
+        .. figure:: ../_images/enforce_time_signature-u4p457k6ib7.png
 
     ``close_container``:
         Set the optional keyword argument ``close_container`` to ``True`` in
@@ -116,7 +116,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-5.png
+        .. figure:: ../_images/enforce_time_signature-tn1l53yimir.png
 
         >>> auxjad.mutate(staff).enforce_time_signature(
         ...     abjad.TimeSignature((3, 4)),
@@ -141,7 +141,7 @@ def enforce_time_signature(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-6.png
+        .. figure:: ../_images/enforce_time_signature-1uhp08fqlpl.png
 
     ``fill_with_rests``:
         Alternatively, to leave the last measure as it is input (i.e. not
@@ -159,7 +159,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-7.png
+        .. figure:: ../_images/enforce_time_signature-bit2y19hncr.png
 
         >>> auxjad.mutate(staff).enforce_time_signature(
         ...     abjad.TimeSignature((3, 4)),
@@ -183,7 +183,7 @@ def enforce_time_signature(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-8.png
+        .. figure:: ../_images/enforce_time_signature-xo7fpeqsoek.png
 
     Multiple values for second positional argument:
         The second argument can also take a :obj:`list` of
@@ -197,7 +197,7 @@ def enforce_time_signature(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-9.png
+        .. figure:: ../_images/enforce_time_signature-rl1csjn9osl.png
 
         >>> time_signatures = [abjad.TimeSignature((3, 4)),
         ...                    abjad.TimeSignature((5, 4)),
@@ -214,7 +214,7 @@ def enforce_time_signature(container: abjad.Container,
             d'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-10.png
+        .. figure:: ../_images/enforce_time_signature-tqqrqi34bu.png
 
     Repeated time signatures:
         Consecutive identical time signatures are omitted. Also note that time
@@ -230,7 +230,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-11.png
+        .. figure:: ../_images/enforce_time_signature-vn9ngz2k6cd.png
 
         >>> time_signatures = [(2, 4),
         ...                    (2, 4),
@@ -250,7 +250,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-12.png
+        .. figure:: ../_images/enforce_time_signature-nj2c90o0pe.png
 
         Alternatively, use ``None`` to indicate repeated time signatures:
 
@@ -264,7 +264,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-13.png
+        .. figure:: ../_images/enforce_time_signature-2og5ld8bkxe.png
 
         >>> time_signatures = [(2, 4),
         ...                    None,
@@ -292,7 +292,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-14.png
+        .. figure:: ../_images/enforce_time_signature-3s9h7p1k05x.png
 
     ``cyclic``:
         To cycle through the :obj:`list` of time signatures until the container
@@ -308,7 +308,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-15.png
+        .. figure:: ../_images/enforce_time_signature-vl1bwp21saq.png
 
         >>> time_signatures = [abjad.TimeSignature((3, 8)),
         ...                    abjad.TimeSignature((2, 8)),
@@ -362,7 +362,7 @@ def enforce_time_signature(container: abjad.Container,
             r8
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-16.png
+        .. figure:: ../_images/enforce_time_signature-9mq64erlth6.png
 
     ``disable_rewrite_meter``:
         By default, this function applies the mutation
@@ -386,7 +386,7 @@ def enforce_time_signature(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-17.png
+        .. figure:: ../_images/enforce_time_signature-xsjbr0vnev9.png
 
         To disable this, set the keyword argument ``disable_rewrite_meter`` to
         ``True``.
@@ -412,7 +412,7 @@ def enforce_time_signature(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-18.png
+        .. figure:: ../_images/enforce_time_signature-ezjnpwjd3xu.png
 
     Tuplets:
         The function handles tuplets, even if they must be split.
@@ -429,7 +429,7 @@ def enforce_time_signature(container: abjad.Container,
             f'1
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-19.png
+        .. figure:: ../_images/enforce_time_signature-v4ndqpmqjk.png
 
         >>> time_signatures = [abjad.TimeSignature((2, 4)),
         ...                    abjad.TimeSignature((3, 4)),
@@ -454,7 +454,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-20.png
+        .. figure:: ../_images/enforce_time_signature-5jdoukq2rkd.png
 
     Time signatures in the input container:
         Note that any time signatures in the input container will be ignored.
@@ -470,7 +470,7 @@ def enforce_time_signature(container: abjad.Container,
             f'2.
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-21.png
+        .. figure:: ../_images/enforce_time_signature-bnnz1hov5bu.png
 
         >>> time_signatures = [abjad.TimeSignature((5, 8)),
         ...                    abjad.TimeSignature((1, 16)),
@@ -516,7 +516,7 @@ def enforce_time_signature(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-22.png
+        .. figure:: ../_images/enforce_time_signature-2l289r8sdzl.png
 
     Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
@@ -535,7 +535,7 @@ def enforce_time_signature(container: abjad.Container,
             e'2
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-23.png
+        .. figure:: ../_images/enforce_time_signature-bykbobzx47.png
 
         Set ``boundary_depth`` to a different number to change its behaviour.
 
@@ -555,7 +555,7 @@ def enforce_time_signature(container: abjad.Container,
             e'2
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-24.png
+        .. figure:: ../_images/enforce_time_signature-wljhgmjh9c.png
 
         Other arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are ``maximum_dot_count`` and
@@ -578,7 +578,7 @@ def enforce_time_signature(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-25.png
+        .. figure:: ../_images/enforce_time_signature-ntl3jgbi7j.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -589,7 +589,7 @@ def enforce_time_signature(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/image-enforce_time_signature-26.png
+        .. figure:: ../_images/enforce_time_signature-y5sjtx3j0v.png
 
 
     .. warning::

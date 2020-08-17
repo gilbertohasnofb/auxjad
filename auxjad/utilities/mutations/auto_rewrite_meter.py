@@ -48,7 +48,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'8
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-1.png
+        .. figure:: ../_images/auto_rewrite_meter-ahdaggaiqbc.png
 
     .. note::
 
@@ -86,7 +86,7 @@ def auto_rewrite_meter(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-2.png
+        .. figure:: ../_images/auto_rewrite_meter-08sckfp19vil.png
 
     ``prettify``:
         By default, this function invokes both |abjad.mutate().rewrite_meter()|
@@ -118,7 +118,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'8
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-3.png
+        .. figure:: ../_images/auto_rewrite_meter-vbytyszlkng.png
 
         Set ``prettify`` to ``False`` to not invoke
         |auxjad.mutate().prettify_rewrite_meter()|.
@@ -157,7 +157,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'8
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-4.png
+        .. figure:: ../_images/auto_rewrite_meter-64wse58hvko.png
 
     ``meter_list``:
         When no ``meter_list`` is supplied, this function detects the time
@@ -193,7 +193,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b''8
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-5.png
+        .. figure:: ../_images/auto_rewrite_meter-l4xnpevp3z.png
 
         To use a custom list of meters (one for each measure), set
         ``meter_list`` to a :obj:`list` of |abjad.Meter|'s or
@@ -232,7 +232,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b''8
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-6.png
+        .. figure:: ../_images/auto_rewrite_meter-uqif4i8tqxk.png
 
     Number of measures:
         This function handles a container with any number of measures and any
@@ -276,7 +276,7 @@ def auto_rewrite_meter(container: abjad.Container,
             r8.
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-7.png
+        .. figure:: ../_images/auto_rewrite_meter-hkhtqnqita.png
 
     ``extract_trivial_tuplets``:
         By default, tuplets filled with rests or tied notes or chords are
@@ -299,7 +299,7 @@ def auto_rewrite_meter(container: abjad.Container,
             <e' g'>4
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-8.png
+        .. figure:: ../_images/auto_rewrite_meter-nq6t6qwka7a.png
 
         Set ``extract_trivial_tuplets`` to ``False`` to disable this behaviour.
 
@@ -328,7 +328,7 @@ def auto_rewrite_meter(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/image-auto_rewrite_meter-9.png
+        .. figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "

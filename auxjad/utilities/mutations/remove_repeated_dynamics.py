@@ -28,7 +28,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-1.png
+        .. figure:: ../_images/remove_repeated_dynamics-anw32e9i0f.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
@@ -43,7 +43,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             d'8
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-2.png
+        .. figure:: ../_images/remove_repeated_dynamics-i5ylxkzv7md.png
 
     .. note::
 
@@ -75,7 +75,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-3.png
+        .. figure:: ../_images/remove_repeated_dynamics-ha1x7s8d2fb.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
@@ -91,7 +91,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-4.png
+        .. figure:: ../_images/remove_repeated_dynamics-g157jbbojhv.png
 
     Subcontainers:
         The container from which the selection is made can also have
@@ -119,7 +119,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-5.png
+        .. figure:: ../_images/remove_repeated_dynamics-4h9xze4780d.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
@@ -135,7 +135,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-6.png
+        .. figure:: ../_images/remove_repeated_dynamics-7n9aaveoslu.png
 
     ``ignore_hairpins``:
         By default, repeated dynamics with hairpins in between are not removed,
@@ -159,7 +159,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-7.png
+        .. figure:: ../_images/remove_repeated_dynamics-frmlobo3gis.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics()
         >>> abjad.f(staff)
@@ -178,7 +178,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-8.png
+        .. figure:: ../_images/remove_repeated_dynamics-ov05k1imubj.png
 
         To override the previous behaviour, set ``ignore_hairpins=True`` and
         hairpins will be ignored.
@@ -201,7 +201,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-9.png
+        .. figure:: ../_images/remove_repeated_dynamics-2hdkt6cyca1.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_dynamics(
         ...     ignore_hairpins=True,
@@ -221,7 +221,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-10.png
+        .. figure:: ../_images/remove_repeated_dynamics-xkaipizr2jr.png
 
     ``reset_after_rests``:
         By default, rests are treated just like any other leaf and thus notes
@@ -239,7 +239,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             c'1
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-11.png
+        .. figure:: ../_images/remove_repeated_dynamics-wtno2t8qroh.png
 
         To override the previous behaviour, set ``reset_after_rests=True`` and
         dynamics will always be restated after a rest.
@@ -258,7 +258,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \pp
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-12.png
+        .. figure:: ../_images/remove_repeated_dynamics-3e6g7u0q1i1.png
 
     ``reset_after_rests`` and non-:obj:`bool` values:
         The argument ``reset_after_rests`` takes not only :obj:`bool` values
@@ -283,7 +283,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             c'1
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-13.png
+        .. figure:: ../_images/remove_repeated_dynamics-b323xuesujc.png
 
         But setting the duration to ``2/4`` forces the dynamic to be restated.
 
@@ -301,7 +301,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \pp
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-14.png
+        .. figure:: ../_images/remove_repeated_dynamics-64dppx3cp99.png
 
     ``reset_after_rests``:
         The function also handles measure rests with ``reset_after_rests``.
@@ -323,7 +323,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \pp
         }
 
-        .. figure:: ../_images/image-remove_repeated_dynamics-15.png
+        .. figure:: ../_images/remove_repeated_dynamics-jt7akhtbsge.png
 
     .. warning::
 

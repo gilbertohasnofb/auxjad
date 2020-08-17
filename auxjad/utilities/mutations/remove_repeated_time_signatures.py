@@ -23,7 +23,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             d'8
         }
 
-        .. figure:: ../_images/image-remove_repeated_time_signatures-1.png
+        .. figure:: ../_images/remove_repeated_time_signatures-feZSi4Trsg.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
@@ -36,7 +36,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             d'8
         }
 
-        .. figure:: ../_images/image-remove_repeated_time_signatures-2.png
+        .. figure:: ../_images/remove_repeated_time_signatures-ImmpJOWn5U.png
 
     .. note::
 
@@ -67,7 +67,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             d'8
         }
 
-        .. figure:: ../_images/image-remove_repeated_time_signatures-3.png
+        .. figure:: ../_images/remove_repeated_time_signatures-ihs4kU1dMe.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
@@ -81,7 +81,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             d'8
         }
 
-        .. figure:: ../_images/image-remove_repeated_time_signatures-4.png
+        .. figure:: ../_images/remove_repeated_time_signatures-Ans1RrG5ZW.png
 
     Subcontainers:
         The container from which the selection is made can also have
@@ -108,7 +108,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-remove_repeated_time_signatures-5.png
+        .. figure:: ../_images/remove_repeated_time_signatures-Nybwh816FT.png
 
         >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
@@ -124,7 +124,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection):
             }
         }
 
-        .. figure:: ../_images/image-remove_repeated_time_signatures-6.png
+        .. figure:: ../_images/remove_repeated_time_signatures-PNCfPcnTtj.png
 
     .. warning::
 

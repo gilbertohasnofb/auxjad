@@ -11,12 +11,8 @@ import auxjad  # noqa: E402
 # a \n on it) or until the next line contains more Python documentation, which
 # will start with a bunch of spaces followed by '>>>'.
 pattern = r""">>> abjad\.f.*
-([\s\S]*?)
-(?:\n| *>>>)"""
-
-# this pattern is used to check that the image numbering is sequential within
-# each file
-check_image_numbering = r"(\d+)\.png"
+([\s\S\n]+?)
+ *\.\. figure:: \.\./_images/([\w-]*)\.png"""
 
 # header for lilypond file
 ly_header = r"""
@@ -48,63 +44,46 @@ for namespace in (auxjad, auxjad.Mutation, auxjad.Inspection):
     for member in dir(namespace):
         docstring = getattr(namespace, member).__doc__
         if docstring is not None:
-            # check for sequential numbering
-            matches = re.findall(check_image_numbering, docstring)
-            if matches is not None:
-                for n, match in enumerate(matches):
-                    if int(match) != n + 1:
-                        raise ValueError(f"The image number {n + 1} in "
-                                         f"{member} is wrongly labelled as "
-                                         f"{match}")
-            # finding lilypond code
             matches = re.findall(pattern, docstring)
             if matches is not None:
-                for n, match in enumerate(matches):
-                    filename = ('image-' + str(member) + '-' + str(n + 1)
-                                + '.ly')
+                for match in matches:
+                    contents = match[0]
+                    filename = match[1] + '.ly'
                     with open(directory + filename, 'w+') as f:
                         f.write(ly_header)
-                        if r'\new' in match:
-                            f.write(match)
-                        elif match[0] == r'{' and match[-1] == r'}':
+                        if r'\new' in contents:
+                            f.write(contents)
+                        elif contents[0] == r'{' and contents[-1] == r'}':
                             f.write(r'\new Staff' + '\n')
-                            f.write(match)
+                            f.write(contents)
                         else:  # wrap in {} otherwise
-                            match = textwrap.indent(match, '    ')
+                            contents = textwrap.indent(contents, '    ')
                             f.write(r'\new Staff' + '\n')
                             f.write(r'{' + '\n')
-                            f.write(match)
+                            f.write(contents)
                             f.write('\n' + r'}')
 
 # generating lilypond files from example-n.rst files
 for read_file in os.listdir('./examples'):
     if read_file.startswith('example-'):
         with open('./examples/' + read_file, 'r') as example_file:
-            example_file_contents = example_file.read()
-            # check for sequential numbering
-            matches = re.findall(check_image_numbering, example_file_contents)
-            if matches is not None:
-                for n, match in enumerate(matches):
-                    if int(match) != n + 1:
-                        raise ValueError(f"The image number {n + 1} in "
-                                         f"{read_file} is wrongly labelled as "
-                                         f"{match}")
+            example_file_contentss = example_file.read()
             # finding lilypond code
-            matches = re.findall(pattern, example_file_contents)
+            matches = re.findall(pattern, example_file_contentss)
             if matches:
-                for n, match in enumerate(matches):
-                    filename = ('image-' + read_file.replace('.rst', '')
-                                + '-' + str(n + 1) + '.ly')
+                for match in matches:
+                    contents = match[0]
+                    filename = match[1] + '.ly'
                     with open(directory + filename, 'w+') as f:
                         f.write(ly_header)
-                        if r'\new' in match:
-                            f.write(match)
-                        elif match[0] == r'{' and match[-1] == r'}':
+                        if r'\new' in contents:
+                            f.write(contents)
+                        elif contents[0] == r'{' and contents[-1] == r'}':
                             f.write(r'\new Staff' + '\n')
-                            f.write(match)
+                            f.write(contents)
                         else:  # wrap in {} otherwise
-                            match = textwrap.indent(match, '    ')
+                            contents = textwrap.indent(contents, '    ')
                             f.write(r'\new Staff' + '\n')
                             f.write(r'{' + '\n')
-                            f.write(match)
+                            f.write(contents)
                             f.write('\n' + r'}')

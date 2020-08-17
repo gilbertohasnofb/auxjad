@@ -39,7 +39,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-1.png
+        .. figure:: ../_images/Hocketer-dh5lutbv09v.png
 
         >>> music = hocketer()
         >>> score = abjad.Score(music)
@@ -60,7 +60,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-2.png
+        .. figure:: ../_images/Hocketer-gj278dv7vff.png
 
     Indexing:
         Alternatively, it is possible to retrieve an |abjad.Selection| for
@@ -114,7 +114,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-3.png
+        .. figure:: ../_images/Hocketer-5r3ybkxhmd4.png
 
         Individual staves can also be retrieved as shown below.
 
@@ -128,7 +128,7 @@ class Hocketer():
             f'4
         }
 
-        .. figure:: ../_images/image-Hocketer-4.png
+        .. figure:: ../_images/Hocketer-sodb0btsuhq.png
 
         >>> partial_score = abjad.Score()
         >>> for selection in hocketer[1:4]:
@@ -156,7 +156,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-5.png
+        .. figure:: ../_images/Hocketer-3gsh3qtl21d.png
 
     :attr:`current_window`:
         To get the result of the last operation, use the property
@@ -185,7 +185,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-6.png
+        .. figure:: ../_images/Hocketer-i2jt38x28fd.png
 
         >>> music = hocketer.current_window
         >>> score = abjad.Score(music)
@@ -208,7 +208,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-7.png
+        .. figure:: ../_images/Hocketer-4291u773dng.png
 
     Arguments and properties:
         This class has many keyword arguments, all of which can be altered
@@ -335,7 +335,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-8.png
+        .. figure:: ../_images/Hocketer-qf9niqf7em.png
 
     :func:`len()`:
         Applying the :func:`len()` function to the hocketer will return the
@@ -386,7 +386,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-9.png
+        .. figure:: ../_images/Hocketer-xyecbupzmm.png
 
         Use the method :meth:`reset_weights` to reset the weights back to their
         default values.
@@ -441,7 +441,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-10.png
+        .. figure:: ../_images/Hocketer-ytjqsp7r2bn.png
 
     :attr:`force_k_voices`:
         It is important to note that changing :attr:`k` to a higher value does
@@ -496,7 +496,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-11.png
+        .. figure:: ../_images/Hocketer-9limlogk0b8.png
 
     .. error::
 
@@ -540,7 +540,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-12.png
+        .. figure:: ../_images/Hocketer-qtuvb2zrlz.png
 
         Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
         behaviour.
@@ -578,7 +578,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-13.png
+        .. figure:: ../_images/Hocketer-l8cn8w7cju.png
 
     :attr:`use_multimeasure_rests`:
         By default, this class rewrites all measures that are filled with
@@ -610,7 +610,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-14.png
+        .. figure:: ../_images/Hocketer-ri1ursa6esi.png
 
         Set :attr:`use_multimeasure_rests` to ``False`` to disable this
         behaviour.
@@ -643,7 +643,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-15.png
+        .. figure:: ../_images/Hocketer-20idpp518lf.png
 
     :attr:`contents`:
         Use the property :attr:`contents` to get the input container upon which
@@ -662,7 +662,7 @@ class Hocketer():
             f'4
         }
 
-        .. figure:: ../_images/image-Hocketer-16.png
+        .. figure:: ../_images/Hocketer-t07z297s2e.png
 
         >>> hocketer()
         >>> abjad.f(hocketer.contents)
@@ -673,7 +673,7 @@ class Hocketer():
             f'4
         }
 
-        .. figure:: ../_images/image-Hocketer-17.png
+        .. figure:: ../_images/Hocketer-7g6cbvfgr1j.png
 
         >>> hocketer.contents = abjad.Container(r"cs2 ds2")
         >>> abjad.f(hocketer.contents)
@@ -682,7 +682,7 @@ class Hocketer():
             ds2
         }
 
-        .. figure:: ../_images/image-Hocketer-18.png
+        .. figure:: ../_images/Hocketer-2l7eywciib3.png
 
     Tweaking |abjad.mutate().rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
@@ -705,7 +705,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-19.png
+        .. figure:: ../_images/Hocketer-g3fmvrkd6nw.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -729,7 +729,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-20.png
+        .. figure:: ../_images/Hocketer-g7r2oxsx8zc.png
 
         Other arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -819,7 +819,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-21.png
+        .. figure:: ../_images/Hocketer-seuga1yah9h.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -856,7 +856,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-22.png
+        .. figure:: ../_images/Hocketer-6w9r9iicp29.png
 
     Indicators:
         Dynamics and hairpins are supported.
@@ -946,7 +946,7 @@ class Hocketer():
             }
         >>
 
-        .. figure:: ../_images/image-Hocketer-23.png
+        .. figure:: ../_images/Hocketer-zel37ga6xob.png
 
     .. tip::
 

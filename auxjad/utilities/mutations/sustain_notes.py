@@ -26,7 +26,7 @@ def sustain_notes(container: abjad.Container):
             r8.
         }
 
-        .. figure:: ../_images/image-sustain_notes-1.png
+        .. figure:: ../_images/sustain_notes-w1e1pmruyce.png
 
         >>> auxjad.mutate(staff).sustain_notes()
         >>> abjad.f(staff)
@@ -38,7 +38,7 @@ def sustain_notes(container: abjad.Container):
             f'4
         }
 
-        .. figure:: ../_images/image-sustain_notes-2.png
+        .. figure:: ../_images/sustain_notes-ythfpvkrvue.png
 
     .. note::
 
@@ -68,7 +68,7 @@ def sustain_notes(container: abjad.Container):
             r8.
         }
 
-        .. figure:: ../_images/image-sustain_notes-3.png
+        .. figure:: ../_images/sustain_notes-oliqicqqw7q.png
 
         >>> auxjad.mutate(staff).sustain_notes()
         >>> abjad.f(staff)
@@ -80,7 +80,7 @@ def sustain_notes(container: abjad.Container):
             c'4
         }
 
-        .. figure:: ../_images/image-sustain_notes-4.png
+        .. figure:: ../_images/sustain_notes-3alcbmhc2jt.png
 
     Consecutive leaves with the same pitch:
         Consecutive pitched leaves with a same pitch will not be tied.
@@ -99,7 +99,7 @@ def sustain_notes(container: abjad.Container):
             r8.
         }
 
-        .. figure:: ../_images/image-sustain_notes-5.png
+        .. figure:: ../_images/sustain_notes-ek4ujjintt8.png
 
         >>> auxjad.mutate(staff).sustain_notes()
         >>> abjad.f(staff)
@@ -111,7 +111,7 @@ def sustain_notes(container: abjad.Container):
             <c' e'>4
         }
 
-        .. figure:: ../_images/image-sustain_notes-6.png
+        .. figure:: ../_images/sustain_notes-f7au6hojq99.png
 
     Tuplets:
         This function handles tuplets.
@@ -135,7 +135,7 @@ def sustain_notes(container: abjad.Container):
             }
         }
 
-        .. figure:: ../_images/image-sustain_notes-7.png
+        .. figure:: ../_images/sustain_notes-nsjvhnyrkea.png
 
         >>> auxjad.mutate(staff).sustain_notes()
         >>> abjad.f(staff)
@@ -151,7 +151,7 @@ def sustain_notes(container: abjad.Container):
             f'4
         }
 
-        .. figure:: ../_images/image-sustain_notes-8.png
+        .. figure:: ../_images/sustain_notes-26l9hob8wko.png
 
     Complex example:
         This function can handle containers with a mixture of notes, chords,
@@ -197,7 +197,7 @@ def sustain_notes(container: abjad.Container):
             }
         }
 
-        .. figure:: ../_images/image-sustain_notes-9.png
+        .. figure:: ../_images/sustain_notes-cpw7dvpegge.png
 
         >>> auxjad.mutate(staff).sustain_notes()
         >>> abjad.f(staff)
@@ -233,7 +233,7 @@ def sustain_notes(container: abjad.Container):
             }
         }
 
-        .. figure:: ../_images/image-sustain_notes-10.png
+        .. figure:: ../_images/sustain_notes-z8t2jwxsvar.png
 
     .. warning::
 

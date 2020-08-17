@@ -26,7 +26,7 @@ def respell_accidentals(selection: abjad.Selection,
             r2.
         }
 
-        .. figure:: ../_images/image-respell_accidentals-1.png
+        .. figure:: ../_images/respell_accidentals-x33afbbamt.png
 
     .. note::
 
@@ -90,7 +90,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         >>
 
-        .. figure:: ../_images/image-respell_accidentals-2.png
+        .. figure:: ../_images/respell_accidentals-jvg032q24il.png
 
     augmented unissons in larger chords:
         The function looks for all augmented unissons in chords of 3 or more
@@ -111,7 +111,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-respell_accidentals-3.png
+        .. figure:: ../_images/respell_accidentals-gyficck05p.png
 
         It is not a problem if the pitches are input out of order.
 
@@ -130,7 +130,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-respell_accidentals-4.png
+        .. figure:: ../_images/respell_accidentals-xbu6u6mu6qo.png
 
     ``include_multiples``:
         By default, this function only changes spelling for pitches that are
@@ -151,7 +151,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-respell_accidentals-5.png
+        .. figure:: ../_images/respell_accidentals-uszf11qb72d.png
 
         To consider pitches in different octaves (thus including augmented
         unisons, augmented octaves, augmented fifteenths, etc.), call this
@@ -175,7 +175,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-respell_accidentals-6.png
+        .. figure:: ../_images/respell_accidentals-8am8cu2rmgi.png
 
     ``respell_by_pitch_class``:
         By default, when this function changes the spelling of a pitch, it does
@@ -196,7 +196,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-respell_accidentals-7.png
+        .. figure:: ../_images/respell_accidentals-47d16xk6gvs.png
 
         To alter all pitch-classes, call this function with the keyword
         argument ``respell_by_pitch_class`` set to ``True``.
@@ -218,7 +218,7 @@ def respell_accidentals(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-respell_accidentals-8.png
+        .. figure:: ../_images/respell_accidentals-kobft0oq9sl.png
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("argument must be 'abjad.Selection'")

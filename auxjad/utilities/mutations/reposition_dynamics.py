@@ -32,7 +32,7 @@ def reposition_dynamics(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-1.png
+        .. figure:: ../_images/reposition_dynamics-sqwvevg7o9.png
 
         >>> staff = abjad.Staff(r"c'1\p d'2 r2\f r1 e'1")
         >>> auxjad.mutate(staff[:]).reposition_dynamics()
@@ -48,7 +48,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-2.png
+        .. figure:: ../_images/reposition_dynamics-v18uzh1zjs.png
 
     .. note::
 
@@ -79,7 +79,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \pp
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-3.png
+        .. figure:: ../_images/reposition_dynamics-aom2qywcn9m.png
 
         >>> staff = abjad.Staff(r"c'1\p d'2 r2\f r1\mf e'1\pp")
         >>> auxjad.mutate(staff[:]).reposition_dynamics()
@@ -95,7 +95,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \pp
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-4.png
+        .. figure:: ../_images/reposition_dynamics-2ua73x102fp.png
 
     ``remove_repeated_dynamics``:
         By default indentical repeated dynamics are omitted.
@@ -112,7 +112,7 @@ def reposition_dynamics(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-5.png
+        .. figure:: ../_images/reposition_dynamics-i4x8b1z1ak.png
 
         Set the optional keyword argument ``remove_repeated_dynamics`` to
         ``False`` to disable this behaviour.
@@ -132,7 +132,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-6.png
+        .. figure:: ../_images/reposition_dynamics-se8a5aeqer.png
 
     ``allow_hairpins_under_rests``:
         This function will shorten hairpins until rests by default.
@@ -151,7 +151,7 @@ def reposition_dynamics(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-7.png
+        .. figure:: ../_images/reposition_dynamics-r28po3j3hd.png
 
         >>> staff = abjad.Staff(r"c'1\p\< d'2 r2 r1\f e'1")
         >>> auxjad.mutate(staff[:]).reposition_dynamics()
@@ -169,7 +169,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-8.png
+        .. figure:: ../_images/reposition_dynamics-n60vvnqrcnr.png
 
         Set the optional keyword argument ``allow_hairpins_under_rests`` to
         ``True`` to allow hairpins to extend cross rests.
@@ -191,7 +191,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-9.png
+        .. figure:: ../_images/reposition_dynamics-ugit7ijz89h.png
 
     ``allow_hairpin_to_rest_with_dynamic``:
         Notice that if a hairpin leads to a rest with dynamic, that one is not
@@ -212,7 +212,7 @@ def reposition_dynamics(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-10.png
+        .. figure:: ../_images/reposition_dynamics-t9z4y5zzj6.png
 
         Set the argument ``allow_hairpin_to_rest_with_dynamic`` to ``False`` to
         disable this behaviour.
@@ -235,7 +235,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-11.png
+        .. figure:: ../_images/reposition_dynamics-wpwweov55qf.png
 
     ``check_hairpin_trends``:
         This function will remove any hairpins connecting dynamics that grow in
@@ -256,7 +256,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-12.png
+        .. figure:: ../_images/reposition_dynamics-f0b4ppb71ii.png
 
         This behaviour can be disabled by setting the argument
         ``check_hairpin_trends`` to ``False``.
@@ -278,7 +278,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-13.png
+        .. figure:: ../_images/reposition_dynamics-1e2ugszm95fi.png
 
     .. note::
 
@@ -304,7 +304,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \p
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-14.png
+        .. figure:: ../_images/reposition_dynamics-77g0uwthbgd.png
 
     Types of hairpins:
         This function can handle multiple types of hairpins as well as niente
@@ -337,7 +337,7 @@ def reposition_dynamics(selection: abjad.Selection,
             g'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-15.png
+        .. figure:: ../_images/reposition_dynamics-m8it9awv1ce.png
 
         >>> staff = abjad.Staff(
         ...     r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp"
@@ -365,7 +365,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \ppp
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-16.png
+        .. figure:: ../_images/reposition_dynamics-fosad5ltzj.png
 
     Multi-measure rests:
         Multi-measure rests are also supported.
@@ -381,7 +381,7 @@ def reposition_dynamics(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-17.png
+        .. figure:: ../_images/reposition_dynamics-uj6jasfs2uh.png
 
         >>> staff = abjad.Staff(r"c'1\p R1\f d'1")
         >>> auxjad.mutate(staff[:]).reposition_dynamics()
@@ -395,7 +395,7 @@ def reposition_dynamics(selection: abjad.Selection,
             \f
         }
 
-        .. figure:: ../_images/image-reposition_dynamics-18.png
+        .. figure:: ../_images/reposition_dynamics-axpcbm9hocd.png
 
     .. warning::
 

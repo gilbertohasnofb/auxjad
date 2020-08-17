@@ -36,7 +36,7 @@ initialise |abjad.Staff| with the property
         r8
     }
 
-.. figure:: ../_images/image-example-1-clapping-music-1.png
+.. figure:: ../_images/example-1-clapping-music-46ql3n3hznt.png
 
 Next, we create an instance of :class:`auxjad.Phaser` which will be used to
 create the phasing process of the initial material. We initialise it with
@@ -217,7 +217,7 @@ all thirtee measures of the bottom staff.
         r8
     }
 
-.. figure:: ../_images/image-example-1-clapping-music-2.png
+.. figure:: ../_images/example-1-clapping-music-gosdyid8m5c.png
 
 The upper staff of the composition consists of thirteen measures of the
 material being repeated. We can thus use the function
@@ -387,7 +387,7 @@ of removing the time signatures of the repeated measures.
         r8
     }
 
-.. figure:: ../_images/image-example-1-clapping-music-3.png
+.. figure:: ../_images/example-1-clapping-music-vdcucelr7bc.png
 
 With both staves created, we can now add them to a single score.
 
@@ -717,7 +717,7 @@ With both staves created, we can now add them to a single score.
         }
     >>
 
-.. figure:: ../_images/image-example-1-clapping-music-4.png
+.. figure:: ../_images/example-1-clapping-music-36foxn3jk9.png
 
 We now group the leaves of the upper staff by measures and add a double
 repetition bar line to the last leaf of each measure. The very last leaf of the
@@ -1065,7 +1065,7 @@ score should have a single end repetition bar line.
         }
     >>
 
-.. figure:: ../_images/image-example-1-clapping-music-5.png
+.. figure:: ../_images/example-1-clapping-music-k6vxi0vtu6o.png
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: ../api/index.html

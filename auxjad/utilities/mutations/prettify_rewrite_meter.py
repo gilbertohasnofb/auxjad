@@ -50,7 +50,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             d''16
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-1.png
+        .. figure:: ../_images/prettify_rewrite_meter-vlnd7l5fb7s.png
 
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
@@ -68,7 +68,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             d''16
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-2.png
+        .. figure:: ../_images/prettify_rewrite_meter-e7vfnese0ut.png
 
     .. note::
 
@@ -120,7 +120,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             g''32
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-3.png
+        .. figure:: ../_images/prettify_rewrite_meter-kw09gse2zxj.png
 
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
@@ -145,7 +145,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             g''32
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-4.png
+        .. figure:: ../_images/prettify_rewrite_meter-u5gmtdippsa.png
 
     ``fuse_across_groups_of_beats``:
         By default, this function also fuses rhythms of type
@@ -181,7 +181,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             b'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-5.png
+        .. figure:: ../_images/prettify_rewrite_meter-tqi4p0u8qog.png
 
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
@@ -199,7 +199,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             b'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-6.png
+        .. figure:: ../_images/prettify_rewrite_meter-riif1glyqpo.png
 
         to disable this behaviour, set the optional keyword argument
         ``fuse_across_groups_of_beats`` to ``False``.
@@ -234,7 +234,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             b'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-7.png
+        .. figure:: ../_images/prettify_rewrite_meter-ki5xbiteij.png
 
     |abjad.Meter| with ``increase_monotonic=True``:
         The fused notes will respect the beat structures of such meters, even
@@ -263,7 +263,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             c''8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-8.png
+        .. figure:: ../_images/prettify_rewrite_meter-bud0jhkvvl.png
 
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
@@ -287,7 +287,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             c''8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-9.png
+        .. figure:: ../_images/prettify_rewrite_meter-47y86pbwwv5.png
 
     Multiple measures:
         This function can take handle multiple measures at once, as long as
@@ -334,7 +334,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''16
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-10.png
+        .. figure:: ../_images/prettify_rewrite_meter-8jdzmvf9yl.png
 
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
@@ -360,7 +360,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''16
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-11.png
+        .. figure:: ../_images/prettify_rewrite_meter-pcn8x9hr6bb.png
 
     ``fuse_quadruple_meter``:
         This function also takes care of two special cases, namely quadruple
@@ -385,7 +385,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             g'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-12.png
+        .. figure:: ../_images/prettify_rewrite_meter-nap4bbf7mxe.png
 
         Set ``fuse_quadruple_meter`` to ``False`` to disable this behaviour.
 
@@ -413,7 +413,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             g'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-13.png
+        .. figure:: ../_images/prettify_rewrite_meter-juipg9nzna.png
 
     ``fuse_triple_meter``:
         In the case of triple meters, it will fuse leaves across any beat as
@@ -434,7 +434,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-14.png
+        .. figure:: ../_images/prettify_rewrite_meter-4wg3grpb94p.png
 
         Similarly to the example before, set ``fuse_triple_meter`` to ``False``
         to disable this behaviour.
@@ -460,7 +460,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f'8
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-15.png
+        .. figure:: ../_images/prettify_rewrite_meter-l16ostzscta.png
 
     ``extract_trivial_tuplets``:
         By default, this function extracts the contents of tuples that consist
@@ -485,7 +485,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             <e' g'>4
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-16.png
+        .. figure:: ../_images/prettify_rewrite_meter-a72jx4fc1xd.png
 
         Set ``extract_trivial_tuplets`` to ``False`` to disable this behaviour.
 
@@ -517,7 +517,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-17.png
+        .. figure:: ../_images/prettify_rewrite_meter-v9q0ka94qcd.png
 
     Multiple measures:
         Similarly to |abjad.mutate().rewrite_meter()|, this function accepts
@@ -555,7 +555,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-18.png
+        .. figure:: ../_images/prettify_rewrite_meter-s8fg7a2k0tr.png
 
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
@@ -580,7 +580,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-19.png
+        .. figure:: ../_images/prettify_rewrite_meter-rgd7ok7fkq.png
 
     Multiple measures with different meters:
         If the measures have different meters, they can be passed on
@@ -620,7 +620,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-20.png
+        .. figure:: ../_images/prettify_rewrite_meter-o2izz0m7s9k.png
 
         >>> for meter, measure in zip(
         ...     meters,
@@ -647,7 +647,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             f''8.
         }
 
-        .. figure:: ../_images/image-prettify_rewrite_meter-21.png
+        .. figure:: ../_images/prettify_rewrite_meter-zh89kk66zon.png
 
     .. tip::
 

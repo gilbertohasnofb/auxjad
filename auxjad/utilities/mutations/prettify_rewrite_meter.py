@@ -686,7 +686,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     if len(logical_ties) == 0:
         return
 
-    initial_offset = abjad.inspect(logical_ties[0]).timespan().start_offset
+    first_leaf = selection.logical_ties()[0]
+    initial_offset = abjad.inspect(first_leaf).timespan().start_offset
     base = 1 / meter.denominator
 
     for logical_tie in logical_ties.filter_duration("==", base / 2):

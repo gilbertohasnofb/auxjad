@@ -61,10 +61,8 @@ def test_example_of_usage_03():
             - \tenuto
             ~
             c'8
-            g'8
+            g'4
             \f
-            ~
-            g'8
             ef'8
             \p
             af'4
@@ -80,10 +78,8 @@ def test_example_of_usage_03():
             c'4.
             \mf
             - \tenuto
-            g'8
+            g'4
             \f
-            ~
-            g'8
             ef'8
             \p
             ~
@@ -92,10 +88,8 @@ def test_example_of_usage_03():
             c'8
             \mf
             - \tenuto
-            g'8
+            g'4
             \f
-            ~
-            g'8
             ef'4.
             \p
             bf'2
@@ -112,14 +106,18 @@ def test_example_of_usage_03():
             ef'8.
             bf'16
             ~
-            bf'2
+            bf'4..
+            ~
+            bf'16
             g'4
             \f
             ef'4.
             \p
             bf'8
             ~
-            bf'2
+            bf'4.
+            ~
+            bf'8
             g'8.
             \f
             ef'16
@@ -130,7 +128,11 @@ def test_example_of_usage_03():
             ef'16
             bf'8.
             ~
-            bf'4..
+            bf'4
+            ~
+            bf'16
+            ~
+            bf'8
             af'16
             - \tenuto
             g'8
@@ -139,7 +141,9 @@ def test_example_of_usage_03():
             \p
             bf'4
             ~
-            bf'4.
+            bf'4
+            ~
+            bf'8
             af'8
             - \tenuto
             g'16

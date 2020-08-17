@@ -100,9 +100,14 @@ class Mutation:
                                fill_with_rests: bool = True,
                                close_container: bool = False,
                                disable_rewrite_meter: bool = False,
+                               prettify_rewrite_meter: bool = True,
                                boundary_depth: Optional[int] = None,
                                maximum_dot_count: Optional[int] = None,
                                rewrite_tuplets: bool = True,
+                               extract_trivial_tuplets: bool = True,
+                               fuse_across_groups_of_beats: bool = True,
+                               fuse_quadruple_meter: bool = True,
+                               fuse_triple_meter: bool = True,
                                ):
         enforce_time_signature(
             self.client,
@@ -111,9 +116,14 @@ class Mutation:
             fill_with_rests=fill_with_rests,
             close_container=close_container,
             disable_rewrite_meter=disable_rewrite_meter,
+            prettify_rewrite_meter=prettify_rewrite_meter,
             boundary_depth=boundary_depth,
             maximum_dot_count=maximum_dot_count,
             rewrite_tuplets=rewrite_tuplets,
+            extract_trivial_tuplets=extract_trivial_tuplets,
+            fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+            fuse_quadruple_meter=fuse_quadruple_meter,
+            fuse_triple_meter=fuse_triple_meter,
         )
 
     def extract_trivial_tuplets(self):
@@ -122,10 +132,26 @@ class Mutation:
     def fill_with_rests(self,
                         *,
                         disable_rewrite_meter: bool = False,
+                        prettify_rewrite_meter: bool = True,
+                        boundary_depth: Optional[int] = None,
+                        maximum_dot_count: Optional[int] = None,
+                        rewrite_tuplets: bool = True,
+                        extract_trivial_tuplets: bool = True,
+                        fuse_across_groups_of_beats: bool = True,
+                        fuse_quadruple_meter: bool = True,
+                        fuse_triple_meter: bool = True,
                         ):
         fill_with_rests(
             self.client,
             disable_rewrite_meter=disable_rewrite_meter,
+            prettify_rewrite_meter=prettify_rewrite_meter,
+            boundary_depth=boundary_depth,
+            maximum_dot_count=maximum_dot_count,
+            rewrite_tuplets=rewrite_tuplets,
+            extract_trivial_tuplets=extract_trivial_tuplets,
+            fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+            fuse_quadruple_meter=fuse_quadruple_meter,
+            fuse_triple_meter=fuse_triple_meter,
         )
 
     def prettify_rewrite_meter(self,

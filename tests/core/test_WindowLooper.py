@@ -152,9 +152,7 @@ def test_WindowLooper_03():
         {
             \time 3/4
             d'4.
-            e'8
-            ~
-            e'8
+            e'4
             r8
         }
         """)
@@ -178,9 +176,7 @@ def test_WindowLooper_03():
         {
             \time 3/4
             d'8
-            e'8
-            ~
-            e'8
+            e'4
             r4.
         }
         """)
@@ -336,9 +332,7 @@ def test_WindowLooper_06():
             d'8
             ~
             d'4.
-            e'8
-            ~
-            e'8
+            e'4
             f'8
         }
         """)
@@ -950,9 +944,7 @@ def test_WindowLooper_26():
             e'4
             \time 3/4
             d'4.
-            e'8
-            ~
-            e'8
+            e'4
             r8
             \time 3/4
             d'4
@@ -960,9 +952,7 @@ def test_WindowLooper_26():
             r4
             \time 3/4
             d'8
-            e'8
-            ~
-            e'8
+            e'4
             r4.
             \time 3/4
             e'4
@@ -989,17 +979,13 @@ def test_WindowLooper_26():
             d'2
             e'4
             d'4.
-            e'8
-            ~
-            e'8
+            e'4
             r8
             d'4
             e'4
             r4
             d'8
-            e'8
-            ~
-            e'8
+            e'4
             r4.
             e'4
             r2

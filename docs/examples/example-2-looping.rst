@@ -88,35 +88,47 @@ measures.
     {
         \time 11/16
         a''16
-        d'''4
+        d'''8
         ~
-        d'''16
-        c'4
+        d'''8.
+        c'16
+        ~
+        c'8.
         e''16
         \time 7/8
         d'''4
         ~
         d'''16
-        c'4
+        c'16
+        ~
+        c'8.
         e''16
         bf'4
         \time 3/4
         c'4
         e''16
-        bf'4
+        bf'8.
+        ~
+        bf'16
         fs'8.
         \time 5/8
         e''16
-        bf'4
-        fs'8.
+        bf'16
+        ~
+        bf'8.
+        fs'16
+        ~
+        fs'8
         a''8
         \time 7/8
         bf'4
-        fs'8.
-        a''8
-        d'''4
+        fs'8
         ~
+        fs'16
+        a''8
         d'''16
+        ~
+        d'''4
         \time 11/16
         fs'8.
         a''8
@@ -126,9 +138,9 @@ measures.
         c'16
         \time 3/4
         a''8
-        d'''4
+        d'''8
         ~
-        d'''16
+        d'''8.
         c'16
         d'''4
     }
@@ -148,35 +160,47 @@ This is the final result.
     {
         \time 11/16
         a''16
-        d'''4
+        d'''8
         ~
-        d'''16
-        c'4
+        d'''8.
+        c'16
+        ~
+        c'8.
         e''16
         \time 7/8
         d'''4
         ~
         d'''16
-        c'4
+        c'16
+        ~
+        c'8.
         e''16
         bf'4
         \time 3/4
         c'4
         e''16
-        bf'4
+        bf'8.
+        ~
+        bf'16
         fs'8.
         \time 5/8
         e''16
-        bf'4
-        fs'8.
+        bf'16
+        ~
+        bf'8.
+        fs'16
+        ~
+        fs'8
         a''8
         \time 7/8
         bf'4
-        fs'8.
-        a''8
-        d'''4
+        fs'8
         ~
+        fs'16
+        a''8
         d'''16
+        ~
+        d'''4
         \time 11/16
         fs'8.
         a''8
@@ -186,9 +210,9 @@ This is the final result.
         c'16
         \time 3/4
         a''8
-        d'''4
+        d'''8
         ~
-        d'''16
+        d'''8.
         c'16
         d'''4
         \time 3/8
@@ -204,9 +228,9 @@ This is the final result.
         a''4.
         \time 11/16
         a''4.
-        e''4
-        ~
         e''16
+        ~
+        e''4
     }
 
 .. figure:: ../_images/example-2-looping-v5h9hyfmjj.png

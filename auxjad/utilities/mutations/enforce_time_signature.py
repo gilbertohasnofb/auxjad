@@ -2,6 +2,7 @@ from typing import Optional, Union
 
 import abjad
 
+from .auto_rewrite_meter import auto_rewrite_meter
 from .close_container import close_container as close_container_function
 from .fill_with_rests import fill_with_rests as fill_with_rests_function
 
@@ -16,9 +17,14 @@ def enforce_time_signature(container: abjad.Container,
                            fill_with_rests: bool = True,
                            close_container: bool = False,
                            disable_rewrite_meter: bool = False,
+                           prettify_rewrite_meter: bool = True,
                            boundary_depth: Optional[int] = None,
                            maximum_dot_count: Optional[int] = None,
                            rewrite_tuplets: bool = True,
+                           extract_trivial_tuplets: bool = True,
+                           fuse_across_groups_of_beats: bool = True,
+                           fuse_quadruple_meter: bool = True,
+                           fuse_triple_meter: bool = True,
                            ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function applies a time signature
@@ -562,6 +568,13 @@ def enforce_time_signature(container: abjad.Container,
         ``rewrite_tuplets``, which work exactly as the identically named
         arguments of |abjad.mutate().rewrite_meter()|.
 
+        This function also accepts the arguments
+        ``fuse_across_groups_of_beats``, ``fuse_quadruple_meter``,
+        ``fuse_triple_meter``, and ``extract_trivial_tuplets``, which are
+        passed on to |auxjad.mutate().prettify_rewrite_meter()| (the latter can
+        be disabled by setting ``prettify_rewrite_meter`` to ``False``). See
+        the documentation of this function for more details on these arguments.
+
     .. note::
 
         When using |abjad.Container|'s, all time signatures in the output will
@@ -590,7 +603,6 @@ def enforce_time_signature(container: abjad.Container,
         }
 
         .. figure:: ../_images/enforce_time_signature-y5sjtx3j0v.png
-
 
     .. warning::
 
@@ -693,10 +705,15 @@ def enforce_time_signature(container: abjad.Container,
         else:
             while len(time_signatures_) < len(measures):
                 time_signatures_.append(time_signatures_[-1])
-        for measure, time_signature in zip(measures, time_signatures_):
-            abjad.mutate(measure).rewrite_meter(
-                time_signature,
-                boundary_depth=boundary_depth,
-                maximum_dot_count=maximum_dot_count,
-                rewrite_tuplets=rewrite_tuplets,
-            )
+        auto_rewrite_meter(
+            container,
+            meter_list=time_signatures_,
+            boundary_depth=boundary_depth,
+            maximum_dot_count=maximum_dot_count,
+            rewrite_tuplets=rewrite_tuplets,
+            prettify_rewrite_meter=prettify_rewrite_meter,
+            extract_trivial_tuplets=extract_trivial_tuplets,
+            fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+            fuse_quadruple_meter=fuse_quadruple_meter,
+            fuse_triple_meter=fuse_triple_meter,
+        )

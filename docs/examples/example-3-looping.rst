@@ -121,10 +121,8 @@ measures of the looping process for us. In this case, let's output six measures.
         - \tenuto
         ~
         c'8
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         af'4
@@ -140,10 +138,8 @@ measures of the looping process for us. In this case, let's output six measures.
         c'4.
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         ~
@@ -152,10 +148,8 @@ measures of the looping process for us. In this case, let's output six measures.
         c'8
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'4.
         \p
         bf'2
@@ -196,75 +190,8 @@ crotchet into a semiquaver and output six more measures.
         - \tenuto
         ~
         c'8
-        g'8
-        \f
-        ~
-        g'8
-        ef'8
-        \p
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        c'4.
-        \mf
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'8
-        \p
-        ~
-        ef'4
-        bf'4
-        c'8
-        \mf
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        bf'2
-    }
-    \new Staff
-    {
-        \time 5/4
-        bf'4.
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        bf'8
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
         g'4
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        ~
-        c'8
-        g'8
         \f
-        ~
-        g'8
         ef'8
         \p
         af'4
@@ -280,10 +207,8 @@ crotchet into a semiquaver and output six more measures.
         c'4.
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         ~
@@ -292,10 +217,8 @@ crotchet into a semiquaver and output six more measures.
         c'8
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'4.
         \p
         bf'2
@@ -313,14 +236,18 @@ crotchet into a semiquaver and output six more measures.
         ef'8.
         bf'16
         ~
-        bf'2
+        bf'4..
+        ~
+        bf'16
         g'4
         \f
         ef'4.
         \p
         bf'8
         ~
-        bf'2
+        bf'4.
+        ~
+        bf'8
         g'8.
         \f
         ef'16
@@ -331,7 +258,11 @@ crotchet into a semiquaver and output six more measures.
         ef'16
         bf'8.
         ~
-        bf'4..
+        bf'4
+        ~
+        bf'16
+        ~
+        bf'8
         af'16
         - \tenuto
         g'8
@@ -340,7 +271,9 @@ crotchet into a semiquaver and output six more measures.
         \p
         bf'4
         ~
-        bf'4.
+        bf'4
+        ~
+        bf'8
         af'8
         - \tenuto
         g'16
@@ -405,10 +338,8 @@ adds to |abjad.mutate()|.
         - \tenuto
         ~
         c'8
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         af'4
@@ -424,10 +355,8 @@ adds to |abjad.mutate()|.
         c'4.
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         ~
@@ -436,10 +365,8 @@ adds to |abjad.mutate()|.
         c'8
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'4.
         \p
         bf'2
@@ -456,14 +383,18 @@ adds to |abjad.mutate()|.
         ef'8.
         bf'16
         ~
-        bf'2
+        bf'4..
+        ~
+        bf'16
         g'4
         \f
         ef'4.
         \p
         bf'8
         ~
-        bf'2
+        bf'4.
+        ~
+        bf'8
         g'8.
         \f
         ef'16
@@ -474,7 +405,11 @@ adds to |abjad.mutate()|.
         ef'16
         bf'8.
         ~
-        bf'4..
+        bf'4
+        ~
+        bf'16
+        ~
+        bf'8
         af'16
         - \tenuto
         g'8
@@ -483,7 +418,9 @@ adds to |abjad.mutate()|.
         \p
         bf'4
         ~
-        bf'4.
+        bf'4
+        ~
+        bf'8
         af'8
         - \tenuto
         g'16
@@ -544,10 +481,8 @@ more measures.
         - \tenuto
         ~
         c'8
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         af'4
@@ -563,10 +498,8 @@ more measures.
         c'4.
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         ~
@@ -575,10 +508,8 @@ more measures.
         c'8
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'4.
         \p
         bf'2
@@ -595,14 +526,18 @@ more measures.
         ef'8.
         bf'16
         ~
-        bf'2
+        bf'4..
+        ~
+        bf'16
         g'4
         \f
         ef'4.
         \p
         bf'8
         ~
-        bf'2
+        bf'4.
+        ~
+        bf'8
         g'8.
         \f
         ef'16
@@ -613,7 +548,11 @@ more measures.
         ef'16
         bf'8.
         ~
-        bf'4..
+        bf'4
+        ~
+        bf'16
+        ~
+        bf'8
         af'16
         - \tenuto
         g'8
@@ -622,7 +561,9 @@ more measures.
         \p
         bf'4
         ~
-        bf'4.
+        bf'4
+        ~
+        bf'8
         af'8
         - \tenuto
         g'16
@@ -686,7 +627,6 @@ is also available as the extension method
 |abjad.mutate().remove_repeated_dynamics()|, which Auxjad automatically adds to
 |abjad.mutate()|.
 
-
 The final result is shown below.
 
     >>> abjad.mutate(staff[:]).remove_repeated_dynamics()
@@ -717,10 +657,8 @@ The final result is shown below.
         - \tenuto
         ~
         c'8
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         af'4
@@ -736,10 +674,8 @@ The final result is shown below.
         c'4.
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'8
         \p
         ~
@@ -748,10 +684,8 @@ The final result is shown below.
         c'8
         \mf
         - \tenuto
-        g'8
+        g'4
         \f
-        ~
-        g'8
         ef'4.
         \p
         bf'2
@@ -768,14 +702,18 @@ The final result is shown below.
         ef'8.
         bf'16
         ~
-        bf'2
+        bf'4..
+        ~
+        bf'16
         g'4
         \f
         ef'4.
         \p
         bf'8
         ~
-        bf'2
+        bf'4.
+        ~
+        bf'8
         g'8.
         \f
         ef'16
@@ -786,7 +724,11 @@ The final result is shown below.
         ef'16
         bf'8.
         ~
-        bf'4..
+        bf'4
+        ~
+        bf'16
+        ~
+        bf'8
         af'16
         - \tenuto
         g'8
@@ -795,7 +737,9 @@ The final result is shown below.
         \p
         bf'4
         ~
-        bf'4.
+        bf'4
+        ~
+        bf'8
         af'8
         - \tenuto
         g'16

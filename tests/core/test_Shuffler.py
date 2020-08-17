@@ -347,9 +347,7 @@ def test_Shuffler_07():
             g'16
             f'8.
             e'4.
-            c'8
-            ~
-            c'8
+            c'4
             d'8
         }
         """)
@@ -396,9 +394,7 @@ def test_Shuffler_08():
             ~
             f'16
             g'16
-            c'8
-            ~
-            c'8
+            c'4
             d'8
         }
         """)
@@ -521,11 +517,9 @@ def test_Shuffler_11():
             - \marcato
             ~
             f'8
-            <c' e' g'>8
+            <c' e' g'>4
             \p
             - \tenuto
-            ~
-            <c' e' g'>8
             e'8
             - \staccato
             f'4
@@ -656,7 +650,7 @@ def test_Shuffler_15():
 
 def test_Shuffler_16():
     random.seed(19867)
-    container = abjad.Container(r"c'4 d'8 e'8 f'2")
+    container = abjad.Container(r"c'4 d'8. e'16 f'2")
     shuffler = auxjad.Shuffler(container)
     notes = shuffler()
     staff = abjad.Staff(notes)
@@ -665,14 +659,16 @@ def test_Shuffler_16():
         \new Staff
         {
             \time 4/4
-            e'8
-            f'8
+            e'16
+            f'8.
             ~
-            f'4.
-            c'8
+            f'4
             ~
-            c'8
-            d'8
+            f'16
+            c'8.
+            ~
+            c'16
+            d'8.
         }
         """)
     random.seed(19867)
@@ -686,10 +682,10 @@ def test_Shuffler_16():
         \new Staff
         {
             \time 4/4
-            e'8
+            e'16
             f'2
             c'4
-            d'8
+            d'8.
         }
         """)
 
@@ -878,9 +874,7 @@ def test_Shuffler_21():
             d'4
             ~
             d'16
-            e'16
-            ~
-            e'16
+            e'8
             f'16
         }
         """)

@@ -99,15 +99,11 @@ def test_Phaser_02():
         {
             \time 4/4
             c'8
-            d'8
-            ~
-            d'8
+            d'4
             e'8
             ~
             e'8
-            f'8
-            ~
-            f'8
+            f'4
             c'8
         }
         """)
@@ -393,9 +389,7 @@ def test_Phaser_07():
             d'2
             ~
             d'8.
-            \times 2/3 {
-                c'16.
-            }
+            c'16
             \times 2/3 {
                 d'16
                 e'8
@@ -609,12 +603,8 @@ def test_Phaser_12():
             d'8
             e'8
             c'16
-            d'16
-            ~
-            d'16
-            e'16
-            ~
-            e'16
+            d'8
+            e'8
             c'16
             d'8
             e'8
@@ -635,12 +625,8 @@ def test_Phaser_12():
             d'8
             e'8
             e'16
-            c'16
-            ~
-            c'16
-            d'16
-            ~
-            d'16
+            c'8
+            d'8
             e'16
             e'8
             c'8
@@ -760,19 +746,15 @@ def test_Phaser_16():
             c'8
             - \staccato
             \<
-            d'8
+            d'4
             \f
             - \tenuto
-            ~
-            d'8
             e'8
             \p
             - \accent
             ~
             e'8
-            f'8
-            ~
-            f'8
+            f'4
             c'8
             - \staccato
             d'4
@@ -787,19 +769,14 @@ def test_Phaser_16():
             d'8
             \f
             - \tenuto
-            e'8
+            e'4
             \p
             - \accent
-            ~
-            e'8
             f'8
             ~
             f'8
-            c'8
+            c'4
             - \staccato
-            ~
-            c'8
-            \<
             d'8
             \f
             - \tenuto
@@ -928,12 +905,8 @@ def test_Phaser_19():
             d'4
             e'4
             c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
+            d'4
+            e'4
             c'8
             d'4
             e'4
@@ -1227,10 +1200,8 @@ def test_Phaser_25():
             d'4
             ~
             d'16
-            e'16
+            e'8
             \f
-            ~
-            e'16
             f'16
             \p
             ~

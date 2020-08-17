@@ -198,23 +198,8 @@ def test_fill_with_rests_06():
 
 
 def test_fill_with_rests_07():
-    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'8")
+    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4")
     auxjad.mutate(staff).fill_with_rests()
-    assert format(staff) == abjad.String.normalize(
-        r"""
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            r2
-        }
-        """)
-    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'8")
-    auxjad.mutate(staff).fill_with_rests(disable_rewrite_meter=True)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -223,6 +208,21 @@ def test_fill_with_rests_07():
             c'8
             d'4
             e'8
-            r2
+            ~
+            e'8
+            r4.
+        }
+        """)
+    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4")
+    auxjad.mutate(staff).fill_with_rests(disable_rewrite_meter=True)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'4
+            e'4
+            r4.
         }
         """)

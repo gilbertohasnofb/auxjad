@@ -158,7 +158,7 @@ class WindowLooper(_LooperParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
-        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
+        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -173,17 +173,13 @@ class WindowLooper(_LooperParent):
             d'2
             e'4
             d'4.
-            e'8
-            ~
-            e'8
+            e'4
             r8
             d'4
             e'4
             r4
             d'8
-            e'8
-            ~
-            e'8
+            e'4
             r4.
             e'4
             r2
@@ -634,9 +630,7 @@ class WindowLooper(_LooperParent):
             d'8
             ~
             d'4.
-            e'8
-            ~
-            e'8
+            e'4
             f'8
         }
 
@@ -836,6 +830,13 @@ class WindowLooper(_LooperParent):
         :attr:`rewrite_tuplets`, which work exactly as the identically named
         arguments of |abjad.mutate().rewrite_meter()|.
 
+        This class also accepts the arguments ``fuse_across_groups_of_beats``,
+        ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
+        ``extract_trivial_tuplets``, which are passed on to
+        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        by setting ``prettify_rewrite_meter`` to ``False``). See the
+        documentation of this function for more details on these arguments.
+
     .. warning::
 
         This class can handle tuplets, but the output is often quite complex.
@@ -890,6 +891,11 @@ class WindowLooper(_LooperParent):
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
+                 '_prettify_rewrite_meter',
+                 '_extract_trivial_tuplets',
+                 '_fuse_across_groups_of_beats',
+                 '_fuse_quadruple_meter',
+                 '_fuse_triple_meter',
                  )
 
     ### INITIALISER ###
@@ -919,6 +925,11 @@ class WindowLooper(_LooperParent):
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
+                 prettify_rewrite_meter: bool = True,
+                 extract_trivial_tuplets: bool = True,
+                 fuse_across_groups_of_beats: bool = True,
+                 fuse_quadruple_meter: bool = True,
+                 fuse_triple_meter: bool = True,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -927,6 +938,11 @@ class WindowLooper(_LooperParent):
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
+        self.prettify_rewrite_meter = prettify_rewrite_meter
+        self.extract_trivial_tuplets = extract_trivial_tuplets
+        self.fuse_across_groups_of_beats = fuse_across_groups_of_beats
+        self.fuse_quadruple_meter = fuse_quadruple_meter
+        self.fuse_triple_meter = fuse_triple_meter
         super().__init__(head_position,
                          window_size,
                          step_size,
@@ -1043,11 +1059,16 @@ class WindowLooper(_LooperParent):
         dummy_container = abjad.Container(
             abjad.mutate(dummy_container[start : end]).copy()
         )
-        abjad.mutate(dummy_container[:]).rewrite_meter(
-            window_size,
+        mutate(dummy_container).auto_rewrite_meter(
+            meter_list = [abjad.TimeSignature(window_size)],
             boundary_depth=self._boundary_depth,
             maximum_dot_count=self._maximum_dot_count,
             rewrite_tuplets=self._rewrite_tuplets,
+            prettify_rewrite_meter=self._prettify_rewrite_meter,
+            extract_trivial_tuplets=self._extract_trivial_tuplets,
+            fuse_across_groups_of_beats=self._fuse_across_groups_of_beats,
+            fuse_quadruple_meter=self._fuse_quadruple_meter,
+            fuse_triple_meter=self._fuse_triple_meter,
         )
         abjad.attach(abjad.TimeSignature(window_size),
                      abjad.select(dummy_container).leaf(0),
@@ -1223,6 +1244,81 @@ class WindowLooper(_LooperParent):
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
+
+    @property
+    def prettify_rewrite_meter(self) -> bool:
+        r"""Used to enable or disable the mutation
+        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        """
+        return self._prettify_rewrite_meter
+
+    @prettify_rewrite_meter.setter
+    def prettify_rewrite_meter(self,
+                                prettify_rewrite_meter: bool,
+                                ):
+        if not isinstance(prettify_rewrite_meter, bool):
+            raise TypeError("'prettify_rewrite_meter' must be 'bool'")
+        self._prettify_rewrite_meter = prettify_rewrite_meter
+
+    @property
+    def extract_trivial_tuplets(self) -> bool:
+        r"""Sets the argument ``extract_trivial_tuplets`` of
+        |auxjad.mutate().prettify_rewrite_meter()|.
+        """
+        return self._extract_trivial_tuplets
+
+    @extract_trivial_tuplets.setter
+    def extract_trivial_tuplets(self,
+                                extract_trivial_tuplets: bool,
+                                ):
+        if not isinstance(extract_trivial_tuplets, bool):
+            raise TypeError("'extract_trivial_tuplets' must be 'bool'")
+        self._extract_trivial_tuplets = extract_trivial_tuplets
+
+    @property
+    def fuse_across_groups_of_beats(self) -> bool:
+        r"""Sets the argument ``fuse_across_groups_of_beats`` of
+        |auxjad.mutate().prettify_rewrite_meter()|.
+        """
+        return self._fuse_across_groups_of_beats
+
+    @fuse_across_groups_of_beats.setter
+    def fuse_across_groups_of_beats(self,
+                                    fuse_across_groups_of_beats: bool,
+                                    ):
+        if not isinstance(fuse_across_groups_of_beats, bool):
+            raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
+        self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
+
+    @property
+    def fuse_quadruple_meter(self) -> bool:
+        r"""Sets the argument ``fuse_quadruple_meter`` of
+        |auxjad.mutate().prettify_rewrite_meter()|.
+        """
+        return self._fuse_quadruple_meter
+
+    @fuse_quadruple_meter.setter
+    def fuse_quadruple_meter(self,
+                             fuse_quadruple_meter: bool,
+                             ):
+        if not isinstance(fuse_quadruple_meter, bool):
+            raise TypeError("'fuse_quadruple_meter' must be 'bool'")
+        self._fuse_quadruple_meter = fuse_quadruple_meter
+
+    @property
+    def fuse_triple_meter(self) -> bool:
+        r"""Sets the argument ``fuse_triple_meter`` of
+        |auxjad.mutate().prettify_rewrite_meter()|.
+        """
+        return self._fuse_triple_meter
+
+    @fuse_triple_meter.setter
+    def fuse_triple_meter(self,
+                          fuse_triple_meter: bool,
+                          ):
+        if not isinstance(fuse_triple_meter, bool):
+            raise TypeError("'fuse_triple_meter' must be 'bool'")
+        self._fuse_triple_meter = fuse_triple_meter
 
     ### PRIVATE PROPERTIES ###
 

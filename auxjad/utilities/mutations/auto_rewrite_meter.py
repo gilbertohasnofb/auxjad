@@ -408,7 +408,7 @@ def auto_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
 
-    ..  note::
+    .. note::
 
         This function also accepts the arguments ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to

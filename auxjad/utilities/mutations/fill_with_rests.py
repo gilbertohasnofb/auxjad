@@ -1,11 +1,24 @@
+from typing import Optional
+
 import abjad
 
+from .prettify_rewrite_meter import (
+    prettify_rewrite_meter as prettify_rewrite_meter_function,
+)
 from ..inspect import inspect
 
 
 def fill_with_rests(container: abjad.Container,
                     *,
                     disable_rewrite_meter: bool = False,
+                    prettify_rewrite_meter: bool = True,
+                    boundary_depth: Optional[int] = None,
+                    maximum_dot_count: Optional[int] = None,
+                    rewrite_tuplets: bool = True,
+                    extract_trivial_tuplets: bool = True,
+                    fuse_across_groups_of_beats: bool = True,
+                    fuse_quadruple_meter: bool = True,
+                    fuse_triple_meter: bool = True,
                     ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function fills a container with
@@ -177,21 +190,21 @@ def fill_with_rests(container: abjad.Container,
         .. figure:: ../_images/fill_with_rests-9smva9ajdi.png
 
     ``disable_rewrite_meter``:
-        By default, this class uses the |abjad.mutate().rewrite_meter()|
-        mutation.
+        By default, this class applies the |abjad.mutate().rewrite_meter()|
+        mutation to the last measure when rests are added.
 
-        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'8")
+        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4")
         >>> auxjad.mutate(staff).fill_with_rests()
         >>> abjad.f(staff)
         \new Staff
         {
             \time 4/4
             c'8
-            d'8
-            ~
-            d'8
+            d'4
             e'8
-            r2
+            ~
+            e'8
+            r4.
         }
 
         .. figure:: ../_images/fill_with_rests-n83nmnfh92c.png
@@ -200,7 +213,7 @@ def fill_with_rests(container: abjad.Container,
         ``disable_rewrite_meter`` set to ``True`` in order to disable this
         behaviour.
 
-        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'8")
+        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4")
         >>> auxjad.mutate(staff, disable_rewrite_meter=True).fill_with_rests()
         >>> abjad.f(staff)
         \new Staff
@@ -208,11 +221,22 @@ def fill_with_rests(container: abjad.Container,
             \time 4/4
             c'8
             d'4
-            e'8
-            r2
+            e'4
+            r4.
         }
 
         .. figure:: ../_images/fill_with_rests-9rg2i4n1vhr.png
+
+    .. note::
+
+        This function also accepts the arguments ``boundary_depth``,
+        ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
+        |abjad.mutate().rewrite_meter()|, and ``fuse_across_groups_of_beats``,
+        ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
+        ``extract_trivial_tuplets``, which are passed on to
+        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        by setting ``prettify_rewrite_meter`` to ``False``). See the
+        documentation of those functions for more details on these arguments.
 
     .. error::
 
@@ -243,6 +267,8 @@ def fill_with_rests(container: abjad.Container,
                 inspect(container[:]).underfull_duration(),
             )
             container.extend(underfull_rests)
+        else:
+            return
     except ValueError as err:
         raise ValueError("'container' is malformed, with an underfull measure "
                          "preceding a time signature change") from err
@@ -251,4 +277,19 @@ def fill_with_rests(container: abjad.Container,
             do_not_use_none=True,
         )
         measures = abjad.select(container[:]).group_by_measure()
-        abjad.mutate(measures[-1]).rewrite_meter(time_signatures[-1])
+        abjad.mutate(measures[-1]).rewrite_meter(
+            time_signatures[-1],
+            boundary_depth=boundary_depth,
+            maximum_dot_count=maximum_dot_count,
+            rewrite_tuplets=rewrite_tuplets,
+        )
+        if prettify_rewrite_meter:
+            measures = abjad.select(container[:]).group_by_measure()
+            prettify_rewrite_meter_function(
+                measures[-1],
+                time_signatures[-1],
+                extract_trivial_tuplets=extract_trivial_tuplets,
+                fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+                fuse_quadruple_meter=fuse_quadruple_meter,
+                fuse_triple_meter=fuse_triple_meter,
+            )

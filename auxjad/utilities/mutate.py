@@ -273,180 +273,20 @@ def mutate(client):
 
 ### EXTENSION METHODS ###
 
-def _auto_rewrite_meter(self,
-                        meter_list: list = None,
-                        *,
-                        prettify: bool = True,
-                        extract_trivial_tuplets: bool = True,
-                        ):
-    auto_rewrite_meter(
-        self.client,
-        meter_list=meter_list,
-        prettify=prettify,
-        extract_trivial_tuplets=extract_trivial_tuplets,
-    )
-
-
-def _close_container(self):
-    close_container(self.client)
-
-
-def _enforce_time_signature(self,
-                            time_signatures: Union[abjad.TimeSignature,
-                                                   tuple,
-                                                   list,
-                                                   ],
-                            *,
-                            cyclic: bool = False,
-                            fill_with_rests: bool = True,
-                            close_container: bool = False,
-                            disable_rewrite_meter: bool = False,
-                            boundary_depth: Optional[int] = None,
-                            maximum_dot_count: Optional[int] = None,
-                            rewrite_tuplets: bool = True,
-                            ):
-    enforce_time_signature(self.client,
-                           time_signatures=time_signatures,
-                           cyclic=cyclic,
-                           fill_with_rests=fill_with_rests,
-                           close_container=close_container,
-                           disable_rewrite_meter=disable_rewrite_meter,
-                           boundary_depth=boundary_depth,
-                           maximum_dot_count=maximum_dot_count,
-                           rewrite_tuplets=rewrite_tuplets,
-                           )
-
-
-def _extract_trivial_tuplets(self):
-    extract_trivial_tuplets(self._client)
-
-
-def _fill_with_rests(self,
-                     *,
-                     disable_rewrite_meter: bool = False,
-                     ):
-    fill_with_rests(self.client,
-                    disable_rewrite_meter=disable_rewrite_meter,
-                    )
-
-
-def _prettify_rewrite_meter(self,
-                            meter,
-                            *,
-                            fuse_across_groups_of_beats: bool = True,
-                            fuse_quadruple_meter: bool = True,
-                            fuse_triple_meter: bool = True,
-                            extract_trivial_tuplets: bool = True,
-                            ):
-    prettify_rewrite_meter(
-        self._client,
-        meter,
-        fuse_across_groups_of_beats=fuse_across_groups_of_beats,
-        fuse_quadruple_meter=fuse_quadruple_meter,
-        fuse_triple_meter=fuse_triple_meter,
-        extract_trivial_tuplets=extract_trivial_tuplets,
-    )
-
-
-def _remove_repeated_dynamics(self,
-                              *,
-                              ignore_hairpins: bool = False,
-                              reset_after_rests: bool = False,
-                              ):
-    remove_repeated_dynamics(self._client,
-                             ignore_hairpins=ignore_hairpins,
-                             reset_after_rests=reset_after_rests,
-                             )
-
-
-def _remove_repeated_time_signatures(self):
-    remove_repeated_time_signatures(self._client)
-
-
-def _reposition_clefs(self,
-                      *,
-                      shift_clef_to_notes: bool = True,
-                      implicit_clef: abjad.Clef = abjad.Clef('treble'),
-                      ):
-    reposition_clefs(self._client,
-                     shift_clef_to_notes=shift_clef_to_notes,
-                     implicit_clef=implicit_clef,
-                     )
-
-
-def _reposition_dynamics(
-    self,
-    *,
-    allow_hairpins_under_rests: bool = False,
-    check_hairpin_trends: bool = True,
-    remove_repeated_dynamics: bool = True,
-    allow_hairpin_to_rest_with_dynamic: bool = True,
-):
-    reposition_dynamics(
-        self._client,
-        allow_hairpins_under_rests=allow_hairpins_under_rests,
-        check_hairpin_trends=check_hairpin_trends,
-        remove_repeated_dynamics=remove_repeated_dynamics,
-        allow_hairpin_to_rest_with_dynamic=allow_hairpin_to_rest_with_dynamic,
-    )
-
-
-def _reposition_slurs(self,
-                      *,
-                      allow_slurs_under_rests: bool = False,
-                      close_unterminated_final_slur: bool = False,
-                      ):
-    reposition_slurs(
-        self._client,
-        allow_slurs_under_rests=allow_slurs_under_rests,
-        close_unterminated_final_slur=close_unterminated_final_slur,
-    )
-
-
-def _respell_accidentals(self,
-                         *,
-                         include_multiples: bool = False,
-                         respell_by_pitch_class: bool = False,
-                         ):
-    respell_accidentals(self._client,
-                        include_multiples=include_multiples,
-                        respell_by_pitch_class=respell_by_pitch_class,
-                        )
-
-
-def _rests_to_multimeasure_rest(self):
-    rests_to_multimeasure_rest(self._client)
-
-
-def _sustain_notes(self):
-    sustain_notes(self.client)
-
-
-def _sync_containers(self,
-                     *,
-                     use_multimeasure_rests: bool = True,
-                     adjust_last_time_signature: bool = True,
-                     ):
-    sync_containers(self._client,
-                    use_multimeasure_rests=use_multimeasure_rests,
-                    adjust_last_time_signature=adjust_last_time_signature,
-                    )
-
-
-abjad.Mutation.auto_rewrite_meter = _auto_rewrite_meter
-abjad.Mutation.close_container = _close_container
-abjad.Mutation.enforce_time_signature = _enforce_time_signature
-abjad.Mutation.extract_trivial_tuplets = _extract_trivial_tuplets
-abjad.Mutation.fill_with_rests = _fill_with_rests
-abjad.Mutation.prettify_rewrite_meter = _prettify_rewrite_meter
-abjad.Mutation.remove_repeated_dynamics = _remove_repeated_dynamics
+abjad.Mutation.auto_rewrite_meter = Mutation.auto_rewrite_meter
+abjad.Mutation.close_container = Mutation.close_container
+abjad.Mutation.enforce_time_signature = Mutation.enforce_time_signature
+abjad.Mutation.extract_trivial_tuplets = Mutation.extract_trivial_tuplets
+abjad.Mutation.fill_with_rests = Mutation.fill_with_rests
+abjad.Mutation.prettify_rewrite_meter = Mutation.prettify_rewrite_meter
+abjad.Mutation.remove_repeated_dynamics = Mutation.remove_repeated_dynamics
 abjad.Mutation.remove_repeated_time_signatures = (
-    _remove_repeated_time_signatures
+    Mutation.remove_repeated_time_signatures
 )
-abjad.Mutation.reposition_clefs = _reposition_clefs
-abjad.Mutation.reposition_dynamics = _reposition_dynamics
-abjad.Mutation.reposition_slurs = _reposition_slurs
-abjad.Mutation.respell_accidentals = _respell_accidentals
-abjad.Mutation.rests_to_multimeasure_rest = _rests_to_multimeasure_rest
-abjad.Mutation.sustain_notes = _sustain_notes
-abjad.Mutation.sync_containers = _sync_containers
+abjad.Mutation.reposition_clefs = Mutation.reposition_clefs
+abjad.Mutation.reposition_dynamics = Mutation.reposition_dynamics
+abjad.Mutation.reposition_slurs = Mutation.reposition_slurs
+abjad.Mutation.respell_accidentals = Mutation.respell_accidentals
+abjad.Mutation.rests_to_multimeasure_rest = Mutation.rests_to_multimeasure_rest
+abjad.Mutation.sustain_notes = Mutation.sustain_notes
+abjad.Mutation.sync_containers = Mutation.sync_containers

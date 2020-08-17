@@ -140,42 +140,8 @@ def inspect(client):
 
 ### EXTENSION METHODS ###
 
-def _leaves_are_tieable(self) -> bool:
-    return leaves_are_tieable(self._client)
-
-
-def _selection_is_full(self) -> bool:
-    return selection_is_full(self._client)
-
-
-def _selections_are_equal(self,
-                          *,
-                          include_indicators: bool = True,
-                          ) -> bool:
-    return selections_are_equal(self._client,
-                                include_indicators=include_indicators,
-                                )
-
-
-def _time_signature_extractor(self,
-                              *,
-                              do_not_use_none: bool = False,
-                              implicit_common_time: bool = True,
-                              omit_repeated: bool = False,
-                              ) -> list:
-    return time_signature_extractor(self._client,
-                                    do_not_use_none=do_not_use_none,
-                                    implicit_common_time=implicit_common_time,
-                                    omit_repeated=omit_repeated,
-                                    )
-
-
-def _underfull_duration(self) -> abjad.Duration:
-    return underfull_duration(self._client)
-
-
-abjad.Inspection.leaves_are_tieable = _leaves_are_tieable
-abjad.Inspection.selection_is_full = _selection_is_full
-abjad.Inspection.selections_are_equal = _selections_are_equal
-abjad.Inspection.time_signature_extractor = _time_signature_extractor
-abjad.Inspection.underfull_duration = _underfull_duration
+abjad.Inspection.leaves_are_tieable = Inspection.leaves_are_tieable
+abjad.Inspection.selection_is_full = Inspection.selection_is_full
+abjad.Inspection.selections_are_equal = Inspection.selections_are_equal
+abjad.Inspection.time_signature_extractor = Inspection.time_signature_extractor
+abjad.Inspection.underfull_duration = Inspection.underfull_duration

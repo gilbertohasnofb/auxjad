@@ -67,12 +67,24 @@ class Mutation:
                            *,
                            prettify: bool = True,
                            extract_trivial_tuplets: bool = True,
+                           fuse_across_groups_of_beats: bool = True,
+                           fuse_quadruple_meter: bool = True,
+                           fuse_triple_meter: bool = True,
+                           boundary_depth: Optional[int] = None,
+                           maximum_dot_count: Optional[int] = None,
+                           rewrite_tuplets: bool = True,
                            ):
         auto_rewrite_meter(
             self.client,
             meter_list=meter_list,
             prettify=prettify,
             extract_trivial_tuplets=extract_trivial_tuplets,
+            fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+            fuse_quadruple_meter=fuse_quadruple_meter,
+            fuse_triple_meter=fuse_triple_meter,
+            boundary_depth=boundary_depth,
+            maximum_dot_count=maximum_dot_count,
+            rewrite_tuplets=rewrite_tuplets,
         )
 
     def close_container(self):

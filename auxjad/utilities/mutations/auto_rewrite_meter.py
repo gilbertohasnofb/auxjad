@@ -1,3 +1,5 @@
+from typing import Optional
+
 import abjad
 
 from ..inspect import inspect
@@ -12,6 +14,12 @@ def auto_rewrite_meter(container: abjad.Container,
                        *,
                        prettify: bool = True,
                        extract_trivial_tuplets: bool = True,
+                       fuse_across_groups_of_beats: bool = True,
+                       fuse_quadruple_meter: bool = True,
+                       fuse_triple_meter: bool = True,
+                       boundary_depth: Optional[int] = None,
+                       maximum_dot_count: Optional[int] = None,
+                       rewrite_tuplets: bool = True,
                        ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function takes every measure of a
@@ -20,10 +28,78 @@ def auto_rewrite_meter(container: abjad.Container,
     |auxjad.mutate().prettify_rewrite_meter()| to it.
 
     Basic usage:
-        This function can be call simply on a container.
+        For this example, the following container will be mutated:
 
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
+        ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'16
+            d'8
+            e'16
+            f'8
+            g'4
+            a'4
+            b'8
+            c'16
+            d'4.
+            e'16
+            f'8
+            g'4
+            a'16
+            b'16
+        }
+
+        .. figure:: ../_images/auto_rewrite_meter-xyx2wh7ufer.png
+
+        Abjad's |abjad.mutate().rewrite_meter()| mutates an |abjad.Selection|
+        of a measure, improving its notation.
+
+        >>> for measure in abjad.select(staff).group_by_measure():
+        ...     abjad.mutate(measure).rewrite_meter(abjad.Meter((4, 4)))
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'16
+            d'16
+            ~
+            d'16
+            e'16
+            f'8
+            g'8
+            ~
+            g'8
+            a'8
+            ~
+            a'8
+            b'8
+            c'16
+            d'8.
+            ~
+            d'8.
+            e'16
+            f'8
+            g'8
+            ~
+            g'8
+            a'16
+            b'16
+        }
+
+        .. figure:: ../_images/auto_rewrite_meter-7fn2uj2xupb.png
+
+        This function mutates an |abjad.Container| (or child class),
+        identifying the implied meters of each measure and applying both
+        |abjad.mutate().rewrite_meter()| and
+        |auxjad.mutate().prettify_rewrite_meter()| to it. See the documentation
+        of the latter for a detailed explanation of what it does.
+
+        Applying |auxjad.mutate().auto_rewrite_meter()| to the same initial
+        container shown in the first figure above outputs:
+
+        >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
         >>> auxjad.mutate(staff).auto_rewrite_meter()
         >>> abjad.f(staff)
         \new Staff
@@ -38,14 +114,14 @@ def auto_rewrite_meter(container: abjad.Container,
             a'4
             b'8
             c'16
-            d'8
+            d'8.
+            ~
+            d'8.
             e'16
             f'8
-            g'8
-            ~
-            g'8
-            a'4
-            b'8
+            g'4
+            a'16
+            b'16
         }
 
         .. figure:: ../_images/auto_rewrite_meter-ahdaggaiqbc.png
@@ -124,7 +200,7 @@ def auto_rewrite_meter(container: abjad.Container,
         |auxjad.mutate().prettify_rewrite_meter()|.
 
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
+        ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
         >>> auxjad.mutate(staff).auto_rewrite_meter(prettify=False)
         >>> abjad.f(staff)
         \new Staff
@@ -143,18 +219,16 @@ def auto_rewrite_meter(container: abjad.Container,
             a'8
             b'8
             c'16
-            d'16
+            d'8.
             ~
-            d'16
+            d'8.
             e'16
             f'8
             g'8
             ~
             g'8
-            a'8
-            ~
-            a'8
-            b'8
+            a'16
+            b'16
         }
 
         .. figure:: ../_images/auto_rewrite_meter-64wse58hvko.png
@@ -329,6 +403,15 @@ def auto_rewrite_meter(container: abjad.Container,
         }
 
         .. figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
+
+    ..  note::
+
+        This function also accepts the arguments ``boundary_depth``,
+        ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
+        |abjad.mutate().rewrite_meter()|, and ``fuse_across_groups_of_beats``,
+        ``fuse_quadruple_meter``, and ``fuse_triple_meter``, which are passed
+        on to |auxjad.mutate().prettify_rewrite_meter()|. See the documentation
+        of those functions for more details on these arguments.
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "
@@ -346,6 +429,20 @@ def auto_rewrite_meter(container: abjad.Container,
                     meter = abjad.Meter(meter.pair)
     if not isinstance(prettify, bool):
         raise TypeError("'prettify' must be 'bool'")
+    if not isinstance(fuse_across_groups_of_beats, bool):
+        raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
+    if not isinstance(fuse_quadruple_meter, bool):
+        raise TypeError("'fuse_quadruple_meter' must be 'bool'")
+    if not isinstance(fuse_triple_meter, bool):
+        raise TypeError("'fuse_triple_meter' must be 'bool'")
+    if boundary_depth is not None:
+        if not isinstance(boundary_depth, int):
+            raise TypeError("'boundary_depth' must be 'int'")
+    if maximum_dot_count is not None:
+        if not isinstance(maximum_dot_count, int):
+            raise TypeError("'maximum_dot_count' must be 'int'")
+    if not isinstance(rewrite_tuplets, bool):
+        raise TypeError("'rewrite_tuplets' must be 'bool'")
 
     if extract_trivial_tuplets:
         extract_trivial_tuplets_function(abjad.select(container))
@@ -357,12 +454,20 @@ def auto_rewrite_meter(container: abjad.Container,
         meter_list = [abjad.Meter(ts.pair) for ts in time_signatures]
     measures = abjad.select(container[:]).group_by_measure()
     for meter, measure in zip(meter_list, measures):
-        abjad.mutate(measure).rewrite_meter(meter)
+        abjad.mutate(measure).rewrite_meter(
+            meter,
+            boundary_depth=boundary_depth,
+            maximum_dot_count=maximum_dot_count,
+            rewrite_tuplets=rewrite_tuplets,
+        )
     if prettify:
         measures = abjad.select(container[:]).group_by_measure()
         for meter, measure in zip(meter_list, measures):
             prettify_rewrite_meter(
                 measure,
                 meter,
+                fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+                fuse_quadruple_meter=fuse_quadruple_meter,
+                fuse_triple_meter=fuse_triple_meter,
                 extract_trivial_tuplets=extract_trivial_tuplets,
             )

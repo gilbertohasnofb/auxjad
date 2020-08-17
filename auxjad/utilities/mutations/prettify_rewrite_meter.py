@@ -676,6 +676,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         raise TypeError("'fuse_quadruple_meter' must be 'bool'")
     if not isinstance(fuse_triple_meter, bool):
         raise TypeError("'fuse_triple_meter' must be 'bool'")
+    if not isinstance(extract_trivial_tuplets, bool):
+        raise TypeError("'extract_trivial_tuplets' must be 'bool'")
 
     if isinstance(meter, abjad.TimeSignature):
         meter = abjad.Meter(meter.pair)

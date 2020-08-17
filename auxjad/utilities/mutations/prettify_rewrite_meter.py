@@ -683,6 +683,9 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         meter = abjad.Meter(meter.pair)
 
     logical_ties = selection.logical_ties(pitched=True)
+    if len(logical_ties) == 0:
+        return
+
     initial_offset = abjad.inspect(logical_ties[0]).timespan().start_offset
     base = 1 / meter.denominator
 

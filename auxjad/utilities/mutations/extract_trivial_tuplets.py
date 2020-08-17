@@ -157,6 +157,43 @@ def extract_trivial_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/extract_trivial_tuplets-sa1tqmvtkx.png
 
+    Non-assignable durations:
+        This function also extracts tuplets which sum up to a non-assignable
+        duration. In this case, it creates multiple leaves and substitutes them
+        for the original tuplet. Indicators are passed on to the first leaf of
+        the new leaves.
+
+        >>> staff = abjad.Staff(r"\time 6/4 c'4\f \times 5/6 {g1.\p}")
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 6/4
+            c'4
+            \f
+            \tweak text #tuplet-number::calc-fraction-text
+            \times 5/6 {
+                g1.
+                \p
+            }
+        }
+
+        .. figure:: ../_images/extract_trivial_tuplets-l4kp9g5v7m.png
+
+        >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 6/4
+            c'4
+            \f
+            g1
+            \p
+            ~
+            g4
+        }
+
+        .. figure:: ../_images/extract_trivial_tuplets-8r40ndemvpn.png
+
     .. note::
 
         When using |abjad.Container|'s, all time signatures in the output will
@@ -217,8 +254,24 @@ def extract_trivial_tuplets(selection: abjad.Selection):
             for _ in range(n_elements - 1):
                 tuplet.pop(-1)
             abjad.detach(abjad.Tie(), leaves[0])
-            leaves[0].written_duration = duration
-            abjad.mutate(tuplet).extract()
+            if duration.is_assignable:
+                leaves[0].written_duration = duration
+                abjad.mutate(tuplet).extract()
+            elif duration.has_power_of_two_denominator:
+                if isinstance(leaves[0], abjad.Note):
+                    pitch = leaves[0].written_pitch
+                elif isinstance(leaves[0], abjad.Chord):
+                    pitch = leaves[0].written_pitches
+                else:
+                    pitch = None
+                notes = abjad.LeafMaker()(pitch, duration)
+                indicators = abjad.inspect(leaves[0]).indicators()
+                for indicator in indicators:
+                    abjad.attach(indicator, notes[0])
+                abjad.mutate(leaves[0]).replace(notes)
+                abjad.mutate(tuplet).extract()
+            else:
+               return
     for tuplet in tuplets:
         if tuplet.trivializable():
             tuplet.trivialize()

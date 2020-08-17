@@ -65,7 +65,7 @@ class Mutation:
     def auto_rewrite_meter(self,
                            meter_list: list = None,
                            *,
-                           prettify: bool = True,
+                           prettify_rewrite_meter: bool = True,
                            extract_trivial_tuplets: bool = True,
                            fuse_across_groups_of_beats: bool = True,
                            fuse_quadruple_meter: bool = True,
@@ -77,7 +77,7 @@ class Mutation:
         auto_rewrite_meter(
             self.client,
             meter_list=meter_list,
-            prettify=prettify,
+            prettify_rewrite_meter=prettify_rewrite_meter,
             extract_trivial_tuplets=extract_trivial_tuplets,
             fuse_across_groups_of_beats=fuse_across_groups_of_beats,
             fuse_quadruple_meter=fuse_quadruple_meter,

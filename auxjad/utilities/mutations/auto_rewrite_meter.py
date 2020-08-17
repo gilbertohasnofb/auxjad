@@ -6,13 +6,15 @@ from ..inspect import inspect
 from .extract_trivial_tuplets import (
     extract_trivial_tuplets as extract_trivial_tuplets_function,
 )
-from .prettify_rewrite_meter import prettify_rewrite_meter
+from .prettify_rewrite_meter import (
+    prettify_rewrite_meter as prettify_rewrite_meter_function
+)
 
 
 def auto_rewrite_meter(container: abjad.Container,
                        meter_list: list = None,
                        *,
-                       prettify: bool = True,
+                       prettify_rewrite_meter: bool = True,
                        extract_trivial_tuplets: bool = True,
                        fuse_across_groups_of_beats: bool = True,
                        fuse_quadruple_meter: bool = True,
@@ -164,7 +166,7 @@ def auto_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/auto_rewrite_meter-08sckfp19vil.png
 
-    ``prettify``:
+    ``prettify_rewrite_meter``:
         By default, this function invokes both |abjad.mutate().rewrite_meter()|
         and |auxjad.mutate().prettify_rewrite_meter()|.
 
@@ -196,12 +198,14 @@ def auto_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/auto_rewrite_meter-vbytyszlkng.png
 
-        Set ``prettify`` to ``False`` to not invoke
+        Set ``prettify_rewrite_meter`` to ``False`` to not invoke
         |auxjad.mutate().prettify_rewrite_meter()|.
 
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
         ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
-        >>> auxjad.mutate(staff).auto_rewrite_meter(prettify=False)
+        >>> auxjad.mutate(staff).auto_rewrite_meter(
+        ...     prettify_rewrite_meter=False,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
@@ -427,8 +431,8 @@ def auto_rewrite_meter(container: abjad.Container,
                                     "'abjad.Meter' or 'abjad.TimeSignature'")
                 if isinstance(meter, abjad.TimeSignature):
                     meter = abjad.Meter(meter.pair)
-    if not isinstance(prettify, bool):
-        raise TypeError("'prettify' must be 'bool'")
+    if not isinstance(prettify_rewrite_meter, bool):
+        raise TypeError("'prettify_rewrite_meter' must be 'bool'")
     if not isinstance(fuse_across_groups_of_beats, bool):
         raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
     if not isinstance(fuse_quadruple_meter, bool):
@@ -460,10 +464,10 @@ def auto_rewrite_meter(container: abjad.Container,
             maximum_dot_count=maximum_dot_count,
             rewrite_tuplets=rewrite_tuplets,
         )
-    if prettify:
+    if prettify_rewrite_meter:
         measures = abjad.select(container[:]).group_by_measure()
         for meter, measure in zip(meter_list, measures):
-            prettify_rewrite_meter(
+            prettify_rewrite_meter_function(
                 measure,
                 meter,
                 fuse_across_groups_of_beats=fuse_across_groups_of_beats,

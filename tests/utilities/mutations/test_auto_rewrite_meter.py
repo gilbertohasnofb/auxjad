@@ -64,7 +64,7 @@ def test_auto_rewrite_meter_02():
 def test_auto_rewrite_meter_03():
     staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
                         r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
-    abjad.mutate(staff).auto_rewrite_meter(prettify=False)
+    abjad.mutate(staff).auto_rewrite_meter(prettify_rewrite_meter=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

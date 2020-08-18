@@ -1060,7 +1060,7 @@ class WindowLooper(_LooperParent):
             abjad.mutate(dummy_container[start : end]).copy()
         )
         mutate(dummy_container).auto_rewrite_meter(
-            meter_list = [abjad.TimeSignature(window_size)],
+            meter_list=[abjad.TimeSignature(window_size)],
             boundary_depth=self._boundary_depth,
             maximum_dot_count=self._maximum_dot_count,
             rewrite_tuplets=self._rewrite_tuplets,
@@ -1254,8 +1254,8 @@ class WindowLooper(_LooperParent):
 
     @prettify_rewrite_meter.setter
     def prettify_rewrite_meter(self,
-                                prettify_rewrite_meter: bool,
-                                ):
+                               prettify_rewrite_meter: bool,
+                               ):
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter

@@ -1570,8 +1570,8 @@ class Phaser():
 
     @prettify_rewrite_meter.setter
     def prettify_rewrite_meter(self,
-                                prettify_rewrite_meter: bool,
-                                ):
+                               prettify_rewrite_meter: bool,
+                               ):
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter

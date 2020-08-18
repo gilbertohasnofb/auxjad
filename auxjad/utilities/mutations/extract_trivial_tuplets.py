@@ -271,7 +271,7 @@ def extract_trivial_tuplets(selection: abjad.Selection):
                 abjad.mutate(leaves[0]).replace(notes)
                 abjad.mutate(tuplet).extract()
             else:
-               return
+                return
     for tuplet in tuplets:
         if tuplet.trivializable():
             tuplet.trivialize()

@@ -220,11 +220,15 @@ all thirtee measures of the bottom staff.
 .. figure:: ../_images/example-1-clapping-music-gosdyid8m5c.png
 
 The upper staff of the composition consists of thirteen measures of the
-material being repeated. We can thus use the function
-:func:`auxjad.repeat_container()` to generate these repetitions and take care
-of removing the time signatures of the repeated measures.
+material being repeated. We can thus use the class :func:`auxjad.Repeater()` to
+generate these repetitions and take care of removing the time signatures of the
+repeated measures.
 
-    >>> constant_staff = auxjad.repeat_container(material, 13)
+    >>> repeater = auxjad.Repeater(material)
+    >>> notes = repeater(13)
+    >>> constant_staff = abjad.Staff(notes,
+    ...                              lilypond_type="RhythmicStaff",
+    ...                              )
     >>> abjad.f(constant_staff)
     \new RhythmicStaff
     {

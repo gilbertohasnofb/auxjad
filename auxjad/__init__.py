@@ -21,6 +21,7 @@ from .core.LeafLooper import LeafLooper
 from .core.ListLooper import ListLooper
 from .core.Phaser import Phaser
 from .core.PitchRandomiser import PitchRandomiser
+from .core.Repeater import Repeater
 from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
@@ -33,7 +34,6 @@ from .utilities.inspect import Inspection
 from .utilities.inspect import inspect
 from .utilities.mutate import Mutation
 from .utilities.mutate import mutate
-from .utilities.repeat_container import repeat_container
 from .utilities.simplified_time_signature_ratio import (
     simplified_time_signature_ratio,
 )
@@ -52,6 +52,7 @@ __all__ = [
     'ListLooper',
     'Phaser',
     'PitchRandomiser',
+    'Repeater',
     'Shuffler',
     'TenneySelector',
     'WindowLooper',
@@ -62,6 +63,5 @@ __all__ = [
     'inspect',
     'Mutation',
     'mutate',
-    'repeat_container',
     'simplified_time_signature_ratio',
 ]

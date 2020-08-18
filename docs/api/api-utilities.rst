@@ -45,7 +45,6 @@ names for their individual documentation. :class:`auxjad.Inspection` and
     auxjad.Inspection
     auxjad.mutate
     auxjad.Mutation
-    auxjad.repeat_container
     auxjad.simplified_time_signature_ratio
 
 .. |auxjad| replace:: :mod:`auxjad`

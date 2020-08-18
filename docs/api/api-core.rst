@@ -28,6 +28,7 @@ for their individual documentation.
     auxjad.ListLooper
     auxjad.Phaser
     auxjad.PitchRandomiser
+    auxjad.Repeater
     auxjad.Shuffler
     auxjad.TenneySelector
     auxjad.WindowLooper

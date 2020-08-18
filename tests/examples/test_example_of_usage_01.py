@@ -14,7 +14,11 @@ def test_example_of_usage_01():
     phased_staff = abjad.Staff(notes,
                                lilypond_type="RhythmicStaff",
                                )
-    constant_staff = auxjad.repeat_container(material, 13)
+    repeater = auxjad.Repeater(material)
+    notes = repeater(13)
+    constant_staff = abjad.Staff(notes,
+                                 lilypond_type="RhythmicStaff",
+                                 )
     score = abjad.Score([constant_staff, phased_staff])
     measures = abjad.select(constant_staff[:]).group_by_measure()
     for measure in measures[:-1]:

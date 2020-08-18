@@ -2,10 +2,10 @@ from typing import Optional
 
 import abjad
 
+from ..inspect import inspect
 from .prettify_rewrite_meter import (
     prettify_rewrite_meter as prettify_rewrite_meter_function,
 )
-from ..inspect import inspect
 
 
 def fill_with_rests(container: abjad.Container,

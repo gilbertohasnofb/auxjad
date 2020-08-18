@@ -7,7 +7,7 @@ from .extract_trivial_tuplets import (
     extract_trivial_tuplets as extract_trivial_tuplets_function,
 )
 from .prettify_rewrite_meter import (
-    prettify_rewrite_meter as prettify_rewrite_meter_function
+    prettify_rewrite_meter as prettify_rewrite_meter_function,
 )
 
 

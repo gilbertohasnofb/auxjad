@@ -4,7 +4,7 @@ from typing import Iterable, Union
 import abjad
 
 from ..inspect import inspect
-from ..simplified_time_signature_ratio import simplified_time_signature_ratio
+from ..simplify_time_signature_ratio import simplify_time_signature_ratio
 from .close_container import close_container
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 
@@ -574,7 +574,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
                     rests_time_signature = abjad.TimeSignature(
                         duration_difference,
                     )
-                    rests_time_signature = simplified_time_signature_ratio(
+                    rests_time_signature = simplify_time_signature_ratio(
                         rests_time_signature,
                     )
                     if rests_time_signature != effective_time_signature:

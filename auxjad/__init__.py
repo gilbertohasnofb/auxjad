@@ -34,8 +34,8 @@ from .utilities.inspect import Inspection
 from .utilities.inspect import inspect
 from .utilities.mutate import Mutation
 from .utilities.mutate import mutate
-from .utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio,
+from .utilities.simplify_time_signature_ratio import (
+    simplify_time_signature_ratio,
 )
 
 
@@ -63,5 +63,5 @@ __all__ = [
     'inspect',
     'Mutation',
     'mutate',
-    'simplified_time_signature_ratio',
+    'simplify_time_signature_ratio',
 ]

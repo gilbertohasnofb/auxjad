@@ -3,8 +3,8 @@ from typing import Optional, Union
 import abjad
 
 from ..utilities.mutate import mutate
-from ..utilities.simplified_time_signature_ratio import (
-    simplified_time_signature_ratio,
+from ..utilities.simplify_time_signature_ratio import (
+    simplify_time_signature_ratio,
 )
 from ._LooperParent import _LooperParent
 
@@ -872,7 +872,7 @@ class LeafLooper(_LooperParent):
             time_signature_duration += effective_duration
         if len(logical_ties) > 0:
             time_signature = abjad.TimeSignature(time_signature_duration)
-            time_signature = simplified_time_signature_ratio(time_signature)
+            time_signature = simplify_time_signature_ratio(time_signature)
             abjad.attach(time_signature, abjad.select(dummy_container).leaf(0))
         self._notate_music(dummy_container, start)
 

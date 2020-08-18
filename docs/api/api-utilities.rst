@@ -13,12 +13,12 @@ Auxjad automatically adds them as extension methods to |abjad.mutate()| and
 
     These functions are imported directly into the |auxjad|_ namespace.
     Therefore, to use a function such as
-    :func:`auxjad.simplified_time_signature_ratio()` you only need to import
+    :func:`auxjad.simplify_time_signature_ratio()` you only need to import
     |auxjad|_ and invoke the function from its namespace. The same is true for
     :func:`auxjad.mutate()` and :func:`auxjad.inspect()`:
 
     >>> import auxjad
-    >>> auxjad.simplified_time_signature_ratio(pair)
+    >>> auxjad.simplify_time_signature_ratio(pair)
     >>> auxjad.mutate(container[:]).rests_to_multimeasure_rest()
     >>> auxjad.inspect(container[:]).selection_is_full()
     True
@@ -45,7 +45,7 @@ names for their individual documentation. :class:`auxjad.Inspection` and
     auxjad.Inspection
     auxjad.mutate
     auxjad.Mutation
-    auxjad.simplified_time_signature_ratio
+    auxjad.simplify_time_signature_ratio
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

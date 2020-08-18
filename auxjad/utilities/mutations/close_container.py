@@ -1,7 +1,7 @@
 import abjad
 
 from ..inspect import inspect
-from ..simplified_time_signature_ratio import simplified_time_signature_ratio
+from ..simplify_time_signature_ratio import simplify_time_signature_ratio
 
 
 def close_container(container: abjad.Container):
@@ -217,7 +217,7 @@ def close_container(container: abjad.Container):
                 last_time_signature = abjad.TimeSignature((4, 4))
             last_bar_duration = last_time_signature.duration - missing_duration
             final_bar_time_signature = abjad.TimeSignature(last_bar_duration)
-            final_bar_time_signature = simplified_time_signature_ratio(
+            final_bar_time_signature = simplify_time_signature_ratio(
                 final_bar_time_signature,
             )
             duration = 0

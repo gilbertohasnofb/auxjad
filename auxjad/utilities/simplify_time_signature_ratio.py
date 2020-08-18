@@ -3,7 +3,7 @@ from typing import Union
 import abjad
 
 
-def simplified_time_signature_ratio(ratio: Union[tuple,
+def simplify_time_signature_ratio(ratio: Union[tuple,
                                                  abjad.TimeSignature,
                                                  abjad.Duration,
                                                  abjad.Meter,
@@ -25,30 +25,30 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         representation of the ratio (4, 8) with a denominator equal to or
         larger than 4.
 
-        >>> time_signature = auxjad.simplified_time_signature_ratio((4, 8))
+        >>> time_signature = auxjad.simplify_time_signature_ratio((4, 8))
         >>> time_signature
         abjad.TimeSignature((2, 4))
-        >>> time_signature = auxjad.simplified_time_signature_ratio((1, 1))
+        >>> time_signature = auxjad.simplify_time_signature_ratio((1, 1))
         >>> time_signature
         abjad.TimeSignature((4, 4))
 
         If a ratio cannot be simplified at all, the function returns a time
         signature with the original ratio.
 
-        >>> time_signature = auxjad.simplified_time_signature_ratio((7, 8))
+        >>> time_signature = auxjad.simplify_time_signature_ratio((7, 8))
         >>> time_signature
         abjad.TimeSignature((7, 8))
 
         The ``min_denominator`` can be set to values other than 4. If set to 2,
         the simplest representaion of the ratio (4, 8) becomes (1, 2).
 
-        >>> time_signature = auxjad.simplified_time_signature_ratio(
+        >>> time_signature = auxjad.simplify_time_signature_ratio(
         ...     (4, 8),
         ...     min_denominator=2,
         ... )
         >>> time_signature
         abjad.TimeSignature((1, 2))
-        >>> time_signature = auxjad.simplified_time_signature_ratio(
+        >>> time_signature = auxjad.simplify_time_signature_ratio(
         ...     (1, 1),
         ...     min_denominator=1,
         ... )
@@ -62,22 +62,22 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         |abjad.Meter|).
 
         >>> arg = (4, 8)
-        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> time_signature = auxjad.simplify_time_signature_ratio(arg)
         >>> time_signature
         abjad.TimeSignature((2, 4))
 
         >>> arg = abjad.Duration((4, 8))
-        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> time_signature = auxjad.simplify_time_signature_ratio(arg)
         >>> time_signature
         abjad.TimeSignature((2, 4))
 
         >>> arg = abjad.Meter((4, 8))
-        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> time_signature = auxjad.simplify_time_signature_ratio(arg)
         >>> time_signature
         abjad.TimeSignature((2, 4))
 
         >>> arg = abjad.TimeSignature((4, 8))
-        >>> time_signature = auxjad.simplified_time_signature_ratio(arg)
+        >>> time_signature = auxjad.simplify_time_signature_ratio(arg)
         >>> time_signature
         abjad.TimeSignature((2, 4))
 
@@ -86,7 +86,7 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         regardless of the input argument.
 
         >>> arg = (4, 8)
-        >>> pair = auxjad.simplified_time_signature_ratio(
+        >>> pair = auxjad.simplify_time_signature_ratio(
         ...     arg,
         ...     output_pair_of_int=True,
         ... )
@@ -94,7 +94,7 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         (2, 4)
 
         >>> arg = abjad.Duration((4, 8))
-        >>> pair = auxjad.simplified_time_signature_ratio(
+        >>> pair = auxjad.simplify_time_signature_ratio(
         ...     arg,
         ...     output_pair_of_int=True,
         ... )
@@ -102,7 +102,7 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         (2, 4)
 
         >>> arg = abjad.Meter((4, 8))
-        >>> pair = auxjad.simplified_time_signature_ratio(
+        >>> pair = auxjad.simplify_time_signature_ratio(
         ...     arg,
         ...     output_pair_of_int=True,
         ... )
@@ -110,7 +110,7 @@ def simplified_time_signature_ratio(ratio: Union[tuple,
         (2, 4)
 
         >>> arg = abjad.TimeSignature((4, 8))
-        >>> pair = auxjad.simplified_time_signature_ratio(
+        >>> pair = auxjad.simplify_time_signature_ratio(
         ...     arg,
         ...     output_pair_of_int=True,
         ... )

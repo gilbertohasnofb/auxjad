@@ -314,9 +314,7 @@ class Drifter():
         |abjad.mutate().rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
         remove all time signatures from the output (both are ``False`` by
-        default). By default, the first time signature is attached only to the
-        first leaf of the first call (unless time signature changes require
-        it). Any measure filled with rests will be rewritten using a
+        default). Any measure filled with rests will be rewritten using a
         multi-measure rest; set the :attr:`use_multimeasure_rests` to ``False``
         to disable this behaviour. The properties :attr:`boundary_depth`,
         :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
@@ -383,11 +381,11 @@ class Drifter():
         False
         >>> drifter.fade_out_last
         False
-        >>> assert drifter.initial_repetitions
+        >>> drifter.initial_repetitions
         4
-        >>> assert drifter.final_repetitions
+        >>> drifter.final_repetitions
         7
-        >>> assert drifter.repetition_chance
+        >>> drifter.repetition_chance
         0.23
         >>> drifter.weighted_duration
         False

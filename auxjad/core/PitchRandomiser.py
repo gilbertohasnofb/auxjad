@@ -167,9 +167,9 @@ class PitchRandomiser:
         >>> randomiser.omit_time_signatures = False
         >>> randomiser.process_on_first_call = False
         >>> randomiser.use_tenney_selector = False
-        >>> assert randomiser.pitches
+        >>> randomiser.pitches
         <c' d' e' f'>
-        >>> assert randomiser.weights
+        >>> randomiser.weights
         [1, 2, 5, 8]
         >>> randomiser.omit_time_signatures
         False

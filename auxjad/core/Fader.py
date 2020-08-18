@@ -335,9 +335,7 @@ class Fader():
         |abjad.mutate().rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
         remove all time signatures from the output (both are ``False`` by
-        default). By default, the first time signature is attached only to the
-        first leaf of the first call (unless time signature changes require
-        it). Any measure filled with rests will be rewritten using a
+        default). Any measure filled with rests will be rewritten using a
         multi-measure rest; set the :attr:`use_multimeasure_rests` to ``False``
         to disable this behaviour. It is possible to set an initial mask for
         the notes using :attr:`mask`, which should be a :obj:`list` of the same

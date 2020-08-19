@@ -6,6 +6,9 @@ from ..inspect import inspect
 from .extract_trivial_tuplets import (
     extract_trivial_tuplets as extract_trivial_tuplets_function,
 )
+from .merge_partial_tuplets import (
+    merge_partial_tuplets as merge_partial_tuplets_function,
+)
 from .prettify_rewrite_meter import (
     prettify_rewrite_meter as prettify_rewrite_meter_function,
 )
@@ -22,6 +25,7 @@ def auto_rewrite_meter(container: abjad.Container,
                        boundary_depth: Optional[int] = None,
                        maximum_dot_count: Optional[int] = None,
                        rewrite_tuplets: bool = True,
+                       merge_partial_tuplets: bool = True,
                        ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function takes every measure of a
@@ -408,14 +412,66 @@ def auto_rewrite_meter(container: abjad.Container,
 
         .. figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
 
+    ``merge_partial_tuplets``:
+        By default, consecutive partial tuplets with the same ratio that sum up
+        to an assignable duration will be merged together:
+
+        >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
+        ...                     r"\times 2/3 {e'2} \times 2/3 {f'1}"
+        ...                     )
+        >>> auxjad.mutate(staff).auto_rewrite_meter()
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \times 2/3 {
+                c'2
+                d'1
+            }
+            \times 2/3 {
+                e'2
+                f'1
+            }
+        }
+
+        .. figure:: ../_images/auto_rewrite_meter-ty72t5wvc1.png
+
+        Set ``merge_partial_tuplets`` to ``False`` to disable this behaviour.
+
+        >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
+        ...                     r"\times 2/3 {e'2} \times 2/3 {f'1}"
+        ...                     )
+        >>> auxjad.mutate(staff).auto_rewrite_meter(
+        ...     merge_partial_tuplets=False,
+        ... )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \times 2/3 {
+                c'2
+                d'1
+            }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                e'2
+            }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                f'1
+            }
+        }
+
+        .. figure:: ../_images/auto_rewrite_meter-4rouf819bjb.png
+
     .. note::
 
         This function also accepts the arguments ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
         |abjad.mutate().rewrite_meter()|, and ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, and ``fuse_triple_meter``, which are passed
-        on to |auxjad.mutate().prettify_rewrite_meter()|. See the documentation
-        of those functions for more details on these arguments.
+        on to |auxjad.mutate().prettify_rewrite_meter()|.
+        ``merge_partial_tuplets`` is used to invoke
+        |auxjad.mutate().merge_partial_tuplets()| See the documentation of
+        these functions for more details on these arguments.
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "
@@ -447,9 +503,15 @@ def auto_rewrite_meter(container: abjad.Container,
             raise TypeError("'maximum_dot_count' must be 'int'")
     if not isinstance(rewrite_tuplets, bool):
         raise TypeError("'rewrite_tuplets' must be 'bool'")
+    if not isinstance(merge_partial_tuplets, bool):
+        raise TypeError("'merge_partial_tuplets' must be 'bool'")
 
     if extract_trivial_tuplets:
-        extract_trivial_tuplets_function(abjad.select(container))
+        extract_trivial_tuplets_function(container[:])
+    if merge_partial_tuplets:
+        merge_partial_tuplets_function(container[:])
+        if extract_trivial_tuplets:
+            extract_trivial_tuplets_function(abjad.select(container))
 
     if meter_list is None:
         time_signatures = inspect(container).time_signature_extractor(
@@ -473,5 +535,5 @@ def auto_rewrite_meter(container: abjad.Container,
                 fuse_across_groups_of_beats=fuse_across_groups_of_beats,
                 fuse_quadruple_meter=fuse_quadruple_meter,
                 fuse_triple_meter=fuse_triple_meter,
-                extract_trivial_tuplets=extract_trivial_tuplets,
+                extract_trivial_tuplets=False,
             )

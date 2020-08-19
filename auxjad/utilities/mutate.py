@@ -7,6 +7,7 @@ from .mutations.close_container import close_container
 from .mutations.enforce_time_signature import enforce_time_signature
 from .mutations.extract_trivial_tuplets import extract_trivial_tuplets
 from .mutations.fill_with_rests import fill_with_rests
+from .mutations.merge_partial_tuplets import merge_partial_tuplets
 from .mutations.prettify_rewrite_meter import prettify_rewrite_meter
 from .mutations.remove_repeated_dynamics import remove_repeated_dynamics
 from .mutations.remove_repeated_time_signatures import (
@@ -73,6 +74,7 @@ class Mutation:
                            boundary_depth: Optional[int] = None,
                            maximum_dot_count: Optional[int] = None,
                            rewrite_tuplets: bool = True,
+                           merge_partial_tuplets: bool = True,
                            ):
         auto_rewrite_meter(
             self.client,
@@ -85,6 +87,7 @@ class Mutation:
             boundary_depth=boundary_depth,
             maximum_dot_count=maximum_dot_count,
             rewrite_tuplets=rewrite_tuplets,
+            merge_partial_tuplets=merge_partial_tuplets,
         )
 
     def close_container(self):
@@ -153,6 +156,9 @@ class Mutation:
             fuse_quadruple_meter=fuse_quadruple_meter,
             fuse_triple_meter=fuse_triple_meter,
         )
+
+    def merge_partial_tuplets(self):
+        merge_partial_tuplets(self._client)
 
     def prettify_rewrite_meter(self,
                                meter: Union[abjad.Meter, abjad.TimeSignature],
@@ -265,6 +271,7 @@ Mutation.close_container.__doc__ = close_container.__doc__
 Mutation.enforce_time_signature.__doc__ = enforce_time_signature.__doc__
 Mutation.extract_trivial_tuplets.__doc__ = extract_trivial_tuplets.__doc__
 Mutation.fill_with_rests.__doc__ = fill_with_rests.__doc__
+Mutation.merge_partial_tuplets.__doc__ = merge_partial_tuplets.__doc__
 Mutation.prettify_rewrite_meter.__doc__ = prettify_rewrite_meter.__doc__
 Mutation.remove_repeated_dynamics.__doc__ = remove_repeated_dynamics.__doc__
 Mutation.remove_repeated_time_signatures.__doc__ = (
@@ -316,6 +323,7 @@ abjad.Mutation.close_container = Mutation.close_container
 abjad.Mutation.enforce_time_signature = Mutation.enforce_time_signature
 abjad.Mutation.extract_trivial_tuplets = Mutation.extract_trivial_tuplets
 abjad.Mutation.fill_with_rests = Mutation.fill_with_rests
+abjad.Mutation.merge_partial_tuplets = Mutation.merge_partial_tuplets
 abjad.Mutation.prettify_rewrite_meter = Mutation.prettify_rewrite_meter
 abjad.Mutation.remove_repeated_dynamics = Mutation.remove_repeated_dynamics
 abjad.Mutation.remove_repeated_time_signatures = (

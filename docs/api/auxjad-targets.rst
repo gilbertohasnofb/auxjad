@@ -3,6 +3,7 @@
 .. |abjad.mutate().enforce_time_signature()| replace:: :meth:`abjad.mutate().enforce_time_signature() <auxjad.Mutation.enforce_time_signature>`
 .. |abjad.mutate().extract_trivial_tuplets()| replace:: :meth:`abjad.mutate().extract_trivial_tuplets() <auxjad.Mutation.extract_trivial_tuplets>`
 .. |abjad.mutate().fill_with_rests()| replace:: :meth:`abjad.mutate().fill_with_rests() <auxjad.Mutation.fill_with_rests>`
+.. |abjad.mutate().merge_partial_tuplets()| replace:: :meth:`abjad.mutate().merge_partial_tuplets() <auxjad.Mutation.merge_partial_tuplets>`
 .. |abjad.mutate().prettify_rewrite_meter()| replace:: :meth:`abjad.mutate().prettify_rewrite_meter() <auxjad.Mutation.prettify_rewrite_meter>`
 .. |abjad.mutate().remove_repeated_dynamics()| replace:: :meth:`abjad.mutate().remove_repeated_dynamics() <auxjad.Mutation.remove_repeated_dynamics>`
 .. |abjad.mutate().remove_repeated_time_signatures()| replace:: :meth:`abjad.mutate().remove_repeated_time_signatures() <auxjad.Mutation.remove_repeated_time_signatures>`
@@ -26,6 +27,7 @@
 .. |auxjad.mutate().enforce_time_signature()| replace:: :meth:`auxjad.mutate().enforce_time_signature() <auxjad.Mutation.enforce_time_signature>`
 .. |auxjad.mutate().extract_trivial_tuplets()| replace:: :meth:`auxjad.mutate().extract_trivial_tuplets() <auxjad.Mutation.extract_trivial_tuplets>`
 .. |auxjad.mutate().fill_with_rests()| replace:: :meth:`auxjad.mutate().fill_with_rests() <auxjad.fill_with_rests>`
+.. |auxjad.mutate().merge_partial_tuplets()| replace:: :meth:`auxjad.mutate().merge_partial_tuplets() <auxjad.merge_partial_tuplets>`
 .. |auxjad.mutate().prettify_rewrite_meter()| replace:: :meth:`auxjad.mutate().prettify_rewrite_meter() <auxjad.Mutation.prettify_rewrite_meter>`
 .. |auxjad.mutate().remove_repeated_dynamics()| replace:: :meth:`auxjad.mutate().remove_repeated_dynamics() <auxjad.Mutation.remove_repeated_dynamics>`
 .. |auxjad.mutate().remove_repeated_time_signatures()| replace:: :meth:`auxjad.mutate().remove_repeated_time_signatures() <auxjad.Mutation.remove_repeated_time_signatures>`

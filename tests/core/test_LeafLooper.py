@@ -219,13 +219,9 @@ def test_LeafLooper_08():
             \times 2/3 {
                 a4
             }
-            \tweak edge-height #'(0.7 . 0)
             \times 2/3 {
                 \time 2/4
                 a4
-            }
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
                 g2
             }
             \tweak edge-height #'(0.7 . 0)

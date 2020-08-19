@@ -262,6 +262,49 @@ def test_auto_rewrite_meter_09():
 
 
 def test_auto_rewrite_meter_10():
+    staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
+                        r"\times 2/3 {e'2} \times 2/3 {f'1}"
+                        )
+    abjad.mutate(staff).auto_rewrite_meter()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \times 2/3 {
+                c'2
+                d'1
+            }
+            \times 2/3 {
+                e'2
+                f'1
+            }
+        }
+        """)
+    staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
+                        r"\times 2/3 {e'2} \times 2/3 {f'1}"
+                        )
+    abjad.mutate(staff).auto_rewrite_meter(merge_partial_tuplets=False)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \times 2/3 {
+                c'2
+                d'1
+            }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                e'2
+            }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                f'1
+            }
+        }
+        """)
+
+
+def test_auto_rewrite_meter_11():
     staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
     abjad.mutate(staff).auto_rewrite_meter()
     assert format(staff) == abjad.String.normalize(

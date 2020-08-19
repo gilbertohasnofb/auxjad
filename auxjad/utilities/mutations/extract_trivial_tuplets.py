@@ -88,6 +88,16 @@ def extract_trivial_tuplets(selection: abjad.Selection):
 
         .. figure:: ../_images/extract_trivial_tuplets-f1qxi44xcsw.png
 
+    .. note::
+
+        Auxjad automatically adds this function as an extension method to
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
+        below are equivalent:
+
+        >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
+        >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
+
     Partial extraction:
         This function also extracts tuplets within tuplets.
 
@@ -124,16 +134,6 @@ def extract_trivial_tuplets(selection: abjad.Selection):
         }
 
         .. figure:: ../_images/extract_trivial_tuplets-xldohyedqs.png
-
-    .. note::
-
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate()|. It can thus be used from either
-        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
-        below are equivalent:
-
-        >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
-        >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
 
     .. tip::
 

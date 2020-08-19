@@ -723,12 +723,11 @@ class LeafLooper(_LooperParent):
 
     .. warning::
 
-        This class can handle tuplets, but the engraving of the output is not
-        ideal and so this functionality should be considered experimental. Time
-        signatures will be correct when dealing with partial tuplets (thus
-        having non-standard values in their denominators), but each individual
-        note of a tuplet will have the ratio printed above them and there won't
-        be a bracket spanning all notes.
+        This class can handle tuplets, but the engraving of the output is often
+        quite complex and thus this functionality should be considered as
+        experimental. Time signatures will be correct when dealing with partial
+        tuplets (thus having non-standard values in their denominators) and
+        consecutive partial tuplets will be merged when possible.
 
         >>> container = abjad.Container(r"c'4 d'8 \times 2/3 {a4 g2}")
         >>> looper = auxjad.LeafLooper(container,
@@ -749,13 +748,9 @@ class LeafLooper(_LooperParent):
             \times 2/3 {
                 a4
             }
-            \tweak edge-height #'(0.7 . 0)
             \times 2/3 {
                 \time 2/4
                 a4
-            }
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
                 g2
             }
             \tweak edge-height #'(0.7 . 0)

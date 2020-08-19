@@ -239,15 +239,16 @@ def extract_trivial_tuplets(selection: abjad.Selection):
 
     for tuplet in tuplets:
         leaves = abjad.select(tuplet).leaves()
-        if all(isinstance(leaf, abjad.Rest) for leaf in leaves):
+        if (all(isinstance(leaf, abjad.Rest) for leaf in leaves)
+                and len(leaves) > 1):
             duration = tuplet.multiplied_duration
-            rest = abjad.Rest(duration)
+            rests = abjad.LeafMaker()(None, duration)
             time_signature = abjad.inspect(leaves[0]).indicator(
                 abjad.TimeSignature
             )
             if time_signature is not None:
-                abjad.attach(time_signature, rest)
-            abjad.mutate(tuplet).replace(rest)
+                abjad.attach(time_signature, rests[0])
+            abjad.mutate(tuplet).replace(rests)
         if tuplet.sustained():
             duration = tuplet.multiplied_duration
             n_elements = len(tuplet)

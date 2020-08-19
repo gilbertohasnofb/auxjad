@@ -4,14 +4,14 @@ import abjad
 
 
 def simplify_time_signature_ratio(ratio: Union[tuple,
-                                                 abjad.TimeSignature,
-                                                 abjad.Duration,
-                                                 abjad.Meter,
-                                                 ],
-                                    *,
-                                    min_denominator: int = 4,
-                                    output_pair_of_int: bool = False,
-                                    ) -> Union[abjad.TimeSignature, tuple]:
+                                               abjad.TimeSignature,
+                                               abjad.Duration,
+                                               abjad.Meter,
+                                               ],
+                                  *,
+                                  min_denominator: int = 4,
+                                  output_pair_of_int: bool = False,
+                                  ) -> Union[abjad.TimeSignature, tuple]:
     r"""Returns an |abjad.TimeSignature| with the simplified ratio of an
     input ratio according to a minimum denominator value. The input ratio can
     be an |abjad.TimeSignature|, |abjad.Duration|, an |abjad.Meter|, or a

@@ -1,7 +1,10 @@
 import abjad
 
 
-def merge_partial_tuplets(selection: abjad.Selection):
+def merge_partial_tuplets(selection: abjad.Selection,
+                          *,
+                          merge_across_barlines: bool = False,
+                          ):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function merges all consecutive partial tuplets with the same ratio
     and which sum up to an assignable duration. Partial tuplets can result from
@@ -80,6 +83,71 @@ def merge_partial_tuplets(selection: abjad.Selection):
         }
 
         .. figure:: ../_images/merge_partial_tuplets-oy1imqisx2.png
+
+    ``merge_across_barlines``:
+        By default, partial tuplets are not merged across barlines.
+
+        >>> staff = abjad.Staff(r"\time 3/4 c'2. "
+        ...                     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
+        ...                     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
+        >>> auxjad.mutate(staff[:]).merge_partial_tuplets()
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'2.
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                d'4
+            }
+            r4
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                e'2
+            }
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                f'4
+            }
+            r4
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                g'2
+            }
+        }
+
+        .. figure:: ../_images/merge_partial_tuplets-3rjib7pctml.png
+
+        To change  this behaviour, set ``merge_across_barlines`` to ``True``.
+
+        >>> staff = abjad.Staff(r"\time 3/4 c'2. "
+        ...                     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
+        ...                     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
+        >>> auxjad.mutate(staff[:]).merge_partial_tuplets(
+        ...     merge_across_barlines=True,
+        ... )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'2.
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                d'4
+            }
+            r4
+            \times 2/3 {
+                e'2
+                f'4
+            }
+            r4
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                g'2
+            }
+        }
+
+        .. figure:: ../_images/merge_partial_tuplets-icud1ejcmzc.png
 
     Tied partial tuplets:
         Tied partial tuplets are also handled by this function.
@@ -209,16 +277,14 @@ def merge_partial_tuplets(selection: abjad.Selection):
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("argument must be 'abjad.Selection'")
+    if not isinstance(merge_across_barlines, bool):
+        raise TypeError("'merge_across_barlines' must be 'bool'")
 
     tuplets = selection.tuplets()
-    if len(tuplets) == 0:
+    if len(tuplets) <= 1:
         return
 
-    measures = selection.group_by_measure()
-    for measure in measures:
-        tuplets = abjad.select(measure).tuplets()
-        if len(tuplets) <= 1:
-            continue
+    def _process_tuplets(tuplets):
         for index in range(len(tuplets[:-1])):
             for upper_index in range(index, len(tuplets)):
                 if (tuplets[index].multiplier
@@ -226,13 +292,23 @@ def merge_partial_tuplets(selection: abjad.Selection):
                     tuplet_group = tuplets[index:upper_index + 1]
                 else:
                     break
-            if tuplet_group.are_contiguous_logical_voice():
-                durations = [abjad.inspect(tuplet).duration()
-                             for tuplet in tuplet_group]
-                sum_durations = sum(durations)
-                if (all(not duration.has_power_of_two_denominator
-                        for duration in durations)
-                        and sum_durations.has_power_of_two_denominator):
-                    for tuplet in tuplet_group[1:]:
-                        tuplet_group[0].extend(tuplet)
-                        abjad.mutate(tuplet).extract()
+                if tuplet_group.are_contiguous_logical_voice():
+                    durations = [abjad.inspect(tuplet).duration()
+                                 for tuplet in tuplet_group]
+                    sum_durations = sum(durations)
+                    if (all(not duration.has_power_of_two_denominator
+                            for duration in durations)
+                            and sum_durations.has_power_of_two_denominator):
+                        for tuplet in tuplet_group[1:]:
+                            tuplet_group[0].extend(tuplet)
+                            abjad.mutate(tuplet).extract()
+
+    if not merge_across_barlines:
+        measures = selection.group_by_measure()
+        for measure in measures:
+            tuplets = abjad.select(measure).tuplets()
+            if len(tuplets) <= 1:
+                continue
+            _process_tuplets(tuplets)
+    else:
+        _process_tuplets(tuplets)

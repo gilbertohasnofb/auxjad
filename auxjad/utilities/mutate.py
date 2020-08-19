@@ -157,8 +157,13 @@ class Mutation:
             fuse_triple_meter=fuse_triple_meter,
         )
 
-    def merge_partial_tuplets(self):
-        merge_partial_tuplets(self._client)
+    def merge_partial_tuplets(self,
+                              *,
+                              merge_across_barlines: bool = False,
+                              ):
+        merge_partial_tuplets(self._client,
+                              merge_across_barlines=merge_across_barlines,
+                              )
 
     def prettify_rewrite_meter(self,
                                meter: Union[abjad.Meter, abjad.TimeSignature],

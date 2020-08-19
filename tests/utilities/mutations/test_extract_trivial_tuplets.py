@@ -97,6 +97,29 @@ def test_extract_trivial_tuplets_07():
 
 
 def test_extract_trivial_tuplets_08():
+    staff = abjad.Staff(r"\times 2/3 {c'4} r2 \times 2/3 {d'2}"
+                        r"\times 2/3 {e'1.}"
+                        )
+    abjad.mutate(staff[:]).extract_trivial_tuplets()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                c'4
+            }
+            r2
+            \tweak edge-height #'(0.7 . 0)
+            \times 2/3 {
+                d'2
+            }
+            e'1
+        }
+        """)
+
+
+def test_extract_trivial_tuplets_09():
     staff = abjad.Staff(r"\time 6/4 c'4\f \times 5/6 {g1.\p}")
     abjad.mutate(staff[:]).extract_trivial_tuplets()
     assert format(staff) == abjad.String.normalize(

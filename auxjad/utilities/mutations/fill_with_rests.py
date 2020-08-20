@@ -19,6 +19,7 @@ def fill_with_rests(container: abjad.Container,
                     fuse_across_groups_of_beats: bool = True,
                     fuse_quadruple_meter: bool = True,
                     fuse_triple_meter: bool = True,
+                    split_quadruple_meter: bool = True,
                     ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function fills a container with
@@ -232,11 +233,12 @@ def fill_with_rests(container: abjad.Container,
         This function also accepts the arguments ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
         |abjad.mutate().rewrite_meter()|, and ``fuse_across_groups_of_beats``,
-        ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
-        ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
-        by setting ``prettify_rewrite_meter`` to ``False``). See the
-        documentation of those functions for more details on these arguments.
+        ``fuse_quadruple_meter``, ``fuse_triple_meter``,
+        ``extract_trivial_tuplets``,  and ``split_quadruple_meter``, which are
+        passed on to |auxjad.mutate().prettify_rewrite_meter()| (the latter can
+        be disabled by setting ``prettify_rewrite_meter`` to ``False``). See
+        the documentation of those functions for more details on these
+        arguments.
 
     .. error::
 
@@ -292,4 +294,5 @@ def fill_with_rests(container: abjad.Container,
                 fuse_across_groups_of_beats=fuse_across_groups_of_beats,
                 fuse_quadruple_meter=fuse_quadruple_meter,
                 fuse_triple_meter=fuse_triple_meter,
+                split_quadruple_meter=split_quadruple_meter,
             )

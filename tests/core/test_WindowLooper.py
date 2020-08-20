@@ -43,7 +43,9 @@ def test_WindowLooper_01():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -60,7 +62,9 @@ def test_WindowLooper_01():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -314,7 +318,9 @@ def test_WindowLooper_06():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -331,7 +337,9 @@ def test_WindowLooper_06():
             c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             e'4
             f'8
         }
@@ -667,7 +675,9 @@ def test_WindowLooper_18():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -705,7 +715,9 @@ def test_WindowLooper_19():
             \f
             - \tenuto
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             \ppp
             - \accent
@@ -741,7 +753,9 @@ def test_WindowLooper_20():
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.

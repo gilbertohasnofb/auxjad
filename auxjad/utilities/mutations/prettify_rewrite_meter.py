@@ -14,6 +14,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                            fuse_quadruple_meter: bool = True,
                            fuse_triple_meter: bool = True,
                            extract_trivial_tuplets: bool = True,
+                           split_quadruple_meter: bool = True,
                            ):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function fuses pitched leaves according to the rules shown below,
@@ -289,7 +290,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/prettify_rewrite_meter-47y86pbwwv5.png
 
-    Multiple measures:
+    Multiple measures at once:
         This function can take handle multiple measures at once, as long as
         they share the same meter.
 
@@ -298,7 +299,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...                     )
         >>> meter = abjad.Meter((5, 8))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate(measure).rewrite_meter(meter)
+        ...     abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -361,6 +362,136 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         }
 
         .. figure:: ../_images/prettify_rewrite_meter-pcn8x9hr6bb.png
+
+    Multiple measures:
+        Similarly to |abjad.mutate().rewrite_meter()|, this function accepts
+        selections of multiple measures:
+
+        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
+        ...                     r"a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> meter = abjad.Meter((4, 4))
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
+        ...     abjad.mutate(measure).rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            f'8
+            ~
+            f'8
+            g'8
+            a'8
+            b'8
+            ~
+            b'8
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/prettify_rewrite_meter-s8fg7a2k0tr.png
+
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
+        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'4
+            e'8
+            ~
+            e'8
+            f'4
+            g'8
+            a'8
+            b'4
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/prettify_rewrite_meter-rgd7ok7fkq.png
+
+    Multiple measures with different meters:
+        If the measures have different meters, they can be passed on
+        individually using :func:`zip()` as shown below.
+
+        >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
+        ...                     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
+        >>> for meter, measure in zip(
+        ...     meters,
+        ...     abjad.select(staff[:]).group_by_measure(),
+        ... ):
+        ...     abjad.mutate(measure).rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'8
+            ~
+            d'8
+            e'8
+            ~
+            e'8
+            f'16
+            g'16
+            \time 4/4
+            a'8
+            b'8
+            ~
+            b'8
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/prettify_rewrite_meter-o2izz0m7s9k.png
+
+        >>> for meter, measure in zip(
+        ...     meters,
+        ...     abjad.select(staff[:]).group_by_measure(),
+        ... ):
+        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'4
+            e'4
+            f'16
+            g'16
+            \time 4/4
+            a'8
+            b'4
+            c''8
+            d''16
+            e''8.
+            ~
+            e''16
+            f''8.
+        }
+
+        .. figure:: ../_images/prettify_rewrite_meter-zh89kk66zon.png
 
     ``fuse_quadruple_meter``:
         This function also takes care of two special cases, namely quadruple
@@ -519,135 +650,117 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         .. figure:: ../_images/prettify_rewrite_meter-v9q0ka94qcd.png
 
-    Multiple measures:
-        Similarly to |abjad.mutate().rewrite_meter()|, this function accepts
-        selections of multiple measures:
+    ``split_quadruple_meter``
+        When applying |abjad.mutate().rewrite_meter()| to a selection with
+        quadruple meter and without using a deeper ``boundary_depth`` than the
+        default, the resulting notation will often have leaves crossing the
+        third beat of the measure, as shown below.
 
-        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
-        ...                     r"a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> staff = abjad.Staff(
+        ...     r"c'4 d'2 r4"
+        ...     r"e'4. f'2 g'8"
+        ...     r"a'4. b'4. c''4"
+        ...     r"d''16 e''8. f''4. g''4 a''8"
+        ... )
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate(measure).rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 4/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
+            c'4
+            d'2
+            r4
+            e'4.
             f'8
             ~
-            f'8
+            f'4.
             g'8
-            a'8
-            b'8
-            ~
-            b'8
-            c''8
+            a'4.
+            b'4.
+            c''4
             d''16
             e''8.
+            f''4.
+            g''8
             ~
-            e''16
-            f''8.
+            g''8
+            a''8
         }
 
-        .. figure:: ../_images/prettify_rewrite_meter-s8fg7a2k0tr.png
+        .. figure:: ../_images/prettify_rewrite_meter-1wvhrjife1i.png
 
+        This function tests those leaves against a series of rules, splitting
+        them when the tests fails. In the case shown above, the first two bars
+        are very easy to read rhythmically, but the third and fourth are less
+        so. This is due to the dotted crotchet, which starts off a beat,
+        crossing the third beat of the measure. This function will split these
+        sort of leaves as shown below.
+
+        >>> abjad.mutate(staff[:]).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            c'4
+            d'2
+            r4
+            e'4.
+            f'8
+            ~
+            f'4.
+            g'8
+            a'4.
+            b'8
+            ~
+            b'4
+            c''4
+            d''16
+            e''8.
+            f''4
+            ~
+            f''8
+            g''4
+            a''8
+        }
+        .. figure:: ../_images/prettify_rewrite_meter-56dy04wjzg.png
+
+        Set ``split_quadruple_meter`` to ``False`` to disable this behaviour.
+
+        >>> staff = abjad.Staff(
+        ...     r"c'4 d'2 r4"
+        ...     r"e'4. f'2 g'8"
+        ...     r"a'4. b'4. c''4"
+        ...     r"d''16 e''8. f''4. g''4 a''8"
+        ... )
+        >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            f'4
-            g'8
-            a'8
-            b'4
-            c''8
-            d''16
-            e''8.
-            ~
-            e''16
-            f''8.
-        }
-
-        .. figure:: ../_images/prettify_rewrite_meter-rgd7ok7fkq.png
-
-    Multiple measures with different meters:
-        If the measures have different meters, they can be passed on
-        individually using :func:`zip()` as shown below.
-
-        >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
-        ...                     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8.")
-        >>> meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
-        >>> for meter, measure in zip(
-        ...     meters,
-        ...     abjad.select(staff[:]).group_by_measure(),
-        ... ):
         ...     abjad.mutate(measure).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).prettify_rewrite_meter(
+        ...     meter,
+        ...     split_quadruple_meter=False,
+        ... )
         >>> abjad.f(staff)
         \new Staff
         {
-            \time 3/4
-            c'8
-            d'8
+            c'4
+            d'2
+            r4
+            e'4.
+            f'8
             ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'16
-            g'16
-            \time 4/4
-            a'8
-            b'8
-            ~
-            b'8
-            c''8
+            f'4.
+            g'8
+            a'4.
+            b'4.
+            c''4
             d''16
             e''8.
-            ~
-            e''16
-            f''8.
+            f''4.
+            g''4
+            a''8
         }
 
-        .. figure:: ../_images/prettify_rewrite_meter-o2izz0m7s9k.png
-
-        >>> for meter, measure in zip(
-        ...     meters,
-        ...     abjad.select(staff[:]).group_by_measure(),
-        ... ):
-        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'4
-            e'4
-            f'16
-            g'16
-            \time 4/4
-            a'8
-            b'4
-            c''8
-            d''16
-            e''8.
-            ~
-            e''16
-            f''8.
-        }
-
-        .. figure:: ../_images/prettify_rewrite_meter-zh89kk66zon.png
+        .. figure:: ../_images/prettify_rewrite_meter-ww1x0zsxlnd.png
 
     .. tip::
 
@@ -678,6 +791,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         raise TypeError("'fuse_triple_meter' must be 'bool'")
     if not isinstance(extract_trivial_tuplets, bool):
         raise TypeError("'extract_trivial_tuplets' must be 'bool'")
+    if not isinstance(split_quadruple_meter, bool):
+        raise TypeError("'split_quadruple_meter' must be 'bool'")
 
     if isinstance(meter, abjad.TimeSignature):
         meter = abjad.Meter(meter.pair)
@@ -751,6 +866,42 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                                              abjad.Offset(3 * base),
                                              ):
                     _merge_indicators_then_fuse(logical_tie)
+
+    logical_ties = selection.logical_ties()  # splitting not only pitched
+    if split_quadruple_meter and meter.numerator == 4:
+        half_point_offset = abjad.Offset(2 * base)
+        for logical_tie in logical_ties:
+            offset0 = abjad.inspect(logical_tie).timespan().start_offset
+            offset0 -= initial_offset
+            offset0 %= meter.duration
+            if offset0 == abjad.Offset(0, 1):
+                # do not split things like c'1, c'2.. r8, c'2. r4, etc.
+                continue
+            offset1 = abjad.inspect(logical_tie).timespan().stop_offset
+            offset1 -= initial_offset
+            offset1 %= meter.duration
+            if offset1 == abjad.Offset(0, 1):
+                offset1 = abjad.Offset(meter.duration)
+            if (offset0 % abjad.Offset(base) == abjad.Offset(0, 1)
+                    and offset1 % abjad.Offset(base) == abjad.Offset(0, 1)):
+                # do not split things like r4 c'2.
+                continue
+            if offset0 < half_point_offset < offset1:
+                if (offset1 == abjad.Offset(meter.duration)
+                        and len(logical_tie) == 1):
+                    # do not split r8 c'2.., r16 c'2..., etc.
+                    break
+                if any(abjad.inspect(leaf).duration()
+                       == abjad.Duration(2 * base) for leaf in logical_tie):
+                    # do not split r8 c'8~c'2 r4, r16 c'8.~c'2~c'8 r8, etc.
+                    break
+                # do not split tuplets
+                getter = abjad.select().logical_ties()
+                result = selection.tuplets().map(getter).flatten()
+                if logical_tie in result:
+                    break
+                duration = abjad.Duration(half_point_offset - offset0)
+                abjad.mutate(logical_tie).split([duration])
 
     if extract_trivial_tuplets:
         extract_trivial_tuplets_function(selection)

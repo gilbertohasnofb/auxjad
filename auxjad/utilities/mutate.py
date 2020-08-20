@@ -75,6 +75,7 @@ class Mutation:
                            maximum_dot_count: Optional[int] = None,
                            rewrite_tuplets: bool = True,
                            merge_partial_tuplets: bool = True,
+                           split_quadruple_meter: bool = True,
                            ):
         auto_rewrite_meter(
             self.client,
@@ -88,6 +89,7 @@ class Mutation:
             maximum_dot_count=maximum_dot_count,
             rewrite_tuplets=rewrite_tuplets,
             merge_partial_tuplets=merge_partial_tuplets,
+            split_quadruple_meter=split_quadruple_meter,
         )
 
     def close_container(self):
@@ -111,6 +113,7 @@ class Mutation:
                                fuse_across_groups_of_beats: bool = True,
                                fuse_quadruple_meter: bool = True,
                                fuse_triple_meter: bool = True,
+                               split_quadruple_meter: bool = True,
                                ):
         enforce_time_signature(
             self.client,
@@ -127,6 +130,7 @@ class Mutation:
             fuse_across_groups_of_beats=fuse_across_groups_of_beats,
             fuse_quadruple_meter=fuse_quadruple_meter,
             fuse_triple_meter=fuse_triple_meter,
+            split_quadruple_meter=split_quadruple_meter,
         )
 
     def extract_trivial_tuplets(self):
@@ -143,6 +147,7 @@ class Mutation:
                         fuse_across_groups_of_beats: bool = True,
                         fuse_quadruple_meter: bool = True,
                         fuse_triple_meter: bool = True,
+                        split_quadruple_meter: bool = True,
                         ):
         fill_with_rests(
             self.client,
@@ -155,6 +160,7 @@ class Mutation:
             fuse_across_groups_of_beats=fuse_across_groups_of_beats,
             fuse_quadruple_meter=fuse_quadruple_meter,
             fuse_triple_meter=fuse_triple_meter,
+            split_quadruple_meter=split_quadruple_meter,
         )
 
     def merge_partial_tuplets(self,
@@ -172,6 +178,7 @@ class Mutation:
                                fuse_quadruple_meter: bool = True,
                                fuse_triple_meter: bool = True,
                                extract_trivial_tuplets: bool = True,
+                               split_quadruple_meter: bool = True,
                                ):
         prettify_rewrite_meter(
             self._client,
@@ -180,6 +187,7 @@ class Mutation:
             fuse_quadruple_meter=fuse_quadruple_meter,
             fuse_triple_meter=fuse_triple_meter,
             extract_trivial_tuplets=extract_trivial_tuplets,
+            split_quadruple_meter=split_quadruple_meter,
         )
 
     def remove_repeated_dynamics(self,

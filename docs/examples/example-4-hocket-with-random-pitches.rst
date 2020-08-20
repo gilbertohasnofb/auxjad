@@ -144,86 +144,86 @@ the number of pitches in :attr:`~auxjad.PitchRandomiser.pitches`.
 
     >>> randomiser.weights = [6, 3, 2, 1, 1]
 
-    Generating three more measures results in:
+Generating three more measures results in:
 
-        >>> notes = randomiser.output_n(3)
-        >>> staff.append(notes)
-        >>> abjad.f(container)
-        \new Staff
-        {
-            f'4
-            ~
-            f'16
-            r8
-            fs'16
-            d'4
-            cs'16
-            r8.
-            fs'4
-            ~
-            fs'16
-            r8
-            cs'16
-            ef'4
-            e'16
-            r8.
-            c'4
-            ~
-            c'16
-            r8
-            ef'16
-            c'4
-            cs'16
-            r8.
-            f''4
-            ~
-            f''16
-            r8
-            f''16
-            cs''4
-            f''16
-            r8.
-            f''4
-            ~
-            f''16
-            r8
-            a''16
-            e''4
-            f''16
-            r8.
-            a''4
-            ~
-            a''16
-            r8
-            cs''16
-            e''4
-            f''16
-            r8.
-            cs''4
-            ~
-            cs''16
-            r8
-            d''16
-            d''4
-            d''16
-            r8.
-            d''4
-            ~
-            d''16
-            r8
-            cs''16
-            d''4
-            a''16
-            r8.
-            d''4
-            ~
-            d''16
-            r8
-            cs''16
-            d''4
-            cs''16
-            r8.
-        }
+    >>> notes = randomiser.output_n(3)
+    >>> staff.append(notes)
+    >>> abjad.f(container)
+    \new Staff
+    {
+        f'4
+        ~
+        f'16
+        r8
+        fs'16
+        d'4
+        cs'16
+        r8.
+        fs'4
+        ~
+        fs'16
+        r8
+        cs'16
+        ef'4
+        e'16
+        r8.
+        c'4
+        ~
+        c'16
+        r8
+        ef'16
+        c'4
+        cs'16
+        r8.
+        f''4
+        ~
+        f''16
+        r8
+        f''16
+        cs''4
+        f''16
+        r8.
+        f''4
+        ~
+        f''16
+        r8
+        a''16
+        e''4
+        f''16
+        r8.
+        a''4
+        ~
+        a''16
+        r8
+        cs''16
+        e''4
+        f''16
+        r8.
+        cs''4
+        ~
+        cs''16
+        r8
+        d''16
+        d''4
+        d''16
+        r8.
+        d''4
+        ~
+        d''16
+        r8
+        cs''16
+        d''4
+        a''16
+        r8.
+        d''4
+        ~
+        d''16
+        r8
+        cs''16
+        d''4
+        cs''16
+        r8.
+    }
 
 .. figure:: ../_images/example-4-hocket-with-random-pitches-7vipmn3n2ts.png
 
@@ -250,7 +250,8 @@ To create the final score, we can simply assign its return value to an
             f'4
             ~
             f'16
-            r4..
+            r8.
+            r4
             cs'16
             r8.
             R1
@@ -321,7 +322,8 @@ To create the final score, we can simply assign its return value to an
             d''4
             ~
             d''16
-            r4..
+            r8.
+            r4
             a''16
             r8.
             R1

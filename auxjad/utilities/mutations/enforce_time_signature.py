@@ -25,6 +25,7 @@ def enforce_time_signature(container: abjad.Container,
                            fuse_across_groups_of_beats: bool = True,
                            fuse_quadruple_meter: bool = True,
                            fuse_triple_meter: bool = True,
+                           split_quadruple_meter: bool = True,
                            ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function applies a time signature
@@ -570,10 +571,11 @@ def enforce_time_signature(container: abjad.Container,
 
         This function also accepts the arguments
         ``fuse_across_groups_of_beats``, ``fuse_quadruple_meter``,
-        ``fuse_triple_meter``, and ``extract_trivial_tuplets``, which are
-        passed on to |auxjad.mutate().prettify_rewrite_meter()| (the latter can
-        be disabled by setting ``prettify_rewrite_meter`` to ``False``). See
-        the documentation of this function for more details on these arguments.
+        ``fuse_triple_meter``, ``extract_trivial_tuplets``, and
+        ``split_quadruple_meter``, which are passed on to
+        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        by setting ``prettify_rewrite_meter`` to ``False``). See the
+        documentation of this function for more details on these arguments.
 
     .. note::
 
@@ -653,6 +655,8 @@ def enforce_time_signature(container: abjad.Container,
             raise TypeError("'maximum_dot_count' must be 'int'")
     if not isinstance(rewrite_tuplets, bool):
         raise TypeError("'rewrite_tuplets' must be 'bool'")
+    if not isinstance(split_quadruple_meter, bool):
+        raise TypeError("'split_quadruple_meter' must be 'bool'")
     # remove all time signatures from container
     for leaf in abjad.select(container).leaves():
         if abjad.inspect(leaf).indicators(abjad.TimeSignature):
@@ -716,4 +720,5 @@ def enforce_time_signature(container: abjad.Container,
             fuse_across_groups_of_beats=fuse_across_groups_of_beats,
             fuse_quadruple_meter=fuse_quadruple_meter,
             fuse_triple_meter=fuse_triple_meter,
+            split_quadruple_meter=split_quadruple_meter,
         )

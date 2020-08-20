@@ -305,8 +305,7 @@ def test_prettify_rewrite_meter_06():
             f''16
         }
         """)
-    for measure in abjad.select(staff[:]).group_by_measure():
-        auxjad.mutate(measure).prettify_rewrite_meter(meter)
+    auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -671,6 +670,104 @@ def test_prettify_rewrite_meter_14():
 
 
 def test_prettify_rewrite_meter_15():
+    staff = abjad.Staff(
+        r"c'4 d'2 r4"
+        r"e'4. f'2 g'8"
+        r"a'4. b'4. c''4"
+        r"d''16 e''8. f''4. g''4 a''8"
+    )
+    meter = abjad.Meter((4, 4))
+    for measure in abjad.select(staff[:]).group_by_measure():
+        abjad.mutate(measure).rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            d'2
+            r4
+            e'4.
+            f'8
+            ~
+            f'4.
+            g'8
+            a'4.
+            b'4.
+            c''4
+            d''16
+            e''8.
+            f''4.
+            g''8
+            ~
+            g''8
+            a''8
+        }
+        """)
+    abjad.mutate(staff[:]).prettify_rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            d'2
+            r4
+            e'4.
+            f'8
+            ~
+            f'4.
+            g'8
+            a'4.
+            b'8
+            ~
+            b'4
+            c''4
+            d''16
+            e''8.
+            f''4
+            ~
+            f''8
+            g''4
+            a''8
+        }
+        """)
+    staff = abjad.Staff(
+        r"c'4 d'2 r4"
+        r"e'4. f'2 g'8"
+        r"a'4. b'4. c''4"
+        r"d''16 e''8. f''4. g''4 a''8"
+    )
+    meter = abjad.Meter((4, 4))
+    for measure in abjad.select(staff[:]).group_by_measure():
+        abjad.mutate(measure).rewrite_meter(meter)
+    abjad.mutate(staff[:]).prettify_rewrite_meter(
+        meter,
+        split_quadruple_meter=False,
+    )
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            d'2
+            r4
+            e'4.
+            f'8
+            ~
+            f'4.
+            g'8
+            a'4.
+            b'4.
+            c''4
+            d''16
+            e''8.
+            f''4.
+            g''4
+            a''8
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_16():
     staff = abjad.Staff(
         r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
     )

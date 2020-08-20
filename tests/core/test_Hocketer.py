@@ -91,7 +91,8 @@ def test_Hocketer_02():
             {
                 r8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }
@@ -207,7 +208,8 @@ def test_Hocketer_06():
             {
                 c'8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }

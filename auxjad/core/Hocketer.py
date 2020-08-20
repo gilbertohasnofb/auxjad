@@ -321,7 +321,8 @@ class Hocketer():
             {
                 r8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }
@@ -524,7 +525,8 @@ class Hocketer():
             {
                 c'8
                 d'8
-                r4.
+                r4
+                r8
                 a'8
                 r4
             }

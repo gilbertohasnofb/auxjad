@@ -44,7 +44,9 @@ class WindowLooper(_LooperParent):
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -65,7 +67,9 @@ class WindowLooper(_LooperParent):
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -93,7 +97,9 @@ class WindowLooper(_LooperParent):
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -621,7 +627,9 @@ class WindowLooper(_LooperParent):
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -629,7 +637,9 @@ class WindowLooper(_LooperParent):
             c'8
             d'8
             ~
-            d'4.
+            d'4
+            ~
+            d'8
             e'4
             f'8
         }
@@ -683,7 +693,9 @@ class WindowLooper(_LooperParent):
             c'8.
             d'16
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             ~
             e'8.
@@ -761,7 +773,9 @@ class WindowLooper(_LooperParent):
             \f
             - \tenuto
             ~
-            d'4..
+            d'4
+            ~
+            d'8.
             e'16
             \ppp
             - \accent

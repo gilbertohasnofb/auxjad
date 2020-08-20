@@ -26,6 +26,7 @@ def auto_rewrite_meter(container: abjad.Container,
                        maximum_dot_count: Optional[int] = None,
                        rewrite_tuplets: bool = True,
                        merge_partial_tuplets: bool = True,
+                       split_quadruple_meter: bool = True,
                        ):
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function takes every measure of a
@@ -467,11 +468,11 @@ def auto_rewrite_meter(container: abjad.Container,
         This function also accepts the arguments ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
         |abjad.mutate().rewrite_meter()|, and ``fuse_across_groups_of_beats``,
-        ``fuse_quadruple_meter``, and ``fuse_triple_meter``, which are passed
-        on to |auxjad.mutate().prettify_rewrite_meter()|.
-        ``merge_partial_tuplets`` is used to invoke
-        |auxjad.mutate().merge_partial_tuplets()| See the documentation of
-        these functions for more details on these arguments.
+        ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
+        ``split_quadruple_meter``, which are passed on to
+        |auxjad.mutate().prettify_rewrite_meter()|. ``merge_partial_tuplets``
+        is used to invoke |auxjad.mutate().merge_partial_tuplets()| See the
+        documentation of these functions for more details on these arguments.
 
     .. warning::
 
@@ -578,6 +579,8 @@ def auto_rewrite_meter(container: abjad.Container,
         raise TypeError("'rewrite_tuplets' must be 'bool'")
     if not isinstance(merge_partial_tuplets, bool):
         raise TypeError("'merge_partial_tuplets' must be 'bool'")
+    if not isinstance(split_quadruple_meter, bool):
+        raise TypeError("'split_quadruple_meter' must be 'bool'")
 
     if extract_trivial_tuplets:
         extract_trivial_tuplets_function(container[:])
@@ -610,6 +613,7 @@ def auto_rewrite_meter(container: abjad.Container,
                     fuse_quadruple_meter=fuse_quadruple_meter,
                     fuse_triple_meter=fuse_triple_meter,
                     extract_trivial_tuplets=False,
+                    split_quadruple_meter=split_quadruple_meter,
                 )
             else:
                 prettify_rewrite_meter_function(
@@ -619,4 +623,5 @@ def auto_rewrite_meter(container: abjad.Container,
                     fuse_quadruple_meter=False,
                     fuse_triple_meter=False,
                     extract_trivial_tuplets=False,
+                    split_quadruple_meter=False,
                 )

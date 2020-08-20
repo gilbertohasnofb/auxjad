@@ -34,7 +34,8 @@ def test_example_of_usage_04():
                 f'4
                 ~
                 f'16
-                r4..
+                r8.
+                r4
                 cs'16
                 r8.
                 R1
@@ -105,7 +106,8 @@ def test_example_of_usage_04():
                 d''4
                 ~
                 d''16
-                r4..
+                r8.
+                r4
                 a''16
                 r8.
                 R1

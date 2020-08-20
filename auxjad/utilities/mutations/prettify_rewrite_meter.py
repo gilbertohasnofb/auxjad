@@ -32,7 +32,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
         ... )
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -91,7 +91,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...                     r"r16 r32. d''64 e''8 f''32 g''32"
         ...                     )
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -157,7 +157,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
         >>> meter = abjad.Meter((6, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -206,7 +206,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
         >>> meter = abjad.Meter((6, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(
         ...     meter,
         ...     fuse_across_groups_of_beats=False,
@@ -243,7 +243,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
@@ -267,7 +267,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
@@ -297,7 +297,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...                     r"a'16 b'8 c''8 d''8 e''8 f''16"
         ...                     )
         >>> meter = abjad.Meter((5, 8))
-        >>> for measure in abjad.select(staff).group_by_measure():
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate(measure).rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
@@ -370,7 +370,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
         >>> meter = abjad.Meter((4, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
@@ -391,7 +391,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
         >>> meter = abjad.Meter((4, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(
         ...     meter,
         ...     fuse_quadruple_meter=False,
@@ -422,7 +422,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(meter)
         >>> abjad.f(staff)
         \new Staff
@@ -441,7 +441,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate(staff).rewrite_meter(meter)
+        >>> abjad.mutate(staff[:]).rewrite_meter(meter)
         >>> auxjad.mutate(staff[:]).prettify_rewrite_meter(
         ...     meter,
         ...     fuse_triple_meter=False,
@@ -686,16 +686,35 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     if len(logical_ties) == 0:
         return
 
-    first_leaf = selection.logical_ties()[0]
+    first_leaf = selection.leaf(0)
     initial_offset = abjad.inspect(first_leaf).timespan().start_offset
     base = 1 / meter.denominator
+
+    def _merge_indicators_then_fuse(logical_tie):
+        last_indicators = abjad.inspect(logical_tie[-1]).indicators()
+        initial_indicators = abjad.inspect(logical_tie[0]).indicators()
+        initial_indicators_types = tuple(type(indicator) for indicator
+                                         in initial_indicators)
+        abjad.mutate(logical_tie).fuse()
+        for indicator in last_indicators:
+            if isinstance(indicator, (abjad.Dynamic,
+                                      abjad.StopSlur,
+                                      abjad.StopGroup,
+                                      abjad.StopHairpin,
+                                      abjad.StopTextSpan,
+                                      abjad.StopTrillSpan,
+                                      abjad.StopPianoPedal,
+                                      abjad.StopPhrasingSlur,
+                                      )):
+                if not isinstance(indicator, initial_indicators_types):
+                    abjad.attach(indicator, logical_tie[0])
 
     for logical_tie in logical_ties.filter_duration("==", base / 2):
         offset = abjad.inspect(logical_tie).timespan().start_offset
         offset -= initial_offset
         offset %= base
         if offset == base / 4:
-            abjad.mutate(logical_tie).fuse()
+            _merge_indicators_then_fuse(logical_tie)
 
     if fuse_across_groups_of_beats:
         for logical_tie in logical_ties.filter_duration("==", base):
@@ -706,7 +725,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             if offset_mod == base / 2:
                 if (not offset + base / 2
                         in meter.depthwise_offset_inventory[1]):
-                    abjad.mutate(logical_tie).fuse()
+                    _merge_indicators_then_fuse(logical_tie)
 
     if fuse_quadruple_meter and meter.numerator == 4:
         for logical_tie in logical_ties.filter_duration("==", base):
@@ -719,7 +738,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                                              abjad.Offset(2 * base),
                                              abjad.Offset(4 * base),
                                              ):
-                    abjad.mutate(logical_tie).fuse()
+                    _merge_indicators_then_fuse(logical_tie)
 
     if fuse_triple_meter and meter.numerator == 3:
         for logical_tie in logical_ties.filter_duration("==", base):
@@ -731,7 +750,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                 if not offset + base / 2 in (abjad.Offset(0, 1),
                                              abjad.Offset(3 * base),
                                              ):
-                    abjad.mutate(logical_tie).fuse()
+                    _merge_indicators_then_fuse(logical_tie)
 
     if extract_trivial_tuplets:
         extract_trivial_tuplets_function(selection)

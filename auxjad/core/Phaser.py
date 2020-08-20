@@ -827,10 +827,8 @@ class Phaser():
             g'8
             ~
             g'4.
-            a'8
+            a'4
             \pp
-            ~
-            a'8
             )
             c'8
             \p

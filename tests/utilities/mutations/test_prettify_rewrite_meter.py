@@ -267,7 +267,7 @@ def test_prettify_rewrite_meter_06():
                         r"a'16 b'8 c''8 d''8 e''8 f''16"
                         )
     meter = abjad.Meter((5, 8))
-    for measure in abjad.select(staff).group_by_measure():
+    for measure in abjad.select(staff[:]).group_by_measure():
         abjad.mutate(measure).rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""
@@ -305,7 +305,7 @@ def test_prettify_rewrite_meter_06():
             f''16
         }
         """)
-    for measure in abjad.select(staff).group_by_measure():
+    for measure in abjad.select(staff[:]).group_by_measure():
         auxjad.mutate(measure).prettify_rewrite_meter(meter)
     assert format(staff) == abjad.String.normalize(
         r"""

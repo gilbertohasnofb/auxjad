@@ -40,7 +40,7 @@ from .utilities.simplify_time_signature_ratio import (
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.8.11"
+__version__ = "0.8.12"
 __all__ = [
     '__author__',
     '__version__',

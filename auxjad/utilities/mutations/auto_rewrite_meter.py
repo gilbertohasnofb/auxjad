@@ -62,7 +62,7 @@ def auto_rewrite_meter(container: abjad.Container,
         Abjad's |abjad.mutate().rewrite_meter()| mutates an |abjad.Selection|
         of a measure, improving its notation.
 
-        >>> for measure in abjad.select(staff).group_by_measure():
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate(measure).rewrite_meter(abjad.Meter((4, 4)))
         >>> abjad.f(staff)
         \new Staff
@@ -472,6 +472,79 @@ def auto_rewrite_meter(container: abjad.Container,
         ``merge_partial_tuplets`` is used to invoke
         |auxjad.mutate().merge_partial_tuplets()| See the documentation of
         these functions for more details on these arguments.
+
+    .. warning::
+
+        Setting ``boundary_depth`` to a value equal to or larger than ``1``
+        will automatically disable ``fuse_across_groups_of_beats``,
+        ``fuse_quadruple_meter``, and ``fuse_triple_meter``, regardless of
+        their values. This is because when any of those arguments is ``True``,
+        |auxjad.mutate().prettify_rewrite_meter()| will fuse across beats,
+        which goes against the purpose of using ``boundary_depth``. Compare the
+        results below. In the first case, simply applying
+        |auxjad.mutate().prettify_rewrite_meter()| with no arguments results in
+        some logical ties being tied across beats.
+
+        >>> staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
+        >>> meter = abjad.Meter((4, 4))
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
+        ...     abjad.mutate(measure).rewrite_meter(meter, boundary_depth=1)
+        >>> for measure in abjad.select(staff[:]).group_by_measure():
+        ...     auxjad.mutate(measure).prettify_rewrite_meter(meter)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            ~
+            d'4
+            e'4
+            f'8
+            g'4
+            a'8
+            ~
+            a'8
+            b'8
+            ~
+            b'4
+        }
+
+        .. figure:: ../_images/auto_rewrite_meter-cf09ysj16fo.png
+
+        By automatically setting all ``fuse_across_groups_of_beats``,
+        ``fuse_quadruple_meter``, and  ``fuse_triple_meter` to ``False`` when
+        ``boundary_depth`` is equal to or larger than ``1``, this function will
+        not fuse those leaves against the required boundary depth.
+
+        >>> staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
+        >>> auxjad.mutate(staff).auto_rewrite_meter(boundary_depth=1)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            ~
+            d'4
+            e'4
+            f'8
+            g'8
+            ~
+            g'8
+            a'8
+            ~
+            a'8
+            b'8
+            ~
+            b'4
+        }
+
+        .. figure:: ../_images/auto_rewrite_meter-mm9xvmaqwfj.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "
@@ -529,11 +602,21 @@ def auto_rewrite_meter(container: abjad.Container,
     if prettify_rewrite_meter:
         measures = abjad.select(container[:]).group_by_measure()
         for meter, measure in zip(meter_list, measures):
-            prettify_rewrite_meter_function(
-                measure,
-                meter,
-                fuse_across_groups_of_beats=fuse_across_groups_of_beats,
-                fuse_quadruple_meter=fuse_quadruple_meter,
-                fuse_triple_meter=fuse_triple_meter,
-                extract_trivial_tuplets=False,
-            )
+            if boundary_depth is None or boundary_depth < 1:
+                prettify_rewrite_meter_function(
+                    measure,
+                    meter,
+                    fuse_across_groups_of_beats=fuse_across_groups_of_beats,
+                    fuse_quadruple_meter=fuse_quadruple_meter,
+                    fuse_triple_meter=fuse_triple_meter,
+                    extract_trivial_tuplets=False,
+                )
+            else:
+                prettify_rewrite_meter_function(
+                    measure,
+                    meter,
+                    fuse_across_groups_of_beats=False,
+                    fuse_quadruple_meter=False,
+                    fuse_triple_meter=False,
+                    extract_trivial_tuplets=False,
+                )

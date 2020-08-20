@@ -305,6 +305,63 @@ def test_auto_rewrite_meter_10():
 
 
 def test_auto_rewrite_meter_11():
+    staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
+    meter = abjad.Meter((4, 4))
+    for measure in abjad.select(staff[:]).group_by_measure():
+        abjad.mutate(measure).rewrite_meter(meter, boundary_depth=1)
+    for measure in abjad.select(staff[:]).group_by_measure():
+        auxjad.mutate(measure).prettify_rewrite_meter(meter)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            ~
+            d'4
+            e'4
+            f'8
+            g'4
+            a'8
+            ~
+            a'8
+            b'8
+            ~
+            b'4
+        }
+        """)
+    staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
+    auxjad.mutate(staff).auto_rewrite_meter(boundary_depth=1)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            ~
+            c'8
+            d'8
+            ~
+            d'4
+            e'4
+            f'8
+            g'8
+            ~
+            g'8
+            a'8
+            ~
+            a'8
+            b'8
+            ~
+            b'4
+        }
+        """)
+
+
+def test_auto_rewrite_meter_12():
     staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
     abjad.mutate(staff).auto_rewrite_meter()
     assert format(staff) == abjad.String.normalize(

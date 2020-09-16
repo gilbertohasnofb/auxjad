@@ -55,8 +55,8 @@ and `LilyPond`_.
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg
    :target: https://pypi.python.org/pypi/auxjad
-.. |Build| image:: https://travis-ci.org/gilbertohasnofb/auxjad.svg?branch=master
-   :target: https://travis-ci.org/gilbertohasnofb/auxjad
+.. |Build| image:: https://travis-ci.com/gilbertohasnofb/auxjad.svg?branch=master
+   :target: https://travis-ci.com/gilbertohasnofb/auxjad
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg
    :target: https://www.python.org/downloads/release/python-360/
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue

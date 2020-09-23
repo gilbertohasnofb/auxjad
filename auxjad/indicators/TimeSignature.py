@@ -10,8 +10,10 @@ class TimeSignature(abjad.TimeSignature):
                        *,
                        min_denominator: int = 4,
                        ):
-        r"""Simplifies the time signature ratio according to a minimum
-        denominator value. Mutates the ratio in place and has no return value.
+        r"""Simplifies the ratio of an |abjad.TimeSignature| according to a
+        minimum denominator value. Mutates the ratio in place and has no return
+        value. Note that Auxjad adds this function as an extension method to
+        |abjad.TimeSignature| (see usage below).
 
         By default, this method simplifies the ratio of `numerator/denominator`
         using a minimum denominator value of `4` (that is, the denominator will

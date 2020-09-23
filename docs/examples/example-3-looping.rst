@@ -19,8 +19,8 @@ durations, dynamics, and articulations, the example will use
 :class:`auxjad.CartographySelector`. Each element input into this type of
 selector has a probability of being selected which is dependent on its index.
 By default, the probability of consecutive elements decay with a rate of
-``0.75``. For more information on both of these classes, check the |auxjad|_
-API page (link in the left panel).
+``0.75``. For more information on both of these classes, check |auxjad|_'s API
+page (link in the left panel).
 
     >>> pitch_selector = auxjad.TenneySelector([0, 7, 8, 2, 3, 10])
     >>> duration_selector = auxjad.CartographySelector([(2, 8),
@@ -792,9 +792,6 @@ The final result is shown below.
     }
 
 .. figure:: ../_images/example-3-looping-16f4hdprg8k.png
-
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: ../api/index.html
 
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

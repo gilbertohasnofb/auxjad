@@ -1071,8 +1071,5 @@ score should have a single end repetition bar line.
 
 .. figure:: ../_images/example-1-clapping-music-k6vxi0vtu6o.png
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: ../api/index.html
-
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

@@ -42,16 +42,5 @@ in the navigation pane in the left.
     api-score
     api-utilities
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: index.html
-.. |core| replace:: :mod:`core <auxjad.core>`
-.. _core: api-core.html
-.. |indicators| replace:: :mod:`indicators <auxjad.indicators>`
-.. _indicators: api-indicators.html
-.. |score| replace:: :mod:`score <auxjad.score>`
-.. _score: api-score.html
-.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
-.. _utilities: api-utilities.html
-
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

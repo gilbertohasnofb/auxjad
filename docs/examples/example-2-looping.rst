@@ -235,8 +235,5 @@ This is the final result.
 
 .. figure:: ../_images/example-2-looping-v5h9hyfmjj.png
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: ../api/index.html
-
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

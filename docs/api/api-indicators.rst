@@ -25,10 +25,5 @@ Click on their names for their individual documentation.
 
     TimeSignature.simplify_ratio
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: index.html
-.. |indicators| replace:: :mod:`indicators <auxjad.indicators>`
-.. _indicators: api-indicators.html
-
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

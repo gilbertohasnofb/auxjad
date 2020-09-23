@@ -368,8 +368,5 @@ To create the final score, we can simply assign its return value to an
 
 .. figure:: ../_images/example-4-hocket-with-random-pitches-af08ul3iyut.png
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: ../api/index.html
-
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

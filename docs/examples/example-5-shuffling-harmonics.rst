@@ -926,8 +926,5 @@ adds to |abjad.mutate()|.
 
 .. figure:: ../_images/example-5-shuffling-harmonics-rmw99goyuc.png
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: ../api/index.html
-
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

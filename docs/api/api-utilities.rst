@@ -12,7 +12,7 @@ methods to |abjad.mutate()| and |abjad.inspect()|, respectivelly.
 
     These functions are imported directly into the |auxjad|_ namespace.
     Therefore, to use a function such as
-    :func:`auxjad.inspect().selection_is_full()` you only need to import
+    |auxjad.inspect().selection_is_full()| you only need to import
     |auxjad|_ and invoke the function from its namespace.
 
     >>> import auxjad
@@ -45,10 +45,34 @@ names for their individual documentation. :class:`auxjad.Inspection` and
     mutate
     Mutation
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: index.html
-.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
-.. _utilities: api-utilities.html
+The full list of individual inspections and mutations added as extension
+methods by |auxjad|_ can be found in the table below. Click on their names for
+to navigate to their documentation (these are all documented in the two
+documentation pages of :class:`auxjad.Inspection` and :class:`auxjad.Mutation`)
+
+.. autosummary::
+
+   Inspection.leaves_are_tieable
+   Inspection.selection_is_full
+   Inspection.selections_are_equal
+   Inspection.time_signature_extractor
+   Inspection.underfull_duration
+   Mutation.auto_rewrite_meter
+   Mutation.close_container
+   Mutation.enforce_time_signature
+   Mutation.extract_trivial_tuplets
+   Mutation.fill_with_rests
+   Mutation.merge_partial_tuplets
+   Mutation.prettify_rewrite_meter
+   Mutation.remove_repeated_dynamics
+   Mutation.remove_repeated_time_signatures
+   Mutation.reposition_clefs
+   Mutation.reposition_dynamics
+   Mutation.reposition_slurs
+   Mutation.respell_accidentals
+   Mutation.rests_to_multimeasure_rest
+   Mutation.sustain_notes
+   Mutation.sync_containers
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

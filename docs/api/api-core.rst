@@ -35,10 +35,5 @@ for their individual documentation.
     TenneySelector
     WindowLooper
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: index.html
-.. |core| replace:: :mod:`core <auxjad.core>`
-.. _core: api-core.html
-
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

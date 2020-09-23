@@ -17,8 +17,5 @@ documentation of specific functions and classes.
     example-4-hocket-with-random-pitches
     example-5-shuffling-harmonics
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: ../api/index.html
-
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

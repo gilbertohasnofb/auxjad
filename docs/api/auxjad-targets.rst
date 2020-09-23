@@ -1,3 +1,14 @@
+.. |auxjad| replace:: :mod:`auxjad`
+.. _auxjad: index.html
+.. |core| replace:: :mod:`core <auxjad.core>`
+.. _core: api-core.html
+.. |indicators| replace:: :mod:`indicators <auxjad.indicators>`
+.. _indicators: api-indicators.html
+.. |score| replace:: :mod:`score <auxjad.score>`
+.. _score: api-score.html
+.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
+.. _utilities: api-utilities.html
+
 .. |abjad.mutate().auto_rewrite_meter()| replace:: :meth:`abjad.mutate().auto_rewrite_meter() <auxjad.Mutation.auto_rewrite_meter>`
 .. |abjad.mutate().close_container()| replace:: :meth:`abjad.mutate().close_container() <auxjad.Mutation.close_container>`
 .. |abjad.mutate().enforce_time_signature()| replace:: :meth:`abjad.mutate().enforce_time_signature() <auxjad.Mutation.enforce_time_signature>`

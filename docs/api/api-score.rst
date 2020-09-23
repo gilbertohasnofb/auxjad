@@ -25,10 +25,5 @@ for their individual documentation.
     HarmonicNote
     LeafDynMaker
 
-.. |auxjad| replace:: :mod:`auxjad`
-.. _auxjad: index.html
-.. |score| replace:: :mod:`score <auxjad.score>`
-.. _score: api-score.html
-
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

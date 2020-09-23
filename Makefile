@@ -11,6 +11,9 @@ clean:
 	rm -Rif build
 	rm -Rif dist
 
+html:
+	make -C docs/ html
+
 docs:
 	make -C docs/ release
 

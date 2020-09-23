@@ -26,6 +26,8 @@ from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
 
+from .indicators.TimeSignature import TimeSignature
+
 from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
@@ -34,9 +36,6 @@ from .utilities.inspect import Inspection
 from .utilities.inspect import inspect
 from .utilities.mutate import Mutation
 from .utilities.mutate import mutate
-from .utilities.simplify_time_signature_ratio import (
-    simplify_time_signature_ratio,
-)
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
@@ -56,6 +55,7 @@ __all__ = [
     'Shuffler',
     'TenneySelector',
     'WindowLooper',
+    'TimeSignature',
     'ArtificialHarmonic',
     'HarmonicNote',
     'LeafDynMaker',
@@ -63,5 +63,4 @@ __all__ = [
     'inspect',
     'Mutation',
     'mutate',
-    'simplify_time_signature_ratio',
 ]

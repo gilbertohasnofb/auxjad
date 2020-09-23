@@ -1,7 +1,6 @@
 import abjad
 
 from ..inspect import inspect
-from ..simplify_time_signature_ratio import simplify_time_signature_ratio
 
 
 def close_container(container: abjad.Container):
@@ -217,9 +216,7 @@ def close_container(container: abjad.Container):
                 last_time_signature = abjad.TimeSignature((4, 4))
             last_bar_duration = last_time_signature.duration - missing_duration
             final_bar_time_signature = abjad.TimeSignature(last_bar_duration)
-            final_bar_time_signature = simplify_time_signature_ratio(
-                final_bar_time_signature,
-            )
+            final_bar_time_signature.simplify_ratio()
             duration = 0
             for leaf in leaves[::-1]:
                 duration += abjad.inspect(leaf).duration()

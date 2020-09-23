@@ -9,7 +9,7 @@ algorithmic manipulation of material.
 
     These classes are imported directly into the |auxjad|_ namespace.
     Therefore, to use a class such as :class:`auxjad.CartographySelector` you
-    only need to import |auxjad|_ and instantiate the class from itsnamespace:
+    only need to import |auxjad|_ and instantiate the class from its namespace:
 
     >>> import auxjad
     >>> selector = auxjad.CartographySelector(pitch_list)
@@ -17,21 +17,23 @@ algorithmic manipulation of material.
 Below is the full list of classes included in |core|_. Click on their names
 for their individual documentation.
 
+.. currentmodule:: auxjad
+
 .. autosummary::
     :toctree: ../_api_members
 
-    auxjad.CartographySelector
-    auxjad.Drifter
-    auxjad.Fader
-    auxjad.Hocketer
-    auxjad.LeafLooper
-    auxjad.ListLooper
-    auxjad.Phaser
-    auxjad.PitchRandomiser
-    auxjad.Repeater
-    auxjad.Shuffler
-    auxjad.TenneySelector
-    auxjad.WindowLooper
+    CartographySelector
+    Drifter
+    Fader
+    Hocketer
+    LeafLooper
+    ListLooper
+    Phaser
+    PitchRandomiser
+    Repeater
+    Shuffler
+    TenneySelector
+    WindowLooper
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

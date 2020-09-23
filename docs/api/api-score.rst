@@ -16,12 +16,14 @@ such as an expanded leaf maker as well as harmonic leaves.
 Below is the full list of classes included in |score|_. Click on their names
 for their individual documentation.
 
+.. currentmodule:: auxjad
+
 .. autosummary::
     :toctree: ../_api_members
 
-    auxjad.ArtificialHarmonic
-    auxjad.HarmonicNote
-    auxjad.LeafDynMaker
+    ArtificialHarmonic
+    HarmonicNote
+    LeafDynMaker
 
 .. |auxjad| replace:: :mod:`auxjad`
 .. _auxjad: index.html

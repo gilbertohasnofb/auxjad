@@ -35,6 +35,7 @@ images:
 	xargs rm
 
 html:
+	rm -Rif "$(SOURCEDIR)"/_api_members
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 latex:

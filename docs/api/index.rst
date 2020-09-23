@@ -1,9 +1,10 @@
 Auxjad API
 ==========
 
-Auxjad is made out of three subpackages: |core|_, |score|_, and |utilities|_.
-|core|_ contains most of Auxjad's classes and is focused on algorithmic
-transformations and manipulations of |abjad.Container| objects. |score|_
+Auxjad is made out of four subpackages: |core|_, |indicators|_, |score|_, and
+|utilities|_. |core|_ contains most of Auxjad's classes and is focused on
+algorithmic transformations and manipulations of |abjad.Container| objects.
+|indicators|_ contain extension methods for Abjad's indicators. |score|_
 contains score component and component maker classes, such as an expanded leaf
 maker as well as harmonic leaves. |utilities|_ contains mutation and inspection
 methods as well as a couple of utility functions.
@@ -24,7 +25,9 @@ in the navigation pane in the left.
 +----------------+-------------------------------------------------------------+
 | |core|_        | core classes: loopers, shufflers, phasers, selectors, etc.  |
 +----------------+-------------------------------------------------------------+
-| |score|_       | score component classes: artificial and natural harmonics.  |
+| |indicators|_  | indicator classes: currently only TimeSignature             |
++----------------+-------------------------------------------------------------+
+| |score|_       | score component classes: artificial and natural harmonics   |
 +----------------+-------------------------------------------------------------+
 | |utilities|_   | mutation methods, inspection methods, and utility functions |
 +----------------+-------------------------------------------------------------+
@@ -35,6 +38,7 @@ in the navigation pane in the left.
     :caption: Auxjad API
 
     api-core
+    api-indicators
     api-score
     api-utilities
 
@@ -42,6 +46,8 @@ in the navigation pane in the left.
 .. _auxjad: index.html
 .. |core| replace:: :mod:`core <auxjad.core>`
 .. _core: api-core.html
+.. |indicators| replace:: :mod:`indicators <auxjad.indicators>`
+.. _indicators: api-indicators.html
 .. |score| replace:: :mod:`score <auxjad.score>`
 .. _score: api-score.html
 .. |utilities| replace:: :mod:`utilities <auxjad.utilities>`

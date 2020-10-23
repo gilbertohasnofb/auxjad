@@ -533,7 +533,7 @@ class Drifter():
 
     :func:`len()`:
         The function :func:`len()` returns the sum of the number of notes of
-        both :attr:`contents_in` and :attr:`contents_out`.
+        both :attr:`fade_in_contents` and :attr:`fade_out_contents`.
 
         >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
         >>> container_in = abjad.Container(r"r2 c''2")
@@ -1101,17 +1101,17 @@ class Drifter():
         exactly as the identically named arguments of
         |abjad.mutate().rewrite_meter()|.
 
-    :attr:`contents_in` and :attr:`contents_out`:
+    :attr:`fade_in_contents` and :attr:`fade_out_contents`:
         Containers can be switched after initialisation by overwriting the
-        properties :attr:`contents_in` or :attr:`contents_out`. This will reset
-        the process.
+        properties :attr:`fade_in_contents` or :attr:`fade_out_contents`. This
+        will reset the process.
 
         >>> container_out = abjad.Container(
         ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}"
         ... )
         >>> container_in = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
         >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> drifter.contents_out = abjad.Container(r"\time 3/4 a4. bf4.")
+        >>> drifter.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
         >>> print(drifter)
         {
             %%% \time 3/4 %%%
@@ -1397,8 +1397,8 @@ class Drifter():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents_out',
-                 '_contents_in',
+    __slots__ = ('_fade_out_contents',
+                 '_fade_in_contents',
                  '_fader_in',
                  '_fader_out',
                  '_faders',
@@ -1424,8 +1424,8 @@ class Drifter():
     ### INITIALISER ###
 
     def __init__(self,
-                 contents_out: abjad.Container,
-                 contents_in: abjad.Container,
+                 fade_out_contents: abjad.Container,
+                 fade_in_contents: abjad.Container,
                  *,
                  fade_in_first: bool = False,
                  fade_out_last: bool = False,
@@ -1441,16 +1441,16 @@ class Drifter():
                  rewrite_tuplets: bool = True,
                  ):
         r'Initialises self.'
-        if not isinstance(contents_out, abjad.Container):
-            raise TypeError("'contents_out' must be 'abjad.Container' or "
+        if not isinstance(fade_out_contents, abjad.Container):
+            raise TypeError("'fade_out_contents' must be 'abjad.Container' or "
                             "child class")
-        if not isinstance(contents_in, abjad.Container):
-            raise TypeError("'contents_in' must be 'abjad.Container' or "
+        if not isinstance(fade_in_contents, abjad.Container):
+            raise TypeError("'fade_in_contents' must be 'abjad.Container' or "
                             "child class")
-        self._contents_out = contents_out
-        self._contents_in = contents_in
-        self._fader_out = Fader(self._contents_out, fader_type='out')
-        self._fader_in = Fader(self._contents_in, fader_type='in')
+        self._fade_out_contents = fade_out_contents
+        self._fade_in_contents = fade_in_contents
+        self._fader_out = Fader(self._fade_out_contents, fader_type='out')
+        self._fader_in = Fader(self._fade_in_contents, fader_type='in')
         self._faders = (self._fader_in, self._fader_out)
         self._is_first_window = True
         self._is_first_process = True
@@ -1599,41 +1599,43 @@ class Drifter():
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents_out(self) -> abjad.Container:
+    def fade_out_contents(self) -> abjad.Container:
         r'The |abjad.Container| to be faded out.'
-        return abjad.mutate(self._contents_out).copy()
+        return abjad.mutate(self._fade_out_contents).copy()
 
-    @contents_out.setter
-    def contents_out(self,
-                     contents_out: abjad.Container,
-                     ):
-        if not isinstance(contents_out, abjad.Container):
-            raise TypeError("'contents_out' must be 'abjad.Container' or "
+    @fade_out_contents.setter
+    def fade_out_contents(self,
+                          fade_out_contents: abjad.Container,
+                          ):
+        if not isinstance(fade_out_contents, abjad.Container):
+            raise TypeError("'fade_out_contents' must be 'abjad.Container' or "
                             "child class")
-        leaves = abjad.select(contents_out).leaves()
+        leaves = abjad.select(fade_out_contents).leaves()
         if not leaves.are_contiguous_logical_voice():
-            raise ValueError("'contents_out' must be contiguous logical voice")
-        self._contents_out = abjad.mutate(contents_out).copy()
-        self._fader_out.contents = self._contents_out
+            raise ValueError("'fade_out_contents' must be contiguous logical "
+                             " voice")
+        self._fade_out_contents = abjad.mutate(fade_out_contents).copy()
+        self._fader_out.contents = self._fade_out_contents
         self.reset()
 
     @property
-    def contents_in(self) -> abjad.Container:
+    def fade_in_contents(self) -> abjad.Container:
         r'The |abjad.Container| to be faded in.'
-        return abjad.mutate(self._contents_in).copy()
+        return abjad.mutate(self._fade_in_contents).copy()
 
-    @contents_in.setter
-    def contents_in(self,
-                    contents_in: abjad.Container,
-                    ):
-        if not isinstance(contents_in, abjad.Container):
-            raise TypeError("'contents_in' must be 'abjad.Container' or "
+    @fade_in_contents.setter
+    def fade_in_contents(self,
+                         fade_in_contents: abjad.Container,
+                         ):
+        if not isinstance(fade_in_contents, abjad.Container):
+            raise TypeError("'fade_in_contents' must be 'abjad.Container' or "
                             "child class")
-        leaves = abjad.select(contents_in).leaves()
+        leaves = abjad.select(fade_in_contents).leaves()
         if not leaves.are_contiguous_logical_voice():
-            raise ValueError("'contents_in' must be contiguous logical voice")
-        self._contents_in = abjad.mutate(contents_in).copy()
-        self._fader_in.contents = self._contents_in
+            raise ValueError("'fade_in_contents' must be contiguous logical "
+                             " voice")
+        self._fade_in_contents = abjad.mutate(fade_in_contents).copy()
+        self._fader_in.contents = self._fade_in_contents
         self.reset()
 
     @property
@@ -1659,7 +1661,7 @@ class Drifter():
         self._weighted_duration = weighted_duration
         if self._weighted_duration:
             self._weights = []
-            for container in [self._contents_in, self._contents_out]:
+            for container in [self._fade_in_contents, self._fade_out_contents]:
                 notes = abjad.select(container).logical_ties(pitched=True)
                 duration = abjad.inspect(container).duration()
                 value = len(notes) * float(duration)
@@ -1669,8 +1671,9 @@ class Drifter():
 
     @property
     def repetition_chance(self) -> float:
-        r"""The chance of not processing neither :attr:`contents_in` not
-        :attr:`contents_out` on a call, thus repeating the previous output.
+        r"""The chance of not processing neither :attr:`fade_in_contents` not
+        :attr:`fade_out_contents` on a call, thus repeating the previous
+        output.
         """
         return self._repetition_chance
 

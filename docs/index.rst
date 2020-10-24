@@ -1,7 +1,9 @@
+|auxjad-socialify|
+
 Welcome to Auxjad's documentation!
 ==================================
 
-|GitHub| |PyPI| |Build| |Python versions| |License| |Bug report| |Documentation|
+|GitHub| |PyPI| |Build| |Python versions| |License|
 
 Auxjad is a library of auxiliary classes and functions for `Abjad 3.1`_ aimed
 at composers of algorithmic music. All classes and functions have a |doc|_
@@ -51,17 +53,14 @@ and `LilyPond`_.
 .. _`Python 3.6`: https://www.python.org/
 .. _LilyPond: http://lilypond.org/
 
-.. |GitHub| image:: https://img.shields.io/badge/GitHub-auxjad-blue?logo=github
+.. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
+.. |GitHub| image:: https://img.shields.io/badge/GitHub-auxjad-blue?style=for-the-badge&logo=github
    :target: https://github.com/gilbertohasnofb/auxjad
-.. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg
+.. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
-.. |Build| image:: https://travis-ci.com/gilbertohasnofb/auxjad.svg?branch=master
+.. |Build| image:: https://img.shields.io/travis/gilbertohasnofb/auxjad?style=for-the-badge
    :target: https://travis-ci.com/gilbertohasnofb/auxjad
-.. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg
+.. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
    :target: https://www.python.org/downloads/release/python-360/
-.. |License| image:: https://img.shields.io/badge/license-MIT-blue
+.. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
-.. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg
-   :target: https://github.com/gilbertohasnofb/auxjad/issues
-.. |Documentation| image:: https://img.shields.io/badge/docs-auxjad.docs-yellow
-   :target: https://gilbertohasnofb.github.io/auxjad-docs/

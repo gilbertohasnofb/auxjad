@@ -28,17 +28,17 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad 3.1`_
 and `LilyPond`_.
 
 .. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
-.. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg
+.. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
-.. |Build| image:: https://travis-ci.com/gilbertohasnofb/auxjad.svg?branch=master
+.. |Build| image:: https://img.shields.io/travis/gilbertohasnofb/auxjad?style=for-the-badge
    :target: https://travis-ci.com/gilbertohasnofb/auxjad
-.. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg
+.. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
    :target: https://www.python.org/downloads/release/python-360/
-.. |License| image:: https://img.shields.io/badge/license-MIT-blue
+.. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
-.. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg
+.. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/issues
-.. |Documentation| image:: https://img.shields.io/badge/docs-auxjad.docs-yellow
+.. |Documentation| image:: https://img.shields.io/badge/docs-auxjad.docs-yellow?style=for-the-badge
    :target: https://gilbertohasnofb.github.io/auxjad-docs/
 
 .. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues

@@ -6,7 +6,7 @@ Auxjad is a library of auxiliary classes and functions for `Abjad 3.1`_ aimed
 at composers of algorithmic music. All classes and functions have a ``__doc__``
 attribute with usage instructions.
 
-Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
+Documentation is available at the `Auxjad Docs`_ webpage.
 
 Bugs can be reported through the project's `Issue Tracker`_.
 
@@ -28,6 +28,7 @@ You will also need to install `Python 3.6`_ or higher, as well as `Abjad 3.1`_
 and `LilyPond`_.
 
 .. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
+    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
 .. |Build| image:: https://img.shields.io/travis/gilbertohasnofb/auxjad?style=for-the-badge
@@ -41,6 +42,7 @@ and `LilyPond`_.
 .. |Documentation| image:: https://img.shields.io/badge/docs-auxjad.docs-yellow?style=for-the-badge
    :target: https://gilbertohasnofb.github.io/auxjad-docs/
 
+.. _`Auxjad Docs`: https://gilbertohasnofb.github.io/auxjad-docs/
 .. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
 .. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 .. _pip: https://pip.pypa.io/en/stable/

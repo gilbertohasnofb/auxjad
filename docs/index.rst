@@ -3,19 +3,20 @@
 Welcome to Auxjad's documentation!
 ==================================
 
-|GitHub| |PyPI| |Build| |Python versions| |License|
+|PyPI| |Build| |Python versions| |Bug report| |License|
 
 Auxjad is a library of auxiliary classes and functions for `Abjad 3.1`_ aimed
 at composers of algorithmic music. All classes and functions have a |doc|_
 attribute with usage instructions.
 
-Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
+The code of this library is available at the `Auxjad Repository`_ at GitHub.
 
 Bugs can be reported through the project's `Issue Tracker`_.
 
 This library is published under the `MIT License`_.
 
 .. _`Abjad 3.1`: https://abjad.github.io/
+.. _`Auxjad Repository`: https://github.com/gilbertohasnofb/auxjad
 .. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
 .. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 
@@ -54,6 +55,7 @@ and `LilyPond`_.
 .. _LilyPond: http://lilypond.org/
 
 .. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
+    :target: https://github.com/gilbertohasnofb/auxjad
 .. |GitHub| image:: https://img.shields.io/badge/GitHub-auxjad-blue?style=for-the-badge&logo=github
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
@@ -64,3 +66,5 @@ and `LilyPond`_.
    :target: https://www.python.org/downloads/release/python-360/
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
+.. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg?style=for-the-badge
+  :target: https://github.com/gilbertohasnofb/auxjad/issues

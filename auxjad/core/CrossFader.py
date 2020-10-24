@@ -20,8 +20,8 @@ class CrossFader():
         removed or a note of the second container is added.
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> selection_a, selection_b = xfader()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
@@ -135,8 +135,8 @@ class CrossFader():
         |abjad.Staff|'s, use the method :meth:`output_all`.
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -196,8 +196,8 @@ class CrossFader():
         number of iterations as argument.
 
         >>> fade_out_container = abjad.Container(r"e'8 fs'4. r2")
-        >>> fade_out_container = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"c''2 ~ c''8 d''4.")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a, staff_b = xfader.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -241,8 +241,8 @@ class CrossFader():
         the output when using this class in this way.
 
         >>> fade_out_container = abjad.Container(r"e'8 fs'4. r2")
-        >>> fade_out_container = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"c''2 ~ c''8 d''4.")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
         >>> for selection_a, selection_b in xfader:
@@ -322,9 +322,9 @@ class CrossFader():
         for more information.
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            fade_in_first=True,
         ...                            fade_out_last=True,
         ...                            initial_repetitions=3,
@@ -407,8 +407,8 @@ class CrossFader():
         This can be used to restart the process at any time.
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
         >>> for _ in range(3):
@@ -464,9 +464,9 @@ class CrossFader():
         removed or added one by one.
 
         >>> fade_out_container = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
-        >>> fade_out_container = abjad.Container(r"<d' ef'>2. <bf a'>4")
+        >>> fade_in_container = abjad.Container(r"<d' ef'>2. <bf a'>4")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            fade_in_first=True,
         ...                            fade_out_last=True,
         ...                            )
@@ -536,18 +536,18 @@ class CrossFader():
         both :attr:`fade_in_contents` and :attr:`fade_out_contents`.
 
         >>> fade_out_container = abjad.Container(r"c'4 d'4 ~ d'4 r4")
-        >>> fade_out_container = abjad.Container(r"r2 c''2")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"r2 c''2")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> len(xfader)
         3
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> len(xfader)
         5
         >>> fade_out_container = abjad.Container(r"c'4 d'4 ~ d'4 r4")
-        >>> fade_out_container = abjad.Container(r"r2 <c'' e'' g''>2")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"r2 <c'' e'' g''>2")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> len(xfader)
         5
 
@@ -560,8 +560,8 @@ class CrossFader():
         container is removed (default ``False``).
 
         >>> fade_out_container = abjad.Container(r"\time 3/4 r4 c'4 d'4")
-        >>> fade_out_container = abjad.Container(r"\time 3/4 a''4 g''2")
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> fade_in_container = abjad.Container(r"\time 3/4 a''4 g''2")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -597,7 +597,7 @@ class CrossFader():
         .. figure:: ../_images/CrossFader-sm9qcruxat.png
 
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            fade_out_last=True,
         ...                            )
         >>> staff_a, staff_b = xfader.output_all()
@@ -636,7 +636,7 @@ class CrossFader():
         .. figure:: ../_images/CrossFader-2a4cyxsyxrg.png
 
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            fade_in_first=True,
         ...                            fade_out_last=True,
         ...                            )
@@ -685,10 +685,10 @@ class CrossFader():
         similar rate (default value is ``False``).
 
         >>> fade_out_container = abjad.Container(r"e'2 c'2")
-        >>> fade_out_container = abjad.Container(
+        >>> fade_in_container = abjad.Container(
         ...     r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8"
         ... )
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -784,7 +784,7 @@ class CrossFader():
         .. figure:: ../_images/CrossFader-o58h79ijsdf.png
 
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            weighted_duration=True,
         ...                            )
         >>> staff_a, staff_b = xfader.output_all()
@@ -895,9 +895,9 @@ class CrossFader():
         and final measures (default is ``1`` for both).
 
         >>> fade_out_container = abjad.Container(r"a'4 bf'2 r4")
-        >>> fade_out_container = abjad.Container(r"c''2 d''2")
+        >>> fade_in_container = abjad.Container(r"c''2 d''2")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            initial_repetitions=2,
         ...                            final_repetitions=3,
         ...                            )
@@ -955,9 +955,9 @@ class CrossFader():
         i.e. no repetitions).
 
         >>> fade_out_container = abjad.Container(r"a'4 bf'2 r4")
-        >>> fade_out_container = abjad.Container(r"c''2 d''2")
+        >>> fade_in_container = abjad.Container(r"c''2 d''2")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            repetition_chance=0.8,
         ...                            )
         >>> staff_a, staff_b = xfader.output_n(4)
@@ -1003,9 +1003,9 @@ class CrossFader():
         initialisation.
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            omit_time_signatures=True,
         ...                            )
         >>> staff_a, staff_b = xfader.output_n(3)
@@ -1054,9 +1054,9 @@ class CrossFader():
         :attr:`disable_rewrite_meter`.
 
         >>> fade_out_container = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
-        >>> fade_out_container = abjad.Container(r"c'2 d'2")
+        >>> fade_in_container = abjad.Container(r"c'2 d'2")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            disable_rewrite_meter=True,
         ...                            )
         >>> staff_a, staff_b = xfader.output_n(3)
@@ -1109,10 +1109,10 @@ class CrossFader():
         >>> fade_out_container = abjad.Container(
         ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}"
         ... )
-        >>> fade_out_container = abjad.Container(
+        >>> fade_in_container = abjad.Container(
         ...     r"\time 3/4 c'8 d' e' f' g' a'"
         ... )
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> xfader.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
         >>> print(xfader)
         {
@@ -1136,10 +1136,10 @@ class CrossFader():
         >>> fade_out_container = abjad.Container(
         ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4"
         ... )
-        >>> fade_out_container = abjad.Container(
+        >>> fade_in_container = abjad.Container(
         ...     r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2"
         ... )
-        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> staff_a, staff_b = xfader.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
@@ -1198,11 +1198,11 @@ class CrossFader():
         they terminate is removed.
 
         >>> fade_out_container = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
-        >>> fade_out_container = abjad.Container(
+        >>> fade_in_container = abjad.Container(
         ...     r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2"
         ... )
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            fade_in_first=True,
         ...                            fade_out_last=True,
         ...                            )
@@ -1305,9 +1305,9 @@ class CrossFader():
         of the shorter staff.
 
         >>> fade_out_container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> fade_out_container = abjad.Container(r"\time 4/4 g'2 a'2")
+        >>> fade_in_container = abjad.Container(r"\time 4/4 g'2 a'2")
         >>> xfader = auxjad.CrossFader(fade_out_container,
-        ...                            fade_out_container,
+        ...                            fade_in_container,
         ...                            fade_in_first=True,
         ...                            fade_out_last=True,
         ...                            weighted_duration=True,

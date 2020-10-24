@@ -3,7 +3,7 @@
 Welcome to Auxjad's documentation!
 ==================================
 
-|PyPI| |Build| |Python versions| |Bug report| |License|
+|PyPI| |Build| |Python versions| |License| |Bug report|
 
 Auxjad is a library of auxiliary classes and functions for `Abjad 3.1`_ aimed
 at composers of algorithmic music. All classes and functions have a |doc|_

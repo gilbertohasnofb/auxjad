@@ -14,7 +14,7 @@ This library is published under the MIT License.
 """
 
 from .core.CartographySelector import CartographySelector
-from .core.Drifter import Drifter
+from .core.CrossFader import CrossFader
 from .core.Fader import Fader
 from .core.Hocketer import Hocketer
 from .core.LeafLooper import LeafLooper
@@ -44,7 +44,7 @@ __all__ = [
     '__author__',
     '__version__',
     'CartographySelector',
-    'Drifter',
+    'CrossFader',
     'Fader',
     'Hocketer',
     'LeafLooper',

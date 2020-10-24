@@ -7,8 +7,8 @@ from ..utilities.mutate import mutate
 from .Fader import Fader
 
 
-class Drifter():
-    r"""This class takes two |abjad.Container|'s and gradually drifts from
+class CrossFader():
+    r"""This class takes two |abjad.Container|'s and gradually cross fades from
     one into the other, by fading out the first while fading in the
     second. It makes use of two :class:`auxjad.Fader` for that.
 
@@ -19,10 +19,10 @@ class Drifter():
         the previous results. That is, either a note of the first container is
         removed or a note of the second container is added.
 
-        >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> selection_a, selection_b = drifter()
+        >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
+        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> selection_a, selection_b = xfader()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -44,9 +44,9 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-gdofr6vtutv.png
+        .. figure:: ../_images/CrossFader-gdofr6vtutv.png
 
-        >>> selection_a, selection_b = drifter()
+        >>> selection_a, selection_b = xfader()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -71,9 +71,9 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-ge0qzrwa7fr.png
+        .. figure:: ../_images/CrossFader-ge0qzrwa7fr.png
 
-        >>> selection_a, selection_b = drifter()
+        >>> selection_a, selection_b = xfader()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -98,12 +98,12 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-0iynx7xenvmp.png
+        .. figure:: ../_images/CrossFader-0iynx7xenvmp.png
 
         The property :attr:`current_window` can be used to access the current
         window without processing it.
 
-        >>> notes = drifter.current_window()
+        >>> notes = xfader.current_window()
         >>> score = abjad.Score([
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
@@ -128,16 +128,16 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-kinei9zncl.png
+        .. figure:: ../_images/CrossFader-kinei9zncl.png
 
     :meth:`output_all`:
         To run through the whole process and output it as a :obj:`tuple` of two
         |abjad.Staff|'s, use the method :meth:`output_all`.
 
-        >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
+        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -188,17 +188,17 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-0t206fb4ycne.png
+        .. figure:: ../_images/CrossFader-0t206fb4ycne.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a :obj:`tuple`
         of two |abjad.Staff|'s, use the method :meth:`output_n` and pass the
         number of iterations as argument.
 
-        >>> container_out = abjad.Container(r"e'8 fs'4. r2")
-        >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = drifter.output_n(3)
+        >>> fade_out_container = abjad.Container(r"e'8 fs'4. r2")
+        >>> fade_out_container = abjad.Container(r"c''2 ~ c''8 d''4.")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> staff_a, staff_b = xfader.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -230,22 +230,22 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-8o5fjalw1px.png
+        .. figure:: ../_images/CrossFader-8o5fjalw1px.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
         then be used in a for loop to run through the whole process. Note that
         unlike the methods :meth:`output_n` and :meth:`output_all`, time
-        signatures are added to each window returned by the drifter. Use the
+        signatures are added to each window returned by the xfader. Use the
         function |auxjad.mutate().remove_repeated_time_signatures()| to clean
         the output when using this class in this way.
 
-        >>> container_out = abjad.Container(r"e'8 fs'4. r2")
-        >>> container_in = abjad.Container(r"c''2 ~ c''8 d''4.")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> fade_out_container = abjad.Container(r"e'8 fs'4. r2")
+        >>> fade_out_container = abjad.Container(r"c''2 ~ c''8 d''4.")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
-        >>> for selection_a, selection_b in drifter:
+        >>> for selection_a, selection_b in xfader:
         ...     staff_a.extend(selection_a)
         ...     staff_b.extend(selection_b)
         >>> auxjad.mutate(staff_a).remove_repeated_time_signatures()
@@ -292,7 +292,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-3g9fv4ew4h9.png
+        .. figure:: ../_images/CrossFader-3g9fv4ew4h9.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -321,102 +321,102 @@ class Drifter():
         arguments to |abjad.mutate().rewrite_meter()|, see its documentation
         for more information.
 
-        >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          fade_in_first=True,
-        ...                          fade_out_last=True,
-        ...                          initial_repetitions=3,
-        ...                          final_repetitions=3,
-        ...                          repetition_chance=0.7,
-        ...                          weighted_duration=True,
-        ...                          disable_rewrite_meter=True,
-        ...                          omit_time_signatures=True,
-        ...                          use_multimeasure_rests=True,
-        ...                          boundary_depth=True,
-        ...                          maximum_dot_count=True,
-        ...                          rewrite_tuplets=True,
-        ...                          )
-        >>> drifter.fade_in_first
+        >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
+        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            fade_in_first=True,
+        ...                            fade_out_last=True,
+        ...                            initial_repetitions=3,
+        ...                            final_repetitions=3,
+        ...                            repetition_chance=0.7,
+        ...                            weighted_duration=True,
+        ...                            disable_rewrite_meter=True,
+        ...                            omit_time_signatures=True,
+        ...                            use_multimeasure_rests=True,
+        ...                            boundary_depth=True,
+        ...                            maximum_dot_count=True,
+        ...                            rewrite_tuplets=True,
+        ...                            )
+        >>> xfader.fade_in_first
         True
-        >>> drifter.fade_out_last
+        >>> xfader.fade_out_last
         True
-        >>> drifter.initial_repetitions
+        >>> xfader.initial_repetitions
         3
-        >>> drifter.final_repetitions
+        >>> xfader.final_repetitions
         3
-        >>> drifter.repetition_chance
+        >>> xfader.repetition_chance
         0.7
-        >>> drifter.weighted_duration
+        >>> xfader.weighted_duration
         True
-        >>> drifter.disable_rewrite_meter
+        >>> xfader.disable_rewrite_meter
         True
-        >>> drifter.omit_time_signatures
+        >>> xfader.omit_time_signatures
         True
-        >>> drifter.use_multimeasure_rests
+        >>> xfader.use_multimeasure_rests
         True
-        >>> drifter.boundary_depth
+        >>> xfader.boundary_depth
         True
-        >>> drifter.maximum_dot_count
+        >>> xfader.maximum_dot_count
         True
-        >>> drifter.rewrite_tuplets
+        >>> xfader.rewrite_tuplets
         True
 
         Use the properties below to change these values after initialisation.
 
-        >>> drifter.fade_in_first = False
-        >>> drifter.fade_out_last = False
-        >>> drifter.initial_repetitions = 4
-        >>> drifter.final_repetitions = 7
-        >>> drifter.repetition_chance = 0.23
-        >>> drifter.weighted_duration = False
-        >>> drifter.disable_rewrite_meter = False
-        >>> drifter.omit_time_signatures = False
-        >>> drifter.use_multimeasure_rests = False
-        >>> drifter.boundary_depth = False
-        >>> drifter.maximum_dot_count = False
-        >>> drifter.rewrite_tuplets = False
-        >>> drifter.fade_in_first
+        >>> xfader.fade_in_first = False
+        >>> xfader.fade_out_last = False
+        >>> xfader.initial_repetitions = 4
+        >>> xfader.final_repetitions = 7
+        >>> xfader.repetition_chance = 0.23
+        >>> xfader.weighted_duration = False
+        >>> xfader.disable_rewrite_meter = False
+        >>> xfader.omit_time_signatures = False
+        >>> xfader.use_multimeasure_rests = False
+        >>> xfader.boundary_depth = False
+        >>> xfader.maximum_dot_count = False
+        >>> xfader.rewrite_tuplets = False
+        >>> xfader.fade_in_first
         False
-        >>> drifter.fade_out_last
+        >>> xfader.fade_out_last
         False
-        >>> drifter.initial_repetitions
+        >>> xfader.initial_repetitions
         4
-        >>> drifter.final_repetitions
+        >>> xfader.final_repetitions
         7
-        >>> drifter.repetition_chance
+        >>> xfader.repetition_chance
         0.23
-        >>> drifter.weighted_duration
+        >>> xfader.weighted_duration
         False
-        >>> drifter.disable_rewrite_meter
+        >>> xfader.disable_rewrite_meter
         False
-        >>> drifter.omit_time_signatures
+        >>> xfader.omit_time_signatures
         False
-        >>> drifter.use_multimeasure_rests
+        >>> xfader.use_multimeasure_rests
         False
-        >>> drifter.boundary_depth
+        >>> xfader.boundary_depth
         False
-        >>> drifter.maximum_dot_count
+        >>> xfader.maximum_dot_count
         False
-        >>> drifter.rewrite_tuplets
+        >>> xfader.rewrite_tuplets
         False
 
     :meth:`reset`:
-        Use the :meth:`reset` method to reset the drifter to its initial state.
+        Use the :meth:`reset` method to reset the xfader to its initial state.
         This can be used to restart the process at any time.
 
-        >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
+        >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
+        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
         >>> staff_a = abjad.Staff()
         >>> staff_b = abjad.Staff()
         >>> for _ in range(3):
-        ...     selection_a, selection_b = drifter()
+        ...     selection_a, selection_b = xfader()
         ...     staff_a.extend(selection_a)
         ...     staff_b.extend(selection_b)
-        >>> drifter.reset()
-        >>> selection_a, selection_b = drifter()
+        >>> xfader.reset()
+        >>> selection_a, selection_b = xfader()
         >>> staff_a.extend(selection_a)
         >>> staff_b.extend(selection_b)
         >>> auxjad.mutate(staff_a).remove_repeated_time_signatures()
@@ -457,20 +457,20 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-pauqe26ke8e.png
+        .. figure:: ../_images/CrossFader-pauqe26ke8e.png
 
     Chords:
         This class also support chords. Each of their individual notes are
         removed or added one by one.
 
-        >>> container_out = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
-        >>> container_in = abjad.Container(r"<d' ef'>2. <bf a'>4")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          fade_in_first=True,
-        ...                          fade_out_last=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> fade_out_container = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
+        >>> fade_out_container = abjad.Container(r"<d' ef'>2. <bf a'>4")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            fade_in_first=True,
+        ...                            fade_out_last=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -529,26 +529,26 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-lm8byjxoayn.png
+        .. figure:: ../_images/CrossFader-lm8byjxoayn.png
 
     :func:`len()`:
         The function :func:`len()` returns the sum of the number of notes of
         both :attr:`fade_in_contents` and :attr:`fade_out_contents`.
 
-        >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
-        >>> container_in = abjad.Container(r"r2 c''2")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> len(drifter)
+        >>> fade_out_container = abjad.Container(r"c'4 d'4 ~ d'4 r4")
+        >>> fade_out_container = abjad.Container(r"r2 c''2")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> len(xfader)
         3
-        >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> len(drifter)
+        >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
+        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> len(xfader)
         5
-        >>> container_out = abjad.Container(r"c'4 d'4 ~ d'4 r4")
-        >>> container_in = abjad.Container(r"r2 <c'' e'' g''>2")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> len(drifter)
+        >>> fade_out_container = abjad.Container(r"c'4 d'4 ~ d'4 r4")
+        >>> fade_out_container = abjad.Container(r"r2 <c'' e'' g''>2")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> len(xfader)
         5
 
     :attr:`fade_in_first` and :attr:`fade_out_last`:
@@ -559,10 +559,10 @@ class Drifter():
         second container must be faded in before the very last note of first
         container is removed (default ``False``).
 
-        >>> container_out = abjad.Container(r"\time 3/4 r4 c'4 d'4")
-        >>> container_in = abjad.Container(r"\time 3/4 a''4 g''2")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> fade_out_container = abjad.Container(r"\time 3/4 r4 c'4 d'4")
+        >>> fade_out_container = abjad.Container(r"\time 3/4 a''4 g''2")
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -594,13 +594,13 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-sm9qcruxat.png
+        .. figure:: ../_images/CrossFader-sm9qcruxat.png
 
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          fade_out_last=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            fade_out_last=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -633,14 +633,14 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-2a4cyxsyxrg.png
+        .. figure:: ../_images/CrossFader-2a4cyxsyxrg.png
 
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          fade_in_first=True,
-        ...                          fade_out_last=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            fade_in_first=True,
+        ...                            fade_out_last=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -676,7 +676,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-oap1pnwrfqc.png
+        .. figure:: ../_images/CrossFader-oap1pnwrfqc.png
 
     :attr:`weighted_duration`:
         Setting :attr:`weighted_duration` to ``True`` will give more weight to
@@ -684,12 +684,12 @@ class Drifter():
         length), making it more likely that both will fade in and out at a
         similar rate (default value is ``False``).
 
-        >>> container_out = abjad.Container(r"e'2 c'2")
-        >>> container_in = abjad.Container(
+        >>> fade_out_container = abjad.Container(r"e'2 c'2")
+        >>> fade_out_container = abjad.Container(
         ...     r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8"
         ... )
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -781,13 +781,13 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-o58h79ijsdf.png
+        .. figure:: ../_images/CrossFader-o58h79ijsdf.png
 
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          weighted_duration=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            weighted_duration=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -887,21 +887,21 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-l3dc3vxfpdnsxdym4gql.png
+        .. figure:: ../_images/CrossFader-l3dc3vxfpdnsxdym4gql.png
 
     :attr:`initial_repetitions` and :attr:`final_repetitions`:
         The properties :attr:`initial_repetitions` and
         :attr:`final_repetitions` set the number of repetitions of the initial
         and final measures (default is ``1`` for both).
 
-        >>> container_out = abjad.Container(r"a'4 bf'2 r4")
-        >>> container_in = abjad.Container(r"c''2 d''2")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          initial_repetitions=2,
-        ...                          final_repetitions=3,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> fade_out_container = abjad.Container(r"a'4 bf'2 r4")
+        >>> fade_out_container = abjad.Container(r"c''2 d''2")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            initial_repetitions=2,
+        ...                            final_repetitions=3,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -947,20 +947,20 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-e480tbrvwg.png
+        .. figure:: ../_images/CrossFader-e480tbrvwg.png
 
     :attr:`repetition_chance`:
         Use :attr:`repetition_chance` to set the chance of a measure repeating
         itself, ranging from ``0.0`` to ``1.0`` (default is ``0.0``,
         i.e. no repetitions).
 
-        >>> container_out = abjad.Container(r"a'4 bf'2 r4")
-        >>> container_in = abjad.Container(r"c''2 d''2")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          repetition_chance=0.8,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_n(4)
+        >>> fade_out_container = abjad.Container(r"a'4 bf'2 r4")
+        >>> fade_out_container = abjad.Container(r"c''2 d''2")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            repetition_chance=0.8,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_n(4)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -994,7 +994,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-743rxr2n02o.png
+        .. figure:: ../_images/CrossFader-743rxr2n02o.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -1002,13 +1002,13 @@ class Drifter():
         is ``False``), or use the :attr:`omit_time_signatures` property after
         initialisation.
 
-        >>> container_out = abjad.Container(r"fs'4 g'2 bf'4")
-        >>> container_in = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          omit_time_signatures=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_n(3)
+        >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
+        >>> fade_out_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            omit_time_signatures=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1036,7 +1036,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-aypzofmynwe.png
+        .. figure:: ../_images/CrossFader-aypzofmynwe.png
 
     .. tip::
 
@@ -1053,13 +1053,13 @@ class Drifter():
         |abjad.mutate().rewrite_meter()|. It can be disabled with the property
         :attr:`disable_rewrite_meter`.
 
-        >>> container_out = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
-        >>> container_in = abjad.Container(r"c'2 d'2")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          disable_rewrite_meter=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_n(3)
+        >>> fade_out_container = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
+        >>> fade_out_container = abjad.Container(r"c'2 d'2")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            disable_rewrite_meter=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1093,7 +1093,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-vprhoh84quk.png
+        .. figure:: ../_images/CrossFader-vprhoh84quk.png
 
         Arguments available for tweaking the output of
         |abjad.mutate().rewrite_meter()| are :attr:`boundary_depth`,
@@ -1106,13 +1106,15 @@ class Drifter():
         properties :attr:`fade_in_contents` or :attr:`fade_out_contents`. This
         will reset the process.
 
-        >>> container_out = abjad.Container(
+        >>> fade_out_container = abjad.Container(
         ...     r"\time 3/4 e2 \times 2/3 {fs8 gs4}"
         ... )
-        >>> container_in = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> drifter.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
-        >>> print(drifter)
+        >>> fade_out_container = abjad.Container(
+        ...     r"\time 3/4 c'8 d' e' f' g' a'"
+        ... )
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> xfader.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
+        >>> print(xfader)
         {
             %%% \time 3/4 %%%
             a4.
@@ -1131,14 +1133,14 @@ class Drifter():
     Time signature changes:
         This class can handle time signature changes.
 
-        >>> container_out = abjad.Container(
+        >>> fade_out_container = abjad.Container(
         ...     r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4"
         ... )
-        >>> container_in = abjad.Container(
+        >>> fade_out_container = abjad.Container(
         ...     r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2"
         ... )
-        >>> drifter = auxjad.Drifter(container_out, container_in)
-        >>> staff_a, staff_b = drifter.output_n(3)
+        >>> xfader = auxjad.CrossFader(fade_out_container, fade_out_container)
+        >>> staff_a, staff_b = xfader.output_n(3)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1188,23 +1190,23 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-w99zcui5rj.png
+        .. figure:: ../_images/CrossFader-w99zcui5rj.png
 
     Indicators:
         This class can also handle dynamics, articulations, chords, and
         tuplets. Hairpins might need manual tweaking if the leaf under which
         they terminate is removed.
 
-        >>> container_out = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
-        >>> container_in = abjad.Container(
+        >>> fade_out_container = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
+        >>> fade_out_container = abjad.Container(
         ...     r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2"
         ... )
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          fade_in_first=True,
-        ...                          fade_out_last=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            fade_in_first=True,
+        ...                            fade_out_last=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1279,7 +1281,7 @@ class Drifter():
             }
         >>
 
-        .. figure:: ../_images/Drifter-o0yetbq5wqj.png
+        .. figure:: ../_images/CrossFader-o0yetbq5wqj.png
 
     .. tip::
 
@@ -1302,15 +1304,15 @@ class Drifter():
         |auxjad.mutate().sync_containers()| can be used to add rests to the end
         of the shorter staff.
 
-        >>> container_out = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> container_in = abjad.Container(r"\time 4/4 g'2 a'2")
-        >>> drifter = auxjad.Drifter(container_out,
-        ...                          container_in,
-        ...                          fade_in_first=True,
-        ...                          fade_out_last=True,
-        ...                          weighted_duration=True,
-        ...                          )
-        >>> staff_a, staff_b = drifter.output_all()
+        >>> fade_out_container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
+        >>> fade_out_container = abjad.Container(r"\time 4/4 g'2 a'2")
+        >>> xfader = auxjad.CrossFader(fade_out_container,
+        ...                            fade_out_container,
+        ...                            fade_in_first=True,
+        ...                            fade_out_last=True,
+        ...                            weighted_duration=True,
+        ...                            )
+        >>> staff_a, staff_b = xfader.output_all()
         >>> abjad.mutate([staff_a, staff_b]).sync_containers()
         >>> score = abjad.Score([staff_a, staff_b])
         >>> lilypond_file = abjad.LilyPondFile.new()
@@ -1392,7 +1394,7 @@ class Drifter():
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/Drifter-5qvaan79w8p.png
+        .. figure:: ../_images/CrossFader-5qvaan79w8p.png
     """
 
     ### CLASS VARIABLES ###
@@ -1480,14 +1482,14 @@ class Drifter():
         return len(self._fader_in) + len(self._fader_out)
 
     def __call__(self) -> tuple:
-        r"""Calls the drifting process, returning a :obj:`tuple` of
+        r"""Calls the cross fading process, returning a :obj:`tuple` of
         |abjad.Staff|.
         """
-        self._drift_process()
+        self._cross_fade_process()
         return self.current_window
 
     def __next__(self) -> tuple:
-        r"""Calls the drifting process for one iteration, returning a
+        r"""Calls the cross fading process for one iteration, returning a
         :obj:`tuple` of |abjad.Staff|.
         """
         try:
@@ -1559,8 +1561,8 @@ class Drifter():
 
     ### PRIVATE METHODS ###
 
-    def _drift_process(self):
-        r'Processes both faders according to the drifting process.'
+    def _cross_fade_process(self):
+        r'Processes both faders according to the cross fade process.'
         if self._is_first_window:
             self._fader_out()
             self._fader_in()
@@ -1690,7 +1692,7 @@ class Drifter():
     @property
     def initial_repetitions(self) -> int:
         r"""The number of times the initial containers are repeated before the
-        drifting process starts.
+        cross fade process starts.
         """
         return self._initial_repetitions
 
@@ -1707,7 +1709,7 @@ class Drifter():
     @property
     def final_repetitions(self) -> int:
         r"""The number of times the final containers are repeated after the
-        drifting process ends.
+        cross fade process ends.
         """
         return self._final_repetitions
 

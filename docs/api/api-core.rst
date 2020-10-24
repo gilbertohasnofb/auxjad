@@ -23,7 +23,7 @@ for their individual documentation.
     :toctree: ../_api_members
 
     CartographySelector
-    Drifter
+    CrossFader
     Fader
     Hocketer
     LeafLooper

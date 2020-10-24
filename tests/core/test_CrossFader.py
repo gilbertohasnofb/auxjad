@@ -5,12 +5,12 @@ import abjad
 import auxjad
 
 
-def test_Drifter_01():
+def test_CrossFader_01():
     random.seed(17737)
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    assert format(drifter) == abjad.String.normalize(
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    assert format(xfader) == abjad.String.normalize(
         r"""
         {
             fs'4
@@ -24,7 +24,7 @@ def test_Drifter_01():
             }
         }
         """)
-    selection_a, selection_b = drifter()
+    selection_a, selection_b = xfader()
     score = abjad.Score([
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
@@ -47,7 +47,7 @@ def test_Drifter_01():
             }
         >>
         """)
-    selection_a, selection_b = drifter()
+    selection_a, selection_b = xfader()
     score = abjad.Score([
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
@@ -73,7 +73,7 @@ def test_Drifter_01():
             }
         >>
         """)
-    selection_a, selection_b = drifter.current_window
+    selection_a, selection_b = xfader.current_window
     score = abjad.Score([
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
@@ -101,35 +101,35 @@ def test_Drifter_01():
         """)
 
 
-def test_Drifter_02():
+def test_CrossFader_02():
     fade_out_container = abjad.Container(r"c'4 d'4 ~ d'4 r4")
     fade_in_container = abjad.Container(r"r2 c''2")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    assert len(drifter) == 3
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    assert len(xfader) == 3
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    assert len(drifter) == 5
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    assert len(xfader) == 5
     fade_out_container = abjad.Container(r"c'4 d'4 ~ d'4 r4")
     fade_in_container = abjad.Container(r"r2 <c'' e'' g''>2")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    assert len(drifter) == 5
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    assert len(xfader) == 5
 
 
-def test_Drifter_03():
+def test_CrossFader_03():
     random.seed(44811)
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
     staff_a = abjad.Staff()
     staff_b = abjad.Staff()
     score = abjad.Score([staff_a, staff_b])
     for _ in range(3):
-        selection_a, selection_b = drifter()
+        selection_a, selection_b = xfader()
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
-    drifter.reset()
-    selection_a, selection_b = drifter()
+    xfader.reset()
+    selection_a, selection_b = xfader()
     staff_a.extend(selection_a)
     staff_b.extend(selection_b)
     assert format(score) == abjad.String.normalize(
@@ -176,12 +176,12 @@ def test_Drifter_03():
         """)
 
 
-def test_Drifter_04():
+def test_CrossFader_04():
     random.seed(44811)
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -235,12 +235,12 @@ def test_Drifter_04():
         """)
 
 
-def test_Drifter_05():
+def test_CrossFader_05():
     random.seed(10711)
     fade_out_container = abjad.Container(r"e'8 fs'4. r2")
     fade_in_container = abjad.Container(r"c''2 ~ c''8 d''4.")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    staff_a, staff_b = drifter.output_n(3)
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    staff_a, staff_b = xfader.output_n(3)
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -275,15 +275,15 @@ def test_Drifter_05():
         """)
 
 
-def test_Drifter_06():
+def test_CrossFader_06():
     random.seed(10711)
     fade_out_container = abjad.Container(r"e'8 fs'4. r2")
     fade_in_container = abjad.Container(r"c''2 ~ c''8 d''4.")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
     staff_a = abjad.Staff()
     staff_b = abjad.Staff()
     score = abjad.Score([staff_a, staff_b])
-    for selection_a, selection_b in drifter:
+    for selection_a, selection_b in xfader:
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
     assert format(score) == abjad.String.normalize(
@@ -338,16 +338,16 @@ def test_Drifter_06():
         """)
 
 
-def test_Drifter_07():
+def test_CrossFader_07():
     random.seed(87114)
     fade_out_container = abjad.Container(r"e'8 fs'4. r2")
     fade_in_container = abjad.Container(r"c''2 ~ c''8 d''4.")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
     staff_a = abjad.Staff()
     staff_b = abjad.Staff()
     score = abjad.Score([staff_a, staff_b])
     for _ in range(3):
-        selection_a, selection_b = next(drifter)
+        selection_a, selection_b = next(xfader)
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
     assert format(score) == abjad.String.normalize(
@@ -383,12 +383,12 @@ def test_Drifter_07():
         """)
 
 
-def test_Drifter_08():
+def test_CrossFader_08():
     random.seed(62190)
     fade_out_container = abjad.Container(r"\time 3/4 r4 c'4 d'4")
     fade_in_container = abjad.Container(r"\time 3/4 a''4 g''2")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -422,11 +422,11 @@ def test_Drifter_08():
         >>
         """)
     random.seed(62190)
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             fade_out_last=True,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               fade_out_last=True,
+                               )
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -461,12 +461,12 @@ def test_Drifter_08():
         >>
         """)
     random.seed(62190)
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             fade_in_first=True,
-                             fade_out_last=True,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               fade_in_first=True,
+                               fade_out_last=True,
+                               )
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -505,14 +505,14 @@ def test_Drifter_08():
         """)
 
 
-def test_Drifter_09():
+def test_CrossFader_09():
     random.seed(50137)
     fade_out_container = abjad.Container(r"e'2 c'2")
     fade_in_container = abjad.Container(
         r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8"
     )
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -606,11 +606,11 @@ def test_Drifter_09():
         >>
         """)
     random.seed(50137)
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             weighted_duration=True,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               weighted_duration=True,
+                               )
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -713,12 +713,12 @@ def test_Drifter_09():
         """)
 
 
-def test_Drifter_10():
+def test_CrossFader_10():
     fade_out_container = abjad.Container(r"\time 3/4 e2 \times 2/3 {fs8 gs4}")
     fade_in_container = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    drifter.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
-    assert format(drifter) == abjad.String.normalize(
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    xfader.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
+    assert format(xfader) == abjad.String.normalize(
         r"""
         {
             %%% \time 3/4 %%%
@@ -737,16 +737,16 @@ def test_Drifter_10():
         """)
 
 
-def test_Drifter_11():
+def test_CrossFader_11():
     random.seed(41379)
     fade_out_container = abjad.Container(r"a'4 bf'2 r4")
     fade_in_container = abjad.Container(r"c''2 d''2")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             initial_repetitions=2,
-                             final_repetitions=3,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               initial_repetitions=2,
+                               final_repetitions=3,
+                               )
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -795,15 +795,15 @@ def test_Drifter_11():
         """)
 
 
-def test_Drifter_12():
+def test_CrossFader_12():
     random.seed(91766)
     fade_out_container = abjad.Container(r"a'4 bf'2 r4")
     fade_in_container = abjad.Container(r"c''2 d''2")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             repetition_chance=0.8,
-                             )
-    staff_a, staff_b = drifter.output_n(4)
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               repetition_chance=0.8,
+                               )
+    staff_a, staff_b = xfader.output_n(4)
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -840,7 +840,7 @@ def test_Drifter_12():
         """)
 
 
-def test_Drifter_13():
+def test_CrossFader_13():
     random.seed(81943)
     fade_out_container = abjad.Container(
         r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4"
@@ -848,8 +848,8 @@ def test_Drifter_13():
     fade_in_container = abjad.Container(
         r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2"
     )
-    drifter = auxjad.Drifter(fade_out_container, fade_in_container)
-    staff_a, staff_b = drifter.output_n(3)
+    xfader = auxjad.CrossFader(fade_out_container, fade_in_container)
+    staff_a, staff_b = xfader.output_n(3)
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -902,15 +902,15 @@ def test_Drifter_13():
         """)
 
 
-def test_Drifter_14():
+def test_CrossFader_14():
     random.seed(75991)
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             omit_time_signatures=True,
-                             )
-    staff_a, staff_b = drifter.output_n(3)
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               omit_time_signatures=True,
+                               )
+    staff_a, staff_b = xfader.output_n(3)
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -941,15 +941,15 @@ def test_Drifter_14():
         """)
 
 
-def test_Drifter_15():
+def test_CrossFader_15():
     random.seed(33163)
     fade_out_container = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
     fade_in_container = abjad.Container(r"c'2 d'2")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             disable_rewrite_meter=True,
-                             )
-    staff_a, staff_b = drifter.output_n(3)
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               disable_rewrite_meter=True,
+                               )
+    staff_a, staff_b = xfader.output_n(3)
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -986,17 +986,17 @@ def test_Drifter_15():
         """)
 
 
-def test_Drifter_16():
+def test_CrossFader_16():
     random.seed(81662)
     fade_out_container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
     fade_in_container = abjad.Container(r"\time 4/4 g'2 a'2")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             fade_in_first=True,
-                             fade_out_last=True,
-                             weighted_duration=True,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               fade_in_first=True,
+                               fade_out_last=True,
+                               weighted_duration=True,
+                               )
+    staff_a, staff_b = xfader.output_all()
     auxjad.mutate([staff_a, staff_b]).sync_containers()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
@@ -1042,74 +1042,74 @@ def test_Drifter_16():
         """)
 
 
-def test_Drifter_17():
+def test_CrossFader_17():
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             fade_in_first=True,
-                             fade_out_last=True,
-                             initial_repetitions=3,
-                             final_repetitions=3,
-                             repetition_chance=0.7,
-                             weighted_duration=True,
-                             disable_rewrite_meter=True,
-                             omit_time_signatures=True,
-                             use_multimeasure_rests=True,
-                             boundary_depth=True,
-                             maximum_dot_count=True,
-                             rewrite_tuplets=True,
-                             )
-    assert drifter.fade_in_first
-    assert drifter.fade_out_last
-    assert drifter.initial_repetitions == 3
-    assert drifter.final_repetitions == 3
-    assert drifter.repetition_chance == 0.7
-    assert drifter.weighted_duration
-    assert drifter.disable_rewrite_meter
-    assert drifter.omit_time_signatures
-    assert drifter.use_multimeasure_rests
-    assert drifter.boundary_depth
-    assert drifter.maximum_dot_count
-    assert drifter.rewrite_tuplets
-    drifter.fade_in_first = False
-    drifter.fade_out_last = False
-    drifter.initial_repetitions = 4
-    drifter.final_repetitions = 7
-    drifter.repetition_chance = 0.23
-    drifter.weighted_duration = False
-    drifter.disable_rewrite_meter = False
-    drifter.omit_time_signatures = False
-    drifter.use_multimeasure_rests = False
-    drifter.boundary_depth = False
-    drifter.maximum_dot_count = False
-    drifter.rewrite_tuplets = False
-    assert not drifter.fade_in_first
-    assert not drifter.fade_out_last
-    assert drifter.initial_repetitions == 4
-    assert drifter.final_repetitions == 7
-    assert drifter.repetition_chance == 0.23
-    assert not drifter.weighted_duration
-    assert not drifter.disable_rewrite_meter
-    assert not drifter.omit_time_signatures
-    assert not drifter.use_multimeasure_rests
-    assert not drifter.boundary_depth
-    assert not drifter.maximum_dot_count
-    assert not drifter.rewrite_tuplets
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               fade_in_first=True,
+                               fade_out_last=True,
+                               initial_repetitions=3,
+                               final_repetitions=3,
+                               repetition_chance=0.7,
+                               weighted_duration=True,
+                               disable_rewrite_meter=True,
+                               omit_time_signatures=True,
+                               use_multimeasure_rests=True,
+                               boundary_depth=True,
+                               maximum_dot_count=True,
+                               rewrite_tuplets=True,
+                               )
+    assert xfader.fade_in_first
+    assert xfader.fade_out_last
+    assert xfader.initial_repetitions == 3
+    assert xfader.final_repetitions == 3
+    assert xfader.repetition_chance == 0.7
+    assert xfader.weighted_duration
+    assert xfader.disable_rewrite_meter
+    assert xfader.omit_time_signatures
+    assert xfader.use_multimeasure_rests
+    assert xfader.boundary_depth
+    assert xfader.maximum_dot_count
+    assert xfader.rewrite_tuplets
+    xfader.fade_in_first = False
+    xfader.fade_out_last = False
+    xfader.initial_repetitions = 4
+    xfader.final_repetitions = 7
+    xfader.repetition_chance = 0.23
+    xfader.weighted_duration = False
+    xfader.disable_rewrite_meter = False
+    xfader.omit_time_signatures = False
+    xfader.use_multimeasure_rests = False
+    xfader.boundary_depth = False
+    xfader.maximum_dot_count = False
+    xfader.rewrite_tuplets = False
+    assert not xfader.fade_in_first
+    assert not xfader.fade_out_last
+    assert xfader.initial_repetitions == 4
+    assert xfader.final_repetitions == 7
+    assert xfader.repetition_chance == 0.23
+    assert not xfader.weighted_duration
+    assert not xfader.disable_rewrite_meter
+    assert not xfader.omit_time_signatures
+    assert not xfader.use_multimeasure_rests
+    assert not xfader.boundary_depth
+    assert not xfader.maximum_dot_count
+    assert not xfader.rewrite_tuplets
 
 
-def test_Drifter_18():
+def test_CrossFader_18():
     random.seed(97142)
     fade_out_container = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
     fade_in_container = abjad.Container(
         r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2"
     )
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             fade_in_first=True,
-                             fade_out_last=True,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               fade_in_first=True,
+                               fade_out_last=True,
+                               )
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""
@@ -1187,16 +1187,16 @@ def test_Drifter_18():
         """)
 
 
-def test_Drifter_19():
+def test_CrossFader_19():
     random.seed(25519)
     fade_out_container = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
     fade_in_container = abjad.Container(r"<d' ef'>2. <bf a'>4")
-    drifter = auxjad.Drifter(fade_out_container,
-                             fade_in_container,
-                             fade_in_first=True,
-                             fade_out_last=True,
-                             )
-    staff_a, staff_b = drifter.output_all()
+    xfader = auxjad.CrossFader(fade_out_container,
+                               fade_in_container,
+                               fade_in_first=True,
+                               fade_out_last=True,
+                               )
+    staff_a, staff_b = xfader.output_all()
     score = abjad.Score([staff_a, staff_b])
     assert format(score) == abjad.String.normalize(
         r"""

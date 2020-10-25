@@ -957,13 +957,13 @@ class WindowLooper(_LooperParent):
         self.fuse_across_groups_of_beats = fuse_across_groups_of_beats
         self.fuse_quadruple_meter = fuse_quadruple_meter
         self.fuse_triple_meter = fuse_triple_meter
-        super().__init__(head_position,
-                         window_size,
-                         step_size,
-                         max_steps,
-                         repetition_chance,
-                         forward_bias,
-                         process_on_first_call,
+        super().__init__(head_position=head_position,
+                         window_size=window_size,
+                         step_size=step_size,
+                         max_steps=max_steps,
+                         repetition_chance=repetition_chance,
+                         forward_bias=forward_bias,
+                         process_on_first_call=process_on_first_call,
                          )
 
     ### SPECIAL METHODS ###

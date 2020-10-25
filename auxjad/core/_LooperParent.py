@@ -30,6 +30,7 @@ class _LooperParent():
     ### INITIALISER ###
 
     def __init__(self,
+                 *,
                  head_position,
                  window_size,
                  step_size,

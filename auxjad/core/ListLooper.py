@@ -355,13 +355,13 @@ class ListLooper(_LooperParent):
                  ):
         r'Initialises self.'
         self.contents = contents
-        super().__init__(head_position,
-                         window_size,
-                         step_size,
-                         max_steps,
-                         repetition_chance,
-                         forward_bias,
-                         process_on_first_call,
+        super().__init__(head_position=head_position,
+                         window_size=window_size,
+                         step_size=step_size,
+                         max_steps=max_steps,
+                         repetition_chance=repetition_chance,
+                         forward_bias=forward_bias,
+                         process_on_first_call=process_on_first_call,
                          )
 
     ### SPECIAL METHODS ###

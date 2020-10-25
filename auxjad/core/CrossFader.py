@@ -1638,7 +1638,7 @@ class CrossFader():
 
     ### PUBLIC METHODS ###
 
-    def output_all(self) -> abjad.Selection:
+    def output_all(self) -> tuple:
         r"""Goes through the whole fading process and outputs a tuple of two
         |abjad.Selection| objects.
         """
@@ -1663,7 +1663,7 @@ class CrossFader():
 
     def output_n(self,
                  n: int,
-                 ) -> abjad.Selection:
+                 ) -> tuple:
         r"""Goes through ``n`` iterations of the fading process and outputs a
         tuple of two |abjad.Selection| objects.
         """

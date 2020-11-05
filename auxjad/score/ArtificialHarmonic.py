@@ -65,8 +65,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         :exc:`ValueError`:
 
         >>> auxjad.ArtificialHarmonic(r"<g c' d'>4")
-        ValueError: 'ArtificialHarmonic' requires exactly two 'note_heads' for
-        initialisation
+        ValueError: 'ArtificialHarmonic' requires exactly two
+        'written_pitches' for initialisation
 
     :attr:`style`:
         When instantiating this class, use the keyword argument :attr:`style`
@@ -293,9 +293,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                  ):
         r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
-        if len(self._note_heads) != 2:
+        if len(self.written_pitches) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "
-                             "'note_heads' for initialisation")
+                             "'written_pitches' for initialisation")
         self.style = style
         self.is_parenthesized = is_parenthesized
         self._direction = direction
@@ -305,8 +305,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     def sounding_pitch(self) -> abjad.Pitch:
         r'Returns the sounding pitch of the harmonic as an |abjad.Pitch|.'
-        interval = abs(self._note_heads[1].written_pitch
-                       - self._note_heads[0].written_pitch).semitones
+        interval = abs(self.written_pitches[1]
+                       - self.written_pitches[0]).semitones
         sounding_pitch_dict = {1: 48,
                                2: 36,
                                3: 31,
@@ -321,7 +321,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                                28: 28,
                                }
         try:
-            sounding_pitch = (self._note_heads[0].written_pitch
+            sounding_pitch = (self.written_pitches[0]
                               + sounding_pitch_dict[interval])
         except KeyError as err:
             raise ValueError('cannot calculate sounding pitch for given '

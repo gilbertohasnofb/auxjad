@@ -4,12 +4,12 @@ from typing import Iterable, Union
 import abjad
 
 
-def selections_are_equal(selections: Union[Iterable[abjad.Component],
-                                           Iterable[abjad.Selection],
-                                           ],
-                         *,
-                         include_indicators: bool = True,
-                         ) -> bool:
+def selections_are_identical(selections: Union[Iterable[abjad.Component],
+                                               Iterable[abjad.Selection],
+                                               ],
+                             *,
+                             include_indicators: bool = True,
+                             ) -> bool:
     r"""Returns a :obj:`bool` representing whether two or more selections are
     identical or not. Input argument must be an iterable made of two or more
     |abjad.Selection|'s.
@@ -21,7 +21,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> selections = [container1[:], container2[:]]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         True
 
     .. note::
@@ -33,9 +33,9 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> selections = [container1[:], container2[:]]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         True
-        >>> abjad.inspect(selections).selections_are_equal()
+        >>> abjad.inspect(selections).selections_are_identical()
         True
 
     Effective durations:
@@ -48,7 +48,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "
         ...                          "f'4 <g' a'>2 r2")
         >>> selections = [container1[:], container2[:]]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         False
 
     ``include_indicators``:
@@ -58,7 +58,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> selections = [container1[:], container2[:]]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         False
 
         Set the argument ``include_indicators`` to ``False`` to ignore
@@ -68,7 +68,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> selections = [container1[:], container2[:]]
-        >>> auxjad.inspect(selections).selections_are_equal(
+        >>> auxjad.inspect(selections).selections_are_identical(
         ...     include_indicators=False,
         ... )
         True
@@ -81,7 +81,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         False
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
@@ -90,7 +90,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
@@ -100,7 +100,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         False
 
         >>> container1 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
@@ -110,7 +110,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         True
 
     .. warning::
@@ -129,7 +129,7 @@ def selections_are_equal(selections: Union[Iterable[abjad.Component],
         >>> container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> selections = [container1[:], container2[:]]
-        >>> auxjad.inspect(selections).selections_are_equal()
+        >>> auxjad.inspect(selections).selections_are_identical()
         True
     """
     if not isinstance(selections, collections.abc.Iterable):

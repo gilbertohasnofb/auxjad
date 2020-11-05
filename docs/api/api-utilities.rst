@@ -54,7 +54,7 @@ documentation pages of :class:`auxjad.Inspection` and :class:`auxjad.Mutation`)
 
    Inspection.leaves_are_tieable
    Inspection.selection_is_full
-   Inspection.selections_are_equal
+   Inspection.selections_are_identical
    Inspection.time_signature_extractor
    Inspection.underfull_duration
    Mutation.auto_rewrite_meter

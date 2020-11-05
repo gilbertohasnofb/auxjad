@@ -611,7 +611,7 @@ def test_prettify_rewrite_meter_12():
     for measure in abjad.select(container2[:]).group_by_measure():
         abjad.mutate(measure).prettify_rewrite_meter(meter)
     selections = [container1[:], container2[:]]
-    assert auxjad.inspect(selections).selections_are_equal()
+    assert auxjad.inspect(selections).selections_are_identical()
 
 
 def test_prettify_rewrite_meter_13():

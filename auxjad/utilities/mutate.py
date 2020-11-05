@@ -41,7 +41,7 @@ class Mutation:
         >>> auxjad.mutate(staff1[:]).remove_repeated_dynamics()
         >>> staff2 = abjad.Staff(r"c'4\p d'4\p e'4 f'4\ff")
         >>> abjad.mutate(staff2[:]).remove_repeated_dynamics()
-        >>> abjad.inspect([staff1[:], staff2[:]]).selections_are_equal()
+        >>> abjad.inspect([staff1[:], staff2[:]]).selections_are_identical()
         True
     """
 
@@ -323,7 +323,7 @@ def mutate(client):
         >>> auxjad.mutate(staff1[:]).remove_repeated_dynamics()
         >>> staff2 = abjad.Staff(r"c'4\p d'4\p e'4 f'4\ff")
         >>> abjad.mutate(staff2[:]).remove_repeated_dynamics()
-        >>> abjad.inspect([staff1[:], staff2[:]]).selections_are_equal()
+        >>> abjad.inspect([staff1[:], staff2[:]]).selections_are_identical()
         True
     """
     return Mutation(client)

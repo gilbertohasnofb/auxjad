@@ -3,93 +3,93 @@ import abjad
 import auxjad
 
 
-def test_selections_are_equal_01():
+def test_selections_are_identical_01():
     container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert auxjad.inspect(selections).selections_are_equal()
+    assert auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_02():
+def test_selections_are_identical_02():
     container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert not auxjad.inspect(selections).selections_are_equal()
+    assert not auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_03():
+def test_selections_are_identical_03():
     container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
     container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert not auxjad.inspect(selections).selections_are_equal()
+    assert not auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_04():
+def test_selections_are_identical_04():
     container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
     container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert auxjad.inspect(selections).selections_are_equal(
+    assert auxjad.inspect(selections).selections_are_identical(
         include_indicators=False,
     )
 
 
-def test_selections_are_equal_05():
+def test_selections_are_identical_05():
     container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
     container2 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
     selections = [container1[:], container2[:]]
-    assert auxjad.inspect(selections).selections_are_equal(
+    assert auxjad.inspect(selections).selections_are_identical(
         include_indicators=True,
     )
 
 
-def test_selections_are_equal_06():
+def test_selections_are_identical_06():
     container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 \grace{d'4} e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert not auxjad.inspect(selections).selections_are_equal()
+    assert not auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_07():
+def test_selections_are_identical_07():
     container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert not auxjad.inspect(selections).selections_are_equal()
+    assert not auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_08():
+def test_selections_are_identical_08():
     container1 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert auxjad.inspect(selections).selections_are_equal()
+    assert auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_09():
+def test_selections_are_identical_09():
     container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 f'4 <g' a'>2 r2")
     selection1 = abjad.select(container1)  # x[:] doesn't include graces
     selection2 = abjad.select(container2)
     selections = [selection1, selection2]
-    assert not auxjad.inspect(selections).selections_are_equal()
+    assert not auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_10():
+def test_selections_are_identical_10():
     container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 \grace{b4} d'4 e'4 f'4 <g' a'>2 r2")
     selection1 = abjad.select(container1)  # x[:] doesn't include graces
     selection2 = abjad.select(container2)
     selections = [selection1, selection2]
-    assert not auxjad.inspect(selections).selections_are_equal()
+    assert not auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_11():
+def test_selections_are_identical_11():
     container1 = abjad.Container(r"c'4 d'4 e'4 f'4")
     container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     selections = [container1[:], container2[:]]
-    assert auxjad.inspect(selections).selections_are_equal()
+    assert auxjad.inspect(selections).selections_are_identical()
 
 
-def test_selections_are_equal_12():
+def test_selections_are_identical_12():
     container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
-    assert abjad.inspect(selections).selections_are_equal()
+    assert abjad.inspect(selections).selections_are_identical()

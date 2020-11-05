@@ -5,7 +5,7 @@ import abjad
 
 from .inspections.leaves_are_tieable import leaves_are_tieable
 from .inspections.selection_is_full import selection_is_full
-from .inspections.selections_are_equal import selections_are_equal
+from .inspections.selections_are_identical import selections_are_identical
 from .inspections.time_signature_extractor import time_signature_extractor
 from .inspections.underfull_duration import underfull_duration
 
@@ -67,13 +67,13 @@ class Inspection:
     def selection_is_full(self) -> bool:
         return selection_is_full(self._client)
 
-    def selections_are_equal(self,
-                             *,
-                             include_indicators: bool = True,
-                             ) -> bool:
-        return selections_are_equal(self._client,
-                                    include_indicators=include_indicators,
-                                    )
+    def selections_are_identical(self,
+                                 *,
+                                 include_indicators: bool = True,
+                                 ) -> bool:
+        return selections_are_identical(self._client,
+                                        include_indicators=include_indicators,
+                                        )
 
     def time_signature_extractor(self,
                                  *,
@@ -106,7 +106,7 @@ class Inspection:
 
 Inspection.leaves_are_tieable.__doc__ = leaves_are_tieable.__doc__
 Inspection.selection_is_full.__doc__ = selection_is_full.__doc__
-Inspection.selections_are_equal.__doc__ = selections_are_equal.__doc__
+Inspection.selections_are_identical.__doc__ = selections_are_identical.__doc__
 Inspection.time_signature_extractor.__doc__ = time_signature_extractor.__doc__
 Inspection.underfull_duration.__doc__ = underfull_duration.__doc__
 
@@ -142,6 +142,6 @@ def inspect(client):
 
 abjad.Inspection.leaves_are_tieable = Inspection.leaves_are_tieable
 abjad.Inspection.selection_is_full = Inspection.selection_is_full
-abjad.Inspection.selections_are_equal = Inspection.selections_are_equal
+abjad.Inspection.selections_are_identical = Inspection.selections_are_identical
 abjad.Inspection.time_signature_extractor = Inspection.time_signature_extractor
 abjad.Inspection.underfull_duration = Inspection.underfull_duration

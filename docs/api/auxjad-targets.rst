@@ -27,7 +27,7 @@
 .. |abjad.mutate().sync_containers()| replace:: :meth:`abjad.mutate().sync_containers() <auxjad.Mutation.sync_containers>`
 
 .. |abjad.inspect().selection_is_full()| replace:: :meth:`abjad.inspect().selection_is_full() <auxjad.Inspection.selection_is_full>`
-.. |abjad.inspect().selections_are_equal()| replace:: :meth:`abjad.inspect().selections_are_equal() <auxjad.Inspection.selections_are_equal>`
+.. |abjad.inspect().selections_are_identical()| replace:: :meth:`abjad.inspect().selections_are_identical() <auxjad.Inspection.selections_are_identical>`
 .. |abjad.inspect().leaves_are_tieable()| replace:: :meth:`abjad.inspect().leaves_are_tieable() <auxjad.Inspection.leaves_are_tieable>`
 .. |abjad.inspect().time_signature_extractor()| replace:: :meth:`abjad.inspect().time_signature_extractor() <auxjad.Inspection.time_signature_extractor>`
 .. |abjad.inspect().underfull_duration()| replace:: :meth:`abjad.inspect().underfull_duration() <auxjad.Inspection.underfull_duration>`
@@ -53,7 +53,7 @@
 .. |auxjad.mutate().sync_containers()| replace:: :meth:`auxjad.mutate().sync_containers() <auxjad.sync_containers>`
 
 .. |auxjad.inspect().selection_is_full()| replace:: :meth:`auxjad.inspect().selection_is_full() <auxjad.Inspection.selection_is_full>`
-.. |auxjad.inspect().selections_are_equal()| replace:: :meth:`auxjad.inspect().selections_are_equal() <auxjad.Inspection.selections_are_equal>`
+.. |auxjad.inspect().selections_are_identical()| replace:: :meth:`auxjad.inspect().selections_are_identical() <auxjad.Inspection.selections_are_identical>`
 .. |auxjad.inspect().leaves_are_tieable()| replace:: :meth:`auxjad.inspect().leaves_are_tieable() <auxjad.Inspection.leaves_are_tieable>`
 .. |auxjad.inspect().time_signature_extractor()| replace:: :meth:`auxjad.inspect().time_signature_extractor() <auxjad.time_signature_extractor>`
 .. |auxjad.inspect().underfull_duration()| replace:: :meth:`auxjad.inspect().underfull_duration() <auxjad.Inspection.underfull_duration>`

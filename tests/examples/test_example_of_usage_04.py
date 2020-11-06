@@ -24,7 +24,9 @@ def test_example_of_usage_04():
                                n_voices=3,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score

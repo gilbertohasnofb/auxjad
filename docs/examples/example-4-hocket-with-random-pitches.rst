@@ -241,7 +241,9 @@ To create the final score, we can simply assign its return value to an
 |abjad.Score|.
 
     >>> music = hocketer()
-    >>> score = abjad.Score(music)
+    >>> score = abjad.Score()
+    >>> for selection in music:
+    ...     score.append(abjad.Staff(selection))
     >>> abjad.f(score)
     \new Score
     <<

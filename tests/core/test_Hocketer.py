@@ -23,7 +23,9 @@ def test_Hocketer_01():
         }
         """)
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -46,7 +48,9 @@ def test_Hocketer_01():
     music = hocketer.current_window
     with pytest.raises(AttributeError):
         hocketer.current_window = abjad.Container(r"c''2 e''2")
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -73,7 +77,9 @@ def test_Hocketer_02():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container, n_voices=3)
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -199,7 +205,9 @@ def test_Hocketer_06():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container)
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -231,7 +239,9 @@ def test_Hocketer_06():
                                disable_rewrite_meter=True,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -267,7 +277,9 @@ def test_Hocketer_07():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container, weights=[2.1, 5.7])
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -303,7 +315,9 @@ def test_Hocketer_08():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(container, n_voices=4, k=2)
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -341,7 +355,9 @@ def test_Hocketer_09():
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
     hocketer = auxjad.Hocketer(container)
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -371,7 +387,9 @@ def test_Hocketer_09():
                                use_multimeasure_rests=False,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -406,7 +424,9 @@ def test_Hocketer_10():
                                force_k_voices=True,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -480,8 +500,10 @@ def test_Hocketer_12():
                                n_voices=4,
                                k=2,
                                )
-    staves = hocketer()
-    score = abjad.Score(staves)
+    music = hocketer()
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -561,7 +583,9 @@ def test_Hocketer_13():
                                n_voices=1,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -579,7 +603,9 @@ def test_Hocketer_13():
                                boundary_depth=1,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -604,7 +630,9 @@ def test_Hocketer_14():
                                use_multimeasure_rests=False,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -638,7 +666,9 @@ def test_Hocketer_15():
                                force_k_voices=True,
                                )
     music = hocketer()
-    score = abjad.Score(music)
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
     assert format(score) == abjad.String.normalize(
         r"""
         \new Score
@@ -721,33 +751,33 @@ def test_Hocketer_16():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(container)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
     hocketer = auxjad.Hocketer(tuplet)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(voice)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(staff)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
     hocketer = auxjad.Hocketer(score)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
     staff = abjad.Staff([voice])
     hocketer = auxjad.Hocketer(staff)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     score = abjad.Score([staff])
     hocketer = auxjad.Hocketer(score)
     for voice in hocketer():
-        assert isinstance(voice, abjad.Staff)
+        assert isinstance(voice, abjad.Selection)
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)

@@ -1548,7 +1548,7 @@ class Fader():
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         inspector = inspect(self._contents)
-        self._time_signatures = inspector.time_signature_extractor(
+        self._time_signatures = inspector.extract_time_signatures(
             do_not_use_none=True,
         )
         self.reset_mask()

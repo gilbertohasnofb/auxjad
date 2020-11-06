@@ -590,7 +590,7 @@ def auto_rewrite_meter(container: abjad.Container,
             extract_trivial_tuplets_function(abjad.select(container))
 
     if meter_list is None:
-        time_signatures = inspect(container).time_signature_extractor(
+        time_signatures = inspect(container).extract_time_signatures(
             do_not_use_none=True,
         )
         meter_list = [abjad.Meter(ts.pair) for ts in time_signatures]

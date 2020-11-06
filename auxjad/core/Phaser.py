@@ -1306,7 +1306,7 @@ class Phaser():
         # dealing with dynamics
         mutate(dummy_container[:]).reposition_dynamics()
         # adding time signatures back and rewriting meter
-        time_signatures = inspect(self._contents).time_signature_extractor(
+        time_signatures = inspect(self._contents).extract_time_signatures(
             do_not_use_none=True,
         )
         mutate(dummy_container).enforce_time_signature(

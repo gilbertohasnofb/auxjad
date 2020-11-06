@@ -275,7 +275,7 @@ def fill_with_rests(container: abjad.Container,
         raise ValueError("'container' is malformed, with an underfull measure "
                          "preceding a time signature change") from err
     if not disable_rewrite_meter:
-        time_signatures = inspect(container).time_signature_extractor(
+        time_signatures = inspect(container).extract_time_signatures(
             do_not_use_none=True,
         )
         measures = abjad.select(container[:]).group_by_measure()

@@ -3,10 +3,10 @@ from typing import Iterable, Union
 
 import abjad
 
+from .inspections.extract_time_signatures import extract_time_signatures
 from .inspections.leaves_are_tieable import leaves_are_tieable
 from .inspections.selection_is_full import selection_is_full
 from .inspections.selections_are_identical import selections_are_identical
-from .inspections.time_signature_extractor import time_signature_extractor
 from .inspections.underfull_duration import underfull_duration
 
 
@@ -61,6 +61,19 @@ class Inspection:
 
     ### PUBLIC METHODS ###
 
+    def extract_time_signatures(self,
+                                *,
+                                do_not_use_none: bool = False,
+                                implicit_common_time: bool = True,
+                                omit_repeated: bool = False,
+                                ) -> list:
+        return extract_time_signatures(
+            self._client,
+            do_not_use_none=do_not_use_none,
+            implicit_common_time=implicit_common_time,
+            omit_repeated=omit_repeated,
+        )
+
     def leaves_are_tieable(self) -> bool:
         return leaves_are_tieable(self._client)
 
@@ -74,19 +87,6 @@ class Inspection:
         return selections_are_identical(self._client,
                                         include_indicators=include_indicators,
                                         )
-
-    def time_signature_extractor(self,
-                                 *,
-                                 do_not_use_none: bool = False,
-                                 implicit_common_time: bool = True,
-                                 omit_repeated: bool = False,
-                                 ) -> list:
-        return time_signature_extractor(
-            self._client,
-            do_not_use_none=do_not_use_none,
-            implicit_common_time=implicit_common_time,
-            omit_repeated=omit_repeated,
-        )
 
     def underfull_duration(self) -> abjad.Duration:
         return underfull_duration(self._client)
@@ -104,10 +104,10 @@ class Inspection:
 
 ### METHOD DOCSTRINGS ###
 
+Inspection.extract_time_signatures.__doc__ = extract_time_signatures.__doc__
 Inspection.leaves_are_tieable.__doc__ = leaves_are_tieable.__doc__
 Inspection.selection_is_full.__doc__ = selection_is_full.__doc__
 Inspection.selections_are_identical.__doc__ = selections_are_identical.__doc__
-Inspection.time_signature_extractor.__doc__ = time_signature_extractor.__doc__
 Inspection.underfull_duration.__doc__ = underfull_duration.__doc__
 
 
@@ -140,8 +140,8 @@ def inspect(client):
 
 ### EXTENSION METHODS ###
 
+abjad.Inspection.extract_time_signatures = Inspection.extract_time_signatures
 abjad.Inspection.leaves_are_tieable = Inspection.leaves_are_tieable
 abjad.Inspection.selection_is_full = Inspection.selection_is_full
 abjad.Inspection.selections_are_identical = Inspection.selections_are_identical
-abjad.Inspection.time_signature_extractor = Inspection.time_signature_extractor
 abjad.Inspection.underfull_duration = Inspection.underfull_duration

@@ -1352,7 +1352,7 @@ class Shuffler:
         self._update_logical_selections()
         self._get_pitch_list()
         inspector = inspect(self._contents)
-        self._time_signatures = inspector.time_signature_extractor(
+        self._time_signatures = inspector.extract_time_signatures(
             do_not_use_none=True,
         )
         self._is_first_window = True

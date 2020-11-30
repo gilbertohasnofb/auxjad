@@ -157,6 +157,7 @@ class Shuffler:
         ...                            maximum_dot_count=1,
         ...                            rewrite_tuplets=False,
         ...                            process_on_first_call=True,
+        ...                            swap_limit=3,
         ...                            )
         >>> shuffler.pitch_only
         False
@@ -174,6 +175,8 @@ class Shuffler:
         False
         >>> shuffler.process_on_first_call
         True
+        >>> shuffler.swap_limit
+        3
 
         Use the properties below to change these values after initialisation.
 
@@ -185,6 +188,7 @@ class Shuffler:
         >>> shuffler.maximum_dot_count = 2
         >>> shuffler.rewrite_tuplets = True
         >>> shuffler.process_on_first_call = False
+        >>> shuffler.swap_limit = None
         >>> shuffler.pitch_only
         True
         >>> shuffler.preserve_rest_position
@@ -201,6 +205,8 @@ class Shuffler:
         True
         >>> shuffler.process_on_first_call
         False
+        >>> shuffler.swap_limit
+        None
 
     :attr:`pitch_only`:
         By default, the shuffling operation will shuffle logical ties:
@@ -293,6 +299,50 @@ class Shuffler:
         }
 
         .. figure:: ../_images/Shuffler-tyq8y6q8zr9.png
+
+    :attr:`swap_limit`:
+        The attribute :attr:`swap_limit` can be used to set the number of times
+        that pairs of elements are swapped on a single invocation of the
+        shuffling process. Set :attr:`swap_limit` to ``None`` to not limit the
+        shuffling process.
+
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> shuffler = auxjad.Shuffler(container,
+        ...                            swap_limit=1,
+        ...                            )
+        >>> notes = shuffler.shuffle_n(3)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'8
+            e'8
+            g'8
+            f'8
+            a'8
+            b'8
+            c''8
+            c'8
+            c''8
+            e'8
+            g'8
+            f'8
+            a'8
+            b'8
+            d'8
+            c'8
+            c''8
+            e'8
+            g'8
+            b'8
+            a'8
+            f'8
+            d'8
+        }
+
+        .. figure:: ../_images/Shuffler-Nbo5S6wcfQ.png
 
     :meth:`rotate`:
         Besides shuffling, logical ties and pitches can also be rotated using
@@ -917,6 +967,7 @@ class Shuffler:
                  '_fuse_across_groups_of_beats',
                  '_fuse_quadruple_meter',
                  '_fuse_triple_meter',
+                 '_swap_limit',
                  )
 
     ### INITIALISER ###
@@ -937,6 +988,7 @@ class Shuffler:
                  fuse_across_groups_of_beats: bool = True,
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
+                 swap_limit: Optional[int] = None,
                  ):
         r'Initialises self.'
         self.contents = contents
@@ -953,6 +1005,7 @@ class Shuffler:
         self.fuse_quadruple_meter = fuse_quadruple_meter
         self.fuse_triple_meter = fuse_triple_meter
         self.process_on_first_call = process_on_first_call
+        self.swap_limit = swap_limit
         self._is_first_window = True
 
     ### SPECIAL METHODS ###
@@ -1096,7 +1149,7 @@ class Shuffler:
         r'Shuffles a :obj:`list` while keeping rest indeces unchanged.'
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
-        random.shuffle(dummy_list)
+        self._random_shuffle(dummy_list)
         self._replace_list_preserving_rests(dummy_list, input_list)
 
     def _rotate_list_preserving_rests(self,
@@ -1113,6 +1166,17 @@ class Shuffler:
                           anticlockwise=anticlockwise,
                           )
         self._replace_list_preserving_rests(dummy_list, input_list)
+
+    def _random_shuffle(self,
+                        input_list: list,
+                        ):
+        r'Random shuffles a :obj:`list`.'
+        if self._swap_limit is None:
+            random.shuffle(input_list)
+        else:
+            for _ in range(self._swap_limit):
+                i, j = random.sample(range(len(input_list)), 2)
+                input_list[i], input_list[j] = input_list[j], input_list[i]
 
     def _replace_list_preserving_rests(self,
                                        input_list: list,
@@ -1132,7 +1196,7 @@ class Shuffler:
                              "tuplets are currently supported only in "
                              "pitch-only mode")
         if not self._preserve_rest_position:
-            random.shuffle(self._logical_selections_indeces)
+            self._random_shuffle(self._logical_selections_indeces)
         else:
             self._shuffle_list_preserving_rests(
                 self._logical_selections_indeces
@@ -1143,7 +1207,7 @@ class Shuffler:
     def _shuffle_pitches(self) -> abjad.Selection:
         r'Shuffles only the pitches of :attr:`contents`.'
         if not self._preserve_rest_position:
-            random.shuffle(self._pitches)
+            self._random_shuffle(self._pitches)
         else:
             self._shuffle_list_preserving_rests(self._pitches)
         self._rewrite_pitches()
@@ -1558,6 +1622,27 @@ class Shuffler:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
+
+    @property
+    def swap_limit(self) -> int:
+        r"""If ``int`` then it dictates how instances of random swapping of
+        pairs of elements are applied to :attr:`contents` in each iteration. If
+        ``None`` then :attr:`contents` is completely shuffled at each
+        iteration.
+        """
+        return self._swap_limit
+
+    @swap_limit.setter
+    def swap_limit(self,
+                   swap_limit: Optional[int],
+                   ):
+        if swap_limit is not None:
+            if not isinstance(swap_limit, int):
+                raise TypeError("'swap_limit' must be 'int'")
+            if swap_limit < 1:
+                raise ValueError("'swap_limit' must be equal to or greater "
+                                 "than 1")
+        self._swap_limit = swap_limit
 
     @property
     def current_window(self) -> abjad.Selection:

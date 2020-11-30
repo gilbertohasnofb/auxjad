@@ -73,6 +73,7 @@ def test_Shuffler_02():
                                maximum_dot_count=1,
                                rewrite_tuplets=False,
                                process_on_first_call=True,
+                               swap_limit=3,
                                )
     assert not shuffler.pitch_only
     assert shuffler.preserve_rest_position
@@ -82,6 +83,7 @@ def test_Shuffler_02():
     assert shuffler.maximum_dot_count == 1
     assert not shuffler.rewrite_tuplets
     assert shuffler.process_on_first_call
+    assert shuffler.swap_limit == 3
     shuffler.pitch_only = True
     shuffler.preserve_rest_position = False
     shuffler.disable_rewrite_meter = True
@@ -90,6 +92,7 @@ def test_Shuffler_02():
     shuffler.maximum_dot_count = 2
     shuffler.rewrite_tuplets = True
     shuffler.process_on_first_call = False
+    shuffler.swap_limit = None
     assert shuffler.pitch_only
     assert not shuffler.preserve_rest_position
     assert shuffler.disable_rewrite_meter
@@ -98,6 +101,7 @@ def test_Shuffler_02():
     assert shuffler.maximum_dot_count == 2
     assert shuffler.rewrite_tuplets
     assert not shuffler.process_on_first_call
+    assert shuffler.swap_limit is None
 
 
 def test_Shuffler_03():
@@ -878,5 +882,46 @@ def test_Shuffler_21():
             d'16
             e'8
             f'16
+        }
+        """)
+
+
+def test_Shuffler_22():
+    random.seed(91288)
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    shuffler = auxjad.Shuffler(container,
+                               swap_limit=1,
+                               )
+    notes = shuffler.shuffle_n(3)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'8
+            e'8
+            g'8
+            f'8
+            a'8
+            b'8
+            c''8
+            c'8
+            c''8
+            e'8
+            g'8
+            f'8
+            a'8
+            b'8
+            d'8
+            c'8
+            c''8
+            e'8
+            g'8
+            b'8
+            a'8
+            f'8
+            d'8
         }
         """)

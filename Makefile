@@ -1,7 +1,7 @@
 .PHONY: docs build docs-webpage
 
 build:
-	python3.6 setup.py sdist
+	python3 setup.py sdist
 
 clean:
 	find . -name '*.pyc' | xargs rm
@@ -21,7 +21,7 @@ flake_ignore = --ignore=E203,E266,W503
 flake_exclude = --exclude=./sandbox.py,./docs/conf.py
 
 flake8:
-	python3.6 -m flake8 ${flake_ignore} ${flake_exclude}
+	python3 -m flake8 ${flake_ignore} ${flake_exclude}
 
 docs-webpage:
 	rm -Rf auxjad-docs/
@@ -36,7 +36,7 @@ docs-webpage:
 	rm -Rf auxjad-docs/
 
 isort-check:
-	python3.6 -m isort \
+	python3 -m isort \
 	--case-sensitive \
 	--check-only \
 	--diff \
@@ -50,7 +50,7 @@ isort-check:
 	.
 
 isort-reformat:
-	python3.6 -m isort \
+	python3 -m isort \
 	--case-sensitive \
 	--line-width=79 \
 	--multi-line=3 \
@@ -62,7 +62,7 @@ isort-reformat:
 	.
 
 pytest:
-	python3.6 -m pytest
+	python3 -m pytest
 
 reformat:
 	make isort-reformat

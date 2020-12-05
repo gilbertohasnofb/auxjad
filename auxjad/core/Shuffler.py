@@ -1175,8 +1175,9 @@ class Shuffler:
             random.shuffle(input_list)
         else:
             for _ in range(self._swap_limit):
-                i, j = random.sample(range(len(input_list)), 2)
-                input_list[i], input_list[j] = input_list[j], input_list[i]
+                if len(input_list) > 1:
+                    i, j = random.sample(range(len(input_list)), 2)
+                    input_list[i], input_list[j] = input_list[j], input_list[i]
 
     def _replace_list_preserving_rests(self,
                                        input_list: list,

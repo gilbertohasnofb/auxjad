@@ -16,7 +16,7 @@ images:
 	rm -Rif "$(SOURCEDIR)"/_api_members/
 	mkdir "$(SOURCEDIR)"/_images/
 	mkdir "$(SOURCEDIR)"/_images/lilypond-files/
-	python3.6 ./image-generator.py
+	python3 ./image-generator.py
 	for f in `ls ./_images/lilypond-files/*.ly`; \
 		do \
 			lilypond -o "_images/" \

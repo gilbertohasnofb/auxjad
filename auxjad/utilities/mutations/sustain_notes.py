@@ -260,6 +260,8 @@ def sustain_notes(container: abjad.Container):
                                                leaf.written_duration,
                                                )
             if pitch is not None or pitches is not None:
+                for indicator in abjad.inspect(leaf).indicators():
+                    abjad.attach(indicator, replacement_leaf)
                 abjad.mutate(leaf).replace(replacement_leaf)
                 previous_leaf = abjad.select(container).leaves()[index - 1]
                 if abjad.inspect(previous_leaf).indicator(abjad.Tie) is None:

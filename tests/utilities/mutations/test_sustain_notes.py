@@ -115,3 +115,116 @@ def test_sustain_notes_06():
     staff = abjad.Staff(r"c'16 r8. c'16 r8. c'4 c'16 r8.")
     with pytest.raises(TypeError):
         auxjad.mutate(staff[:]).sustain_notes()
+
+
+def test_sustain_notes_07():
+    staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
+                        r"R1"
+                        r"r4 e'4 r2"
+                        r"\time 5/8 r8 f'4 r4"
+                        r"R1 * 5/8 "
+                        r"r8 g'8 a'8 r4"
+                        )
+    auxjad.mutate(staff).sustain_notes()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            r4
+            c'4
+            d'2
+            ~
+            d'1
+            ~
+            d'4
+            e'2.
+            ~
+            \time 5/8
+            e'8
+            f'2
+            ~
+            f'4.
+            ~
+            f'4
+            f'8
+            g'4
+            a'4
+        }
+        """)
+
+
+def test_sustain_notes_08():
+    staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
+                        r"R1"
+                        r"r4 e'4 r2"
+                        r"\time 5/8 r8 f'4 r4"
+                        r"R1 * 5/8 "
+                        r"r8 g'8 a'8 r4"
+                        )
+    auxjad.mutate(staff).sustain_notes(sustain_multimeasure_rests=False)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            r4
+            c'4
+            d'2
+            R1
+            r4
+            e'2.
+            ~
+            \time 5/8
+            e'8
+            f'2
+            R1 * 5/8
+            r8
+            g'8
+            a'4.
+        }
+        """)
+
+
+def test_sustain_notes_09():
+    staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
+                        r"R1"
+                        r"r4 e'4 r2"
+                        r"\time 5/8 r8 f'4 r4"
+                        r"R1 * 5/8 "
+                        r"r8 g'8 a'8 r4"
+                        )
+    auxjad.mutate(staff).sustain_notes(auto_rewrite_meter=False)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            r4
+            c'16
+            ~
+            c'8.
+            d'16
+            ~
+            d'4..
+            ~
+            d'1
+            ~
+            d'4
+            e'4
+            ~
+            e'2
+            ~
+            \time 5/8
+            e'8
+            f'4
+            ~
+            f'4
+            ~
+            f'2
+            ~
+            f'8
+            f'8
+            g'8
+            ~
+            a'8
+            a'4
+        }
+        """)

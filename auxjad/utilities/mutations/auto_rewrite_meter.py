@@ -596,6 +596,8 @@ def auto_rewrite_meter(container: abjad.Container,
         meter_list = [abjad.Meter(ts.pair) for ts in time_signatures]
     measures = abjad.select(container[:]).group_by_measure()
     for meter, measure in zip(meter_list, measures):
+        if isinstance(measure[0], abjad.MultimeasureRest):
+            continue
         abjad.mutate(measure).rewrite_meter(
             meter,
             boundary_depth=boundary_depth,

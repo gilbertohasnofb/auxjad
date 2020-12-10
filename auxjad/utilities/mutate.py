@@ -252,8 +252,14 @@ class Mutation:
             respell_by_pitch_class=respell_by_pitch_class,
         )
 
-    def rests_to_multimeasure_rest(self):
-        rests_to_multimeasure_rest(self._client)
+    def rests_to_multimeasure_rest(self,
+                                   *,
+                                   ignore_clefs: bool = False,
+                                   ):
+        rests_to_multimeasure_rest(
+            self._client,
+            ignore_clefs=ignore_clefs,
+        )
 
     def sustain_notes(self,
                       *,

@@ -98,3 +98,41 @@ def test_rests_to_multimeasure_rest_06():
             R1
         }
         """)
+
+
+def test_rests_to_multimeasure_rest_07():
+    staff = abjad.Staff(r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
+                        r"\time 3/4 \clef treble r2. "
+                        r"\time 5/4 r2 \clef bass r2."
+                        )
+    abjad.mutate(staff[:]).rests_to_multimeasure_rest()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \clef "bass"
+            R1
+            \time 3/4
+            \clef "treble"
+            R1 * 3/4
+            \time 5/4
+            \clef "bass"
+            R1 * 5/4
+        }
+        """)
+    staff = abjad.Staff(r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
+                        r"\time 3/4 \clef treble r2. "
+                        r"\time 5/4 r2 \clef bass r2."
+                        )
+    abjad.mutate(staff[:]).rests_to_multimeasure_rest(ignore_clefs=True)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            R1
+            \time 3/4
+            R1 * 3/4
+            \time 5/4
+            R1 * 5/4
+        }
+        """)

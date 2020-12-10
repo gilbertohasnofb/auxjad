@@ -1,7 +1,10 @@
 import abjad
 
 
-def rests_to_multimeasure_rest(selection: abjad.Selection):
+def rests_to_multimeasure_rest(selection: abjad.Selection,
+                               *,
+                               ignore_clefs: bool = False,
+                               ):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function looks for measures filled with regular rests and converts
     them into an |abjad.MultimeasureRest|.
@@ -162,6 +165,74 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
 
         .. figure:: ../_images/rests_to_multimeasure_rest-f647t5j3jgw.png
 
+    ``ignore_clefs``
+        By default, the last clef of an empty measure is preserved when
+        replacing it with a multi-measure rest:
+
+        >>> staff = abjad.Staff(r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
+        ...                     r"\time 3/4 \clef treble r2. "
+        ...                     r"\time 5/4 r2 \clef bass r2."
+        ...                     )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \clef "bass"
+            r4
+            r4
+            \times 2/3 {
+                r4
+                r8
+            }
+            r4
+            \time 3/4
+            \clef "treble"
+            r2.
+            \time 5/4
+            r2
+            \clef "bass"
+            r2.
+        }
+
+        .. figure:: ../_images/rests_to_multimeasure_rest-6GMRGmYkEQ.png
+
+        >>> abjad.mutate(staff[:]).rests_to_multimeasure_rest()
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \clef "bass"
+            R1
+            \time 3/4
+            \clef "treble"
+            R1 * 3/4
+            \time 5/4
+            \clef "bass"
+            R1 * 5/4
+        }
+
+        .. figure:: ../_images/rests_to_multimeasure_rest-UnL6ZoFoDC.png
+
+        Invoke the mutation with ``ignore_clefs`` set to ``True`` to disable
+        this behaviour and ignore all clefs:
+
+        >>> staff = abjad.Staff(r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
+        ...                     r"\time 3/4 \clef treble r2. "
+        ...                     r"\time 5/4 r2 \clef bass r2."
+        ...                     )
+        >>> abjad.mutate(staff[:]).rests_to_multimeasure_rest(
+        ...     ignore_clefs=True,
+        ... )
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            R1
+            \time 3/4
+            R1 * 3/4
+            \time 5/4
+            R1 * 5/4
+        }
+
+        .. figure:: ../_images/rests_to_multimeasure_rest-KGRZJ8fvQF.png
+
     .. warning::
 
         The input selection must be a contiguous logical voice. When dealing
@@ -173,6 +244,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
         raise TypeError("argument must be 'abjad.Selection'")
     if not selection.leaves().are_contiguous_logical_voice():
         raise ValueError("argument must be contiguous logical voice")
+    if not isinstance(ignore_clefs, bool):
+        raise TypeError("'ignore_clefs' must be 'bool'")
 
     measures = selection.group_by_measure()
     effective_time_signature = abjad.TimeSignature((4, 4))
@@ -182,6 +255,11 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
         if time_signature is not None:
             effective_time_signature = time_signature
         if all([isinstance(leaf, abjad.Rest) for leaf in measure.leaves()]):
+            if not ignore_clefs:
+                for leaf in measure.leaves()[::-1]:
+                    clef = abjad.inspect(leaf).indicator(abjad.Clef)
+                    if clef is not None:
+                        break
             duration = abjad.inspect(measure).duration()
             if duration == effective_time_signature.duration:
                 if duration == 1:
@@ -194,4 +272,6 @@ def rests_to_multimeasure_rest(selection: abjad.Selection):
                 )
                 if time_signature is not None:
                     abjad.attach(time_signature, multimeasure_rest)
+                if not ignore_clefs and clef is not None:
+                    abjad.attach(clef, multimeasure_rest)
                 abjad.mutate(measure).replace(multimeasure_rest)

@@ -4,6 +4,9 @@ import abjad
 
 from .mutations.auto_rewrite_meter import auto_rewrite_meter
 from .mutations.close_container import close_container
+from .mutations.double_barlines_before_time_signatures import (
+    double_barlines_before_time_signatures,
+)
 from .mutations.enforce_time_signature import enforce_time_signature
 from .mutations.extract_trivial_tuplets import extract_trivial_tuplets
 from .mutations.fill_with_rests import fill_with_rests
@@ -94,6 +97,9 @@ class Mutation:
 
     def close_container(self):
         close_container(self.client)
+
+    def double_barlines_before_time_signatures(self):
+        double_barlines_before_time_signatures(self.client)
 
     def enforce_time_signature(self,
                                time_signatures: Union[abjad.TimeSignature,
@@ -295,6 +301,9 @@ class Mutation:
 
 Mutation.auto_rewrite_meter.__doc__ = auto_rewrite_meter.__doc__
 Mutation.close_container.__doc__ = close_container.__doc__
+Mutation.double_barlines_before_time_signatures.__doc__ = (
+    double_barlines_before_time_signatures.__doc__
+)
 Mutation.enforce_time_signature.__doc__ = enforce_time_signature.__doc__
 Mutation.extract_trivial_tuplets.__doc__ = extract_trivial_tuplets.__doc__
 Mutation.fill_with_rests.__doc__ = fill_with_rests.__doc__
@@ -347,6 +356,9 @@ def mutate(client):
 
 abjad.Mutation.auto_rewrite_meter = Mutation.auto_rewrite_meter
 abjad.Mutation.close_container = Mutation.close_container
+abjad.Mutation.double_barlines_before_time_signatures = (
+    Mutation.double_barlines_before_time_signatures
+)
 abjad.Mutation.enforce_time_signature = Mutation.enforce_time_signature
 abjad.Mutation.extract_trivial_tuplets = Mutation.extract_trivial_tuplets
 abjad.Mutation.fill_with_rests = Mutation.fill_with_rests

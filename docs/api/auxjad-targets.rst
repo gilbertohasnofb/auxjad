@@ -11,6 +11,7 @@
 
 .. |abjad.mutate().auto_rewrite_meter()| replace:: :meth:`abjad.mutate().auto_rewrite_meter() <auxjad.Mutation.auto_rewrite_meter>`
 .. |abjad.mutate().close_container()| replace:: :meth:`abjad.mutate().close_container() <auxjad.Mutation.close_container>`
+.. |abjad.mutate().double_barlines_before_time_signatures()| replace:: :meth:`abjad.mutate().double_barlines_before_time_signatures() <auxjad.Mutation.double_barlines_before_time_signatures>`
 .. |abjad.mutate().enforce_time_signature()| replace:: :meth:`abjad.mutate().enforce_time_signature() <auxjad.Mutation.enforce_time_signature>`
 .. |abjad.mutate().extract_trivial_tuplets()| replace:: :meth:`abjad.mutate().extract_trivial_tuplets() <auxjad.Mutation.extract_trivial_tuplets>`
 .. |abjad.mutate().fill_with_rests()| replace:: :meth:`abjad.mutate().fill_with_rests() <auxjad.Mutation.fill_with_rests>`
@@ -37,6 +38,7 @@
 
 .. |auxjad.mutate().auto_rewrite_meter()| replace:: :meth:`auxjad.mutate().auto_rewrite_meter() <auxjad.Mutation.auto_rewrite_meter>`
 .. |auxjad.mutate().close_container()| replace:: :meth:`auxjad.mutate().close_container() <auxjad.Mutation.close_container>`
+.. |auxjad.mutate().double_barlines_before_time_signatures()| replace:: :meth:`auxjad.mutate().double_barlines_before_time_signatures() <auxjad.Mutation.double_barlines_before_time_signatures>`
 .. |auxjad.mutate().enforce_time_signature()| replace:: :meth:`auxjad.mutate().enforce_time_signature() <auxjad.Mutation.enforce_time_signature>`
 .. |auxjad.mutate().extract_trivial_tuplets()| replace:: :meth:`auxjad.mutate().extract_trivial_tuplets() <auxjad.Mutation.extract_trivial_tuplets>`
 .. |auxjad.mutate().fill_with_rests()| replace:: :meth:`auxjad.mutate().fill_with_rests() <auxjad.fill_with_rests>`

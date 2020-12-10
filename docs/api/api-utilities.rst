@@ -59,6 +59,7 @@ documentation pages of :class:`auxjad.Inspection` and :class:`auxjad.Mutation`)
    Inspection.underfull_duration
    Mutation.auto_rewrite_meter
    Mutation.close_container
+   Mutation.double_barlines_before_time_signatures
    Mutation.enforce_time_signature
    Mutation.extract_trivial_tuplets
    Mutation.fill_with_rests

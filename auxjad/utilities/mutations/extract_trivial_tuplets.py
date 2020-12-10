@@ -252,9 +252,11 @@ def extract_trivial_tuplets(selection: abjad.Selection):
         if tuplet.sustained():
             duration = tuplet.multiplied_duration
             n_elements = len(tuplet)
+            after_tie = abjad.inspect(leaves[-1]).indicator(abjad.Tie)
             for _ in range(n_elements - 1):
                 tuplet.pop(-1)
-            abjad.detach(abjad.Tie(), leaves[0])
+            if not after_tie:
+                abjad.detach(abjad.Tie(), leaves[0])
             if duration.is_assignable:
                 leaves[0].written_duration = duration
                 abjad.mutate(tuplet).extract()

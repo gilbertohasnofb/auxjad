@@ -135,3 +135,24 @@ def test_extract_trivial_tuplets_09():
             g4
         }
         """)
+
+
+def test_extract_trivial_tuplets_10():
+    staff = abjad.Staff(
+        r"\times 2/3 { r2 c'4 ~ } \times 2/3 { c'2 ~ c'4 ~ } c'1"
+    )
+    abjad.mutate(staff[:]).extract_trivial_tuplets()
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \times 2/3 {
+                r2
+                c'4
+                ~
+            }
+            c'2
+            ~
+            c'1
+        }
+        """)

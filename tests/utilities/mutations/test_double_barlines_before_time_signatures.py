@@ -133,3 +133,65 @@ def test_double_barlines_before_time_signatures_05():
             a'2
         }
         """)
+
+
+def test_double_barlines_before_time_signatures_06():
+    staff_1 = abjad.Staff(r"\time 4/4 c'1 d'1 \time 6/4 e'1.")
+    staff_2 = abjad.Staff(r"\time 4/4 \clef bass c1 d1 \time 6/4 e1.")
+    score = abjad.Score([staff_1, staff_2])
+    auxjad.mutate(staff_1[:]).double_barlines_before_time_signatures(
+        context='Staff',
+    )
+    auxjad.mutate(staff_2[:]).double_barlines_before_time_signatures(
+        context='Staff',
+    )
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                d'1
+                \bar "||"
+                \time 6/4
+                e'1.
+            }
+            \new Staff
+            {
+                \time 4/4
+                \clef "bass"
+                c1
+                d1
+                \bar "||"
+                \time 6/4
+                e1.
+            }
+        >>
+        """)
+    assert format(staff_1) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'1
+            d'1
+            \bar "||"
+            \time 6/4
+            e'1.
+        }
+        """)
+    assert format(staff_2) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            \clef "bass"
+            c1
+            d1
+            \bar "||"
+            \time 6/4
+            e1.
+        }
+        """)

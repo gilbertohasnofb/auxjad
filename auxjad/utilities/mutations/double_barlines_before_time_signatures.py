@@ -1,7 +1,12 @@
+from typing import Optional
+
 import abjad
 
 
-def double_barlines_before_time_signatures(selection: abjad.Selection):
+def double_barlines_before_time_signatures(selection: abjad.Selection,
+                                           *,
+                                           context: Optional[str] = None,
+                                           ):
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function adds double bar lines before all time signatures.
 
@@ -100,6 +105,110 @@ def double_barlines_before_time_signatures(selection: abjad.Selection):
 
     .. warning::
 
+        Attempting to add barlines to multiple staves in an |abjad.Score| at
+        the same point in the score will raise an exception:
+
+        .. code::
+
+            >>> up = abjad.Staff(r"\time 4/4 c'1 d'1 \time 6/4 e'1.")
+            >>> down = abjad.Staff(
+            ...     r"\time 4/4 \clef bass c1 d1 \time 6/4 e1."
+            ... )
+            >>> score = abjad.Score([up, down])
+            >>> auxjad.mutate(up[:]).double_barlines_before_time_signatures()
+            >>> auxjad.mutate(down[:]).double_barlines_before_time_signatures()
+            abjad.exceptions.PersistentIndicatorError:
+
+            Can not attach ...
+
+            abjad.Wrapper(
+                context='Score',
+                indicator=abjad.BarLine('||', format_slot='after', ),
+                tag=abjad.Tag(),
+                )
+
+            ... to Note('d1') in None because ...
+
+            abjad.Wrapper(
+                context='Score',
+                indicator=abjad.BarLine('||', format_slot='after', ),
+                tag=abjad.Tag(),
+                )
+
+            ... is already attached to Note("d'1") in None.
+
+        This is because, by default, bar lines belong to the score scope. In
+        order to have bar lines on both staves (e.g. for easier part
+        extraction), invoke this mutation with the argument ``context`` set to
+        ``'Staff'`` so that the double bar lines become scoped to the staff
+        instead of the score:
+
+        >>> up = abjad.Staff(r"\time 4/4 c'1 d'1 \time 6/4 e'1.")
+        >>> down = abjad.Staff(r"\time 4/4 \clef bass c1 d1 \time 6/4 e1.")
+        >>> score = abjad.Score([up, down])
+        >>> auxjad.mutate(up[:]).double_barlines_before_time_signatures(
+        ...     context='Staff',
+        ... )
+        >>> auxjad.mutate(down[:]).double_barlines_before_time_signatures(
+        ...     context='Staff',
+        ... )
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                d'1
+                \bar "||"
+                \time 6/4
+                e'1.
+            }
+            \new Staff
+            {
+                \time 4/4
+                \clef "bass"
+                c1
+                d1
+                \bar "||"
+                \time 6/4
+                e1.
+            }
+        >>
+
+        .. figure:: ../_images/remove_repeated_time_signatures-yD6KL6xbrV.png
+
+        In this case, both individual staves will also have the bar lines:
+
+        >>> abjad.f(up)
+        \new Staff
+        {
+            \time 4/4
+            c'1
+            d'1
+            \bar "||"
+            \time 6/4
+            e'1.
+        }
+
+        .. figure:: ../_images/remove_repeated_time_signatures-Zs1hSq2uwY.png
+
+        >>> abjad.f(down)
+        \new Staff
+        {
+            \time 4/4
+            \clef "bass"
+            c1
+            d1
+            \bar "||"
+            \time 6/4
+            e1.
+        }
+
+        .. figure:: ../_images/remove_repeated_time_signatures-QYOgyhLJ2f.png
+
+    .. warning::
+
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing
         multiple staves), the best approach is to cycle through these
@@ -120,5 +229,11 @@ def double_barlines_before_time_signatures(selection: abjad.Selection):
             if barline is not None and barline.abbreviation in ('|', ''):
                 abjad.detach(abjad.BarLine, leaves[i - 1])
                 barline = None
-            if barline is None and inspector.effective(abjad.BarLine) is None:
-                abjad.attach(abjad.BarLine("||"), leaves[i - 1])
+            if barline is None:
+                if context is None:
+                    abjad.attach(abjad.BarLine("||"), leaves[i - 1])
+                else:
+                    abjad.attach(abjad.BarLine("||"),
+                                 leaves[i - 1],
+                                 context=context,
+                                 )

@@ -98,8 +98,13 @@ class Mutation:
     def close_container(self):
         close_container(self.client)
 
-    def double_barlines_before_time_signatures(self):
-        double_barlines_before_time_signatures(self.client)
+    def double_barlines_before_time_signatures(self,
+                                               *,
+                                               context: Optional[str] = None,
+                                               ):
+        double_barlines_before_time_signatures(self.client,
+                                               context=context,
+                                               )
 
     def enforce_time_signature(self,
                                time_signatures: Union[abjad.TimeSignature,
@@ -227,13 +232,14 @@ class Mutation:
                             remove_repeated_dynamics: bool = True,
                             allow_hairpin_to_rest_with_dynamic: bool = True,
                             ):
-        allow_hairpin_to_rest_with_dyn = allow_hairpin_to_rest_with_dynamic
         reposition_dynamics(
             self._client,
             allow_hairpins_under_rests=allow_hairpins_under_rests,
             check_hairpin_trends=check_hairpin_trends,
             remove_repeated_dynamics=remove_repeated_dynamics,
-            allow_hairpin_to_rest_with_dynamic=allow_hairpin_to_rest_with_dyn,
+            allow_hairpin_to_rest_with_dynamic=(
+                allow_hairpin_to_rest_with_dynamic
+            ),
         )
 
     def reposition_slurs(self,

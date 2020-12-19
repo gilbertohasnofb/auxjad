@@ -6,6 +6,8 @@
 .. _indicators: api-indicators.html
 .. |score| replace:: :mod:`score <auxjad.score>`
 .. _score: api-score.html
+.. |spanners| replace:: :mod:`spanners <auxjad.spanners>`
+.. _spanners: api-spanners.html
 .. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
 .. _utilities: api-utilities.html
 

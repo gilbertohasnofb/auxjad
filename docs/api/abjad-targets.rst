@@ -162,18 +162,18 @@
 .. |abjad.Transposition| replace:: :class:`abjad.Transposition <abjad.pitch.Transposition.Transposition>`
 .. |abjad.TwelveToneRow| replace:: :class:`abjad.TwelveToneRow <abjad.pitch.TwelveToneRow.TwelveToneRow>`
 
-.. |abjad.beam| replace:: :func:`abjad.beam <abjad.spanners.beam>`
-.. |abjad.bow_contact_spanner| replace:: :func:`abjad.bow_contact_spanner <abjad.spanners.bow_contact_spanner>`
-.. |abjad.glissando| replace:: :func:`abjad.glissando <abjad.spanners.glissando>`
-.. |abjad.hairpin| replace:: :func:`abjad.hairpin <abjad.spanners.hairpin>`
-.. |abjad.horizontal_bracket| replace:: :func:`abjad.horizontal_bracket <abjad.spanners.horizontal_bracket>`
-.. |abjad.ottava| replace:: :func:`abjad.ottava <abjad.spanners.ottava>`
-.. |abjad.phrasing_slur| replace:: :func:`abjad.phrasing_slur <abjad.spanners.phrasing_slur>`
-.. |abjad.piano_pedal| replace:: :func:`abjad.piano_pedal <abjad.spanners.piano_pedal>`
-.. |abjad.slur| replace:: :func:`abjad.slur <abjad.spanners.slur>`
-.. |abjad.text_spanner| replace:: :func:`abjad.text_spanner <abjad.spanners.text_spanner>`
-.. |abjad.tie| replace:: :func:`abjad.tie <abjad.spanners.tie>`
-.. |abjad.trill_spanner| replace:: :func:`abjad.trill_spanner <abjad.spanners.trill_spanner>`
+.. |abjad.beam()| replace:: :func:`abjad.beam() <abjad.spanners.beam>`
+.. |abjad.bow_contact_spanner()| replace:: :func:`abjad.bow_contact_spanner() <abjad.spanners.bow_contact_spanner>`
+.. |abjad.glissando()| replace:: :func:`abjad.glissando() <abjad.spanners.glissando>`
+.. |abjad.hairpin()| replace:: :func:`abjad.hairpin() <abjad.spanners.hairpin>`
+.. |abjad.horizontal_bracket()| replace:: :func:`abjad.horizontal_bracket() <abjad.spanners.horizontal_bracket>`
+.. |abjad.ottava()| replace:: :func:`abjad.ottava() <abjad.spanners.ottava>`
+.. |abjad.phrasing_slur()| replace:: :func:`abjad.phrasing_slur() <abjad.spanners.phrasing_slur>`
+.. |abjad.piano_pedal()| replace:: :func:`abjad.piano_pedal() <abjad.spanners.piano_pedal>`
+.. |abjad.slur()| replace:: :func:`abjad.slur() <abjad.spanners.slur>`
+.. |abjad.text_spanner()| replace:: :func:`abjad.text_spanner() <abjad.spanners.text_spanner>`
+.. |abjad.tie()| replace:: :func:`abjad.tie() <abjad.spanners.tie>`
+.. |abjad.trill_spanner()| replace:: :func:`abjad.trill_spanner() <abjad.spanners.trill_spanner>`
 
 .. |abjad.activate()| replace:: :func:`abjad.activate() <abjad.top.activate.activate>`
 .. |abjad.annotate()| replace:: :func:`abjad.annotate() <abjad.top.annotate.annotate>`

@@ -26,11 +26,14 @@ from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
 
+from .indicators.NumericOttava import NumericOttava
 from .indicators.TimeSignature import TimeSignature
 
 from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
+
+from .spanners.numeric_ottava import numeric_ottava
 
 from .utilities.inspect import Inspection
 from .utilities.inspect import inspect
@@ -55,10 +58,12 @@ __all__ = [
     'Shuffler',
     'TenneySelector',
     'WindowLooper',
+    'NumericOttava',
     'TimeSignature',
     'ArtificialHarmonic',
     'HarmonicNote',
     'LeafDynMaker',
+    'numeric_ottava',
     'Inspection',
     'inspect',
     'Mutation',

@@ -35,6 +35,8 @@
 .. |abjad.inspect().leaves_are_tieable()| replace:: :meth:`abjad.inspect().leaves_are_tieable() <auxjad.Inspection.leaves_are_tieable>`
 .. |abjad.inspect().underfull_duration()| replace:: :meth:`abjad.inspect().underfull_duration() <auxjad.Inspection.underfull_duration>`
 
+.. |abjad.half_piano_pedal()| replace:: :func:`abjad.half_piano_pedal() <auxjad.half_piano_pedal>`
+
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
 

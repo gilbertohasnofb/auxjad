@@ -1626,7 +1626,7 @@ class Shuffler:
 
     @property
     def swap_limit(self) -> int:
-        r"""If ``int`` then it dictates how instances of random swapping of
+        r"""If :obj:`int` then it dictates how instances of random swapping of
         pairs of elements are applied to :attr:`contents` in each iteration. If
         ``None`` then :attr:`contents` is completely shuffled at each
         iteration.

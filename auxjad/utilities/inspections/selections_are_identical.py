@@ -159,7 +159,12 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
                 leaf2_graces = abjad.inspect(leaf2).before_grace_container()
                 if not isinstance(leaf1_graces, type(leaf2_graces)):
                     return False
-                if (include_indicators and abjad.inspect(leaf1).indicators()
-                        != abjad.inspect(leaf2).indicators()):
-                    return False
+                if include_indicators:
+                    indicators1 = [format(indicator) for indicator
+                                   in abjad.inspect(leaf1).indicators()]
+                    indicators2 = [format(indicator) for indicator
+                                   in abjad.inspect(leaf2).indicators()]
+                    for indicator1 in indicators1:
+                        if indicator1 not in indicators2:
+                            return False
     return True

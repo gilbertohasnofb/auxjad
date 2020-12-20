@@ -93,3 +93,21 @@ def test_selections_are_identical_12():
     container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
     selections = [container1[:], container2[:]]
     assert abjad.inspect(selections).selections_are_identical()
+
+
+def test_selections_are_identical_13():
+    container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    abjad.piano_pedal(container1[:])
+    abjad.piano_pedal(container2[:])
+    selections = [container1[:], container2[:]]
+    assert auxjad.inspect(selections).selections_are_identical()
+
+
+def test_selections_are_identical_14():
+    container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    container2 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    abjad.piano_pedal(container1[:])
+    abjad.piano_pedal(container2[:-2])
+    selections = [container1[:], container2[:]]
+    assert not abjad.inspect(selections).selections_are_identical()

@@ -24,7 +24,9 @@ names for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
+    half_piano_pedal
     numeric_ottava
+    piano_pedal
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

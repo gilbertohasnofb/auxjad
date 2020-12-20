@@ -33,7 +33,9 @@ from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
 
+from .spanners.half_piano_pedal import half_piano_pedal
 from .spanners.numeric_ottava import numeric_ottava
+from .spanners.piano_pedal import piano_pedal
 
 from .utilities.inspect import Inspection
 from .utilities.inspect import inspect
@@ -63,7 +65,9 @@ __all__ = [
     'ArtificialHarmonic',
     'HarmonicNote',
     'LeafDynMaker',
+    'half_piano_pedal',
     'numeric_ottava',
+    'piano_pedal',
     'Inspection',
     'inspect',
     'Mutation',

@@ -18,6 +18,7 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
     of Abjad's built-in |abjad.piano_pedal()|.
 
     Basic usage:
+        Basic usage is identical to Abjad's built-ind |abjad.piano_pedal()|:
 
         >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> auxjad.piano_pedal(staff[:])

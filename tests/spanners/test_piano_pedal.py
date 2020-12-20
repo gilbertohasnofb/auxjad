@@ -31,8 +31,15 @@ def test_piano_pedal_02():
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -75,8 +82,15 @@ def test_piano_pedal_04():
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -126,8 +140,15 @@ def test_piano_pedal_06():
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -150,8 +171,15 @@ def test_piano_pedal_07():
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4

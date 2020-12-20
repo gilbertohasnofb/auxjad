@@ -26,8 +26,15 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped")))
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -63,11 +70,20 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> abjad.f(staff)
         \new Staff
         {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
+                            }
+                        #}))
             c'4
             \sustainOn
             d'4
@@ -91,8 +107,15 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped")))
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -114,11 +137,20 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> abjad.f(staff)
         \new Staff
         {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
+                            }
+                        #}))
             c'4
             \sustainOn
             d'4
@@ -146,8 +178,15 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped")))
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -172,11 +211,20 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             pedalSustainStyle = #'mixed
         }
         {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
+                            }
+                        #}))
             c'4
             \sustainOn
             d'4
@@ -196,16 +244,30 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         string = r"""
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped")))
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                        }
+                    #}))
             """
     else:
         string = r"""
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:larger "½"
-                            #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             """
     string = dedent(string).strip()
     half_pedal_tweak = abjad.LilyPondLiteral(string)

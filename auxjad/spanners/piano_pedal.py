@@ -62,8 +62,15 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -108,8 +115,15 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -161,8 +175,15 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         {
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -182,8 +203,15 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         string = r"""
             \once \override Staff.SustainPedal.stencil =
                 #(lambda (grob) (grob-interpret-markup grob
-                    (markup #:musicglyph "pedal.Ped"
-                            #:raise -0.3 "→")))
+                    #{
+                        \markup {
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
+                            }
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             """
         string = dedent(string).strip()
         pedal_tweak = abjad.LilyPondLiteral(string)

@@ -1,5 +1,5 @@
-from typing import Union
 from textwrap import dedent
+from typing import Union
 
 import abjad
 

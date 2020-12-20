@@ -1,5 +1,5 @@
-from typing import Union
 from textwrap import dedent
+from typing import Union
 
 import abjad
 from abjad import piano_pedal as piano_pedal_

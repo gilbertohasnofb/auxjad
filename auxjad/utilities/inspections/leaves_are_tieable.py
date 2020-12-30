@@ -1,13 +1,12 @@
-import collections
-from typing import Iterable, Union
+from collections.abc import Iterable
+from typing import Union
 
 import abjad
 
 
 def leaves_are_tieable(leaves: Union[abjad.Selection,
-                                     Iterable[Union[abjad.Component,
-                                                    abjad.LogicalTie,
-                                                    ]],
+                                     Iterable[abjad.Component],
+                                     Iterable[abjad.LogicalTie],
                                      ],
                        ) -> bool:
     r"""Returns a :obj:`bool` representing whether or not two or more input
@@ -106,11 +105,14 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
         >>> auxjad.inspect(staff[:]).leaves_are_tieable()
         False
     """
-    if not isinstance(leaves, (abjad.Selection,
-                               collections.abc.Iterable,
-                               )):
-        raise TypeError("argument must be 'abjad.Selection' or non-string "
-                        "iterable of components")
+    if not isinstance(leaves, (abjad.Selection, Iterable)):
+        raise TypeError("argument must be 'abjad.Selection' or an iterable of "
+                        "'abjad.Component's or 'abjad.LogicalTie's")
+    for leaf in leaves:
+        if not isinstance(leaf, (abjad.Component, abjad.LogicalTie)):
+            raise TypeError("argument must be 'abjad.Selection' or an "
+                            "iterable of 'abjad.Component's or "
+                            "'abjad.LogicalTie's")
     for index, leaf1 in enumerate(leaves[:-1]):
         for leaf2 in leaves[index + 1:]:
             if isinstance(leaf1, abjad.LogicalTie):

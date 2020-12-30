@@ -1,5 +1,5 @@
-import collections
-from typing import Iterable, Union
+from collections.abc import Iterable
+from typing import Union
 
 import abjad
 
@@ -132,8 +132,13 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         >>> auxjad.inspect(selections).selections_are_identical()
         True
     """
-    if not isinstance(selections, collections.abc.Iterable):
-        raise TypeError("argument must be an iterable of 'abjad.Selection's")
+    if not isinstance(selections, Iterable):
+        raise TypeError("argument must be an iterable of 'abjad.Selection's "
+                        "or 'abjad.Component's")
+    for selection in selections:
+        if not isinstance(selection, (abjad.Component, abjad.Selection)):
+            raise TypeError("argument must be an iterable of "
+                            "'abjad.Selection's or 'abjad.Component's")
     if not isinstance(include_indicators, bool):
         raise TypeError("'include_indicators' must be 'bool'")
 

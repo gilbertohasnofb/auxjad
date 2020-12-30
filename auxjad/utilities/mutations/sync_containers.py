@@ -1,5 +1,5 @@
-import collections
-from typing import Iterable, Union
+from collections.abc import Iterable
+from typing import Union
 
 import abjad
 
@@ -8,7 +8,9 @@ from .close_container import close_container
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 
 
-def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
+def sync_containers(containers: Union[Iterable[abjad.Container],
+                                      abjad.Score,
+                                      ],
                     *,
                     use_multimeasure_rests: bool = True,
                     adjust_last_time_signature: bool = True,
@@ -508,7 +510,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
         ValueError: at least one 'container' is malformed, with an underfull
         measure preceding a time signature change
     """
-    if not isinstance(containers, (collections.abc.Iterable, abjad.Score)):
+    if not isinstance(containers, (Iterable, abjad.Score)):
         raise TypeError("argument must be 'abjad.Score' or iterable of "
                         "'abjad.Container's")
     if isinstance(containers, abjad.Score):

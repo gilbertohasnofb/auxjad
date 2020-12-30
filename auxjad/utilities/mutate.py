@@ -1,4 +1,5 @@
-from typing import Iterable, Optional, Union
+from collections.abc import Iterable
+from typing import Optional, Union
 
 import abjad
 
@@ -61,6 +62,11 @@ class Mutation:
                                ] = None,
                  ) -> None:
         r'Initialises self.'
+        assert not isinstance(client, str), repr(client)
+        if not isinstance(client, (abjad.Component, Iterable, None)):
+            raise TypeError("must be 'abjad.Component', iterable of "
+                            "'abjad.Component's, or None: "
+                            f"(not {client!r}).")
         self._client = client
 
     ### SPECIAL METHODS ###

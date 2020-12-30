@@ -1,5 +1,5 @@
-import collections
-from typing import Iterable, Union
+from collections.abc import Iterable
+from typing import Union
 
 import abjad
 
@@ -46,12 +46,10 @@ class Inspection:
                  ) -> None:
         r'Initialises self.'
         assert not isinstance(client, str), repr(client)
-        if not isinstance(client, (abjad.Component,
-                                   collections.abc.Iterable,
-                                   type(None),
-                                   )):
-            raise TypeError('must be component, non-string iterable or None: '
-                            f'(not {client!r}).')
+        if not isinstance(client, (abjad.Component, Iterable, None)):
+            raise TypeError("must be 'abjad.Component', iterable of "
+                            "'abjad.Component's, or None: "
+                            f"(not {client!r}).")
         self._client = client
 
     ### SPECIAL METHODS ###

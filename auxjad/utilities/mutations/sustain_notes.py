@@ -1,14 +1,12 @@
 import abjad
 
-from .auto_rewrite_meter import (
-    auto_rewrite_meter as auto_rewrite_meter_function,
-)
+from .auto_rewrite_meter import auto_rewrite_meter
 
 
 def sustain_notes(container: abjad.Container,
                   *,
                   sustain_multimeasure_rests: bool = True,
-                  auto_rewrite_meter: bool = True,
+                  rewrite_meter: bool = True,
                   ) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function will sustain all pitched
@@ -364,7 +362,7 @@ def sustain_notes(container: abjad.Container,
 
         .. figure:: ../_images/sustain_notes-9WeilArLex.png
 
-    ``auto_rewrite_meter``:
+    ``rewrite_meter``:
         By default, |auxjad.mutate().auto_rewrite_meter()| is summoned after
         notes are sustained.
 
@@ -400,9 +398,9 @@ def sustain_notes(container: abjad.Container,
 
         .. figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
 
-        To disable this behaviour, set ``auto_rewrite_meter`` to ``False``:
+        To disable this behaviour, set ``rewrite_meter`` to ``False``:
 
-        >>> auxjad.mutate(staff).sustain_notes(auto_rewrite_meter=False)
+        >>> auxjad.mutate(staff).sustain_notes(rewrite_meter=False)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -452,8 +450,8 @@ def sustain_notes(container: abjad.Container,
         raise ValueError("argument must be contiguous logical voice")
     if not isinstance(sustain_multimeasure_rests, bool):
         raise TypeError("'sustain_multimeasure_rests' must be 'bool'")
-    if not isinstance(auto_rewrite_meter, bool):
-        raise TypeError("'auto_rewrite_meter' must be 'bool'")
+    if not isinstance(rewrite_meter, bool):
+        raise TypeError("'rewrite_meter' must be 'bool'")
     leaves = abjad.select(container).leaves()
     pitch = None
     pitches = None
@@ -488,5 +486,5 @@ def sustain_notes(container: abjad.Container,
             pitch = None
             pitches = [pitch for pitch in leaf.written_pitches]
     # rewriting meter
-    if auto_rewrite_meter:
-        auto_rewrite_meter_function(container)
+    if rewrite_meter:
+        auto_rewrite_meter(container)

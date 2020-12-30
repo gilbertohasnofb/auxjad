@@ -289,12 +289,12 @@ class Mutation:
     def sustain_notes(self,
                       *,
                       sustain_multimeasure_rests: bool = True,
-                      auto_rewrite_meter: bool = True,
+                      rewrite_meter: bool = True,
                       ) -> None:
         sustain_notes(
             self.client,
             sustain_multimeasure_rests=sustain_multimeasure_rests,
-            auto_rewrite_meter=auto_rewrite_meter,
+            rewrite_meter=rewrite_meter,
         )
 
     def sync_containers(self,

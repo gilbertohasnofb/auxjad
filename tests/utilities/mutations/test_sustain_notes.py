@@ -192,7 +192,7 @@ def test_sustain_notes_09():
                         r"R1 * 5/8 "
                         r"r8 g'8 a'8 r4"
                         )
-    auxjad.mutate(staff).sustain_notes(auto_rewrite_meter=False)
+    auxjad.mutate(staff).sustain_notes(rewrite_meter=False)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff

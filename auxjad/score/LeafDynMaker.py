@@ -311,7 +311,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ### INITIALISER ###
 
-    def __init__(self):
+    def __init__(self) -> None:
         r'Initialises self.'
         super().__init__()
 
@@ -385,11 +385,11 @@ class LeafDynMaker(abjad.LeafMaker):
     ### PRIVATE METHODS ###
 
     def _add_dynamics_and_articulations(self,
-                                        logical_ties,
-                                        dynamics_,
-                                        articulations_,
-                                        omit_repeated_dynamics,
-                                        ):
+                                        logical_ties: list,
+                                        dynamics_: list,
+                                        articulations_: list,
+                                        omit_repeated_dynamics: bool,
+                                        ) -> None:
         r'Adds dynamics and articulations to logical ties.'
         previous_dynamic = None
         for logical_tie, dynamic, articulation in zip(logical_ties,
@@ -421,8 +421,10 @@ class LeafDynMaker(abjad.LeafMaker):
     @staticmethod
     def _fill_list(input_list,
                    length: int,
+                   *,
                    cyclic: bool = False,
-                   default: Any = None):
+                   default: Any = None,
+                   ) -> None:
         r"""Extends a :obj:`list` to a certain length, filling it with a
         default value. If ``cyclic`` is ``True``, then it fills the :obj:`list`
         by cycling the original ``input_list``.

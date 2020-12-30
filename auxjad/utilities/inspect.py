@@ -41,8 +41,9 @@ class Inspection:
     def __init__(self,
                  client: Union[abjad.Component,
                                Iterable[abjad.Component],
+                               None,
                                ] = None,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         assert not isinstance(client, str), repr(client)
         if not isinstance(client, (abjad.Component,
@@ -113,7 +114,11 @@ Inspection.underfull_duration.__doc__ = underfull_duration.__doc__
 
 ### FUNCTIONS ###
 
-def inspect(client):
+def inspect(client: Union[abjad.Component,
+                          Iterable[abjad.Component],
+                          None,
+                          ] = None,
+            ) -> Inspection:
     r"""Makes an inspection agent. See :class:`Inspection` for the
     documentation of all of its methods.
 

@@ -1,7 +1,7 @@
 import abjad
 
 
-def remove_repeated_time_signatures(selection: abjad.Selection):
+def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated time signatures.
 

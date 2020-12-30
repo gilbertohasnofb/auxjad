@@ -26,7 +26,7 @@ def enforce_time_signature(container: abjad.Container,
                            fuse_quadruple_meter: bool = True,
                            fuse_triple_meter: bool = True,
                            split_quadruple_meter: bool = True,
-                           ):
+                           ) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function applies a time signature
     (or a :obj:`list` of time signatures) to the input container.

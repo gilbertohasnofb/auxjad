@@ -11,7 +11,7 @@ def reposition_dynamics(selection: abjad.Selection,
                         check_hairpin_trends: bool = True,
                         remove_repeated_dynamics: bool = True,
                         allow_hairpin_to_rest_with_dynamic: bool = True,
-                        ):
+                        ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function shifts all dynamics from rests to the next pitched leaves. It
     will also adjust hairpins if necessary.

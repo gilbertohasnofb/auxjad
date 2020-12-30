@@ -12,7 +12,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container], abjad.Score],
                     *,
                     use_multimeasure_rests: bool = True,
                     adjust_last_time_signature: bool = True,
-                    ):
+                    ) -> None:
     r"""Mutates two or more input containers in place and has no return value;
     this function finds the longest container among the inputs and adds rests
     to all the shorter ones, making them the same length. Input argument can

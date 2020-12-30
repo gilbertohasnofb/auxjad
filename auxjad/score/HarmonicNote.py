@@ -184,7 +184,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                  style: str = 'harmonic',
                  markup: Optional[str] = None,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
-                 ):
+                 ) -> None:
         r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
@@ -201,7 +201,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     @style.setter
     def style(self,
               style: str,
-              ):
+              ) -> None:
         if not isinstance(style, str):
             raise TypeError("'style' must be 'str'")
         self._style = style

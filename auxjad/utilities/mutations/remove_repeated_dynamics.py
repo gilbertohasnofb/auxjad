@@ -5,7 +5,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
                              *,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
-                             ):
+                             ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated dynamic markings.
 

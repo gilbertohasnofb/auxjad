@@ -944,7 +944,7 @@ class WindowLooper(_LooperParent):
                  fuse_across_groups_of_beats: bool = True,
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
@@ -992,7 +992,7 @@ class WindowLooper(_LooperParent):
 
     ### PRIVATE METHODS ###
 
-    def _slice_contents(self):
+    def _slice_contents(self) -> None:
         r"""This method takes a slice of size :attr:`window_size` out of
         :attr:`contents` starting at the current :attr:`head_position`.
         """
@@ -1022,7 +1022,7 @@ class WindowLooper(_LooperParent):
                       dummy_container: abjad.Container,
                       start: int,
                       end: int,
-                      ):
+                      ) -> None:
         r'Handles the notation aspects of the looping window.'
         window_size = self._window_size
         # passing on indicators from the head of an initial splitted leaf
@@ -1102,7 +1102,7 @@ class WindowLooper(_LooperParent):
     @contents.setter
     def contents(self,
                  contents: abjad.Container,
-                 ):
+                 ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
@@ -1127,7 +1127,7 @@ class WindowLooper(_LooperParent):
     @head_position.setter
     def head_position(self,
                       head_position: Union[tuple, abjad.Duration],
-                      ):
+                      ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of :obj:`tuple` or
         |abjad.Duration|.
@@ -1151,7 +1151,7 @@ class WindowLooper(_LooperParent):
     @window_size.setter
     def window_size(self,
                     window_size: Union[int, float, tuple, abjad.Meter],
-                    ):
+                    ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of :obj:`tuple` or
         |abjad.Duration|.
@@ -1174,7 +1174,7 @@ class WindowLooper(_LooperParent):
     @step_size.setter
     def step_size(self,
                   step_size: Union[tuple, abjad.Duration],
-                  ):
+                  ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of :obj:`tuple` or
         |abjad.Duration|.
@@ -1194,7 +1194,7 @@ class WindowLooper(_LooperParent):
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1207,7 +1207,7 @@ class WindowLooper(_LooperParent):
     @fill_with_rests.setter
     def fill_with_rests(self,
                         fill_with_rests: bool,
-                        ):
+                        ) -> None:
         if not isinstance(fill_with_rests, bool):
             raise TypeError("'fill_with_rests' must be 'bool'")
         self._fill_with_rests = fill_with_rests
@@ -1222,7 +1222,7 @@ class WindowLooper(_LooperParent):
     @boundary_depth.setter
     def boundary_depth(self,
                        boundary_depth: Optional[int],
-                       ):
+                       ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1238,7 +1238,7 @@ class WindowLooper(_LooperParent):
     @maximum_dot_count.setter
     def maximum_dot_count(self,
                           maximum_dot_count: Optional[int],
-                          ):
+                          ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1254,7 +1254,7 @@ class WindowLooper(_LooperParent):
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
                         rewrite_tuplets: bool,
-                        ):
+                        ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1269,7 +1269,7 @@ class WindowLooper(_LooperParent):
     @prettify_rewrite_meter.setter
     def prettify_rewrite_meter(self,
                                prettify_rewrite_meter: bool,
-                               ):
+                               ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1284,7 +1284,7 @@ class WindowLooper(_LooperParent):
     @extract_trivial_tuplets.setter
     def extract_trivial_tuplets(self,
                                 extract_trivial_tuplets: bool,
-                                ):
+                                ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1299,7 +1299,7 @@ class WindowLooper(_LooperParent):
     @fuse_across_groups_of_beats.setter
     def fuse_across_groups_of_beats(self,
                                     fuse_across_groups_of_beats: bool,
-                                    ):
+                                    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1314,7 +1314,7 @@ class WindowLooper(_LooperParent):
     @fuse_quadruple_meter.setter
     def fuse_quadruple_meter(self,
                              fuse_quadruple_meter: bool,
-                             ):
+                             ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1329,7 +1329,7 @@ class WindowLooper(_LooperParent):
     @fuse_triple_meter.setter
     def fuse_triple_meter(self,
                           fuse_triple_meter: bool,
-                          ):
+                          ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter

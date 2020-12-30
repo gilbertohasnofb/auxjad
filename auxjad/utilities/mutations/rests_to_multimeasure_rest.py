@@ -4,7 +4,7 @@ import abjad
 def rests_to_multimeasure_rest(selection: abjad.Selection,
                                *,
                                ignore_clefs: bool = False,
-                               ):
+                               ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function looks for measures filled with regular rests and converts
     them into an |abjad.MultimeasureRest|.

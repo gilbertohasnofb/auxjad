@@ -472,7 +472,7 @@ class Repeater():
                  reposition_clefs: bool = True,
                  reposition_dynamics: bool = True,
                  reposition_slurs: bool = True,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
@@ -507,7 +507,7 @@ class Repeater():
         """
         return self.__call__()
 
-    def __iter__(self):
+    def __iter__(self) -> None:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
@@ -525,7 +525,7 @@ class Repeater():
 
     def _repeating_process(self,
                            n: int,
-                           ):
+                           ) -> None:
         r'Repeats a container ``n`` times.'
         dummy_container = abjad.mutate(self._contents).copy()
         for _ in range(n - 1):
@@ -542,7 +542,7 @@ class Repeater():
         dummy_container[:] = []
 
     @staticmethod
-    def _remove_all_time_signatures(container):
+    def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
@@ -558,7 +558,7 @@ class Repeater():
     @contents.setter
     def contents(self,
                  contents: abjad.Container,
-                 ):
+                 ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
@@ -598,7 +598,7 @@ class Repeater():
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -614,7 +614,7 @@ class Repeater():
     def force_identical_time_signatures(
         self,
         force_identical_time_signatures: bool,
-    ):
+    ) -> None:
         if not isinstance(force_identical_time_signatures, bool):
             raise TypeError("'force_identical_time_signatures' must be 'bool'")
         self._force_identical_time_signatures = force_identical_time_signatures
@@ -627,7 +627,7 @@ class Repeater():
     @reposition_clefs.setter
     def reposition_clefs(self,
                          reposition_clefs: bool,
-                         ):
+                         ) -> None:
         if not isinstance(reposition_clefs, bool):
             raise TypeError("'reposition_clefs' must be 'bool'")
         self._reposition_clefs = reposition_clefs
@@ -640,7 +640,7 @@ class Repeater():
     @reposition_dynamics.setter
     def reposition_dynamics(self,
                             reposition_dynamics: bool,
-                            ):
+                            ) -> None:
         if not isinstance(reposition_dynamics, bool):
             raise TypeError("'reposition_dynamics' must be 'bool'")
         self._reposition_dynamics = reposition_dynamics
@@ -653,7 +653,7 @@ class Repeater():
     @reposition_slurs.setter
     def reposition_slurs(self,
                          reposition_slurs: bool,
-                         ):
+                         ) -> None:
         if not isinstance(reposition_slurs, bool):
             raise TypeError("'reposition_slurs' must be 'bool'")
         self._reposition_slurs = reposition_slurs

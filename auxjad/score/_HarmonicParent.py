@@ -26,7 +26,7 @@ class _HarmonicParent:
     @direction.setter
     def direction(self,
                   direction: Union[str, abjad.enums.VerticalAlignment],
-                  ):
+                  ) -> None:
         if direction is not None:
             if not isinstance(direction, (str, abjad.enums.VerticalAlignment)):
                 raise TypeError("'direction' must be 'str', None, or either "
@@ -45,7 +45,7 @@ class _HarmonicParent:
     @markup.setter
     def markup(self,
                markup: str,
-               ):
+               ) -> None:
         if markup is not None:
             if not isinstance(markup, str):
                 raise TypeError("'markup' must be 'str'")

@@ -20,7 +20,7 @@ def fill_with_rests(container: abjad.Container,
                     fuse_quadruple_meter: bool = True,
                     fuse_triple_meter: bool = True,
                     split_quadruple_meter: bool = True,
-                    ):
+                    ) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function fills a container with
     rests in order to make it full.

@@ -4,7 +4,7 @@ import abjad
 def merge_partial_tuplets(selection: abjad.Selection,
                           *,
                           merge_across_barlines: bool = False,
-                          ):
+                          ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function merges all consecutive partial tuplets with the same ratio
     and which sum up to an assignable duration. Partial tuplets can result from

@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Iterable, Optional, Union
 
 import abjad
 
@@ -54,7 +54,12 @@ class Mutation:
 
     ### INITIALISER ###
 
-    def __init__(self, client=None):
+    def __init__(self,
+                 client: Union[abjad.Component,
+                               Iterable[abjad.Component],
+                               None,
+                               ] = None,
+                 ) -> None:
         r'Initialises self.'
         self._client = client
 
@@ -79,7 +84,7 @@ class Mutation:
                            rewrite_tuplets: bool = True,
                            merge_partial_tuplets: bool = True,
                            split_quadruple_meter: bool = True,
-                           ):
+                           ) -> None:
         auto_rewrite_meter(
             self.client,
             meter_list=meter_list,
@@ -95,13 +100,13 @@ class Mutation:
             split_quadruple_meter=split_quadruple_meter,
         )
 
-    def close_container(self):
+    def close_container(self) -> None:
         close_container(self.client)
 
     def double_barlines_before_time_signatures(self,
                                                *,
                                                context: Optional[str] = None,
-                                               ):
+                                               ) -> None:
         double_barlines_before_time_signatures(self.client,
                                                context=context,
                                                )
@@ -125,7 +130,7 @@ class Mutation:
                                fuse_quadruple_meter: bool = True,
                                fuse_triple_meter: bool = True,
                                split_quadruple_meter: bool = True,
-                               ):
+                               ) -> None:
         enforce_time_signature(
             self.client,
             time_signatures=time_signatures,
@@ -144,7 +149,7 @@ class Mutation:
             split_quadruple_meter=split_quadruple_meter,
         )
 
-    def extract_trivial_tuplets(self):
+    def extract_trivial_tuplets(self) -> None:
         extract_trivial_tuplets(self._client)
 
     def fill_with_rests(self,
@@ -159,7 +164,7 @@ class Mutation:
                         fuse_quadruple_meter: bool = True,
                         fuse_triple_meter: bool = True,
                         split_quadruple_meter: bool = True,
-                        ):
+                        ) -> None:
         fill_with_rests(
             self.client,
             disable_rewrite_meter=disable_rewrite_meter,
@@ -177,7 +182,7 @@ class Mutation:
     def merge_partial_tuplets(self,
                               *,
                               merge_across_barlines: bool = False,
-                              ):
+                              ) -> None:
         merge_partial_tuplets(self._client,
                               merge_across_barlines=merge_across_barlines,
                               )
@@ -190,7 +195,7 @@ class Mutation:
                                fuse_triple_meter: bool = True,
                                extract_trivial_tuplets: bool = True,
                                split_quadruple_meter: bool = True,
-                               ):
+                               ) -> None:
         prettify_rewrite_meter(
             self._client,
             meter=meter,
@@ -205,21 +210,21 @@ class Mutation:
                                  *,
                                  ignore_hairpins: bool = False,
                                  reset_after_rests: bool = False,
-                                 ):
+                                 ) -> None:
         remove_repeated_dynamics(
             self._client,
             ignore_hairpins=ignore_hairpins,
             reset_after_rests=reset_after_rests,
         )
 
-    def remove_repeated_time_signatures(self):
+    def remove_repeated_time_signatures(self) -> None:
         remove_repeated_time_signatures(self._client)
 
     def reposition_clefs(self,
                          *,
                          shift_clef_to_notes: bool = True,
                          implicit_clef: abjad.Clef = abjad.Clef('treble'),
-                         ):
+                         ) -> None:
         reposition_clefs(self._client,
                          shift_clef_to_notes=shift_clef_to_notes,
                          implicit_clef=implicit_clef,
@@ -231,7 +236,7 @@ class Mutation:
                             check_hairpin_trends: bool = True,
                             remove_repeated_dynamics: bool = True,
                             allow_hairpin_to_rest_with_dynamic: bool = True,
-                            ):
+                            ) -> None:
         reposition_dynamics(
             self._client,
             allow_hairpins_under_rests=allow_hairpins_under_rests,
@@ -246,7 +251,7 @@ class Mutation:
                          *,
                          allow_slurs_under_rests: bool = False,
                          close_unterminated_final_slur: bool = True,
-                         ):
+                         ) -> None:
         reposition_slurs(
             self._client,
             allow_slurs_under_rests=allow_slurs_under_rests,
@@ -257,7 +262,7 @@ class Mutation:
                             *,
                             include_multiples: bool = False,
                             respell_by_pitch_class: bool = False,
-                            ):
+                            ) -> None:
         respell_accidentals(
             self._client,
             include_multiples=include_multiples,
@@ -267,7 +272,7 @@ class Mutation:
     def rests_to_multimeasure_rest(self,
                                    *,
                                    ignore_clefs: bool = False,
-                                   ):
+                                   ) -> None:
         rests_to_multimeasure_rest(
             self._client,
             ignore_clefs=ignore_clefs,
@@ -277,7 +282,7 @@ class Mutation:
                       *,
                       sustain_multimeasure_rests: bool = True,
                       auto_rewrite_meter: bool = True,
-                      ):
+                      ) -> None:
         sustain_notes(
             self.client,
             sustain_multimeasure_rests=sustain_multimeasure_rests,
@@ -288,7 +293,7 @@ class Mutation:
                         *,
                         use_multimeasure_rests: bool = True,
                         adjust_last_time_signature: bool = True,
-                        ):
+                        ) -> None:
         sync_containers(
             self._client,
             use_multimeasure_rests=use_multimeasure_rests,
@@ -298,7 +303,10 @@ class Mutation:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def client(self):
+    def client(self) -> Union[abjad.Component,
+                              Iterable[abjad.Component],
+                              None,
+                              ]:
         r'Gets client. Returns selection or component.'
         return self._client
 
@@ -332,7 +340,11 @@ Mutation.sync_containers.__doc__ = sync_containers.__doc__
 
 ### FUNCTIONS ###
 
-def mutate(client):
+def mutate(client: Union[abjad.Component,
+                         Iterable[abjad.Component],
+                         None,
+                         ] = None,
+           ) -> Mutation:
     r"""Makes a mutation agent. See :class:`Mutation` for the documentation
     of all of its methods.
 

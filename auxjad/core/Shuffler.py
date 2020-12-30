@@ -989,7 +989,7 @@ class Shuffler:
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
                  swap_limit: Optional[int] = None,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         self.pitch_only = pitch_only
@@ -1028,7 +1028,7 @@ class Shuffler:
         """
         return self.__call__()
 
-    def __iter__(self):
+    def __iter__(self) -> None:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
@@ -1124,7 +1124,7 @@ class Shuffler:
 
     ### PRIVATE METHODS ###
 
-    def _update_logical_selections(self):
+    def _update_logical_selections(self) -> None:
         r'Updates the selection of logical ties of :attr:`contents`.'
         self._logical_selections = self._get_logical_selections(
             self._contents
@@ -1169,7 +1169,7 @@ class Shuffler:
 
     def _random_shuffle(self,
                         input_list: list,
-                        ):
+                        ) -> None:
         r'Random shuffles a :obj:`list`.'
         if self._swap_limit is None:
             random.shuffle(input_list)
@@ -1257,7 +1257,7 @@ class Shuffler:
         self._rewrite_pitches()
         return self.current_window
 
-    def _rewrite_logical_selections(self):
+    def _rewrite_logical_selections(self) -> None:
         r'Rewrites the logical selections of the current window.'
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
@@ -1299,7 +1299,7 @@ class Shuffler:
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
-    def _rewrite_pitches(self):
+    def _rewrite_pitches(self) -> None:
         r'Rewrites the pitches of the current window.'
         dummy_container = abjad.Container(
             abjad.mutate(self._contents[:]).copy()
@@ -1344,7 +1344,7 @@ class Shuffler:
         dummy_container[:] = []
 
     @staticmethod
-    def _get_logical_selections(container):
+    def _get_logical_selections(container) -> None:
         r'Updates the selection of logical ties of a container.'
         def group_logical_ties(logical_tie):
             if isinstance(logical_tie.head, abjad.Rest):
@@ -1355,14 +1355,14 @@ class Shuffler:
         return logical_ties.group_by(group_logical_ties)
 
     @staticmethod
-    def _remove_all_time_signatures(container):
+    def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
-    def _force_dynamics(container):
+    def _force_dynamics(container) -> None:
         logical_ties = abjad.select(container).logical_ties()
         for logical_tie in logical_ties[1:]:
             if abjad.inspect(logical_tie[0]).indicator(abjad.Dynamic) is None:
@@ -1399,7 +1399,7 @@ class Shuffler:
     @contents.setter
     def contents(self,
                  contents: abjad.Container,
-                 ):
+                 ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
@@ -1432,7 +1432,7 @@ class Shuffler:
     @pitch_only.setter
     def pitch_only(self,
                    pitch_only: bool,
-                   ):
+                   ) -> None:
         if not isinstance(pitch_only, bool):
             raise TypeError("'pitch_only' must be 'bool'")
         self._pitch_only = pitch_only
@@ -1454,7 +1454,7 @@ class Shuffler:
     @preserve_rest_position.setter
     def preserve_rest_position(self,
                                preserve_rest_position: bool,
-                               ):
+                               ) -> None:
         if not isinstance(preserve_rest_position, bool):
             raise TypeError("'preserve_rest_position' must be 'bool'")
         self._preserve_rest_position = preserve_rest_position
@@ -1469,7 +1469,7 @@ class Shuffler:
     @disable_rewrite_meter.setter
     def disable_rewrite_meter(self,
                               disable_rewrite_meter: bool,
-                              ):
+                              ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1482,7 +1482,7 @@ class Shuffler:
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1497,7 +1497,7 @@ class Shuffler:
     @boundary_depth.setter
     def boundary_depth(self,
                        boundary_depth: Optional[int],
-                       ):
+                       ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1513,7 +1513,7 @@ class Shuffler:
     @maximum_dot_count.setter
     def maximum_dot_count(self,
                           maximum_dot_count: Optional[int],
-                          ):
+                          ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1529,7 +1529,7 @@ class Shuffler:
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
                         rewrite_tuplets: bool,
-                        ):
+                        ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1544,7 +1544,7 @@ class Shuffler:
     @prettify_rewrite_meter.setter
     def prettify_rewrite_meter(self,
                                prettify_rewrite_meter: bool,
-                               ):
+                               ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1559,7 +1559,7 @@ class Shuffler:
     @extract_trivial_tuplets.setter
     def extract_trivial_tuplets(self,
                                 extract_trivial_tuplets: bool,
-                                ):
+                                ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1574,7 +1574,7 @@ class Shuffler:
     @fuse_across_groups_of_beats.setter
     def fuse_across_groups_of_beats(self,
                                     fuse_across_groups_of_beats: bool,
-                                    ):
+                                    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1589,7 +1589,7 @@ class Shuffler:
     @fuse_quadruple_meter.setter
     def fuse_quadruple_meter(self,
                              fuse_quadruple_meter: bool,
-                             ):
+                             ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1604,7 +1604,7 @@ class Shuffler:
     @fuse_triple_meter.setter
     def fuse_triple_meter(self,
                           fuse_triple_meter: bool,
-                          ):
+                          ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1619,7 +1619,7 @@ class Shuffler:
     @process_on_first_call.setter
     def process_on_first_call(self,
                               process_on_first_call: bool,
-                              ):
+                              ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -1636,7 +1636,7 @@ class Shuffler:
     @swap_limit.setter
     def swap_limit(self,
                    swap_limit: Optional[int],
-                   ):
+                   ) -> None:
         if swap_limit is not None:
             if not isinstance(swap_limit, int):
                 raise TypeError("'swap_limit' must be 'int'")

@@ -38,7 +38,7 @@ class _LooperParent():
                  repetition_chance,
                  forward_bias,
                  process_on_first_call,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
@@ -74,7 +74,7 @@ class _LooperParent():
         self._slice_contents()
         return self.current_window
 
-    def __iter__(self):
+    def __iter__(self) -> None:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
@@ -143,7 +143,7 @@ class _LooperParent():
 
     ### PRIVATE METHODS ###
 
-    def _move_head(self):
+    def _move_head(self) -> None:
         r"""Moves the head by a certain number of steps of fixed size, either
         forwards or backwards according to the forward bias.
         """
@@ -155,19 +155,19 @@ class _LooperParent():
                 self._head_position += step * diretion
         self._is_first_window = False
 
-    def _slice_contents(self):
+    def _slice_contents(self) -> None:
         r"""Slices :attr:`contents`, will be defined for each individual child
         class.
         """
         pass
 
     @staticmethod
-    def _biased_choice(bias):
+    def _biased_choice(bias) -> None:
         r'Returns either +1 or -1 according to a bias value.'
         return random.choices([1, -1], weights=[bias, 1.0 - bias])[0]
 
     @staticmethod
-    def _remove_all_time_signatures(container):
+    def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
@@ -176,14 +176,14 @@ class _LooperParent():
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self):
+    def contents(self) -> None:
         r""":attr:`contents` property will be defined for each individual child
         class.
         """
         pass
 
     @contents.setter
-    def contents(self):
+    def contents(self) -> None:
         pass
 
     @property
@@ -194,7 +194,7 @@ class _LooperParent():
     @head_position.setter
     def head_position(self,
                       head_position: int,
-                      ):
+                      ) -> None:
         if not isinstance(head_position, int):
             raise TypeError("'head_position' must be 'int'")
         if head_position < 0:
@@ -213,7 +213,7 @@ class _LooperParent():
     @window_size.setter
     def window_size(self,
                     window_size: int,
-                    ):
+                    ) -> None:
         if not isinstance(window_size, int):
             raise TypeError("'window_size' must be 'int'")
         if window_size < 1:
@@ -231,7 +231,7 @@ class _LooperParent():
     @step_size.setter
     def step_size(self,
                   step_size: int,
-                  ):
+                  ) -> None:
         if not isinstance(step_size, int):
             raise TypeError("'step_size' must be 'int'")
         if step_size < 1:
@@ -249,7 +249,7 @@ class _LooperParent():
     @max_steps.setter
     def max_steps(self,
                   max_steps: int,
-                  ):
+                  ) -> None:
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if max_steps < 1:
@@ -264,7 +264,7 @@ class _LooperParent():
     @repetition_chance.setter
     def repetition_chance(self,
                           repetition_chance: float,
-                          ):
+                          ) -> None:
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
@@ -284,7 +284,7 @@ class _LooperParent():
     @forward_bias.setter
     def forward_bias(self,
                      forward_bias: float,
-                     ):
+                     ) -> None:
         if not isinstance(forward_bias, float):
             raise TypeError("'forward_bias' must be 'float'")
         if forward_bias < 0.0 or forward_bias > 1.0:
@@ -301,7 +301,7 @@ class _LooperParent():
     @process_on_first_call.setter
     def process_on_first_call(self,
                               process_on_first_call: bool,
-                              ):
+                              ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call

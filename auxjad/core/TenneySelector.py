@@ -373,7 +373,7 @@ class TenneySelector():
                  *,
                  weights: Optional[list] = None,
                  curvature: float = 1.0,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
@@ -430,19 +430,26 @@ class TenneySelector():
         """
         return self.__call__()
 
-    def __getitem__(self, key: int) -> Any:
+    def __getitem__(self,
+                    key: int,
+                    ) -> Any:
         r"""Returns one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         return self._contents[key]
 
-    def __setitem__(self, key, value):
+    def __setitem__(self,
+                    key: int,
+                    value: Any,
+                    ) -> None:
         r"""Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
         self._contents[key] = value
 
-    def __delitem__(self, key):
+    def __delitem__(self,
+                    key: int,
+                    ) -> None:
         r"""Deletes one or more elements of :attr:`contents` through indexing
         or slicing.
         """
@@ -453,7 +460,7 @@ class TenneySelector():
 
     ### PUBLIC METHODS ###
 
-    def reset_probabilities(self):
+    def reset_probabilities(self) -> None:
         r"""Resets the probability distribution of all elements to an uniform
         distribution.
         """
@@ -462,7 +469,7 @@ class TenneySelector():
 
     ### PRIVATE METHODS ###
 
-    def _regenerate_counts(self):
+    def _regenerate_counts(self) -> None:
         r"""Increases the count of all elements except for the previously
         selected one, whose count is reset to zero.
         """
@@ -473,8 +480,9 @@ class TenneySelector():
                 self._counter[i] += 1
 
     def _generate_probabilities(self,
+                                *,
                                 reset: bool = False,
-                                ):
+                                ) -> None:
         r"""Generates the probabilities given the weights of the elements as
         well as their count numbers (which are fed into the growth function).
         """
@@ -486,7 +494,9 @@ class TenneySelector():
         for weight, count in zip(self._weights, self._counter):
             self._probabilities.append(weight * self._growth_function(count))
 
-    def _growth_function(self, count):
+    def _growth_function(self,
+                         count: int,
+                         ) -> float:
         r'Applies the growth exponent given a number of counts.'
         return count ** self._curvature
 
@@ -500,7 +510,7 @@ class TenneySelector():
     @contents.setter
     def contents(self,
                  contents: list,
-                 ):
+                 ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
@@ -515,7 +525,7 @@ class TenneySelector():
     @weights.setter
     def weights(self,
                 weights: Optional[list],
-                ):
+                ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
@@ -538,7 +548,7 @@ class TenneySelector():
     @curvature.setter
     def curvature(self,
                   curvature: float,
-                  ):
+                  ) -> None:
         if not isinstance(curvature, float):
             raise TypeError("'curvature' must be 'float'")
         if curvature < 0.0:

@@ -1576,7 +1576,7 @@ class CrossFader():
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         if not isinstance(fade_out_contents, abjad.Container):
             raise TypeError("'fade_out_contents' must be 'abjad.Container' or "
@@ -1632,7 +1632,7 @@ class CrossFader():
         except RuntimeError:
             raise StopIteration
 
-    def __iter__(self):
+    def __iter__(self) -> None:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
@@ -1691,7 +1691,7 @@ class CrossFader():
         dummy_container_b[:] = []
         return output
 
-    def reset(self):
+    def reset(self) -> None:
         r'Resets to the initial state.'
         self._is_first_window = True
         self._is_first_process = True
@@ -1702,7 +1702,7 @@ class CrossFader():
 
     ### PRIVATE METHODS ###
 
-    def _cross_fade_process(self):
+    def _cross_fade_process(self) -> None:
         r'Processes both faders according to the cross fade process.'
         if self._is_first_window:
             self._fader_out()
@@ -1749,7 +1749,7 @@ class CrossFader():
     @fade_out_contents.setter
     def fade_out_contents(self,
                           fade_out_contents: abjad.Container,
-                          ):
+                          ) -> None:
         if not isinstance(fade_out_contents, abjad.Container):
             raise TypeError("'fade_out_contents' must be 'abjad.Container' or "
                             "child class")
@@ -1769,7 +1769,7 @@ class CrossFader():
     @fade_in_contents.setter
     def fade_in_contents(self,
                          fade_in_contents: abjad.Container,
-                         ):
+                         ) -> None:
         if not isinstance(fade_in_contents, abjad.Container):
             raise TypeError("'fade_in_contents' must be 'abjad.Container' or "
                             "child class")
@@ -1798,7 +1798,7 @@ class CrossFader():
     @weighted_duration.setter
     def weighted_duration(self,
                           weighted_duration: bool,
-                          ):
+                          ) -> None:
         if not isinstance(weighted_duration, bool):
             raise TypeError("'weighted_duration' must be 'bool'")
         self._weighted_duration = weighted_duration
@@ -1823,7 +1823,7 @@ class CrossFader():
     @repetition_chance.setter
     def repetition_chance(self,
                           repetition_chance: float,
-                          ):
+                          ) -> None:
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
@@ -1840,7 +1840,7 @@ class CrossFader():
     @initial_repetitions.setter
     def initial_repetitions(self,
                             initial_repetitions: int,
-                            ):
+                            ) -> None:
         if not isinstance(initial_repetitions, int):
             raise TypeError("'initial_repetitions' must be 'int'")
         if initial_repetitions < 1:
@@ -1857,7 +1857,7 @@ class CrossFader():
     @final_repetitions.setter
     def final_repetitions(self,
                           final_repetitions: int,
-                          ):
+                          ) -> None:
         if not isinstance(final_repetitions, int):
             raise TypeError("'final_repetitions' must be 'int'")
         if final_repetitions < 1:
@@ -1888,7 +1888,7 @@ class CrossFader():
     @fade_in_first.setter
     def fade_in_first(self,
                       fade_in_first: bool,
-                      ):
+                      ) -> None:
         if not isinstance(fade_in_first, bool):
             raise TypeError("'fade_in_first' must be 'bool'")
         self._fade_in_first = fade_in_first
@@ -1903,7 +1903,7 @@ class CrossFader():
     @fade_out_last.setter
     def fade_out_last(self,
                       fade_out_last: bool,
-                      ):
+                      ) -> None:
         if not isinstance(fade_out_last, bool):
             raise TypeError("'fade_out_last' must be 'bool'")
         self._fade_out_last = fade_out_last
@@ -1918,7 +1918,7 @@ class CrossFader():
     @disable_rewrite_meter.setter
     def disable_rewrite_meter(self,
                               disable_rewrite_meter: bool,
-                              ):
+                              ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1933,7 +1933,7 @@ class CrossFader():
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1948,7 +1948,7 @@ class CrossFader():
     @use_multimeasure_rests.setter
     def use_multimeasure_rests(self,
                                use_multimeasure_rests: bool,
-                               ):
+                               ) -> None:
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1965,7 +1965,7 @@ class CrossFader():
     @boundary_depth.setter
     def boundary_depth(self,
                        boundary_depth: Optional[int],
-                       ):
+                       ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1983,7 +1983,7 @@ class CrossFader():
     @maximum_dot_count.setter
     def maximum_dot_count(self,
                           maximum_dot_count: Optional[int],
-                          ):
+                          ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -2001,7 +2001,7 @@ class CrossFader():
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
                         rewrite_tuplets: bool,
-                        ):
+                        ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets

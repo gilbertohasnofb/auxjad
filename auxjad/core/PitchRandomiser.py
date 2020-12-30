@@ -611,7 +611,7 @@ class PitchRandomiser:
                  omit_time_signatures: bool = False,
                  process_on_first_call: bool = True,
                  use_tenney_selector: bool = False,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         self._weights = []
@@ -643,7 +643,7 @@ class PitchRandomiser:
         """
         return self.__call__()
 
-    def __iter__(self):
+    def __iter__(self) -> None:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
@@ -677,7 +677,7 @@ class PitchRandomiser:
         else:
             self._rewrite_pitches()
 
-    def _rewrite_pitches(self):
+    def _rewrite_pitches(self) -> None:
         r'Rewrites the pitches of the current window.'
         dummy_container = abjad.mutate(self._contents).copy()
         logical_ties = abjad.select(dummy_container).logical_ties()
@@ -715,7 +715,7 @@ class PitchRandomiser:
             return self._tenney_selector()
 
     @staticmethod
-    def _remove_all_time_signatures(container):
+    def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
@@ -731,7 +731,7 @@ class PitchRandomiser:
     @contents.setter
     def contents(self,
                  contents: abjad.Container,
-                 ):
+                 ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
@@ -756,7 +756,7 @@ class PitchRandomiser:
     @pitches.setter
     def pitches(self,
                 pitches: Union[list, tuple, str, abjad.PitchSegment],
-                ):
+                ) -> None:
         if not isinstance(pitches, (list, tuple, str, abjad.PitchSegment)):
             raise TypeError("'pitches' must be 'list', 'tuple', 'str', or "
                             "'abjad.PitchSegment'")
@@ -778,7 +778,7 @@ class PitchRandomiser:
     @weights.setter
     def weights(self,
                 weights: list,
-                ):
+                ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
@@ -801,7 +801,7 @@ class PitchRandomiser:
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -816,7 +816,7 @@ class PitchRandomiser:
     @process_on_first_call.setter
     def process_on_first_call(self,
                               process_on_first_call: bool,
-                              ):
+                              ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -832,7 +832,7 @@ class PitchRandomiser:
     @use_tenney_selector.setter
     def use_tenney_selector(self,
                             use_tenney_selector: bool,
-                            ):
+                            ) -> None:
         if not isinstance(use_tenney_selector, bool):
             raise TypeError("'use_tenney_selector' must be 'bool'")
         self._use_tenney_selector = use_tenney_selector

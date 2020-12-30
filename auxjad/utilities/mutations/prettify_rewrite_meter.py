@@ -15,7 +15,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                            fuse_triple_meter: bool = True,
                            extract_trivial_tuplets: bool = True,
                            split_quadruple_meter: bool = True,
-                           ):
+                           ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function fuses pitched leaves according to the rules shown below,
     improving the default output of |abjad.mutate().rewrite_meter()|.

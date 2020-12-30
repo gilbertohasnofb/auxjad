@@ -352,7 +352,7 @@ class ListLooper(_LooperParent):
                  forward_bias: float = 1.0,
                  head_position: int = 0,
                  process_on_first_call: bool = False,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         super().__init__(head_position=head_position,
@@ -405,7 +405,7 @@ class ListLooper(_LooperParent):
 
     ### PRIVATE METHODS ###
 
-    def _slice_contents(self):
+    def _slice_contents(self) -> None:
         r"""This method takes a slice with :attr:`window_size` number of
         elements out of :attr:`contents` starting at the current
         :attr:`head_position`.
@@ -424,7 +424,7 @@ class ListLooper(_LooperParent):
     @contents.setter
     def contents(self,
                  contents: list,
-                 ):
+                 ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]

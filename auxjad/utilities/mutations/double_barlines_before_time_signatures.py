@@ -6,7 +6,7 @@ import abjad
 def double_barlines_before_time_signatures(selection: abjad.Selection,
                                            *,
                                            context: Optional[str] = None,
-                                           ):
+                                           ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function adds double bar lines before all time signatures.
 

@@ -1047,7 +1047,7 @@ class Hocketer():
                  fuse_across_groups_of_beats: bool = True,
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         self._voices = None
@@ -1099,13 +1099,13 @@ class Hocketer():
 
     ### PUBLIC METHODS ###
 
-    def reset_weights(self):
+    def reset_weights(self) -> None:
         r'Resets the weight vector of all voices to an uniform distribution.'
         self._weights = [1.0 for _ in range(self.__len__())]
 
     ### PRIVATE METHODS ###
 
-    def _make_music(self):
+    def _make_music(self) -> None:
         r"""Runs the hocket process, returning a :obj:`tuple` of
         |abjad.Container()|. It distributes the logical ties from the
         :attr:`contents` into different voices. Voices can have different
@@ -1203,7 +1203,7 @@ class Hocketer():
         return selected_voices
 
     @staticmethod
-    def _remove_all_time_signatures(container):
+    def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
@@ -1219,7 +1219,7 @@ class Hocketer():
     @contents.setter
     def contents(self,
                  contents: abjad.Container,
-                 ):
+                 ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or child "
                             "class")
@@ -1243,7 +1243,7 @@ class Hocketer():
     @n_voices.setter
     def n_voices(self,
                  n_voices: int,
-                 ):
+                 ) -> None:
         if not isinstance(n_voices, int):
             raise TypeError("'n_voices' must be 'int'")
         if n_voices < 1:
@@ -1261,7 +1261,7 @@ class Hocketer():
     @weights.setter
     def weights(self,
                 weights: list,
-                ):
+                ) -> None:
         if not isinstance(weights, list):
             raise TypeError("'weights' must be 'list'")
         if not self.__len__() == len(weights):
@@ -1280,7 +1280,7 @@ class Hocketer():
     @k.setter
     def k(self,
           k: int,
-          ):
+          ) -> None:
         if not isinstance(k, int):
             raise TypeError("'k' must be 'int'")
         if k < 1:
@@ -1300,7 +1300,7 @@ class Hocketer():
     @force_k_voices.setter
     def force_k_voices(self,
                        force_k_voices: bool,
-                       ):
+                       ) -> None:
         if not isinstance(force_k_voices, bool):
             raise TypeError("'force_k_voices' must be 'bool'")
         if force_k_voices and self._k > self._n_voices:
@@ -1316,7 +1316,7 @@ class Hocketer():
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1332,7 +1332,7 @@ class Hocketer():
     @disable_rewrite_meter.setter
     def disable_rewrite_meter(self,
                               disable_rewrite_meter: bool,
-                              ):
+                              ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1345,7 +1345,7 @@ class Hocketer():
     @use_multimeasure_rests.setter
     def use_multimeasure_rests(self,
                                use_multimeasure_rests: bool,
-                               ):
+                               ) -> None:
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1360,7 +1360,7 @@ class Hocketer():
     @boundary_depth.setter
     def boundary_depth(self,
                        boundary_depth: Optional[int],
-                       ):
+                       ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1376,7 +1376,7 @@ class Hocketer():
     @maximum_dot_count.setter
     def maximum_dot_count(self,
                           maximum_dot_count: Optional[int],
-                          ):
+                          ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1392,7 +1392,7 @@ class Hocketer():
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
                         rewrite_tuplets: bool,
-                        ):
+                        ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1407,7 +1407,7 @@ class Hocketer():
     @prettify_rewrite_meter.setter
     def prettify_rewrite_meter(self,
                                prettify_rewrite_meter: bool,
-                               ):
+                               ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1422,7 +1422,7 @@ class Hocketer():
     @extract_trivial_tuplets.setter
     def extract_trivial_tuplets(self,
                                 extract_trivial_tuplets: bool,
-                                ):
+                                ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1437,7 +1437,7 @@ class Hocketer():
     @fuse_across_groups_of_beats.setter
     def fuse_across_groups_of_beats(self,
                                     fuse_across_groups_of_beats: bool,
-                                    ):
+                                    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1452,7 +1452,7 @@ class Hocketer():
     @fuse_quadruple_meter.setter
     def fuse_quadruple_meter(self,
                              fuse_quadruple_meter: bool,
-                             ):
+                             ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1467,7 +1467,7 @@ class Hocketer():
     @fuse_triple_meter.setter
     def fuse_triple_meter(self,
                           fuse_triple_meter: bool,
-                          ):
+                          ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter

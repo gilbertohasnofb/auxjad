@@ -1169,7 +1169,7 @@ class Phaser():
                  fuse_across_groups_of_beats: bool = True,
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
-                 ):
+                 ) -> None:
         r'Initialises self.'
         self.contents = contents
         self._pivot_point = abjad.Duration(0)
@@ -1224,7 +1224,7 @@ class Phaser():
         self._is_first_window = False
         return self.current_window
 
-    def __iter__(self):
+    def __iter__(self) -> None:
         r'Returns an iterator, allowing instances to be used as iterators.'
         return self
 
@@ -1292,7 +1292,7 @@ class Phaser():
 
     ### PRIVATE METHODS ###
 
-    def _move_pivot_point(self):
+    def _move_pivot_point(self) -> None:
         r"""Moves the pivot point by a certain number of steps of fixed size,
         either forwards or backwards according to the forward bias.
         """
@@ -1300,7 +1300,7 @@ class Phaser():
         diretion = self._biased_choice(self._forward_bias)
         self._pivot_point += step * diretion
 
-    def _make_music(self):
+    def _make_music(self) -> None:
         r'Applies the phasing process and handles the output container.'
         dummy_container = self._phase_contents()
         # dealing with dynamics
@@ -1377,7 +1377,9 @@ class Phaser():
         return dummy_container
 
     @staticmethod
-    def _tie_identical_pitches(currrent_selection, previous_container):
+    def _tie_identical_pitches(currrent_selection,
+                               previous_container,
+                               ) -> None:
         r'Ties identical pitches when joining windows.'
         if len(previous_container) == 0:
             return
@@ -1388,12 +1390,12 @@ class Phaser():
             abjad.attach(abjad.Tie(), last_leaf)
 
     @staticmethod
-    def _biased_choice(bias):
+    def _biased_choice(bias) -> None:
         r'Returns either +1 or -1 according to a bias value.'
         return random.choices([1, -1], weights=[bias, 1.0 - bias])[0]
 
     @staticmethod
-    def _remove_all_time_signatures(container):
+    def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.inspect(leaf).effective(abjad.TimeSignature):
@@ -1409,7 +1411,7 @@ class Phaser():
     @contents.setter
     def contents(self,
                  contents: abjad.Container,
-                 ):
+                 ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or "
                             "child class")
@@ -1449,7 +1451,7 @@ class Phaser():
     @step_size.setter
     def step_size(self,
                   step_size: Union[tuple, abjad.Duration],
-                  ):
+                  ) -> None:
         if not isinstance(step_size,
                           (int, float, tuple, str, abjad.Duration),
                           ):
@@ -1465,7 +1467,7 @@ class Phaser():
     @max_steps.setter
     def max_steps(self,
                   max_steps: int,
-                  ):
+                  ) -> None:
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if max_steps < 1:
@@ -1484,7 +1486,7 @@ class Phaser():
     @forward_bias.setter
     def forward_bias(self,
                      forward_bias: float,
-                     ):
+                     ) -> None:
         if not isinstance(forward_bias, float):
             raise TypeError("'forward_bias' must be 'float'")
         if forward_bias < 0.0 or forward_bias > 1.0:
@@ -1499,7 +1501,7 @@ class Phaser():
     @omit_time_signatures.setter
     def omit_time_signatures(self,
                              omit_time_signatures: bool,
-                             ):
+                             ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1515,7 +1517,7 @@ class Phaser():
     @remove_unterminated_ties.setter
     def remove_unterminated_ties(self,
                                  remove_unterminated_ties: bool,
-                                 ):
+                                 ) -> None:
         if not isinstance(remove_unterminated_ties, bool):
             raise TypeError("'remove_unterminated_ties' must be 'bool'")
         self._remove_unterminated_ties = remove_unterminated_ties
@@ -1530,7 +1532,7 @@ class Phaser():
     @boundary_depth.setter
     def boundary_depth(self,
                        boundary_depth: Optional[int],
-                       ):
+                       ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1546,7 +1548,7 @@ class Phaser():
     @maximum_dot_count.setter
     def maximum_dot_count(self,
                           maximum_dot_count: Optional[int],
-                          ):
+                          ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1562,7 +1564,7 @@ class Phaser():
     @rewrite_tuplets.setter
     def rewrite_tuplets(self,
                         rewrite_tuplets: bool,
-                        ):
+                        ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1577,7 +1579,7 @@ class Phaser():
     @prettify_rewrite_meter.setter
     def prettify_rewrite_meter(self,
                                prettify_rewrite_meter: bool,
-                               ):
+                               ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1592,7 +1594,7 @@ class Phaser():
     @extract_trivial_tuplets.setter
     def extract_trivial_tuplets(self,
                                 extract_trivial_tuplets: bool,
-                                ):
+                                ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1607,7 +1609,7 @@ class Phaser():
     @fuse_across_groups_of_beats.setter
     def fuse_across_groups_of_beats(self,
                                     fuse_across_groups_of_beats: bool,
-                                    ):
+                                    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1622,7 +1624,7 @@ class Phaser():
     @fuse_quadruple_meter.setter
     def fuse_quadruple_meter(self,
                              fuse_quadruple_meter: bool,
-                             ):
+                             ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1637,7 +1639,7 @@ class Phaser():
     @fuse_triple_meter.setter
     def fuse_triple_meter(self,
                           fuse_triple_meter: bool,
-                          ):
+                          ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1652,7 +1654,7 @@ class Phaser():
     @process_on_first_call.setter
     def process_on_first_call(self,
                               process_on_first_call: bool,
-                              ):
+                              ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call

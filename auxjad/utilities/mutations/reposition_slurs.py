@@ -5,7 +5,7 @@ def reposition_slurs(selection: abjad.Selection,
                      *,
                      allow_slurs_under_rests: bool = False,
                      close_unterminated_final_slur: bool = True,
-                     ):
+                     ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function repositions all slurs that starts or ends on rests.
 

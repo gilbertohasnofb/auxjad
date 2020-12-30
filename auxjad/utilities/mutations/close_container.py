@@ -3,7 +3,7 @@ import abjad
 from ..inspect import inspect
 
 
-def close_container(container: abjad.Container):
+def close_container(container: abjad.Container) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function changes the time signature
     of the last measure of an underfull in order to make it full.

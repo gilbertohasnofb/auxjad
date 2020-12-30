@@ -290,7 +290,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                  is_parenthesized: bool = False,
                  markup: Optional[str] = None,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
-                 ):
+                 ) -> None:
         r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         if len(self.written_pitches) != 2:
@@ -348,7 +348,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     @written_pitches.setter
     def written_pitches(self,
                         written_pitches,
-                        ):
+                        ) -> None:
         written_pitches_ = abjad.PitchSegment(written_pitches)
         if len(written_pitches_) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "
@@ -364,7 +364,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     @style.setter
     def style(self,
               style: str,
-              ):
+              ) -> None:
         if not isinstance(style, str):
             raise TypeError("'style' must be 'str'")
         self._style = style
@@ -378,7 +378,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     @is_parenthesized.setter
     def is_parenthesized(self,
                          is_parenthesized: bool,
-                         ):
+                         ) -> None:
         if not isinstance(is_parenthesized, bool):
             raise TypeError("'is_parenthesized' must be 'bool'")
         self._is_parenthesized = is_parenthesized

@@ -69,7 +69,7 @@ class NumericOttava(abjad.Ottava):
 
     ### PRIVATE METHODS ###
 
-    def _get_lilypond_format_bundle(self, component=None):
+    def _get_lilypond_format_bundle(self) -> abjad.LilyPondFormatBundle:
         bundle = abjad.LilyPondFormatBundle()
         n = self.n or 0
         string = rf'\ottava {n}'

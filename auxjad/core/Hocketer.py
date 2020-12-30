@@ -1135,9 +1135,8 @@ class Hocketer():
                     fuse_triple_meter=self._fuse_triple_meter,
                 )
         # handling empty tuplets and multi-measure rests
-        for voice in dummy_voices:
-            mutate(voice[:]).extract_trivial_tuplets()
-            if self._use_multimeasure_rests:
+        if self._use_multimeasure_rests:
+            for voice in dummy_voices:
                 mutate(voice[:]).rests_to_multimeasure_rest()
         # output
         self._voices = []

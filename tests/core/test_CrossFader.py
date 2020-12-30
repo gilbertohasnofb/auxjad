@@ -7,18 +7,22 @@ import auxjad
 
 def test_CrossFader_01():
     random.seed(17737)
-    fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
-    fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+    fade_out_container = abjad.Staff(r"fs'4 g'2 bf'4")
+    fade_in_container = abjad.Staff(r"\times 4/5 {cs''4 d''1}")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     assert format(fader) == abjad.String.normalize(
         r"""
+        \new Staff
         {
+            \time 4/4
             fs'4
             g'2
             bf'4
         }
+        \new Staff
         {
             \times 4/5 {
+                \time 4/4
                 cs''4
                 d''1
             }

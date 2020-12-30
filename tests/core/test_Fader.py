@@ -8,19 +8,19 @@ import auxjad
 
 def test_Fader_01():
     random.seed(13987)
-    container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-    fader = auxjad.Fader(container)
+    staff = abjad.Staff(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+    fader = auxjad.Fader(staff)
     assert format(fader) == abjad.String.normalize(
         r"""
+        \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
             d'8.
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader()
@@ -674,21 +674,21 @@ def test_Fader_15():
 
 def test_Fader_16():
     random.seed(91634)
-    container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-    fader = auxjad.Fader(container,
+    staff = abjad.Staff(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+    fader = auxjad.Fader(staff,
                          fader_type='in',
                          )
     assert format(fader) == abjad.String.normalize(
         r"""
+        \new Staff
         {
+            \time 4/4
             c'4
             ~
             c'16
             d'8.
             e'8
-            f'8
-            ~
-            f'4
+            f'4.
         }
         """)
     notes = fader()
@@ -1519,7 +1519,6 @@ def test_Fader_33():
                          )
     notes = fader.output_n(5)
     staff = abjad.Staff(notes)
-    abjad.f(staff)
     assert format(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -1543,5 +1542,42 @@ def test_Fader_33():
             c'4.
             d'8
             r2
+        }
+        """)
+
+def test_Fader_34():
+    random.seed(53234)
+    container = abjad.Container(r"\time 4/4 c'2( d'2 \time 3/4 e'2.)")
+    fader = auxjad.Fader(container, fader_type='in')
+    notes = fader.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            R1
+            \time 3/4
+            R1 * 3/4
+            \time 4/4
+            c'2
+            r2
+            )
+            \time 3/4
+            R1 * 3/4
+            \time 4/4
+            c'2
+            (
+            d'2
+            )
+            \time 3/4
+            R1 * 3/4
+            \time 4/4
+            c'2
+            (
+            d'2
+            \time 3/4
+            e'2.
+            )
         }
         """)

@@ -18,8 +18,8 @@ class Fader():
         to the previous result. By default, the container will be faded out
         (that is, its notes will be gradually removed one by one).
 
-        >>> container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-        >>> fader = auxjad.Fader(container)
+        >>> staff = abjad.Staff(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
+        >>> fader = auxjad.Fader(staff)
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
@@ -1217,6 +1217,44 @@ class Fader():
         }
 
         .. figure:: ../_images/Fader-888tqk73kw3.png
+
+    Time signature changes:
+        This class can handle time signature changes.
+
+        >>> container = abjad.Container(r"\time 4/4 c'2( d'2 \time 3/4 e'2.)")
+        >>> fader = auxjad.Fader(container, fader_type='in')
+        >>> notes = fader.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 4/4
+            R1
+            \time 3/4
+            R1 * 3/4
+            \time 4/4
+            c'2
+            r2
+            )
+            \time 3/4
+            R1 * 3/4
+            \time 4/4
+            c'2
+            (
+            d'2
+            )
+            \time 3/4
+            R1 * 3/4
+            \time 4/4
+            c'2
+            (
+            d'2
+            \time 3/4
+            e'2.
+            )
+        }
+
+        .. figure:: ../_images/Fader-lkhKFVuUgx.png
     """
 
     ### CLASS VARIABLES ###
@@ -1459,19 +1497,18 @@ class Fader():
         mutate(dummy_container[:]).reposition_dynamics()
         mutate(dummy_container[:]).reposition_slurs()
         mutate(dummy_container[:]).extract_trivial_tuplets()
-        # applying time signatures and rewrite meter
-        mutate(dummy_container).enforce_time_signature(
-            self._time_signatures,
-            disable_rewrite_meter=self._disable_rewrite_meter,
-            boundary_depth=self._boundary_depth,
-            maximum_dot_count=self._maximum_dot_count,
-            rewrite_tuplets=self._rewrite_tuplets,
-            prettify_rewrite_meter=self._prettify_rewrite_meter,
-            extract_trivial_tuplets=self._extract_trivial_tuplets,
-            fuse_across_groups_of_beats=self._fuse_across_groups_of_beats,
-            fuse_quadruple_meter=self._fuse_quadruple_meter,
-            fuse_triple_meter=self._fuse_triple_meter,
-        )
+        # applying rewrite meter
+        if not self._disable_rewrite_meter:
+            mutate(dummy_container).auto_rewrite_meter(
+                boundary_depth=self._boundary_depth,
+                maximum_dot_count=self._maximum_dot_count,
+                rewrite_tuplets=self._rewrite_tuplets,
+                prettify_rewrite_meter=self._prettify_rewrite_meter,
+                extract_trivial_tuplets=self._extract_trivial_tuplets,
+                fuse_across_groups_of_beats=self._fuse_across_groups_of_beats,
+                fuse_quadruple_meter=self._fuse_quadruple_meter,
+                fuse_triple_meter=self._fuse_triple_meter,
+            )
         if self._use_multimeasure_rests:
             mutate(dummy_container[:]).rests_to_multimeasure_rest()
         # output
@@ -1545,13 +1582,13 @@ class Fader():
             self._contents = abjad.Container([abjad.mutate(contents).copy()])
         else:
             self._contents = abjad.mutate(contents).copy()
+        time_signatures = inspect(self._contents).extract_time_signatures(
+            do_not_use_none=True,
+        )
+        mutate(self._contents).enforce_time_signature(time_signatures)
         dummy_container = abjad.mutate(contents).copy()
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        inspector = inspect(self._contents)
-        self._time_signatures = inspector.extract_time_signatures(
-            do_not_use_none=True,
-        )
         self.reset_mask()
         self._is_first_window = True
 

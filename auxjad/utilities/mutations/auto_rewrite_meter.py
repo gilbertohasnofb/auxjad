@@ -584,12 +584,10 @@ def auto_rewrite_meter(container: abjad.Container,
     if not isinstance(split_quadruple_meter, bool):
         raise TypeError("'split_quadruple_meter' must be 'bool'")
 
-    if extract_trivial_tuplets:
-        extract_trivial_tuplets_function(container[:])
     if merge_partial_tuplets:
         merge_partial_tuplets_function(container[:])
-        if extract_trivial_tuplets:
-            extract_trivial_tuplets_function(abjad.select(container))
+    if extract_trivial_tuplets:
+        extract_trivial_tuplets_function(container[:])
 
     if meter_list is None:
         time_signatures = inspect(container).extract_time_signatures(

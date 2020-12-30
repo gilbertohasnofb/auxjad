@@ -6,7 +6,7 @@ def extract_time_signatures(container: abjad.Container,
                             do_not_use_none: bool = False,
                             implicit_common_time: bool = True,
                             omit_repeated: bool = False,
-                            ) -> list:
+                            ) -> list[abjad.TimeSignature]:
     r"""Returns a :obj:`list` with the |abjad.TimeSignature| for all measures
     of an input |abjad.Container|.
 

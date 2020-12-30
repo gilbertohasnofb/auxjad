@@ -1512,7 +1512,7 @@ class Fader():
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
-    def _get_index_of_nth_occurrence(input_list: list,
+    def _get_index_of_nth_occurrence(input_list: list[Any],
                                      *,
                                      element: Any,
                                      count: int,
@@ -1594,7 +1594,7 @@ class Fader():
         self._max_steps = max_steps
 
     @property
-    def mask(self) -> list:
+    def mask(self) -> list[int]:
         r"""Mask with ``1``'s and ``0``'s representing the notes of
         :attr:`contents`.
         """
@@ -1602,7 +1602,7 @@ class Fader():
 
     @mask.setter
     def mask(self,
-             mask: list,
+             mask: list[int],
              ) -> None:
         if not isinstance(mask, list):
             raise TypeError("'mask' must be 'list'")

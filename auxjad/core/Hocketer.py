@@ -1080,7 +1080,7 @@ class Hocketer():
         r'Returns the number of voices of the hocketer.'
         return self._n_voices
 
-    def __call__(self) -> tuple:
+    def __call__(self) -> tuple[abjad.Selection]:
         r"""Calls the hocket process, returning a :obj:`tuple` of
         |abjad.Selection|.
         """
@@ -1179,7 +1179,7 @@ class Hocketer():
                         abjad.mutate(leaf).replace(rest)
         return dummy_voices
 
-    def _select_voices(self) -> list:
+    def _select_voices(self) -> list[int]:
         r'Creates a :obj:`list` of selected voices for each logical tie.'
         selected_voices = []
         if not self._force_k_voices:
@@ -1254,23 +1254,26 @@ class Hocketer():
         self._n_voices = n_voices
 
     @property
-    def weights(self) -> list:
+    def weights(self) -> list[Union[float, int]]:
         r'The :obj:`list` with weights for each voice.'
         return self._weights
 
     @weights.setter
     def weights(self,
-                weights: list,
+                weights: Optional[list[Union[float, int]]],
                 ) -> None:
-        if not isinstance(weights, list):
-            raise TypeError("'weights' must be 'list'")
-        if not self.__len__() == len(weights):
-            raise ValueError("'weights' must have the same length as "
-                             "'n_voices'")
-        if not all(isinstance(weight, (int, float))
-                   for weight in weights):
-            raise TypeError("'weights' elements must be 'int' or 'float'")
-        self._weights = weights[:]
+        if weights is not None:
+            if not isinstance(weights, list):
+                raise TypeError("'weights' must be 'list'")
+            if not self.__len__() == len(weights):
+                raise ValueError("'weights' must have the same length as "
+                                 "'n_voices'")
+            if not all(isinstance(weight, (int, float))
+                       for weight in weights):
+                raise TypeError("'weights' elements must be 'int' or 'float'")
+            self._weights = weights[:]
+        else:
+            self.reset_weights()
 
     @property
     def k(self) -> int:

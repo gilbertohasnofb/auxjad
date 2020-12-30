@@ -65,7 +65,7 @@ class Inspection:
                                 do_not_use_none: bool = False,
                                 implicit_common_time: bool = True,
                                 omit_repeated: bool = False,
-                                ) -> list:
+                                ) -> list[abjad.TimeSignature]:
         return extract_time_signatures(
             self._client,
             do_not_use_none=do_not_use_none,

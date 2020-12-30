@@ -295,7 +295,7 @@ class CartographySelector():
     ### INITIALISER ###
 
     def __init__(self,
-                 contents: list,
+                 contents: list[Any],
                  *,
                  decay_rate: float = 0.75,
                  ) -> None:
@@ -465,13 +465,13 @@ class CartographySelector():
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self) -> list:
+    def contents(self) -> list[Any]:
         r'The :obj:`list` from which the selector picks elements.'
         return self._contents
 
     @contents.setter
     def contents(self,
-                 contents: list,
+                 contents: list[Any],
                  ):
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
@@ -518,6 +518,6 @@ class CartographySelector():
             return self._previous_index
 
     @property
-    def weights(self) -> list:
+    def weights(self) -> list[float]:
         r'Read-only property, returns the weight vector.'
         return self._weights

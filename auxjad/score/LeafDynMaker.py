@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union
 
 import abjad
 
@@ -385,9 +385,16 @@ class LeafDynMaker(abjad.LeafMaker):
     ### PRIVATE METHODS ###
 
     def _add_dynamics_and_articulations(self,
-                                        logical_ties: list,
-                                        dynamics_: list,
-                                        articulations_: list,
+                                        logical_ties: list[abjad.LogicalTie],
+                                        dynamics_: list[Union[str,
+                                                              abjad.Dynamic,
+                                                              ]],
+                                        articulations_: list[Union[
+                                            str,
+                                            abjad.Articulation,
+                                            abjad.Staccatissimo,
+                                            abjad.Staccato,
+                                        ]],
                                         omit_repeated_dynamics: bool,
                                         ) -> None:
         r'Adds dynamics and articulations to logical ties.'
@@ -408,7 +415,7 @@ class LeafDynMaker(abjad.LeafMaker):
                     abjad.attach(articulation, logical_tie.head)
 
     @staticmethod
-    def _listify(argument) -> list:
+    def _listify(argument) -> list[Any]:
         r'Returns a :obj:`list` if argument is not a :obj:`list`.'
         if argument:
             if isinstance(argument, list):
@@ -419,7 +426,7 @@ class LeafDynMaker(abjad.LeafMaker):
             return []
 
     @staticmethod
-    def _fill_list(input_list,
+    def _fill_list(input_list: list[Any],
                    length: int,
                    *,
                    cyclic: bool = False,

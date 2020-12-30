@@ -78,7 +78,9 @@ class Mutation:
     ### PUBLIC METHODS ###
 
     def auto_rewrite_meter(self,
-                           meter_list: list = None,
+                           meter_list: Optional[list[Union[abjad.Meter,
+                                                           abjad.TimeSignature,
+                                                           ]]] = None,
                            *,
                            prettify_rewrite_meter: bool = True,
                            extract_trivial_tuplets: bool = True,

@@ -1,5 +1,5 @@
 import copy
-from typing import Union
+from typing import Any, Union
 
 from ._LooperParent import _LooperParent
 
@@ -343,7 +343,7 @@ class ListLooper(_LooperParent):
     ### INITIALISER ###
 
     def __init__(self,
-                 contents: list,
+                 contents: list[Any],
                  *,
                  window_size: int,
                  step_size: int = 1,
@@ -376,7 +376,7 @@ class ListLooper(_LooperParent):
 
     ### PUBLIC METHODS ###
 
-    def output_all(self) -> list:
+    def output_all(self) -> list[Any]:
         r"""Goes through the whole looping process and outputs a single
         :obj:`list`. This method replaces the parent's one since the parent's
         method outputs an |abjad.Selection|.
@@ -389,7 +389,7 @@ class ListLooper(_LooperParent):
                 break
         return dummy_container[:]
 
-    def output_n(self, n: int) -> list:
+    def output_n(self, n: int) -> list[Any]:
         r"""Goes through ``n`` iterations of the looping process and outputs a
         single :obj:`list`. This method replaces the parent's one since the
         parent's method outputs an |abjad.Selection|.
@@ -417,13 +417,13 @@ class ListLooper(_LooperParent):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self) -> list:
+    def contents(self) -> list[Any]:
         r'The :obj:`list` to be sliced and looped.'
         return self._contents
 
     @contents.setter
     def contents(self,
-                 contents: list,
+                 contents: list[Any],
                  ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
@@ -431,7 +431,7 @@ class ListLooper(_LooperParent):
         self._is_first_window = True
 
     @property
-    def current_window(self) -> Union[list, None]:
+    def current_window(self) -> Union[list[Any], None]:
         r'Read-only property, returns the window at the current head position.'
         if self._current_window is None:
             return self._current_window

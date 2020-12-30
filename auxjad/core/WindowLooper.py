@@ -917,11 +917,17 @@ class WindowLooper(_LooperParent):
     def __init__(self,
                  contents: abjad.Container,
                  *,
-                 window_size: Union[tuple, abjad.Meter] = (4, 4),
+                 window_size: Union[int,
+                                    float,
+                                    str,
+                                    tuple[int],
+                                    abjad.Duration,
+                                    abjad.Meter,
+                                    ] = (4, 4),
                  step_size: Union[int,
                                   float,
-                                  tuple,
                                   str,
+                                  tuple[int],
                                   abjad.Duration,
                                   ] = (1, 16),
                  max_steps: int = 1,
@@ -929,8 +935,7 @@ class WindowLooper(_LooperParent):
                  forward_bias: float = 1.0,
                  head_position: Union[int,
                                       float,
-                                      tuple,
-                                      str,
+                                      tuple[int],
                                       abjad.Duration,
                                       ] = 0,
                  omit_time_signatures: bool = False,
@@ -1126,14 +1131,19 @@ class WindowLooper(_LooperParent):
 
     @head_position.setter
     def head_position(self,
-                      head_position: Union[tuple, abjad.Duration],
+                      head_position: Union[int,
+                                           float,
+                                           str,
+                                           tuple[int],
+                                           abjad.Duration,
+                                           ],
                       ) -> None:
         r"""This setter method replaces the parent's one since the parent's
-        method uses :obj:`int` as input intead of :obj:`tuple` or
+        method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
         if not isinstance(head_position,
-                          (int, float, tuple, str, abjad.Duration),
+                          (int, float, str, tuple, abjad.Duration),
                           ):
             raise TypeError("'head_position' must be a number, 'tuple', or "
                             "'abjad.Duration'")
@@ -1150,16 +1160,26 @@ class WindowLooper(_LooperParent):
 
     @window_size.setter
     def window_size(self,
-                    window_size: Union[int, float, tuple, abjad.Meter],
+                    window_size: Union[int,
+                                       float,
+                                       str,
+                                       tuple[int],
+                                       abjad.Duration,
+                                       abjad.Meter,
+                                       ],
                     ) -> None:
         r"""This setter method replaces the parent's one since the parent's
-        method uses :obj:`int` as input intead of :obj:`tuple` or
-        |abjad.Duration|.
+        method uses :obj:`int` as input intead of number, :obj:`tuple`, or
+        |abjad.Meter|.
         """
-        if not isinstance(window_size,
-                          (int, float, tuple, str, abjad.Meter),
-                          ):
-            raise TypeError("'window_size' must be 'tuple' or 'abjad.Meter'")
+        if not isinstance(window_size, (int,
+                                        float,
+                                        tuple,
+                                        abjad.Duration,
+                                        abjad.Meter,
+                                        )):
+            raise TypeError("'window_size' must be a number, 'tuple', "
+                            "'abjad.Duration', or 'abjad.Meter'")
         if (abjad.Meter(window_size).duration
                 > self._contents_length - self._head_position):
             raise ValueError("'window_size' must be smaller than or equal "
@@ -1173,16 +1193,20 @@ class WindowLooper(_LooperParent):
 
     @step_size.setter
     def step_size(self,
-                  step_size: Union[tuple, abjad.Duration],
+                  step_size: Union[int,
+                                   float,
+                                   tuple[int],
+                                   abjad.Duration,
+                                   ],
                   ) -> None:
         r"""This setter method replaces the parent's one since the parent's
-        method uses :obj:`int` as input intead of :obj:`tuple` or
+        method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
         if not isinstance(step_size,
-                          (int, float, tuple, str, abjad.Duration),
+                          (int, float, str, tuple, abjad.Duration),
                           ):
-            raise TypeError("'step_size' must be a 'tuple' or "
+            raise TypeError("'step_size' must be a number, 'tuple', or "
                             "'abjad.Duration'")
         self._step_size = abjad.Duration(step_size)
 

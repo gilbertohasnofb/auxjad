@@ -605,7 +605,11 @@ class PitchRandomiser:
 
     def __init__(self,
                  contents: abjad.Container,
-                 pitches: Union[list, tuple, str, abjad.PitchSegment],
+                 pitches: Union[list[Union[int, str, abjad.Pitch]],
+                                tuple[Union[int, str, abjad.Pitch]],
+                                str,
+                                abjad.PitchSegment,
+                                ],
                  *,
                  weights: Optional[list] = None,
                  omit_time_signatures: bool = False,
@@ -755,7 +759,11 @@ class PitchRandomiser:
 
     @pitches.setter
     def pitches(self,
-                pitches: Union[list, tuple, str, abjad.PitchSegment],
+                pitches: Union[list[Union[int, str, abjad.Pitch]],
+                               tuple[Union[int, str, abjad.Pitch]],
+                               str,
+                               abjad.PitchSegment,
+                               ],
                 ) -> None:
         if not isinstance(pitches, (list, tuple, str, abjad.PitchSegment)):
             raise TypeError("'pitches' must be 'list', 'tuple', 'str', or "
@@ -771,13 +779,13 @@ class PitchRandomiser:
                 self.weights = None
 
     @property
-    def weights(self) -> list:
+    def weights(self) -> list[Union[float, int]]:
         r'The :obj:`list` with weights for each element of :attr:`pitches`'
         return self._weights
 
     @weights.setter
     def weights(self,
-                weights: list,
+                weights: Optional[list[Union[float, int]]],
                 ) -> None:
         if weights is not None:
             if not isinstance(weights, list):

@@ -1616,14 +1616,14 @@ class CrossFader():
         r'Returns the sum of the number of notes of both contents.'
         return len(self._fader_in) + len(self._fader_out)
 
-    def __call__(self) -> tuple:
+    def __call__(self) -> tuple[abjad.Selection]:
         r"""Calls the cross fading process, returning a :obj:`tuple` of
         |abjad.Selection| objects.
         """
         self._cross_fade_process()
         return self.current_window
 
-    def __next__(self) -> tuple:
+    def __next__(self) -> tuple[abjad.Selection]:
         r"""Calls the cross fading process for one iteration, returning a
         :obj:`tuple` of |abjad.Selection| objects.
         """
@@ -1638,7 +1638,7 @@ class CrossFader():
 
     ### PUBLIC METHODS ###
 
-    def output_all(self) -> tuple:
+    def output_all(self) -> tuple[abjad.Selection]:
         r"""Goes through the whole fading process and outputs a tuple of two
         |abjad.Selection| objects.
         """
@@ -1663,7 +1663,7 @@ class CrossFader():
 
     def output_n(self,
                  n: int,
-                 ) -> tuple:
+                 ) -> tuple[abjad.Selection]:
         r"""Goes through ``n`` iterations of the fading process and outputs a
         tuple of two |abjad.Selection| objects.
         """
@@ -1782,7 +1782,7 @@ class CrossFader():
         self.reset()
 
     @property
-    def current_window(self) -> tuple:
+    def current_window(self) -> tuple[abjad.Selection]:
         r"""Read-only property, returns the result of the last operation as a
         :obj:`tuple` of |abjad.Selection| objects.
         """

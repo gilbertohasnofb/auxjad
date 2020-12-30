@@ -1152,8 +1152,8 @@ class Phaser():
                  *,
                  step_size: Union[int,
                                   float,
-                                  tuple,
                                   str,
+                                  tuple[int],
                                   abjad.Duration,
                                   ] = (1, 16),
                  max_steps: int = 1,
@@ -1450,12 +1450,17 @@ class Phaser():
 
     @step_size.setter
     def step_size(self,
-                  step_size: Union[tuple, abjad.Duration],
+                  step_size: Union[int,
+                                   float,
+                                   str,
+                                   tuple[int],
+                                   abjad.Duration,
+                                   ],
                   ) -> None:
         if not isinstance(step_size,
-                          (int, float, tuple, str, abjad.Duration),
+                          (int, float, str, tuple, abjad.Duration),
                           ):
-            raise TypeError("'step_size' must be a 'tuple' or "
+            raise TypeError("'step_size' must be a number, 'tuple', or "
                             "'abjad.Duration'")
         self._step_size = abjad.Duration(step_size)
 

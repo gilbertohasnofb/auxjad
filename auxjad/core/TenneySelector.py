@@ -369,7 +369,7 @@ class TenneySelector():
     ### INITIALISER ###
 
     def __init__(self,
-                 contents: list,
+                 contents: list[Any],
                  *,
                  weights: Optional[list] = None,
                  curvature: float = 1.0,
@@ -503,13 +503,13 @@ class TenneySelector():
     ### PUBLIC PROPERTIES ###
 
     @property
-    def contents(self) -> list:
+    def contents(self) -> list[Any]:
         r'The :obj:`list` from which the selector picks elements.'
         return self._contents
 
     @contents.setter
     def contents(self,
-                 contents: list,
+                 contents: list[Any],
                  ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
@@ -518,13 +518,13 @@ class TenneySelector():
         self._generate_probabilities(reset=True)
 
     @property
-    def weights(self) -> list:
+    def weights(self) -> list[Union[float, int]]:
         r'The :obj:`list` with weights for each element of :attr:`contents`.'
         return self._weights
 
     @weights.setter
     def weights(self,
-                weights: Optional[list],
+                weights: Optional[list[Union[float, int]]],
                 ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
@@ -572,6 +572,6 @@ class TenneySelector():
             return self._previous_index
 
     @property
-    def probabilities(self) -> list:
+    def probabilities(self) -> list[float]:
         r'Read-only property, returns the probabilities vector.'
         return self._probabilities

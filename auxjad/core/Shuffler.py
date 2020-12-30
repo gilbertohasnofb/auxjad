@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import abjad
 
@@ -1131,7 +1131,7 @@ class Shuffler:
         )
         self._logical_selections_indeces = list(range(self.__len__()))
 
-    def _get_pitch_list(self) -> list:
+    def _get_pitch_list(self) -> None:
         r'Creates a :obj:`list` of all pitches in :attr:`contents`.'
         self._pitches = []
         for logical_selection in self._logical_selections:
@@ -1144,8 +1144,8 @@ class Shuffler:
                 self._pitches.append(leaf.written_pitches)
 
     def _shuffle_list_preserving_rests(self,
-                                       input_list: list,
-                                       ) -> list:
+                                       input_list: list[Any],
+                                       ) -> None:
         r'Shuffles a :obj:`list` while keeping rest indeces unchanged.'
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
@@ -1153,11 +1153,11 @@ class Shuffler:
         self._replace_list_preserving_rests(dummy_list, input_list)
 
     def _rotate_list_preserving_rests(self,
-                                      input_list: list,
+                                      input_list: list[Any],
                                       *,
                                       n_rotations: int = 1,
                                       anticlockwise: bool = False,
-                                      ) -> list:
+                                      ) -> None:
         r'Rotates a :obj:`list` while keeping rest indeces unchanged.'
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
@@ -1168,7 +1168,7 @@ class Shuffler:
         self._replace_list_preserving_rests(dummy_list, input_list)
 
     def _random_shuffle(self,
-                        input_list: list,
+                        input_list: list[Any],
                         ) -> None:
         r'Random shuffles a :obj:`list`.'
         if self._swap_limit is None:
@@ -1180,9 +1180,9 @@ class Shuffler:
                     input_list[i], input_list[j] = input_list[j], input_list[i]
 
     def _replace_list_preserving_rests(self,
-                                       input_list: list,
-                                       destination_list: list,
-                                       ) -> list:
+                                       input_list: list[Any],
+                                       destination_list: list[Any],
+                                       ) -> None:
         r'Substitutes back an altered :obj:`list` while preserving rests.'
         counter = 0
         for index, pitch in enumerate(self._pitches):
@@ -1375,11 +1375,11 @@ class Shuffler:
                                  )
 
     @staticmethod
-    def _rotate_list(input_list: list,
+    def _rotate_list(input_list: list[Any],
                      *,
                      n_rotations: int = 1,
                      anticlockwise: bool = False,
-                     ) -> list:
+                     ) -> None:
         r'Rotates a :obj:`list`.'
         for _ in range(n_rotations):
             if not anticlockwise:

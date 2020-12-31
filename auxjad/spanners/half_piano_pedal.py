@@ -70,20 +70,18 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> abjad.f(staff)
         \new Staff
         {
-            \new Staff
-            {
-                \once \override Staff.SustainPedal.stencil =
-                    #(lambda (grob) (grob-interpret-markup grob
-                        #{
-                            \markup {
-                                \larger "½"
-                                \concat {
-                                    \musicglyph "pedal.Ped"
-                                    \musicglyph "pedal.."
-                                }
-                                \raise #-0.3 "→"
+            \once \override Staff.SustainPedal.stencil =
+                #(lambda (grob) (grob-interpret-markup grob
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
                             }
-                        #}))
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4
@@ -137,20 +135,18 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> abjad.f(staff)
         \new Staff
         {
-            \new Staff
-            {
-                \once \override Staff.SustainPedal.stencil =
-                    #(lambda (grob) (grob-interpret-markup grob
-                        #{
-                            \markup {
-                                \larger "½"
-                                \concat {
-                                    \musicglyph "pedal.Ped"
-                                    \musicglyph "pedal.."
-                                }
-                                \raise #-0.3 "→"
+            \once \override Staff.SustainPedal.stencil =
+                #(lambda (grob) (grob-interpret-markup grob
+                    #{
+                        \markup {
+                            \larger "½"
+                            \concat {
+                                \musicglyph "pedal.Ped"
+                                \musicglyph "pedal.."
                             }
-                        #}))
+                            \raise #-0.3 "→"
+                        }
+                    #}))
             c'4
             \sustainOn
             d'4

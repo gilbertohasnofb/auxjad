@@ -33,7 +33,7 @@ Or if you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-You will also need to install `Python 3.6`_ or higher, as well as `Abjad 3.1`_
+You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.1`_
 and `LilyPond`_.
 
 
@@ -51,7 +51,7 @@ and `LilyPond`_.
 .. |doc| replace:: :attr:`__doc__`
 .. _doc: https://docs.python.org/3/tutorial/controlflow.html#tut-docstrings
 .. _pip: https://pip.pypa.io/en/stable/
-.. _`Python 3.6`: https://www.python.org/
+.. _`Python 3.9`: https://www.python.org/
 .. _LilyPond: http://lilypond.org/
 
 .. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark

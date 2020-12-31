@@ -1,6 +1,6 @@
 language: python
 python:
-  - &mainstream_python 3.6
+  - &mainstream_python 3.9
 cache: pip
 script:
   - python -m pytest -v

@@ -10,7 +10,7 @@ auxjad_classifiers = [
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3 :: Only',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
@@ -34,7 +34,7 @@ setup(
     long_description=auxjad_long_description,
     tests_require=['abjad==3.1', 'pytest'],
     classifiers=auxjad_classifiers,
-    python_requires='>=3.6',
+    python_requires='>=3.9',
     install_requires=['abjad==3.1', 'setuptools'],
     extras_require={'test' : ['flake8', 'isort', 'pytest']},
 )

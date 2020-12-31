@@ -24,7 +24,7 @@ Or if you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-You will also need to install `Python 3.6`_ or higher, as well as `Abjad 3.1`_
+You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.1`_
 and `LilyPond`_.
 
 .. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
@@ -46,6 +46,6 @@ and `LilyPond`_.
 .. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
 .. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 .. _pip: https://pip.pypa.io/en/stable/
-.. _`Python 3.6`: https://www.python.org/
+.. _`Python 3.9`: https://www.python.org/
 .. _`Abjad 3.1`: https://abjad.github.io/
 .. _LilyPond: http://lilypond.org/

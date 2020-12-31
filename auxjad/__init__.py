@@ -44,7 +44,7 @@ from .utilities.mutate import mutate
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "0.8.19"
+__version__ = "0.8.20"
 __all__ = [
     '__author__',
     '__version__',

@@ -274,4 +274,18 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
                     abjad.attach(time_signature, multimeasure_rest)
                 if not ignore_clefs and clef is not None:
                     abjad.attach(clef, multimeasure_rest)
+                for indicator in abjad.inspect(head).indicators():
+                    if isinstance(indicator, (abjad.BarLine,
+                                              abjad.Fermata,
+                                              abjad.KeySignature,
+                                              abjad.LilyPondLiteral,
+                                              abjad.MetronomeMark,
+                                              abjad.RehearsalMark,
+                                              abjad.Repeat,
+                                              abjad.StaffChange,
+                                              abjad.StartMarkup,
+                                              abjad.StartTextSpan,
+                                              abjad.StopTextSpan,
+                                              )):
+                        abjad.attach(indicator, multimeasure_rest)
                 abjad.mutate(measure).replace(multimeasure_rest)

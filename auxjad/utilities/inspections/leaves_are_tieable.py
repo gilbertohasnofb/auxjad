@@ -113,6 +113,8 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
             raise TypeError("argument must be 'abjad.Selection' or an "
                             "iterable of 'abjad.Component's or "
                             "'abjad.LogicalTie's")
+    if len(leaves) == 1:
+        raise ValueError("argument must contain two or more leaves")
     for index, leaf1 in enumerate(leaves[:-1]):
         for leaf2 in leaves[index + 1:]:
             if isinstance(leaf1, abjad.LogicalTie):

@@ -1011,6 +1011,7 @@ class Hocketer():
                  '_n_voices',
                  '_weights',
                  '_k',
+                 '_pitch_ranges',
                  '_force_k_voices',
                  '_disable_rewrite_meter',
                  '_use_multimeasure_rests',
@@ -1033,6 +1034,7 @@ class Hocketer():
                  contents: abjad.Container,
                  *,
                  n_voices: int = 2,
+                 pitch_ranges: Optional[list] = None,
                  weights: Optional[list] = None,
                  k: int = 1,
                  force_k_voices: bool = False,
@@ -1057,6 +1059,7 @@ class Hocketer():
             self.weights = weights
         else:
             self.reset_weights()
+        self.pitch_ranges = pitch_ranges
         self.force_k_voices = force_k_voices
         self.disable_rewrite_meter = disable_rewrite_meter
         self.use_multimeasure_rests = use_multimeasure_rests
@@ -1181,24 +1184,79 @@ class Hocketer():
     def _select_voices(self) -> list[int]:
         r'Creates a :obj:`list` of selected voices for each logical tie.'
         selected_voices = []
+        previous_choice = None
         if not self._force_k_voices:
-            for _ in abjad.select(self._contents).logical_ties():
-                item = random.choices(list(range(self._n_voices)),
-                                      weights=self._weights,
-                                      k=self._k,
-                                      )
-                selected_voices.append(item)
-        else:
-            for _ in abjad.select(self._contents).logical_ties():
-                item = []
-                while len(item) < self._k:
+            for logical_tie in abjad.select(self._contents).logical_ties():
+                if isinstance(logical_tie.head, abjad.Note):
+                    pitch = logical_tie.head.written_pitch
+                elif isinstance(logical_tie.head, abjad.Chord):
+                    pitch = logical_tie.head.written_pitches
+                else:
+                    pitch = None
+                counter = 0  # counts attempts to select single voice
+                while True:
                     voice = random.choices(list(range(self._n_voices)),
-                                           weights=self._weights,
-                                           k=self._k,
-                                           )[0]
-                    if voice not in item:
-                        item.append(voice)
-                selected_voices.append(item)
+                                          weights=self._weights,
+                                          k=self._k,
+                                          )[0]
+                    counter += 1
+                    if voice == previous_choice and counter < 50:
+                        continue
+                    elif pitch is None or self._pitch_ranges is None:
+                        break
+                    elif isinstance(pitch, abjad.PitchSegment):
+                        if (min(pitch) in self._pitch_ranges[voice]
+                                and max(pitch) in self._pitch_ranges[voice]):
+                            break
+                    elif pitch in self._pitch_ranges[voice]:
+                        break
+                    elif counter >= 100:
+                        raise RuntimeError('No good distribution of notes '
+                                           'found, please check pitch '
+                                           'ranges or try another seed.')
+                if pitch:
+                    previous_choice = voice
+                selected_voices.append([voice])
+        else:
+            for logical_tie in abjad.select(self._contents).logical_ties():
+                if isinstance(logical_tie.head, abjad.Note):
+                    pitch = logical_tie.head.written_pitch
+                elif isinstance(logical_tie.head, abjad.Chord):
+                    pitch = logical_tie.head.written_pitches
+                else:
+                    pitch = None
+                k_items = []
+                k_counter = 0  # counts attempts to select k voices for a same
+                               # pitch
+                while len(k_items) < self._k:
+                    counter = 0
+                    k_counter += 1
+                    while True:
+                        voice = random.choices(list(range(self._n_voices)),
+                                               weights=self._weights,
+                                               k=self._k,
+                                               )[0]
+                        counter += 1
+                        if pitch is None or self._pitch_ranges is None:
+                            break
+                        elif isinstance(pitch, abjad.PitchSegment):
+                            if (min(pitch) in self._pitch_ranges[voice]
+                                    and max(pitch)
+                                    in self._pitch_ranges[voice]):
+                                break
+                        elif pitch in self._pitch_ranges[voice]:
+                            break
+                        elif counter >= 100:
+                            raise RuntimeError('No good distribution of notes '
+                                               'found, please check pitch '
+                                               'ranges or try another seed.')
+                    if voice not in k_items:
+                        k_items.append(voice)
+                    elif k_counter >= 100:
+                        raise RuntimeError('Could not ensure k simultaneous '
+                                           'notes, please check pitch ranges '
+                                           'or try another seed.')
+                selected_voices.append(k_items)
         return selected_voices
 
     @staticmethod
@@ -1251,6 +1309,7 @@ class Hocketer():
             raise ValueError("'n_voices' cannot be smaller than 'k' when "
                              "'force_k_voices' is set to True")
         self._n_voices = n_voices
+        self._pitch_ranges = None
 
     @property
     def weights(self) -> list[Union[float, int]]:
@@ -1291,6 +1350,32 @@ class Hocketer():
             raise ValueError("'k' cannot be greater than 'n_voices' when "
                              "'force_k_voices' is set to True")
         self._k = k
+
+    @property
+    def pitch_ranges(self) -> list:
+        r"""List of tuples or lists for the pitch ranges of each voice.
+        Use the format:
+
+        [(min0, max0), (min1, max1), (min2, max2), ...]
+
+        ... where the indices are the voice numbers.
+        """
+        return self._pitch_ranges
+
+    @pitch_ranges.setter
+    def pitch_ranges(self,
+                     pitch_ranges: Optional[list],
+                     ) -> None:
+        if pitch_ranges is not None:
+            if not isinstance(pitch_ranges, list):
+                raise TypeError("'pitch_ranges' must be 'list'")
+            if len(pitch_ranges) != self._n_voices:
+                raise ValueError("'pitch_ranges' must have length 'n_voices'")
+            for voice_range in pitch_ranges:
+                if not isinstance(voice_range, abjad.PitchRange):
+                    raise TypeError("elements of 'pitch_ranges' must be "
+                                    "'abjad.PitchRange'")
+        self._pitch_ranges = pitch_ranges
 
     @property
     def force_k_voices(self) -> bool:

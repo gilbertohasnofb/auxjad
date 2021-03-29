@@ -853,7 +853,6 @@ def test_Hocketer_17():
         partial_score.append(staff)
     assert format(partial_score) == abjad.String.normalize(
         r"""
-
         \new Score
         <<
             \new Staff
@@ -876,6 +875,162 @@ def test_Hocketer_17():
                 d'4
                 r4
                 f'4
+            }
+        >>
+        """)
+
+
+def test_Hocketer_18():
+    random.seed(97813)
+    container = abjad.Container(r"c4 d8 e'8 f'4 g'8 a8")
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=2,
+                               pitch_ranges=[abjad.PitchRange("[C4, B5]"),
+                                             abjad.PitchRange("[C3, B3]"),
+                                             ])
+    hocketer()
+    score = abjad.Score()
+    for selection in hocketer[:]:
+        staff = abjad.Staff(selection)
+        score.append(staff)
+    abjad.attach(abjad.Clef('bass'), abjad.select(score[1]).leaf(0))
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                r4.
+                e'8
+                f'4
+                g'8
+                r8
+            }
+            \new Staff
+            {
+                \clef "bass"
+                c4
+                d8
+                r8
+                r4.
+                a8
+            }
+        >>
+        """)
+
+
+def test_Hocketer_19():
+    random.seed(66192)
+    container = abjad.Container(r"c' d' e f' g a' b' c''")
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=3,
+                               pitch_ranges=[abjad.PitchRange("[C4, C5]"),
+                                             abjad.PitchRange("[C4, C5]"),
+                                             abjad.PitchRange("[C3, B3]"),
+                                             ])
+    hocketer()
+    score = abjad.Score()
+    for selection in hocketer[:]:
+        staff = abjad.Staff(selection)
+        score.append(staff)
+    abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4
+                r2
+                f'4
+                r4
+                a'4
+                r4
+                c''4
+            }
+            \new Staff
+            {
+                r4
+                d'4
+                r2
+                r2
+                b'4
+                r4
+            }
+            \new Staff
+            {
+                \clef "bass"
+                r2
+                e4
+                r4
+                g4
+                r2.
+            }
+        >>
+        """)
+
+
+def test_Hocketer_20():
+    random.seed(81773)
+    container = abjad.Container(r"c'8 d'8 e8 f'8 g8 a'8 b'8 c''8")
+    hocketer = auxjad.Hocketer(container,
+                               n_voices=4,
+                               k=2,
+                               force_k_voices=True,
+                               pitch_ranges=[abjad.PitchRange("[C4, C5]"),
+                                             abjad.PitchRange("[C4, C5]"),
+                                             abjad.PitchRange("[E3, G4]"),
+                                             abjad.PitchRange("[E3, G4]"),
+                                             ])
+    hocketer()
+    score = abjad.Score()
+    for selection in hocketer[:]:
+        staff = abjad.Staff(selection)
+        score.append(staff)
+    abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
+    abjad.attach(abjad.Clef('bass'), abjad.select(score[3]).leaf(0))
+    assert format(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                r8
+                d'8
+                r8
+                f'8
+                r8
+                a'8
+                b'8
+                c''8
+            }
+            \new Staff
+            {
+                r2
+                r8
+                a'8
+                b'8
+                c''8
+            }
+            \new Staff
+            {
+                \clef "bass"
+                c'8
+                d'8
+                e8
+                f'8
+                g8
+                r4.
+            }
+            \new Staff
+            {
+                \clef "bass"
+                c'8
+                r8
+                e8
+                r8
+                g8
+                r4.
             }
         >>
         """)

@@ -225,7 +225,10 @@ class Hocketer():
         be a :obj:`list` of length equal to :attr:`n_voices`). :attr:`k`
         defines the number of times that the process is applied to each logical
         tie. Setting :attr:`force_k_voices` to ``True`` ensure that a single
-        logical tie is distributed to exactly :attr:`k` voices.
+        logical tie is distributed to exactly :attr:`k` voices. Setting
+        :attr:`explode_chords` to ``True`` will distribute individual pitches
+        from chords into unique voices. :attr:`pitch_ranges` defines the pitch
+        range of each voice; it takes a list of |abjad.PitchRange|'s.
         :attr:`disable_rewrite_meter` disables the
         |abjad.mutate().rewrite_meter()| mutation which is applied to the
         container after every call. Any measure filled with rests will be
@@ -244,6 +247,12 @@ class Hocketer():
         ...                            weights=[1, 2, 5],
         ...                            k=2,
         ...                            force_k_voices=True,
+        ...                            explode_chords=True,
+        ...                            pitch_ranges=[
+        ...                                abjad.PitchRange("[C4, D6]"),
+        ...                                abjad.PitchRange("[C2, A4]"),
+        ...                                abjad.PitchRange("[C1, E3]"),
+        ...                            ],
         ...                            disable_rewrite_meter=True,
         ...                            use_multimeasure_rests=False,
         ...                            omit_time_signatures=True,
@@ -259,6 +268,11 @@ class Hocketer():
         2
         >>> hocketer.force_k_voices
         True
+        >>> hocketer.explode_chords
+        True
+        >>> hocketer.pitch_ranges
+        [PitchRange('[C4, D6]'), PitchRange('[C2, A4]'),
+        PitchRange('[C1, E3]')]
         >>> hocketer.disable_rewrite_meter
         True
         >>> not hocketer.use_multimeasure_rests
@@ -278,6 +292,8 @@ class Hocketer():
         >>> hocketer.weights = [1, 1, 1, 2, 7]
         >>> hocketer.k = 3
         >>> hocketer.force_k_voices = False
+        >>> hocketer.explode_chords = False
+        >>> hocketer.pitch_ranges = None
         >>> hocketer.disable_rewrite_meter = False
         >>> hocketer.use_multimeasure_rests = True
         >>> hocketer.omit_time_signatures = False
@@ -292,6 +308,10 @@ class Hocketer():
         3
         >>> not hocketer.force_k_voices
         False
+        >>> hocketer.explode_chords
+        False
+        >>> hocketer.pitch_ranges
+        None
         >>> not hocketer.disable_rewrite_meter
         False
         >>> hocketer.use_multimeasure_rests
@@ -357,6 +377,78 @@ class Hocketer():
         >>> len(hocketer)
         6
 
+    :attr:`pitch_ranges`:
+        The property :attr:`pitch_ranges` defines the pitch range of each
+        voice. It takes a list of |abjad.PitchRange|'s.
+
+
+        >>> container = abjad.Container(r"c' d' e f' g a' b' c''")
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            pitch_ranges=[
+        ...                                abjad.PitchRange("[C4, C5]"),
+        ...                                abjad.PitchRange("[C4, C5]"),
+        ...                                abjad.PitchRange("[C3, B3]"),
+        ...                            ],
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score()
+        >>> for selection in music:
+        ...     score.append(abjad.Staff(selection))
+        >>> abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4
+                d'4
+                r4
+                f'4
+                r4
+                a'4
+                r2
+            }
+            \new Staff
+            {
+                R1
+                r2
+                b'4
+                c''4
+            }
+            \new Staff
+            {
+                \clef "bass"
+                r2
+                e4
+                r4
+                g4
+                r2.
+            }
+        >>
+
+        .. figure:: ../_images/Hocketer-akuL9BDgw8.png
+
+        Note that changing :attr:`n_voices` will reset :attr:`pitch_ranges`:
+
+        >>> container = abjad.Container(
+        ...     r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4"
+        ... )
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            pitch_ranges=[
+        ...                                abjad.PitchRange("[C4, D6]"),
+        ...                                abjad.PitchRange("[C2, A4]"),
+        ...                                abjad.PitchRange("[C1, E3]"),
+        ...                            ],
+        ...                            )
+        >>> hocketer.pitch_ranges
+        [PitchRange("[C4, D6]"), PitchRange("[C2, A4]"),
+        PitchRange("[C1, E3]")]         ]
+        >>> hocketer.n_voices = 4
+        >>> hocketer.pitch_ranges
+        None
+
     :attr:`weights`:
         Set :attr:`weights` to a :obj:`list` of numbers (either :obj:`float` or
         :obj:`int`) to give different weights to each voice. By default, all
@@ -374,7 +466,6 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
         >>> abjad.f(score)
         \new Score
         <<
@@ -487,16 +578,6 @@ class Hocketer():
                 r8
                 f'8
                 g'8
-                r8
-                b'8
-                c''8
-            }
-            \new Staff
-            {
-                r4
-                e'8
-                r8
-                g'8
                 a'8
                 b'8
                 c''8
@@ -504,16 +585,154 @@ class Hocketer():
             \new Staff
             {
                 c'8
-                d'8
+                r8
                 e'8
                 f'8
-                r8
-                a'8
                 r4
+                b'8
+                r8
+            }
+            \new Staff
+            {
+                r8
+                d'8
+                e'8
+                r8
+                g'8
+                a'8
+                r8
+                c''8
             }
         >>
 
         .. figure:: ../_images/Hocketer-9limlogk0b8.png
+
+    :attr:`explode_chords`:
+        If :attr:`explode_chords` is set to ``True``, chords will not be
+        considered as a single leaf to be distributed but rather as a
+        collection of individual pitches, which are then distributed among the
+        voices. Compare:
+
+        >>> container = abjad.Container(
+        ...     r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4"
+        ... )
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score()
+        >>> for selection in music:
+        ...     score.append(abjad.Staff(selection))
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                r2
+                <e' g' b'>4
+                r4
+            }
+            \new Staff
+            {
+                <c' e' g'>4
+                <d' f' a'>4
+                r2
+            }
+            \new Staff
+            {
+                r2.
+                <c' f' a'>4
+            }
+        >>
+
+        .. figure:: ../_images/Hocketer-6gwHXAs6IY.png
+
+        >>> container = abjad.Container(
+        ...     r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4"
+        ... )
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            explode_chords=True,
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score()
+        >>> for selection in music:
+        ...     score.append(abjad.Staff(selection))
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                e'4
+                f'4
+                e'4
+                a'4
+            }
+            \new Staff
+            {
+                g'4
+                d'4
+                b'4
+                c'4
+            }
+            \new Staff
+            {
+                c'4
+                a'4
+                g'4
+                f'4
+            }
+        >>
+
+        .. figure:: ../_images/Hocketer-gGsBUch6Ai.png
+
+        It is very important to note that :attr:`explode_chords` does not take
+        :attr:`weights` nor :attr:`k` in consideration. It does, however, take
+        :attr:`pitch_ranges` into account:
+
+        >>> container = abjad.Container(
+        ...     r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4"
+        ... )
+        >>> hocketer = auxjad.Hocketer(container,
+        ...                            n_voices=3,
+        ...                            explode_chords=True,
+        ...                            pitch_ranges=[
+        ...                                abjad.PitchRange("[E4, C5]"),
+        ...                                abjad.PitchRange("[E4, C5]"),
+        ...                                abjad.PitchRange("[C4, F4]"),
+        ...                            ],
+        ...                            )
+        >>> music = hocketer()
+        >>> score = abjad.Score()
+        >>> for selection in music:
+        ...     score.append(abjad.Staff(selection))
+        >>> abjad.f(score)
+        \new Score
+        <<
+            \new Staff
+            {
+                e'4
+                f'4
+                g'4
+                c''4
+            }
+            \new Staff
+            {
+                g'4
+                a'4
+                b'4
+                a'4
+            }
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+        >>
+
+        .. figure:: ../_images/Hocketer-Rycx76se89.png
 
     .. error::
 
@@ -904,7 +1123,7 @@ class Hocketer():
 
         >>> container = abjad.Container(r"c'2-.\p\< d'2-.\f\> e'1 "
         ...                             r"f'2.\pp\< g'4--\p a'2\ff\> "
-        ...                             r"b'2\p\> ~ b'2 c''2\!")
+        ...                             r"b'2\p\> ~ b'2 c''2\ppp")
         >>> hocketer = auxjad.Hocketer(container,
         ...                            n_voices=3,
         ...                            k=2,
@@ -927,10 +1146,32 @@ class Hocketer():
                 \f
                 - \staccato
                 \>
-                R1
+                e'1
                 f'2.
                 \pp
                 \<
+                g'4
+                \p
+                - \tenuto
+                a'2
+                \ff
+                \>
+                r2
+                \p
+                r2
+                c''2
+                \ppp
+            }
+            \new Staff
+            {
+                r2
+                d'2
+                \f
+                - \staccato
+                \>
+                e'1
+                r2.
+                \pp
                 g'4
                 \p
                 - \tenuto
@@ -939,30 +1180,8 @@ class Hocketer():
                 \>
                 ~
                 b'2
-                c''2
-                \!
-            }
-            \new Staff
-            {
-                R1
-                e'1
-                \f
-                \>
-                r2.
-                \pp
-                g'4
-                \p
-                - \tenuto
-                a'2
-                \ff
-                \>
-                b'2
-                \p
-                \>
-                ~
-                b'2
-                c''2
-                \!
+                r2
+                \ppp
             }
             \new Staff
             {
@@ -970,11 +1189,9 @@ class Hocketer():
                 \p
                 - \staccato
                 \<
-                d'2
+                r2
                 \f
-                - \staccato
-                \>
-                e'1
+                R1
                 f'2.
                 \pp
                 \<
@@ -983,9 +1200,13 @@ class Hocketer():
                 a'2
                 \ff
                 \>
-                r2
+                b'2
                 \p
-                R1
+                \>
+                ~
+                b'2
+                c''2
+                \ppp
             }
         >>
 
@@ -1013,6 +1234,7 @@ class Hocketer():
                  '_k',
                  '_pitch_ranges',
                  '_force_k_voices',
+                 '_explode_chords',
                  '_disable_rewrite_meter',
                  '_use_multimeasure_rests',
                  '_voices',
@@ -1038,6 +1260,7 @@ class Hocketer():
                  weights: Optional[list] = None,
                  k: int = 1,
                  force_k_voices: bool = False,
+                 explode_chords: bool = False,
                  disable_rewrite_meter: bool = False,
                  use_multimeasure_rests: bool = True,
                  omit_time_signatures: bool = False,
@@ -1061,6 +1284,7 @@ class Hocketer():
             self.reset_weights()
         self.pitch_ranges = pitch_ranges
         self.force_k_voices = force_k_voices
+        self.explode_chords = explode_chords
         self.disable_rewrite_meter = disable_rewrite_meter
         self.use_multimeasure_rests = use_multimeasure_rests
         self.omit_time_signatures = omit_time_signatures
@@ -1151,6 +1375,20 @@ class Hocketer():
         r"""Replaces notes and chords for silences if voice not in the selected
         :obj:`list` for a given logical tie.
         """
+        indicators_tuple = (abjad.TimeSignature,
+                            abjad.Dynamic,
+                            abjad.StartHairpin,
+                            abjad.StopHairpin,
+                            abjad.Clef,
+                            abjad.Fermata,
+                            abjad.KeySignature,
+                            abjad.Ottava,
+                            abjad.LilyPondLiteral,
+                            abjad.MetronomeMark,
+                            abjad.StaffChange,
+                            abjad.StartPhrasingSlur,
+                            abjad.StopPhrasingSlur,
+                            )
         dummy_voices = [abjad.mutate(self._contents).copy()
                         for _ in range(self._n_voices)]
         selected_voices = self._select_voices()
@@ -1163,101 +1401,113 @@ class Hocketer():
                     for leaf in logical_tie:
                         rest = abjad.Rest(leaf.written_duration)
                         for indicator in abjad.inspect(leaf).indicators():
-                            if isinstance(indicator, (abjad.TimeSignature,
-                                                      abjad.Dynamic,
-                                                      abjad.StartHairpin,
-                                                      abjad.StopHairpin,
-                                                      abjad.Clef,
-                                                      abjad.Fermata,
-                                                      abjad.KeySignature,
-                                                      abjad.Ottava,
-                                                      abjad.LilyPondLiteral,
-                                                      abjad.MetronomeMark,
-                                                      abjad.StaffChange,
-                                                      abjad.StartPhrasingSlur,
-                                                      abjad.StopPhrasingSlur,
-                                                      )):
+                            if isinstance(indicator, indicators_tuple):
                                 abjad.attach(indicator, rest)
                         abjad.mutate(leaf).replace(rest)
+                elif (isinstance(logical_tie.head, abjad.Chord)
+                        and self.explode_chords):
+                    pitch_number = selected_indeces.index(voice_index)
+                    pitch = logical_tie.head.written_pitches[pitch_number]
+                    for leaf in logical_tie:
+                        note = abjad.Note(pitch, leaf.written_duration)
+                        for indicator in abjad.inspect(leaf).indicators():
+                            if isinstance(indicator, indicators_tuple):
+                                abjad.attach(indicator, note)
+                        abjad.mutate(leaf).replace(note)
         return dummy_voices
 
     def _select_voices(self) -> list[int]:
         r'Creates a :obj:`list` of selected voices for each logical tie.'
         selected_voices = []
-        previous_choice = None
         if not self._force_k_voices:
             for logical_tie in abjad.select(self._contents).logical_ties():
-                if isinstance(logical_tie.head, abjad.Note):
-                    pitch = logical_tie.head.written_pitch
-                elif isinstance(logical_tie.head, abjad.Chord):
-                    pitch = logical_tie.head.written_pitches
-                else:
-                    pitch = None
-                counter = 0  # counts attempts to select single voice
-                while True:
-                    voice = random.choices(list(range(self._n_voices)),
-                                          weights=self._weights,
-                                          k=self._k,
-                                          )[0]
-                    counter += 1
-                    if voice == previous_choice and counter < 50:
-                        continue
-                    elif pitch is None or self._pitch_ranges is None:
-                        break
-                    elif isinstance(pitch, abjad.PitchSegment):
-                        if (min(pitch) in self._pitch_ranges[voice]
-                                and max(pitch) in self._pitch_ranges[voice]):
-                            break
-                    elif pitch in self._pitch_ranges[voice]:
-                        break
-                    elif counter >= 100:
-                        raise RuntimeError('No good distribution of notes '
-                                           'found, please check pitch '
-                                           'ranges or try another seed.')
-                if pitch:
-                    previous_choice = voice
-                selected_voices.append([voice])
-        else:
-            for logical_tie in abjad.select(self._contents).logical_ties():
-                if isinstance(logical_tie.head, abjad.Note):
-                    pitch = logical_tie.head.written_pitch
-                elif isinstance(logical_tie.head, abjad.Chord):
-                    pitch = logical_tie.head.written_pitches
-                else:
-                    pitch = None
-                k_items = []
-                k_counter = 0  # counts attempts to select k voices for a same
-                               # pitch
-                while len(k_items) < self._k:
+                # 1st case: exploding chords and ignoring k
+                if (isinstance(logical_tie.head, abjad.Chord)
+                        and self._explode_chords):
+                    pitches = logical_tie.head.written_pitches
                     counter = 0
-                    k_counter += 1
                     while True:
-                        voice = random.choices(list(range(self._n_voices)),
-                                               weights=self._weights,
-                                               k=self._k,
-                                               )[0]
+                        voices = random.sample(list(range(self._n_voices)),
+                                               k=len(pitches)
+                                               )
                         counter += 1
-                        if pitch is None or self._pitch_ranges is None:
+                        if all(self._pitch_in_range(pitch, voice)
+                                for voice, pitch in zip(voices, pitches)):
                             break
-                        elif isinstance(pitch, abjad.PitchSegment):
-                            if (min(pitch) in self._pitch_ranges[voice]
-                                    and max(pitch)
-                                    in self._pitch_ranges[voice]):
-                                break
-                        elif pitch in self._pitch_ranges[voice]:
+                        elif counter >= 1000:
+                            raise RuntimeError('No good distribution of '
+                                               'chord found, please check '
+                                               'pitch ranges or try '
+                                               'another seed.')
+                    selected_voices.append(voices)
+                # 2nd case: distributing leaves into up to k voices, though
+                # not enforcing k voices
+                else:
+                    pitch = self._get_pitch_from_logical_tie(logical_tie)
+                    counter = 0
+                    while True:
+                        voices = random.choices(list(range(self._n_voices)),
+                                                weights=self._weights,
+                                                k=self._k,
+                                                )
+                        counter += 1
+                        if all(self._pitch_in_range(pitch, voice)
+                               for voice in voices):
                             break
-                        elif counter >= 100:
+                        if counter >= 1000:
                             raise RuntimeError('No good distribution of notes '
                                                'found, please check pitch '
                                                'ranges or try another seed.')
-                    if voice not in k_items:
-                        k_items.append(voice)
-                    elif k_counter >= 100:
-                        raise RuntimeError('Could not ensure k simultaneous '
-                                           'notes, please check pitch ranges '
-                                           'or try another seed.')
-                selected_voices.append(k_items)
+                    selected_voices.append(voices)
+        # 3rd case: distributing leaves into exactly k voices
+        else:
+            for logical_tie in abjad.select(self._contents).logical_ties():
+                pitch = self._get_pitch_from_logical_tie(logical_tie)
+                counter = 0
+                voices = []
+                while len(voices) < self._k:
+                    voice = random.choices(list(range(self._n_voices)),
+                                           weights=self._weights,
+                                           )[0]
+                    counter += 1
+                    if voice in voices:
+                        continue
+                    if self._pitch_in_range(pitch, voice):
+                        voices.append(voice)
+                    if counter >= 1000:
+                        raise RuntimeError('No good distribution of notes '
+                                           'found, please check pitch '
+                                           'ranges or try another seed.')
+                selected_voices.append(voices)
         return selected_voices
+
+    def _pitch_in_range(self,
+                        pitch: Union[abjad.Pitch, abjad.PitchSegment, None],
+                        voice: int,
+                        ) -> bool:
+        r'Checks if a pitch is playable by a specific voice.'
+        if self._pitch_ranges is None or pitch is None:
+            return True
+        elif isinstance(pitch, abjad.PitchSegment):
+            if (min(pitch) in self._pitch_ranges[voice]
+                    and max(pitch) in self._pitch_ranges[voice]):
+                return True
+        if pitch in self._pitch_ranges[voice]:
+            return True
+        return False
+
+    @staticmethod
+    def _get_pitch_from_logical_tie(logical_tie: abjad.LogicalTie,
+                                    ) -> Union[abjad.Pitch,
+                                               abjad.PitchSegment,
+                                               None,
+                                               ]:
+        if isinstance(logical_tie.head, abjad.Note):
+            return logical_tie.head.written_pitch
+        elif isinstance(logical_tie.head, abjad.Chord):
+            return logical_tie.head.written_pitches
+        else:
+            return None
 
     @staticmethod
     def _remove_all_time_signatures(container) -> None:
@@ -1376,6 +1626,21 @@ class Hocketer():
                     raise TypeError("elements of 'pitch_ranges' must be "
                                     "'abjad.PitchRange'")
         self._pitch_ranges = pitch_ranges
+
+    @property
+    def explode_chords(self) -> bool:
+        r"""When ``True``, the hocket process will consider each note of a
+        chord individually, 'exploding' it into several voices.
+        """
+        return self._explode_chords
+
+    @explode_chords.setter
+    def explode_chords(self,
+                       explode_chords: bool,
+                       ) -> None:
+        if not isinstance(explode_chords, bool):
+            raise TypeError("'explode_chords' must be 'bool'")
+        self._explode_chords = explode_chords
 
     @property
     def force_k_voices(self) -> bool:

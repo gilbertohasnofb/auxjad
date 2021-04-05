@@ -390,7 +390,7 @@ class ListLooper(_LooperParent):
                  ) -> None:
         r'Initialises self.'
         self.contents = contents
-        self._end_with_max_n_elements = end_with_max_n_elements
+        self.end_with_max_n_elements = end_with_max_n_elements
         super().__init__(head_position=head_position,
                          window_size=window_size,
                          step_size=step_size,

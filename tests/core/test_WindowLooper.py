@@ -1102,3 +1102,53 @@ def test_WindowLooper_28():
             g'1
         }
         """)
+
+
+def test_WindowLooper_29():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(3, 4),
+                                 step_size=(1, 16),
+                                 )
+    notes = looper.output_n(2)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            c'8.
+            d'16
+            ~
+            d'8.
+            e'16
+            ~
+            e'8.
+            f'16
+        }
+        """)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(3, 4),
+                                 step_size=(1, 16),
+                                 disable_rewrite_meter=True,
+                                 )
+    notes = looper.output_n(2)
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            c'8.
+            d'4
+            e'4
+            f'16
+        }
+        """)

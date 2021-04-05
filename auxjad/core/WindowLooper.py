@@ -799,8 +799,64 @@ class WindowLooper(_LooperParent):
         containing them are split into two. As a rule of thumb, it is always
         better to attach those to the music after the fading process has ended.
 
+    :attr:`disable_rewrite_meter`:
+        By default, this class uses the |abjad.mutate().rewrite_meter()|
+        mutation.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
+        >>> looper = auxjad.WindowLooper(container,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 16),
+        ...                              )
+        >>> notes = looper.output_n(2)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            c'8.
+            d'16
+            ~
+            d'8.
+            e'16
+            ~
+            e'8.
+            f'16
+        }
+
+        .. figure:: ../_images/LeafLooper-toNYz7MCq3.png
+
+        Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
+        behaviour.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
+        >>> looper = auxjad.WindowLooper(container,
+        ...                              window_size=(3, 4),
+        ...                              step_size=(1, 16),
+        ...                              disable_rewrite_meter=True,
+        ...                              )
+        >>> notes = looper.output_n(2)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 3/4
+            c'4
+            d'4
+            e'4
+            c'8.
+            d'4
+            e'4
+            f'16
+        }
+
+        .. figure:: ../_images/LeafLooper-osLcSeQ6gP.png
+
     Tweaking |abjad.mutate().rewrite_meter()|:
-        This function uses the default logical tie splitting algorithm from
+        This class uses the default logical tie splitting algorithm from
         |abjad.mutate().rewrite_meter()|.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
@@ -902,6 +958,7 @@ class WindowLooper(_LooperParent):
                  '_fill_with_rests',
                  '_contents_length',
                  '_contents_no_time_signature',
+                 '_disable_rewrite_meter',
                  '_boundary_depth',
                  '_maximum_dot_count',
                  '_rewrite_tuplets',
@@ -941,6 +998,7 @@ class WindowLooper(_LooperParent):
                  omit_time_signatures: bool = False,
                  process_on_first_call: bool = False,
                  fill_with_rests: bool = True,
+                 disable_rewrite_meter: bool = False,
                  boundary_depth: Optional[int] = None,
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
@@ -954,6 +1012,7 @@ class WindowLooper(_LooperParent):
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
         self.fill_with_rests = fill_with_rests
+        self.disable_rewrite_meter = disable_rewrite_meter
         self.boundary_depth = boundary_depth
         self.maximum_dot_count = maximum_dot_count
         self.rewrite_tuplets = rewrite_tuplets
@@ -1078,17 +1137,19 @@ class WindowLooper(_LooperParent):
         dummy_container = abjad.Container(
             abjad.mutate(dummy_container[start : end]).copy()
         )
-        mutate(dummy_container).auto_rewrite_meter(
-            meter_list=[abjad.TimeSignature(window_size)],
-            boundary_depth=self._boundary_depth,
-            maximum_dot_count=self._maximum_dot_count,
-            rewrite_tuplets=self._rewrite_tuplets,
-            prettify_rewrite_meter=self._prettify_rewrite_meter,
-            extract_trivial_tuplets=self._extract_trivial_tuplets,
-            fuse_across_groups_of_beats=self._fuse_across_groups_of_beats,
-            fuse_quadruple_meter=self._fuse_quadruple_meter,
-            fuse_triple_meter=self._fuse_triple_meter,
-        )
+        # rewriting meter
+        if not self._disable_rewrite_meter:
+            mutate(dummy_container).auto_rewrite_meter(
+                meter_list=[abjad.TimeSignature(window_size)],
+                boundary_depth=self._boundary_depth,
+                maximum_dot_count=self._maximum_dot_count,
+                rewrite_tuplets=self._rewrite_tuplets,
+                prettify_rewrite_meter=self._prettify_rewrite_meter,
+                extract_trivial_tuplets=self._extract_trivial_tuplets,
+                fuse_across_groups_of_beats=self._fuse_across_groups_of_beats,
+                fuse_quadruple_meter=self._fuse_quadruple_meter,
+                fuse_triple_meter=self._fuse_triple_meter,
+            )
         abjad.attach(abjad.TimeSignature(window_size),
                      abjad.select(dummy_container).leaf(0),
                      )
@@ -1222,6 +1283,23 @@ class WindowLooper(_LooperParent):
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
+
+    @property
+    def disable_rewrite_meter(self) -> bool:
+        r"""When ``True``, the durations of the notes in the output will not be
+        rewritten by the |abjad.mutate().rewrite_meter()| mutation. Rests will
+        have the same duration as the logical ties they replaced.
+        """
+        return self._disable_rewrite_meter
+
+    @disable_rewrite_meter.setter
+    def disable_rewrite_meter(self,
+                              disable_rewrite_meter: bool,
+                              ) -> None:
+        if not isinstance(disable_rewrite_meter, bool):
+            raise TypeError("'disable_rewrite_meter' must be 'bool'")
+        self._disable_rewrite_meter = disable_rewrite_meter
+
 
     @property
     def fill_with_rests(self) -> bool:

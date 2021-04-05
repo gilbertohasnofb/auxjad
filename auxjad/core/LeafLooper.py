@@ -885,17 +885,17 @@ class LeafLooper(_LooperParent):
                  ) -> None:
         r'Initialises self.'
         self.contents = contents
-        self._end_with_max_n_leaves = end_with_max_n_leaves
-        self._omit_time_signatures = omit_time_signatures
-        self._disable_rewrite_meter = disable_rewrite_meter
-        self._boundary_depth = boundary_depth
-        self._maximum_dot_count = maximum_dot_count
-        self._rewrite_tuplets = rewrite_tuplets
-        self._prettify_rewrite_meter = prettify_rewrite_meter
-        self._extract_trivial_tuplets = extract_trivial_tuplets
-        self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
-        self._fuse_quadruple_meter = fuse_quadruple_meter
-        self._fuse_triple_meter = fuse_triple_meter
+        self.end_with_max_n_leaves = end_with_max_n_leaves
+        self.omit_time_signatures = omit_time_signatures
+        self.disable_rewrite_meter = disable_rewrite_meter
+        self.boundary_depth = boundary_depth
+        self.maximum_dot_count = maximum_dot_count
+        self.rewrite_tuplets = rewrite_tuplets
+        self.prettify_rewrite_meter = prettify_rewrite_meter
+        self.extract_trivial_tuplets = extract_trivial_tuplets
+        self.fuse_across_groups_of_beats = fuse_across_groups_of_beats
+        self.fuse_quadruple_meter = fuse_quadruple_meter
+        self.fuse_triple_meter = fuse_triple_meter
         super().__init__(head_position=head_position,
                          window_size=window_size,
                          step_size=step_size,

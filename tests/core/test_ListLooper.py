@@ -24,6 +24,7 @@ def test_ListLooper_02():
                                repetition_chance=0.25,
                                forward_bias=0.2,
                                head_position=0,
+                               end_with_max_n_elements=True,
                                process_on_first_call=True,
                                )
     assert looper.window_size == 3
@@ -32,6 +33,7 @@ def test_ListLooper_02():
     assert looper.repetition_chance == 0.25
     assert looper.forward_bias == 0.2
     assert looper.head_position == 0
+    assert looper.end_with_max_n_elements
     assert looper.process_on_first_call
     looper.window_size = 2
     looper.step_size = 2
@@ -39,6 +41,7 @@ def test_ListLooper_02():
     looper.repetition_chance = 0.1
     looper.forward_bias = 0.8
     looper.head_position = 2
+    looper.end_with_max_n_elements = False
     looper.process_on_first_call = False
     assert looper.window_size == 2
     assert looper.step_size == 2
@@ -46,6 +49,7 @@ def test_ListLooper_02():
     assert looper.repetition_chance == 0.1
     assert looper.forward_bias == 0.8
     assert looper.head_position == 2
+    assert not looper.end_with_max_n_elements
     assert not looper.process_on_first_call
 
 
@@ -277,3 +281,15 @@ def test_ListLooper_18():
                                max_steps=4,
                                )
     assert looper.output_n(4) == ['C', 'D', 'D', 'E', 'E', 'F', 'H']
+
+
+def test_ListLooper_19():
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.ListLooper(input_list, window_size=3)
+    assert looper.output_all() == ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
+    input_list = ['A', 'B', 'C', 'D']
+    looper = auxjad.ListLooper(input_list,
+                               window_size=3,
+                               end_with_max_n_elements=True,
+                               )
+    assert looper.output_all() == ['A', 'B', 'C', 'B', 'C', 'D']

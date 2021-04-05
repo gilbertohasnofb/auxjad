@@ -14,7 +14,7 @@ class ListLooper(_LooperParent):
     ``[A, B, C, D, E, F]`` (where each letter represents an element of an
     arbitrary type) and the looping window was size ``3``, the output would be:
 
-    ``A B C B C D C D E D E F E F F``
+    ``[A B C] [B C D] [C D E] [D E F] [E F] [F]``
 
     This can be better visualised as:
 
@@ -89,13 +89,14 @@ class ListLooper(_LooperParent):
         forward instead of backwards. It should range from ``0.0`` to ``1.0``
         (default ``1.0``, which means the window can only move forwards. A
         value of ``0.5`` gives 50% chance of moving forwards while a value of
-        ``0.0`` will move the window only backwards). Lastly,
-        :attr:`head_position` can be used to offset the starting position of
-        the looping window. It must be an :obj:`int` and its default value is
-        ``0``. By default, calling the object will first return the original
-        container and subsequent calls will process it; set
-        :attr:`process_on_first_call` to ``True`` and the looping process will
-        be applied on the very first call.
+        ``0.0`` will move the window only backwards). :attr:`head_position` can
+        be used to offset the starting position of the looping window. It must
+        be an :obj:`int` and its default value is ``0``. By default, calling
+        the object will first return the original container and subsequent
+        calls will process it; set :attr:`process_on_first_call` to ``True``
+        and the looping process will be applied on the very first call. Lastly,
+        set :attr:`end_with_max_n_elements` to ``True`` to end the process when
+        the final window has the maximum number of elements.
 
         >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
         >>> looper = auxjad.ListLooper(input_list,
@@ -105,6 +106,7 @@ class ListLooper(_LooperParent):
         ...                            repetition_chance=0.25,
         ...                            forward_bias=0.2,
         ...                            head_position=0,
+        ...                            end_with_max_n_elements=True,
         ...                            process_on_first_call=True,
         ...                            )
         >>> looper.window_size
@@ -119,6 +121,8 @@ class ListLooper(_LooperParent):
         2
         >>> looper.head_position
         0
+        >>> looper.end_with_max_n_elements
+        True
         >>> looper.process_on_first_call
         True
 
@@ -130,6 +134,7 @@ class ListLooper(_LooperParent):
         >>> looper.repetition_chance = 0.1
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 2
+        >>> looper.end_with_max_n_elements = False
         >>> looper.process_on_first_call = False
         >>> looper.window_size
         2
@@ -143,6 +148,8 @@ class ListLooper(_LooperParent):
         0.8
         >>> looper.head_position
         2
+        >>> looper.end_with_max_n_elements
+        False
         >>> looper.process_on_first_call
         False
 
@@ -220,6 +227,33 @@ class ListLooper(_LooperParent):
         >>> input_list = ['A', 'B', 'C', 'D']
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_n(2)
+        ['A', 'B', 'C', 'B', 'C', 'D']
+
+    :attr:`end_with_max_n_elements`:
+        When ``True``, the last bar in the output will contain the maximum
+        number of leaves given by :attr:`window_size`. E.g. consider the
+        elements ``[A, B, C, D]`` and the looping window was size ``3``;
+        setting :attr:`end_with_max_n_elements` to ``True`` will output:
+
+        ``[A B C] [B C D]``
+
+        Setting it to ``False`` (which is this property's default value) will
+        produces:
+
+        ``[A B C] [B C D] [C D] [D]``
+
+        Compare the two examples below:
+
+        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> looper = auxjad.ListLooper(input_list, window_size=3)
+        >>> looper.output_all()
+        ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
+        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> looper = auxjad.ListLooper(input_list,
+        ...                            window_size=3,
+        ...                            end_with_max_n_elements=True,
+        ...                            )
+        >>> looper.output_all()
         ['A', 'B', 'C', 'B', 'C', 'D']
 
     :attr:`window_size`:
@@ -338,7 +372,7 @@ class ListLooper(_LooperParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = ('_end_with_max_n_elements')
 
     ### INITIALISER ###
 
@@ -351,10 +385,12 @@ class ListLooper(_LooperParent):
                  repetition_chance: float = 0.0,
                  forward_bias: float = 1.0,
                  head_position: int = 0,
+                 end_with_max_n_elements: bool = False,
                  process_on_first_call: bool = False,
                  ) -> None:
         r'Initialises self.'
         self.contents = contents
+        self._end_with_max_n_elements = end_with_max_n_elements
         super().__init__(head_position=head_position,
                          window_size=window_size,
                          step_size=step_size,
@@ -436,3 +472,41 @@ class ListLooper(_LooperParent):
         if self._current_window is None:
             return self._current_window
         return copy.deepcopy(self._current_window)[:]
+
+    @property
+    def end_with_max_n_elements(self) -> bool:
+        r"""When ``True``, the last bar in the output will contain the maximum
+        number of elements given by :attr:`window_size`. E.g. consider the
+        elements ``[A, B, C, D]`` and the looping window was size ``3``;
+        setting :attr:`end_with_max_n_elements` to ``True`` will output:
+
+        ``[A B C] [B C D]``
+
+        Setting it to ``False`` (which is this property's default value) will
+        produces:
+
+        ``[A B C] [B C D] [C D] [D]``
+        """
+        return self._end_with_max_n_elements
+
+    @end_with_max_n_elements.setter
+    def end_with_max_n_elements(self,
+                                end_with_max_n_elements: bool,
+                                ) -> None:
+        if not isinstance(end_with_max_n_elements, bool):
+            raise TypeError("'end_with_max_n_elements' must be 'bool'")
+        self._end_with_max_n_elements = end_with_max_n_elements
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _done(self) -> bool:
+        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        the head position has overtaken the :attr:`contents`'s length).
+        """
+        if self._end_with_max_n_elements:
+            return (self._head_position + self._window_size > self.__len__()
+                    or self._head_position < 0)
+        else:
+            return (self._head_position >= self.__len__()
+                    or self._head_position < 0)

@@ -607,6 +607,17 @@ class Hocketer():
 
         .. figure:: ../_images/Hocketer-9limlogk0b8.png
 
+    .. error::
+
+        Setting :attr:`force_k_voices` to ``True`` when :attr:`k` is larger
+        than :attr:`n_voices` will raise a :exc:`ValueError` exception:
+
+        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+        >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
+        >>> hocketer.force_k_voices = True
+        ValueError: 'force_k_voices' cannot be set to True if 'k' > 'n_voices',
+        change 'k' first
+
     :attr:`explode_chords`:
         If :attr:`explode_chords` is set to ``True``, chords will not be
         considered as a single leaf to be distributed but rather as a
@@ -686,6 +697,8 @@ class Hocketer():
 
         .. figure:: ../_images/Hocketer-gGsBUch6Ai.png
 
+    .. note::
+
         It is very important to note that :attr:`explode_chords` does not take
         :attr:`weights` nor :attr:`k` in consideration. It does, however, take
         :attr:`pitch_ranges` into account:
@@ -734,16 +747,11 @@ class Hocketer():
 
         .. figure:: ../_images/Hocketer-Rycx76se89.png
 
-    .. error::
+    .. warning::
 
-        Setting :attr:`force_k_voices` to ``True`` when :attr:`k` is larger
-        than :attr:`n_voices` will raise a :exc:`ValueError` exception:
-
-        >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-        >>> hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
-        >>> hocketer.force_k_voices = True
-        ValueError: 'force_k_voices' cannot be set to True if 'k' > 'n_voices',
-        change 'k' first
+        When setting :attr:`explode_chords` to ``True``, if :attr:`n_voices` is
+        less than the number of pitches in a chord then only the first
+        :attr:`n_voices`-pitches will be considered in the distribution.
 
     :attr:`disable_rewrite_meter`:
         By default, this class uses the |abjad.mutate().rewrite_meter()|
@@ -1427,8 +1435,12 @@ class Hocketer():
                     pitches = logical_tie.head.written_pitches
                     counter = 0
                     while True:
+                        if len(pitches) > self._n_voices:
+                            sample_k = self._n_voices
+                        else:
+                            sample_k = len(pitches)
                         voices = random.sample(list(range(self._n_voices)),
-                                               k=len(pitches)
+                                               k=sample_k,
                                                )
                         counter += 1
                         if all(self._pitch_in_range(pitch, voice)

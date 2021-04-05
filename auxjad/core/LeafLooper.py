@@ -17,7 +17,7 @@ class LeafLooper(_LooperParent):
     :math:`[A, B, C, D, E, F]` (where each letter represents one logical tie)
     and the looping window was size ``3``, the output would be:
 
-    :math:`A B C B C D C D E D E F E F F`
+    :math:`A~ B~ C~ |~ B~ C~ D~ |~ C~ D~ E~ |~ D~ E~ F~ |~ E~ F~ |~ F`
 
     This can be better visualised as:
 
@@ -162,10 +162,11 @@ class LeafLooper(_LooperParent):
         forward instead of backwards. It should range from ``0.0`` to ``1.0``
         (default ``1.0``, which means the window can only move forwards. A
         value of ``0.5`` gives :math:`50\%` chance of moving forwards while a
-        value of ``0.0`` will move the window only backwards). Lastly,
+        value of ``0.0`` will move the window only backwards).
         :attr:`head_position` can be used to offset the starting position of
         the looping window. It must be an :obj:`int` and its default value is
-        ``0``.
+        ``0``. Lastly, set :attr:`end_with_max_n_leaves` to ``True`` to end the
+        process when the final window has the maximum number of leaves.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
         >>> looper = auxjad.LeafLooper(container,
@@ -175,6 +176,7 @@ class LeafLooper(_LooperParent):
         ...                            repetition_chance=0.25,
         ...                            forward_bias=0.2,
         ...                            head_position=0,
+        ...                            end_with_max_n_leaves=True,
         ...                            omit_time_signatures=False,
         ...                            process_on_first_call=True,
         ...                            )
@@ -190,6 +192,8 @@ class LeafLooper(_LooperParent):
         2
         >>> looper.head_position
         0
+        >>> looper.end_with_max_n_leaves
+        True
         >>> looper.omit_time_signatures
         False
         >>> looper.process_on_first_call
@@ -203,6 +207,7 @@ class LeafLooper(_LooperParent):
         >>> looper.repetition_chance = 0.1
         >>> looper.forward_bias = 0.8
         >>> looper.head_position = 2
+        >>> looper.end_with_max_n_leaves = False
         >>> looper.omit_time_signatures = True
         >>> looper.process_on_first_call = False
         >>> looper.window_size
@@ -217,6 +222,8 @@ class LeafLooper(_LooperParent):
         0.8
         >>> looper.head_position
         2
+        >>> looper.end_with_max_n_leaves
+        False
         >>> looper.omit_time_signatures
         True
         >>> looper.process_on_first_call
@@ -475,6 +482,68 @@ class LeafLooper(_LooperParent):
         |auxjad.mutate().remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
+
+    :attr:`end_with_max_n_leaves`:
+        When ``True``, the last bar in the output will contain the maximum
+        number of leaves given by :attr:`window_size`. E.g. consider the
+        logical ties :math:`[A, B, C, D]` (where each letter represents one
+        logical tie) and the looping window was size ``3``; setting
+        :attr:`end_with_max_n_leaves` to ``True`` will output:
+
+        :math:`A~ B~ C~ |~ B~ C~ D`
+
+        Setting it to ``False`` (which is this property's default value) will
+        produces:
+
+        :math:`A~ B~ C~ |~ B~ C~ D~ |~ C~ D~ |~ D`
+
+        Compare the two examples below:
+
+        >>> container = abjad.Container(r"c'4 d'4. e'4 f'8")
+        >>> looper = auxjad.LeafLooper(container, window_size=3)
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 7/8
+            c'4
+            d'4.
+            e'4
+            \time 3/4
+            d'4.
+            e'4
+            f'8
+            \time 3/8
+            e'4
+            f'8
+            \time 1/8
+            f'8
+        }
+
+        .. figure:: ../_images/LeafLooper-aZUekjEPZZ.png
+
+        >>> container = abjad.Container(r"c'4 d'4. e'4 f'8")
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=3,
+        ...                            end_with_max_n_leaves=True,
+        ...                            )
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.f(staff)
+        \new Staff
+        {
+            \time 7/8
+            c'4
+            d'4.
+            e'4
+            \time 3/4
+            d'4.
+            e'4
+            f'8
+        }
+
+        .. figure:: ../_images/LeafLooper-QYvLl9Ce9c.png
 
     :attr:`window_size`:
         To change the size of the looping window after instantiation, use the
@@ -776,7 +845,8 @@ class LeafLooper(_LooperParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_omit_time_signatures',
+    __slots__ = ('_end_with_max_n_leaves',
+                 '_omit_time_signatures',
                  '_contents_logical_ties',
                  '_disable_rewrite_meter',
                  '_boundary_depth',
@@ -800,6 +870,7 @@ class LeafLooper(_LooperParent):
                  repetition_chance: float = 0.0,
                  forward_bias: float = 1.0,
                  head_position: int = 0,
+                 end_with_max_n_leaves: bool = False,
                  omit_time_signatures: bool = False,
                  process_on_first_call: bool = False,
                  disable_rewrite_meter: bool = False,
@@ -814,6 +885,7 @@ class LeafLooper(_LooperParent):
                  ) -> None:
         r'Initialises self.'
         self.contents = contents
+        self._end_with_max_n_leaves = end_with_max_n_leaves
         self._omit_time_signatures = omit_time_signatures
         self._disable_rewrite_meter = disable_rewrite_meter
         self._boundary_depth = boundary_depth
@@ -934,6 +1006,31 @@ class LeafLooper(_LooperParent):
         selector = abjad.select(dummy_container)
         self._contents_logical_ties = selector.logical_ties()
         self._is_first_window = True
+
+    @property
+    def end_with_max_n_leaves(self) -> bool:
+        r"""When ``True``, the last bar in the output will contain the maximum
+        number of leaves given by :attr:`window_size`. E.g. consider the
+        logical ties :math:`[A, B, C, D]` (where each letter represents one
+        logical tie) and the looping window was size ``3``; setting
+        :attr:`end_with_max_n_leaves` to ``True`` will output:
+
+        :math:`A~ B~ C~ |~ B~ C~ D`
+
+        Setting it to ``False`` (which is this property's default value) will
+        produces:
+
+        :math:`A~ B~ C~ |~ B~ C~ D~ |~ C~ D~ |~ D`
+        """
+        return self._end_with_max_n_leaves
+
+    @end_with_max_n_leaves.setter
+    def end_with_max_n_leaves(self,
+                              end_with_max_n_leaves: bool,
+                              ) -> None:
+        if not isinstance(end_with_max_n_leaves, bool):
+            raise TypeError("'end_with_max_n_leaves' must be 'bool'")
+        self._end_with_max_n_leaves = end_with_max_n_leaves
 
     @property
     def omit_time_signatures(self) -> bool:
@@ -1085,3 +1182,17 @@ class LeafLooper(_LooperParent):
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _done(self) -> bool:
+        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        the head position has overtaken the :attr:`contents`'s length).
+        """
+        if self._end_with_max_n_leaves:
+            return (self._head_position + self._window_size > self.__len__()
+                    or self._head_position < 0)
+        else:
+            return (self._head_position >= self.__len__()
+                    or self._head_position < 0)

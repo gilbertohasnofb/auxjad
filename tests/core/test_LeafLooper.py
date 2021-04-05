@@ -76,6 +76,7 @@ def test_LeafLooper_02():
                                repetition_chance=0.25,
                                forward_bias=0.2,
                                head_position=0,
+                               end_with_max_n_leaves=True,
                                omit_time_signatures=False,
                                process_on_first_call=True,
                                )
@@ -85,6 +86,7 @@ def test_LeafLooper_02():
     assert looper.repetition_chance == 0.25
     assert looper.forward_bias == 0.2
     assert looper.head_position == 0
+    assert looper.end_with_max_n_leaves
     assert not looper.omit_time_signatures
     assert looper.process_on_first_call
     looper.window_size = 2
@@ -93,6 +95,7 @@ def test_LeafLooper_02():
     looper.repetition_chance = 0.1
     looper.forward_bias = 0.8
     looper.head_position = 2
+    looper.end_with_max_n_leaves = False
     looper.omit_time_signatures = True
     looper.process_on_first_call = False
     assert looper.window_size == 2
@@ -101,6 +104,7 @@ def test_LeafLooper_02():
     assert looper.repetition_chance == 0.1
     assert looper.forward_bias == 0.8
     assert looper.head_position == 2
+    assert not looper.end_with_max_n_leaves
     assert looper.omit_time_signatures
     assert not looper.process_on_first_call
 
@@ -820,5 +824,52 @@ def test_LeafLooper_25():
             e'8.
             f'4
             g'16
+        }
+        """)
+
+
+def test_LeafLooper_26():
+    container = abjad.Container(r"c'4 d'4. e'4 f'8")
+    looper = auxjad.LeafLooper(container, window_size=3)
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 7/8
+            c'4
+            d'4.
+            e'4
+            \time 3/4
+            d'4.
+            e'4
+            f'8
+            \time 3/8
+            e'4
+            f'8
+            \time 1/8
+            f'8
+        }
+        """)
+    container = abjad.Container(r"c'4 d'4. e'4 f'8")
+    looper = auxjad.LeafLooper(container,
+                               window_size=3,
+                               end_with_max_n_leaves=True,
+                               )
+    notes = looper.output_all()
+    staff = abjad.Staff(notes)
+    assert format(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 7/8
+            c'4
+            d'4.
+            e'4
+            \time 3/4
+            d'4.
+            e'4
+            f'8
         }
         """)

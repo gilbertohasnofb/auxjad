@@ -133,9 +133,13 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         {
             \tweak style #'harmonic
             d''1
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
             \tweak style #'harmonic
             d''1
             ^ \markup { III. }
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
             \tweak style #'harmonic
             d''1
             _ \markup { III. }
@@ -156,6 +160,36 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         .. figure:: ../_images/HarmonicNote-2gqky0o8dgt.png
 
+    :attr:`centre_markup`:
+        When a markup expression is added to the harmonic note by using the
+        :attr:`markup` optional keyword argument, it will be automatically
+        centred above the note (as the main purpose of this markup is to show
+        string numbers). To disable this behaviour, set :attr:`centre_markup`
+        to ``False``. Compare:
+
+        >>> harm1 = auxjad.HarmonicNote(r"d''1",
+        ...                            markup='III.',
+        ...                            )
+        >>> abjad.f(harm1)
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+
+        .. figure:: ../_images/HarmonicNote-Vb1lf8wt7O.png
+
+        >>> harm2 = auxjad.HarmonicNote(r"d''1",
+        ...                            markup='III.',
+        ...                            centre_markup=False,
+        ...                            )
+        >>> abjad.f(harm2)
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+
+        .. figure:: ../_images/HarmonicNote-ZxHdPOas1z.png
+
     .. error::
 
         If another markup is attached to the harmonic note, trying to set the
@@ -173,6 +207,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     __slots__ = ('_style',
                  '_direction',
                  '_markup',
+                 '_centre_markup'
                  )
 
     ### INITIALISER ###
@@ -183,13 +218,41 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                  tag: Optional[abjad.Tag] = None,
                  style: str = 'harmonic',
                  markup: Optional[str] = None,
+                 centre_markup: bool = True,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
                  ) -> None:
         r'Initialises self.'
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
         self._direction = direction
+        self.centre_markup = centre_markup
         self.markup = markup
+
+    ###########################
+
+    def _attach_centre_markup(self) -> None:
+        r'Attaches the centre markup tweaks.'
+        literal1 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.parent-alignment-X = 0'
+        )
+        literal2 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.self-alignment-X = 0'
+        )
+        abjad.attach(literal1, self)
+        abjad.attach(literal2, self)
+
+    def _detach_centre_markup(self) -> None:
+        r'Detaches the centre markup tweaks.'
+        literal1 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.parent-alignment-X = 0'
+        )
+        literal2 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.self-alignment-X = 0'
+        )
+        if abjad.inspect(self).indicator(literal1):
+            abjad.detach(literal1, self)
+        if abjad.inspect(self).indicator(literal2):
+            abjad.detach(literal2, self)
 
     ### PUBLIC PROPERTIES ###
 
@@ -212,3 +275,45 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                                               format_slot='after',
                                               )
             abjad.attach(flageolet, self)
+
+    @property
+    def centre_markup(self) -> bool:
+        r"""Tweaks the markup of the harmonic note head to be centred or not
+        as LilyPond doesn't centralises markups above note heads by default.
+        """
+        return self._centre_markup
+
+    @centre_markup.setter
+    def centre_markup(self,
+                      centre_markup: bool,
+                      ) -> None:
+        if not isinstance(centre_markup, bool):
+            raise TypeError("'style' must be 'bool'")
+        self._centre_markup = centre_markup
+
+    @property
+    def markup(self) -> str:
+        r'The markup of the harmonic note head.'
+        return self._markup
+
+    @markup.setter
+    def markup(self,
+               markup: str,
+               ) -> None:
+        if markup is not None:
+            if not isinstance(markup, str):
+                raise TypeError("'markup' must be 'str'")
+            self._markup = markup
+            markup = abjad.Markup(self._markup,
+                                  direction=self._direction,
+                                  )
+            abjad.attach(markup, self)
+            if self._centre_markup:
+                self._attach_centre_markup()
+            else:
+                self._detach_centre_markup()
+        else:
+            self._markup = markup
+            if abjad.inspect(self).indicator(abjad.Markup):
+                abjad.detach(abjad.Markup, self)
+            self._detach_centre_markup()

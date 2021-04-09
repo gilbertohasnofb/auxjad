@@ -92,9 +92,13 @@ def test_HarmonicNote_07():
         {
             \tweak style #'harmonic
             d''1
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
             \tweak style #'harmonic
             d''1
             ^ \markup { III. }
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
             \tweak style #'harmonic
             d''1
             _ \markup { III. }
@@ -129,6 +133,8 @@ def test_HarmonicNote_10():
     assert harm.direction is abjad.Down
     assert format(harm) == abjad.String.normalize(
         r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
         \tweak style #'harmonic
         d''1
         _ \markup { III. }
@@ -136,6 +142,50 @@ def test_HarmonicNote_10():
     harm.direction = abjad.Up
     assert harm.direction is abjad.Up
     assert format(harm) == abjad.String.normalize(
+        r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+        """)
+
+
+def test_HarmonicNote_11():
+    harm1 = auxjad.HarmonicNote(r"d''1")
+    harm2 = auxjad.HarmonicNote(r"d''1",
+                                markup='III.',
+                                )
+    harm3 = auxjad.HarmonicNote(r"d''1",
+                                markup='III.',
+                                centre_markup=True,
+                                )
+    harm4 = auxjad.HarmonicNote(r"d''1",
+                                markup='III.',
+                                centre_markup=False,
+                                )
+    assert format(harm1) == abjad.String.normalize(
+        r"""
+        \tweak style #'harmonic
+        d''1
+        """)
+    assert format(harm2) == abjad.String.normalize(
+        r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+        """)
+    assert format(harm3) == abjad.String.normalize(
+        r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+        """)
+    assert format(harm4) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         d''1

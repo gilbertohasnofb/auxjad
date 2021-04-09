@@ -1300,7 +1300,6 @@ class WindowLooper(_LooperParent):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
 
-
     @property
     def fill_with_rests(self) -> bool:
         r'When ``True``, the output will contain no time signatures.'

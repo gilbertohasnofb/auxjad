@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from typing import Union
+from typing import Optional, Union
 
 import abjad
 
@@ -8,6 +8,7 @@ from .inspections.leaves_are_tieable import leaves_are_tieable
 from .inspections.selection_is_full import selection_is_full
 from .inspections.selections_are_identical import selections_are_identical
 from .inspections.underfull_duration import underfull_duration
+from .inspections.virtual_fundamental import virtual_fundamental
 
 
 class Inspection:
@@ -90,6 +91,14 @@ class Inspection:
     def underfull_duration(self) -> abjad.Duration:
         return underfull_duration(self._client)
 
+    def virtual_fundamental(self,
+                            *,
+                            min_fundamental: Optional[abjad.Pitch] = None,
+                            ) -> abjad.NamedPitch:
+        return virtual_fundamental(self._client,
+                                   min_fundamental=min_fundamental,
+                                   )
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -108,6 +117,7 @@ Inspection.leaves_are_tieable.__doc__ = leaves_are_tieable.__doc__
 Inspection.selection_is_full.__doc__ = selection_is_full.__doc__
 Inspection.selections_are_identical.__doc__ = selections_are_identical.__doc__
 Inspection.underfull_duration.__doc__ = underfull_duration.__doc__
+Inspection.virtual_fundamental.__doc__ = virtual_fundamental.__doc__
 
 
 ### FUNCTIONS ###
@@ -148,3 +158,4 @@ abjad.Inspection.leaves_are_tieable = Inspection.leaves_are_tieable
 abjad.Inspection.selection_is_full = Inspection.selection_is_full
 abjad.Inspection.selections_are_identical = Inspection.selections_are_identical
 abjad.Inspection.underfull_duration = Inspection.underfull_duration
+abjad.Inspection.virtual_fundamental = Inspection.virtual_fundamental

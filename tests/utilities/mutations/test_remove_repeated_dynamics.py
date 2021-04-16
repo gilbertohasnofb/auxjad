@@ -296,3 +296,55 @@ def test_remove_repeated_dynamics_09():
             d'8
         }
         """)
+
+
+def test_remove_repeated_dynamics_10():
+    staff1 = abjad.Staff(r"c'4\pp\> d' e' f'\! c'\pp\> d' e' f'\! g'1\pp")
+    staff2 = abjad.Staff(r"c'4\pp d'\> e' f'\! c'\pp d'\> e' f'\! g'1\pp")
+    abjad.mutate(staff1[:]).remove_repeated_dynamics()
+    abjad.mutate(staff2[:]).remove_repeated_dynamics()
+    assert format(staff1) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            \pp
+            \>
+            d'4
+            e'4
+            f'4
+            \!
+            c'4
+            \pp
+            \>
+            d'4
+            e'4
+            f'4
+            \!
+            g'1
+            \pp
+        }
+        """)
+    assert format(staff2) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'4
+            \pp
+            d'4
+            \>
+            e'4
+            f'4
+            \!
+            c'4
+            \pp
+            d'4
+            \>
+            e'4
+            f'4
+            \!
+            g'1
+            \pp
+        }
+
+        """)

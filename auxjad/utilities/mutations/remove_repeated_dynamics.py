@@ -361,14 +361,16 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             indicators = abjad.inspect(leaf).indicators()
             hairpin_present = any([isinstance(indicator, abjad.StartHairpin)
                                    for indicator in indicators])
-            for indicator in indicators:
-                if isinstance(indicator, abjad.Dynamic):
-                    if hairpin_present and not ignore_hairpins:
+            if hairpin_present and not ignore_hairpins:
+                for indicator in indicators:
+                    if isinstance(indicator, abjad.Dynamic):
                         if (indicator is not None
                                 and indicator == previous_dynamic):
                             abjad.detach(abjad.Dynamic, leaf)
-                        current_dynamic = None
-                    else:
+                current_dynamic = None
+            else:
+                for indicator in indicators:
+                    if isinstance(indicator, abjad.Dynamic):
                         current_dynamic = indicator
             if current_dynamic != previous_dynamic:
                 previous_dynamic = current_dynamic

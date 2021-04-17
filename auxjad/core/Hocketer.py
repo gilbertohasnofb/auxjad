@@ -1413,14 +1413,13 @@ class Hocketer():
                                 abjad.attach(indicator, rest)
                         abjad.mutate(leaf).replace(rest)
                 elif (isinstance(logical_tie.head, abjad.Chord)
-                        and self.explode_chords):
+                        and self._explode_chords):
                     pitch_number = selected_indeces.index(voice_index)
                     pitch = logical_tie.head.written_pitches[pitch_number]
                     for leaf in logical_tie:
                         note = abjad.Note(pitch, leaf.written_duration)
                         for indicator in abjad.inspect(leaf).indicators():
-                            if isinstance(indicator, indicators_tuple):
-                                abjad.attach(indicator, note)
+                            abjad.attach(indicator, note)
                         abjad.mutate(leaf).replace(note)
         return dummy_voices
 
@@ -1447,10 +1446,9 @@ class Hocketer():
                                 for voice, pitch in zip(voices, pitches)):
                             break
                         elif counter >= 1000:
-                            raise RuntimeError('No good distribution of '
-                                               'chord found, please check '
-                                               'pitch ranges or try '
-                                               'another seed.')
+                            raise RuntimeError('No good distribution of chord '
+                                               'found, please check the pitch '
+                                               'ranges or try another seed.')
                     selected_voices.append(voices)
                 # 2nd case: distributing leaves into up to k voices, though
                 # not enforcing k voices

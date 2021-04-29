@@ -1519,25 +1519,32 @@ class Fader():
     @staticmethod
     def _convert_pitched_logical_tie_to_rest(logical_tie) -> None:
         r'Converts all leaves of a pitched logical tie into rests.'
+        indicators_tuple = (abjad.BarLine,
+                            abjad.Clef,
+                            abjad.Dynamic,
+                            abjad.Fermata,
+                            abjad.KeySignature,
+                            abjad.LilyPondLiteral,
+                            abjad.MetronomeMark,
+                            abjad.Ottava,
+                            abjad.RehearsalMark,
+                            abjad.Repeat,
+                            abjad.StaffChange,
+                            abjad.StartHairpin,
+                            abjad.StartMarkup,
+                            abjad.StartPhrasingSlur,
+                            abjad.StartSlur,
+                            abjad.StartTextSpan,
+                            abjad.StopHairpin,
+                            abjad.StopPhrasingSlur,
+                            abjad.StopSlur,
+                            abjad.StopTextSpan,
+                            abjad.TimeSignature,
+                            )
         for leaf in logical_tie:
             rest = abjad.Rest(leaf.written_duration)
             for indicator in abjad.inspect(leaf).indicators():
-                if isinstance(indicator, (abjad.TimeSignature,
-                                          abjad.Dynamic,
-                                          abjad.StartHairpin,
-                                          abjad.StopHairpin,
-                                          abjad.StartSlur,
-                                          abjad.StopSlur,
-                                          abjad.Clef,
-                                          abjad.Fermata,
-                                          abjad.KeySignature,
-                                          abjad.Ottava,
-                                          abjad.LilyPondLiteral,
-                                          abjad.MetronomeMark,
-                                          abjad.StaffChange,
-                                          abjad.StartPhrasingSlur,
-                                          abjad.StopPhrasingSlur,
-                                          )):
+                if isinstance(indicator, indicators_tuple):
                     abjad.attach(indicator, rest)
             abjad.mutate(leaf).replace(rest)
 

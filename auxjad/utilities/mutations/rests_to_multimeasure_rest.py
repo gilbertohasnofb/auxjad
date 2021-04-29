@@ -249,6 +249,19 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
 
     measures = selection.group_by_measure()
     effective_time_signature = abjad.TimeSignature((4, 4))
+    indicators_tuple = (abjad.BarLine,
+                        abjad.Fermata,
+                        abjad.KeySignature,
+                        abjad.LilyPondLiteral,
+                        abjad.MetronomeMark,
+                        abjad.RehearsalMark,
+                        abjad.Repeat,
+                        abjad.StaffChange,
+                        abjad.StartMarkup,
+                        abjad.StartTextSpan,
+                        abjad.StopTextSpan,
+                        )
+
     for measure in measures:
         head = abjad.select(measure).leaf(0)
         time_signature = abjad.inspect(head).indicator(abjad.TimeSignature)
@@ -275,17 +288,6 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
                 if not ignore_clefs and clef is not None:
                     abjad.attach(clef, multimeasure_rest)
                 for indicator in abjad.inspect(head).indicators():
-                    if isinstance(indicator, (abjad.BarLine,
-                                              abjad.Fermata,
-                                              abjad.KeySignature,
-                                              abjad.LilyPondLiteral,
-                                              abjad.MetronomeMark,
-                                              abjad.RehearsalMark,
-                                              abjad.Repeat,
-                                              abjad.StaffChange,
-                                              abjad.StartMarkup,
-                                              abjad.StartTextSpan,
-                                              abjad.StopTextSpan,
-                                              )):
+                    if isinstance(indicator, indicators_tuple):
                         abjad.attach(indicator, multimeasure_rest)
                 abjad.mutate(measure).replace(multimeasure_rest)

@@ -1383,19 +1383,27 @@ class Hocketer():
         r"""Replaces notes and chords for silences if voice not in the selected
         :obj:`list` for a given logical tie.
         """
-        indicators_tuple = (abjad.TimeSignature,
-                            abjad.Dynamic,
-                            abjad.StartHairpin,
-                            abjad.StopHairpin,
+        indicators_tuple = (abjad.BarLine,
                             abjad.Clef,
+                            abjad.Dynamic,
                             abjad.Fermata,
                             abjad.KeySignature,
-                            abjad.Ottava,
                             abjad.LilyPondLiteral,
                             abjad.MetronomeMark,
+                            abjad.Ottava,
+                            abjad.RehearsalMark,
+                            abjad.Repeat,
                             abjad.StaffChange,
+                            abjad.StartHairpin,
+                            abjad.StartMarkup,
                             abjad.StartPhrasingSlur,
+                            abjad.StartSlur,
+                            abjad.StartTextSpan,
+                            abjad.StopHairpin,
                             abjad.StopPhrasingSlur,
+                            abjad.StopSlur,
+                            abjad.StopTextSpan,
+                            abjad.TimeSignature,
                             )
         dummy_voices = [abjad.mutate(self._contents).copy()
                         for _ in range(self._n_voices)]

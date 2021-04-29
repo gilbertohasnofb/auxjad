@@ -1306,7 +1306,8 @@ class Shuffler:
         )
         leaf_counter = 0
         for pitch, logical_selection in zip(self._pitches,
-                                            self._logical_selections):
+                                            self._logical_selections,
+                                            ):
             logical_tie = logical_selection.leaves()
             for leaf in logical_tie:
                 if pitch is None:

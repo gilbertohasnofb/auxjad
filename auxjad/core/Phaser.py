@@ -1339,26 +1339,27 @@ class Phaser():
                     break
             last_leaf = dummy_container[:start].leaf(-1)
             # copying indicators to both leaves
+            indicators_tuple = (abjad.Articulation,
+                                abjad.Clef,
+                                abjad.Dynamic,
+                                abjad.Fermata,
+                                abjad.KeySignature,
+                                abjad.LilyPondLiteral,
+                                abjad.MetronomeMark,
+                                abjad.Ottava,
+                                abjad.Staccatissimo,
+                                abjad.Staccato,
+                                abjad.StaffChange,
+                                abjad.StartHairpin,
+                                abjad.StartPhrasingSlur,
+                                abjad.StartSlur,
+                                abjad.StopHairpin,
+                                abjad.StopPhrasingSlur,
+                                abjad.StopSlur,
+                                )
             if abjad.inspect(last_leaf).indicator(abjad.Tie):  # i.e. split
                 for indicator in abjad.inspect(last_leaf).indicators():
-                    if isinstance(indicator, (abjad.Dynamic,
-                                              abjad.Articulation,
-                                              abjad.Staccato,
-                                              abjad.Staccatissimo,
-                                              abjad.StartHairpin,
-                                              abjad.StopHairpin,
-                                              abjad.StartSlur,
-                                              abjad.StopSlur,
-                                              abjad.Clef,
-                                              abjad.Fermata,
-                                              abjad.KeySignature,
-                                              abjad.Ottava,
-                                              abjad.LilyPondLiteral,
-                                              abjad.MetronomeMark,
-                                              abjad.StaffChange,
-                                              abjad.StartPhrasingSlur,
-                                              abjad.StopPhrasingSlur,
-                                              )):
+                    if isinstance(indicator, indicators_tuple):
                         first_leaf = dummy_container[start:].leaf(0)
                         abjad.attach(indicator, first_leaf)
             # removing ties of splitted logical tie if necessary
@@ -1457,9 +1458,7 @@ class Phaser():
                                    abjad.Duration,
                                    ],
                   ) -> None:
-        if not isinstance(step_size,
-                          (int, float, str, tuple, abjad.Duration),
-                          ):
+        if not isinstance(step_size, (int, float, str, tuple, abjad.Duration)):
             raise TypeError("'step_size' must be a number, 'tuple', or "
                             "'abjad.Duration'")
         self._step_size = abjad.Duration(step_size)

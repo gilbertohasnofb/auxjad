@@ -472,7 +472,7 @@ class CartographySelector():
     @contents.setter
     def contents(self,
                  contents: list[Any],
-                 ):
+                 ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
@@ -493,7 +493,7 @@ class CartographySelector():
     @decay_rate.setter
     def decay_rate(self,
                    decay_rate: float,
-                   ):
+                   ) -> None:
         if not isinstance(decay_rate, float):
             raise TypeError("'decay_rate' must be float")
         if decay_rate <= 0.0 or decay_rate > 1.0:

@@ -1264,9 +1264,7 @@ class WindowLooper(_LooperParent):
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
-        if not isinstance(step_size,
-                          (int, float, str, tuple, abjad.Duration),
-                          ):
+        if not isinstance(step_size, (int, float, str, tuple, abjad.Duration)):
             raise TypeError("'step_size' must be a number, 'tuple', or "
                             "'abjad.Duration'")
         self._step_size = abjad.Duration(step_size)

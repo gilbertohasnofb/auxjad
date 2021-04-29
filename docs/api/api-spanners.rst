@@ -32,7 +32,6 @@ names for their individual documentation.
     :toctree: ../_api_members
 
     half_piano_pedal
-    ottava
     piano_pedal
 
 .. include:: abjad-targets.rst

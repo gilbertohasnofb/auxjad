@@ -26,7 +26,6 @@ from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
 
-from .indicators.NumericOttava import NumericOttava
 from .indicators.TimeSignature import TimeSignature
 
 from .score.ArtificialHarmonic import ArtificialHarmonic
@@ -34,7 +33,6 @@ from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
 
 from .spanners.half_piano_pedal import half_piano_pedal
-from .spanners.ottava import ottava
 from .spanners.piano_pedal import piano_pedal
 
 from .utilities.inspect import Inspection
@@ -60,13 +58,11 @@ __all__ = [
     'Shuffler',
     'TenneySelector',
     'WindowLooper',
-    'NumericOttava',
     'TimeSignature',
     'ArtificialHarmonic',
     'HarmonicNote',
     'LeafDynMaker',
     'half_piano_pedal',
-    'ottava',
     'piano_pedal',
     'Inspection',
     'inspect',

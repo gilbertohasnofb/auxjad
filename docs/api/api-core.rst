@@ -25,6 +25,7 @@ for their individual documentation.
     CartographySelector
     CrossFader
     Fader
+    GeneticAlgorithm
     Hocketer
     LeafLooper
     ListLooper

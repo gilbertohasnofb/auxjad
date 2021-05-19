@@ -11,7 +11,7 @@ def test_GeneticAlgorithm_01():
     assert format(ga) == "['A', 'B', 'C', 'D', 'E']"
     assert len(ga) == 5
     assert ga.initial_individual is None
-    assert ga.individuals_per_generation == 100
+    assert ga.population_size == 100
     assert ga.select_n_parents == 10
     assert ga.mutation_chance == 0.2
     assert ga.mutation_index == 0.1
@@ -42,7 +42,8 @@ def test_GeneticAlgorithm_03():
     ga = auxjad.GeneticAlgorithm(
         target=['A', 'B', 'C', 'D', 'E'],
         genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        individuals_per_generation=4,
+        population_size=4,
+        select_n_parents=2,
     )
     ga()
     assert ga.population == [['A', 'J', 'J', 'B', 'H'],
@@ -62,7 +63,7 @@ def test_GeneticAlgorithm_04():
     ga = auxjad.GeneticAlgorithm(
         target=['A', 'B', 'C', 'D', 'E'],
         genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        individuals_per_generation=50,
+        population_size=50,
     )
     expected_results = [['A', 'J', 'B', 'E', 'E'],
                         ['A', 'H', 'C', 'D', 'J'],
@@ -139,19 +140,19 @@ def test_GeneticAlgorithm_07():
         target=['A', 'B', 'C', 'D', 'E'],
         genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
     )
-    assert ga.individuals_per_generation == 100
+    assert ga.population_size == 100
     assert ga.select_n_parents == 10
     assert ga.keep_n_parents == 0
     assert ga.mutation_chance == 0.2
     assert ga.mutation_index == 0.1
     assert ga.evaluation_index == 0.2
-    ga.individuals_per_generation = 50
+    ga.population_size = 50
     ga.select_n_parents = 15
     ga.keep_n_parents = 3
     ga.mutation_chance = 0.75
     ga.mutation_index = 0.25
     ga.evaluation_index = 0.5
-    assert ga.individuals_per_generation == 50
+    assert ga.population_size == 50
     assert ga.select_n_parents == 15
     assert ga.keep_n_parents == 3
     assert ga.mutation_chance == 0.75

@@ -15,14 +15,17 @@ class GeneticAlgorithm():
         in the population. The second is the :attr:`genes` list which should
         contain all possible elements that can make up an individual. All
         elements of :attr:`target` must also be present in :attr:`genes`. For
-        this example, :attr:`individuals_per_generation` will be set to a very
-        small value of ``4``, though in practice it's better to use
-        substantially larger numbers (default value is ``100``).
+        this example, :attr:`population_size` will be set to a very small value
+        of ``4``, though in practice it's better to use substantially larger
+        numbers (default value is ``100``). :attr:`select_n_parents` also needs
+        to be decreased, as it must always be smaller than
+        :attr:`population_size`.
 
         >>> ga = auxjad.GeneticAlgorithm(
         ...     target=['A', 'B', 'C', 'D', 'E'],
         ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        ...     individuals_per_generation=4,
+        ...     population_size=4,
+        ...     select_n_parents=2,
         ... )
 
         Calling the GA generator will generate a :attr:`population` of
@@ -54,7 +57,8 @@ class GeneticAlgorithm():
         >>> ga = auxjad.GeneticAlgorithm(
         ...     target=['A', 'B', 'C', 'D', 'E'],
         ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        ...     individuals_per_generation=4,
+        ...     population_size=4,
+        ...     select_n_parents=2,
         ... )
         >>> ga()
         >>> ga.fittest_individual
@@ -68,13 +72,13 @@ class GeneticAlgorithm():
 
     Evolution:
         As expected, each generation will become increasingly fit in relation
-        to the :attr:`target`. Setting :attr:`individuals_per_generation` to
-        ``50`` and running the genetic algorithm for ``10`` iterations,
+        to the :attr:`target`. Setting :attr:`population_size` to ``50`` and
+        running the genetic algorithm for ``10`` iterations,
 
         >>> ga = auxjad.GeneticAlgorithm(
         ...     target=['A', 'B', 'C', 'D', 'E'],
         ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        ...     individuals_per_generation=50,
+        ...     population_size=50,
         ... )
         >>> for _ in range(10):
         ...     ga()
@@ -198,7 +202,7 @@ class GeneticAlgorithm():
     __slots__ = ('_target',
                  '_genes',
                  '_initial_individual',
-                 '_individuals_per_generation',
+                 '_population_size',
                  '_select_n_parents',
                  '_keep_n_parents',
                  '_mutation_chance',
@@ -217,7 +221,7 @@ class GeneticAlgorithm():
                  target: list,
                  genes: list,
                  initial_individual: Optional[list] = None,
-                 individuals_per_generation: int = 100,
+                 population_size: int = 100,
                  select_n_parents: int = 10,
                  keep_n_parents: int = 0,
                  mutation_chance: float = 0.2,
@@ -237,7 +241,7 @@ class GeneticAlgorithm():
         self._target_indices = [self._genes.index(gene) for gene
                                 in self._target]
         self.initial_individual = initial_individual
-        self.individuals_per_generation = individuals_per_generation
+        self.population_size = population_size
         self.select_n_parents = select_n_parents
         self.keep_n_parents = keep_n_parents
         self.mutation_chance = mutation_chance
@@ -258,26 +262,20 @@ class GeneticAlgorithm():
         return len(self._target)
 
     def __call__(self) -> None:
-        r"""Calls the genetic algorithm process for one iteration. Generates a
-        new generation of length :attr:`individuals_per_generation` via
-        reproduction and mutation processes and scores each individual using
-        the evaluation function.
+        r"""Calls the genetic algorithm process for one iteration. Creates a
+        new generation of length :attr:`population_size` via reproduction and
+        mutation processes and scores each individual using the evaluation
+        function. Sorts the population according to their scores.
         """
-        if self._generation_number is None:
-            self._generation_number = 0
-            self._generate_initial_individual()
-        else:
-            self._generation_number += 1
-            self._crossover_population()
-            self._mutate_population()
-        self._generate_scores()
+        self._generate_population()
+        self._score_population()
         self._sort_population_by_evaluation()
 
     def __next__(self) -> None:
-        r"""Calls the genetic algorithm process for one iteration. Generates a
-        new generation of length :attr:`individuals_per_generation` via
-        reproduction and mutation processes and scores each individual using
-        the evaluation function.
+        r"""Calls the genetic algorithm process for one iteration. Creates a
+        new generation of length :attr:`population_size` via reproduction and
+        mutation processes and scores each individual using the evaluation
+        function. Sorts the population according to their scores.
         """
         try:
             return self.__call__()
@@ -298,13 +296,27 @@ class GeneticAlgorithm():
 
     ### PRIVATE METHODS ###
 
+    def _generate_population(self) -> None:
+        r"""Calls the genetic algorithm process for one iteration. Creates a
+        new generation of length :attr:`population_size` via reproduction and
+        mutation processes and scores each individual using the evaluation
+        function.
+        """
+        if self._generation_number is None:
+            self._generation_number = 0
+            self._generate_initial_individual()
+        else:
+            self._generation_number += 1
+            self._crossover_population()
+            self._mutate_population()
+
     def _generate_initial_individual(self) -> None:
         r"""Generates a random initial population of size
-        :attr:`individuals_per_generation` and whose genes are randomly chosen
-        from :attr:`genes`.
+        :attr:`population_size` and whose genes are randomly chosen from
+        :attr:`genes`.
         """
         self._population = []
-        for _ in range(self._individuals_per_generation):
+        for _ in range(self._population_size):
             if self._initial_individual is None:
                 individual = [random.choice(self._genes) for _
                               in range(self.__len__())]
@@ -340,7 +352,7 @@ class GeneticAlgorithm():
         self._population = [gene for _, gene in zipped_lists]
         self._scores = [score for score, _ in zipped_lists]
 
-    def _generate_scores(self) -> None:
+    def _score_population(self) -> None:
         r"""Generates the list of score for each individual of the current
         generation.
         """
@@ -356,8 +368,7 @@ class GeneticAlgorithm():
             new_generation = self._population[:self._keep_n_parents]
         else:
             new_generation = []
-        for _ in range(self._individuals_per_generation
-                       - self._keep_n_parents):
+        for _ in range(self._population_size - self._keep_n_parents):
             parents = random.sample(range(len(selected_parents)),
                                     k=2,
                                     )
@@ -437,17 +448,17 @@ class GeneticAlgorithm():
         self._initial_individual = initial_individual
 
     @property
-    def individuals_per_generation(self) -> int:
+    def population_size(self) -> int:
         r'Number of individuals in any given generation.'
-        return self._individuals_per_generation
+        return self._population_size
 
-    @individuals_per_generation.setter
-    def individuals_per_generation(self,
-                                   individuals_per_generation: int,
-                                   ) -> None:
-        if not isinstance(individuals_per_generation, int):
-            raise TypeError("'individuals_per_generation' must be 'int'")
-        self._individuals_per_generation = individuals_per_generation
+    @population_size.setter
+    def population_size(self,
+                        population_size: int,
+                        ) -> None:
+        if not isinstance(population_size, int):
+            raise TypeError("'population_size' must be 'int'")
+        self._population_size = population_size
 
     @property
     def select_n_parents(self) -> int:
@@ -462,6 +473,9 @@ class GeneticAlgorithm():
                          ) -> None:
         if not isinstance(select_n_parents, int):
             raise TypeError("'select_n_parents' must be 'int'")
+        if select_n_parents > self._population_size:
+            raise ValueError("'select_n_parents' must be equal to or smaller "
+                             "than 'population_size'")
         self._select_n_parents = select_n_parents
 
     @property
@@ -477,6 +491,9 @@ class GeneticAlgorithm():
                        ) -> None:
         if not isinstance(keep_n_parents, int):
             raise TypeError("'keep_n_parents' must be 'int'")
+        if keep_n_parents > self._population_size:
+            raise ValueError("'keep_n_parents' must be equal to or smaller "
+                             "than 'population_size'")
         self._keep_n_parents = keep_n_parents
 
     @property
@@ -566,8 +583,8 @@ class GeneticAlgorithm():
 
     @property
     def population(self) -> Union[list, None]:
-        r"""Read-only property, returns the population of the current
-        generation.
+        r"""Read-only property, returns a list with all the population of the
+        current generation.
         """
         return self._population
 

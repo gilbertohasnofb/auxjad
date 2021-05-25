@@ -28,12 +28,12 @@ def test_example_of_usage_03():
     looper.step_size = (1, 16)
     notes = looper.output_n(6)
     staff.append(notes)
-    abjad.mutate(staff[:]).remove_repeated_time_signatures()
+    abjad.mutate.remove_repeated_time_signatures(staff[:])
     looper.window_size = (3, 4)
     notes = looper.output_n(6)
     staff.append(notes)
-    abjad.mutate(staff[:]).remove_repeated_dynamics()
-    assert format(staff) == abjad.String.normalize(
+    abjad.mutate.remove_repeated_dynamics(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

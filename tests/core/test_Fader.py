@@ -10,7 +10,7 @@ def test_Fader_01():
     random.seed(13987)
     staff = abjad.Staff(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
     fader = auxjad.Fader(staff)
-    assert format(fader) == abjad.String.normalize(
+    assert abjad.lilypond(fader) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -25,7 +25,7 @@ def test_Fader_01():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -40,7 +40,7 @@ def test_Fader_01():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -55,7 +55,7 @@ def test_Fader_01():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -67,7 +67,7 @@ def test_Fader_01():
         """)
     notes = fader.current_window
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -85,7 +85,7 @@ def test_Fader_02():
     fader = auxjad.Fader(container)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -98,7 +98,7 @@ def test_Fader_02():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -111,7 +111,7 @@ def test_Fader_02():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -123,7 +123,7 @@ def test_Fader_02():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -134,7 +134,7 @@ def test_Fader_02():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -206,7 +206,7 @@ def test_Fader_04():
     fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -232,7 +232,7 @@ def test_Fader_05():
                          )
     notes = fader.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -257,7 +257,7 @@ def test_Fader_06():
     fader = auxjad.Fader(container)
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -270,7 +270,7 @@ def test_Fader_06():
         """)
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -283,7 +283,7 @@ def test_Fader_06():
         """)
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -296,7 +296,7 @@ def test_Fader_06():
     fader.fader_type = 'in'
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -309,7 +309,7 @@ def test_Fader_06():
         """)
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -323,7 +323,7 @@ def test_Fader_06():
     fader.mask = [0, 0, 1, 1]
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -335,7 +335,7 @@ def test_Fader_06():
         """)
     notes = fader.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -354,7 +354,7 @@ def test_Fader_07():
     fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -390,7 +390,7 @@ def test_Fader_08():
     fader = auxjad.Fader(container)
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -422,7 +422,7 @@ def test_Fader_09():
     fader = auxjad.Fader(container)
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -455,7 +455,7 @@ def test_Fader_10():
                          )
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -493,7 +493,7 @@ def test_Fader_11():
                          )
     notes = fader.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -522,7 +522,7 @@ def test_Fader_12():
                          )
     notes = fader.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -552,7 +552,7 @@ def test_Fader_13():
                          )
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -574,7 +574,7 @@ def test_Fader_14():
                          )
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -587,7 +587,7 @@ def test_Fader_14():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -601,7 +601,7 @@ def test_Fader_14():
     fader.reset_mask()
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -613,7 +613,7 @@ def test_Fader_14():
     fader.reset_mask()
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -634,7 +634,7 @@ def test_Fader_15():
     fader = auxjad.Fader(container)
     notes = fader.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -678,7 +678,7 @@ def test_Fader_16():
     fader = auxjad.Fader(staff,
                          fader_type='in',
                          )
-    assert format(fader) == abjad.String.normalize(
+    assert abjad.lilypond(fader) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -693,7 +693,7 @@ def test_Fader_16():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -703,7 +703,7 @@ def test_Fader_16():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -715,7 +715,7 @@ def test_Fader_16():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -730,7 +730,7 @@ def test_Fader_16():
         """)
     notes = fader.current_window
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -772,7 +772,7 @@ def test_Fader_18():
     fader = auxjad.Fader(container)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -785,7 +785,7 @@ def test_Fader_18():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -799,7 +799,7 @@ def test_Fader_18():
     fader.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -813,7 +813,7 @@ def test_Fader_18():
         """)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -843,7 +843,7 @@ def test_Fader_19():
     fader()
     assert fader.mask == [0, 1, 1, 0, 0]
     staff = abjad.Staff(fader.current_window)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -859,7 +859,7 @@ def test_Fader_19():
     notes = fader()
     staff = abjad.Staff(notes)
     abjad.f(staff)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -876,7 +876,7 @@ def test_Fader_19():
     notes = fader()
     staff = abjad.Staff(notes)
     abjad.f(staff)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -891,7 +891,7 @@ def test_Fader_20():
     fader = auxjad.Fader(container)
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -906,7 +906,7 @@ def test_Fader_20():
                          )
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -927,7 +927,7 @@ def test_Fader_22():
     fader.random_mask()
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -943,7 +943,7 @@ def test_Fader_22():
     fader.random_mask()
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -968,7 +968,7 @@ def test_Fader_23():
     fader.shuffle_mask()
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -986,7 +986,7 @@ def test_Fader_23():
     fader.shuffle_mask()
     notes = fader()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1010,7 +1010,7 @@ def test_Fader_24():
     staff = abjad.Staff()
     for window in fader:
         staff.append(window)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1036,8 +1036,8 @@ def test_Fader_24():
             R1
         }
         """)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1068,8 +1068,8 @@ def test_Fader_25():
     staff = abjad.Staff()
     for window in fader:
         staff.append(window)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1130,7 +1130,7 @@ def test_Fader_27():
     fader = auxjad.Fader(container)
     notes = fader.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1223,7 +1223,7 @@ def test_Fader_28():
                                 r"<bf f' a'>8 ~ <bf f' a'>4")
     fader = auxjad.Fader(container)
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1277,7 +1277,7 @@ def test_Fader_29():
     container = abjad.Container(r"c'2 <d' e' f' g'>2")
     fader = auxjad.Fader(container, mask=[1, 0, 1, 1, 0])
     staff = abjad.Staff(fader())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1296,7 +1296,7 @@ def test_Fader_30():
     ])
     fader = auxjad.Fader(container, fader_type='out')
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1333,7 +1333,7 @@ def test_Fader_31():
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1357,7 +1357,7 @@ def test_Fader_31():
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1378,7 +1378,7 @@ def test_Fader_31():
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1401,7 +1401,7 @@ def test_Fader_31():
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1424,7 +1424,7 @@ def test_Fader_32():
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1448,7 +1448,7 @@ def test_Fader_32():
                          include_empty_measures=True,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1471,7 +1471,7 @@ def test_Fader_32():
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1494,7 +1494,7 @@ def test_Fader_32():
                          include_empty_measures=False,
                          )
     staff = abjad.Staff(fader.output_all())
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1519,7 +1519,7 @@ def test_Fader_33():
                          )
     notes = fader.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1552,7 +1552,7 @@ def test_Fader_34():
     fader = auxjad.Fader(container, fader_type='in')
     notes = fader.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

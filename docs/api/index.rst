@@ -7,7 +7,7 @@ focused on algorithmic transformations and manipulations of |abjad.Container|
 objects. |indicators|_ and |spanners|_ contain derived classes and extension
 methods for Abjad's indicators and spanners. |score|_ contains score component
 and component maker classes, such as an expanded leaf maker as well as harmonic
-leaves. |utilities|_ contains mutation and inspection methods as well as a
+leaves. |utilities|_ contains mutation and getter functions as well as a
 couple of utility functions.
 
 .. note::
@@ -32,7 +32,7 @@ in the navigation pane in the left.
 +----------------+-------------------------------------------------------------+
 | |spanners|_    | spanner classes                                             |
 +----------------+-------------------------------------------------------------+
-| |utilities|_   | mutation methods, inspection methods, and utility functions |
+| |utilities|_   | mutation and getter functions                               |
 +----------------+-------------------------------------------------------------+
 
 .. toctree::

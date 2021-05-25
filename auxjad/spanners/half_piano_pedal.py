@@ -56,7 +56,7 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> auxjad.half_piano_pedal(staff1[:])
         >>> abjad.half_piano_pedal(staff2[:])
         >>> selections = [staff1[:], staff2[:]]
-        >>> auxjad.inspect(selections).selections_are_identical()
+        >>> auxjad.get.selections_are_identical(selections)
         True
 
     ``until_the_end``:

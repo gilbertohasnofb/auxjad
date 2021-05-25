@@ -55,11 +55,11 @@ and rests.
 .. figure:: ../_images/example-5-shuffling-harmonics-vuu4ho4hjk7.png
 
 The spelling of the chord ``<d' af' a'>`` could be improved. This can be done
-by using either |auxjad.mutate().respell_accidentals()| on a selection. Auxjad
-automatically adds this mutation as an extension method to |abjad.mutate()| so
-it can also be accessed using |abjad.mutate().respell_accidentals()|.
+by using either |auxjad.mutate.respell_accidentals()| on a selection. Auxjad
+automatically adds this mutation as an extension method to |abjad.mutate| so
+it can also be accessed using |abjad.mutate.respell_accidentals()|.
 
-    >>> abjad.mutate(container[:]).respell_accidentals()
+    >>> abjad.mutate.respell_accidentals(container[:])
     >>> abjad.f(container)
     {
         <
@@ -631,26 +631,26 @@ as a single note.
 .. figure:: ../_images/example-5-shuffling-harmonics-1rxgv2my0lr.png
 
 To finalise the score, let's improve the spelling of some rhythms. Most classes
-and functions in this library use |abjad.mutate().rewrite_meter()| mutation
+and functions in this library use |abjad.Meter.rewrite_meter()| mutation
 to adjust the spelling of rhythms according to a meter. Unfortunately, this
 mutation sometimes uses ties within a single beat, resulting in rhythms that
 are less ideally notated than they could.
-|auxjad.mutate().prettify_rewrite_meter()| fuses pitched leaves according to
+|auxjad.mutate.prettify_rewrite_meter()| fuses pitched leaves according to
 some specific rules, improving the default output of
-|abjad.mutate().rewrite_meter()|. This function is also available as the method
-|abjad.mutate().prettify_rewrite_meter()|, which Auxjad automatically adds as
-an extension method to |abjad.mutate()|.
+|abjad.Meter.rewrite_meter()|. This function is also available as the method
+|abjad.mutate.prettify_rewrite_meter()|, which Auxjad automatically adds as
+an extension method to |abjad.mutate|.
 
 Notice that the time signature has been repeated. While the method
 :meth:`~auxjad.Fader.output_all()` takes care of repeated time signatures,
 dynamics, and clefs, consecutive calls may result in repetitions. But we can
-simply use |auxjad.mutate().remove_repeated_time_signatures()| to take care of
+simply use |auxjad.mutate.remove_repeated_time_signatures()| to take care of
 that for us. This function is also available as the extension method
-|abjad.mutate().remove_repeated_time_signatures()|, which Auxjad automatically
-adds to |abjad.mutate()|.
+|abjad.mutate.remove_repeated_time_signatures()|, which Auxjad automatically
+adds to |abjad.mutate|.
 
-    >>> abjad.mutate(staff[:]).prettify_rewrite_meter(abjad.Meter((4, 4)))
-    >>> abjad.mutate(staff[:]).remove_repeated_time_signatures()
+    >>> abjad.mutate.prettify_rewrite_meter(staff[:], abjad.Meter((4, 4)))
+    >>> abjad.mutate.remove_repeated_time_signatures(staff[:])
     >>> abjad.f(staff)
     \new Staff
     {

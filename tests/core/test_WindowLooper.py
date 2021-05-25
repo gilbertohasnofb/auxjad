@@ -9,7 +9,7 @@ import auxjad
 def test_WindowLooper_01():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.WindowLooper(container)
-    assert format(looper) == abjad.String.normalize(
+    assert abjad.lilypond(looper) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -23,7 +23,7 @@ def test_WindowLooper_01():
         """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -35,7 +35,7 @@ def test_WindowLooper_01():
         """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -54,7 +54,7 @@ def test_WindowLooper_01():
         """)
     notes = looper.current_window
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -81,7 +81,7 @@ def test_WindowLooper_02():
                                  )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -92,7 +92,7 @@ def test_WindowLooper_02():
         """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -114,7 +114,7 @@ def test_WindowLooper_03():
                                  )
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -125,7 +125,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -139,7 +139,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -150,7 +150,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -162,7 +162,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -174,7 +174,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -186,7 +186,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -197,7 +197,7 @@ def test_WindowLooper_03():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -273,7 +273,7 @@ def test_WindowLooper_05():
                                  )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -298,7 +298,7 @@ def test_WindowLooper_06():
     looper = auxjad.WindowLooper(container)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -310,7 +310,7 @@ def test_WindowLooper_06():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -329,7 +329,7 @@ def test_WindowLooper_06():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -347,7 +347,7 @@ def test_WindowLooper_06():
     looper.window_size = (3, 8)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -360,7 +360,7 @@ def test_WindowLooper_06():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -370,7 +370,7 @@ def test_WindowLooper_06():
         """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -388,7 +388,7 @@ def test_WindowLooper_07():
                                  )
     notes = looper.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -425,7 +425,7 @@ def test_WindowLooper_08():
     looper = auxjad.WindowLooper(container, omit_time_signatures=True)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -467,7 +467,7 @@ def test_WindowLooper_10():
                                  )
     notes = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -499,7 +499,7 @@ def test_WindowLooper_11():
                                  )
     notes = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -533,7 +533,7 @@ def test_WindowLooper_12():
                                  )
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -556,7 +556,7 @@ def test_WindowLooper_13():
                                  )
     notes = looper.output_n(2, tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -590,7 +590,7 @@ def test_WindowLooper_15():
                                  )
     notes = looper.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -618,7 +618,7 @@ def test_WindowLooper_16():
                                  )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -648,7 +648,7 @@ def test_WindowLooper_17():
                                  )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -667,7 +667,7 @@ def test_WindowLooper_18():
                                  )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -692,7 +692,7 @@ def test_WindowLooper_19():
     staff = abjad.Staff()
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -733,7 +733,7 @@ def test_WindowLooper_20():
     looper = auxjad.WindowLooper(container)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -745,7 +745,7 @@ def test_WindowLooper_20():
         """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -765,7 +765,7 @@ def test_WindowLooper_20():
     looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. | a'1")
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -784,7 +784,7 @@ def test_WindowLooper_20():
     looper.head_position = 0
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -824,7 +824,7 @@ def test_WindowLooper_22():
                                  )
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -850,7 +850,7 @@ def test_WindowLooper_23():
                                  )
     notes = looper.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -884,7 +884,7 @@ def test_WindowLooper_24():
                                  )
     notes = looper.output_n(4)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -902,7 +902,7 @@ def test_WindowLooper_25():
     looper = auxjad.WindowLooper(container)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -917,7 +917,7 @@ def test_WindowLooper_25():
                                  )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -940,7 +940,7 @@ def test_WindowLooper_26():
     staff = abjad.Staff()
     for window in looper:
         staff.append(window)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -977,8 +977,8 @@ def test_WindowLooper_26():
             r2
         }
         """)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1053,7 +1053,7 @@ def test_WindowLooper_28():
     looper = auxjad.WindowLooper(container, step_size=(1, 4))
     notes = looper.output_n(6)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1112,7 +1112,7 @@ def test_WindowLooper_29():
                                  )
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1138,7 +1138,7 @@ def test_WindowLooper_29():
                                  )
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

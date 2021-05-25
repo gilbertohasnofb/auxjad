@@ -6,7 +6,7 @@ import auxjad
 def test_half_piano_pedal_01():
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     auxjad.half_piano_pedal(staff[:])
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -36,7 +36,7 @@ def test_half_piano_pedal_02():
     auxjad.half_piano_pedal(staff[:],
                             until_the_end=True,
                             )
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -67,7 +67,7 @@ def test_half_piano_pedal_03():
     auxjad.half_piano_pedal(staff[:],
                             omit_raise_pedal_glyph=True,
                             )
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -99,7 +99,7 @@ def test_half_piano_pedal_04():
                             until_the_end=True,
                             omit_raise_pedal_glyph=True,
                             )
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -130,7 +130,7 @@ def test_half_piano_pedal_05():
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     auxjad.half_piano_pedal(staff[:])
     abjad.setting(staff).pedal_sustain_style = "#'mixed"
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         \with
@@ -165,7 +165,7 @@ def test_half_piano_pedal_06():
                             until_the_end=True,
                             )
     abjad.setting(staff).pedal_sustain_style = "#'mixed"
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         \with
@@ -201,7 +201,7 @@ def test_half_piano_pedal_07():
                            until_the_end=True,
                            omit_raise_pedal_glyph=True,
                            )
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

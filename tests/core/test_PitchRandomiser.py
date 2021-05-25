@@ -16,7 +16,7 @@ def test_PitchRandomiser_01():
     assert format(randomiser) == "PitchSegment(\"fs' gs' a' b' cs''\")"
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -29,7 +29,7 @@ def test_PitchRandomiser_01():
         """)
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -44,7 +44,7 @@ def test_PitchRandomiser_01():
     with pytest.raises(AttributeError):
         randomiser.current_window = abjad.Container(r"c''2 e''2")
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -92,7 +92,7 @@ def test_PitchRandomiser_03():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -115,7 +115,7 @@ def test_PitchRandomiser_04():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -138,7 +138,7 @@ def test_PitchRandomiser_05():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -158,7 +158,7 @@ def test_PitchRandomiser_06():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -184,7 +184,7 @@ def test_PitchRandomiser_07():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -211,7 +211,7 @@ def test_PitchRandomiser_08():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -237,7 +237,7 @@ def test_PitchRandomiser_09():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -254,7 +254,7 @@ def test_PitchRandomiser_09():
     randomiser.weights = None
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -305,7 +305,7 @@ def test_PitchRandomiser_12():
                                         )
     notes = randomiser.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -345,7 +345,7 @@ def test_PitchRandomiser_13():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -377,7 +377,7 @@ def test_PitchRandomiser_14():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -403,7 +403,7 @@ def test_PitchRandomiser_15():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -427,7 +427,7 @@ def test_PitchRandomiser_16():
                                         )
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -439,7 +439,7 @@ def test_PitchRandomiser_16():
         """)
     notes = randomiser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -473,9 +473,9 @@ def test_PitchRandomiser_18():
     staff = abjad.Staff()
     for window in randomiser:
         staff.append(window)
-        if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        if abjad.get.duration(staff) == abjad.Duration((9, 4)):
             break
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -493,8 +493,8 @@ def test_PitchRandomiser_18():
             cs''4
         }
         """)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

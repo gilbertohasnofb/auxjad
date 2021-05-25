@@ -21,7 +21,7 @@ def test_FittestMeasureMaker_01():
     assert len(measure_maker) == 4
     notes = measure_maker.target_music
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -35,7 +35,7 @@ def test_FittestMeasureMaker_01():
     notes = measure_maker()
     assert measure_maker.generation_number == 0
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -53,7 +53,7 @@ def test_FittestMeasureMaker_01():
     notes = measure_maker()
     assert measure_maker.generation_number == 1
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -80,7 +80,7 @@ def test_FittestMeasureMaker_02():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -128,7 +128,7 @@ def test_FittestMeasureMaker_03():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -181,7 +181,7 @@ def test_FittestMeasureMaker_04():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -230,7 +230,7 @@ def test_FittestMeasureMaker_05():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -284,7 +284,7 @@ def test_FittestMeasureMaker_05():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -333,7 +333,7 @@ def test_FittestMeasureMaker_06():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -381,7 +381,7 @@ def test_FittestMeasureMaker_06():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -440,7 +440,7 @@ def test_FittestMeasureMaker_07():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -504,7 +504,7 @@ def test_FittestMeasureMaker_08():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -548,7 +548,7 @@ def test_FittestMeasureMaker_08():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -605,7 +605,7 @@ def test_FittestMeasureMaker_08():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -645,7 +645,7 @@ def test_FittestMeasureMaker_09():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -715,7 +715,7 @@ def test_FittestMeasureMaker_10():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -762,7 +762,7 @@ def test_FittestMeasureMaker_11():
     )
     notes = measure_maker.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

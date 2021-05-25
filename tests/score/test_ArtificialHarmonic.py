@@ -7,7 +7,7 @@ import auxjad
 def test_ArtificialHarmonic_01():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4")
     assert harm.style == 'harmonic'
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             g
@@ -24,7 +24,7 @@ def test_ArtificialHarmonic_02():
     harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
     harms = [harm1, harm2, harm3, harm4]
     for harm in harms:
-        assert format(harm) == abjad.String.normalize(
+        assert abjad.lilypond(harm) == abjad.String.normalize(
             r"""
             <
                 g
@@ -39,7 +39,7 @@ def test_ArtificialHarmonic_03():
                                      style='harmonic-mixed',
                                      )
     assert harm.style == 'harmonic-mixed'
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             g
@@ -54,7 +54,7 @@ def test_ArtificialHarmonic_04():
                                      is_parenthesized=True,
                                      )
     assert harm.is_parenthesized
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             \parenthesize
@@ -71,7 +71,7 @@ def test_ArtificialHarmonic_05():
                                      multiplier=(2, 3),
                                      )
     assert harm.multiplier == abjad.Multiplier(2, 3)
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             g
@@ -175,7 +175,7 @@ def test_ArtificialHarmonic_14():
                                       markup='I.',
                                       direction=abjad.Down)
     staff = abjad.Staff([harm1, harm2, harm3])
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -205,7 +205,7 @@ def test_ArtificialHarmonic_15():
                                      markup='I.',
                                      )
     harm.markup = None
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             a
@@ -228,7 +228,7 @@ def test_ArtificialHarmonic_17():
                                      markup='I.',
                                      direction=abjad.Down)
     assert harm.direction is abjad.Down
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             a
@@ -239,7 +239,7 @@ def test_ArtificialHarmonic_17():
         """)
     harm.direction = abjad.Up
     assert harm.direction is abjad.Up
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             a

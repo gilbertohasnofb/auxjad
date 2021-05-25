@@ -1,7 +1,7 @@
 import abjad
 
-from ..utilities.inspect import inspect
-from ..utilities.mutate import mutate
+from .. import get
+from .. import mutate
 
 
 class Repeater():
@@ -135,7 +135,7 @@ class Repeater():
         then be used in a for loop. Note that unlike the methods
         :meth:`__call__()` and :meth:`output_n`, time signatures are added to
         each window returned by the shuffler. Use the function
-        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
+        |auxjad.mutate.remove_repeated_time_signatures()| to clean the output
         when using this class in this way. It is also important to note that a
         ``break`` statement is needed when using this class as an iterator. The
         reason is that repeating is a process that can happen indefinitely
@@ -146,9 +146,9 @@ class Repeater():
         >>> staff = abjad.Staff()
         >>> for window in repeater:
         ...     staff.append(window)
-        ...     if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        ...     if abjad.get.duration(staff) == abjad.Duration((9, 4)):
         ...         break
-        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
         \new Staff
         {
@@ -174,9 +174,9 @@ class Repeater():
         output (both are ``False`` by default). When set to ``True``, the
         properties  :attr:`reposition_clefs`, :attr:`reposition_dynamics`, and
         :attr:`reposition_slurs` will invoke the mutations
-        |auxjad.mutate().reposition_clefs()|,
-        |auxjad.mutate().reposition_dynamics()|, and
-        |auxjad.mutate().reposition_slurs()| (default values are ``True``).
+        |auxjad.mutate.reposition_clefs()|,
+        |auxjad.mutate.reposition_dynamics()|, and
+        |auxjad.mutate.reposition_slurs()| (default values are ``True``).
         Check their documentation for more information on how they operate.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
@@ -363,9 +363,9 @@ class Repeater():
 
         .. figure:: ../_images/Repeater-m1ibei9s3am.png
 
-        This is done by invoking |auxjad.mutate().reposition_clefs()|,
-        |auxjad.mutate().reposition_dynamics()|, and
-        |auxjad.mutate().reposition_slurs()|. Check their documentation for
+        This is done by invoking |auxjad.mutate.reposition_clefs()|,
+        |auxjad.mutate.reposition_dynamics()|, and
+        |auxjad.mutate.reposition_slurs()|. Check their documentation for
         more information on how they operate.
 
         >>> repeater = auxjad.Repeater(container)
@@ -527,17 +527,17 @@ class Repeater():
                            n: int,
                            ) -> None:
         r'Repeats a container ``n`` times.'
-        dummy_container = abjad.mutate(self._contents).copy()
+        dummy_container = abjad.mutate.copy(self._contents)
         for _ in range(n - 1):
-            dummy_container.extend(abjad.mutate(self._contents).copy())
+            dummy_container.extend(abjad.mutate.copy(self._contents))
         if not self._force_identical_time_signatures:
-            mutate(dummy_container[:]).remove_repeated_time_signatures()
+            mutate.remove_repeated_time_signatures(dummy_container[:])
         if self._reposition_clefs:
-            mutate(dummy_container[:]).reposition_clefs()
+            mutate.reposition_clefs(dummy_container[:])
         if self._reposition_clefs:
-            mutate(dummy_container[:]).reposition_dynamics()
+            mutate.reposition_dynamics(dummy_container[:])
         if self._reposition_clefs:
-            mutate(dummy_container[:]).reposition_slurs()
+            mutate.reposition_slurs(dummy_container[:])
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -545,7 +545,7 @@ class Repeater():
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
@@ -553,7 +553,7 @@ class Repeater():
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be shuffled.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -565,16 +565,16 @@ class Repeater():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        dummy_container = abjad.mutate(contents).copy()
+            self._contents = abjad.mutate.copy(contents)
+        dummy_container = abjad.mutate.copy(contents)
         try:
-            if not inspect(dummy_container[:]).selection_is_full():
-                mutate(self._contents).close_container()
-                mutate(dummy_container).close_container()
+            if not get.selection_is_full(dummy_container[:]):
+                mutate.close_container(self._contents)
+                mutate.close_container(dummy_container)
         except ValueError as err:
             raise ValueError("'contents' is malformed, with an underfull "
                              "measure preceding a time signature change"
@@ -585,7 +585,7 @@ class Repeater():
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the previously output selection.'
-        current_window = abjad.mutate(self._current_window).copy()
+        current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window
@@ -621,7 +621,7 @@ class Repeater():
 
     @property
     def reposition_clefs(self) -> bool:
-        r'When ``True``, |auxjad.mutate().reposition_clefs()| is invoked.'
+        r'When ``True``, |auxjad.mutate.reposition_clefs()| is invoked.'
         return self._reposition_clefs
 
     @reposition_clefs.setter
@@ -634,7 +634,7 @@ class Repeater():
 
     @property
     def reposition_dynamics(self) -> bool:
-        r'When ``True``, |auxjad.mutate().reposition_dynamics()| is invoked.'
+        r'When ``True``, |auxjad.mutate.reposition_dynamics()| is invoked.'
         return self._reposition_dynamics
 
     @reposition_dynamics.setter
@@ -647,7 +647,7 @@ class Repeater():
 
     @property
     def reposition_slurs(self) -> bool:
-        r'When ``True``, |auxjad.mutate().reposition_slurs()| is invoked.'
+        r'When ``True``, |auxjad.mutate.reposition_slurs()| is invoked.'
         return self._reposition_slurs
 
     @reposition_slurs.setter

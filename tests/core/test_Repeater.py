@@ -7,7 +7,7 @@ import auxjad
 def test_Repeater_01():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     repeater = auxjad.Repeater(container)
-    assert format(repeater) == abjad.String.normalize(
+    assert abjad.lilypond(repeater) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -18,7 +18,7 @@ def test_Repeater_01():
         """)
     notes = repeater()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -32,7 +32,7 @@ def test_Repeater_01():
     with pytest.raises(AttributeError):
         repeater.current_window = abjad.Container(r"c''2 e''2")
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -49,7 +49,7 @@ def test_Repeater_02():
     repeater = auxjad.Repeater(container)
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -70,7 +70,7 @@ def test_Repeater_03():
     repeater = auxjad.Repeater(container)
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -98,7 +98,7 @@ def test_Repeater_04():
     repeater = auxjad.Repeater(container)
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -121,7 +121,7 @@ def test_Repeater_05():
     repeater = auxjad.Repeater(container)
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -148,7 +148,7 @@ def test_Repeater_06():
                                )
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -172,7 +172,7 @@ def test_Repeater_07():
                                )
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -203,7 +203,7 @@ def test_Repeater_09():
     repeater = auxjad.Repeater(container)
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -234,7 +234,7 @@ def test_Repeater_09():
                                )
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -299,9 +299,9 @@ def test_Repeater_11():
     staff = abjad.Staff()
     for window in repeater:
         staff.append(window)
-        if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        if abjad.get.duration(staff) == abjad.Duration((9, 4)):
             break
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -319,8 +319,8 @@ def test_Repeater_11():
             e'4
         }
         """)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -343,7 +343,7 @@ def test_Repeater_12():
     repeater = auxjad.Repeater(container)
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -360,7 +360,7 @@ def test_Repeater_12():
     repeater.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -383,7 +383,7 @@ def test_Repeater_13():
     repeater = auxjad.Repeater(container)
     notes = repeater.output_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -404,7 +404,7 @@ def test_Repeater_14():
     repeater = auxjad.Repeater(container)
     notes = repeater()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

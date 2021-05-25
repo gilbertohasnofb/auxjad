@@ -27,7 +27,7 @@ def test_example_of_usage_04():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<

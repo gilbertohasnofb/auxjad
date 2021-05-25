@@ -331,16 +331,16 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     def sounding_note(self) -> abjad.Note:
         r'Returns the sounding note of the harmonic as an |abjad.Note|.'
         note = abjad.Note(self.sounding_pitch(), self._written_duration)
-        for indicator in abjad.inspect(self).indicators():
+        for indicator in abjad.get.indicators(self):
             abjad.attach(indicator, note)
         return note
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def written_pitches(self) -> abjad.pitch.PitchSegment:
+    def written_pitches(self) -> abjad.pitch.segments.PitchSegment:
         r'The written pitches of the two note heads.'
-        return abjad.pitch.PitchSegment(
+        return abjad.pitch.segments.PitchSegment(
             items=(note_head.written_pitch for note_head in self._note_heads),
             item_class=abjad.pitch.NamedPitch,
         )

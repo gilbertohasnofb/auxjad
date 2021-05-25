@@ -10,7 +10,7 @@ def test_CrossFader_01():
     fade_out_container = abjad.Staff(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Staff(r"\times 4/5 {cs''4 d''1}")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
-    assert format(fader) == abjad.String.normalize(
+    assert abjad.lilypond(fader) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -33,7 +33,7 @@ def test_CrossFader_01():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -56,7 +56,7 @@ def test_CrossFader_01():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -82,7 +82,7 @@ def test_CrossFader_01():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -136,7 +136,7 @@ def test_CrossFader_03():
     selection_a, selection_b = fader()
     staff_a.extend(selection_a)
     staff_b.extend(selection_b)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -190,7 +190,7 @@ def test_CrossFader_04():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -252,7 +252,7 @@ def test_CrossFader_05():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -296,7 +296,7 @@ def test_CrossFader_06():
     for selection_a, selection_b in fader:
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -360,7 +360,7 @@ def test_CrossFader_07():
         selection_a, selection_b = next(fader)
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -403,7 +403,7 @@ def test_CrossFader_08():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -444,7 +444,7 @@ def test_CrossFader_08():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -487,7 +487,7 @@ def test_CrossFader_08():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -536,7 +536,7 @@ def test_CrossFader_09():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -637,7 +637,7 @@ def test_CrossFader_09():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -743,7 +743,7 @@ def test_CrossFader_10():
     fade_in_container = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     fader.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
-    assert format(fader) == abjad.String.normalize(
+    assert abjad.lilypond(fader) == abjad.String.normalize(
         r"""
         {
             %%% \time 3/4 %%%
@@ -776,7 +776,7 @@ def test_CrossFader_11():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -836,7 +836,7 @@ def test_CrossFader_12():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -885,7 +885,7 @@ def test_CrossFader_13():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -949,7 +949,7 @@ def test_CrossFader_14():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -991,7 +991,7 @@ def test_CrossFader_15():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1039,9 +1039,9 @@ def test_CrossFader_16():
     selection_a, selection_b = fader.output_all()
     staff_a = abjad.Staff(selection_a)
     staff_b = abjad.Staff(selection_b)
-    auxjad.mutate([staff_a, staff_b]).sync_containers()
+    auxjad.mutate.sync_containers([staff_a, staff_b])
     score = abjad.Score([staff_a, staff_b])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1156,7 +1156,7 @@ def test_CrossFader_18():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1246,7 +1246,7 @@ def test_CrossFader_19():
         abjad.Staff(selection_a),
         abjad.Staff(selection_b),
     ])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1320,7 +1320,7 @@ def test_CrossFader_20():
         [abjad.Voice(selection_a), abjad.Voice(selection_b)],
         simultaneous=True,
     )
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         <<

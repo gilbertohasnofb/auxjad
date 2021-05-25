@@ -304,13 +304,13 @@ crotchet into a semiquaver and output six more measures.
 Notice that the time signature has been repeated. While the method
 :meth:`~auxjad.WindowLooper.output_n()` takes care of repeated time signatures,
 dynamics, and clefs, consecutive calls may result in repetitions. But we can
-simply use |auxjad.mutate().remove_repeated_time_signatures()| to take care of
+simply use |auxjad.mutate.remove_repeated_time_signatures()| to take care of
 that for us. This function is also available as the extension method
-|abjad.mutate().remove_repeated_time_signatures()| which Auxjad automatically
-adds to |abjad.mutate()|.
+|abjad.mutate.remove_repeated_time_signatures()| which Auxjad automatically
+adds to |abjad.mutate|.
 
 
-    >>> abjad.mutate(staff[:]).remove_repeated_time_signatures()
+    >>> abjad.mutate.remove_repeated_time_signatures(staff[:])
     >>> abjad.f(staff)
     \new Staff
     {
@@ -618,18 +618,18 @@ more measures.
 
 .. figure:: ../_images/example-3-looping-snpku7bedo.png
 
-At this point, let's use |auxjad.mutate().remove_repeated_dynamics()| to remove
+At this point, let's use |auxjad.mutate.remove_repeated_dynamics()| to remove
 all repeated dynamics. While the method :meth:`~auxjad.WindowLooper.output_n()`
 removes repeated dynamics, clefs, and time signatures, this is necessary
 because our example invoked :meth:`~auxjad.WindowLooper.output_n()` multiple
 times, and there is a repetition of a dynamic at that transition. This function
 is also available as the extension method
-|abjad.mutate().remove_repeated_dynamics()|, which Auxjad automatically adds to
-|abjad.mutate()|.
+|abjad.mutate.remove_repeated_dynamics()|, which Auxjad automatically adds to
+|abjad.mutate|.
 
 The final result is shown below.
 
-    >>> abjad.mutate(staff[:]).remove_repeated_dynamics()
+    >>> abjad.mutate.remove_repeated_dynamics(staff[:])
     >>> abjad.f(staff)
     \new Staff
     {

@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.mutate import mutate
+from .. import mutate
 from ._LooperParent import _LooperParent
 
 
@@ -153,7 +153,7 @@ class WindowLooper(_LooperParent):
         exhausted. Note that unlike the methods :meth:`output_n` and
         :meth:`output_all`, time signatures are added to each window returned
         by the shuffler. Use the function
-        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
+        |auxjad.mutate.remove_repeated_time_signatures()| to clean the output
         when using this class in this way.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4")
@@ -164,7 +164,7 @@ class WindowLooper(_LooperParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
-        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
         \new Staff
         {
@@ -269,7 +269,7 @@ class WindowLooper(_LooperParent):
         the looping window. It must be a :obj:`tuple` or an |abjad.Duration|,
         and its default value is ``0``. The properties :attr:`boundary_depth`,
         :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
-        arguments to |abjad.mutate().rewrite_meter()|, see its documentation
+        arguments to |abjad.Meter.rewrite_meter()|, see its documentation
         for more information. By default, calling the object will first return
         the original container and subsequent calls will process it; set
         :attr:`process_on_first_call` to ``True`` and the looping process will
@@ -604,7 +604,7 @@ class WindowLooper(_LooperParent):
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
 
@@ -788,8 +788,8 @@ class WindowLooper(_LooperParent):
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -800,7 +800,7 @@ class WindowLooper(_LooperParent):
         better to attach those to the music after the fading process has ended.
 
     :attr:`disable_rewrite_meter`:
-        By default, this class uses the |abjad.mutate().rewrite_meter()|
+        By default, this class uses the |abjad.Meter.rewrite_meter()|
         mutation.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4")
@@ -855,9 +855,9 @@ class WindowLooper(_LooperParent):
 
         .. figure:: ../_images/LeafLooper-osLcSeQ6gP.png
 
-    Tweaking |abjad.mutate().rewrite_meter()|:
+    Tweaking |abjad.Meter.rewrite_meter()|:
         This class uses the default logical tie splitting algorithm from
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> looper = auxjad.WindowLooper(container)
@@ -896,14 +896,14 @@ class WindowLooper(_LooperParent):
         .. figure:: ../_images/WindowLooper-hzetruc3kz4.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
         :attr:`rewrite_tuplets`, which work exactly as the identically named
-        arguments of |abjad.mutate().rewrite_meter()|.
+        arguments of |abjad.Meter.rewrite_meter()|.
 
         This class also accepts the arguments ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
         ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        |auxjad.mutate.prettify_rewrite_meter()| (the latter can be disabled
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of this function for more details on these arguments.
 
@@ -1062,20 +1062,20 @@ class WindowLooper(_LooperParent):
         """
         head = self._head_position
         window_size = self._window_size
-        dummy_container = abjad.mutate(self._contents_no_time_signature).copy()
+        dummy_container = abjad.mutate.copy(self._contents_no_time_signature)
         # splitting leaves at both slicing points
         if head > abjad.Duration(0):
-            abjad.mutate(dummy_container[:]).split([head,
-                                                    window_size.duration,
-                                                    ])
+            abjad.mutate.split(dummy_container[:],
+                               [head, window_size.duration],
+                               )
         else:
-            abjad.mutate(dummy_container[:]).split([window_size.duration])
+            abjad.mutate.split(dummy_container[:], [window_size.duration])
         # finding start and end indeces for the window
         for start in range(len(dummy_container)):
-            if abjad.inspect(dummy_container[:start + 1]).duration() > head:
+            if abjad.get.duration(dummy_container[:start + 1]) > head:
                 break
         for end in range(start + 1, len(dummy_container)):
-            if (abjad.inspect(dummy_container[start : end]).duration()
+            if (abjad.get.duration(dummy_container[start : end])
                     == window_size.duration):
                 break
         else:
@@ -1091,15 +1091,19 @@ class WindowLooper(_LooperParent):
         window_size = self._window_size
         # passing on indicators from the head of an initial splitted leaf
         for index in range(start - 1, -1, -1):
-            if abjad.inspect(dummy_container[index]).indicator(abjad.Tie):
-                inspect_contents = abjad.inspect(dummy_container[index - 1])
-                if index == 0 or not inspect_contents.indicator(abjad.Tie):
-                    inspect_contents = abjad.inspect(dummy_container[index])
-                    for indicator in inspect_contents.indicators():
-                        inspector = abjad.inspect(dummy_container[start])
+            if abjad.get.indicator(dummy_container[index], abjad.Tie):
+                if index == 0 or not abjad.get.indicator(
+                    dummy_container[index - 1],
+                    abjad.Tie,
+                ):
+                    for indicator in abjad.get.indicators(
+                        dummy_container[index],
+                    ):
                         if (not isinstance(indicator, (abjad.TimeSignature,
                                                        abjad.Tie))
-                                and inspector.indicator(type(indicator))
+                                and abjad.get.indicator(dummy_container[start],
+                                                        type(indicator),
+                                                        )
                                 is None):
                             abjad.attach(indicator, dummy_container[start])
         # removing ties generated by the split mutation
@@ -1108,26 +1112,26 @@ class WindowLooper(_LooperParent):
         # handling initial dynamics and slurs
         start_head = abjad.select(dummy_container[start:]).logical_tie(0)[0]
         start_tail = abjad.select(dummy_container[start:]).logical_tie(0)[-1]
-        if (abjad.inspect(start_head).indicator(abjad.StartSlur) is None
-                and abjad.inspect(start_tail).indicator(abjad.StopSlur)
+        if (abjad.get.indicator(start_head, abjad.StartSlur) is None
+                and abjad.get.indicator(start_tail, abjad.StopSlur)
                 is None):
             for leaf in dummy_container[start - 1::-1].leaves():
-                if abjad.inspect(leaf).indicator(abjad.StartSlur) is not None:
+                if abjad.get.indicator(leaf, abjad.StartSlur) is not None:
                     abjad.attach(abjad.StartSlur(), start_head)
                     break
-                elif abjad.inspect(leaf).indicator(abjad.StopSlur) is not None:
+                elif abjad.get.indicator(leaf, abjad.StopSlur) is not None:
                     break
-        if (abjad.inspect(start_head).indicator(abjad.Dynamic) is None
+        if (abjad.get.indicator(start_head, abjad.Dynamic) is None
                 and not isinstance(start_head, (abjad.Rest,
                                                 abjad.MultimeasureRest,
                                                 ))):
             for leaf in dummy_container[start - 1::-1].leaves():
-                dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
+                dynamic = abjad.get.indicator(leaf, abjad.Dynamic)
                 if dynamic is not None:
                     abjad.attach(dynamic, start_head)
                     break
         # appending rests if necessary
-        contents_dur = abjad.inspect(dummy_container[start : end]).duration()
+        contents_dur = abjad.get.duration(dummy_container[start : end])
         if contents_dur < window_size.duration:
             missing_dur = window_size.duration - contents_dur
             rests = abjad.LeafMaker()(None, missing_dur)
@@ -1135,11 +1139,12 @@ class WindowLooper(_LooperParent):
             end += len(rests)
         # transforming abjad.Selection -> abjad.Container for rewrite_meter
         dummy_container = abjad.Container(
-            abjad.mutate(dummy_container[start : end]).copy()
+            abjad.mutate.copy(dummy_container[start : end])
         )
         # rewriting meter
         if not self._disable_rewrite_meter:
-            mutate(dummy_container).auto_rewrite_meter(
+            mutate.auto_rewrite_meter(
+                dummy_container,
                 meter_list=[abjad.TimeSignature(window_size)],
                 boundary_depth=self._boundary_depth,
                 maximum_dot_count=self._maximum_dot_count,
@@ -1153,8 +1158,8 @@ class WindowLooper(_LooperParent):
         abjad.attach(abjad.TimeSignature(window_size),
                      abjad.select(dummy_container).leaf(0),
                      )
-        mutate(dummy_container[:]).reposition_dynamics()
-        mutate(dummy_container[:]).reposition_slurs()
+        mutate.reposition_dynamics(dummy_container[:])
+        mutate.reposition_slurs(dummy_container[:])
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -1163,7 +1168,7 @@ class WindowLooper(_LooperParent):
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be sliced and looped.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -1175,13 +1180,13 @@ class WindowLooper(_LooperParent):
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        self._contents_length = abjad.inspect(self._contents[:]).duration()
-        self._contents_no_time_signature = abjad.mutate(self._contents).copy()
+            self._contents = abjad.mutate.copy(contents)
+        self._contents_length = abjad.get.duration(self._contents[:])
+        self._contents_no_time_signature = abjad.mutate.copy(self._contents)
         self._remove_all_time_signatures(self._contents_no_time_signature)
         self._is_first_window = True
 
@@ -1285,7 +1290,7 @@ class WindowLooper(_LooperParent):
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the |abjad.mutate().rewrite_meter()| mutation. Rests will
+        rewritten by the |abjad.Meter.rewrite_meter()| mutation. Rests will
         have the same duration as the logical ties they replaced.
         """
         return self._disable_rewrite_meter
@@ -1314,7 +1319,7 @@ class WindowLooper(_LooperParent):
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1330,7 +1335,7 @@ class WindowLooper(_LooperParent):
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1346,7 +1351,7 @@ class WindowLooper(_LooperParent):
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 
@@ -1361,7 +1366,7 @@ class WindowLooper(_LooperParent):
     @property
     def prettify_rewrite_meter(self) -> bool:
         r"""Used to enable or disable the mutation
-        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
 
@@ -1376,7 +1381,7 @@ class WindowLooper(_LooperParent):
     @property
     def extract_trivial_tuplets(self) -> bool:
         r"""Sets the argument ``extract_trivial_tuplets`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
 
@@ -1391,7 +1396,7 @@ class WindowLooper(_LooperParent):
     @property
     def fuse_across_groups_of_beats(self) -> bool:
         r"""Sets the argument ``fuse_across_groups_of_beats`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
 
@@ -1406,7 +1411,7 @@ class WindowLooper(_LooperParent):
     @property
     def fuse_quadruple_meter(self) -> bool:
         r"""Sets the argument ``fuse_quadruple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
 
@@ -1421,7 +1426,7 @@ class WindowLooper(_LooperParent):
     @property
     def fuse_triple_meter(self) -> bool:
         r"""Sets the argument ``fuse_triple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
 

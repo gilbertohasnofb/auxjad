@@ -4,8 +4,8 @@ from typing import Any, Optional, Union
 import abjad
 
 from ..score.ArtificialHarmonic import ArtificialHarmonic
-from ..utilities.inspect import inspect
-from ..utilities.mutate import mutate
+from .. import get
+from .. import mutate
 
 
 class Fader():
@@ -288,7 +288,7 @@ class Fader():
         then be used in a for loop to run through the whole process. Note that
         unlike the methods :meth:`output_n` and :meth:`output_all`, time
         signatures are added to each window returned by the fader. Use the
-        function |auxjad.mutate().remove_repeated_time_signatures()| to clean
+        function |auxjad.mutate.remove_repeated_time_signatures()| to clean
         the output when using this class in this way.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -296,7 +296,7 @@ class Fader():
         >>> staff = abjad.Staff()
         >>> for window in fader:
         ...     staff.append(window)
-        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -332,7 +332,7 @@ class Fader():
         :attr:`repetition_chance` sets the chance of a window repeating itself,
         from ``0.0`` to ``1.0`` (default is ``0.0``, i.e. no repetitions).
         :attr:`disable_rewrite_meter` disables the
-        |abjad.mutate().rewrite_meter()| mutation which is applied to the
+        |abjad.Meter.rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
         remove all time signatures from the output (both are ``False`` by
         default). Any measure filled with rests will be rewritten using a
@@ -346,7 +346,7 @@ class Fader():
         with some specific notes already hidden or present. The properties
         :attr:`boundary_depth`, :attr:`maximum_dot_count`, and
         :attr:`rewrite_tuplets` are passed as arguments to
-        |abjad.mutate().rewrite_meter()|, see its documentation for more
+        |abjad.Meter.rewrite_meter()|, see its documentation for more
         information.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
@@ -913,7 +913,7 @@ class Fader():
         By default, all rests in a measure filled only with rests will be
         converted into a multi-measure rest. Set :attr:`use_multimeasure_rests`
         to ``False`` to disable this. Also, by default, all output is mutated
-        through |abjad.mutate().rewrite_meter()|. To disable it, set
+        through |abjad.Meter.rewrite_meter()|. To disable it, set
         :attr:`disable_rewrite_meter` to ``True``.
 
         >>> container = abjad.Container(r"c'8 d'8 e'2.")
@@ -971,13 +971,13 @@ class Fader():
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
 
-    Tweaking |abjad.mutate().rewrite_meter()|:
+    Tweaking |abjad.Meter.rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
         >>> staff = abjad.Staff(r"c'4. d'8 e'2")
         >>> fader = auxjad.Fader(container)
@@ -1016,14 +1016,14 @@ class Fader():
         .. figure:: ../_images/Fader-cq661zyctf.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
         :attr:`rewrite_tuplets`, which work exactly as the identically named
-        arguments of |abjad.mutate().rewrite_meter()|.
+        arguments of |abjad.Meter.rewrite_meter()|.
 
         This class also accepts the arguments ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
         ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        |auxjad.mutate.prettify_rewrite_meter()| (the latter can be disabled
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of this function for more details on these arguments.
 
@@ -1171,8 +1171,8 @@ class Fader():
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -1385,8 +1385,8 @@ class Fader():
             dummy_container.append(self.__call__())
             if self._done:
                 break
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1405,8 +1405,8 @@ class Fader():
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1461,7 +1461,7 @@ class Fader():
 
     def _mask_to_selection(self) -> None:
         r'Applies the mask to :attr:`contents`.'
-        dummy_container = abjad.mutate(self._contents).copy()
+        dummy_container = abjad.mutate.copy(self._contents)
         logical_ties = abjad.select(dummy_container).logical_ties(pitched=True)
         mask_index = 0
         for logical_tie in logical_ties:
@@ -1485,21 +1485,22 @@ class Fader():
                             note = abjad.Note(new_written_pitches[0],
                                               leaf.written_duration,
                                               )
-                            for indicator in abjad.inspect(leaf).indicators():
+                            for indicator in abjad.get.indicators(leaf):
                                 abjad.attach(indicator, note)
-                            abjad.mutate(leaf).replace(note)
+                            abjad.mutate.replace(leaf, note)
             elif self._mask[mask_index] == 0:
                 self._convert_pitched_logical_tie_to_rest(logical_tie)
                 mask_index += 1
             else:
                 mask_index += 1
         # handling dynamics and slurs and empty tuplets
-        mutate(dummy_container[:]).reposition_dynamics()
-        mutate(dummy_container[:]).reposition_slurs()
-        mutate(dummy_container[:]).extract_trivial_tuplets()
+        mutate.reposition_dynamics(dummy_container[:])
+        mutate.reposition_slurs(dummy_container[:])
+        mutate.extract_trivial_tuplets(dummy_container[:])
         # applying rewrite meter
         if not self._disable_rewrite_meter:
-            mutate(dummy_container).auto_rewrite_meter(
+            mutate.auto_rewrite_meter(
+                dummy_container,
                 boundary_depth=self._boundary_depth,
                 maximum_dot_count=self._maximum_dot_count,
                 rewrite_tuplets=self._rewrite_tuplets,
@@ -1510,7 +1511,7 @@ class Fader():
                 fuse_triple_meter=self._fuse_triple_meter,
             )
         if self._use_multimeasure_rests:
-            mutate(dummy_container[:]).rests_to_multimeasure_rest()
+            mutate.rests_to_multimeasure_rest(dummy_container[:])
         # output
         self._current_window = dummy_container[:]
         dummy_container[:] = []
@@ -1543,16 +1544,16 @@ class Fader():
                             )
         for leaf in logical_tie:
             rest = abjad.Rest(leaf.written_duration)
-            for indicator in abjad.inspect(leaf).indicators():
+            for indicator in abjad.get.indicators(leaf):
                 if isinstance(indicator, indicators_tuple):
                     abjad.attach(indicator, rest)
-            abjad.mutate(leaf).replace(rest)
+            abjad.mutate.replace(leaf, rest)
 
     @staticmethod
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
@@ -1572,7 +1573,7 @@ class Fader():
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be faded.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -1584,16 +1585,17 @@ class Fader():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        time_signatures = inspect(self._contents).extract_time_signatures(
+            self._contents = abjad.mutate.copy(contents)
+        time_signatures = get.extract_time_signatures(
+            self._contents,
             do_not_use_none=True,
         )
-        mutate(self._contents).enforce_time_signature(time_signatures)
-        dummy_container = abjad.mutate(contents).copy()
+        mutate.enforce_time_signature(self._contents, time_signatures)
+        dummy_container = abjad.mutate.copy(contents)
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         self.reset_mask()
@@ -1602,7 +1604,7 @@ class Fader():
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the previously output selection.'
-        current_window = abjad.mutate(self._current_window).copy()
+        current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window
@@ -1661,7 +1663,7 @@ class Fader():
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the |abjad.mutate().rewrite_meter()| mutation.
+        rewritten by the |abjad.Meter.rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
 
@@ -1702,7 +1704,7 @@ class Fader():
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1718,7 +1720,7 @@ class Fader():
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1734,7 +1736,7 @@ class Fader():
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 
@@ -1749,7 +1751,7 @@ class Fader():
     @property
     def prettify_rewrite_meter(self) -> bool:
         r"""Used to enable or disable the mutation
-        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
 
@@ -1764,7 +1766,7 @@ class Fader():
     @property
     def extract_trivial_tuplets(self) -> bool:
         r"""Sets the argument ``extract_trivial_tuplets`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
 
@@ -1779,7 +1781,7 @@ class Fader():
     @property
     def fuse_across_groups_of_beats(self) -> bool:
         r"""Sets the argument ``fuse_across_groups_of_beats`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
 
@@ -1794,7 +1796,7 @@ class Fader():
     @property
     def fuse_quadruple_meter(self) -> bool:
         r"""Sets the argument ``fuse_quadruple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
 
@@ -1809,7 +1811,7 @@ class Fader():
     @property
     def fuse_triple_meter(self) -> bool:
         r"""Sets the argument ``fuse_triple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
 

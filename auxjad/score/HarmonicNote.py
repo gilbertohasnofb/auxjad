@@ -249,9 +249,9 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         literal2 = abjad.LilyPondLiteral(
             r'\once \override TextScript.self-alignment-X = 0'
         )
-        if abjad.inspect(self).indicator(literal1):
+        if abjad.get.indicator(self, literal1):
             abjad.detach(literal1, self)
-        if abjad.inspect(self).indicator(literal2):
+        if abjad.get.indicator(self, literal2):
             abjad.detach(literal2, self)
 
     ### PUBLIC PROPERTIES ###
@@ -314,6 +314,6 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                 self._detach_centre_markup()
         else:
             self._markup = markup
-            if abjad.inspect(self).indicator(abjad.Markup):
+            if abjad.get.indicator(self, abjad.Markup):
                 abjad.detach(abjad.Markup, self)
             self._detach_centre_markup()

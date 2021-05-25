@@ -2,7 +2,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.mutate import mutate
+from .. import mutate
 from ._LooperParent import _LooperParent
 
 
@@ -121,7 +121,7 @@ class LeafLooper(_LooperParent):
         then be used in a for loop to exhaust all windows. Note that unlike the
         methods :meth:`output_n` and :meth:`output_all`, time signatures are
         added to each window returned by the shuffler. Use the function
-        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
+        |auxjad.mutate.remove_repeated_time_signatures()| to clean the output
         when using this class in this way.
 
         >>> container = abjad.Container(r"c'4 d'2 e'8 f'2")
@@ -131,7 +131,7 @@ class LeafLooper(_LooperParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
-        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -479,7 +479,7 @@ class LeafLooper(_LooperParent):
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
 
@@ -715,7 +715,7 @@ class LeafLooper(_LooperParent):
         .. figure:: ../_images/LeafLooper-cqzbiawxp4.png
 
     :attr:`disable_rewrite_meter`:
-        By default, this class uses the |abjad.mutate().rewrite_meter()|
+        By default, this class uses the |abjad.Meter.rewrite_meter()|
         mutation.
 
         >>> container = abjad.Container(r"c'16 d'4 e'8. f'4 g'16")
@@ -780,10 +780,10 @@ class LeafLooper(_LooperParent):
 
         This class also accepts the properties ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
-        |abjad.mutate().rewrite_meter()|, and ``fuse_across_groups_of_beats``,
+        |abjad.Meter.rewrite_meter()|, and ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
         ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        |auxjad.mutate.prettify_rewrite_meter()| (the latter can be disabled
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of those functions for more details on these arguments.
 
@@ -831,8 +831,8 @@ class LeafLooper(_LooperParent):
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -928,11 +928,11 @@ class LeafLooper(_LooperParent):
         dummy_container = abjad.Container()
         time_signature_duration = 0
         for logical_tie in logical_ties:
-            effective_duration = abjad.inspect(logical_tie).duration()
-            logical_tie_ = abjad.mutate(logical_tie).copy()
+            effective_duration = abjad.get.duration(logical_tie)
+            logical_tie_ = abjad.mutate.copy(logical_tie)
             dummy_container.append(logical_tie_)
             multiplier = effective_duration / logical_tie_.written_duration
-            logical_tie_ = abjad.mutate(logical_tie_).scale(multiplier)
+            logical_tie_ = abjad.mutate.scale(logical_tie_, multiplier)
             time_signature_duration += effective_duration
         if len(logical_ties) > 0:
             time_signature = abjad.TimeSignature(time_signature_duration)
@@ -947,26 +947,27 @@ class LeafLooper(_LooperParent):
         r'Handles the notation aspects of the looping window.'
         start_head = abjad.select(dummy_container).logical_tie(0)[0]
         start_tail = abjad.select(dummy_container).logical_tie(0)[-1]
-        if (abjad.inspect(start_head).indicator(abjad.StartSlur) is None
-                and abjad.inspect(start_tail).indicator(abjad.StopSlur)
+        if (abjad.get.indicator(start_head, abjad.StartSlur) is None
+                and abjad.get.indicator(start_tail, abjad.StopSlur)
                 is None):
             for leaf in self._contents_logical_ties[start - 1::-1].leaves():
-                if abjad.inspect(leaf).indicator(abjad.StartSlur) is not None:
+                if abjad.get.indicator(leaf, abjad.StartSlur) is not None:
                     abjad.attach(abjad.StartSlur(), start_head)
                     break
-                elif abjad.inspect(leaf).indicator(abjad.StopSlur) is not None:
+                elif abjad.get.indicator(leaf, abjad.StopSlur) is not None:
                     break
-        if abjad.inspect(start_head).indicator(abjad.Dynamic) is None:
+        if abjad.get.indicator(start_head, abjad.Dynamic) is None:
             for leaf in self._contents_logical_ties[start - 1::-1].leaves():
-                dynamic = abjad.inspect(leaf).indicator(abjad.Dynamic)
+                dynamic = abjad.get.indicator(leaf, abjad.Dynamic)
                 if dynamic is not None:
                     abjad.attach(dynamic, start_head)
                     break
-        mutate(dummy_container[:]).reposition_dynamics()
-        mutate(dummy_container[:]).reposition_slurs()
+        mutate.reposition_dynamics(dummy_container[:])
+        mutate.reposition_slurs(dummy_container[:])
         # rewriting meter
         if not self._disable_rewrite_meter:
-            mutate(dummy_container).auto_rewrite_meter(
+            mutate.auto_rewrite_meter(
+                dummy_container,
                 boundary_depth=self._boundary_depth,
                 maximum_dot_count=self._maximum_dot_count,
                 rewrite_tuplets=self._rewrite_tuplets,
@@ -984,7 +985,7 @@ class LeafLooper(_LooperParent):
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be sliced and looped.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -996,12 +997,12 @@ class LeafLooper(_LooperParent):
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        dummy_container = abjad.mutate(self._contents).copy()
+            self._contents = abjad.mutate.copy(contents)
+        dummy_container = abjad.mutate.copy(self._contents)
         self._remove_all_time_signatures(dummy_container)
         selector = abjad.select(dummy_container)
         self._contents_logical_ties = selector.logical_ties()
@@ -1048,7 +1049,7 @@ class LeafLooper(_LooperParent):
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the |abjad.mutate().rewrite_meter()| mutation. Rests will
+        rewritten by the |abjad.Meter.rewrite_meter()| mutation. Rests will
         have the same duration as the logical ties they replaced.
         """
         return self._disable_rewrite_meter
@@ -1064,7 +1065,7 @@ class LeafLooper(_LooperParent):
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1080,7 +1081,7 @@ class LeafLooper(_LooperParent):
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1096,7 +1097,7 @@ class LeafLooper(_LooperParent):
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 
@@ -1111,7 +1112,7 @@ class LeafLooper(_LooperParent):
     @property
     def prettify_rewrite_meter(self) -> bool:
         r"""Used to enable or disable the mutation
-        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
 
@@ -1126,7 +1127,7 @@ class LeafLooper(_LooperParent):
     @property
     def extract_trivial_tuplets(self) -> bool:
         r"""Sets the argument ``extract_trivial_tuplets`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
 
@@ -1141,7 +1142,7 @@ class LeafLooper(_LooperParent):
     @property
     def fuse_across_groups_of_beats(self) -> bool:
         r"""Sets the argument ``fuse_across_groups_of_beats`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
 
@@ -1156,7 +1157,7 @@ class LeafLooper(_LooperParent):
     @property
     def fuse_quadruple_meter(self) -> bool:
         r"""Sets the argument ``fuse_quadruple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
 
@@ -1171,7 +1172,7 @@ class LeafLooper(_LooperParent):
     @property
     def fuse_triple_meter(self) -> bool:
         r"""Sets the argument ``fuse_triple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
 

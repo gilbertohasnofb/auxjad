@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.inspect import inspect
-from ..utilities.mutate import mutate
+from .. import get
+from .. import mutate
 
 
 class Phaser():
@@ -152,7 +152,7 @@ class Phaser():
         can then be used in a for loop to phase through a full cycle. Note that
         unlike the methods :meth:`output_n` and :meth:`output_all`, time
         signatures are added to each window returned by the shuffler. Use the
-        function |auxjad.mutate().remove_repeated_time_signatures()| to clean
+        function |auxjad.mutate.remove_repeated_time_signatures()| to clean
         the output when using :class:`Phaser` in this way.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 ~ e'2.")
@@ -162,7 +162,7 @@ class Phaser():
         >>> staff = abjad.Staff()
         >>> for window in phaser:
         ...     staff.append(window)
-        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -214,7 +214,7 @@ class Phaser():
         to ``False`` to disable this behaviour. The properties
         :attr:`boundary_depth`, :attr:`maximum_dot_count`, and
         :attr:`rewrite_tuplets` are passed as arguments to
-        |abjad.mutate().rewrite_meter()|, see its documentation for more
+        |abjad.Meter.rewrite_meter()|, see its documentation for more
         information. By default, calling the object will first return the
         original container and subsequent calls will process it; set
         :attr:`process_on_first_call` to ``True`` and the looping process will
@@ -890,8 +890,8 @@ class Phaser():
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -978,9 +978,9 @@ class Phaser():
 
         .. figure:: ../_images/Phaser-cmo73lo14wo.png
 
-    Tweaking |abjad.mutate().rewrite_meter()|:
+    Tweaking |abjad.Meter.rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> phaser = auxjad.Phaser(container)
@@ -1019,14 +1019,14 @@ class Phaser():
         .. figure:: ../_images/Phaser-l6pvwhsj1hh.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
         :attr:`rewrite_tuplets`, which work exactly as the identically named
-        arguments of |abjad.mutate().rewrite_meter()|.
+        arguments of |abjad.Meter.rewrite_meter()|.
 
         This class also accepts the arguments ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
         ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        |auxjad.mutate.prettify_rewrite_meter()| (the latter can be disabled
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of this function for more details on these arguments.
 
@@ -1066,7 +1066,7 @@ class Phaser():
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
 
@@ -1255,9 +1255,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).reposition_dynamics()
-        mutate(dummy_container[:]).reposition_slurs()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.reposition_dynamics(dummy_container[:])
+        mutate.reposition_slurs(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1283,9 +1283,9 @@ class Phaser():
             if tie_identical_pitches:
                 self._tie_identical_pitches(selection, dummy_container)
             dummy_container.append(selection)
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).reposition_dynamics()
-        mutate(dummy_container[:]).reposition_slurs()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.reposition_dynamics(dummy_container[:])
+        mutate.reposition_slurs(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1304,12 +1304,14 @@ class Phaser():
         r'Applies the phasing process and handles the output container.'
         dummy_container = self._phase_contents()
         # dealing with dynamics
-        mutate(dummy_container[:]).reposition_dynamics()
+        mutate.reposition_dynamics(dummy_container[:])
         # adding time signatures back and rewriting meter
-        time_signatures = inspect(self._contents).extract_time_signatures(
+        time_signatures = get.extract_time_signatures(
+            self._contents,
             do_not_use_none=True,
         )
-        mutate(dummy_container).enforce_time_signature(
+        mutate.enforce_time_signature(
+            dummy_container,
             time_signatures,
             boundary_depth=self._boundary_depth,
             maximum_dot_count=self._maximum_dot_count,
@@ -1327,15 +1329,14 @@ class Phaser():
         r"""This method phases :attr:`contents` using ``_pivot_point`` as the
         pivot point.
         """
-        dummy_container = abjad.mutate(self._contents).copy()
+        dummy_container = abjad.mutate.copy(self._contents)
         pivot = self._pivot_point % self._contents_length
         # splitting leaves at both slicing points
         if pivot > abjad.Duration(0):
-            abjad.mutate(dummy_container[:]).split([pivot])
+            abjad.mutate.split(dummy_container[:], [pivot])
             # finding start and end indeces for the window
             for start in range(len(dummy_container)):
-                if (abjad.inspect(dummy_container[:start + 1]).duration()
-                        > pivot):
+                if (abjad.get.duration(dummy_container[:start + 1]) > pivot):
                     break
             last_leaf = dummy_container[:start].leaf(-1)
             # copying indicators to both leaves
@@ -1347,8 +1348,6 @@ class Phaser():
                                 abjad.LilyPondLiteral,
                                 abjad.MetronomeMark,
                                 abjad.Ottava,
-                                abjad.Staccatissimo,
-                                abjad.Staccato,
                                 abjad.StaffChange,
                                 abjad.StartHairpin,
                                 abjad.StartPhrasingSlur,
@@ -1357,21 +1356,21 @@ class Phaser():
                                 abjad.StopPhrasingSlur,
                                 abjad.StopSlur,
                                 )
-            if abjad.inspect(last_leaf).indicator(abjad.Tie):  # i.e. split
-                for indicator in abjad.inspect(last_leaf).indicators():
+            if abjad.get.indicator(last_leaf, abjad.Tie):  # i.e. split
+                for indicator in abjad.get.indicators(last_leaf):
                     if isinstance(indicator, indicators_tuple):
                         first_leaf = dummy_container[start:].leaf(0)
                         abjad.attach(indicator, first_leaf)
             # removing ties of splitted logical tie if necessary
             if (self._remove_unterminated_ties
-                    and abjad.inspect(last_leaf).indicator(abjad.Tie)):
+                    and abjad.get.indicator(last_leaf, abjad.Tie)):
                 abjad.detach(abjad.Tie, last_leaf)
             # joining two subcontainers
             dummy_end_container = abjad.Container(
-                abjad.mutate(dummy_container[:start]).copy()
+                abjad.mutate.copy(dummy_container[:start])
             )
             dummy_container = abjad.Container(
-                abjad.mutate(dummy_container[start:]).copy()
+                abjad.mutate.copy(dummy_container[start:])
             )
             dummy_container.extend(dummy_end_container)
             dummy_end_container[:] = []
@@ -1386,8 +1385,8 @@ class Phaser():
             return
         first_leaf = currrent_selection.leaf(0)
         last_leaf = abjad.select(previous_container).leaf(-1)
-        if (inspect((first_leaf, last_leaf)).leaves_are_tieable() and not
-                abjad.inspect(last_leaf).indicators(abjad.Tie)):
+        if (get.leaves_are_tieable((first_leaf, last_leaf)) and not
+                abjad.get.indicator(last_leaf, abjad.Tie)):
             abjad.attach(abjad.Tie(), last_leaf)
 
     @staticmethod
@@ -1399,7 +1398,7 @@ class Phaser():
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
@@ -1407,7 +1406,7 @@ class Phaser():
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be phased.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -1419,22 +1418,22 @@ class Phaser():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        dummy_container = abjad.mutate(contents).copy()
+            self._contents = abjad.mutate.copy(contents)
+        dummy_container = abjad.mutate.copy(contents)
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        self._contents_length = abjad.inspect(self._contents[:]).duration()
+        self._contents_length = abjad.get.duration(self._contents[:])
         self._pivot_point = abjad.Duration(0)
         self._is_first_window = True
 
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the previously output selection.'
-        current_window = abjad.mutate(self._current_window).copy()
+        current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window
@@ -1529,7 +1528,7 @@ class Phaser():
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1545,7 +1544,7 @@ class Phaser():
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1561,7 +1560,7 @@ class Phaser():
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 
@@ -1576,7 +1575,7 @@ class Phaser():
     @property
     def prettify_rewrite_meter(self) -> bool:
         r"""Used to enable or disable the mutation
-        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
 
@@ -1591,7 +1590,7 @@ class Phaser():
     @property
     def extract_trivial_tuplets(self) -> bool:
         r"""Sets the argument ``extract_trivial_tuplets`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
 
@@ -1606,7 +1605,7 @@ class Phaser():
     @property
     def fuse_across_groups_of_beats(self) -> bool:
         r"""Sets the argument ``fuse_across_groups_of_beats`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
 
@@ -1621,7 +1620,7 @@ class Phaser():
     @property
     def fuse_quadruple_meter(self) -> bool:
         r"""Sets the argument ``fuse_quadruple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
 
@@ -1636,7 +1635,7 @@ class Phaser():
     @property
     def fuse_triple_meter(self) -> bool:
         r"""Sets the argument ``fuse_triple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
 

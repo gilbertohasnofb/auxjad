@@ -10,7 +10,7 @@ def test_Shuffler_01():
     random.seed(87234)
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     shuffler = auxjad.Shuffler(container)
-    assert format(shuffler) == abjad.String.normalize(
+    assert abjad.lilypond(shuffler) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -21,7 +21,7 @@ def test_Shuffler_01():
         """)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -34,7 +34,7 @@ def test_Shuffler_01():
         """)
     notes = shuffler.shuffle()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -49,7 +49,7 @@ def test_Shuffler_01():
     with pytest.raises(AttributeError):
         shuffler.current_window = abjad.Container(r"c''2 e''2")
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -110,7 +110,7 @@ def test_Shuffler_03():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -131,7 +131,7 @@ def test_Shuffler_03():
     shuffler = auxjad.Shuffler(container, pitch_only=True)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -154,7 +154,7 @@ def test_Shuffler_04():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler.rotate()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -178,7 +178,7 @@ def test_Shuffler_04():
         """)
     notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -206,7 +206,7 @@ def test_Shuffler_04():
     shuffler = auxjad.Shuffler(container, pitch_only=True)
     notes = shuffler.rotate()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -225,7 +225,7 @@ def test_Shuffler_04():
         """)
     notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -249,7 +249,7 @@ def test_Shuffler_05():
     shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -271,7 +271,7 @@ def test_Shuffler_05():
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -291,7 +291,7 @@ def test_Shuffler_06():
     shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
     notes = shuffler.rotate()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -313,7 +313,7 @@ def test_Shuffler_06():
                                )
     notes = shuffler.rotate()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -334,7 +334,7 @@ def test_Shuffler_07():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler.shuffle_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -361,7 +361,7 @@ def test_Shuffler_07():
     shuffler = auxjad.Shuffler(container, pitch_only=True)
     notes = shuffler.shuffle_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -385,7 +385,7 @@ def test_Shuffler_08():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler.rotate_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -408,7 +408,7 @@ def test_Shuffler_08():
     shuffler = auxjad.Shuffler(container, pitch_only=True)
     notes = shuffler.rotate_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -433,7 +433,7 @@ def test_Shuffler_09():
     shuffler = auxjad.Shuffler(container, pitch_only=True)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -462,7 +462,7 @@ def test_Shuffler_10():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler.shuffle_n(2)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -498,7 +498,7 @@ def test_Shuffler_11():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler.shuffle_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -553,7 +553,7 @@ def test_Shuffler_12():
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -624,7 +624,7 @@ def test_Shuffler_15():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -640,7 +640,7 @@ def test_Shuffler_15():
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -660,7 +660,7 @@ def test_Shuffler_16():
     shuffler = auxjad.Shuffler(container)
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -683,7 +683,7 @@ def test_Shuffler_16():
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -704,7 +704,7 @@ def test_Shuffler_17():
                                )
     notes = shuffler()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -724,9 +724,9 @@ def test_Shuffler_18():
     staff = abjad.Staff()
     for window in shuffler:
         staff.append(window)
-        if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        if abjad.get.duration(staff) == abjad.Duration((9, 4)):
             break
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -744,8 +744,8 @@ def test_Shuffler_18():
             d'4
         }
         """)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -807,7 +807,7 @@ def test_Shuffler_20():
     shuffler = auxjad.Shuffler(container, pitch_only=True)
     notes = shuffler.shuffle_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -856,8 +856,8 @@ def test_Shuffler_21():
     shuffler.pitch_only = False
     notes = shuffler.shuffle_n(2)
     staff.append(notes)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -894,7 +894,7 @@ def test_Shuffler_22():
                                )
     notes = shuffler.shuffle_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

@@ -2,7 +2,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.mutate import mutate
+from .. import mutate
 from .GeneticAlgorithm import GeneticAlgorithm
 
 
@@ -375,7 +375,7 @@ class FittestMeasureMaker():
 
         Setting :attr:`omit_time_signature` to ``True`` will result in no time
         signature. Note that the output might need to be cleaned up using
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
         >>> measure_maker = auxjad.FittestMeasureMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'", "g'"],
@@ -932,7 +932,7 @@ class FittestMeasureMaker():
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1063,10 +1063,11 @@ class FittestMeasureMaker():
                 abjad.attach(time_signature,
                              dummy_container[0],
                              )
-                mutate(dummy_container).auto_rewrite_meter()
+                mutate.auto_rewrite_meter(dummy_container)
             else:
-                mutate(dummy_container).enforce_time_signature(
-                    self._time_signatures
+                mutate.enforce_time_signature(
+                    dummy_container,
+                    self._time_signatures,
                 )
         return dummy_container[:]
 
@@ -1360,12 +1361,12 @@ class FittestMeasureMaker():
         r"""Read-only property, returns the fittest individual of the current
         population as an |abjad.Selection|.
         """
-        return abjad.mutate(self._fittest_measure).copy()
+        return abjad.mutate.copy(self._fittest_measure)
 
     @property
     def target_music(self) -> abjad.Selection:
         r'Read-only property, returns the target as an |abjad.Selection|.'
-        return abjad.mutate(self._target_music).copy()
+        return abjad.mutate.copy(self._target_music)
 
     @property
     def total_duration(self) -> list:

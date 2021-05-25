@@ -13,7 +13,7 @@ def test_Hocketer_01():
     assert hocketer.n_voices == 2
     assert hocketer.weights == [1.0, 1.0]
     assert hocketer.k == 1
-    assert format(hocketer) == abjad.String.normalize(
+    assert abjad.lilypond(hocketer) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -26,7 +26,7 @@ def test_Hocketer_01():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -51,7 +51,7 @@ def test_Hocketer_01():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -80,7 +80,7 @@ def test_Hocketer_02():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -222,7 +222,7 @@ def test_Hocketer_06():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -256,7 +256,7 @@ def test_Hocketer_06():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -294,7 +294,7 @@ def test_Hocketer_07():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -332,7 +332,7 @@ def test_Hocketer_08():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -372,7 +372,7 @@ def test_Hocketer_09():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -404,7 +404,7 @@ def test_Hocketer_09():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -441,7 +441,7 @@ def test_Hocketer_10():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -519,7 +519,7 @@ def test_Hocketer_12():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -601,7 +601,7 @@ def test_Hocketer_13():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -621,7 +621,7 @@ def test_Hocketer_13():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -648,7 +648,7 @@ def test_Hocketer_14():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -684,7 +684,7 @@ def test_Hocketer_15():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -816,7 +816,7 @@ def test_Hocketer_17():
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -856,7 +856,7 @@ def test_Hocketer_17():
         >>
         """)
     staff = abjad.Staff(hocketer[0])
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -868,7 +868,7 @@ def test_Hocketer_17():
     for selection in hocketer[1:4]:
         staff = abjad.Staff(selection)
         partial_score.append(staff)
-    assert format(partial_score) == abjad.String.normalize(
+    assert abjad.lilypond(hocketer) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -911,7 +911,7 @@ def test_Hocketer_18():
         staff = abjad.Staff(selection)
         score.append(staff)
     abjad.attach(abjad.Clef('bass'), abjad.select(score[1]).leaf(0))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -951,7 +951,7 @@ def test_Hocketer_19():
         staff = abjad.Staff(selection)
         score.append(staff)
     abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1004,7 +1004,7 @@ def test_Hocketer_20():
         score.append(staff)
     abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
     abjad.attach(abjad.Clef('bass'), abjad.select(score[3]).leaf(0))
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1063,7 +1063,7 @@ def test_Hocketer_21():
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1099,7 +1099,7 @@ def test_Hocketer_21():
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<
@@ -1146,7 +1146,7 @@ def test_Hocketer_22():
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<

@@ -9,7 +9,7 @@ import auxjad
 def test_Phaser_01():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     phaser = auxjad.Phaser(container)
-    assert format(phaser) == abjad.String.normalize(
+    assert abjad.lilypond(phaser) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -20,7 +20,7 @@ def test_Phaser_01():
         """)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -33,7 +33,7 @@ def test_Phaser_01():
         """)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -53,7 +53,7 @@ def test_Phaser_01():
         """)
     notes = phaser.current_window
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -80,7 +80,7 @@ def test_Phaser_02():
                            )
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -93,7 +93,7 @@ def test_Phaser_02():
         """)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -116,7 +116,7 @@ def test_Phaser_03():
                            )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -130,7 +130,7 @@ def test_Phaser_03():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -144,7 +144,7 @@ def test_Phaser_03():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -158,7 +158,7 @@ def test_Phaser_03():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -171,7 +171,7 @@ def test_Phaser_03():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -184,7 +184,7 @@ def test_Phaser_03():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -248,7 +248,7 @@ def test_Phaser_05():
                            )
     notes = phaser.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -270,7 +270,7 @@ def test_Phaser_05():
                            )
     notes = phaser.output_all(cycle_back_to_first=False)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -294,7 +294,7 @@ def test_Phaser_06():
                            )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -308,7 +308,7 @@ def test_Phaser_06():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -323,7 +323,7 @@ def test_Phaser_06():
     phaser.step_size = (1, 16)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -342,7 +342,7 @@ def test_Phaser_06():
         """)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -364,7 +364,7 @@ def test_Phaser_07():
     phaser = auxjad.Phaser(container)
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -428,7 +428,7 @@ def test_Phaser_09():
                            )
     notes = phaser.output_n(4)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -458,7 +458,7 @@ def test_Phaser_09():
                            )
     notes = phaser.output_n(4)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -494,7 +494,7 @@ def test_Phaser_10():
                            )
     notes = phaser.output_n(4)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -524,7 +524,7 @@ def test_Phaser_10():
                            )
     notes = phaser.output_n(4)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -560,7 +560,7 @@ def test_Phaser_11():
                            )
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -600,7 +600,7 @@ def test_Phaser_12():
     phaser = auxjad.Phaser(container)
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -622,7 +622,7 @@ def test_Phaser_12():
                            )
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -649,7 +649,7 @@ def test_Phaser_13():
                            )
     notes = phaser.output_all()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -677,7 +677,7 @@ def test_Phaser_14():
                            )
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -705,7 +705,7 @@ def test_Phaser_15():
                            )
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -733,7 +733,7 @@ def test_Phaser_16():
                            )
     notes = phaser.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -805,7 +805,7 @@ def test_Phaser_17():
     phaser = auxjad.Phaser(container)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -818,7 +818,7 @@ def test_Phaser_17():
         """)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -839,7 +839,7 @@ def test_Phaser_17():
     phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -853,7 +853,7 @@ def test_Phaser_17():
         """)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -903,7 +903,7 @@ def test_Phaser_19():
                            )
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -930,7 +930,7 @@ def test_Phaser_20():
                            )
     notes = phaser.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -968,7 +968,7 @@ def test_Phaser_21():
                            )
     notes = phaser.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1022,7 +1022,7 @@ def test_Phaser_22():
     phaser = auxjad.Phaser(container)
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1037,7 +1037,7 @@ def test_Phaser_22():
                            )
     notes = phaser()
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1059,7 +1059,7 @@ def test_Phaser_23():
     staff = abjad.Staff()
     for window in phaser:
         staff.append(window)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1098,8 +1098,8 @@ def test_Phaser_23():
             e'2.
         }
         """)
-    auxjad.mutate(staff[:]).remove_repeated_time_signatures()
-    assert format(staff) == abjad.String.normalize(
+    auxjad.mutate.remove_repeated_time_signatures(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1178,7 +1178,7 @@ def test_Phaser_25():
     phaser = auxjad.Phaser(container)
     notes = phaser.output_n(5)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1305,7 +1305,7 @@ def test_Phaser_26():
                            )
     notes = phaser.output_n(3, tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -1348,7 +1348,7 @@ def test_Phaser_27():
                            )
     notes = phaser.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

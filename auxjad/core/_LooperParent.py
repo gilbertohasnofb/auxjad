@@ -3,8 +3,8 @@ from typing import Union
 
 import abjad
 
-from ..utilities.inspect import inspect
-from ..utilities.mutate import mutate
+from .. import get
+from .. import mutate
 
 
 class _LooperParent():
@@ -98,13 +98,13 @@ class _LooperParent():
                     new_window = self.__call__()
                     leaf1 = abjad.select(new_window).leaf(0)
                     leaf2 = abjad.select(dummy_container).leaf(-1)
-                    if inspect((leaf1, leaf2)).leaves_are_tieable():
+                    if get.leaves_are_tieable((leaf1, leaf2)):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
             except RuntimeError:
                 break
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).reposition_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.reposition_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -132,11 +132,11 @@ class _LooperParent():
                 new_window = self.__call__()
                 leaf1 = abjad.select(new_window).leaf(0)
                 leaf2 = abjad.select(dummy_container).leaf(-1)
-                if inspect((leaf1, leaf2)).leaves_are_tieable():
+                if get.leaves_are_tieable((leaf1, leaf2)):
                     abjad.attach(abjad.Tie(), dummy_container[-1])
                 dummy_container.append(new_window)
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).reposition_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.reposition_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -170,7 +170,7 @@ class _LooperParent():
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
@@ -311,7 +311,7 @@ class _LooperParent():
         r'Read-only property, returns the window at the current head position.'
         if self._current_window is None:
             return self._current_window
-        current_window = abjad.mutate(self._current_window).copy()
+        current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

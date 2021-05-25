@@ -37,10 +37,8 @@ from .score.LeafDynMaker import LeafDynMaker
 from .spanners.half_piano_pedal import half_piano_pedal
 from .spanners.piano_pedal import piano_pedal
 
-from .utilities.inspect import Inspection
-from .utilities.inspect import inspect
-from .utilities.mutate import Mutation
-from .utilities.mutate import mutate
+from . import get
+from . import mutate
 
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
@@ -68,8 +66,6 @@ __all__ = [
     'LeafDynMaker',
     'half_piano_pedal',
     'piano_pedal',
-    'Inspection',
-    'inspect',
-    'Mutation',
+    'get',
     'mutate',
 ]

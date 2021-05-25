@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.mutate import mutate
+from .. import mutate
 from .TenneySelector import TenneySelector
 
 
@@ -547,7 +547,7 @@ class PitchRandomiser:
         then be used in a for loop. Note that unlike the method
         :meth:`output_n`, time signatures are added to each window returned by
         the randomiser. Use the function
-        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
+        |auxjad.mutate.remove_repeated_time_signatures()| to clean the output
         when using this class in this way. It is also important to note that a
         ``break`` statement is needed when using this class as an iterator. The
         reason is that pitch randomisation is a process that can happen
@@ -561,9 +561,9 @@ class PitchRandomiser:
         >>> staff = abjad.Staff()
         >>> for window in randomiser:
         ...     staff.append(window)
-        ...     if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        ...     if abjad.get.duration(staff) == abjad.Duration((9, 4)):
         ...         break
-        >>> auxjad.mutate(staff).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff)
         >>> abjad.f(staff)
         \new Staff
         {
@@ -583,8 +583,8 @@ class PitchRandomiser:
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
     """
 
@@ -666,8 +666,8 @@ class PitchRandomiser:
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -683,7 +683,7 @@ class PitchRandomiser:
 
     def _rewrite_pitches(self) -> None:
         r'Rewrites the pitches of the current window.'
-        dummy_container = abjad.mutate(self._contents).copy()
+        dummy_container = abjad.mutate.copy(self._contents)
         logical_ties = abjad.select(dummy_container).logical_ties()
         for logical_tie in logical_ties:
             if isinstance(logical_tie[0], abjad.Note):
@@ -722,7 +722,7 @@ class PitchRandomiser:
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
@@ -730,7 +730,7 @@ class PitchRandomiser:
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be shuffled.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -742,12 +742,12 @@ class PitchRandomiser:
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        dummy_container = abjad.mutate(contents).copy()
+            self._contents = abjad.mutate.copy(contents)
+        dummy_container = abjad.mutate.copy(contents)
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         self._is_first_window = True
@@ -848,7 +848,7 @@ class PitchRandomiser:
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the result of the last operation.'
-        current_window = abjad.mutate(self._current_window).copy()
+        current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

@@ -27,7 +27,7 @@ def test_example_of_usage_02():
     staff = abjad.Staff(looper.output_n(7))
     looper.window_size = 2
     staff.append(looper.output_n(4))
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

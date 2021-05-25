@@ -102,7 +102,7 @@ def test_ListLooper_08():
     staff = abjad.Staff()
     for element in looper.output_all():
         staff.append(element)
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {

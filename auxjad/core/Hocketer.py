@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.inspect import inspect
-from ..utilities.mutate import mutate
+from .. import get
+from .. import mutate
 
 
 class Hocketer():
@@ -230,13 +230,13 @@ class Hocketer():
         from chords into unique voices. :attr:`pitch_ranges` defines the pitch
         range of each voice; it takes a list of |abjad.PitchRange|'s.
         :attr:`disable_rewrite_meter` disables the
-        |abjad.mutate().rewrite_meter()| mutation which is applied to the
+        |abjad.Meter.rewrite_meter()| mutation which is applied to the
         container after every call. Any measure filled with rests will be
         rewritten using a multi-measure rest; set the
         :attr:`use_multimeasure_rests` to ``False`` to disable this behaviour.
         The properties :attr:`boundary_depth`, :attr:`maximum_dot_count`, and
         :attr:`rewrite_tuplets` are passed as arguments to
-        |abjad.mutate().rewrite_meter()|, see its documentation for more
+        |abjad.Meter.rewrite_meter()|, see its documentation for more
         information. Setting the property :attr:`omit_time_signatures` to
         ``True`` will remove all time signatures from the output (``False`` by
         default).
@@ -754,7 +754,7 @@ class Hocketer():
         :attr:`n_voices`-pitches will be considered in the distribution.
 
     :attr:`disable_rewrite_meter`:
-        By default, this class uses the |abjad.mutate().rewrite_meter()|
+        By default, this class uses the |abjad.Meter.rewrite_meter()|
         mutation, which is necessary for cleaning up the rests.
 
         >>> container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
@@ -937,9 +937,9 @@ class Hocketer():
 
         .. figure:: ../_images/Hocketer-2l7eywciib3.png
 
-    Tweaking |abjad.mutate().rewrite_meter()|:
+    Tweaking |abjad.Meter.rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> hocketer = auxjad.Hocketer(container,
@@ -989,14 +989,14 @@ class Hocketer():
         .. figure:: ../_images/Hocketer-g7r2oxsx8zc.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
         :attr:`rewrite_tuplets`, which work exactly as the identically named
-        arguments of |abjad.mutate().rewrite_meter()|.
+        arguments of |abjad.Meter.rewrite_meter()|.
 
         This class also accepts the arguments ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
         ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        |auxjad.mutate.prettify_rewrite_meter()| (the latter can be disabled
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of this function for more details on these arguments.
 
@@ -1222,8 +1222,8 @@ class Hocketer():
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -1328,7 +1328,7 @@ class Hocketer():
         """
         output = []
         for voice in self._voices[key]:
-            voice_ = abjad.mutate(voice).copy()
+            voice_ = abjad.mutate.copy(voice)
             output.append(voice_)
         return tuple(output)
 
@@ -1351,12 +1351,13 @@ class Hocketer():
         dummy_voices = self._hocket_process()
         # handling dynamics and slurs
         for voice in dummy_voices:
-            mutate(voice[:]).reposition_dynamics()
-            mutate(voice[:]).reposition_slurs()
+            mutate.reposition_dynamics(voice[:])
+            mutate.reposition_slurs(voice[:])
         # rewriting meter
         if not self._disable_rewrite_meter:
             for voice in dummy_voices:
-                mutate(voice).auto_rewrite_meter(
+                mutate.auto_rewrite_meter(
+                    voice,
                     meter_list=self._time_signatures,
                     boundary_depth=self._boundary_depth,
                     maximum_dot_count=self._maximum_dot_count,
@@ -1372,7 +1373,7 @@ class Hocketer():
         # handling empty tuplets and multi-measure rests
         if self._use_multimeasure_rests:
             for voice in dummy_voices:
-                mutate(voice[:]).rests_to_multimeasure_rest()
+                mutate.rests_to_multimeasure_rest(voice[:])
         # output
         self._voices = []
         for voice in dummy_voices:
@@ -1405,7 +1406,7 @@ class Hocketer():
                             abjad.StopTextSpan,
                             abjad.TimeSignature,
                             )
-        dummy_voices = [abjad.mutate(self._contents).copy()
+        dummy_voices = [abjad.mutate.copy(self._contents)
                         for _ in range(self._n_voices)]
         selected_voices = self._select_voices()
         for voice_index, voice in enumerate(dummy_voices):
@@ -1416,19 +1417,19 @@ class Hocketer():
                 if voice_index not in selected_indeces:
                     for leaf in logical_tie:
                         rest = abjad.Rest(leaf.written_duration)
-                        for indicator in abjad.inspect(leaf).indicators():
+                        for indicator in abjad.get.indicators(leaf):
                             if isinstance(indicator, indicators_tuple):
                                 abjad.attach(indicator, rest)
-                        abjad.mutate(leaf).replace(rest)
+                        abjad.mutate.replace(leaf, rest)
                 elif (isinstance(logical_tie.head, abjad.Chord)
                         and self._explode_chords):
                     pitch_number = selected_indeces.index(voice_index)
                     pitch = logical_tie.head.written_pitches[pitch_number]
                     for leaf in logical_tie:
                         note = abjad.Note(pitch, leaf.written_duration)
-                        for indicator in abjad.inspect(leaf).indicators():
+                        for indicator in abjad.get.indicators(leaf):
                             abjad.attach(indicator, note)
-                        abjad.mutate(leaf).replace(note)
+                        abjad.mutate.replace(leaf, note)
         return dummy_voices
 
     def _select_voices(self) -> list[int]:
@@ -1531,7 +1532,7 @@ class Hocketer():
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     ### PUBLIC PROPERTIES ###
@@ -1539,7 +1540,7 @@ class Hocketer():
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be hocketed.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -1551,12 +1552,13 @@ class Hocketer():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        self._time_signatures = inspect(contents).extract_time_signatures(
+            self._contents = abjad.mutate.copy(contents)
+        self._time_signatures = get.extract_time_signatures(
+            contents,
             do_not_use_none=True,
         )
 
@@ -1694,7 +1696,7 @@ class Hocketer():
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the |abjad.mutate().rewrite_meter()| mutation. Rests will
+        rewritten by the |abjad.Meter.rewrite_meter()| mutation. Rests will
         have the same duration as the logical ties they replaced.
         """
         return self._disable_rewrite_meter
@@ -1723,7 +1725,7 @@ class Hocketer():
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1739,7 +1741,7 @@ class Hocketer():
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1755,7 +1757,7 @@ class Hocketer():
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 
@@ -1770,7 +1772,7 @@ class Hocketer():
     @property
     def prettify_rewrite_meter(self) -> bool:
         r"""Used to enable or disable the mutation
-        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
 
@@ -1785,7 +1787,7 @@ class Hocketer():
     @property
     def extract_trivial_tuplets(self) -> bool:
         r"""Sets the argument ``extract_trivial_tuplets`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
 
@@ -1800,7 +1802,7 @@ class Hocketer():
     @property
     def fuse_across_groups_of_beats(self) -> bool:
         r"""Sets the argument ``fuse_across_groups_of_beats`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
 
@@ -1815,7 +1817,7 @@ class Hocketer():
     @property
     def fuse_quadruple_meter(self) -> bool:
         r"""Sets the argument ``fuse_quadruple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
 
@@ -1830,7 +1832,7 @@ class Hocketer():
     @property
     def fuse_triple_meter(self) -> bool:
         r"""Sets the argument ``fuse_triple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
 
@@ -1850,7 +1852,7 @@ class Hocketer():
         if self._voices is not None:
             output = []
             for voice in self._voices:
-                voice_ = abjad.mutate(voice).copy()
+                voice_ = abjad.mutate.copy(voice)
                 if self._omit_time_signatures:
                     self._remove_all_time_signatures(voice_)
                 output.append(abjad.select([voice_]))

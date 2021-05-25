@@ -7,7 +7,7 @@ import auxjad
 def test_HarmonicNote_01():
     harm = auxjad.HarmonicNote(r"c''4")
     assert harm.style == 'harmonic'
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         c''4
@@ -21,7 +21,7 @@ def test_HarmonicNote_02():
     harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
     harms = [harm1, harm2, harm3, harm4]
     for harm in harms:
-        assert format(harm) == abjad.String.normalize(
+        assert abjad.lilypond(harm) == abjad.String.normalize(
             r"""
             \tweak style #'harmonic
             c''4
@@ -33,7 +33,7 @@ def test_HarmonicNote_03():
                                style='harmonic-mixed',
                                )
     assert harm.style == 'harmonic-mixed'
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic-mixed
         c''4
@@ -45,7 +45,7 @@ def test_HarmonicNote_04():
                                multiplier=(2, 3),
                                )
     assert harm.multiplier == abjad.Multiplier(2, 3)
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         c''4 * 2/3
@@ -70,7 +70,7 @@ def test_HarmonicNote_06():
                                style='flageolet',
                                )
     assert harm.style == 'flageolet'
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         c''1
         \flageolet
@@ -86,7 +86,7 @@ def test_HarmonicNote_07():
                                 markup='III.',
                                 direction=abjad.Down)
     staff = abjad.Staff([harm1, harm2, harm3])
-    assert format(staff) == abjad.String.normalize(
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
         {
@@ -111,7 +111,7 @@ def test_HarmonicNote_08():
                                markup='III.',
                                )
     harm.markup = None
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         d''1
@@ -131,7 +131,7 @@ def test_HarmonicNote_10():
                                markup='III.',
                                direction=abjad.Down)
     assert harm.direction is abjad.Down
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
         \once \override TextScript.self-alignment-X = 0
@@ -141,7 +141,7 @@ def test_HarmonicNote_10():
         """)
     harm.direction = abjad.Up
     assert harm.direction is abjad.Up
-    assert format(harm) == abjad.String.normalize(
+    assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
         \once \override TextScript.self-alignment-X = 0
@@ -164,20 +164,12 @@ def test_HarmonicNote_11():
                                 markup='III.',
                                 centre_markup=False,
                                 )
-    assert format(harm1) == abjad.String.normalize(
+    assert abjad.lilypond(harm1) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         d''1
         """)
-    assert format(harm2) == abjad.String.normalize(
-        r"""
-        \once \override TextScript.parent-alignment-X = 0
-        \once \override TextScript.self-alignment-X = 0
-        \tweak style #'harmonic
-        d''1
-        ^ \markup { III. }
-        """)
-    assert format(harm3) == abjad.String.normalize(
+    assert abjad.lilypond(harm2) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
         \once \override TextScript.self-alignment-X = 0
@@ -185,7 +177,15 @@ def test_HarmonicNote_11():
         d''1
         ^ \markup { III. }
         """)
-    assert format(harm4) == abjad.String.normalize(
+    assert abjad.lilypond(harm3) == abjad.String.normalize(
+        r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        \tweak style #'harmonic
+        d''1
+        ^ \markup { III. }
+        """)
+    assert abjad.lilypond(harm4) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         d''1

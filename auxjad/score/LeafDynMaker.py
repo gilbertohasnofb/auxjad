@@ -276,7 +276,7 @@ class LeafDynMaker(abjad.LeafMaker):
         ...             ]
         >>> articulations = ['>',
         ...                  abjad.Articulation('-'),
-        ...                  abjad.Staccato(),
+        ...                  abjad.Articulation('.'),
         ...                  ]
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
@@ -339,11 +339,7 @@ class LeafDynMaker(abjad.LeafMaker):
         if articulations is not None:
             for articulation in articulations:
                 if articulation is not None:
-                    if not isinstance(articulation, (str,
-                                                     abjad.Articulation,
-                                                     abjad.Staccatissimo,
-                                                     abjad.Staccato,
-                                                     )):
+                    if not isinstance(articulation, (str, abjad.Articulation)):
                         raise TypeError("articulations must be 'str' or "
                                         "'abjad.Articulation'")
         if not isinstance(omit_repeated_dynamics, bool):
@@ -392,8 +388,6 @@ class LeafDynMaker(abjad.LeafMaker):
                                         articulations_: list[Union[
                                             str,
                                             abjad.Articulation,
-                                            abjad.Staccatissimo,
-                                            abjad.Staccato,
                                         ]],
                                         omit_repeated_dynamics: bool,
                                         ) -> None:

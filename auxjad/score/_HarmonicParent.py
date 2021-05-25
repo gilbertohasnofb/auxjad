@@ -56,5 +56,5 @@ class _HarmonicParent:
             abjad.attach(markup, self)
         else:
             self._markup = markup
-            if abjad.inspect(self).indicator(abjad.Markup):
+            if abjad.get.indicator(self, abjad.Markup):
                 abjad.detach(abjad.Markup, self)

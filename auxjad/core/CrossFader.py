@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from ..utilities.mutate import mutate
+from .. import mutate
 from .Fader import Fader
 
 
@@ -243,7 +243,7 @@ class CrossFader():
         then be used in a for loop to run through the whole process. Note that
         unlike the methods :meth:`output_n` and :meth:`output_all`, time
         signatures are added to each window returned by the fader. Use the
-        function |auxjad.mutate().remove_repeated_time_signatures()| to clean
+        function |auxjad.mutate.remove_repeated_time_signatures()| to clean
         the output when using this class in this way.
 
         >>> fade_out_container = abjad.Container(r"e'8 fs'4. r2")
@@ -254,8 +254,8 @@ class CrossFader():
         >>> for selection_a, selection_b in fader:
         ...     staff_a.extend(selection_a)
         ...     staff_b.extend(selection_b)
-        >>> auxjad.mutate(staff_a).remove_repeated_time_signatures()
-        >>> auxjad.mutate(staff_b).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff_a)
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff_b)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -317,14 +317,14 @@ class CrossFader():
         notes as well its length), making it more likely that both will fade in
         and out at a similar rate (default value is ``False``).
         :attr:`disable_rewrite_meter` disables the
-        |abjad.mutate().rewrite_meter()| mutation which is applied to the
+        |abjad.Meter.rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
         remove all time signatures from the output (both are ``False`` by
         default). Any measure filled with rests will be rewritten using a
         multi-measure rest; set the :attr:`use_multimeasure_rests` to ``False``
         to disable this behaviour. The properties :attr:`boundary_depth`,
         :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
-        arguments to |abjad.mutate().rewrite_meter()|, see its documentation
+        arguments to |abjad.Meter.rewrite_meter()|, see its documentation
         for more information.
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
@@ -425,8 +425,8 @@ class CrossFader():
         >>> selection_a, selection_b = fader()
         >>> staff_a.extend(selection_a)
         >>> staff_b.extend(selection_b)
-        >>> auxjad.mutate(staff_a).remove_repeated_time_signatures()
-        >>> auxjad.mutate(staff_b).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff_a)
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff_b)
         >>> score = abjad.Score([staff_a, staff_b])
         >>> abjad.f(score)
         \new Score
@@ -1077,13 +1077,13 @@ class CrossFader():
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
 
-    Tweaking or disabling |abjad.mutate().rewrite_meter()|:
+    Tweaking or disabling |abjad.Meter.rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        |abjad.mutate().rewrite_meter()|. It can be disabled with the property
+        |abjad.Meter.rewrite_meter()|. It can be disabled with the property
         :attr:`disable_rewrite_meter`.
 
         >>> fade_out_container = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
@@ -1132,10 +1132,10 @@ class CrossFader():
         .. figure:: ../_images/CrossFader-vprhoh84quk.png
 
         Arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are :attr:`boundary_depth`,
+        |abjad.Meter.rewrite_meter()| are :attr:`boundary_depth`,
         :attr:`maximum_dot_count` and :attr:`rewrite_tuplets`, which work
         exactly as the identically named arguments of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
     :attr:`fade_in_contents` and :attr:`fade_out_contents`:
         Containers can be switched after initialisation by overwriting the
@@ -1327,8 +1327,8 @@ class CrossFader():
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -1434,7 +1434,7 @@ class CrossFader():
         and time signatures, although this feature is not fully implemented and
         should be considered experimental. LilyPond must be set up to allow
         different simultaneous time signatures, and
-        |auxjad.mutate().sync_containers()| can be used to add rests to the end
+        |auxjad.mutate.sync_containers()| can be used to add rests to the end
         of the shorter staff.
 
         >>> fade_out_container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
@@ -1448,7 +1448,7 @@ class CrossFader():
         >>> selection_a, selection_b = fader.output_all()
         >>> staff_a = abjad.Staff(selection_a)
         >>> staff_b = abjad.Staff(selection_b)
-        >>> abjad.mutate([staff_a, staff_b]).sync_containers()
+        >>> abjad.mutate.sync_containers([staff_a, staff_b])
         >>> score = abjad.Score([staff_a, staff_b])
         >>> lilypond_file = abjad.LilyPondFile.new()
         >>> score_block = abjad.Block(name='score')
@@ -1652,10 +1652,10 @@ class CrossFader():
                 dummy_container_b.extend(result_b)
             except RuntimeError:
                 break
-        mutate(dummy_container_a[:]).remove_repeated_time_signatures()
-        mutate(dummy_container_b[:]).remove_repeated_time_signatures()
-        mutate(dummy_container_a[:]).remove_repeated_dynamics()
-        mutate(dummy_container_b[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container_a[:])
+        mutate.remove_repeated_time_signatures(dummy_container_b[:])
+        mutate.remove_repeated_dynamics(dummy_container_a[:])
+        mutate.remove_repeated_dynamics(dummy_container_b[:])
         output = (dummy_container_a[:], dummy_container_b[:])
         dummy_container_a[:] = []
         dummy_container_b[:] = []
@@ -1682,10 +1682,10 @@ class CrossFader():
                 dummy_container_b.extend(result_b)
             except RuntimeError:
                 break
-        mutate(dummy_container_a[:]).remove_repeated_time_signatures()
-        mutate(dummy_container_b[:]).remove_repeated_time_signatures()
-        mutate(dummy_container_a[:]).remove_repeated_dynamics()
-        mutate(dummy_container_b[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container_a[:])
+        mutate.remove_repeated_time_signatures(dummy_container_b[:])
+        mutate.remove_repeated_dynamics(dummy_container_a[:])
+        mutate.remove_repeated_dynamics(dummy_container_b[:])
         output = (dummy_container_a[:], dummy_container_b[:])
         dummy_container_a[:] = []
         dummy_container_b[:] = []
@@ -1744,7 +1744,7 @@ class CrossFader():
     @property
     def fade_out_contents(self) -> abjad.Container:
         r'The |abjad.Container| to be faded out.'
-        return abjad.mutate(self._fade_out_contents).copy()
+        return abjad.mutate.copy(self._fade_out_contents)
 
     @fade_out_contents.setter
     def fade_out_contents(self,
@@ -1757,14 +1757,14 @@ class CrossFader():
         if not leaves.are_contiguous_logical_voice():
             raise ValueError("'fade_out_contents' must be contiguous logical "
                              " voice")
-        self._fade_out_contents = abjad.mutate(fade_out_contents).copy()
+        self._fade_out_contents = abjad.mutate.copy(fade_out_contents)
         self._fader_out.contents = self._fade_out_contents
         self.reset()
 
     @property
     def fade_in_contents(self) -> abjad.Container:
         r'The |abjad.Container| to be faded in.'
-        return abjad.mutate(self._fade_in_contents).copy()
+        return abjad.mutate.copy(self._fade_in_contents)
 
     @fade_in_contents.setter
     def fade_in_contents(self,
@@ -1777,7 +1777,7 @@ class CrossFader():
         if not leaves.are_contiguous_logical_voice():
             raise ValueError("'fade_in_contents' must be contiguous logical "
                              " voice")
-        self._fade_in_contents = abjad.mutate(fade_in_contents).copy()
+        self._fade_in_contents = abjad.mutate.copy(fade_in_contents)
         self._fader_in.contents = self._fade_in_contents
         self.reset()
 
@@ -1806,7 +1806,7 @@ class CrossFader():
             self._weights = []
             for container in [self._fade_in_contents, self._fade_out_contents]:
                 notes = abjad.select(container).logical_ties(pitched=True)
-                duration = abjad.inspect(container).duration()
+                duration = abjad.get.duration(container)
                 value = len(notes) * float(duration)
                 self._weights.append(value)
         else:
@@ -1911,7 +1911,7 @@ class CrossFader():
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the |abjad.mutate().rewrite_meter()| mutation.
+        rewritten by the |abjad.Meter.rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
 
@@ -1958,7 +1958,7 @@ class CrossFader():
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1976,7 +1976,7 @@ class CrossFader():
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1994,7 +1994,7 @@ class CrossFader():
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 

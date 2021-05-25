@@ -24,7 +24,7 @@ def test_example_of_usage_01():
     for measure in measures[:-1]:
         abjad.attach(abjad.BarLine(':..:'), measure[-1])
     abjad.attach(abjad.BarLine(':|.'), constant_staff[-1])
-    assert format(score) == abjad.String.normalize(
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
         \new Score
         <<

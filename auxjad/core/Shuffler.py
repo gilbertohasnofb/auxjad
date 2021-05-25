@@ -3,8 +3,8 @@ from typing import Any, Optional, Union
 
 import abjad
 
-from ..utilities.inspect import inspect
-from ..utilities.mutate import mutate
+from .. import get
+from .. import mutate
 
 
 class Shuffler:
@@ -134,12 +134,12 @@ class Shuffler:
         :attr:`preserve_rest_position` to ``True`` the shuffle and rotation
         operations will not change the position or duration of rests.
         :attr:`disable_rewrite_meter` disables the
-        |abjad.mutate().rewrite_meter()| mutation which is applied to the
+        |abjad.Meter.rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
         remove all time signatures from the output (both are ``False`` by
         default). The properties :attr:`boundary_depth`,
         :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
-        arguments to |abjad.mutate().rewrite_meter()|, see its documentation
+        arguments to |abjad.Meter.rewrite_meter()|, see its documentation
         for more information. By default, calling the object will first return
         the original container and subsequent calls will process it; set
         :attr:`process_on_first_call` to ``True`` and the shuffling process
@@ -271,7 +271,7 @@ class Shuffler:
         >>> shuffler.pitch_only = False
         >>> notes = shuffler.shuffle_n(2)
         >>> staff.append(notes)
-        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
         \new Staff
         {
@@ -601,7 +601,7 @@ class Shuffler:
         signature to it. The :meth:`shuffle_n` and :meth:`rotate_n` methods
         automatically remove repeated time signatures. When joining selections
         output by multiple method calls, use
-        |auxjad.mutate().remove_repeated_time_signatures()| on the whole
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
         container after fusing the selections to remove any unecessary time
         signature changes.
 
@@ -739,8 +739,8 @@ class Shuffler:
 
     .. tip::
 
-        The functions |auxjad.mutate().remove_repeated_dynamics()| and
-        |auxjad.mutate().reposition_clefs()| can be used to clean the output
+        The functions |auxjad.mutate.remove_repeated_dynamics()| and
+        |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
     .. warning::
@@ -793,9 +793,9 @@ class Shuffler:
 
         .. figure:: ../_images/Shuffler-p2vd4mfvucp.png
 
-    Tweaking |abjad.mutate().rewrite_meter()|:
+    Tweaking |abjad.Meter.rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
 
         >>> container = abjad.Container(r"c'4. d'8 e'2")
         >>> shuffler = auxjad.Shuffler(container)
@@ -834,19 +834,19 @@ class Shuffler:
         .. figure:: ../_images/Shuffler-7na5znnhhwe.png
 
         Other arguments available for tweaking the output of
-        |abjad.mutate().rewrite_meter()| are :attr:`maximum_dot_count` and
+        |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
         :attr:`rewrite_tuplets`, which work exactly as the identically named
-        arguments of |abjad.mutate().rewrite_meter()|.
+        arguments of |abjad.Meter.rewrite_meter()|.
 
         This class also accepts the arguments ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
         ``extract_trivial_tuplets``, which are passed on to
-        |auxjad.mutate().prettify_rewrite_meter()| (the latter can be disabled
+        |auxjad.mutate.prettify_rewrite_meter()| (the latter can be disabled
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of this function for more details on these arguments.
 
     :attr:`disable_rewrite_meter`:
-        By default, this class uses the |abjad.mutate().rewrite_meter()|
+        By default, this class uses the |abjad.Meter.rewrite_meter()|
         mutation.
 
         >>> container = abjad.Container(r"c'4 d'8 e'8 f'2")
@@ -913,7 +913,7 @@ class Shuffler:
         then be used in a for loop. Note that unlike the methods
         :meth:`shuffle_n` and :meth:`rotate_n`, time signatures are added to
         each window returned by the shuffler. Use the function
-        |auxjad.mutate().remove_repeated_time_signatures()| to clean the output
+        |auxjad.mutate.remove_repeated_time_signatures()| to clean the output
         when using this class in this way. It is also important to note that a
         ``break`` statement is needed when using this class as an iterator. The
         reason is that shuffling is a process that can happen indefinitely
@@ -924,9 +924,9 @@ class Shuffler:
         >>> staff = abjad.Staff()
         >>> for window in shuffler:
         ...     staff.append(window)
-        ...     if abjad.inspect(staff).duration() == abjad.Duration((9, 4)):
+        ...     if abjad.get.duration(staff) == abjad.Duration((9, 4)):
         ...         break
-        >>> auxjad.mutate(staff[:]).remove_repeated_time_signatures()
+        >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
         \new Staff
         {
@@ -1093,8 +1093,8 @@ class Shuffler:
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1116,8 +1116,8 @@ class Shuffler:
         for _ in range(n):
             dummy_container.append(self.rotate(n_rotations=n_rotations,
                                                anticlockwise=anticlockwise))
-        mutate(dummy_container[:]).remove_repeated_time_signatures()
-        mutate(dummy_container[:]).remove_repeated_dynamics()
+        mutate.remove_repeated_time_signatures(dummy_container[:])
+        mutate.remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
         dummy_container[:] = []
         return output
@@ -1262,28 +1262,30 @@ class Shuffler:
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
         logical_selections = self._get_logical_selections(
-            abjad.mutate(self._contents).copy()
+            abjad.mutate.copy(self._contents)
         )
         self._force_dynamics(logical_selections)
         for index in self._logical_selections_indeces:
             logical_selection = logical_selections[index]
             dummy_container.append(logical_selection.leaves())
         # splitting leaves at measure line points
-        abjad.mutate(dummy_container[:]).split(
-            [ts.duration for ts in self._time_signatures],
-            cyclic=True,
-        )
+        abjad.mutate.split(dummy_container[:],
+                           [ts.duration for ts in self._time_signatures],
+                           cyclic=True,
+                           )
         # attaching time signature structure
-        mutate(dummy_container).enforce_time_signature(
+        mutate.enforce_time_signature(
+            dummy_container,
             self._time_signatures,
             disable_rewrite_meter=True,
         )
         # handling dynamics and slurs
-        mutate(dummy_container[:]).reposition_dynamics()
-        mutate(dummy_container[:]).reposition_slurs()
+        mutate.reposition_dynamics(dummy_container[:])
+        mutate.reposition_slurs(dummy_container[:])
         # rewrite meter
         if not self._disable_rewrite_meter:
-            mutate(dummy_container).auto_rewrite_meter(
+            mutate.auto_rewrite_meter(
+                dummy_container,
                 meter_list=self._time_signatures,
                 boundary_depth=self._boundary_depth,
                 maximum_dot_count=self._maximum_dot_count,
@@ -1301,9 +1303,7 @@ class Shuffler:
 
     def _rewrite_pitches(self) -> None:
         r'Rewrites the pitches of the current window.'
-        dummy_container = abjad.Container(
-            abjad.mutate(self._contents[:]).copy()
-        )
+        dummy_container = abjad.Container(abjad.mutate.copy(self._contents[:]))
         leaf_counter = 0
         for pitch, logical_selection in zip(self._pitches,
                                             self._logical_selections,
@@ -1322,7 +1322,7 @@ class Shuffler:
                     if (isinstance(leaf, abjad.Rest) and len(logical_tie) > 1
                             and leaf is not logical_tie[-1]):
                         abjad.attach(abjad.Tie(), new_leaf)
-                for indicator in abjad.inspect(leaf).indicators():
+                for indicator in abjad.get.indicators(leaf):
                     if (isinstance(indicator, (abjad.Tie, abjad.Articulation))
                             and pitch is None):
                         continue
@@ -1331,11 +1331,12 @@ class Shuffler:
                     else:
                         abjad.attach(indicator, new_leaf)
                 selection = abjad.select(dummy_container).leaf(leaf_counter)
-                abjad.mutate(selection).replace(new_leaf)
+                abjad.mutate.replace(selection, new_leaf)
                 leaf_counter += 1
         # attaching time signature structure
-        mutate(dummy_container[:]).extract_trivial_tuplets()
-        mutate(dummy_container).enforce_time_signature(
+        mutate.extract_trivial_tuplets(dummy_container[:])
+        mutate.enforce_time_signature(
+            dummy_container,
             self._time_signatures,
             disable_rewrite_meter=True,
         )
@@ -1359,19 +1360,21 @@ class Shuffler:
     def _remove_all_time_signatures(container) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
-            if abjad.inspect(leaf).effective(abjad.TimeSignature):
+            if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
     def _force_dynamics(container) -> None:
         logical_ties = abjad.select(container).logical_ties()
         for logical_tie in logical_ties[1:]:
-            if abjad.inspect(logical_tie[0]).indicator(abjad.Dynamic) is None:
+            if abjad.get.indicator(logical_tie[0], abjad.Dynamic) is None:
                 index = logical_ties.index(logical_tie)
                 previous_logical_tie = logical_ties[index - 1]
-                inspector = abjad.inspect(previous_logical_tie[0])
-                if inspector.indicator(abjad.Dynamic) is not None:
-                    abjad.attach(inspector.indicator(abjad.Dynamic),
+                if (abjad.get.indicator(previous_logical_tie[0], abjad.Dynamic)
+                        is not None):
+                    abjad.attach(abjad.get.indicator(previous_logical_tie[0],
+                                                     abjad.Dynamic,
+                                                     ),
                                  logical_tie[0],
                                  )
 
@@ -1395,7 +1398,7 @@ class Shuffler:
     @property
     def contents(self) -> abjad.Container:
         r'The |abjad.Container| to be shuffled.'
-        return abjad.mutate(self._contents).copy()
+        return abjad.mutate.copy(self._contents)
 
     @contents.setter
     def contents(self,
@@ -1407,18 +1410,18 @@ class Shuffler:
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate(contents[0]).copy()
+            self._contents = abjad.mutate.copy(contents[0])
         elif isinstance(contents, abjad.Tuplet):
-            self._contents = abjad.Container([abjad.mutate(contents).copy()])
+            self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
-            self._contents = abjad.mutate(contents).copy()
-        dummy_container = abjad.mutate(contents).copy()
+            self._contents = abjad.mutate.copy(contents)
+        dummy_container = abjad.mutate.copy(contents)
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         self._update_logical_selections()
         self._get_pitch_list()
-        inspector = inspect(self._contents)
-        self._time_signatures = inspector.extract_time_signatures(
+        self._time_signatures = get.extract_time_signatures(
+            self._contents,
             do_not_use_none=True,
         )
         self._is_first_window = True
@@ -1442,7 +1445,7 @@ class Shuffler:
         self._update_logical_selections()
         self._get_pitch_list()
         self._contents = abjad.Container(
-            abjad.mutate(self._current_window).copy()
+            abjad.mutate.copy(self._current_window)
         )
 
     @property
@@ -1463,7 +1466,7 @@ class Shuffler:
     @property
     def disable_rewrite_meter(self) -> bool:
         r"""When ``True``, the durations of the notes in the output will not be
-        rewritten by the |abjad.mutate().rewrite_meter()| mutation.
+        rewritten by the |abjad.Meter.rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
 
@@ -1491,7 +1494,7 @@ class Shuffler:
     @property
     def boundary_depth(self) -> Union[int, None]:
         r"""Sets the argument ``boundary_depth`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
 
@@ -1507,7 +1510,7 @@ class Shuffler:
     @property
     def maximum_dot_count(self) -> Union[int, None]:
         r"""Sets the argument ``maximum_dot_count`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
 
@@ -1523,7 +1526,7 @@ class Shuffler:
     @property
     def rewrite_tuplets(self) -> bool:
         r"""Sets the argument ``rewrite_tuplets`` of
-        |abjad.mutate().rewrite_meter()|.
+        |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
 
@@ -1538,7 +1541,7 @@ class Shuffler:
     @property
     def prettify_rewrite_meter(self) -> bool:
         r"""Used to enable or disable the mutation
-        |auxjad.mutate().prettify_rewrite_meter()| (default ``True``).
+        |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
 
@@ -1553,7 +1556,7 @@ class Shuffler:
     @property
     def extract_trivial_tuplets(self) -> bool:
         r"""Sets the argument ``extract_trivial_tuplets`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
 
@@ -1568,7 +1571,7 @@ class Shuffler:
     @property
     def fuse_across_groups_of_beats(self) -> bool:
         r"""Sets the argument ``fuse_across_groups_of_beats`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
 
@@ -1583,7 +1586,7 @@ class Shuffler:
     @property
     def fuse_quadruple_meter(self) -> bool:
         r"""Sets the argument ``fuse_quadruple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
 
@@ -1598,7 +1601,7 @@ class Shuffler:
     @property
     def fuse_triple_meter(self) -> bool:
         r"""Sets the argument ``fuse_triple_meter`` of
-        |auxjad.mutate().prettify_rewrite_meter()|.
+        |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
 
@@ -1649,7 +1652,7 @@ class Shuffler:
     @property
     def current_window(self) -> abjad.Selection:
         r'Read-only property, returns the result of the last operation.'
-        current_window = abjad.mutate(self._current_window).copy()
+        current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
         return current_window

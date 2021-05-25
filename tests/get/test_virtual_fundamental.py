@@ -71,3 +71,9 @@ def test_virtual_fundamental_10():
             pitches,
             min_fundamental=abjad.NamedPitch(r"c'")
         )
+
+
+def test_virtual_fundamental_11():
+    pitches = abjad.PitchSegment(r"c'' g''")
+    fundamental = abjad.get.virtual_fundamental(pitches)
+    assert fundamental == abjad.NamedPitch(r"c'")

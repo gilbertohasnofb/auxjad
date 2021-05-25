@@ -291,9 +291,9 @@ def respell_accidentals(selection: abjad.Selection,
             respelt_pitches = []
             for pitch, accidental in zip(leaf.written_pitches, accidentals):
                 if accidental == abjad.Accidental('f'):
-                    respelt_pitches.append(pitch._respell_with_flats())
+                    respelt_pitches.append(pitch._respell(accidental='flats'))
                 elif accidental == abjad.Accidental('s'):
-                    respelt_pitches.append(pitch._respell_with_sharps())
+                    respelt_pitches.append(pitch._respell(accidental='sharps'))
                 else:
                     respelt_pitches.append(pitch)
             leaf.written_pitches = respelt_pitches

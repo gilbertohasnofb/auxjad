@@ -126,14 +126,16 @@ def sustain_notes(container: abjad.Container,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'4
                 d'4
                 r4
             }
             r8
             e'8
-            \times 2/3 {
+            \times 2/3
+            {
                 f'8
                 r4
             }
@@ -145,7 +147,8 @@ def sustain_notes(container: abjad.Container,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'4
                 d'2
                 ~
@@ -178,7 +181,8 @@ def sustain_notes(container: abjad.Container,
             <e' g'>32
             r16
             r4
-            \times 2/3 {
+            \times 2/3
+            {
                 r4
                 f'4
                 r4
@@ -195,7 +199,8 @@ def sustain_notes(container: abjad.Container,
             r8
             r4.
             d''8
-            \times 4/5 {
+            \times 4/5
+            {
                 r8
                 d''2
             }
@@ -217,7 +222,8 @@ def sustain_notes(container: abjad.Container,
             ~
             <e' g'>4
             ~
-            \times 2/3 {
+            \times 2/3
+            {
                 <e' g'>4
                 f'2
                 ~
@@ -231,7 +237,8 @@ def sustain_notes(container: abjad.Container,
             c''4.
             d''8
             ~
-            \times 4/5 {
+            \times 4/5
+            {
                 d''8
                 d''2
             }

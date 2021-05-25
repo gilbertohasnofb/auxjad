@@ -224,7 +224,8 @@ def test_auto_rewrite_meter_08():
         \new Staff
         {
             c'4
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 r4
             }
@@ -244,17 +245,21 @@ def test_auto_rewrite_meter_09():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'4.
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 r4
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 r4.
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 <e' g'>4.
             }
         }
@@ -270,11 +275,13 @@ def test_auto_rewrite_meter_10():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 d'1
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 e'2
                 f'1
             }
@@ -288,16 +295,19 @@ def test_auto_rewrite_meter_10():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 d'1
             }
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 e'2
             }
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 f'1
             }
         }

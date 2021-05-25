@@ -291,7 +291,7 @@ class LeafDynMaker(abjad.LeafMaker):
             \f
             - \tenuto
             e'16.
-            \staccato
+            - \staccato
             f'8
             g'8
             ~

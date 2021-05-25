@@ -26,8 +26,8 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
     .. note::
 
         Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either
-        :mod:`auxjad.get` or |abjad.get|, as shown below:
+        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
+        |abjad.get|, as shown below:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> auxjad.get.underfull_duration(container[:])

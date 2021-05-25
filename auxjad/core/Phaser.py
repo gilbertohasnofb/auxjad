@@ -3,8 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from .. import get
-from .. import mutate
+from .. import get, mutate
 
 
 class Phaser():
@@ -1084,14 +1083,16 @@ class Phaser():
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 4/4
                 c'8
                 d'8
                 e'8
             }
             d'2.
-            \times 2/3 {
+            \times 2/3
+            {
                 c'32
                 d'16
                 ~
@@ -1104,7 +1105,8 @@ class Phaser():
             ~
             d'8.
             c'16
-            \times 2/3 {
+            \times 2/3
+            {
                 d'16
                 e'8
             }
@@ -1113,7 +1115,8 @@ class Phaser():
             d'2
             ~
             d'8
-            \times 2/3 {
+            \times 2/3
+            {
                 c'8
                 d'16
             }
@@ -1193,7 +1196,7 @@ class Phaser():
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of  :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
         r"""Returns the length of :attr:`contents` in terms of
@@ -1375,6 +1378,10 @@ class Phaser():
             dummy_container.extend(dummy_end_container)
             dummy_end_container[:] = []
         return dummy_container
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     @staticmethod
     def _tie_identical_pitches(currrent_selection,

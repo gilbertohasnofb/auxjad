@@ -18,7 +18,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> abjad.f(harm)
         <
             g
-            \tweak style #'harmonic
+            \tweak style harmonic
             c'
         >4
 
@@ -37,22 +37,22 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         {
             <
                 g
-                \tweak style #'harmonic
+                \tweak style harmonic
                 c'
             >4
             <
                 g
-                \tweak style #'harmonic
+                \tweak style harmonic
                 c'
             >4
             <
                 g
-                \tweak style #'harmonic
+                \tweak style harmonic
                 c'
             >4
             <
                 g
-                \tweak style #'harmonic
+                \tweak style harmonic
                 c'
             >4
         }
@@ -81,7 +81,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> abjad.f(harm)
         <
             g
-            \tweak style #'harmonic-mixed
+            \tweak style harmonic-mixed
             c'
         >4
 
@@ -100,9 +100,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> abjad.f(harm)
         <
             \parenthesize
-            \tweak ParenthesesItem.font-size #-4
+            \tweak ParenthesesItem.font-size -4
             g
-            \tweak style #'harmonic
+            \tweak style harmonic
             c'
         >4
 
@@ -119,7 +119,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> abjad.f(harm)
         <
             g
-            \tweak style #'harmonic
+            \tweak style harmonic
             c'
         >4 * 2/3
 
@@ -225,18 +225,18 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         {
             <
                 a
-                \tweak style #'harmonic
+                \tweak style harmonic
                 d'
             >1
             <
                 a
-                \tweak style #'harmonic
+                \tweak style harmonic
                 d'
             >1
             ^ \markup { I. }
             <
                 a
-                \tweak style #'harmonic
+                \tweak style harmonic
                 d'
             >1
             _ \markup { I. }
@@ -254,7 +254,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> abjad.f(harm)
         <
             a
-            \tweak style #'harmonic
+            \tweak style harmonic
             d'
         >1
 
@@ -342,7 +342,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         r'The written pitches of the two note heads.'
         return abjad.pitch.segments.PitchSegment(
             items=(note_head.written_pitch for note_head in self._note_heads),
-            item_class=abjad.pitch.NamedPitch,
+            item_class=abjad.pitch.pitches.NamedPitch,
         )
 
     @written_pitches.setter

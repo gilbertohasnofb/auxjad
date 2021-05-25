@@ -3,9 +3,8 @@ from typing import Any, Optional, Union
 
 import abjad
 
+from .. import get, mutate
 from ..score.ArtificialHarmonic import ArtificialHarmonic
-from .. import get
-from .. import mutate
 
 
 class Fader():
@@ -1079,14 +1078,15 @@ class Fader():
         and adjusted as required.
 
         >>> container = abjad.Container(r"\times 2/3 {c'2(\p\< d'2 e'2\f} "
-        >>>                             r"f'4\p\> g'2 a'4\pp)")
+        ...                             r"f'4\p\> g'2 a'4\pp)")
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 4/4
                 c'2
                 \p
@@ -1103,7 +1103,8 @@ class Fader():
             a'4
             \pp
             )
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 \p
                 \<
@@ -1121,7 +1122,8 @@ class Fader():
             a'4
             \pp
             )
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 d'2
                 \p
@@ -1139,7 +1141,8 @@ class Fader():
             a'4
             \pp
             )
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 d'2
                 \p
@@ -1192,20 +1195,23 @@ class Fader():
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 4/4
                 c'8
                 d'8
                 e'8
             }
             d'2.
-            \times 2/3 {
+            \times 2/3
+            {
                 r8
                 d'8
                 e'8
             }
             d'2.
-            \times 2/3 {
+            \times 2/3
+            {
                 r8
                 d'8
                 r8
@@ -1331,7 +1337,7 @@ class Fader():
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of  :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
         r'Returns the number of notes of :attr:`contents`.'
@@ -1516,6 +1522,10 @@ class Fader():
         self._current_window = dummy_container[:]
         dummy_container[:] = []
         self._is_first_window = False
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     @staticmethod
     def _convert_pitched_logical_tie_to_rest(logical_tie) -> None:

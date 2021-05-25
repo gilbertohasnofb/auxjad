@@ -358,20 +358,23 @@ def test_Fader_07():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 4/4
                 c'8
                 d'8
                 e'8
             }
             d'2.
-            \times 2/3 {
+            \times 2/3
+            {
                 r8
                 d'8
                 e'8
             }
             d'2.
-            \times 2/3 {
+            \times 2/3
+            {
                 r8
                 d'8
                 r8
@@ -858,7 +861,6 @@ def test_Fader_19():
     assert fader.mask == [1, 0, 1, 1, 0]
     notes = fader()
     staff = abjad.Staff(notes)
-    abjad.f(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -875,7 +877,6 @@ def test_Fader_19():
     assert fader.mask == [0, 0, 0, 0, 0]
     notes = fader()
     staff = abjad.Staff(notes)
-    abjad.f(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -1134,7 +1135,8 @@ def test_Fader_27():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 4/4
                 c'2
                 \p
@@ -1151,7 +1153,8 @@ def test_Fader_27():
             a'4
             \pp
             )
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 \p
                 \<
@@ -1169,7 +1172,8 @@ def test_Fader_27():
             a'4
             \pp
             )
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 d'2
                 \p
@@ -1187,7 +1191,8 @@ def test_Fader_27():
             a'4
             \pp
             )
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 d'2
                 \p
@@ -1303,19 +1308,19 @@ def test_Fader_30():
             \time 4/4
             <
                 c'
-                \tweak style #'harmonic
+                \tweak style harmonic
                 f'
             >2
             <c' f'>2
             <
                 c'
-                \tweak style #'harmonic
+                \tweak style harmonic
                 f'
             >2
             f'2
             <
                 c'
-                \tweak style #'harmonic
+                \tweak style harmonic
                 f'
             >2
             r2

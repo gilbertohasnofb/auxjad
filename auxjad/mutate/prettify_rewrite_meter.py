@@ -103,7 +103,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             ~
             e'16
             f'16
-            \times 2/3 {
+            \times 2/3
+            {
                 g'32
                 a'32
                 b'32
@@ -132,7 +133,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             d'32
             e'8
             f'16
-            \times 2/3 {
+            \times 2/3
+            {
                 g'32
                 a'32
                 b'32
@@ -611,7 +613,8 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         \new Staff
         {
             c'4
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 r4
             }
@@ -637,17 +640,21 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'4.
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 r4
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 r4.
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 <e' g'>4.
             }
         }
@@ -901,8 +908,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
                     # do not split r8 c'8~c'2 r4, r16 c'8.~c'2~c'8 r8, etc.
                     break
                 # do not split tuplets
-                getter = abjad.select().logical_ties()
-                result = selection.tuplets().map(getter).flatten()
+                result = selection.tuplets()
+                result = abjad.select(abjad.select(_).logical_ties()
+                                      for _ in result)
+                result = result.flatten()
                 if logical_tie in result:
                     break
                 duration = abjad.Duration(half_point_offset - offset0)

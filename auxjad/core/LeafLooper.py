@@ -811,16 +811,19 @@ class LeafLooper(_LooperParent):
             \time 7/24
             d'8
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 a4
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 2/4
                 a4
                 g2
             }
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 #(ly:expect-warning "strange time signature found")
                 \time 2/6
                 g2
@@ -909,7 +912,7 @@ class LeafLooper(_LooperParent):
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
         r'Returns the number of logical ties of :attr:`contents`.'
@@ -932,7 +935,13 @@ class LeafLooper(_LooperParent):
             logical_tie_ = abjad.mutate.copy(logical_tie)
             dummy_container.append(logical_tie_)
             multiplier = effective_duration / logical_tie_.written_duration
-            logical_tie_ = abjad.mutate.scale(logical_tie_, multiplier)
+            try:
+                logical_tie_ = abjad.mutate.scale(logical_tie_, multiplier)
+            except abjad.exceptions.AssignabilityError:
+                tuplet = abjad.Tuplet(multiplier,
+                                      abjad.mutate.copy(logical_tie),
+                                      )
+                abjad.mutate.replace(logical_tie_, tuplet)
             time_signature_duration += effective_duration
         if len(logical_ties) > 0:
             time_signature = abjad.TimeSignature(time_signature_duration)
@@ -979,6 +988,10 @@ class LeafLooper(_LooperParent):
             )
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     ### PUBLIC PROPERTIES ###
 

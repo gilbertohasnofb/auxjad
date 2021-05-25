@@ -435,7 +435,8 @@ def enforce_time_signature(container: abjad.Container,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 d'2
                 e'2
@@ -452,13 +453,15 @@ def enforce_time_signature(container: abjad.Container,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 2/4
                 c'2
                 d'4
                 ~
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/4
                 d'4
                 e'2

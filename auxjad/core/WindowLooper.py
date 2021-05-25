@@ -923,14 +923,16 @@ class WindowLooper(_LooperParent):
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/4
                 c'8
                 d'8
                 e'8
             }
             d'2
-            \times 2/3 {
+            \times 2/3
+            {
                 c'32
                 d'16
                 ~
@@ -940,7 +942,8 @@ class WindowLooper(_LooperParent):
             d'16
             ~
             d'2
-            \times 2/3 {
+            \times 2/3
+            {
                 d'16
                 e'8
             }
@@ -1034,7 +1037,7 @@ class WindowLooper(_LooperParent):
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of  :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
         r"""Returns the length of :attr:`contents` in terms of \
@@ -1162,6 +1165,10 @@ class WindowLooper(_LooperParent):
         mutate.reposition_slurs(dummy_container[:])
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     ### PUBLIC PROPERTIES ###
 

@@ -56,7 +56,8 @@ def test_sustain_notes_04():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'4
                 d'2
                 ~
@@ -89,7 +90,8 @@ def test_sustain_notes_05():
             ~
             <e' g'>4
             ~
-            \times 2/3 {
+            \times 2/3
+            {
                 <e' g'>4
                 f'2
                 ~
@@ -103,7 +105,8 @@ def test_sustain_notes_05():
             c''4.
             d''8
             ~
-            \times 4/5 {
+            \times 4/5
+            {
                 d''8
                 d''2
             }

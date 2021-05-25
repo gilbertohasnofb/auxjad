@@ -16,7 +16,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.style
         'harmonic'
         >>> abjad.f(harm)
-        \tweak style #'harmonic
+        \tweak style harmonic
         c''4
 
         .. figure:: ../_images/HarmonicNote-jslykzpz7en.png
@@ -32,13 +32,13 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> abjad.f(staff)
         \new Staff
         {
-            \tweak style #'harmonic
+            \tweak style harmonic
             c''4
-            \tweak style #'harmonic
+            \tweak style harmonic
             c''4
-            \tweak style #'harmonic
+            \tweak style harmonic
             c''4
-            \tweak style #'harmonic
+            \tweak style harmonic
             c''4
         }
 
@@ -54,7 +54,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.style
         'harmonic-mixed'
         >>> abjad.f(harm)
-        \tweak style #'harmonic-mixed
+        \tweak style harmonic-mixed
         c''4
 
         .. figure:: ../_images/HarmonicNote-z48i5il6vf.png
@@ -68,7 +68,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.multiplier
         abjad.Multiplier(2, 3)
         >>> abjad.f(harm)
-        \tweak style #'harmonic
+        \tweak style harmonic
         c''4 * 2/3
 
         .. figure:: ../_images/HarmonicNote-4qbhly2hfi.png
@@ -131,16 +131,16 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> abjad.f(staff)
         \new Staff
         {
-            \tweak style #'harmonic
+            \tweak style harmonic
             d''1
             \once \override TextScript.parent-alignment-X = 0
             \once \override TextScript.self-alignment-X = 0
-            \tweak style #'harmonic
+            \tweak style harmonic
             d''1
             ^ \markup { III. }
             \once \override TextScript.parent-alignment-X = 0
             \once \override TextScript.self-alignment-X = 0
-            \tweak style #'harmonic
+            \tweak style harmonic
             d''1
             _ \markup { III. }
         }
@@ -155,7 +155,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                            )
         >>> harm.markup = None
         >>> abjad.f(harm)
-        \tweak style #'harmonic
+        \tweak style harmonic
         d''1
 
         .. figure:: ../_images/HarmonicNote-2gqky0o8dgt.png
@@ -173,7 +173,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> abjad.f(harm1)
         \once \override TextScript.parent-alignment-X = 0
         \once \override TextScript.self-alignment-X = 0
-        \tweak style #'harmonic
+        \tweak style harmonic
         d''1
         ^ \markup { III. }
 
@@ -184,7 +184,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                            centre_markup=False,
         ...                            )
         >>> abjad.f(harm2)
-        \tweak style #'harmonic
+        \tweak style harmonic
         d''1
         ^ \markup { III. }
 

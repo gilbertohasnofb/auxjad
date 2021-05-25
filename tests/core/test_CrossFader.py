@@ -21,7 +21,8 @@ def test_CrossFader_01():
         }
         \new Staff
         {
-            \times 4/5 {
+            \times 4/5
+            {
                 \time 4/4
                 cs''4
                 d''1
@@ -69,7 +70,8 @@ def test_CrossFader_01():
             }
             \new Staff
             {
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r4
                     d''1
@@ -95,7 +97,8 @@ def test_CrossFader_01():
             }
             \new Staff
             {
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r4
                     d''1
@@ -163,12 +166,14 @@ def test_CrossFader_03():
             {
                 \time 4/4
                 R1
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     cs''4
                     r1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     cs''4
                     r1
@@ -217,23 +222,28 @@ def test_CrossFader_04():
             {
                 \time 4/4
                 R1
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     d'1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     d'1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     d'1
                 }
@@ -969,7 +979,8 @@ def test_CrossFader_14():
             {
                 R1
                 R1
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
@@ -1193,20 +1204,23 @@ def test_CrossFader_18():
             {
                 \time 4/4
                 R1
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     \pp
                     - \staccato
                     r2
                 }
                 r2
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     - \staccato
                     r2
                 }
                 r2
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     - \staccato
                     r4
@@ -1216,7 +1230,8 @@ def test_CrossFader_18():
                     ~
                 }
                 d'2
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     \pp
                     - \staccato
@@ -1252,32 +1267,39 @@ def test_CrossFader_19():
         <<
             \new Staff
             {
-                \times 2/3 {
+                \times 2/3
+                {
                     \time 4/4
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     r1
                 }
@@ -1361,31 +1383,37 @@ def test_CrossFader_20():
                 \voiceTwo
                 R1
                 R1
-                \times 2/3 {
+                \times 2/3
+                {
                     r1
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     r2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2

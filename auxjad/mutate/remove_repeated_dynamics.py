@@ -111,7 +111,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             \ppp
             <d' f'>2
             \ppp
-            \times 2/3 {
+            \times 2/3
+            {
                 g2
                 \ppp
                 a2
@@ -128,7 +129,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
             c'2
             \ppp
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g2
                 a2
                 b2

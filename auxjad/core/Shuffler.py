@@ -3,8 +3,7 @@ from typing import Any, Optional, Union
 
 import abjad
 
-from .. import get
-from .. import mutate
+from .. import get, mutate
 
 
 class Shuffler:
@@ -658,7 +657,8 @@ class Shuffler:
         {
             \time 5/4
             d'4
-            \times 2/3 {
+            \times 2/3
+            {
                 f'4
                 c'2
             }
@@ -1012,7 +1012,7 @@ class Shuffler:
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
         r'Returns the number of logical ties of :attr:`contents`.'
@@ -1344,6 +1344,10 @@ class Shuffler:
         self._is_first_window = False
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     @staticmethod
     def _get_logical_selections(container) -> None:

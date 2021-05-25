@@ -40,7 +40,7 @@ ly_header = r"""
 directory = './_images/lilypond-files/'
 
 # generating lilypond files from docstrings
-for namespace in (auxjad, auxjad.Mutation, auxjad.Inspection):
+for namespace in (auxjad, auxjad.get, auxjad.mutate):
     for member in dir(namespace):
         docstring = getattr(namespace, member).__doc__
         if docstring is not None:

@@ -357,7 +357,8 @@ def test_reposition_clefs_07():
             \clef "treble"
             c'2
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g'2
                 \clef "treble"
                 a'2
@@ -373,7 +374,8 @@ def test_reposition_clefs_07():
             \clef "treble"
             c'2
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g'2
                 a'2
                 b'2
@@ -391,7 +393,8 @@ def test_reposition_clefs_07():
         {
             c'2
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g'2
                 \clef "treble"
                 a'2
@@ -406,7 +409,8 @@ def test_reposition_clefs_07():
         {
             c'2
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g'2
                 a'2
                 b'2

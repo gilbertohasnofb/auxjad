@@ -116,7 +116,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
         >>> abjad.f(container)
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 r2
                 r2
@@ -141,13 +142,16 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         >>> abjad.f(container)
         {
             r2
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 r4
             }
-            \times 4/5 {
+            \times 4/5
+            {
                 r2.
-                \times 2/3 {
+                \times 2/3
+                {
                     r2
                     r4
                 }
@@ -179,7 +183,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             \clef "bass"
             r4
             r4
-            \times 2/3 {
+            \times 2/3
+            {
                 r4
                 r8
             }

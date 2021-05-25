@@ -268,7 +268,7 @@ def test_LeafDynMaker_08():
             \f
             - \tenuto
             e'16.
-            \staccato
+            - \staccato
             f'8
             g'8
             ~

@@ -1,14 +1,14 @@
 Auxjad API
 ==========
 
-Auxjad is made out of five subpackages: |core|_, |indicators|_, |spanners|_,
-|score|_, and |utilities|_. |core|_ contains most of Auxjad's classes and is
-focused on algorithmic transformations and manipulations of |abjad.Container|
-objects. |indicators|_ and |spanners|_ contain derived classes and extension
-methods for Abjad's indicators and spanners. |score|_ contains score component
-and component maker classes, such as an expanded leaf maker as well as harmonic
-leaves. |utilities|_ contains mutation and getter functions as well as a
-couple of utility functions.
+Auxjad is made out of six subpackages: |core|_, |get|_, |indicators|_,
+|mutate|_, |score|_, and |spanners|_. |core|_ contains most of Auxjad's classes
+and is focused on algorithmic transformations and manipulations of
+|abjad.Container| objects. |indicators|_ and |spanners|_ contain derived
+classes and extension methods for Abjad's indicators and spanners. |score|_
+contains score component and component maker classes, such as an expanded leaf
+maker as well as harmonic leaves. |get|_ and |mutate|_ contains inspection and
+mutation functions.
 
 .. note::
 
@@ -26,13 +26,15 @@ in the navigation pane in the left.
 +----------------+-------------------------------------------------------------+
 | |core|_        | core classes: loopers, shufflers, phasers, selectors, etc.  |
 +----------------+-------------------------------------------------------------+
+| |get|_         | inspection functions                                        |
++----------------+-------------------------------------------------------------+
 | |indicators|_  | indicator classes                                           |
++----------------+-------------------------------------------------------------+
+| |mutate|_      | mutation functions                                          |
 +----------------+-------------------------------------------------------------+
 | |score|_       | score component classes: artificial and natural harmonics   |
 +----------------+-------------------------------------------------------------+
 | |spanners|_    | spanner classes                                             |
-+----------------+-------------------------------------------------------------+
-| |utilities|_   | mutation and getter functions                               |
 +----------------+-------------------------------------------------------------+
 
 .. toctree::
@@ -41,10 +43,11 @@ in the navigation pane in the left.
     :caption: Auxjad API
 
     api-core
+    api-get
     api-indicators
+    api-mutate
     api-score
     api-spanners
-    api-utilities
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

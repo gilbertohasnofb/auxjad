@@ -83,7 +83,8 @@ def test_remove_repeated_dynamics_03():
             \ppp
             <d' f'>2
             \ppp
-            \times 2/3 {
+            \times 2/3
+            {
                 g2
                 \ppp
                 a2
@@ -99,7 +100,8 @@ def test_remove_repeated_dynamics_03():
             c'2
             \ppp
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g2
                 a2
                 b2

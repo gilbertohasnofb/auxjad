@@ -368,14 +368,16 @@ def test_Phaser_07():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 4/4
                 c'8
                 d'8
                 e'8
             }
             d'2.
-            \times 2/3 {
+            \times 2/3
+            {
                 c'32
                 d'16
                 ~
@@ -388,7 +390,8 @@ def test_Phaser_07():
             ~
             d'8.
             c'16
-            \times 2/3 {
+            \times 2/3
+            {
                 d'16
                 e'8
             }
@@ -397,7 +400,8 @@ def test_Phaser_07():
             d'2
             ~
             d'8
-            \times 2/3 {
+            \times 2/3
+            {
                 c'8
                 d'16
             }

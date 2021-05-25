@@ -14,11 +14,13 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         ... )
         >>> abjad.f(container)
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 r4
                 r2
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 c'8
                 ~
                 c'8
@@ -29,7 +31,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
         .. figure:: ../_images/extract_trivial_tuplets-4htz2xebxwf.png
 
-        >>> auxjad.mutate.extract_trivial_tuplets(container[:])
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             r2
@@ -43,9 +45,11 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         >>> container = abjad.Container(r"\times 4/5 {r2. \times 2/3 {r2 r4}}")
         >>> abjad.f(container)
         {
-            \times 4/5 {
+            \times 4/5
+            {
                 r2.
-                \times 2/3 {
+                \times 2/3
+                {
                     r2
                     r4
                 }
@@ -54,7 +58,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
         .. figure:: ../_images/extract_trivial_tuplets-8d5bcyxcmhc.png
 
-        >>> auxjad.mutate.extract_trivial_tuplets(container[:])
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             r1
@@ -67,10 +71,12 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         ... )
         >>> abjad.f(container)
         {
-            \times 4/5 {
+            \times 4/5
+            {
                 c'2.
                 ~
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     ~
                     c'4
@@ -80,7 +86,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
         .. figure:: ../_images/extract_trivial_tuplets-xka6r5iyo4l.png
 
-        >>> auxjad.mutate.extract_trivial_tuplets(staff[:])
+        >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             c'1
@@ -91,12 +97,12 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
     .. note::
 
         Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
+        |abjad.mutate()|. It can thus be used from either
+        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
         below are equivalent:
 
-        >>> auxjad.mutate.extract_trivial_tuplets(staff[:])
-        >>> abjad.mutate.extract_trivial_tuplets(staff[:])
+        >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
+        >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
 
     Partial extraction:
         This function also extracts tuplets within tuplets.
@@ -107,13 +113,16 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         >>> abjad.f(container)
         {
             r2
-            \times 2/3 {
+            \times 2/3
+            {
                 r2
                 r4
             }
-            \times 4/5 {
+            \times 4/5
+            {
                 c'2.
-                \times 2/3 {
+                \times 2/3
+                {
                     r2
                     r4
                 }
@@ -122,12 +131,13 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
         .. figure:: ../_images/extract_trivial_tuplets-adibnkb1mbs.png
 
-        >>> auxjad.mutate.extract_trivial_tuplets(container[:])
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         {
             r2
             r2
-            \times 4/5 {
+            \times 4/5
+            {
                 c'2.
                 r2
             }
@@ -137,16 +147,16 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
     .. tip::
 
-        Use |auxjad.mutate.rests_to_multimeasure_rest()| to replace measures
+        Use |auxjad.mutate().rests_to_multimeasure_rest()| to replace measures
         filled with rests by a single multi-measure rest. That function makes
-        use of |auxjad.mutate.extract_trivial_tuplets()|, so it is not
+        use of |auxjad.mutate().extract_trivial_tuplets()|, so it is not
         necessary to flatten the empty tuplets beforehand.
 
     Time signature changes:
         Works with measures with any time signature.
 
         >>> container = abjad.Staff(r"\time 3/4 r2. \times 3/2 {r4 r4}")
-        >>> auxjad.mutate.extract_trivial_tuplets(container[:])
+        >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
         \new Staff
         {
@@ -171,7 +181,8 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             c'4
             \f
             \tweak text #tuplet-number::calc-fraction-text
-            \times 5/6 {
+            \times 5/6
+            {
                 g1.
                 \p
             }
@@ -179,7 +190,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
         .. figure:: ../_images/extract_trivial_tuplets-l4kp9g5v7m.png
 
-        >>> abjad.mutate.extract_trivial_tuplets(staff[:])
+        >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.f(staff)
         \new Staff
         {
@@ -250,7 +261,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             if time_signature is not None:
                 abjad.attach(time_signature, rests[0])
             abjad.mutate.replace(tuplet, rests)
-        if tuplet.sustained():
+        if abjad.get.sustained(tuplet):
             duration = tuplet.multiplied_duration
             n_elements = len(tuplet)
             after_tie = abjad.get.indicator(leaves[-1], abjad.Tie)
@@ -261,7 +272,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             if duration.is_assignable:
                 leaves[0].written_duration = duration
                 abjad.mutate.extract(tuplet)
-            elif duration.has_power_of_two_denominator:
+            elif duration.implied_prolation == 1:
                 if isinstance(leaves[0], abjad.Note):
                     pitch = leaves[0].written_pitch
                 elif isinstance(leaves[0], abjad.Chord):

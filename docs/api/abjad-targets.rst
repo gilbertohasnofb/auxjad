@@ -194,8 +194,6 @@
 .. |abjad.show()| replace:: :func:`abjad.show() <abjad.top.show.show>`
 .. |abjad.tweak()| replace:: :func:`abjad.tweak() <abjad.top.tweak.tweak>`
 
-.. |abjad.select()| replace:: :class:`abjad.select() <abjad.core.Selection.Selection>`
-
 .. |abjad.CyclicTuple| replace:: :class:`abjad.CyclicTuple <abjad.utilities.CyclicTuple.CyclicTuple>`
 .. |abjad.Duration| replace:: :class:`abjad.Duration <abjad.utilities.Duration.Duration>`
 .. |abjad.Enumerator| replace:: :class:`abjad.Enumerator <abjad.utilities.Enumerator.Enumerator>`

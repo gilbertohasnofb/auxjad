@@ -22,8 +22,8 @@ def extract_time_signatures(container: abjad.Container,
     .. note::
 
         Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either
-        :mod:`auxjad.get` or |abjad.get|, as shown below:
+        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
+        |abjad.get|, as shown below:
 
         >>> container = abjad.Container(r"\time 3/4 c'2. \time 4/4 e'1")
         >>> auxjad.get.extract_time_signatures(container)
@@ -75,8 +75,8 @@ def extract_time_signatures(container: abjad.Container,
 
     .. error::
 
-        Setting both ``do_not_use_none`` and ``omit_repeated`` to ``True``
-        will raise a :exc:`ValueError` exception:
+        Setting both ``do_not_use_none`` and ``omit_repeated`` to ``True`` will
+        raise a :exc:`ValueError` exception:
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."

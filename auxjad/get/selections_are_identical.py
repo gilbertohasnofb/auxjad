@@ -27,8 +27,8 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
     .. note::
 
         Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either
-        :mod:`auxjad.get` or |abjad.get|, as shown below:
+        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
+        |abjad.get|, as shown below:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
@@ -62,8 +62,8 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         False
 
         Set the argument ``include_indicators`` to ``False`` to ignore
-        indicators when comparison selections. In that case, the containers
-        in the example above are then considered identical:
+        indicators when comparison selections. In that case, the containers in
+        the example above are then considered identical:
 
         >>> container1 = abjad.Staff(r"c'4\pp d'4 e'4-. f'4 <g' a'>2-> r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
@@ -152,8 +152,7 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
             for leaf1, leaf2 in zip(leaves1, leaves2):
                 if not isinstance(leaf1, type(leaf2)):
                     return False
-                if (auxjad.get.selections_are_identical(selections)
-                        != auxjad.get.selections_are_identical(selections)):
+                if abjad.get.duration(leaf1) != abjad.get.duration(leaf2):
                     return False
                 if (isinstance(leaf1, abjad.Note)
                         and leaf1.written_pitch != leaf2.written_pitch):
@@ -161,15 +160,15 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
                 if (isinstance(leaf1, abjad.Chord)
                         and leaf1.written_pitches != leaf2.written_pitches):
                     return False
-                leaf1_graces = auxjad.get.selections_are_identical(selections)
-                leaf2_graces = auxjad.get.selections_are_identical(selections)
+                leaf1_graces = abjad.get.before_grace_container(leaf1)
+                leaf2_graces = abjad.get.before_grace_container(leaf2)
                 if not isinstance(leaf1_graces, type(leaf2_graces)):
                     return False
                 if include_indicators:
                     indicators1 = [format(indicator) for indicator
-                                   in auxjad.get.selections_are_identical(selections)]
+                                   in abjad.get.indicators(leaf1)]
                     indicators2 = [format(indicator) for indicator
-                                   in auxjad.get.selections_are_identical(selections)]
+                                   in abjad.get.indicators(leaf2)]
                     for indicator1 in indicators1:
                         if indicator1 not in indicators2:
                             return False

@@ -3,8 +3,7 @@ from typing import Optional, Union
 
 import abjad
 
-from .. import get
-from .. import mutate
+from .. import get, mutate
 
 
 class Hocketer():
@@ -1022,16 +1021,19 @@ class Hocketer():
             {
                 \time 5/4
                 r4
-                \times 2/3 {
+                \times 2/3
+                {
                     c'4
                     d'2
                 }
                 r4.
                 f'8
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r2.
-                    \times 2/3 {
+                    \times 2/3
+                    {
                         a'8
                         r8
                         r2
@@ -1049,16 +1051,19 @@ class Hocketer():
             {
                 \time 5/4
                 r4
-                \times 2/3 {
+                \times 2/3
+                {
                     r4
                     d'2
                 }
                 e'4.
                 f'8
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r2.
-                    \times 2/3 {
+                    \times 2/3
+                    {
                         a'8
                         r8
                         b'2
@@ -1069,15 +1074,18 @@ class Hocketer():
             {
                 \time 5/4
                 r4
-                \times 2/3 {
+                \times 2/3
+                {
                     c'4
                     r2
                 }
                 r2
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     g'2.
-                    \times 2/3 {
+                    \times 2/3
+                    {
                         r4
                         b'2
                     }
@@ -1309,7 +1317,7 @@ class Hocketer():
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
         r'Returns the number of voices of the hocketer.'
@@ -1514,6 +1522,10 @@ class Hocketer():
         if pitch in self._pitch_ranges[voice]:
             return True
         return False
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     @staticmethod
     def _get_pitch_from_logical_tie(logical_tie: abjad.LogicalTie,

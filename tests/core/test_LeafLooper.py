@@ -220,16 +220,19 @@ def test_LeafLooper_08():
             \time 7/24
             d'8
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 a4
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 2/4
                 a4
                 g2
             }
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 #(ly:expect-warning "strange time signature found")
                 \time 2/6
                 g2

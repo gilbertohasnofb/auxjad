@@ -18,10 +18,12 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'1
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'2
             }
         }
@@ -32,7 +34,8 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'1
                 d'2
             }
@@ -58,13 +61,16 @@ def merge_partial_tuplets(selection: abjad.Selection,
         ... )
         >>> abjad.f(staff)
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'2
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 e'2
             }
         }
@@ -75,7 +81,8 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 d'2
                 e'2
@@ -97,21 +104,25 @@ def merge_partial_tuplets(selection: abjad.Selection,
             \time 3/4
             c'2.
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 d'4
             }
             r4
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 e'2
             }
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 f'4
             }
             r4
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 g'2
             }
         }
@@ -133,17 +144,20 @@ def merge_partial_tuplets(selection: abjad.Selection,
             \time 3/4
             c'2.
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 d'4
             }
             r4
-            \times 2/3 {
+            \times 2/3
+            {
                 e'2
                 f'4
             }
             r4
             \tweak edge-height #'(0.7 . 0)
-            \times 2/3 {
+            \times 2/3
+            {
                 g'2
             }
         }
@@ -158,17 +172,21 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 r4
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
             }
-            \times 4/5 {
+            \times 4/5
+            {
                 d'2
                 ~
             }
-            \times 4/5 {
+            \times 4/5
+            {
                 d'8
             }
         }
@@ -179,11 +197,13 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 r4
                 c'2
             }
-            \times 4/5 {
+            \times 4/5
+            {
                 d'2
                 ~
                 d'8
@@ -201,13 +221,15 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 \p
                 \<
                 d'2
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 e'2
                 \ff
             }
@@ -219,7 +241,8 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> abjad.f(staff)
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'2
                 \p
                 \<
@@ -297,9 +320,9 @@ def merge_partial_tuplets(selection: abjad.Selection,
                     durations = [abjad.get.duration(tuplet)
                                  for tuplet in tuplet_group]
                     sum_durations = sum(durations)
-                    if (all(not duration.has_power_of_two_denominator
+                    if (all(duration.implied_prolation != 1
                             for duration in durations)
-                            and sum_durations.has_power_of_two_denominator):
+                            and sum_durations.implied_prolation == 1):
                         for tuplet in tuplet_group[1:]:
                             tuplet_group[0].extend(tuplet)
                             abjad.mutate.extract(tuplet)

@@ -1,7 +1,6 @@
 import abjad
 
-from .. import get
-from .. import mutate
+from .. import get, mutate
 
 
 class Repeater():
@@ -485,7 +484,7 @@ class Repeater():
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of  :attr:`contents`.'
-        return format(self._contents)
+        return abjad.lilypond(self._contents)
 
     def __call__(self,
                  n: int = 1,
@@ -540,6 +539,10 @@ class Repeater():
             mutate.reposition_slurs(dummy_container[:])
         self._current_window = dummy_container[:]
         dummy_container[:] = []
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     @staticmethod
     def _remove_all_time_signatures(container) -> None:

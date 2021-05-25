@@ -164,8 +164,7 @@ def test_fill_with_rests_04():
             e'4
             f'4
             g'4
-            r4
-            r4
+            r2
         }
         """)
 

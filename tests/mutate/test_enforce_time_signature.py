@@ -210,13 +210,15 @@ def test_enforce_time_signature_08():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 2/4
                 c'2
                 d'4
                 ~
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/4
                 d'4
                 e'2
@@ -502,7 +504,8 @@ def test_enforce_time_signature_16():
         \new Staff
         {
             \tweak text #tuplet-number::calc-fraction-text
-            \times 6/7 {
+            \times 6/7
+            {
                 \time 3/4
                 c'8.
                 ~
@@ -512,7 +515,8 @@ def test_enforce_time_signature_16():
                 r16
             }
             \tweak text #tuplet-number::calc-fraction-text
-            \times 6/7 {
+            \times 6/7
+            {
                 d'8.
                 ~
                 d'8
@@ -534,13 +538,15 @@ def test_enforce_time_signature_16():
         \new Staff
         {
             \tweak text #tuplet-number::calc-fraction-text
-            \times 6/7 {
+            \times 6/7
+            {
                 \time 3/4
                 c'4.
                 r16
             }
             \tweak text #tuplet-number::calc-fraction-text
-            \times 6/7 {
+            \times 6/7
+            {
                 d'4.
                 r16
             }

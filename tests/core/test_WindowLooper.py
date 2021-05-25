@@ -392,14 +392,16 @@ def test_WindowLooper_07():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/4
                 c'8
                 d'8
                 e'8
             }
             d'2
-            \times 2/3 {
+            \times 2/3
+            {
                 c'32
                 d'16
                 ~
@@ -409,7 +411,8 @@ def test_WindowLooper_07():
             d'16
             ~
             d'2
-            \times 2/3 {
+            \times 2/3
+            {
                 d'16
                 e'8
             }

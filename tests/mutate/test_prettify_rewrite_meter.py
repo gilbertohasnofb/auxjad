@@ -64,7 +64,8 @@ def test_prettify_rewrite_meter_02():
             ~
             e'16
             f'16
-            \times 2/3 {
+            \times 2/3
+            {
                 g'32
                 a'32
                 b'32
@@ -92,7 +93,8 @@ def test_prettify_rewrite_meter_02():
             d'32
             e'8
             f'16
-            \times 2/3 {
+            \times 2/3
+            {
                 g'32
                 a'32
                 b'32
@@ -357,8 +359,8 @@ def test_prettify_rewrite_meter_07():
     abjad.Meter.rewrite_meter(staff[:], meter)
     auxjad.mutate.prettify_rewrite_meter(staff[:],
                                          meter,
-                                        fuse_quadruple_meter=False,
-                                        )
+                                         fuse_quadruple_meter=False,
+                                         )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -430,13 +432,15 @@ def test_prettify_rewrite_meter_09():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/8
                 c'16
                 d'8
                 ~
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'32
                 e'32
                 ~
@@ -445,7 +449,8 @@ def test_prettify_rewrite_meter_09():
                 ~
             }
             f'32
-            \times 2/3 {
+            \times 2/3
+            {
                 g'16
                 a'32
             }
@@ -457,13 +462,15 @@ def test_prettify_rewrite_meter_09():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/8
                 c'16
                 d'8
                 ~
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'32
                 e'32
                 ~
@@ -472,7 +479,8 @@ def test_prettify_rewrite_meter_09():
                 ~
             }
             f'32
-            \times 2/3 {
+            \times 2/3
+            {
                 g'16
                 a'32
             }
@@ -630,7 +638,8 @@ def test_prettify_rewrite_meter_13():
         \new Staff
         {
             c'4
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 r4
             }
@@ -656,17 +665,21 @@ def test_prettify_rewrite_meter_14():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 c'4.
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 r4
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 r4.
             }
-            \times 2/3 {
+            \times 2/3
+            {
                 <e' g'>4.
             }
         }

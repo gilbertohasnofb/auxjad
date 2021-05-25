@@ -11,7 +11,7 @@ def test_ArtificialHarmonic_01():
         r"""
         <
             g
-            \tweak style #'harmonic
+            \tweak style harmonic
             c'
         >4
         """)
@@ -28,7 +28,7 @@ def test_ArtificialHarmonic_02():
             r"""
             <
                 g
-                \tweak style #'harmonic
+                \tweak style harmonic
                 c'
             >4
             """)
@@ -43,7 +43,7 @@ def test_ArtificialHarmonic_03():
         r"""
         <
             g
-            \tweak style #'harmonic-mixed
+            \tweak style harmonic-mixed
             c'
         >4
         """)
@@ -58,9 +58,9 @@ def test_ArtificialHarmonic_04():
         r"""
         <
             \parenthesize
-            \tweak ParenthesesItem.font-size #-4
+            \tweak ParenthesesItem.font-size -4
             g
-            \tweak style #'harmonic
+            \tweak style harmonic
             c'
         >4
         """)
@@ -75,7 +75,7 @@ def test_ArtificialHarmonic_05():
         r"""
         <
             g
-            \tweak style #'harmonic
+            \tweak style harmonic
             c'
         >4 * 2/3
         """)
@@ -144,7 +144,7 @@ def test_ArtificialHarmonic_10():
 
 def test_ArtificialHarmonic_11():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
-    assert format(harm.sounding_note()) == abjad.String.normalize(
+    assert abjad.lilypond(harm.sounding_note()) == abjad.String.normalize(
         r"""
         g''4
         \pp
@@ -181,18 +181,18 @@ def test_ArtificialHarmonic_14():
         {
             <
                 a
-                \tweak style #'harmonic
+                \tweak style harmonic
                 d'
             >1
             <
                 a
-                \tweak style #'harmonic
+                \tweak style harmonic
                 d'
             >1
             ^ \markup { I. }
             <
                 a
-                \tweak style #'harmonic
+                \tweak style harmonic
                 d'
             >1
             _ \markup { I. }
@@ -209,7 +209,7 @@ def test_ArtificialHarmonic_15():
         r"""
         <
             a
-            \tweak style #'harmonic
+            \tweak style harmonic
             d'
         >1
         """)
@@ -232,7 +232,7 @@ def test_ArtificialHarmonic_17():
         r"""
         <
             a
-            \tweak style #'harmonic
+            \tweak style harmonic
             d'
         >1
         _ \markup { I. }
@@ -243,7 +243,7 @@ def test_ArtificialHarmonic_17():
         r"""
         <
             a
-            \tweak style #'harmonic
+            \tweak style harmonic
             d'
         >1
         ^ \markup { I. }

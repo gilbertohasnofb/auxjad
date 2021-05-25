@@ -100,7 +100,8 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             \time 2/2
             c'2
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 2/2
                 g2
                 a2
@@ -117,7 +118,8 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             \time 2/2
             c'2
             <d' f'>2
-            \times 2/3 {
+            \times 2/3
+            {
                 g2
                 a2
                 b2

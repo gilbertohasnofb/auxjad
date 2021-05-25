@@ -448,7 +448,8 @@ def reposition_dynamics(selection: abjad.Selection,
             if abjad.get.indicator(leaf, abjad.Dynamic) is None:
                 if shifted_dynamic is not None:
                     abjad.attach(shifted_dynamic, leaf)
-                    if abjad.get.indicator(leaf, abjad.StopHairpin) is not None:
+                    if (abjad.get.indicator(leaf, abjad.StopHairpin)
+                            is not None):
                         abjad.detach(abjad.StopHairpin, leaf)
                 if shifted_hairpin is not None:
                     abjad.attach(shifted_hairpin, leaf)

@@ -3,8 +3,7 @@ from typing import Union
 
 import abjad
 
-from .. import get
-from .. import mutate
+from .. import get, mutate
 
 
 class _LooperParent():

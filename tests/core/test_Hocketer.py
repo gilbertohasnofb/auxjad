@@ -177,7 +177,7 @@ def test_Hocketer_03():
 def test_Hocketer_04():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(container)
-    assert format(hocketer.contents) == abjad.String.normalize(
+    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -187,7 +187,7 @@ def test_Hocketer_04():
         }
         """)
     hocketer()
-    assert format(hocketer.contents) == abjad.String.normalize(
+    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -197,7 +197,7 @@ def test_Hocketer_04():
         }
         """)
     hocketer.contents = abjad.Container(r"cs2 ds2")
-    assert format(hocketer.contents) == abjad.String.normalize(
+    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
         r"""
         {
             cs2
@@ -527,16 +527,19 @@ def test_Hocketer_12():
             {
                 \time 5/4
                 r4
-                \times 2/3 {
+                \times 2/3
+                {
                     c'4
                     d'2
                 }
                 r4.
                 f'8
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r2.
-                    \times 2/3 {
+                    \times 2/3
+                    {
                         a'8
                         r8
                         r2
@@ -554,16 +557,19 @@ def test_Hocketer_12():
             {
                 \time 5/4
                 r4
-                \times 2/3 {
+                \times 2/3
+                {
                     r4
                     d'2
                 }
                 e'4.
                 f'8
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r2.
-                    \times 2/3 {
+                    \times 2/3
+                    {
                         a'8
                         r8
                         b'2
@@ -574,15 +580,18 @@ def test_Hocketer_12():
             {
                 \time 5/4
                 r4
-                \times 2/3 {
+                \times 2/3
+                {
                     c'4
                     r2
                 }
                 r2
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     g'2.
-                    \times 2/3 {
+                    \times 2/3
+                    {
                         r4
                         b'2
                     }
@@ -868,7 +877,7 @@ def test_Hocketer_17():
     for selection in hocketer[1:4]:
         staff = abjad.Staff(selection)
         partial_score.append(staff)
-    assert abjad.lilypond(hocketer) == abjad.String.normalize(
+    assert abjad.lilypond(partial_score) == abjad.String.normalize(
         r"""
         \new Score
         <<

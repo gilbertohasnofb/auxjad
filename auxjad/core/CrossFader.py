@@ -63,7 +63,8 @@ class CrossFader():
             }
             \new Staff
             {
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r4
                     d''1
@@ -90,7 +91,8 @@ class CrossFader():
             }
             \new Staff
             {
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r4
                     d''1
@@ -120,7 +122,8 @@ class CrossFader():
             }
             \new Staff
             {
-                \times 4/5 {
+                \times 4/5
+                {
                     \time 4/4
                     r4
                     d''1
@@ -168,23 +171,28 @@ class CrossFader():
             {
                 \time 4/4
                 R1
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     d'1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     d'1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     d'1
                 }
@@ -451,11 +459,13 @@ class CrossFader():
             {
                 \time 4/4
                 R1
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
@@ -486,32 +496,39 @@ class CrossFader():
         <<
             \new Staff
             {
-                \times 2/3 {
+                \times 2/3
+                {
                     \time 4/4
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     <c' e'>2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     g'1
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     c'2
                     r1
                 }
@@ -1062,7 +1079,8 @@ class CrossFader():
             {
                 R1
                 R1
-                \times 4/5 {
+                \times 4/5
+                {
                     cs''4
                     r1
                 }
@@ -1286,20 +1304,23 @@ class CrossFader():
             {
                 \time 4/4
                 R1
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     \pp
                     - \staccato
                     r2
                 }
                 r2
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     - \staccato
                     r2
                 }
                 r2
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     - \staccato
                     r4
@@ -1309,7 +1330,8 @@ class CrossFader():
                     ~
                 }
                 d'2
-                \times 2/3 {
+                \times 2/3
+                {
                     f'4
                     \pp
                     - \staccato
@@ -1395,31 +1417,37 @@ class CrossFader():
                 \voiceTwo
                 R1
                 R1
-                \times 2/3 {
+                \times 2/3
+                {
                     r1
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     r2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
                 }
-                \times 2/3 {
+                \times 2/3
+                {
                     e'2
                     d'2
                     c'2
@@ -1610,7 +1638,10 @@ class CrossFader():
 
     def __repr__(self) -> str:
         r'Returns interpreter representation of both contents.'
-        return format(self._fader_out) + '\n' + format(self._fader_in)
+        string = abjad.lilypond(self._fader_out)
+        string += '\n'
+        string += abjad.lilypond(self._fader_in)
+        return string
 
     def __len__(self) -> int:
         r'Returns the sum of the number of notes of both contents.'
@@ -1738,6 +1769,10 @@ class CrossFader():
                         other_fader()
                     finally:
                         self._is_first_process = False
+
+    def _get_lilypond_format(self) -> str:
+        r'Returns interpreter representation of  :attr:`contents`.'
+        return self.__repr__()
 
     ### PUBLIC PROPERTIES ###
 

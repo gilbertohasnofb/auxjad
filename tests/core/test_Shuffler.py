@@ -439,7 +439,8 @@ def test_Shuffler_09():
         {
             \time 5/4
             d'4
-            \times 2/3 {
+            \times 2/3
+            {
                 f'4
                 c'2
             }
@@ -577,7 +578,7 @@ def test_Shuffler_12():
 def test_Shuffler_13():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     shuffler = auxjad.Shuffler(container)
-    assert format(shuffler.contents) == abjad.String.normalize(
+    assert abjad.lilypond(shuffler.contents) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -587,7 +588,7 @@ def test_Shuffler_13():
         }
         """)
     shuffler()
-    assert format(shuffler.contents) == abjad.String.normalize(
+    assert abjad.lilypond(shuffler.contents) == abjad.String.normalize(
         r"""
         {
             c'4
@@ -597,7 +598,7 @@ def test_Shuffler_13():
         }
         """)
     shuffler.contents = abjad.Container(r"cs2 ds2")
-    assert format(shuffler.contents) == abjad.String.normalize(
+    assert abjad.lilypond(shuffler.contents) == abjad.String.normalize(
         r"""
         {
             cs2
@@ -811,7 +812,8 @@ def test_Shuffler_20():
         r"""
         \new Staff
         {
-            \times 2/3 {
+            \times 2/3
+            {
                 \time 3/4
                 r8
                 d'8
@@ -819,7 +821,8 @@ def test_Shuffler_20():
             }
             r4
             c'4
-            \times 2/3 {
+            \times 2/3
+            {
                 d'8
                 c'8
                 r8
@@ -829,14 +832,16 @@ def test_Shuffler_20():
             r4
             d'4
             c'4
-            \times 2/3 {
+            \times 2/3
+            {
                 r8
                 d'8
                 c'8
             }
             r4
             r4
-            \times 2/3 {
+            \times 2/3
+            {
                 c'8
                 r8
                 r8

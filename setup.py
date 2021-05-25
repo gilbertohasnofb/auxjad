@@ -24,7 +24,7 @@ with open('README.rst', 'r') as file:
 
 setup(
     name='auxjad',
-    description='Auxiliary functions and classes for Abjad 3.1.',
+    description='Auxiliary functions and classes for Abjad 3.4.',
     author='Gilberto Agostinho',
     author_email='gilbertohasnofb@gmail.com',
     version=auxjad.__version__,
@@ -32,9 +32,9 @@ setup(
     url='https://github.com/gilbertohasnofb/auxjad',
     license='MIT',
     long_description=auxjad_long_description,
-    tests_require=['abjad==3.1', 'pytest'],
+    tests_require=['abjad==3.4', 'pytest'],
     classifiers=auxjad_classifiers,
     python_requires='>=3.9',
-    install_requires=['abjad==3.1', 'setuptools'],
+    install_requires=['abjad==3.4', 'setuptools'],
     extras_require={'test' : ['flake8', 'isort', 'pytest']},
 )

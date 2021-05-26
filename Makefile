@@ -69,7 +69,7 @@ reformat:
 
 release:
 	make test
-	make docs
+	make docs-release
 	make clean
 	make build
 	pip install -U twine

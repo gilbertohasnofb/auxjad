@@ -367,7 +367,7 @@ class ListLooper(_LooperParent):
             }
         }
 
-        .. figure:: ../_images/ListLooper-kvxaoz53y5f.png
+        ..  figure:: ../_images/ListLooper-kvxaoz53y5f.png
     """
 
     ### CLASS VARIABLES ###

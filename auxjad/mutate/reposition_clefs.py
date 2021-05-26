@@ -25,7 +25,7 @@ def reposition_clefs(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/reposition_clefs-ve7c2iykuyb.png
+        ..  figure:: ../_images/reposition_clefs-ve7c2iykuyb.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -36,14 +36,14 @@ def reposition_clefs(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/reposition_clefs-w6sbmg4iihr.png
+        ..  figure:: ../_images/reposition_clefs-w6sbmg4iihr.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.mutate.reposition_clefs(staff[:])
@@ -63,7 +63,7 @@ def reposition_clefs(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/reposition_clefs-ozr2sz3jugc.png
+        ..  figure:: ../_images/reposition_clefs-ozr2sz3jugc.png
 
         This function handles fallback clefs too:
 
@@ -75,7 +75,7 @@ def reposition_clefs(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/reposition_clefs-0620w7q00lsr.png
+        ..  figure:: ../_images/reposition_clefs-0620w7q00lsr.png
 
     Clef structure:
         The function also removes clefs that are separated by an arbitrary
@@ -94,7 +94,7 @@ def reposition_clefs(selection: abjad.Selection,
             f'1
         }
 
-        .. figure:: ../_images/reposition_clefs-1dwpu3agebe.png
+        ..  figure:: ../_images/reposition_clefs-1dwpu3agebe.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -107,7 +107,7 @@ def reposition_clefs(selection: abjad.Selection,
             f'1
         }
 
-        .. figure:: ../_images/reposition_clefs-wjmmwbhtaq.png
+        ..  figure:: ../_images/reposition_clefs-wjmmwbhtaq.png
 
     Inputs with optimal clef structure:
         The function will not alter the container if the clef changes are
@@ -128,7 +128,7 @@ def reposition_clefs(selection: abjad.Selection,
             f'1
         }
 
-        .. figure:: ../_images/reposition_clefs-ooacruvoibr.png
+        ..  figure:: ../_images/reposition_clefs-ooacruvoibr.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -143,7 +143,7 @@ def reposition_clefs(selection: abjad.Selection,
             f'1
         }
 
-        .. figure:: ../_images/reposition_clefs-8z0s96frl4x.png
+        ..  figure:: ../_images/reposition_clefs-8z0s96frl4x.png
 
     Multi-measure rests:
         The function handles rests and multi-measure rests.
@@ -162,7 +162,7 @@ def reposition_clefs(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/reposition_clefs-wpuzqrszs7i.png
+        ..  figure:: ../_images/reposition_clefs-wpuzqrszs7i.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -175,7 +175,7 @@ def reposition_clefs(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/reposition_clefs-os7dqkh11vl.png
+        ..  figure:: ../_images/reposition_clefs-os7dqkh11vl.png
 
     ``shift_clef_to_notes``:
         By default, clefs attached to rests are shifted to the first pitched
@@ -195,7 +195,7 @@ def reposition_clefs(selection: abjad.Selection,
             fs1
         }
 
-        .. figure:: ../_images/reposition_clefs-jft5tljn0ni.png
+        ..  figure:: ../_images/reposition_clefs-jft5tljn0ni.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -209,7 +209,7 @@ def reposition_clefs(selection: abjad.Selection,
             fs1
         }
 
-        .. figure:: ../_images/reposition_clefs-pirrrq3p6di.png
+        ..  figure:: ../_images/reposition_clefs-pirrrq3p6di.png
 
         Set ``shift_clef_to_notes`` to ``False`` to disable this behaviour.
 
@@ -228,7 +228,7 @@ def reposition_clefs(selection: abjad.Selection,
             fs1
         }
 
-        .. figure:: ../_images/reposition_clefs-srrb69k33oe.png
+        ..  figure:: ../_images/reposition_clefs-srrb69k33oe.png
 
     Multiple multi-measure rests:
         Clefs are shifted even if the container has multiple multi-measure
@@ -250,7 +250,7 @@ def reposition_clefs(selection: abjad.Selection,
             e'2.
         }
 
-        .. figure:: ../_images/reposition_clefs-1l1ws1tqqt5.png
+        ..  figure:: ../_images/reposition_clefs-1l1ws1tqqt5.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -266,7 +266,7 @@ def reposition_clefs(selection: abjad.Selection,
             e'2.
         }
 
-        .. figure:: ../_images/reposition_clefs-gmh7uqxjjrf.png
+        ..  figure:: ../_images/reposition_clefs-gmh7uqxjjrf.png
 
     Subcontainers:
         The container from which the selection is made can also have
@@ -292,7 +292,7 @@ def reposition_clefs(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/reposition_clefs-vwygykrmjd.png
+        ..  figure:: ../_images/reposition_clefs-vwygykrmjd.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -308,7 +308,7 @@ def reposition_clefs(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/reposition_clefs-9gaqlf92kc.png
+        ..  figure:: ../_images/reposition_clefs-9gaqlf92kc.png
 
     ``implicit_clef``:
         By default, when the first leaf doesn't have a clef the function
@@ -325,7 +325,7 @@ def reposition_clefs(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/reposition_clefs-tuxicnsglgk.png
+        ..  figure:: ../_images/reposition_clefs-tuxicnsglgk.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
         >>> abjad.f(staff)
@@ -335,7 +335,7 @@ def reposition_clefs(selection: abjad.Selection,
             d'1
         }
 
-        .. figure:: ../_images/reposition_clefs-co27o4xxato.png
+        ..  figure:: ../_images/reposition_clefs-co27o4xxato.png
 
         Set the argument ``implicit_clef`` to a different |abjad.Clef| to
         change the implicit clef.
@@ -350,7 +350,7 @@ def reposition_clefs(selection: abjad.Selection,
             d1
         }
 
-        .. figure:: ../_images/reposition_clefs-jyp5xd92vgi.png
+        ..  figure:: ../_images/reposition_clefs-jyp5xd92vgi.png
 
         >>> auxjad.mutate.reposition_clefs(
         ...     staff[:],
@@ -363,7 +363,7 @@ def reposition_clefs(selection: abjad.Selection,
             d1
         }
 
-        .. figure:: ../_images/reposition_clefs-o7bi4n2n58.png
+        ..  figure:: ../_images/reposition_clefs-o7bi4n2n58.png
 
         This can be useful when extending a container that already has a
         specific clef.
@@ -382,9 +382,9 @@ def reposition_clefs(selection: abjad.Selection,
             d1
         }
 
-        .. figure:: ../_images/reposition_clefs-7y32wepotnf.png
+        ..  figure:: ../_images/reposition_clefs-7y32wepotnf.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

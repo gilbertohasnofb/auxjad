@@ -46,7 +46,7 @@ def fill_with_rests(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/fill_with_rests-up297scg6t.png
+        ..  figure:: ../_images/fill_with_rests-up297scg6t.png
 
         >>> abjad.f(container2)
         {
@@ -56,7 +56,7 @@ def fill_with_rests(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/fill_with_rests-azrrw0z0buw.png
+        ..  figure:: ../_images/fill_with_rests-azrrw0z0buw.png
 
         >>> abjad.f(container3)
         {
@@ -68,7 +68,7 @@ def fill_with_rests(container: abjad.Container,
             r2.
         }
 
-        .. figure:: ../_images/fill_with_rests-jtyw5ikc0k.png
+        ..  figure:: ../_images/fill_with_rests-jtyw5ikc0k.png
 
         >>> abjad.f(container4)
         {
@@ -82,14 +82,14 @@ def fill_with_rests(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/fill_with_rests-xjkm2vzjfpr.png
+        ..  figure:: ../_images/fill_with_rests-xjkm2vzjfpr.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.fill_with_rests(staff)
         >>> abjad.mutate.fill_with_rests(staff)
@@ -114,7 +114,7 @@ def fill_with_rests(container: abjad.Container,
             r2.
         }
 
-        .. figure:: ../_images/fill_with_rests-7zydps2jsb.png
+        ..  figure:: ../_images/fill_with_rests-7zydps2jsb.png
 
         >>> abjad.f(staff2)
         {
@@ -125,7 +125,7 @@ def fill_with_rests(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/fill_with_rests-1lphcrl5pnr.png
+        ..  figure:: ../_images/fill_with_rests-1lphcrl5pnr.png
 
         >>> abjad.f(staff3)
         {
@@ -138,9 +138,9 @@ def fill_with_rests(container: abjad.Container,
             r2
         }
 
-        .. figure:: ../_images/fill_with_rests-e00jvx986r.png
+        ..  figure:: ../_images/fill_with_rests-e00jvx986r.png
 
-    .. note::
+    ..  note::
 
         When using |abjad.Container|'s, all time signatures in the output will
         be commented out with ``%%%.`` This is because Abjad only applies time
@@ -156,7 +156,7 @@ def fill_with_rests(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/fill_with_rests-b0qflg50qfn.png
+        ..  figure:: ../_images/fill_with_rests-b0qflg50qfn.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -167,7 +167,7 @@ def fill_with_rests(container: abjad.Container,
             e'4
         }
 
-        .. figure:: ../_images/fill_with_rests-qtaswjiecg.png
+        ..  figure:: ../_images/fill_with_rests-qtaswjiecg.png
 
     Partial time signatures:
         Correctly handles partial time signatures.
@@ -188,7 +188,7 @@ def fill_with_rests(container: abjad.Container,
             r2
         }
 
-        .. figure:: ../_images/fill_with_rests-9smva9ajdi.png
+        ..  figure:: ../_images/fill_with_rests-9smva9ajdi.png
 
     ``disable_rewrite_meter``:
         By default, this class applies the |abjad.Meter.rewrite_meter()|
@@ -208,7 +208,7 @@ def fill_with_rests(container: abjad.Container,
             r4.
         }
 
-        .. figure:: ../_images/fill_with_rests-n83nmnfh92c.png
+        ..  figure:: ../_images/fill_with_rests-n83nmnfh92c.png
 
         Call this function with the optional keyword argument
         ``disable_rewrite_meter`` set to ``True`` in order to disable this
@@ -226,9 +226,9 @@ def fill_with_rests(container: abjad.Container,
             r4.
         }
 
-        .. figure:: ../_images/fill_with_rests-9rg2i4n1vhr.png
+        ..  figure:: ../_images/fill_with_rests-9rg2i4n1vhr.png
 
-    .. note::
+    ..  note::
 
         This function also accepts the arguments ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
@@ -240,7 +240,7 @@ def fill_with_rests(container: abjad.Container,
         the documentation of those functions for more details on these
         arguments.
 
-    .. error::
+    ..  error::
 
         If a container is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
@@ -251,7 +251,7 @@ def fill_with_rests(container: abjad.Container,
         ValueError: 'container' is malformed, with an underfull measure
         preceding a time signature change
 
-    .. warning::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

@@ -29,7 +29,7 @@ class Shuffler:
             e'4
         }
 
-        .. figure:: ../_images/Shuffler-z2om98675v.png
+        ..  figure:: ../_images/Shuffler-z2om98675v.png
 
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
@@ -43,7 +43,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/Shuffler-xu7sln4vt7n.png
+        ..  figure:: ../_images/Shuffler-xu7sln4vt7n.png
 
         To get the result of the last operation, use the property
         :attr:`current_window`.
@@ -60,7 +60,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/Shuffler-gphtpqn9jb.png
+        ..  figure:: ../_images/Shuffler-gphtpqn9jb.png
 
         Calling the object outputs the same result as using the method
         :meth:`shuffle`.
@@ -77,9 +77,9 @@ class Shuffler:
             d'4
         }
 
-        .. figure:: ../_images/Shuffler-g965k0d03if.png
+        ..  figure:: ../_images/Shuffler-g965k0d03if.png
 
-    .. warning::
+    ..  warning::
 
         Unlike the other classes in Auxjad, the very first call of an instance
         of this class will already process the initial container. To disable
@@ -103,7 +103,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/Shuffler-76039tn5b9k.png
+        ..  figure:: ../_images/Shuffler-76039tn5b9k.png
 
     :func:`len()`:
         Applying the :func:`len()` function to the shuffler will return the
@@ -230,7 +230,7 @@ class Shuffler:
             c'8.
         }
 
-        .. figure:: ../_images/Shuffler-5j79m0wuxu.png
+        ..  figure:: ../_images/Shuffler-5j79m0wuxu.png
 
         Setting :attr:`pitch_only` to ``True`` enables pitch mode, so only
         pitches are shuffled (and not durations). Note how in the example below
@@ -254,9 +254,9 @@ class Shuffler:
             e'8.
         }
 
-        .. figure:: ../_images/Shuffler-f9jbzqkrkdf.png
+        ..  figure:: ../_images/Shuffler-f9jbzqkrkdf.png
 
-    .. note::
+    ..  note::
 
         Altering the value of :attr:`pitch_only`: will replace the original
         :attr:`contents`: with the contents of :attr:`current_window`. Note how
@@ -297,7 +297,7 @@ class Shuffler:
             f'16
         }
 
-        .. figure:: ../_images/Shuffler-tyq8y6q8zr9.png
+        ..  figure:: ../_images/Shuffler-tyq8y6q8zr9.png
 
     :attr:`swap_limit`:
         The attribute :attr:`swap_limit` can be used to set the number of times
@@ -341,7 +341,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-Nbo5S6wcfQ.png
+        ..  figure:: ../_images/Shuffler-Nbo5S6wcfQ.png
 
     :meth:`rotate`:
         Besides shuffling, logical ties and pitches can also be rotated using
@@ -376,7 +376,7 @@ class Shuffler:
             c'16
         }
 
-        .. figure:: ../_images/Shuffler-7vamgsxlr6.png
+        ..  figure:: ../_images/Shuffler-7vamgsxlr6.png
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'16 d'8. ~ d'4 e'4 r4 f'4 ~ f'8.. g'32"
@@ -400,7 +400,7 @@ class Shuffler:
             c'32
         }
 
-        .. figure:: ../_images/Shuffler-89cx79bjji8.png
+        ..  figure:: ../_images/Shuffler-89cx79bjji8.png
 
         This method can also take the optional parameters ``n_rotations`` and
         ``anticlockwise``. The first is an :obj:`int` setting the number of
@@ -429,7 +429,7 @@ class Shuffler:
             r32
         }
 
-        .. figure:: ../_images/Shuffler-g6v6wjm12ub.png
+        ..  figure:: ../_images/Shuffler-g6v6wjm12ub.png
 
     :attr:`preserve_rest_position`:
         If :attr:`preserve_rest_position` is set to ``True``, the positions of
@@ -457,7 +457,7 @@ class Shuffler:
             e'8.
         }
 
-        .. figure:: ../_images/Shuffler-pmou83f7rlj.png
+        ..  figure:: ../_images/Shuffler-pmou83f7rlj.png
 
         In logical ties mode, the rests will remain at the same index and will
         have the same total duration as before, but their position in the
@@ -482,7 +482,7 @@ class Shuffler:
             c'8.
         }
 
-        .. figure:: ../_images/Shuffler-7hbp2kdpqof.png
+        ..  figure:: ../_images/Shuffler-7hbp2kdpqof.png
 
     :attr:`disable_rewrite_meter`:
         If :attr:`disable_rewrite_meter` is set to ``True``, then the automatic
@@ -504,7 +504,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-tb78izpzvjp.png
+        ..  figure:: ../_images/Shuffler-tb78izpzvjp.png
 
     :meth:`shuffle_n` and :meth:`rotate_n`:
         To output several shuffled containers at once, use the methods
@@ -538,7 +538,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-vtia65lbk5.png
+        ..  figure:: ../_images/Shuffler-vtia65lbk5.png
 
         >>> container = abjad.Container(r"c'4 d'8 e'4. f'8. g'16")
         >>> shuffler = auxjad.Shuffler(container)
@@ -562,7 +562,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-3dqhy8eoiez.png
+        ..  figure:: ../_images/Shuffler-3dqhy8eoiez.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -592,9 +592,9 @@ class Shuffler:
             c'16
         }
 
-        .. figure:: ../_images/Shuffler-1v3lwhj430b.png
+        ..  figure:: ../_images/Shuffler-1v3lwhj430b.png
 
-    .. tip::
+    ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`shuffle_n` and :meth:`rotate_n` methods
@@ -640,7 +640,7 @@ class Shuffler:
             e'16
         }
 
-        .. figure:: ../_images/Shuffler-yx11u6o14v.png
+        ..  figure:: ../_images/Shuffler-yx11u6o14v.png
 
     Tuplet support:
         Tuplets are supported when :attr:`pitch_only` is ``True`` (pitch-only
@@ -666,9 +666,9 @@ class Shuffler:
             r8
         }
 
-        .. figure:: ../_images/Shuffler-mjxubkel8y.png
+        ..  figure:: ../_images/Shuffler-mjxubkel8y.png
 
-    .. error::
+    ..  error::
 
         Tuplets are not supported when :attr:`pitch_only` is ``False`` (logical
         tie mode). Using a container with tuplets and :attr:`pitch_only` set to
@@ -735,15 +735,15 @@ class Shuffler:
             r4
         }
 
-        .. figure:: ../_images/Shuffler-2ibui58pj8w.png
+        ..  figure:: ../_images/Shuffler-2ibui58pj8w.png
 
-    .. tip::
+    ..  tip::
 
         The functions |auxjad.mutate.remove_repeated_dynamics()| and
         |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    .. warning::
+    ..  warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes
@@ -771,7 +771,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/Shuffler-qsee7chymo.png
+        ..  figure:: ../_images/Shuffler-qsee7chymo.png
 
         >>> shuffler()
         >>> abjad.f(shuffler.contents)
@@ -782,7 +782,7 @@ class Shuffler:
             f'4
         }
 
-        .. figure:: ../_images/Shuffler-ii3fxe001ki.png
+        ..  figure:: ../_images/Shuffler-ii3fxe001ki.png
 
         >>> shuffler.contents = abjad.Container(r"cs2 ds2")
         >>> abjad.f(shuffler.contents)
@@ -791,7 +791,7 @@ class Shuffler:
             ds2
         }
 
-        .. figure:: ../_images/Shuffler-p2vd4mfvucp.png
+        ..  figure:: ../_images/Shuffler-p2vd4mfvucp.png
 
     Tweaking |abjad.Meter.rewrite_meter()|:
         This function uses the default logical tie splitting algorithm from
@@ -810,7 +810,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-t4lsqxg18ab.png
+        ..  figure:: ../_images/Shuffler-t4lsqxg18ab.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -831,7 +831,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-7na5znnhhwe.png
+        ..  figure:: ../_images/Shuffler-7na5znnhhwe.png
 
         Other arguments available for tweaking the output of
         |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -867,7 +867,7 @@ class Shuffler:
             d'8
         }
 
-        .. figure:: ../_images/Shuffler-7cfnxx7shci.png
+        ..  figure:: ../_images/Shuffler-7cfnxx7shci.png
 
         Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
         behaviour.
@@ -889,7 +889,7 @@ class Shuffler:
             d'8.
         }
 
-        .. figure:: ../_images/Shuffler-6gm4ev48j9k.png
+        ..  figure:: ../_images/Shuffler-6gm4ev48j9k.png
 
         >>> shuffler = auxjad.Shuffler(container,
         ...                            disable_rewrite_meter=True,
@@ -906,7 +906,7 @@ class Shuffler:
             d'8.
         }
 
-        .. figure:: ../_images/Shuffler-xlr4x3bhj6n.png
+        ..  figure:: ../_images/Shuffler-xlr4x3bhj6n.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -942,7 +942,7 @@ class Shuffler:
             d'4
         }
 
-        .. figure:: ../_images/Shuffler-3gyz7atvemx.png
+        ..  figure:: ../_images/Shuffler-3gyz7atvemx.png
     """
 
     ### CLASS VARIABLES ###

@@ -49,11 +49,11 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
         >>> auxjad.get.virtual_fundamental(pitches)
         bf,,
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
-        |abjad.get|, as shown below:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.get|. It can thus be used from either |auxjad.get|_ or
+        |abjad.get| namespaces. Therefore, the two lines below are equivalent:
 
         >>> pitches = abjad.PitchSegment(r"c'' g''")
         >>> auxjad.get.virtual_fundamental(pitches)
@@ -95,7 +95,7 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
         ... )
         d,,
 
-    .. error::
+    ..  error::
 
         If a fundamental is not found with a given ``min_fundamental``, the
         function will raise a :exc:`ValueError` exception:

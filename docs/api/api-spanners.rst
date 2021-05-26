@@ -4,7 +4,7 @@ spanners
 The |spanners|_ subpackage contains functions that add spanners to containers
 and selections.
 
-.. note::
+..  note::
 
     These functions are imported directly into the |auxjad|_ namespace.
     Therefore, to use a function such as :func:`auxjad.half_piano_pedal()` you

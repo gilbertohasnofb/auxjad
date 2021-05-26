@@ -70,7 +70,7 @@ take care of time signatures.
         e''16
     }
 
-.. figure:: ../_images/example-2-looping-4qwapicxjz3.png
+..  figure:: ../_images/example-2-looping-4qwapicxjz3.png
 
 At this point, we can create the :class:`auxjad.LeafLooper` and initialise it
 using the material we generated above. A :attr:`~auxjad.LeafLooper.window_size`
@@ -145,7 +145,7 @@ measures.
         d'''4
     }
 
-.. figure:: ../_images/example-2-looping-9mzjqtfcru8.png
+..  figure:: ../_images/example-2-looping-9mzjqtfcru8.png
 
 At this point, let's change the :attr:`~auxjad.LeafLooper.window_size` to a
 smaller value and output some more measures.
@@ -233,7 +233,7 @@ This is the final result.
         e''4
     }
 
-.. figure:: ../_images/example-2-looping-v5h9hyfmjj.png
+..  figure:: ../_images/example-2-looping-v5h9hyfmjj.png
 
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

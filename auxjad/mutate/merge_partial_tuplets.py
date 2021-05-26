@@ -28,7 +28,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-ilr68s15kqb.png
+        ..  figure:: ../_images/merge_partial_tuplets-ilr68s15kqb.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
         >>> abjad.f(staff)
@@ -41,14 +41,14 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-qe29etsedx.png
+        ..  figure:: ../_images/merge_partial_tuplets-qe29etsedx.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
         >>> abjad.mutate.merge_partial_tuplets(staff[:])
@@ -75,7 +75,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-9rh7vpu208j.png
+        ..  figure:: ../_images/merge_partial_tuplets-9rh7vpu208j.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
         >>> abjad.f(staff)
@@ -89,7 +89,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-oy1imqisx2.png
+        ..  figure:: ../_images/merge_partial_tuplets-oy1imqisx2.png
 
     ``merge_across_barlines``:
         By default, partial tuplets are not merged across barlines.
@@ -127,7 +127,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-3rjib7pctml.png
+        ..  figure:: ../_images/merge_partial_tuplets-3rjib7pctml.png
 
         To change  this behaviour, set ``merge_across_barlines`` to ``True``.
 
@@ -162,7 +162,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-icud1ejcmzc.png
+        ..  figure:: ../_images/merge_partial_tuplets-icud1ejcmzc.png
 
     Tied partial tuplets:
         Tied partial tuplets are also handled by this function.
@@ -191,7 +191,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-st4zw38qfce.png
+        ..  figure:: ../_images/merge_partial_tuplets-st4zw38qfce.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
         >>> abjad.f(staff)
@@ -210,7 +210,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-1pky5fsh2nl.png
+        ..  figure:: ../_images/merge_partial_tuplets-1pky5fsh2nl.png
 
     Indicators:
         Indicators stay the same in the merged tuplet.
@@ -235,7 +235,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-7cdtafl348h.png
+        ..  figure:: ../_images/merge_partial_tuplets-7cdtafl348h.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
         >>> abjad.f(staff)
@@ -252,9 +252,9 @@ def merge_partial_tuplets(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-j9rmdfbawce.png
+        ..  figure:: ../_images/merge_partial_tuplets-j9rmdfbawce.png
 
-    .. tip::
+    ..  tip::
 
         The method |auxjad.mutate.extract_trivial_tuplets()| can be used
         after merging partial tuplets to further clean the output. The method
@@ -263,7 +263,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
         also apply both |auxjad.mutate.merge_partial_tuplets()| and
         |auxjad.mutate.extract_trivial_tuplets()| to the output.
 
-    .. note::
+    ..  note::
 
         When using |abjad.Container|'s, all time signatures in the output will
         be commented out with ``%%%.`` This is because Abjad only applies time
@@ -279,7 +279,7 @@ def merge_partial_tuplets(selection: abjad.Selection,
             e'4
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-945s36mfdn.png
+        ..  figure:: ../_images/merge_partial_tuplets-945s36mfdn.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -290,9 +290,9 @@ def merge_partial_tuplets(selection: abjad.Selection,
             e'4
         }
 
-        .. figure:: ../_images/merge_partial_tuplets-3b4tyqrnttw.png
+        ..  figure:: ../_images/merge_partial_tuplets-3b4tyqrnttw.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

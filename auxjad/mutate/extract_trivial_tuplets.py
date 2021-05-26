@@ -29,7 +29,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-4htz2xebxwf.png
+        ..  figure:: ../_images/extract_trivial_tuplets-4htz2xebxwf.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -38,7 +38,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             c'2
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-2dbuwo4erhb.png
+        ..  figure:: ../_images/extract_trivial_tuplets-2dbuwo4erhb.png
 
         It also works with containers with tuplets within tuplets.
 
@@ -56,7 +56,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-8d5bcyxcmhc.png
+        ..  figure:: ../_images/extract_trivial_tuplets-8d5bcyxcmhc.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -64,7 +64,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             r1
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-2a2fvwimyrx.png
+        ..  figure:: ../_images/extract_trivial_tuplets-2a2fvwimyrx.png
 
         >>> container = abjad.Container(
         ...     r"\times 4/5 {c'2. ~ \times 2/3 {c'2 ~ c'4}}"
@@ -84,7 +84,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-xka6r5iyo4l.png
+        ..  figure:: ../_images/extract_trivial_tuplets-xka6r5iyo4l.png
 
         >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -92,14 +92,14 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             c'1
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-f1qxi44xcsw.png
+        ..  figure:: ../_images/extract_trivial_tuplets-f1qxi44xcsw.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate()|. It can thus be used from either
-        :func:`auxjad.mutate()` or |abjad.mutate()|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
@@ -129,7 +129,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-adibnkb1mbs.png
+        ..  figure:: ../_images/extract_trivial_tuplets-adibnkb1mbs.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
         >>> abjad.f(container)
@@ -143,13 +143,13 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-xldohyedqs.png
+        ..  figure:: ../_images/extract_trivial_tuplets-xldohyedqs.png
 
-    .. tip::
+    ..  tip::
 
-        Use |auxjad.mutate().rests_to_multimeasure_rest()| to replace measures
+        Use |auxjad.mutate.rests_to_multimeasure_rest()| to replace measures
         filled with rests by a single multi-measure rest. That function makes
-        use of |auxjad.mutate().extract_trivial_tuplets()|, so it is not
+        use of |auxjad.mutate.extract_trivial_tuplets()|, so it is not
         necessary to flatten the empty tuplets beforehand.
 
     Time signature changes:
@@ -165,7 +165,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             r2.
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-sa1tqmvtkx.png
+        ..  figure:: ../_images/extract_trivial_tuplets-sa1tqmvtkx.png
 
     Non-assignable durations:
         This function also extracts tuplets which sum up to a non-assignable
@@ -188,7 +188,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-l4kp9g5v7m.png
+        ..  figure:: ../_images/extract_trivial_tuplets-l4kp9g5v7m.png
 
         >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
         >>> abjad.f(staff)
@@ -203,9 +203,9 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             g4
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-8r40ndemvpn.png
+        ..  figure:: ../_images/extract_trivial_tuplets-8r40ndemvpn.png
 
-    .. note::
+    ..  note::
 
         When using |abjad.Container|'s, all time signatures in the output will
         be commented out with ``%%%.`` This is because Abjad only applies time
@@ -221,7 +221,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             e'4
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-6wymsb7z1n4.png
+        ..  figure:: ../_images/extract_trivial_tuplets-6wymsb7z1n4.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -232,9 +232,9 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             e'4
         }
 
-        .. figure:: ../_images/extract_trivial_tuplets-moavfyqtxza.png
+        ..  figure:: ../_images/extract_trivial_tuplets-moavfyqtxza.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

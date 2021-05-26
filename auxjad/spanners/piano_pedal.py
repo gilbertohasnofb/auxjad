@@ -33,9 +33,9 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             \sustainOff
         }
 
-        .. figure:: ../_images/piano_pedal-KaleXflNvL.png
+        ..  figure:: ../_images/piano_pedal-KaleXflNvL.png
 
-    .. note::
+    ..  note::
 
         Auxjad automatically replaces its built-in |abjad.piano_pedal()| with
         this function. Therefore it can be used either as
@@ -79,7 +79,7 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             \sustainOff
         }
 
-        .. figure:: ../_images/piano_pedal-rA7ZHeMrjf.png
+        ..  figure:: ../_images/piano_pedal-rA7ZHeMrjf.png
 
     ``omit_raise_pedal_glyph``:
         Call the function with ``omit_raise_pedal_glyph`` set to ``False`` to
@@ -101,7 +101,7 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             \sustainOff
         }
 
-        .. figure:: ../_images/piano_pedal-p8S1KwHLIx.png
+        ..  figure:: ../_images/piano_pedal-p8S1KwHLIx.png
 
         Combined with ``until_the_end=True``:
 
@@ -133,7 +133,7 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             \sustainOff
         }
 
-        .. figure:: ../_images/piano_pedal-Fb5rE6QB1f.png
+        ..  figure:: ../_images/piano_pedal-Fb5rE6QB1f.png
 
     Pedal style:
         The style of the sustain pedal can be tweaked using |abjad.setting()|
@@ -157,7 +157,7 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             \sustainOff
         }
 
-        .. figure:: ../_images/piano_pedal-6q9Swb2elq.png
+        ..  figure:: ../_images/piano_pedal-6q9Swb2elq.png
 
         This tweak also works with ``until_the_end=True`` if desired:
 
@@ -192,7 +192,7 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             \sustainOff
         }
 
-        .. figure:: ../_images/piano_pedal-cYyRwFvnFH.png
+        ..  figure:: ../_images/piano_pedal-cYyRwFvnFH.png
     """
     assert isinstance(selector, abjad.Expression)
     argument = selector(argument)

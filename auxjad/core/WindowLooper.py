@@ -33,7 +33,7 @@ class WindowLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/WindowLooper-a9k9q8xy1j.png
+        ..  figure:: ../_images/WindowLooper-a9k9q8xy1j.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -53,7 +53,7 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/WindowLooper-oori8gjer9s.png
+        ..  figure:: ../_images/WindowLooper-oori8gjer9s.png
 
         The property :attr:`current_window` can be used to access the current
         window without moving the head forwards.
@@ -76,7 +76,7 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/WindowLooper-7zc9e7o3dlr.png
+        ..  figure:: ../_images/WindowLooper-7zc9e7o3dlr.png
 
     :attr:`process_on_first_call`:
         The very first call will output the input container without processing
@@ -106,7 +106,7 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/WindowLooper-dual73tnheq.png
+        ..  figure:: ../_images/WindowLooper-dual73tnheq.png
 
     :attr:`window_size` and :attr:`step_size`:
         The optional arguments :attr:`window_size` and :attr:`step_size` can be
@@ -129,7 +129,7 @@ class WindowLooper(_LooperParent):
             d'2
         }
 
-        .. figure:: ../_images/WindowLooper-0wh7ajyal0qj.png
+        ..  figure:: ../_images/WindowLooper-0wh7ajyal0qj.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -144,7 +144,7 @@ class WindowLooper(_LooperParent):
             e'8
         }
 
-        .. figure:: ../_images/WindowLooper-tt90u6gg2tp.png
+        ..  figure:: ../_images/WindowLooper-tt90u6gg2tp.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -194,7 +194,7 @@ class WindowLooper(_LooperParent):
             r2
         }
 
-        .. figure:: ../_images/WindowLooper-9sldax4dumb.png
+        ..  figure:: ../_images/WindowLooper-9sldax4dumb.png
 
     :attr:`fill_with_rests`:
         In order to stop the process when the end of the looping window matches
@@ -227,7 +227,7 @@ class WindowLooper(_LooperParent):
             r2
         }
 
-        .. figure:: ../_images/WindowLooper-4l025g7ycxr.png
+        ..  figure:: ../_images/WindowLooper-4l025g7ycxr.png
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> looper = auxjad.WindowLooper(container,
@@ -250,7 +250,7 @@ class WindowLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/WindowLooper-lq4cwlzlpp.png
+        ..  figure:: ../_images/WindowLooper-lq4cwlzlpp.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -388,7 +388,7 @@ class WindowLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/WindowLooper-ty5vqw6qk9d.png
+        ..  figure:: ../_images/WindowLooper-ty5vqw6qk9d.png
 
     :attr:`forward_bias` between ``0.0`` and ``1.0``:
         Setingt :attr:`forward_bias` to a value in between ``0.0`` and ``1.0``
@@ -428,7 +428,7 @@ class WindowLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/WindowLooper-p91xgsnmp3o.png
+        ..  figure:: ../_images/WindowLooper-p91xgsnmp3o.png
 
     :attr:`max_steps`:
         Setting the keyword argument :attr:`max_steps` to a value larger than
@@ -453,7 +453,7 @@ class WindowLooper(_LooperParent):
             c''4
         }
 
-        .. figure:: ../_images/WindowLooper-81mbjuesmbr.png
+        ..  figure:: ../_images/WindowLooper-81mbjuesmbr.png
 
     :func:`len()`:
         The function :func:`len()` can be used to get the total number of steps
@@ -509,7 +509,7 @@ class WindowLooper(_LooperParent):
             r2
         }
 
-        .. figure:: ../_images/WindowLooper-y734t07uio.png
+        ..  figure:: ../_images/WindowLooper-y734t07uio.png
 
     ``tie_identical_pitches``:
         When using :meth:`output_all`, set the keyword argument
@@ -546,7 +546,7 @@ class WindowLooper(_LooperParent):
             r2
         }
 
-        .. figure:: ../_images/WindowLooper-1giyp118geth.png
+        ..  figure:: ../_images/WindowLooper-1giyp118geth.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a single
@@ -574,7 +574,7 @@ class WindowLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/WindowLooper-uikg5s4t26.png
+        ..  figure:: ../_images/WindowLooper-uikg5s4t26.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -596,9 +596,9 @@ class WindowLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/WindowLooper-24ipt4uf4x8.png
+        ..  figure:: ../_images/WindowLooper-24ipt4uf4x8.png
 
-    .. tip::
+    ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
@@ -644,7 +644,7 @@ class WindowLooper(_LooperParent):
             f'8
         }
 
-        .. figure:: ../_images/WindowLooper-52p5g0hqnep.png
+        ..  figure:: ../_images/WindowLooper-52p5g0hqnep.png
 
         >>> looper.window_size = (3, 8)
         >>> notes = looper.output_n(3)
@@ -661,7 +661,7 @@ class WindowLooper(_LooperParent):
             d'4.
         }
 
-        .. figure:: ../_images/WindowLooper-kzrb0fwup2.png
+        ..  figure:: ../_images/WindowLooper-kzrb0fwup2.png
 
     :attr:`contents`:
         Use the :attr:`contents` property to read as well as overwrite the
@@ -682,7 +682,7 @@ class WindowLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/WindowLooper-hx2wjkgko3j.png
+        ..  figure:: ../_images/WindowLooper-hx2wjkgko3j.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -702,7 +702,7 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/WindowLooper-bjabk27oapb.png
+        ..  figure:: ../_images/WindowLooper-bjabk27oapb.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
@@ -722,7 +722,7 @@ class WindowLooper(_LooperParent):
             a'16
         }
 
-        .. figure:: ../_images/WindowLooper-fdioda2e2ed.png
+        ..  figure:: ../_images/WindowLooper-fdioda2e2ed.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -738,7 +738,7 @@ class WindowLooper(_LooperParent):
             g'2.
         }
 
-        .. figure:: ../_images/WindowLooper-vh12q82nw0e.png
+        ..  figure:: ../_images/WindowLooper-vh12q82nw0e.png
 
     Indicators:
         This class can handle dynamics, articulations and slurs. When a leaf is
@@ -784,15 +784,15 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/WindowLooper-23jcqhmpqfm.png
+        ..  figure:: ../_images/WindowLooper-23jcqhmpqfm.png
 
-    .. tip::
+    ..  tip::
 
         The functions |auxjad.mutate.remove_repeated_dynamics()| and
         |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    .. warning::
+    ..  warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes
@@ -827,7 +827,7 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/LeafLooper-toNYz7MCq3.png
+        ..  figure:: ../_images/LeafLooper-toNYz7MCq3.png
 
         Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
         behaviour.
@@ -853,7 +853,7 @@ class WindowLooper(_LooperParent):
             f'16
         }
 
-        .. figure:: ../_images/LeafLooper-osLcSeQ6gP.png
+        ..  figure:: ../_images/LeafLooper-osLcSeQ6gP.png
 
     Tweaking |abjad.Meter.rewrite_meter()|:
         This class uses the default logical tie splitting algorithm from
@@ -872,7 +872,7 @@ class WindowLooper(_LooperParent):
             e'2
         }
 
-        .. figure:: ../_images/WindowLooper-5iew8d28rqj.png
+        ..  figure:: ../_images/WindowLooper-5iew8d28rqj.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -893,7 +893,7 @@ class WindowLooper(_LooperParent):
             e'2
         }
 
-        .. figure:: ../_images/WindowLooper-hzetruc3kz4.png
+        ..  figure:: ../_images/WindowLooper-hzetruc3kz4.png
 
         Other arguments available for tweaking the output of
         |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -907,7 +907,7 @@ class WindowLooper(_LooperParent):
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of this function for more details on these arguments.
 
-    .. warning::
+    ..  warning::
 
         This class can handle tuplets, but the output is often quite complex.
         Although the result will be rhythmically correct, consecutive tuplets
@@ -952,7 +952,7 @@ class WindowLooper(_LooperParent):
             d'2
         }
 
-        .. figure:: ../_images/WindowLooper-cevvf9c9a9.png
+        ..  figure:: ../_images/WindowLooper-cevvf9c9a9.png
     """
 
     ### CLASS VARIABLES ###

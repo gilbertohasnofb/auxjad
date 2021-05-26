@@ -26,7 +26,7 @@ def reposition_slurs(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/reposition_slurs-uxji4xx6ftk.png
+        ..  figure:: ../_images/reposition_slurs-uxji4xx6ftk.png
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
         >>> auxjad.mutate.reposition_slurs(staff[:])
@@ -42,14 +42,14 @@ def reposition_slurs(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/reposition_slurs-7nnp5cttm4y.png
+        ..  figure:: ../_images/reposition_slurs-7nnp5cttm4y.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.reposition_slurs(staff[:])
         >>> abjad.mutate.reposition_slurs(staff[:])
@@ -69,7 +69,7 @@ def reposition_slurs(selection: abjad.Selection,
             )
         }
 
-        .. figure:: ../_images/reposition_slurs-2j7hgqd7bt1.png
+        ..  figure:: ../_images/reposition_slurs-2j7hgqd7bt1.png
 
         >>> staff = abjad.Staff(r"c'1 r2( d'2 e'1)")
         >>> auxjad.mutate.reposition_slurs(staff[:])
@@ -84,7 +84,7 @@ def reposition_slurs(selection: abjad.Selection,
             )
         }
 
-        .. figure:: ../_images/reposition_slurs-i957u1wt30m.png
+        ..  figure:: ../_images/reposition_slurs-i957u1wt30m.png
 
     Multiple rests:
         This function also works when multiple rests are present.
@@ -102,7 +102,7 @@ def reposition_slurs(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/reposition_slurs-v76u42x7idk.png
+        ..  figure:: ../_images/reposition_slurs-v76u42x7idk.png
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 r1) e'1")
         >>> auxjad.mutate.reposition_slurs(staff[:])
@@ -118,7 +118,7 @@ def reposition_slurs(selection: abjad.Selection,
             e'1
         }
 
-        .. figure:: ../_images/reposition_slurs-burs1t0daid.png
+        ..  figure:: ../_images/reposition_slurs-burs1t0daid.png
 
     ``allow_slurs_under_rests``:
         By default, a slur crossing a rest is broken into two.
@@ -139,7 +139,7 @@ def reposition_slurs(selection: abjad.Selection,
             )
         }
 
-        .. figure:: ../_images/reposition_slurs-8wb7orpt285.png
+        ..  figure:: ../_images/reposition_slurs-8wb7orpt285.png
 
         Set the optional keyword argument ``allow_slurs_under_rests`` to
         ``True`` to allow slurs under rests.
@@ -161,7 +161,7 @@ def reposition_slurs(selection: abjad.Selection,
             )
         }
 
-        .. figure:: ../_images/reposition_slurs-ftb59kz6u8j.png
+        ..  figure:: ../_images/reposition_slurs-ftb59kz6u8j.png
 
     ``close_unterminated_final_slur``:
         By default, unterminated slurs at the end of the selection are closed
@@ -187,7 +187,7 @@ def reposition_slurs(selection: abjad.Selection,
             )
         }
 
-        .. figure:: ../_images/reposition_slurs-70dli8e0kqr.png
+        ..  figure:: ../_images/reposition_slurs-70dli8e0kqr.png
 
         Set the optional keyword argument ``close_unterminated_final_slur`` to
         ``False`` to disable this behaviour.
@@ -214,7 +214,7 @@ def reposition_slurs(selection: abjad.Selection,
             a'1
         }
 
-        .. figure:: ../_images/reposition_slurs-1usa2dezl45.png
+        ..  figure:: ../_images/reposition_slurs-1usa2dezl45.png
 
         When there are no pitched leaves left after an unterminated open slur,
         it is removed.
@@ -237,13 +237,13 @@ def reposition_slurs(selection: abjad.Selection,
             r1
         }
 
-        .. figure:: ../_images/reposition_slurs-a0uakfcltuf.png
+        ..  figure:: ../_images/reposition_slurs-a0uakfcltuf.png
 
-    .. note::
+    ..  note::
 
         Duplicate slur starts or stops are removed. Note that the score output
         will not change, as LilyPond also ignores duplicate slurs, but the
-        output of |abjad.f()| will be cleaner.
+        output in the ``.ly`` file will be cleaner.
 
         >>> staff = abjad.Staff(r"c'1( d'2) e'2) f'2( g'2( a'1)")
         >>> auxjad.mutate.reposition_slurs(staff[:])
@@ -262,9 +262,9 @@ def reposition_slurs(selection: abjad.Selection,
             )
         }
 
-        .. figure:: ../_images/reposition_slurs-0ugn322x3tr.png
+        ..  figure:: ../_images/reposition_slurs-0ugn322x3tr.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

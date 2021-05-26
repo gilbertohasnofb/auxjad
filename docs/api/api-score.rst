@@ -4,7 +4,7 @@ score
 The |score|_ subpackage include score component and component maker classes
 such as an expanded leaf maker as well as harmonic leaves.
 
-.. note::
+..  note::
 
     These classes are imported directly into the |auxjad|_ namespace.
     Therefore, to use a class such as :class:`auxjad.ArtificialHarmonic` you

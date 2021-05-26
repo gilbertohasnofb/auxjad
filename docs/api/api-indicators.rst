@@ -4,7 +4,7 @@ indicators
 The |indicators|_ subpackage contains derived classes and extension
 methods for Abjad's indicator classes.
 
-.. note::
+..  note::
 
     The extension methods are added to Abjad's own classes, and therefore usage
     is as follows:

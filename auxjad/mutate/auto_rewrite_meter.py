@@ -60,7 +60,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'16
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-xyx2wh7ufer.png
+        ..  figure:: ../_images/auto_rewrite_meter-xyx2wh7ufer.png
 
         Abjad's |abjad.Meter.rewrite_meter()| mutates an |abjad.Selection|
         of a measure, improving its notation.
@@ -96,7 +96,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'16
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-7fn2uj2xupb.png
+        ..  figure:: ../_images/auto_rewrite_meter-7fn2uj2xupb.png
 
         This function mutates an |abjad.Container| (or child class),
         identifying the implied meters of each measure and applying both
@@ -133,14 +133,14 @@ def auto_rewrite_meter(container: abjad.Container,
             b'16
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-ahdaggaiqbc.png
+        ..  figure:: ../_images/auto_rewrite_meter-ahdaggaiqbc.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.auto_rewrite_meter(staff)
         >>> abjad.mutate.auto_rewrite_meter(staff)
@@ -171,7 +171,7 @@ def auto_rewrite_meter(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-08sckfp19vil.png
+        ..  figure:: ../_images/auto_rewrite_meter-08sckfp19vil.png
 
     ``prettify_rewrite_meter``:
         By default, this function invokes both |abjad.Meter.rewrite_meter()|
@@ -203,7 +203,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'8
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-vbytyszlkng.png
+        ..  figure:: ../_images/auto_rewrite_meter-vbytyszlkng.png
 
         Set ``prettify_rewrite_meter`` to ``False`` to not invoke
         |auxjad.mutate.prettify_rewrite_meter()|.
@@ -243,7 +243,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'16
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-64wse58hvko.png
+        ..  figure:: ../_images/auto_rewrite_meter-64wse58hvko.png
 
     ``meter_list``:
         When no ``meter_list`` is supplied, this function detects the time
@@ -279,7 +279,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b''8
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-l4xnpevp3z.png
+        ..  figure:: ../_images/auto_rewrite_meter-l4xnpevp3z.png
 
         To use a custom list of meters (one for each measure), set
         ``meter_list`` to a :obj:`list` of |abjad.Meter|'s or
@@ -318,7 +318,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b''8
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-uqif4i8tqxk.png
+        ..  figure:: ../_images/auto_rewrite_meter-uqif4i8tqxk.png
 
     Number of measures:
         This function handles a container with any number of measures and any
@@ -362,7 +362,7 @@ def auto_rewrite_meter(container: abjad.Container,
             r8.
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-hkhtqnqita.png
+        ..  figure:: ../_images/auto_rewrite_meter-hkhtqnqita.png
 
     ``extract_trivial_tuplets``:
         By default, tuplets filled with rests or tied notes or chords are
@@ -386,7 +386,7 @@ def auto_rewrite_meter(container: abjad.Container,
             <e' g'>4
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-nq6t6qwka7a.png
+        ..  figure:: ../_images/auto_rewrite_meter-nq6t6qwka7a.png
 
         Set ``extract_trivial_tuplets`` to ``False`` to disable this behaviour.
 
@@ -420,7 +420,7 @@ def auto_rewrite_meter(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
+        ..  figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
 
     ``merge_partial_tuplets``:
         By default, consecutive partial tuplets with the same ratio that sum up
@@ -445,7 +445,7 @@ def auto_rewrite_meter(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-ty72t5wvc1.png
+        ..  figure:: ../_images/auto_rewrite_meter-ty72t5wvc1.png
 
         Set ``merge_partial_tuplets`` to ``False`` to disable this behaviour.
 
@@ -476,9 +476,9 @@ def auto_rewrite_meter(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-4rouf819bjb.png
+        ..  figure:: ../_images/auto_rewrite_meter-4rouf819bjb.png
 
-    .. note::
+    ..  note::
 
         This function also accepts the arguments ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
@@ -489,7 +489,7 @@ def auto_rewrite_meter(container: abjad.Container,
         is used to invoke |auxjad.mutate.merge_partial_tuplets()| See the
         documentation of these functions for more details on these arguments.
 
-    .. warning::
+    ..  warning::
 
         Setting ``boundary_depth`` to a value equal to or larger than ``1``
         will automatically disable ``fuse_across_groups_of_beats``,
@@ -528,7 +528,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'4
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-cf09ysj16fo.png
+        ..  figure:: ../_images/auto_rewrite_meter-cf09ysj16fo.png
 
         By automatically setting all ``fuse_across_groups_of_beats``,
         ``fuse_quadruple_meter``, and  ``fuse_triple_meter` to ``False`` when
@@ -560,7 +560,7 @@ def auto_rewrite_meter(container: abjad.Container,
             b'4
         }
 
-        .. figure:: ../_images/auto_rewrite_meter-mm9xvmaqwfj.png
+        ..  figure:: ../_images/auto_rewrite_meter-mm9xvmaqwfj.png
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("first positional argument must be 'abjad.Container' "

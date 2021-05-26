@@ -10,7 +10,7 @@ contains score component and component maker classes, such as an expanded leaf
 maker as well as harmonic leaves. |get|_ and |mutate|_ contains inspection and
 mutation functions.
 
-.. note::
+..  note::
 
     Auxjad classes and functions are imported directly into the |auxjad|_
     namespace. Therefore, to use a class such as

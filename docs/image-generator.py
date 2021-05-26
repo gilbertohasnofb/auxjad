@@ -10,9 +10,9 @@ import auxjad  # noqa: E402
 # all the next lines until either an empty line appears (i.e. a line with just
 # a \n on it) or until the next line contains more Python documentation, which
 # will start with a bunch of spaces followed by '>>>'.
-pattern = r""">>> abjad\.f.*
+pattern = r"""\.\.  docs::\s+
 ([\s\S\n]+?)
- *\.\. figure:: \.\./_images/([\w-]*)\.png"""
+\s+\.\.  figure:: \.\./_images/([\w-]*)\.png"""
 
 # header for lilypond file
 ly_header = r"""

@@ -30,7 +30,7 @@ def close_container(container: abjad.Container) -> None:
             f'4
         }
 
-        .. figure:: ../_images/close_container-nfnk06s90x.png
+        ..  figure:: ../_images/close_container-nfnk06s90x.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -41,7 +41,7 @@ def close_container(container: abjad.Container) -> None:
             e'4
         }
 
-        .. figure:: ../_images/close_container-swyxwiup8pm.png
+        ..  figure:: ../_images/close_container-swyxwiup8pm.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -54,7 +54,7 @@ def close_container(container: abjad.Container) -> None:
             c'4
         }
 
-        .. figure:: ../_images/close_container-mms5hiysbwe.png
+        ..  figure:: ../_images/close_container-mms5hiysbwe.png
 
         >>> abjad.f(container4)
         \new Staff
@@ -69,14 +69,14 @@ def close_container(container: abjad.Container) -> None:
             f'4
         }
 
-        .. figure:: ../_images/close_container-aky7avbla4w.png
+        ..  figure:: ../_images/close_container-aky7avbla4w.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.close_containers(staff)
         >>> abjad.mutate.close_containers(staff)
@@ -102,7 +102,7 @@ def close_container(container: abjad.Container) -> None:
             g'4
         }
 
-        .. figure:: ../_images/close_container-3tgyty245cq.png
+        ..  figure:: ../_images/close_container-3tgyty245cq.png
 
         >>> abjad.f(container2)
         \new Staff
@@ -113,7 +113,7 @@ def close_container(container: abjad.Container) -> None:
             c'4
         }
 
-        .. figure:: ../_images/close_container-st5d89zofoh.png
+        ..  figure:: ../_images/close_container-st5d89zofoh.png
 
         >>> abjad.f(container3)
         \new Staff
@@ -126,9 +126,9 @@ def close_container(container: abjad.Container) -> None:
             af'2
         }
 
-        .. figure:: ../_images/close_container-wd5irlm76l.png
+        ..  figure:: ../_images/close_container-wd5irlm76l.png
 
-    .. note::
+    ..  note::
 
         When using |abjad.Container|'s, all time signatures in the output will
         be commented out with ``%%%.`` This is because Abjad only applies time
@@ -144,7 +144,7 @@ def close_container(container: abjad.Container) -> None:
             e'4
         }
 
-        .. figure:: ../_images/close_container-xrwkorhtl5.png
+        ..  figure:: ../_images/close_container-xrwkorhtl5.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -155,7 +155,7 @@ def close_container(container: abjad.Container) -> None:
             e'4
         }
 
-        .. figure:: ../_images/close_container-ys6pcdlywy.png
+        ..  figure:: ../_images/close_container-ys6pcdlywy.png
 
     Partial time signatures:
         Correctly handles partial time signatures.
@@ -177,9 +177,9 @@ def close_container(container: abjad.Container) -> None:
             g'4
         }
 
-        .. figure:: ../_images/close_container-rfskjbbfnu.png
+        ..  figure:: ../_images/close_container-rfskjbbfnu.png
 
-    .. error::
+    ..  error::
 
         If a container is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
@@ -190,7 +190,7 @@ def close_container(container: abjad.Container) -> None:
         ValueError: 'container' is malformed, with an underfull measure
         preceding a time signature change
 
-    .. warning::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

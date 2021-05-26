@@ -30,7 +30,7 @@ def sustain_notes(container: abjad.Container,
             r8.
         }
 
-        .. figure:: ../_images/sustain_notes-w1e1pmruyce.png
+        ..  figure:: ../_images/sustain_notes-w1e1pmruyce.png
 
         >>> auxjad.mutate.sustain_notes(staff)
         >>> abjad.f(staff)
@@ -42,14 +42,14 @@ def sustain_notes(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/sustain_notes-ythfpvkrvue.png
+        ..  figure:: ../_images/sustain_notes-ythfpvkrvue.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.close_containers(staff)
         >>> abjad.mutate.close_containers(staff)
@@ -72,7 +72,7 @@ def sustain_notes(container: abjad.Container,
             r8.
         }
 
-        .. figure:: ../_images/sustain_notes-oliqicqqw7q.png
+        ..  figure:: ../_images/sustain_notes-oliqicqqw7q.png
 
         >>> auxjad.mutate.sustain_notes(staff)
         >>> abjad.f(staff)
@@ -84,7 +84,7 @@ def sustain_notes(container: abjad.Container,
             c'4
         }
 
-        .. figure:: ../_images/sustain_notes-3alcbmhc2jt.png
+        ..  figure:: ../_images/sustain_notes-3alcbmhc2jt.png
 
     Consecutive leaves with the same pitch:
         Consecutive pitched leaves with a same pitch will not be tied.
@@ -103,7 +103,7 @@ def sustain_notes(container: abjad.Container,
             r8.
         }
 
-        .. figure:: ../_images/sustain_notes-ek4ujjintt8.png
+        ..  figure:: ../_images/sustain_notes-ek4ujjintt8.png
 
         >>> auxjad.mutate.sustain_notes(staff)
         >>> abjad.f(staff)
@@ -115,7 +115,7 @@ def sustain_notes(container: abjad.Container,
             <c' e'>4
         }
 
-        .. figure:: ../_images/sustain_notes-f7au6hojq99.png
+        ..  figure:: ../_images/sustain_notes-f7au6hojq99.png
 
     Tuplets:
         This function handles tuplets.
@@ -141,7 +141,7 @@ def sustain_notes(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/sustain_notes-nsjvhnyrkea.png
+        ..  figure:: ../_images/sustain_notes-nsjvhnyrkea.png
 
         >>> auxjad.mutate.sustain_notes(staff)
         >>> abjad.f(staff)
@@ -158,7 +158,7 @@ def sustain_notes(container: abjad.Container,
             f'4
         }
 
-        .. figure:: ../_images/sustain_notes-26l9hob8wko.png
+        ..  figure:: ../_images/sustain_notes-26l9hob8wko.png
 
     Complex example:
         This function can handle containers with a mixture of notes, chords,
@@ -206,7 +206,7 @@ def sustain_notes(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/sustain_notes-cpw7dvpegge.png
+        ..  figure:: ../_images/sustain_notes-cpw7dvpegge.png
 
         >>> auxjad.mutate.sustain_notes(staff)
         >>> abjad.f(staff)
@@ -244,7 +244,7 @@ def sustain_notes(container: abjad.Container,
             }
         }
 
-        .. figure:: ../_images/sustain_notes-z8t2jwxsvar.png
+        ..  figure:: ../_images/sustain_notes-z8t2jwxsvar.png
 
     Multi-measure rests:
         This mutation also handles multi-measure rests, including ones with
@@ -280,7 +280,7 @@ def sustain_notes(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/sustain_notes-mJOOARIUAp.png
+        ..  figure:: ../_images/sustain_notes-mJOOARIUAp.png
 
         >>> auxjad.mutate.sustain_notes(staff)
         >>> abjad.f(staff)
@@ -307,7 +307,7 @@ def sustain_notes(container: abjad.Container,
             a'4
         }
 
-        .. figure:: ../_images/sustain_notes-iLTiWERSvO.png
+        ..  figure:: ../_images/sustain_notes-iLTiWERSvO.png
 
     ``sustain_multimeasure_rests``:
         By default, notes are tied across multi-measure rests.
@@ -342,7 +342,7 @@ def sustain_notes(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
+        ..  figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
 
         To disable sustaining across those, set ``sustain_multimeasure_rests``
         to  ``False``:
@@ -367,7 +367,7 @@ def sustain_notes(container: abjad.Container,
             a'4.
         }
 
-        .. figure:: ../_images/sustain_notes-9WeilArLex.png
+        ..  figure:: ../_images/sustain_notes-9WeilArLex.png
 
     ``rewrite_meter``:
         By default, |auxjad.mutate.auto_rewrite_meter()| is summoned after
@@ -403,7 +403,7 @@ def sustain_notes(container: abjad.Container,
             r4
         }
 
-        .. figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
+        ..  figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
 
         To disable this behaviour, set ``rewrite_meter`` to ``False``:
 
@@ -442,9 +442,9 @@ def sustain_notes(container: abjad.Container,
             a'4
         }
 
-        .. figure:: ../_images/sustain_notes-9WeilArLex.png
+        ..  figure:: ../_images/sustain_notes-9WeilArLex.png
 
-    .. warning::
+    ..  warning::
 
         The input container must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

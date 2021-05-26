@@ -15,7 +15,7 @@ class CartographySelector():
     element can thus be expressed as a relation to the probability of another
     element :math:`k` indexes apart using:
 
-    .. math::
+    ..  math::
 
         P(n) = (3/4)^k \times P(n-k)
 

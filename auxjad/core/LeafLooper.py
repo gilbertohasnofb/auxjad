@@ -51,7 +51,7 @@ class LeafLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/LeafLooper-o372nj7r3sb.png
+        ..  figure:: ../_images/LeafLooper-o372nj7r3sb.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -68,7 +68,7 @@ class LeafLooper(_LooperParent):
             f'2
         }
 
-        .. figure:: ../_images/LeafLooper-lszpb96x0rf.png
+        ..  figure:: ../_images/LeafLooper-lszpb96x0rf.png
 
         The property :attr:`current_window` can be used to access the current
         window without moving the head forwards.
@@ -88,7 +88,7 @@ class LeafLooper(_LooperParent):
             f'2
         }
 
-        .. figure:: ../_images/LeafLooper-2c1jo6ftfnu.png
+        ..  figure:: ../_images/LeafLooper-2c1jo6ftfnu.png
 
     :attr:`process_on_first_call`:
         The very first call will output the input container without processing
@@ -114,7 +114,7 @@ class LeafLooper(_LooperParent):
             f'8
         }
 
-        .. figure:: ../_images/LeafLooper-uvu1p1g04ne.png
+        ..  figure:: ../_images/LeafLooper-uvu1p1g04ne.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -147,7 +147,7 @@ class LeafLooper(_LooperParent):
             f'2
         }
 
-        .. figure:: ../_images/LeafLooper-tlddw14wnrm.png
+        ..  figure:: ../_images/LeafLooper-tlddw14wnrm.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -256,7 +256,7 @@ class LeafLooper(_LooperParent):
             d'4
         }
 
-        .. figure:: ../_images/LeafLooper-tdypneg8a1i.png
+        ..  figure:: ../_images/LeafLooper-tdypneg8a1i.png
 
     :attr:`forward_bias` between ``0.0`` and ``1.0``:
         Setting :attr:`forward_bias` to a value in between ``0.0`` and ``1.0``
@@ -295,7 +295,7 @@ class LeafLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/LeafLooper-la5quq8s3al.png
+        ..  figure:: ../_images/LeafLooper-la5quq8s3al.png
 
     :attr:`max_steps`:
         Setting the keyword argument :attr:`max_steps` to a value larger than
@@ -325,7 +325,7 @@ class LeafLooper(_LooperParent):
             d''4
         }
 
-        .. figure:: ../_images/LeafLooper-u7t1hsb1o79.png
+        ..  figure:: ../_images/LeafLooper-u7t1hsb1o79.png
 
     :func:`len()`:
         The function :func:`len()` can be used to get the total number of
@@ -365,7 +365,7 @@ class LeafLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/LeafLooper-o5yqw4xinp.png
+        ..  figure:: ../_images/LeafLooper-o5yqw4xinp.png
 
     ``tie_identical_pitches``:
         When using :meth:`output_all`, set the keyword argument
@@ -422,7 +422,7 @@ class LeafLooper(_LooperParent):
             <e' g'>16
         }
 
-        .. figure:: ../_images/LeafLooper-v1a75ntci7r.png
+        ..  figure:: ../_images/LeafLooper-v1a75ntci7r.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a single
@@ -448,7 +448,7 @@ class LeafLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/LeafLooper-w389c0wnl2.png
+        ..  figure:: ../_images/LeafLooper-w389c0wnl2.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -471,9 +471,9 @@ class LeafLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/LeafLooper-t3wqox0d0qe.png
+        ..  figure:: ../_images/LeafLooper-t3wqox0d0qe.png
 
-    .. tip::
+    ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
@@ -521,7 +521,7 @@ class LeafLooper(_LooperParent):
             f'8
         }
 
-        .. figure:: ../_images/LeafLooper-aZUekjEPZZ.png
+        ..  figure:: ../_images/LeafLooper-aZUekjEPZZ.png
 
         >>> container = abjad.Container(r"c'4 d'4. e'4 f'8")
         >>> looper = auxjad.LeafLooper(container,
@@ -543,7 +543,7 @@ class LeafLooper(_LooperParent):
             f'8
         }
 
-        .. figure:: ../_images/LeafLooper-QYvLl9Ce9c.png
+        ..  figure:: ../_images/LeafLooper-QYvLl9Ce9c.png
 
     :attr:`window_size`:
         To change the size of the looping window after instantiation, use the
@@ -570,7 +570,7 @@ class LeafLooper(_LooperParent):
             e'8
         }
 
-        .. figure:: ../_images/LeafLooper-euq7xez3whk.png
+        ..  figure:: ../_images/LeafLooper-euq7xez3whk.png
 
         >>> looper.window_size = 4
         >>> notes = looper()
@@ -585,7 +585,7 @@ class LeafLooper(_LooperParent):
             g'2
         }
 
-        .. figure:: ../_images/LeafLooper-9niipiwpbz.png
+        ..  figure:: ../_images/LeafLooper-9niipiwpbz.png
 
     :attr:`contents`:
         Use the :attr:`contents` property to read as well as overwrite the
@@ -608,7 +608,7 @@ class LeafLooper(_LooperParent):
             e'4
         }
 
-        .. figure:: ../_images/LeafLooper-39uewm1fzrj.png
+        ..  figure:: ../_images/LeafLooper-39uewm1fzrj.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
@@ -621,7 +621,7 @@ class LeafLooper(_LooperParent):
             f'4
         }
 
-        .. figure:: ../_images/LeafLooper-n6jrizfcon.png
+        ..  figure:: ../_images/LeafLooper-n6jrizfcon.png
 
         >>> looper.contents = abjad.Container(
         ...     r"cs'''4 ds'''4 es'''4 fs'''4"
@@ -637,7 +637,7 @@ class LeafLooper(_LooperParent):
             fs'''4
         }
 
-        .. figure:: ../_images/LeafLooper-3lqsqrd3sar.png
+        ..  figure:: ../_images/LeafLooper-3lqsqrd3sar.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
@@ -651,7 +651,7 @@ class LeafLooper(_LooperParent):
             es'''4
         }
 
-        .. figure:: ../_images/LeafLooper-g3xybel6xu.png
+        ..  figure:: ../_images/LeafLooper-g3xybel6xu.png
 
     Indicators:
         This class supports dynamics and slurs.
@@ -712,7 +712,7 @@ class LeafLooper(_LooperParent):
             )
         }
 
-        .. figure:: ../_images/LeafLooper-cqzbiawxp4.png
+        ..  figure:: ../_images/LeafLooper-cqzbiawxp4.png
 
     :attr:`disable_rewrite_meter`:
         By default, this class uses the |abjad.Meter.rewrite_meter()|
@@ -745,7 +745,7 @@ class LeafLooper(_LooperParent):
             g'16
         }
 
-        .. figure:: ../_images/LeafLooper-ab18rc3voqn.png
+        ..  figure:: ../_images/LeafLooper-ab18rc3voqn.png
 
         Set :attr:`disable_rewrite_meter` to ``True`` in order to disable this
         behaviour.
@@ -774,9 +774,9 @@ class LeafLooper(_LooperParent):
             g'16
         }
 
-        .. figure:: ../_images/LeafLooper-fa30crzy146.png
+        ..  figure:: ../_images/LeafLooper-fa30crzy146.png
 
-    .. note::
+    ..  note::
 
         This class also accepts the properties ``boundary_depth``,
         ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
@@ -787,7 +787,7 @@ class LeafLooper(_LooperParent):
         by setting ``prettify_rewrite_meter`` to ``False``). See the
         documentation of those functions for more details on these arguments.
 
-    .. warning::
+    ..  warning::
 
         This class can handle tuplets, but the engraving of the output is often
         quite complex and thus this functionality should be considered as
@@ -830,15 +830,15 @@ class LeafLooper(_LooperParent):
             }
         }
 
-        .. figure:: ../_images/LeafLooper-nre2ecw27l.png
+        ..  figure:: ../_images/LeafLooper-nre2ecw27l.png
 
-    .. tip::
+    ..  tip::
 
         The functions |auxjad.mutate.remove_repeated_dynamics()| and
         |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    .. warning::
+    ..  warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes

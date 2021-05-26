@@ -23,11 +23,11 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
         >>> auxjad.get.leaves_are_tieable([leaf1, leaf2])
         True
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
-        |abjad.get|, as shown below:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.get|. It can thus be used from either |auxjad.get|_ or
+        |abjad.get| namespaces. Therefore, the two lines below are equivalent:
 
         >>> leaf1 = abjad.Note(r"c'4")
         >>> leaf2 = abjad.Note(r"c'4")

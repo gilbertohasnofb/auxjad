@@ -22,7 +22,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4
 
-        .. figure:: ../_images/ArtificialHarmonic-16am9cj6p9u.png
+        ..  figure:: ../_images/ArtificialHarmonic-16am9cj6p9u.png
 
         And similarly to |abjad.Chord|, pitch and duration can be input in
         many different ways:
@@ -57,9 +57,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             >4
         }
 
-        .. figure:: ../_images/ArtificialHarmonic-je277bmakgs.png
+        ..  figure:: ../_images/ArtificialHarmonic-je277bmakgs.png
 
-    .. error::
+    ..  error::
         It is important to note that this class can only be initialised with
         exactly two pitches. Any other number of pitches will raise a
         :exc:`ValueError`:
@@ -85,7 +85,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4
 
-        .. figure:: ../_images/ArtificialHarmonic-ohqb65228iq.png
+        ..  figure:: ../_images/ArtificialHarmonic-ohqb65228iq.png
 
     :attr:`is_parenthesized`:
         To notate natural harmonics with a parenthesised pitch for the open
@@ -106,7 +106,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4
 
-        .. figure:: ../_images/ArtificialHarmonic-2q3jkx33yvl.png
+        ..  figure:: ../_images/ArtificialHarmonic-2q3jkx33yvl.png
 
     :attr:`~abjad.core.Chord.Chord.multiplier`:
         Similarly to |abjad.Chord|, this class can take multipliers:
@@ -123,7 +123,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             c'
         >4 * 2/3
 
-        .. figure:: ../_images/ArtificialHarmonic-ouhdk3ugkcs.png
+        ..  figure:: ../_images/ArtificialHarmonic-ouhdk3ugkcs.png
 
     Properties:
         All properties of |abjad.Chord| are also available to be read. This
@@ -192,9 +192,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         \pp
         - \staccato
 
-        .. figure:: ../_images/ArtificialHarmonic-dfabdv155mu.png
+        ..  figure:: ../_images/ArtificialHarmonic-dfabdv155mu.png
 
-    .. error::
+    ..  error::
 
         Both :meth:`sounding_pitch` and :meth:`sounding_note` methods raise a
         :exc:`ValueError` exception when it cannot calculate the sounding pitch
@@ -210,7 +210,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         :attr:`markup` optional keyword argument, which takes strings. By
         default, the markup position is above the harmonic note, but this can
         be overridden using the keyword :attr:`direction`, which can take
-        strings as well as |abjad.Up| and |abjad.Down|:
+        strings as well as ``abjad.Up`` and ``abjad.Down``:
 
         >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
@@ -242,7 +242,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             _ \markup { I. }
         }
 
-        .. figure:: ../_images/ArtificialHarmonic-teysjphrrpn.png
+        ..  figure:: ../_images/ArtificialHarmonic-teysjphrrpn.png
 
         Setting :attr:`markup` to ``None`` will remove the markup from the
         note.
@@ -258,9 +258,9 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             d'
         >1
 
-        .. figure:: ../_images/ArtificialHarmonic-nov336z64r.png
+        ..  figure:: ../_images/ArtificialHarmonic-nov336z64r.png
 
-    .. error::
+    ..  error::
 
         If another markup is attached to the harmonic note, trying to set the
         :attr:`markup` property to ``None`` will raise an :exc:`Exception`:

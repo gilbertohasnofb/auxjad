@@ -33,7 +33,7 @@ class Fader():
             f'4.
         }
 
-        .. figure:: ../_images/Fader-pvlbt0azuqj.png
+        ..  figure:: ../_images/Fader-pvlbt0azuqj.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -49,7 +49,7 @@ class Fader():
             f'4.
         }
 
-        .. figure:: ../_images/Fader-4bebflmnff9.png
+        ..  figure:: ../_images/Fader-4bebflmnff9.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -62,7 +62,7 @@ class Fader():
             f'4.
         }
 
-        .. figure:: ../_images/Fader-64h0bb02goc.png
+        ..  figure:: ../_images/Fader-64h0bb02goc.png
 
         The property :attr:`current_window` can be used to access the current
         window without processing it.
@@ -78,7 +78,7 @@ class Fader():
             f'4.
         }
 
-        .. figure:: ../_images/Fader-ruetb1tzhtn.png
+        ..  figure:: ../_images/Fader-ruetb1tzhtn.png
 
     :attr:`process_on_first_call`:
         The very first call will output the input container without processing
@@ -102,7 +102,7 @@ class Fader():
             r4
         }
 
-        .. figure:: ../_images/Fader-rbnsf64kjoq.png
+        ..  figure:: ../_images/Fader-rbnsf64kjoq.png
 
     :attr:`fader_type`:
         The fader can be of two types, either ``'in'`` or ``'out'`` defined by
@@ -124,7 +124,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/Fader-dzjqv7lsdis.png
+        ..  figure:: ../_images/Fader-dzjqv7lsdis.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -137,7 +137,7 @@ class Fader():
             f'4.
         }
 
-        .. figure:: ../_images/Fader-f33perr6lfo.png
+        ..  figure:: ../_images/Fader-f33perr6lfo.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -153,7 +153,7 @@ class Fader():
             f'4.
         }
 
-        .. figure:: ../_images/Fader-qxvj8lkfph.png
+        ..  figure:: ../_images/Fader-qxvj8lkfph.png
 
     Changing :attr:`fader_type` after initialisation:
         The property :attr:`fader_type` can also be changed after
@@ -173,7 +173,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/Fader-3ldjnprohuo.png
+        ..  figure:: ../_images/Fader-3ldjnprohuo.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -187,7 +187,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/Fader-wzeaqjgouz8.png
+        ..  figure:: ../_images/Fader-wzeaqjgouz8.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -200,7 +200,7 @@ class Fader():
             r2
         }
 
-        .. figure:: ../_images/Fader-aqq1docvezb.png
+        ..  figure:: ../_images/Fader-aqq1docvezb.png
 
         >>> fader.fader_type = 'in'
         >>> notes = fader()
@@ -215,7 +215,7 @@ class Fader():
             r4
         }
 
-        .. figure:: ../_images/Fader-3jt6kto85h1.png
+        ..  figure:: ../_images/Fader-3jt6kto85h1.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -229,7 +229,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/Fader-2i22so5t5pf.png
+        ..  figure:: ../_images/Fader-2i22so5t5pf.png
 
     :attr:`include_empty_measures`:
         When :attr:`fader_type` is set to ``'out'``, the process will end on an
@@ -258,7 +258,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/Fader-pg0bejhb7ke.png
+        ..  figure:: ../_images/Fader-pg0bejhb7ke.png
 
         >>> container = abjad.Container(r"c'4 d'4 e'2")
         >>> fader = auxjad.Fader(container,
@@ -280,7 +280,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/Fader-t1ir3ezcg6a.png
+        ..  figure:: ../_images/Fader-t1ir3ezcg6a.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -317,7 +317,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/Fader-qyve2exm08p.png
+        ..  figure:: ../_images/Fader-qyve2exm08p.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -448,7 +448,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/Fader-nv5f76rv7f.png
+        ..  figure:: ../_images/Fader-nv5f76rv7f.png
 
         >>> notes = fader()
         >>> fader.mask
@@ -464,7 +464,7 @@ class Fader():
             f'4
         }
 
-        .. figure:: ../_images/Fader-6fr4wrb8god.png
+        ..  figure:: ../_images/Fader-6fr4wrb8god.png
 
         >>> fader.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> fader.mask
@@ -482,7 +482,7 @@ class Fader():
             g'2.
         }
 
-        .. figure:: ../_images/Fader-p8q5x8ti2d.png
+        ..  figure:: ../_images/Fader-p8q5x8ti2d.png
 
         >>> notes = fader()
         >>> fader.mask
@@ -499,7 +499,7 @@ class Fader():
             g'2.
         }
 
-        .. figure:: ../_images/Fader-mky4pulzf4i.png
+        ..  figure:: ../_images/Fader-mky4pulzf4i.png
 
     :meth:`output_all`:
         To run through the whole process and output it as a single container,
@@ -524,7 +524,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/Fader-kiqwdhyx9vk.png
+        ..  figure:: ../_images/Fader-kiqwdhyx9vk.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a single
@@ -556,7 +556,7 @@ class Fader():
             r4.
         }
 
-        .. figure:: ../_images/Fader-6mqxj9b5f13.png
+        ..  figure:: ../_images/Fader-6mqxj9b5f13.png
 
     Chords:
         This class also support chords. Each of their individual notes are
@@ -613,7 +613,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/Fader-wjphyrz750d.png
+        ..  figure:: ../_images/Fader-wjphyrz750d.png
 
     :func:`len()`:
         The function :func:`len()` returns the total number of notes in
@@ -689,7 +689,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/Fader-72wpb0iqtes.png
+        ..  figure:: ../_images/Fader-72wpb0iqtes.png
 
     :attr:`repetition_chance`:
         Use :attr:`repetition_chance` to set the chance of a measure repeating
@@ -726,7 +726,7 @@ class Fader():
             r2
         }
 
-        .. figure:: ../_images/Fader-1t2yh8imiu8.png
+        ..  figure:: ../_images/Fader-1t2yh8imiu8.png
 
     :attr:`mask` and :meth:`reset_mask`:
         The property :attr:`mask` is used to represent whether each note is
@@ -765,7 +765,7 @@ class Fader():
             r2
         }
 
-        .. figure:: ../_images/Fader-52bwgmr7rks.png
+        ..  figure:: ../_images/Fader-52bwgmr7rks.png
 
         >>> fader.mask = [1, 0, 1, 1, 0]
         >>> fader.mask
@@ -783,7 +783,7 @@ class Fader():
             r16
         }
 
-        .. figure:: ../_images/Fader-fa199pggrp.png
+        ..  figure:: ../_images/Fader-fa199pggrp.png
 
         >>> fader.reset_mask()
         >>> fader.mask
@@ -797,7 +797,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/Fader-xq3g5bd8djr.png
+        ..  figure:: ../_images/Fader-xq3g5bd8djr.png
 
         When a container has chords, each of their notes will be represented by
         an index in the mask, from the lowest pitched one to the highest
@@ -817,7 +817,7 @@ class Fader():
             <e' f'>2
         }
 
-        .. figure:: ../_images/Fader-5n18nhr5qq2.png
+        ..  figure:: ../_images/Fader-5n18nhr5qq2.png
 
     :meth:`random_mask`:
         The mask can also be randomised at any point using the method
@@ -840,7 +840,7 @@ class Fader():
             r4
         }
 
-        .. figure:: ../_images/Fader-r9z77w5l6vp.png
+        ..  figure:: ../_images/Fader-r9z77w5l6vp.png
 
         >>> fader.random_mask()
         >>> notes = fader()
@@ -858,7 +858,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/Fader-t7p8rjahkdh.png
+        ..  figure:: ../_images/Fader-t7p8rjahkdh.png
 
     :meth:`shuffle_mask`:
         Use :meth:`shuffle_mask` to shuffle the current mask. This method will
@@ -887,7 +887,7 @@ class Fader():
             r8
         }
 
-        .. figure:: ../_images/Fader-6bghb0g2wcx.png
+        ..  figure:: ../_images/Fader-6bghb0g2wcx.png
 
         >>> fader.shuffle_mask()
         >>> notes = fader()
@@ -906,7 +906,7 @@ class Fader():
             c''8
         }
 
-        .. figure:: ../_images/Fader-lvf1fqvizjn.png
+        ..  figure:: ../_images/Fader-lvf1fqvizjn.png
 
     :attr:`use_multimeasure_rests` and :attr:`disable_rewrite_meter`:
         By default, all rests in a measure filled only with rests will be
@@ -940,7 +940,7 @@ class Fader():
             r2.
         }
 
-        .. figure:: ../_images/Fader-lax06gkb3ap.png
+        ..  figure:: ../_images/Fader-lax06gkb3ap.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -962,9 +962,9 @@ class Fader():
             e'4
         }
 
-        .. figure:: ../_images/Fader-pcq5ecwz7ff.png
+        ..  figure:: ../_images/Fader-pcq5ecwz7ff.png
 
-    .. tip::
+    ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
@@ -991,7 +991,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/Fader-93hcv2prkua.png
+        ..  figure:: ../_images/Fader-93hcv2prkua.png
 
         Set :attr:`boundary_depth` to a different number to change its
         behaviour.
@@ -1012,7 +1012,7 @@ class Fader():
             e'2
         }
 
-        .. figure:: ../_images/Fader-cq661zyctf.png
+        ..  figure:: ../_images/Fader-cq661zyctf.png
 
         Other arguments available for tweaking the output of
         |abjad.Meter.rewrite_meter()| are :attr:`maximum_dot_count` and
@@ -1070,7 +1070,7 @@ class Fader():
             R1 * 3/4
         }
 
-        .. figure:: ../_images/Fader-ox08wd3ljps.png
+        ..  figure:: ../_images/Fader-ox08wd3ljps.png
 
     Slurs and hairpins:
         Slurs and hairpins are also supported. Slurs are split when rests
@@ -1170,15 +1170,15 @@ class Fader():
             )
         }
 
-        .. figure:: ../_images/Fader-jprjps4zxej.png
+        ..  figure:: ../_images/Fader-jprjps4zxej.png
 
-    .. tip::
+    ..  tip::
 
         The functions |auxjad.mutate.remove_repeated_dynamics()| and
         |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    .. warning::
+    ..  warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes
@@ -1222,7 +1222,7 @@ class Fader():
             R1
         }
 
-        .. figure:: ../_images/Fader-888tqk73kw3.png
+        ..  figure:: ../_images/Fader-888tqk73kw3.png
 
     Time signature changes:
         This class can handle time signature changes.
@@ -1260,7 +1260,7 @@ class Fader():
             )
         }
 
-        .. figure:: ../_images/Fader-lkhKFVuUgx.png
+        ..  figure:: ../_images/Fader-lkhKFVuUgx.png
     """
 
     ### CLASS VARIABLES ###

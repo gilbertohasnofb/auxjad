@@ -3,6 +3,6 @@ Score gallery
 
 .. In this page you will find some scores
 
-.. warning::
+..  warning::
 
     Under construction.

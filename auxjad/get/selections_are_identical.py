@@ -24,11 +24,11 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         >>> auxjad.get.selections_are_identical(selections)
         True
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
-        |abjad.get|, as shown below:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.get|. It can thus be used from either |auxjad.get|_ or
+        |abjad.get| namespaces. Therefore, the two lines below are equivalent:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
         >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
@@ -114,14 +114,14 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         >>> auxjad.get.selections_are_identical(selections)
         True
 
-    .. warning::
+    ..  warning::
 
         It is important though to create selections using |abjad.select()| as
         shown in the example above instead of using the syntax
         ``container[:]``, since the latter selects only leaves which are not
         grace notes.
 
-    .. note::
+    ..  note::
 
         It is important to note it is the contents of the containers which are
         compared, so containers of different classes can still return a

@@ -23,7 +23,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             d'8
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-feZSi4Trsg.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-feZSi4Trsg.png
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
@@ -36,14 +36,14 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             d'8
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-ImmpJOWn5U.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-ImmpJOWn5U.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.mutate.remove_repeated_time_signatures(staff[:])
@@ -67,7 +67,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             d'8
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-ihs4kU1dMe.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-ihs4kU1dMe.png
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
@@ -81,7 +81,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             d'8
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-Ans1RrG5ZW.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-Ans1RrG5ZW.png
 
     Subcontainers:
         The container from which the selection is made can also have
@@ -109,7 +109,7 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-Nybwh816FT.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-Nybwh816FT.png
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
         >>> abjad.f(staff)
@@ -126,9 +126,9 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
             }
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-PNCfPcnTtj.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-PNCfPcnTtj.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

@@ -6,11 +6,11 @@ input |abjad.Selection|, |abjad.Container|, or |abjad.Leaf| (depending on the
 function), transforming the input in place, having no return value. Auxjad
 automatically adds them as extension functions to |abjad.mutate|.
 
-.. note::
+..  note::
 
     All mutation functions are also added as extension functions to
     |abjad.mutate|, so it is possible to simply use |abjad.mutate| instead of
-    :mod:`auxjad.mutate`:
+    |auxjad.mutate|_:
 
     >>> import abjad
     >>> import auxjad
@@ -19,28 +19,28 @@ automatically adds them as extension functions to |abjad.mutate|.
 Below is the full list of functions included in |mutate|_. Click on their
 names for their individual documentation.
 
-.. currentmodule:: auxjad
+.. currentmodule:: auxjad.mutate
 
 .. autosummary::
-    :toctree: functions
+    :toctree: ../_api_members
 
-   mutate.auto_rewrite_meter
-   mutate.close_container
-   mutate.double_barlines_before_time_signatures
-   mutate.enforce_time_signature
-   mutate.extract_trivial_tuplets
-   mutate.fill_with_rests
-   mutate.merge_partial_tuplets
-   mutate.prettify_rewrite_meter
-   mutate.remove_repeated_dynamics
-   mutate.remove_repeated_time_signatures
-   mutate.reposition_clefs
-   mutate.reposition_dynamics
-   mutate.reposition_slurs
-   mutate.respell_accidentals
-   mutate.rests_to_multimeasure_rest
-   mutate.sustain_notes
-   mutate.sync_containers
+    auto_rewrite_meter
+    close_container
+    double_barlines_before_time_signatures
+    enforce_time_signature
+    extract_trivial_tuplets
+    fill_with_rests
+    merge_partial_tuplets
+    prettify_rewrite_meter
+    remove_repeated_dynamics
+    remove_repeated_time_signatures
+    reposition_clefs
+    reposition_dynamics
+    reposition_slurs
+    respell_accidentals
+    rests_to_multimeasure_rest
+    sustain_notes
+    sync_containers
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

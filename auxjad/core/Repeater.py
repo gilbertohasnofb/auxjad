@@ -29,7 +29,7 @@ class Repeater():
             f'4
         }
 
-        .. figure:: ../_images/Repeater-tigd5dwtszh.png
+        ..  figure:: ../_images/Repeater-tigd5dwtszh.png
 
         The property :attr:`current_window` can be used to access the last
         results.
@@ -49,7 +49,7 @@ class Repeater():
             f'4
         }
 
-        .. figure:: ../_images/Repeater-hg86wd75fvp.png
+        ..  figure:: ../_images/Repeater-hg86wd75fvp.png
 
     Time signatures:
         This class handles different time signatures.
@@ -78,7 +78,7 @@ class Repeater():
             g'2
         }
 
-        .. figure:: ../_images/Repeater-fqkjxhegzmv.png
+        ..  figure:: ../_images/Repeater-fqkjxhegzmv.png
 
     Underfull containers:
         Containers that are not fully filled in are automatically closed by
@@ -104,7 +104,7 @@ class Repeater():
             e'4
         }
 
-        .. figure:: ../_images/Repeater-k4hxxghalwh.png
+        ..  figure:: ../_images/Repeater-k4hxxghalwh.png
 
         >>> container = abjad.Staff(r"\time 3/4 c'4 d'4 e'4 f'2")
         >>> repeater = auxjad.Repeater(container)
@@ -127,7 +127,7 @@ class Repeater():
             f'2
         }
 
-        .. figure:: ../_images/Repeater-fee3qe1vdjl.png
+        ..  figure:: ../_images/Repeater-fee3qe1vdjl.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -163,7 +163,7 @@ class Repeater():
             e'4
         }
 
-        .. figure:: ../_images/Repeater-8oouugbk5zc.png
+        ..  figure:: ../_images/Repeater-8oouugbk5zc.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -236,7 +236,7 @@ class Repeater():
             f'4
         }
 
-        .. figure:: ../_images/Repeater-f1kqq128afw.png
+        ..  figure:: ../_images/Repeater-f1kqq128afw.png
 
         >>> repeater.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = repeater(2)
@@ -256,7 +256,7 @@ class Repeater():
             g'2.
         }
 
-        .. figure:: ../_images/Repeater-jblq28xlso.png
+        ..  figure:: ../_images/Repeater-jblq28xlso.png
 
     :meth:`output_n`:
         This is an alias of :meth:`__call__()`. Takes an argument ``n`` for the
@@ -279,7 +279,7 @@ class Repeater():
             f'4
         }
 
-        .. figure:: ../_images/Repeater-w0hd2fp2w9e.png
+        ..  figure:: ../_images/Repeater-w0hd2fp2w9e.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -307,7 +307,7 @@ class Repeater():
             e'4
         }
 
-        .. figure:: ../_images/Repeater-vr4af47iwjg.png
+        ..  figure:: ../_images/Repeater-vr4af47iwjg.png
 
     :attr:`force_identical_time_signatures`:
         To force time signatures in all iterations of the output, initialise
@@ -339,7 +339,7 @@ class Repeater():
             e'4
         }
 
-        .. figure:: ../_images/Repeater-xgpndbdb0j.png
+        ..  figure:: ../_images/Repeater-xgpndbdb0j.png
 
     Dynamics, slurs, and clefs:
         By default, this class automatically handles dynamics, slurs, and
@@ -360,7 +360,7 @@ class Repeater():
             (
         }
 
-        .. figure:: ../_images/Repeater-m1ibei9s3am.png
+        ..  figure:: ../_images/Repeater-m1ibei9s3am.png
 
         This is done by invoking |auxjad.mutate.reposition_clefs()|,
         |auxjad.mutate.reposition_dynamics()|, and
@@ -393,7 +393,7 @@ class Repeater():
             d4
         }
 
-        .. figure:: ../_images/Repeater-scjj2uwz2p.png
+        ..  figure:: ../_images/Repeater-scjj2uwz2p.png
 
         Set theproperties  :attr:`reposition_clefs`,
         :attr:`reposition_dynamics`, and :attr:`reposition_slurs` to ``False``
@@ -436,9 +436,9 @@ class Repeater():
             (
         }
 
-        .. figure:: ../_images/Repeater-cc39a0h84dc.png
+        ..  figure:: ../_images/Repeater-cc39a0h84dc.png
 
-    .. error::
+    ..  error::
 
         If a container is malformed, i.e. it has an underfilled measure before
         a time signature change, this class will raise a :exc:`ValueError`

@@ -33,7 +33,17 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
             g'2.
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-2O7JyxN1CS.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-2O7JyxN1CS.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
+
+        >>> auxjad.mutate.double_barlines_before_time_signatures(staff[:])
+        >>> abjad.mutate.double_barlines_before_time_signatures(staff[:])
 
     Multi-measure rests:
         This function can handle multi-measure rests too.
@@ -61,7 +71,7 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
             R1
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-aYmnnFDdRh.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-aYmnnFDdRh.png
 
     Input with bar lines:
         If the input selection already contains bar lines at poinst where a
@@ -101,14 +111,14 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
             a'2
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-jUymJWLdR7.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-jUymJWLdR7.png
 
-    .. warning::
+    ..  warning::
 
         Attempting to add barlines to multiple staves in an |abjad.Score| at
         the same point in the score will raise an exception:
 
-        .. code::
+        ..  code::
 
             >>> up = abjad.Staff(r"\time 4/4 c'1 d'1 \time 6/4 e'1.")
             >>> down = abjad.Staff(
@@ -178,7 +188,7 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
             }
         >>
 
-        .. figure:: ../_images/remove_repeated_time_signatures-yD6KL6xbrV.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-yD6KL6xbrV.png
 
         In this case, both individual staves will also have the bar lines:
 
@@ -193,7 +203,7 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
             e'1.
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-Zs1hSq2uwY.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-Zs1hSq2uwY.png
 
         >>> abjad.f(down)
         \new Staff
@@ -207,9 +217,9 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
             e1.
         }
 
-        .. figure:: ../_images/remove_repeated_time_signatures-QYOgyhLJ2f.png
+        ..  figure:: ../_images/remove_repeated_time_signatures-QYOgyhLJ2f.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

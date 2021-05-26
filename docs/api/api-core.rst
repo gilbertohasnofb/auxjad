@@ -5,7 +5,7 @@ The |core|_ subpackage contains the core classes of the |auxjad|_ package.
 The include random selectors, loopers, phasers, and other classes for
 algorithmic manipulation of material.
 
-.. note::
+..  note::
 
     These classes are imported directly into the |auxjad|_ namespace.
     Therefore, to use a class such as :class:`auxjad.CartographySelector` you

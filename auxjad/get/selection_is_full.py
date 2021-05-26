@@ -26,11 +26,11 @@ def selection_is_full(selection: abjad.Selection) -> bool:
         >>> auxjad.get.selection_is_full(container4[:])
         True
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.get|. Therefore it can be used from either :mod:`auxjad.get` or
-        |abjad.get|, as shown below:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.get|. It can thus be used from either |auxjad.get|_ or
+        |abjad.get| namespaces. Therefore, the two lines below are equivalent:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> auxjad.get.selection_is_full(container[:])
@@ -79,7 +79,7 @@ def selection_is_full(selection: abjad.Selection) -> bool:
         >>> auxjad.get.selection_is_full(container4[:])
         False
 
-    .. error::
+    ..  error::
 
         If a selection is malformed, i.e. it has an underfilled measure before
         a time signature change, the function raises a :exc:`ValueError`
@@ -91,7 +91,7 @@ def selection_is_full(selection: abjad.Selection) -> bool:
         ValueError: 'selection' is malformed, with an underfull measure
         preceding a time signature change
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

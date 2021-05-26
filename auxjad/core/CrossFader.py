@@ -44,7 +44,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-gdofr6vtutv.png
+        ..  figure:: ../_images/CrossFader-gdofr6vtutv.png
 
         >>> selection_a, selection_b = fader()
         >>> score = abjad.Score([
@@ -72,7 +72,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-ge0qzrwa7fr.png
+        ..  figure:: ../_images/CrossFader-ge0qzrwa7fr.png
 
         >>> selection_a, selection_b = fader()
         >>> score = abjad.Score([
@@ -100,7 +100,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-0iynx7xenvmp.png
+        ..  figure:: ../_images/CrossFader-0iynx7xenvmp.png
 
         The property :attr:`current_window` can be used to access the current
         window without processing it.
@@ -131,7 +131,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-kinei9zncl.png
+        ..  figure:: ../_images/CrossFader-kinei9zncl.png
 
     :meth:`output_all`:
         To run through the whole process and output it as a :obj:`tuple` of two
@@ -199,7 +199,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-0t206fb4ycne.png
+        ..  figure:: ../_images/CrossFader-0t206fb4ycne.png
 
     :meth:`output_n`:
         To run through just part of the process and output it as a :obj:`tuple`
@@ -244,7 +244,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-8o5fjalw1px.png
+        ..  figure:: ../_images/CrossFader-8o5fjalw1px.png
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
@@ -306,7 +306,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-3g9fv4ew4h9.png
+        ..  figure:: ../_images/CrossFader-3g9fv4ew4h9.png
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -473,7 +473,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-pauqe26ke8e.png
+        ..  figure:: ../_images/CrossFader-pauqe26ke8e.png
 
     Chords:
         This class also support chords. Each of their individual notes are
@@ -555,7 +555,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-lm8byjxoayn.png
+        ..  figure:: ../_images/CrossFader-lm8byjxoayn.png
 
     :func:`len()`:
         The function :func:`len()` returns the sum of the number of notes of
@@ -623,7 +623,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-sm9qcruxat.png
+        ..  figure:: ../_images/CrossFader-sm9qcruxat.png
 
         >>> fader = auxjad.CrossFader(fade_out_container,
         ...                           fade_in_container,
@@ -665,7 +665,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-2a4cyxsyxrg.png
+        ..  figure:: ../_images/CrossFader-2a4cyxsyxrg.png
 
         >>> fader = auxjad.CrossFader(fade_out_container,
         ...                           fade_in_container,
@@ -711,7 +711,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-oap1pnwrfqc.png
+        ..  figure:: ../_images/CrossFader-oap1pnwrfqc.png
 
     :attr:`weighted_duration`:
         Setting :attr:`weighted_duration` to ``True`` will give more weight to
@@ -819,7 +819,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-o58h79ijsdf.png
+        ..  figure:: ../_images/CrossFader-o58h79ijsdf.png
 
         >>> fader = auxjad.CrossFader(fade_out_container,
         ...                           fade_in_container,
@@ -928,7 +928,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-l3dc3vxfpdnsxdym4gql.png
+        ..  figure:: ../_images/CrossFader-l3dc3vxfpdnsxdym4gql.png
 
     :attr:`initial_repetitions` and :attr:`final_repetitions`:
         The properties :attr:`initial_repetitions` and
@@ -991,7 +991,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-e480tbrvwg.png
+        ..  figure:: ../_images/CrossFader-e480tbrvwg.png
 
     :attr:`repetition_chance`:
         Use :attr:`repetition_chance` to set the chance of a measure repeating
@@ -1041,7 +1041,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-743rxr2n02o.png
+        ..  figure:: ../_images/CrossFader-743rxr2n02o.png
 
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
@@ -1087,9 +1087,9 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-aypzofmynwe.png
+        ..  figure:: ../_images/CrossFader-aypzofmynwe.png
 
-    .. tip::
+    ..  tip::
 
         All methods that return an |abjad.Selection| will add an initial time
         signature to it. The :meth:`output_n` and :meth:`output_all` methods
@@ -1147,7 +1147,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-vprhoh84quk.png
+        ..  figure:: ../_images/CrossFader-vprhoh84quk.png
 
         Arguments available for tweaking the output of
         |abjad.Meter.rewrite_meter()| are :attr:`boundary_depth`,
@@ -1247,7 +1247,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-w99zcui5rj.png
+        ..  figure:: ../_images/CrossFader-w99zcui5rj.png
 
     Indicators:
         This class can also handle dynamics, articulations, chords, and
@@ -1345,15 +1345,15 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-o0yetbq5wqj.png
+        ..  figure:: ../_images/CrossFader-o0yetbq5wqj.png
 
-    .. tip::
+    ..  tip::
 
         The functions |auxjad.mutate.remove_repeated_dynamics()| and
         |auxjad.mutate.reposition_clefs()| can be used to clean the output
         and remove repeated dynamics and unnecessary clef changes.
 
-    .. warning::
+    ..  warning::
 
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes
@@ -1455,7 +1455,7 @@ class CrossFader():
             }
         >>
 
-        .. figure:: ../_images/CrossFader-rZLSa2kyqM.png
+        ..  figure:: ../_images/CrossFader-rZLSa2kyqM.png
 
     Using containers of different lengths:
         It is possible to use this class with containers of different lengths
@@ -1557,7 +1557,7 @@ class CrossFader():
             }
         } %! abjad.LilyPondFile._get_formatted_blocks()
 
-        .. figure:: ../_images/CrossFader-5qvaan79w8p.png
+        ..  figure:: ../_images/CrossFader-5qvaan79w8p.png
     """
 
     ### CLASS VARIABLES ###

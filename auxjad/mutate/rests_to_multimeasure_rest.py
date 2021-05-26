@@ -20,14 +20,14 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-uvebc7ft1zo.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-uvebc7ft1zo.png
 
-    .. note::
+    ..  note::
 
-        Auxjad automatically adds this function as an extension method to
-        |abjad.mutate|. It can thus be used from either
-        :mod:`auxjad.mutate` or |abjad.mutate|. Therefore, the two lines
-        below are equivalent:
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(staff[:])
         >>> abjad.mutate.rests_to_multimeasure_rest(staff[:])
@@ -46,7 +46,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             r16
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-jk4m1wzsyfa.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-jk4m1wzsyfa.png
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
         >>> abjad.f(container)
@@ -54,9 +54,9 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-z8u0cs3fzdi.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-z8u0cs3fzdi.png
 
-    .. note::
+    ..  note::
 
         When using |abjad.Container|'s, all time signatures in the output will
         be commented out with ``%%%.`` This is because Abjad only applies time
@@ -72,7 +72,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             e'4
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-qtq55xbkkts.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-qtq55xbkkts.png
 
         >>> staff = abjad.Staff([container])
         >>> abjad.f(container)
@@ -83,7 +83,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             e'4
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-9hceg93vrmv.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-9hceg93vrmv.png
 
     Time signature changes:
         Works with selections from containers with multiple time signatures as
@@ -108,7 +108,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1 * 5/4
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-a9sqdcznoq.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-a9sqdcznoq.png
 
     Tuplets:
         Works with containers with tuplets.
@@ -124,7 +124,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-480a9zqvk2a.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-480a9zqvk2a.png
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
         >>> abjad.f(container)
@@ -132,7 +132,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-r5yg3a3f97q.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-r5yg3a3f97q.png
 
         It also works with containers with tuplets within tuplets.
 
@@ -158,7 +158,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             }
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-codydc205jw.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-codydc205jw.png
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
         >>> abjad.f(container)
@@ -167,7 +167,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-f647t5j3jgw.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-f647t5j3jgw.png
 
     ``ignore_clefs``
         By default, the last clef of an empty measure is preserved when
@@ -198,7 +198,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             r2.
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-6GMRGmYkEQ.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-6GMRGmYkEQ.png
 
         >>> abjad.mutate.rests_to_multimeasure_rest(staff[:])
         >>> abjad.f(staff)
@@ -214,7 +214,7 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1 * 5/4
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-UnL6ZoFoDC.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-UnL6ZoFoDC.png
 
         Invoke the mutation with ``ignore_clefs`` set to ``True`` to disable
         this behaviour and ignore all clefs:
@@ -237,9 +237,9 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
             R1 * 5/4
         }
 
-        .. figure:: ../_images/rests_to_multimeasure_rest-KGRZJ8fvQF.png
+        ..  figure:: ../_images/rests_to_multimeasure_rest-KGRZJ8fvQF.png
 
-    .. warning::
+    ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
         with a container with multiple subcontainers (e.g. a score containing

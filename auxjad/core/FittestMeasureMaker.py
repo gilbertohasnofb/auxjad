@@ -13,7 +13,7 @@ class FittestMeasureMaker():
     generation, and returns an |abjad.Selection| created with the fittest pitch
     and attack point individuals.
 
-    .. note::
+    ..  note::
 
         Many of the properties of this class reflect the behaviour of
         properties of :class:`GeneticAlgorithm`. Some, such as
@@ -58,7 +58,7 @@ class FittestMeasureMaker():
             f'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-ahfUfls3cq.png
+        ..  figure:: ../_images/FittestMeasureMaker-ahfUfls3cq.png
 
         Calling the instance will apply the genetic algorithm process and
         output an |abjad.Selection| with the fittest  individual in the
@@ -82,7 +82,7 @@ class FittestMeasureMaker():
             a'8
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-mIrHl4wwHA.png
+        ..  figure:: ../_images/FittestMeasureMaker-mIrHl4wwHA.png
 
         Subsequent calls will create new generations of individuals, always
         outputting the fittest measure.
@@ -105,7 +105,7 @@ class FittestMeasureMaker():
             g'8.
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-hDxTq3Y2Ek.png
+        ..  figure:: ../_images/FittestMeasureMaker-hDxTq3Y2Ek.png
 
     :meth:`output_n`:
         The method :meth:`output_n` can be used to output `n` iterations of the
@@ -152,7 +152,7 @@ class FittestMeasureMaker():
             e'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-PrfaIjhEbL.png
+        ..  figure:: ../_images/FittestMeasureMaker-PrfaIjhEbL.png
 
     :attr:`pitch_genes`:
         While :attr:`attack_point_genes` must always take a :obj:`list` of
@@ -213,7 +213,7 @@ class FittestMeasureMaker():
             <g' a'>4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-etoHzdnAIu.png
+        ..  figure:: ../_images/FittestMeasureMaker-etoHzdnAIu.png
 
         Which is equivalent to:
 
@@ -259,7 +259,7 @@ class FittestMeasureMaker():
             <g' a'>4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-AfDY1QYNhW.png
+        ..  figure:: ../_images/FittestMeasureMaker-AfDY1QYNhW.png
 
     :attr:`units_per_window` and :attr:`duration_unit`:
         By default, there are ``16`` attack points in a window, each lasting
@@ -315,7 +315,7 @@ class FittestMeasureMaker():
             f'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-AqHoQPgphf.png
+        ..  figure:: ../_images/FittestMeasureMaker-AqHoQPgphf.png
 
     :attr:`omit_time_signature`:
         By default, a time signature is added to the output automatically:
@@ -371,7 +371,7 @@ class FittestMeasureMaker():
             g'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-bbsRWshiDI.png
+        ..  figure:: ../_images/FittestMeasureMaker-bbsRWshiDI.png
 
         Setting :attr:`omit_time_signature` to ``True`` will result in no time
         signature. Note that the output might need to be cleaned up using
@@ -422,7 +422,7 @@ class FittestMeasureMaker():
             g'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-IVSrzPV4OT.png
+        ..  figure:: ../_images/FittestMeasureMaker-IVSrzPV4OT.png
 
     :attr:`time_signatures`:
         Time signatures can also be enforced in the output. Set
@@ -482,7 +482,7 @@ class FittestMeasureMaker():
             r2
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-Xc9iKXJoEx.png
+        ..  figure:: ../_images/FittestMeasureMaker-Xc9iKXJoEx.png
 
         A :obj:`list` of |abjad.TimeSignature|'s is applied cyclically.
 
@@ -550,7 +550,7 @@ class FittestMeasureMaker():
             g'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-lJCYtjGY52.png
+        ..  figure:: ../_images/FittestMeasureMaker-lJCYtjGY52.png
 
     :attr:`pitch_score_bias`:
         Pitches and attack points are scored separately and, by default,
@@ -602,7 +602,7 @@ class FittestMeasureMaker():
             f'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-VEinjiTe3F.png
+        ..  figure:: ../_images/FittestMeasureMaker-VEinjiTe3F.png
 
         With a high :attr:`pitch_score_bias`, pitch convergence will tend to be
         faster at the expense of attack points:
@@ -663,7 +663,7 @@ class FittestMeasureMaker():
             f'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-iVD6l66hNl.png
+        ..  figure:: ../_images/FittestMeasureMaker-iVD6l66hNl.png
 
 
         In contrast, a low :attr:`pitch_score_bias`, attack point convergence
@@ -704,7 +704,7 @@ class FittestMeasureMaker():
             f'4
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-1Ex8sgcS2s.png
+        ..  figure:: ../_images/FittestMeasureMaker-1Ex8sgcS2s.png
 
     :attr:`attack_points_mode`:
         When using this class in attack points mode, each note will last a
@@ -766,7 +766,7 @@ class FittestMeasureMaker():
             r8.
         }
 
-        .. figure:: ../_images/FittestMeasureMaker-5aInHHwMol.png
+        ..  figure:: ../_images/FittestMeasureMaker-5aInHHwMol.png
 
 
     """

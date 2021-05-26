@@ -44,7 +44,7 @@ class LeafDynMaker(abjad.LeafMaker):
             -\stopped
         }
 
-        .. figure:: ../_images/LeafDynMaker-iv96zmptned.png
+        ..  figure:: ../_images/LeafDynMaker-iv96zmptned.png
 
     ``pitches``:
         Tuple elements in ``pitches`` result in chords. None-valued elements
@@ -69,7 +69,7 @@ class LeafDynMaker(abjad.LeafMaker):
             -\tenuto
         }
 
-        .. figure:: ../_images/LeafDynMaker-odpaavswk29.png
+        ..  figure:: ../_images/LeafDynMaker-odpaavswk29.png
 
     ``omit_repeated_dynamics``:
         Can omit repeated dynamics with the keyword argument
@@ -102,7 +102,7 @@ class LeafDynMaker(abjad.LeafMaker):
             \p
         }
 
-        .. figure:: ../_images/LeafDynMaker-jryhls4d6ic.png
+        ..  figure:: ../_images/LeafDynMaker-jryhls4d6ic.png
 
     ``dynamics`` and ``articulations``:
         The lengths ``dynamics`` and ``articulations`` can be shorter than the
@@ -133,7 +133,7 @@ class LeafDynMaker(abjad.LeafMaker):
             c''4
         }
 
-        .. figure:: ../_images/LeafDynMaker-1losyp9vc1di.png
+        ..  figure:: ../_images/LeafDynMaker-1losyp9vc1di.png
 
     ``cyclic_dynamics`` and ``cyclic_articulations``:
         If the lengths of either ``dynamics`` and ``articulations`` are shorter
@@ -183,7 +183,7 @@ class LeafDynMaker(abjad.LeafMaker):
             - \accent
         }
 
-        .. figure:: ../_images/LeafDynMaker-x8zhyel42i.png
+        ..  figure:: ../_images/LeafDynMaker-x8zhyel42i.png
 
     ``articulations`` and ``dynamics`` of length ``1``:
         If the length of ``articulations`` or ``dynamics`` is ``1``, they will
@@ -211,7 +211,7 @@ class LeafDynMaker(abjad.LeafMaker):
             c''4
         }
 
-        .. figure:: ../_images/LeafDynMaker-wwl4pcpmwhv232n7j7ws.png
+        ..  figure:: ../_images/LeafDynMaker-wwl4pcpmwhv232n7j7ws.png
 
     ``cyclic_dynamics`` and ``cyclic_articulations`` of length ``1``:
         To apply them to all elements, use the ``cyclic_dynamics`` and
@@ -251,7 +251,7 @@ class LeafDynMaker(abjad.LeafMaker):
             - \staccato
         }
 
-        .. figure:: ../_images/LeafDynMaker-s5ic146v4qb.png
+        ..  figure:: ../_images/LeafDynMaker-s5ic146v4qb.png
 
     Accepted types:
         Similarly to Abjad's native classes, it accepts many types of elements
@@ -299,7 +299,7 @@ class LeafDynMaker(abjad.LeafMaker):
             a'8.
         }
 
-        .. figure:: ../_images/LeafDynMaker-79n2uz1n8j3.png
+        ..  figure:: ../_images/LeafDynMaker-79n2uz1n8j3.png
     """
 
     ### CLASS VARIABLES ###

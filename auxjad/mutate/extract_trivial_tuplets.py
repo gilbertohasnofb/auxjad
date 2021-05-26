@@ -12,85 +12,103 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         >>> staff = abjad.Staff(
         ...     r"\times 2/3 {r4 r2} \times 2/3 {c'8 ~ c'8 ~ c'2}"
         ... )
-        >>> abjad.f(container)
-        {
-            \times 2/3
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
-                r4
-                r2
+                \times 2/3
+                {
+                    r4
+                    r2
+                }
+                \times 2/3
+                {
+                    c'8
+                    ~
+                    c'8
+                    ~
+                    c'2
+                }
             }
-            \times 2/3
-            {
-                c'8
-                ~
-                c'8
-                ~
-                c'2
-            }
-        }
 
         ..  figure:: ../_images/extract_trivial_tuplets-4htz2xebxwf.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
-        >>> abjad.f(container)
-        {
-            r2
-            c'2
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                r2
+                c'2
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-2dbuwo4erhb.png
 
         It also works with containers with tuplets within tuplets.
 
         >>> container = abjad.Container(r"\times 4/5 {r2. \times 2/3 {r2 r4}}")
-        >>> abjad.f(container)
-        {
-            \times 4/5
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
-                r2.
-                \times 2/3
+                \times 4/5
                 {
-                    r2
-                    r4
+                    r2.
+                    \times 2/3
+                    {
+                        r2
+                        r4
+                    }
                 }
             }
-        }
 
         ..  figure:: ../_images/extract_trivial_tuplets-8d5bcyxcmhc.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
-        >>> abjad.f(container)
-        {
-            r1
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                r1
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-2a2fvwimyrx.png
 
         >>> container = abjad.Container(
         ...     r"\times 4/5 {c'2. ~ \times 2/3 {c'2 ~ c'4}}"
         ... )
-        >>> abjad.f(container)
-        {
-            \times 4/5
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
-                c'2.
-                ~
-                \times 2/3
+                \times 4/5
                 {
-                    c'2
+                    c'2.
                     ~
-                    c'4
+                    \times 2/3
+                    {
+                        c'2
+                        ~
+                        c'4
+                    }
                 }
             }
-        }
 
         ..  figure:: ../_images/extract_trivial_tuplets-xka6r5iyo4l.png
 
         >>> auxjad.mutate(staff[:]).extract_trivial_tuplets()
-        >>> abjad.f(container)
-        {
-            c'1
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'1
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-f1qxi44xcsw.png
 
@@ -110,38 +128,44 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         >>> container = abjad.Container(
         ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {c'2. \times 2/3 {r2 r4}}"
         ... )
-        >>> abjad.f(container)
-        {
-            r2
-            \times 2/3
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
                 r2
-                r4
-            }
-            \times 4/5
-            {
-                c'2.
                 \times 2/3
                 {
                     r2
                     r4
                 }
+                \times 4/5
+                {
+                    c'2.
+                    \times 2/3
+                    {
+                        r2
+                        r4
+                    }
+                }
             }
-        }
 
         ..  figure:: ../_images/extract_trivial_tuplets-adibnkb1mbs.png
 
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
-        >>> abjad.f(container)
-        {
-            r2
-            r2
-            \times 4/5
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
-                c'2.
                 r2
+                r2
+                \times 4/5
+                {
+                    c'2.
+                    r2
+                }
             }
-        }
 
         ..  figure:: ../_images/extract_trivial_tuplets-xldohyedqs.png
 
@@ -157,13 +181,16 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
 
         >>> container = abjad.Staff(r"\time 3/4 r2. \times 3/2 {r4 r4}")
         >>> auxjad.mutate(container[:]).extract_trivial_tuplets()
-        >>> abjad.f(container)
-        \new Staff
-        {
-            \time 3/4
-            r2.
-            r2.
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                r2.
+                r2.
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-sa1tqmvtkx.png
 
@@ -174,34 +201,40 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         the new leaves.
 
         >>> staff = abjad.Staff(r"\time 6/4 c'4\f \times 5/6 {g1.\p}")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 6/4
-            c'4
-            \f
-            \tweak text #tuplet-number::calc-fraction-text
-            \times 5/6
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g1.
-                \p
+                \time 6/4
+                c'4
+                \f
+                \tweak text #tuplet-number::calc-fraction-text
+                \times 5/6
+                {
+                    g1.
+                    \p
+                }
             }
-        }
 
         ..  figure:: ../_images/extract_trivial_tuplets-l4kp9g5v7m.png
 
         >>> abjad.mutate(staff[:]).extract_trivial_tuplets()
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 6/4
-            c'4
-            \f
-            g1
-            \p
-            ~
-            g4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 6/4
+                c'4
+                \f
+                g1
+                \p
+                ~
+                g4
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-8r40ndemvpn.png
 
@@ -213,24 +246,30 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-6wymsb7z1n4.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/extract_trivial_tuplets-moavfyqtxza.png
 

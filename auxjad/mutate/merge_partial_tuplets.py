@@ -15,31 +15,37 @@ def merge_partial_tuplets(selection: abjad.Selection,
         Usage is simple:
 
         >>> staff = abjad.Staff(r"\times 2/3 {c'1} \times 2/3 {d'2}")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'1
+                \times 2/3
+                {
+                    c'1
+                }
+                \times 2/3
+                {
+                    d'2
+                }
             }
-            \times 2/3
-            {
-                d'2
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-ilr68s15kqb.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'1
-                d'2
+                \times 2/3
+                {
+                    c'1
+                    d'2
+                }
             }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-qe29etsedx.png
 
@@ -59,35 +65,41 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> staff = abjad.Staff(
         ...     r"\times 2/3 {c'2} \times 2/3 {d'2} \times 2/3 {e'2}"
         ... )
-        >>> abjad.f(staff)
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
             {
-                c'2
+                \times 2/3
+                {
+                    c'2
+                }
+                \times 2/3
+                {
+                    d'2
+                }
+                \times 2/3
+                {
+                    e'2
+                }
             }
-            \times 2/3
-            {
-                d'2
-            }
-            \times 2/3
-            {
-                e'2
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-9rh7vpu208j.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'2
-                d'2
-                e'2
+                \times 2/3
+                {
+                    c'2
+                    d'2
+                    e'2
+                }
             }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-oy1imqisx2.png
 
@@ -98,34 +110,37 @@ def merge_partial_tuplets(selection: abjad.Selection,
         ...                     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
         ...                     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                d'4
+                \time 3/4
+                c'2.
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    d'4
+                }
+                r4
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    e'2
+                }
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    f'4
+                }
+                r4
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    g'2
+                }
             }
-            r4
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
-                e'2
-            }
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
-                f'4
-            }
-            r4
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
-                g'2
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-3rjib7pctml.png
 
@@ -138,29 +153,32 @@ def merge_partial_tuplets(selection: abjad.Selection,
         ...     staff[:],
         ...     merge_across_barlines=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                d'4
+                \time 3/4
+                c'2.
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    d'4
+                }
+                r4
+                \times 2/3
+                {
+                    e'2
+                    f'4
+                }
+                r4
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    g'2
+                }
             }
-            r4
-            \times 2/3
-            {
-                e'2
-                f'4
-            }
-            r4
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
-                g'2
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-icud1ejcmzc.png
 
@@ -169,46 +187,52 @@ def merge_partial_tuplets(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"\times 2/3 {r4} \times 2/3 {c'2} "
         ...                     r"\times 4/5 {d'2~} \times 4/5{d'8}")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                r4
+                \times 2/3
+                {
+                    r4
+                }
+                \times 2/3
+                {
+                    c'2
+                }
+                \times 4/5
+                {
+                    d'2
+                    ~
+                }
+                \times 4/5
+                {
+                    d'8
+                }
             }
-            \times 2/3
-            {
-                c'2
-            }
-            \times 4/5
-            {
-                d'2
-                ~
-            }
-            \times 4/5
-            {
-                d'8
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-st4zw38qfce.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                r4
-                c'2
+                \times 2/3
+                {
+                    r4
+                    c'2
+                }
+                \times 4/5
+                {
+                    d'2
+                    ~
+                    d'8
+                }
             }
-            \times 4/5
-            {
-                d'2
-                ~
-                d'8
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-1pky5fsh2nl.png
 
@@ -218,39 +242,45 @@ def merge_partial_tuplets(selection: abjad.Selection,
         >>> staff = abjad.Staff(
         ...     r"\times 2/3 {c'2\p\< d'2} \times 2/3 {e'2\ff}"
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'2
-                \p
-                \<
-                d'2
+                \times 2/3
+                {
+                    c'2
+                    \p
+                    \<
+                    d'2
+                }
+                \times 2/3
+                {
+                    e'2
+                    \ff
+                }
             }
-            \times 2/3
-            {
-                e'2
-                \ff
-            }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-7cdtafl348h.png
 
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'2
-                \p
-                \<
-                d'2
-                e'2
-                \ff
+                \times 2/3
+                {
+                    c'2
+                    \p
+                    \<
+                    d'2
+                    e'2
+                    \ff
+                }
             }
-        }
 
         ..  figure:: ../_images/merge_partial_tuplets-j9rmdfbawce.png
 
@@ -271,24 +301,30 @@ def merge_partial_tuplets(selection: abjad.Selection,
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/merge_partial_tuplets-945s36mfdn.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/merge_partial_tuplets-3b4tyqrnttw.png
 

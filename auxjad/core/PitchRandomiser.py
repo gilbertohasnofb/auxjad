@@ -24,29 +24,35 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            a'4
-            b'4
-            cs''4
-            fs'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                a'4
+                b'4
+                cs''4
+                fs'4
+            }
 
         ..  figure:: ../_images/PitchRandomiser-134lqskbb6o.png
 
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            b'4
-            b'4
-            b'4
-            fs'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                b'4
+                b'4
+                b'4
+                fs'4
+            }
 
         ..  figure:: ../_images/PitchRandomiser-z66g1fy8nm8.png
 
@@ -55,15 +61,18 @@ class PitchRandomiser:
 
         >>> notes = randomiser.current_window
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            b'4
-            b'4
-            b'4
-            fs'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                b'4
+                b'4
+                b'4
+                fs'4
+            }
 
         ..  figure:: ../_images/PitchRandomiser-x0e6yduogh.png
 
@@ -83,27 +92,33 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/PitchRandomiser-640x6vsjwtk.png
 
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            b'4
-            fs'4
-            gs'4
-            fs'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                b'4
+                fs'4
+                gs'4
+                fs'4
+            }
 
         ..  figure:: ../_images/PitchRandomiser-vsjdj8gkanj.png
 
@@ -188,16 +203,19 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            bf'8.
-            af'4
-            r8
-            r8.
-            bf'16
-            a'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                bf'8.
+                af'4
+                r8
+                r8.
+                bf'16
+                a'8.
+            }
 
         ..  figure:: ../_images/PitchRandomiser-u4294ozm92.png
 
@@ -213,16 +231,19 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            <fs' g' bf'>8.
-            b'4
-            r8
-            r8.
-            bf'16
-            <fs' bf'>8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <fs' g' bf'>8.
+                b'4
+                r8
+                r8.
+                bf'16
+                <fs' bf'>8.
+            }
 
         ..  figure:: ../_images/PitchRandomiser-318eldj7tzc.png
 
@@ -238,12 +259,15 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            <fs' g' af'>2
-            <fs' g' af'>2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <fs' g' af'>2
+                <fs' g' af'>2
+            }
 
         ..  figure:: ../_images/PitchRandomiser-cciyee49qrj.png
 
@@ -263,18 +287,21 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            fs'8
-            a'8
-            fs'8
-            gs'8
-            a'8
-            b'8
-            gs'8
-            fs'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                fs'8
+                a'8
+                fs'8
+                gs'8
+                a'8
+                b'8
+                gs'8
+                fs'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-tmxllu13pa8.png
 
@@ -291,18 +318,21 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            b'8
-            fs'8
-            gs'8
-            gs'8
-            gs'8
-            fs'8
-            fs'8
-            a'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                b'8
+                fs'8
+                gs'8
+                gs'8
+                gs'8
+                fs'8
+                fs'8
+                a'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-zkvbzd1brgq.png
 
@@ -319,18 +349,21 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            fs'8
-            gs'8
-            a'8
-            fs'8
-            gs'8
-            a'8
-            gs'8
-            b'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                fs'8
+                gs'8
+                a'8
+                fs'8
+                gs'8
+                a'8
+                gs'8
+                b'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-cq1nobkjozg.png
 
@@ -346,36 +379,42 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            fs'8
-            fs'8
-            fs'8
-            fs'8
-            fs'8
-            fs'8
-            fs'8
-            fs'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                fs'8
+                fs'8
+                fs'8
+                fs'8
+                fs'8
+                fs'8
+                fs'8
+                fs'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-wtl5o15q5qp.png
 
         >>> randomiser.weights = None
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            fs'8
-            fs'8
-            b'8
-            gs'8
-            gs'8
-            a'8
-            fs'8
-            b'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                fs'8
+                fs'8
+                b'8
+                gs'8
+                gs'8
+                a'8
+                fs'8
+                b'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-4bqe6cbawg6.png
 
@@ -426,31 +465,34 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            a'4
-            ~
-            a'16
-            r8.
-            g'4
-            fs'8.
-            r16
-            g'4
-            ~
-            g'16
-            r8.
-            g'4
-            fs'8.
-            r16
-            bf'4
-            ~
-            bf'16
-            r8.
-            a'4
-            af'8.
-            r16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                a'4
+                ~
+                a'16
+                r8.
+                g'4
+                fs'8.
+                r16
+                g'4
+                ~
+                g'16
+                r8.
+                g'4
+                fs'8.
+                r16
+                bf'4
+                ~
+                bf'16
+                r8.
+                a'4
+                af'8.
+                r16
+            }
 
         ..  figure:: ../_images/PitchRandomiser-fvwaaz3vgi.png
 
@@ -466,25 +508,28 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            a'4
-            \p
-            \<
-            ~
-            a'8.
-            c''16
-            \f
-            - \staccato
-            af'4
-            \pp
-            - \tenuto
-            a'8.
-            (
-            bf'16
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                a'4
+                \p
+                \<
+                ~
+                a'8.
+                c''16
+                \f
+                - \staccato
+                af'4
+                \pp
+                - \tenuto
+                a'8.
+                (
+                bf'16
+                )
+            }
 
         ..  figure:: ../_images/PitchRandomiser-2e647eng8yc.png
 
@@ -500,18 +545,21 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            a'4
-            fs'2
-            \time 2/4
-            gs'8
-            gs'8
-            a'8
-            gs'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                a'4
+                fs'2
+                \time 2/4
+                gs'8
+                gs'8
+                a'8
+                gs'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-c9t7r3thrqg.png
 
@@ -529,16 +577,19 @@ class PitchRandomiser:
         ...                                     )
         >>> notes = randomiser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            a'4
-            fs'2
-            gs'8
-            gs'8
-            a'8
-            gs'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                a'4
+                fs'2
+                gs'8
+                gs'8
+                a'8
+                gs'8
+            }
 
         ..  figure:: ../_images/PitchRandomiser-mwruvbmgu3o.png
 
@@ -564,20 +615,23 @@ class PitchRandomiser:
         ...     if abjad.get.duration(staff) == abjad.Duration((9, 4)):
         ...         break
         >>> auxjad.mutate.remove_repeated_time_signatures(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            a'4
-            b'4
-            gs'4
-            fs'4
-            a'4
-            b'4
-            a'4
-            gs'4
-            cs''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                a'4
+                b'4
+                gs'4
+                fs'4
+                a'4
+                b'4
+                a'4
+                gs'4
+                cs''4
+            }
 
         ..  figure:: ../_images/PitchRandomiser-2c9zzip8tpc.png
 

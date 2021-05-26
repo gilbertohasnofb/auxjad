@@ -36,12 +36,15 @@ def enforce_time_signature(container: abjad.Container,
         to it.
 
         >>> staff = abjad.Staff(r"c'1 d'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-9bf9zmnm19k.png
 
@@ -49,17 +52,20 @@ def enforce_time_signature(container: abjad.Container,
         ...     staff,
         ...     abjad.TimeSignature((2, 4))
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'2
-            ~
-            c'2
-            d'2
-            ~
-            d'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'2
+                ~
+                c'2
+                d'2
+                ~
+                d'2
+            }
 
         ..  figure:: ../_images/enforce_time_signature-kerf9uos62i.png
 
@@ -86,28 +92,34 @@ def enforce_time_signature(container: abjad.Container,
         rests will be appended to the end of the staff if necessary.
 
         >>> staff = abjad.Staff(r"c'1 d'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-218f65bsco3.png
 
         >>> auxjad.mutate.enforce_time_signature(staff, (3, 4))
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            ~
-            c'4
-            d'2
-            ~
-            d'2
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                ~
+                c'4
+                d'2
+                ~
+                d'2
+                r4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-u4p457k6ib7.png
 
@@ -117,14 +129,17 @@ def enforce_time_signature(container: abjad.Container,
         with rests.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-            e'1
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+                e'1
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-tn1l53yimir.png
 
@@ -133,24 +148,27 @@ def enforce_time_signature(container: abjad.Container,
         ...     abjad.TimeSignature((3, 4)),
         ...     close_container=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            ~
-            c'4
-            d'2
-            ~
-            d'2
-            e'4
-            ~
-            e'2.
-            f'2.
-            ~
-            \time 1/4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                ~
+                c'4
+                d'2
+                ~
+                d'2
+                e'4
+                ~
+                e'2.
+                f'2.
+                ~
+                \time 1/4
+                f'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-1uhp08fqlpl.png
 
@@ -161,14 +179,17 @@ def enforce_time_signature(container: abjad.Container,
         value is ``True``).
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-            e'1
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+                e'1
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-bit2y19hncr.png
 
@@ -177,23 +198,26 @@ def enforce_time_signature(container: abjad.Container,
         ...     abjad.TimeSignature((3, 4)),
         ...     fill_with_rests=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            ~
-            c'4
-            d'2
-            ~
-            d'2
-            e'4
-            ~
-            e'2.
-            f'2.
-            ~
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                ~
+                c'4
+                d'2
+                ~
+                d'2
+                e'4
+                ~
+                e'2.
+                f'2.
+                ~
+                f'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-xo7fpeqsoek.png
 
@@ -202,12 +226,15 @@ def enforce_time_signature(container: abjad.Container,
         |abjad.TimeSignature| or :obj:`tuple`.
 
         >>> staff = abjad.Staff(r"c'1 d'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-rl1csjn9osl.png
 
@@ -215,16 +242,19 @@ def enforce_time_signature(container: abjad.Container,
         ...                    abjad.TimeSignature((5, 4)),
         ...                    ]
         >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            ~
-            \time 5/4
-            c'4
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                ~
+                \time 5/4
+                c'4
+                d'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-tqqrqi34bu.png
 
@@ -233,14 +263,17 @@ def enforce_time_signature(container: abjad.Container,
         signatures can also be represented as a :obj:`list` of :obj:`tuple`'s.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-            e'1
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+                e'1
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-vn9ngz2k6cd.png
 
@@ -249,32 +282,38 @@ def enforce_time_signature(container: abjad.Container,
         ...                    (4, 4),
         ...                    ]
         >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'2
-            ~
-            c'2
-            \time 4/4
-            d'1
-            e'1
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'2
+                ~
+                c'2
+                \time 4/4
+                d'1
+                e'1
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-nj2c90o0pe.png
 
         Alternatively, use ``None`` to indicate repeated time signatures:
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-            e'1
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+                e'1
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-2og5ld8bkxe.png
 
@@ -286,23 +325,26 @@ def enforce_time_signature(container: abjad.Container,
         ...                    (4, 4),
         ...                    ]
         >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'2
-            ~
-            c'2
-            d'2
-            ~
-            \time 3/4
-            d'2
-            e'4
-            ~
-            e'2.
-            \time 4/4
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'2
+                ~
+                c'2
+                d'2
+                ~
+                \time 3/4
+                d'2
+                e'4
+                ~
+                e'2.
+                \time 4/4
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-3s9h7p1k05x.png
 
@@ -311,14 +353,17 @@ def enforce_time_signature(container: abjad.Container,
         is exhausted, set the optional keyword argument ``cyclic`` to ``True``.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-            e'1
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+                e'1
+                f'1
+            }
 
         ..  figure:: ../_images/enforce_time_signature-vl1bwp21saq.png
 
@@ -330,50 +375,53 @@ def enforce_time_signature(container: abjad.Container,
         ...     time_signatures,
         ...     cyclic=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4.
-            ~
-            \time 2/8
-            c'4
-            ~
-            \time 3/8
-            c'4.
-            \time 2/8
-            d'4
-            ~
-            \time 3/8
-            d'4.
-            ~
-            \time 2/8
-            d'4
-            ~
-            \time 3/8
-            d'8
-            e'4
-            ~
-            \time 2/8
-            e'4
-            ~
-            \time 3/8
-            e'4.
-            ~
-            \time 2/8
-            e'8
-            f'8
-            ~
-            \time 3/8
-            f'4.
-            ~
-            \time 2/8
-            f'4
-            ~
-            \time 3/8
-            f'4
-            r8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                ~
+                \time 2/8
+                c'4
+                ~
+                \time 3/8
+                c'4.
+                \time 2/8
+                d'4
+                ~
+                \time 3/8
+                d'4.
+                ~
+                \time 2/8
+                d'4
+                ~
+                \time 3/8
+                d'8
+                e'4
+                ~
+                \time 2/8
+                e'4
+                ~
+                \time 3/8
+                e'4.
+                ~
+                \time 2/8
+                e'8
+                f'8
+                ~
+                \time 3/8
+                f'4.
+                ~
+                \time 2/8
+                f'4
+                ~
+                \time 3/8
+                f'4
+                r8
+            }
 
         ..  figure:: ../_images/enforce_time_signature-9mq64erlth6.png
 
@@ -386,18 +434,21 @@ def enforce_time_signature(container: abjad.Container,
         ...                    abjad.TimeSignature((3, 4)),
         ...                    ]
         >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/4
-            c'2.
-            ~
-            c'2
-            \time 3/4
-            r8
-            d'4.
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/4
+                c'2.
+                ~
+                c'2
+                \time 3/4
+                r8
+                d'4.
+                e'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-xsjbr0vnev9.png
 
@@ -413,18 +464,21 @@ def enforce_time_signature(container: abjad.Container,
         ...     time_signatures,
         ...     disable_rewrite_meter=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/4
-            c'1
-            ~
-            c'4
-            \time 3/4
-            r8
-            d'4.
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/4
+                c'1
+                ~
+                c'4
+                \time 3/4
+                r8
+                d'4.
+                e'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-ezjnpwjd3xu.png
 
@@ -432,17 +486,20 @@ def enforce_time_signature(container: abjad.Container,
         The function handles tuplets, even if they must be split.
 
         >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'2 e'2} f'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'2
-                d'2
-                e'2
+                \times 2/3
+                {
+                    c'2
+                    d'2
+                    e'2
+                }
+                f'1
             }
-            f'1
-        }
 
         ..  figure:: ../_images/enforce_time_signature-v4ndqpmqjk.png
 
@@ -450,26 +507,29 @@ def enforce_time_signature(container: abjad.Container,
         ...                    abjad.TimeSignature((3, 4)),
         ...                    ]
         >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                \time 2/4
-                c'2
-                d'4
+                \times 2/3
+                {
+                    \time 2/4
+                    c'2
+                    d'4
+                    ~
+                }
+                \times 2/3
+                {
+                    \time 3/4
+                    d'4
+                    e'2
+                }
+                f'4
                 ~
+                f'2.
             }
-            \times 2/3
-            {
-                \time 3/4
-                d'4
-                e'2
-            }
-            f'4
-            ~
-            f'2.
-        }
 
         ..  figure:: ../_images/enforce_time_signature-5jdoukq2rkd.png
 
@@ -477,15 +537,18 @@ def enforce_time_signature(container: abjad.Container,
         Note that any time signatures in the input container will be ignored.
 
         >>> staff = abjad.Staff(r"\time 3/4 c'2. d'2. e'2. f'2.")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            d'2.
-            e'2.
-            f'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                d'2.
+                e'2.
+                f'2.
+            }
 
         ..  figure:: ../_images/enforce_time_signature-bnnz1hov5bu.png
 
@@ -498,41 +561,44 @@ def enforce_time_signature(container: abjad.Container,
         ...     time_signatures,
         ...     cyclic=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/8
-            c'4.
-            ~
-            c'4
-            ~
-            \time 1/16
-            c'16
-            ~
-            \time 2/4
-            c'16
-            d'4..
-            ~
-            \time 5/8
-            d'4
-            ~
-            d'16
-            e'16
-            ~
-            e'4
-            ~
-            \time 1/16
-            e'16
-            ~
-            \time 2/4
-            e'4.
-            f'8
-            ~
-            \time 5/8
-            f'4.
-            ~
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/8
+                c'4.
+                ~
+                c'4
+                ~
+                \time 1/16
+                c'16
+                ~
+                \time 2/4
+                c'16
+                d'4..
+                ~
+                \time 5/8
+                d'4
+                ~
+                d'16
+                e'16
+                ~
+                e'4
+                ~
+                \time 1/16
+                e'16
+                ~
+                \time 2/4
+                e'4.
+                f'8
+                ~
+                \time 5/8
+                f'4.
+                ~
+                f'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-2l289r8sdzl.png
 
@@ -545,14 +611,17 @@ def enforce_time_signature(container: abjad.Container,
         ...     staff,
         ...     abjad.TimeSignature((4, 4)),
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/enforce_time_signature-bykbobzx47.png
 
@@ -564,16 +633,19 @@ def enforce_time_signature(container: abjad.Container,
         ...     abjad.TimeSignature((4, 4)),
         ...     boundary_depth=1,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'8
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'8
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/enforce_time_signature-wljhgmjh9c.png
 
@@ -598,24 +670,30 @@ def enforce_time_signature(container: abjad.Container,
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-ntl3jgbi7j.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/enforce_time_signature-y5sjtx3j0v.png
 

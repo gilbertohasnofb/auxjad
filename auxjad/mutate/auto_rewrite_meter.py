@@ -41,24 +41,27 @@ def auto_rewrite_meter(container: abjad.Container,
 
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
         ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'8
-            e'16
-            f'8
-            g'4
-            a'4
-            b'8
-            c'16
-            d'4.
-            e'16
-            f'8
-            g'4
-            a'16
-            b'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'8
+                e'16
+                f'8
+                g'4
+                a'4
+                b'8
+                c'16
+                d'4.
+                e'16
+                f'8
+                g'4
+                a'16
+                b'16
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-xyx2wh7ufer.png
 
@@ -67,34 +70,37 @@ def auto_rewrite_meter(container: abjad.Container,
 
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.Meter.rewrite_meter(measure, abjad.Meter((4, 4)))
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'16
-            ~
-            d'16
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'8
-            ~
-            a'8
-            b'8
-            c'16
-            d'8.
-            ~
-            d'8.
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'16
-            b'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'16
+                ~
+                d'16
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'8
+                ~
+                a'8
+                b'8
+                c'16
+                d'8.
+                ~
+                d'8.
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'16
+                b'16
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-7fn2uj2xupb.png
 
@@ -110,28 +116,31 @@ def auto_rewrite_meter(container: abjad.Container,
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
         ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'8
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'4
-            b'8
-            c'16
-            d'8.
-            ~
-            d'8.
-            e'16
-            f'8
-            g'4
-            a'16
-            b'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'8
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'4
+                b'8
+                c'16
+                d'8.
+                ~
+                d'8.
+                e'16
+                f'8
+                g'4
+                a'16
+                b'16
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-ahdaggaiqbc.png
 
@@ -151,25 +160,28 @@ def auto_rewrite_meter(container: abjad.Container,
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
         ...                     r"\time 6/8 b'4 c''4 r4 ")
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'8
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'4
-            b'8
-            \time 6/8
-            b'4
-            c''8
-            ~
-            c''8
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'8
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'4
+                b'8
+                \time 6/8
+                b'4
+                c''8
+                ~
+                c''8
+                r4
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-08sckfp19vil.png
 
@@ -180,28 +192,31 @@ def auto_rewrite_meter(container: abjad.Container,
         >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
         ...                     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'8
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'4
-            b'8
-            c'16
-            d'8
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'4
-            b'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'8
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'4
+                b'8
+                c'16
+                d'8
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'4
+                b'8
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-vbytyszlkng.png
 
@@ -214,34 +229,37 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     staff,
         ...     prettify_rewrite_meter=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'16
-            ~
-            d'16
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'8
-            ~
-            a'8
-            b'8
-            c'16
-            d'8.
-            ~
-            d'8.
-            e'16
-            f'8
-            g'8
-            ~
-            g'8
-            a'16
-            b'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'16
+                ~
+                d'16
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'8
+                ~
+                a'8
+                b'8
+                c'16
+                d'8.
+                ~
+                d'8.
+                e'16
+                f'8
+                g'8
+                ~
+                g'8
+                a'16
+                b'16
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-64wse58hvko.png
 
@@ -252,32 +270,35 @@ def auto_rewrite_meter(container: abjad.Container,
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
         ...                     r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8")
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 7/4
-            c'8
-            d'4
-            e'4
-            f'8
-            ~
-            f'8
-            g'4
-            a'8
-            ~
-            a'8
-            b'4
-            c''8
-            \time 5/4
-            d''8
-            e''4
-            f''4
-            g''8
-            ~
-            g''8
-            a''4
-            b''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/4
+                c'8
+                d'4
+                e'4
+                f'8
+                ~
+                f'8
+                g'4
+                a'8
+                ~
+                a'8
+                b'4
+                c''8
+                \time 5/4
+                d''8
+                e''4
+                f''4
+                g''8
+                ~
+                g''8
+                a''4
+                b''8
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-l4xnpevp3z.png
 
@@ -291,32 +312,35 @@ def auto_rewrite_meter(container: abjad.Container,
         ...               abjad.Meter((5, 4), increase_monotonic=True),
         ...               ]
         >>> auxjad.mutate.auto_rewrite_meter(staff, meter_list=meter_list)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 7/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            f'4
-            g'8
-            ~
-            g'8
-            a'4
-            b'4
-            c''8
-            \time 5/4
-            d''8
-            e''4
-            f''8
-            ~
-            f''8
-            g''4
-            a''4
-            b''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/4
+                c'8
+                d'4
+                e'8
+                ~
+                e'8
+                f'4
+                g'8
+                ~
+                g'8
+                a'4
+                b'4
+                c''8
+                \time 5/4
+                d''8
+                e''4
+                f''8
+                ~
+                f''8
+                g''4
+                a''4
+                b''8
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-uqif4i8tqxk.png
 
@@ -331,36 +355,39 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     r"\time 4/4 d''8 e''4 f''8 g''16 a''4 r8."
         ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'4
-            e'4
-            f'8
-            \time 5/8
-            g'4
-            a'8
-            ~
-            a'8
-            r8
-            \time 6/8
-            b'4
-            c''8
-            ~
-            c''8
-            r4
-            \time 4/4
-            d''8
-            e''4
-            f''8
-            g''16
-            a''8.
-            ~
-            a''16
-            r8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                d'4
+                e'4
+                f'8
+                \time 5/8
+                g'4
+                a'8
+                ~
+                a'8
+                r8
+                \time 6/8
+                b'4
+                c''8
+                ~
+                c''8
+                r4
+                \time 4/4
+                d''8
+                e''4
+                f''8
+                g''16
+                a''8.
+                ~
+                a''16
+                r8.
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-hkhtqnqita.png
 
@@ -373,18 +400,21 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
         ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                d'8
+                c'4
+                \times 2/3
+                {
+                    d'8
+                    r4
+                }
                 r4
+                <e' g'>4
             }
-            r4
-            <e' g'>4
-        }
 
         ..  figure:: ../_images/auto_rewrite_meter-nq6t6qwka7a.png
 
@@ -398,27 +428,30 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     staff,
         ...     extract_trivial_tuplets=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'4.
+                \times 2/3
+                {
+                    c'4.
+                }
+                \times 2/3
+                {
+                    d'8
+                    r4
+                }
+                \times 2/3
+                {
+                    r4.
+                }
+                \times 2/3
+                {
+                    <e' g'>4.
+                }
             }
-            \times 2/3
-            {
-                d'8
-                r4
-            }
-            \times 2/3
-            {
-                r4.
-            }
-            \times 2/3
-            {
-                <e' g'>4.
-            }
-        }
 
         ..  figure:: ../_images/auto_rewrite_meter-ssnsui7o9cc.png
 
@@ -430,20 +463,23 @@ def auto_rewrite_meter(container: abjad.Container,
         ...                     r"\times 2/3 {e'2} \times 2/3 {f'1}"
         ...                     )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'2
-                d'1
+                \times 2/3
+                {
+                    c'2
+                    d'1
+                }
+                \times 2/3
+                {
+                    e'2
+                    f'1
+                }
             }
-            \times 2/3
-            {
-                e'2
-                f'1
-            }
-        }
 
         ..  figure:: ../_images/auto_rewrite_meter-ty72t5wvc1.png
 
@@ -456,25 +492,28 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     staff,
         ...     merge_partial_tuplets=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'2
-                d'1
+                \times 2/3
+                {
+                    c'2
+                    d'1
+                }
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    e'2
+                }
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    f'1
+                }
             }
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
-                e'2
-            }
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
-                f'1
-            }
-        }
 
         ..  figure:: ../_images/auto_rewrite_meter-4rouf819bjb.png
 
@@ -507,26 +546,29 @@ def auto_rewrite_meter(container: abjad.Container,
         ...     abjad.mutate.rewrite_meter(measure, meter, boundary_depth=1)
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'8
-            d'8
-            ~
-            d'4
-            e'4
-            f'8
-            g'4
-            a'8
-            ~
-            a'8
-            b'8
-            ~
-            b'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'8
+                d'8
+                ~
+                d'4
+                e'4
+                f'8
+                g'4
+                a'8
+                ~
+                a'8
+                b'8
+                ~
+                b'4
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-cf09ysj16fo.png
 
@@ -537,28 +579,31 @@ def auto_rewrite_meter(container: abjad.Container,
 
         >>> staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
         >>> auxjad.mutate.auto_rewrite_meter(staff, boundary_depth=1)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'8
-            d'8
-            ~
-            d'4
-            e'4
-            f'8
-            g'8
-            ~
-            g'8
-            a'8
-            ~
-            a'8
-            b'8
-            ~
-            b'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'8
+                d'8
+                ~
+                d'4
+                e'4
+                f'8
+                g'8
+                ~
+                g'8
+                a'8
+                ~
+                a'8
+                b'8
+                ~
+                b'4
+            }
 
         ..  figure:: ../_images/auto_rewrite_meter-mm9xvmaqwfj.png
     """

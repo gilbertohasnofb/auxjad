@@ -14,34 +14,40 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         one is removed:
 
         >>> staff = abjad.Staff(r"\time 3/8 c'4\pp d'8\pp | c'4\f d'8\f")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            \pp
-            d'8
-            \pp
-            c'4
-            \f
-            d'8
-            \f
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                \pp
+                d'8
+                \pp
+                c'4
+                \f
+                d'8
+                \f
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-anw32e9i0f.png
 
         >>> auxjad.mutate.remove_repeated_dynamics(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            \pp
-            d'8
-            c'4
-            \f
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                \pp
+                d'8
+                c'4
+                \f
+                d'8
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-i5ylxkzv7md.png
 
@@ -60,36 +66,42 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         number of leaves without dynamics:
 
         >>> staff = abjad.Staff(r"\time 3/8 c'4\p d'8 | e'4.\p | c'4\p d'8\f")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            \p
-            d'8
-            e'4.
-            \p
-            c'4
-            \p
-            d'8
-            \f
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                \p
+                d'8
+                e'4.
+                \p
+                c'4
+                \p
+                d'8
+                \f
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-ha1x7s8d2fb.png
 
         >>> auxjad.mutate.remove_repeated_dynamics(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            \p
-            d'8
-            e'4.
-            c'4
-            d'8
-            \f
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                \p
+                d'8
+                e'4.
+                c'4
+                d'8
+                \f
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-g157jbbojhv.png
 
@@ -104,38 +116,44 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         >>> abjad.attach(abjad.Dynamic('ppp'), staff[0])
         >>> abjad.attach(abjad.Dynamic('ppp'), staff[1])
         >>> abjad.attach(abjad.Dynamic('ppp'), staff[2][0])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'2
-            \ppp
-            <d' f'>2
-            \ppp
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g2
+                c'2
                 \ppp
-                a2
-                b2
+                <d' f'>2
+                \ppp
+                \times 2/3
+                {
+                    g2
+                    \ppp
+                    a2
+                    b2
+                }
             }
-        }
 
         ..  figure:: ../_images/remove_repeated_dynamics-4h9xze4780d.png
 
         >>> auxjad.mutate.remove_repeated_dynamics(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'2
-            \ppp
-            <d' f'>2
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g2
-                a2
-                b2
+                c'2
+                \ppp
+                <d' f'>2
+                \times 2/3
+                {
+                    g2
+                    a2
+                    b2
+                }
             }
-        }
 
         ..  figure:: ../_images/remove_repeated_dynamics-7n9aaveoslu.png
 
@@ -144,41 +162,47 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         but consecutive ones will.
 
         >>> staff = abjad.Staff(r"c'2\p\< d'2\f\> | c'2\f d'2\f | e'1\p")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \p
-            \<
-            d'1
-            \f
-            \>
-            c'1
-            \f
-            d'1
-            \f
-            e'1
-            \p
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                d'1
+                \f
+                \>
+                c'1
+                \f
+                d'1
+                \f
+                e'1
+                \p
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-frmlobo3gis.png
 
         >>> auxjad.mutate.remove_repeated_dynamics(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \p
-            \<
-            d'1
-            \f
-            \>
-            c'1
-            \f
-            d'1
-            e'1
-            \p
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                d'1
+                \f
+                \>
+                c'1
+                \f
+                d'1
+                e'1
+                \p
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-ov05k1imubj.png
 
@@ -186,22 +210,25 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         hairpins will be ignored.
 
         >>> staff = abjad.Staff(r"c'2\p\< d'2\f\> | c'2\f d'2\f | e'1\p")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \p
-            \<
-            d'1
-            \f
-            \>
-            c'1
-            \f
-            d'1
-            \f
-            e'1
-            \p
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                d'1
+                \f
+                \>
+                c'1
+                \f
+                d'1
+                \f
+                e'1
+                \p
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-2hdkt6cyca1.png
 
@@ -209,20 +236,23 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         ...     staff[:],
         ...     ignore_hairpins=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \p
-            \<
-            d'1
-            \f
-            \>
-            c'1
-            d'1
-            e'1
-            \p
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                d'1
+                \f
+                \>
+                c'1
+                d'1
+                e'1
+                \p
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-xkaipizr2jr.png
 
@@ -233,14 +263,17 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.mutate.remove_repeated_dynamics(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \pp
-            r2.
-            c'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \pp
+                r2.
+                c'1
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-wtno2t8qroh.png
 
@@ -252,15 +285,18 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         ...     staff[:],
         ...     reset_after_rests=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \pp
-            r2.
-            c'1
-            \pp
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \pp
+                r2.
+                c'1
+                \pp
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-3e6g7u0q1i1.png
 
@@ -279,14 +315,17 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         ...     staff[:],
         ...     reset_after_rests=(4, 4),
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \pp
-            r2.
-            c'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \pp
+                r2.
+                c'1
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-b323xuesujc.png
 
@@ -297,15 +336,18 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         ...     staff[:],
         ...     reset_after_rests=2 / 4,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \pp
-            r2.
-            c'1
-            \pp
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \pp
+                r2.
+                c'1
+                \pp
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-64dppx3cp99.png
 
@@ -317,18 +359,21 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         ...     staff[:],
         ...     reset_after_rests=abjad.Duration(4, 4),
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \pp
-            r2.
-            c'4
-            r2.
-            R1
-            c'1
-            \pp
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \pp
+                r2.
+                c'4
+                r2.
+                R1
+                c'1
+                \pp
+            }
 
         ..  figure:: ../_images/remove_repeated_dynamics-jt7akhtbsge.png
 

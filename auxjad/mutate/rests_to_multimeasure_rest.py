@@ -15,10 +15,13 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
 
         >>> container = abjad.Container(r"r1")
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
-        >>> abjad.f(container)
-        {
-            R1
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                R1
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-uvebc7ft1zo.png
 
@@ -36,23 +39,29 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         Works with measures with multiple regular rests.
 
         >>> container = abjad.Container(r"r2 r8.. r32 r16 r8 r16")
-        >>> abjad.f(container)
-        {
-            r2
-            r8..
-            r32
-            r16
-            r8
-            r16
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                r2
+                r8..
+                r32
+                r16
+                r8
+                r16
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-jk4m1wzsyfa.png
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
-        >>> abjad.f(container)
-        {
-            R1
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                R1
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-z8u0cs3fzdi.png
 
@@ -64,24 +73,30 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-qtq55xbkkts.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-9hceg93vrmv.png
 
@@ -94,19 +109,22 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         ...                         "\time 5/4 c'1 ~ c'4 | r1 r4"
         ...                         )
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
-        >>> abjad.f(container)
-        \new Staff
-        {
-            \time 3/4
-            R1 * 3/4
-            \time 6/8
-            R1 * 3/4
-            \time 5/4
-            c'1
-            ~
-            c'4
-            R1 * 5/4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                R1 * 3/4
+                \time 6/8
+                R1 * 3/4
+                \time 5/4
+                c'1
+                ~
+                c'4
+                R1 * 5/4
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-a9sqdcznoq.png
 
@@ -114,23 +132,29 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         Works with containers with tuplets.
 
         >>> container = abjad.Container(r"\times 2/3 {r2 r2 r2}")
-        >>> abjad.f(container)
-        {
-            \times 2/3
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
-                r2
-                r2
-                r2
+                \times 2/3
+                {
+                    r2
+                    r2
+                    r2
+                }
             }
-        }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-480a9zqvk2a.png
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
-        >>> abjad.f(container)
-        {
-            R1
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                R1
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-r5yg3a3f97q.png
 
@@ -139,33 +163,39 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         >>> container = abjad.Container(
         ...     r"r2 \times 2/3 {r2 r4} \times 4/5 {r2. \times 2/3 {r2 r4}}"
         ... )
-        >>> abjad.f(container)
-        {
-            r2
-            \times 2/3
+        >>> abjad.show(container)
+
+        ..  docs::
+
             {
                 r2
-                r4
-            }
-            \times 4/5
-            {
-                r2.
                 \times 2/3
                 {
                     r2
                     r4
                 }
+                \times 4/5
+                {
+                    r2.
+                    \times 2/3
+                    {
+                        r2
+                        r4
+                    }
+                }
             }
-        }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-codydc205jw.png
 
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
-        >>> abjad.f(container)
-        {
-            R1
-            R1
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                R1
+                R1
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-f647t5j3jgw.png
 
@@ -177,42 +207,48 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         ...                     r"\time 3/4 \clef treble r2. "
         ...                     r"\time 5/4 r2 \clef bass r2."
         ...                     )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "bass"
-            r4
-            r4
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
+                \clef "bass"
                 r4
-                r8
+                r4
+                \times 2/3
+                {
+                    r4
+                    r8
+                }
+                r4
+                \time 3/4
+                \clef "treble"
+                r2.
+                \time 5/4
+                r2
+                \clef "bass"
+                r2.
             }
-            r4
-            \time 3/4
-            \clef "treble"
-            r2.
-            \time 5/4
-            r2
-            \clef "bass"
-            r2.
-        }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-6GMRGmYkEQ.png
 
         >>> abjad.mutate.rests_to_multimeasure_rest(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "bass"
-            R1
-            \time 3/4
-            \clef "treble"
-            R1 * 3/4
-            \time 5/4
-            \clef "bass"
-            R1 * 5/4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "bass"
+                R1
+                \time 3/4
+                \clef "treble"
+                R1 * 3/4
+                \time 5/4
+                \clef "bass"
+                R1 * 5/4
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-UnL6ZoFoDC.png
 
@@ -227,15 +263,18 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         ...     staff[:],
         ...     ignore_clefs=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            R1
-            \time 3/4
-            R1 * 3/4
-            \time 5/4
-            R1 * 5/4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                R1
+                \time 3/4
+                R1 * 3/4
+                \time 5/4
+                R1 * 5/4
+            }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-KGRZJ8fvQF.png
 

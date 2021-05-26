@@ -21,27 +21,30 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
 
         >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> auxjad.half_piano_pedal(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \larger "½"
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
                             }
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/half_piano_pedal-KaleXflNvL.png
 
@@ -67,146 +70,10 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> auxjad.half_piano_pedal(staff[:],
         ...                         until_the_end=True,
         ...                         )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \larger "½"
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
-                            }
-                            \raise #-0.3 "→"
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+        >>> abjad.show(staff)
 
-        ..  figure:: ../_images/half_piano_pedal-rA7ZHeMrjf.png
+        ..  docs::
 
-    ``omit_raise_pedal_glyph``:
-        Call the function with ``omit_raise_pedal_glyph`` set to ``False`` to
-        remove the raise pedal glyph:
-
-        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-        >>> auxjad.half_piano_pedal(staff[:],
-        ...                         omit_raise_pedal_glyph=True,
-        ...                         )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \larger "½"
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
-                            }
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            \once \override Staff.SustainPedal.stencil = ##f
-            f'4
-            \sustainOff
-        }
-
-        ..  figure:: ../_images/half_piano_pedal-p8S1KwHLIx.png
-
-        Combined with ``until_the_end=True``:
-
-        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-        >>> auxjad.half_piano_pedal(staff[:],
-        ...                         until_the_end=True,
-        ...                         omit_raise_pedal_glyph=True,
-        ...                         )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \larger "½"
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
-                            }
-                            \raise #-0.3 "→"
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            \once \override Staff.SustainPedal.stencil = ##f
-            f'4
-            \sustainOff
-        }
-
-        ..  figure:: ../_images/half_piano_pedal-Fb5rE6QB1f.png
-
-    Pedal style:
-        The style of the sustain pedal can be tweaked using |abjad.setting()|
-        as shown below:
-
-        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-        >>> auxjad.half_piano_pedal(staff[:])
-        >>> abjad.setting(staff).pedal_sustain_style = "#'mixed"
-        >>> abjad.f(staff)
-        \new Staff
-        \with
-        {
-            pedalSustainStyle = #'mixed
-        }
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \larger "½"
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
-                            }
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
-
-        ..  figure:: ../_images/half_piano_pedal-6q9Swb2elq.png
-
-        This tweak also works with ``until_the_end=True`` if desired:
-
-        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-        >>> auxjad.half_piano_pedal(staff[:],
-        ...                         until_the_end=True,
-        ...                         )
-        >>> abjad.setting(staff).pedal_sustain_style = "#'mixed"
-        >>> abjad.f(staff)
-        \new Staff
-        \with
-        {
-            pedalSustainStyle = #'mixed
-        }
-        {
             \new Staff
             {
                 \once \override Staff.SustainPedal.stencil =
@@ -221,13 +88,164 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
                                 \raise #-0.3 "→"
                             }
                         #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
+
+        ..  figure:: ../_images/half_piano_pedal-rA7ZHeMrjf.png
+
+    ``omit_raise_pedal_glyph``:
+        Call the function with ``omit_raise_pedal_glyph`` set to ``False`` to
+        remove the raise pedal glyph:
+
+        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.half_piano_pedal(staff[:],
+        ...                         omit_raise_pedal_glyph=True,
+        ...                         )
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                            }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                \once \override Staff.SustainPedal.stencil = ##f
+                f'4
+                \sustainOff
+            }
+
+        ..  figure:: ../_images/half_piano_pedal-p8S1KwHLIx.png
+
+        Combined with ``until_the_end=True``:
+
+        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.half_piano_pedal(staff[:],
+        ...                         until_the_end=True,
+        ...                         omit_raise_pedal_glyph=True,
+        ...                         )
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
+                            }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                \once \override Staff.SustainPedal.stencil = ##f
+                f'4
+                \sustainOff
+            }
+
+        ..  figure:: ../_images/half_piano_pedal-Fb5rE6QB1f.png
+
+    Pedal style:
+        The style of the sustain pedal can be tweaked using |abjad.setting()|
+        as shown below:
+
+        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.half_piano_pedal(staff[:])
+        >>> abjad.setting(staff).pedal_sustain_style = "#'mixed"
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            \with
+            {
+                pedalSustainStyle = #'mixed
+            }
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \larger "½"
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                            }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
+
+        ..  figure:: ../_images/half_piano_pedal-6q9Swb2elq.png
+
+        This tweak also works with ``until_the_end=True`` if desired:
+
+        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+        >>> auxjad.half_piano_pedal(staff[:],
+        ...                         until_the_end=True,
+        ...                         )
+        >>> abjad.setting(staff).pedal_sustain_style = "#'mixed"
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            \with
+            {
+                pedalSustainStyle = #'mixed
+            }
+            {
+                \new Staff
+                {
+                    \once \override Staff.SustainPedal.stencil =
+                        #(lambda (grob) (grob-interpret-markup grob
+                            #{
+                                \markup {
+                                    \larger "½"
+                                    \concat {
+                                        \musicglyph "pedal.Ped"
+                                        \musicglyph "pedal.."
+                                    }
+                                    \raise #-0.3 "→"
+                                }
+                            #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/half_piano_pedal-cYyRwFvnFH.png
     """

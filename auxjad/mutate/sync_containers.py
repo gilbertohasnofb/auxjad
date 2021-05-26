@@ -28,22 +28,28 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> staff1 = abjad.Staff(r"\time 4/4 g'2.")
         >>> staff2 = abjad.Staff(r"\time 4/4 c'1")
         >>> auxjad.mutate.sync_containers([staff1, staff2])
-        >>> abjad.f(staff1)
-        \new Staff
-        {
-            \time 4/4
-            g'2.
-            r4
-        }
+        >>> abjad.show(staff1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'2.
+                r4
+            }
 
         ..  figure:: ../_images/sync_containers-akcdf8t9e5.png
 
-        >>> abjad.f(staff2)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-        }
+        >>> abjad.show(staff2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+            }
 
         ..  figure:: ../_images/sync_containers-l7tru1tjoli.png
 
@@ -65,24 +71,30 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/sync_containers-9sl3dnd2uwn.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/sync_containers-08v2pv2tmqqn.png
 
@@ -92,21 +104,27 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> container1 = abjad.Staff(r"\time 3/4 g'2.")
         >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
         >>> auxjad.mutate.sync_containers([container1, container2])
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 3/4
-            g'2.
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                g'2.
+            }
 
         ..  figure:: ../_images/sync_containers-e0yszxejbh.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+            }
 
         ..  figure:: ../_images/sync_containers-2cgt4zds3h7.png
 
@@ -118,25 +136,31 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Staff(r"\time 4/4 c'1")
         >>> auxjad.mutate.sync_containers([container1, container2])
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 4/4
-            g'1
-            \time 1/4
-            f'4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'1
+                \time 1/4
+                f'4
+            }
 
         ..  figure:: ../_images/sync_containers-nztndgecrof.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            \time 1/4
-            R1*1/4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                \time 1/4
+                R1*1/4
+            }
 
         ..  figure:: ../_images/sync_containers-iaag195ty1d.png
 
@@ -150,23 +174,29 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ...     [container1, container2],
         ...     adjust_last_time_signature=False,
         ... )
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 4/4
-            g'1
-            f'4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'1
+                f'4
+            }
 
         ..  figure:: ../_images/sync_containers-37iesjp4dqs.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            r4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                r4
+            }
 
         ..  figure:: ../_images/sync_containers-lqm4itxlwu.png
 
@@ -180,25 +210,31 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ...     [container1, container2],
         ...     use_multimeasure_rests=False,
         ... )
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 4/4
-            g'1
-            \time 1/4
-            f'4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'1
+                \time 1/4
+                f'4
+            }
 
         ..  figure:: ../_images/sync_containers-rhagiugx42o.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            \time 1/4
-            r4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                \time 1/4
+                r4
+            }
 
         ..  figure:: ../_images/sync_containers-oss03t1qnf8.png
 
@@ -210,15 +246,18 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> container1 = abjad.Staff(r"\time 7/4 a'1 ~ a'2.")
         >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
         >>> auxjad.mutate.sync_containers([container1, container2])
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            R1 * 3/4
-            \time 1/4
-            R1 * 1/4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                R1 * 3/4
+                \time 1/4
+                R1 * 1/4
+            }
 
         ..  figure:: ../_images/sync_containers-jhx0r9skgwi.png
 
@@ -235,49 +274,61 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ...               container4,
         ...               ]
         >>> auxjad.mutate.sync_containers(containers)
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            \time 3/4
-            g'4
-            r2
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                \time 3/4
+                g'4
+                r2
+            }
 
         ..  figure:: ../_images/sync_containers-1wbsyvks33r.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            \time 3/4
-            g'2
-            r4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                \time 3/4
+                g'2
+                r4
+            }
 
         ..  figure:: ../_images/sync_containers-td1whqky24b.png
 
-        >>> abjad.f(container3)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            \time 3/4
-            g'2.
-        }
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                \time 3/4
+                g'2.
+            }
 
         ..  figure:: ../_images/sync_containers-g07scyil9jh.png
 
-        >>> abjad.f(container4)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            \time 3/4
-            R1*3/4
-        }
+        >>> abjad.show(container4)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                \time 3/4
+                R1*3/4
+            }
 
         ..  figure:: ../_images/sync_containers-8b6vn3azaom.png
 
@@ -295,40 +346,43 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ...                      staff4,
         ...                      ])
         >>> auxjad.mutate.sync_containers(score)
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/8
-                c'4.
-                \time 1/4
-                d'4
-            }
-            \new Staff
-            {
-                \time 3/8
-                c'4.
-                \time 1/4
-                d'8
-                r8
-            }
-            \new Staff
-            {
-                \time 3/8
-                c'4.
-                \time 1/4
-                d'16
-                r8.
-            }
-            \new Staff
-            {
-                \time 3/8
-                c'4.
-                \time 1/4
-                R1 * 1/4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/8
+                    c'4.
+                    \time 1/4
+                    d'4
+                }
+                \new Staff
+                {
+                    \time 3/8
+                    c'4.
+                    \time 1/4
+                    d'8
+                    r8
+                }
+                \new Staff
+                {
+                    \time 3/8
+                    c'4.
+                    \time 1/4
+                    d'16
+                    r8.
+                }
+                \new Staff
+                {
+                    \time 3/8
+                    c'4.
+                    \time 1/4
+                    R1 * 1/4
+                }
+            >>
 
         ..  figure:: ../_images/sync_containers-0g0651fs0luq.png
 
@@ -346,52 +400,64 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ...               container4,
         ...               ]
         >>> auxjad.mutate.sync_containers(containers)
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            \time 1/4
-            R1*1/4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                \time 1/4
+                R1*1/4
+            }
 
         ..  figure:: ../_images/sync_containers-mec52wgbrz9.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 3/4
-            a2.
-            \time 2/4
-            c'4
-            r4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                a2.
+                \time 2/4
+                c'4
+                r4
+            }
 
         ..  figure:: ../_images/sync_containers-33odhzqyo6r.png
 
-        >>> abjad.f(container3)
-        \new Staff
-        {
-            \time 5/4
-            g''1
-            ~
-            g''4
-        }
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/4
+                g''1
+                ~
+                g''4
+            }
 
         ..  figure:: ../_images/sync_containers-s7rmadmd1f.png
 
-        >>> abjad.f(container4)
-        \new Staff
-        {
-            \time 6/8
-            c'2
-            r4
-            \time 2/4
-            R1*1/2
-        }
+        >>> abjad.show(container4)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 6/8
+                c'2
+                r4
+                \time 2/4
+                R1*1/2
+            }
 
         ..  figure:: ../_images/sync_containers-msu922pcn6e.png
 
@@ -438,65 +504,68 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ...         \consists "Default_bar_line_engraver"
         ...     }
         ...     ''')
-        >>> abjad.f(lilypond_file)
-        \score { %! abjad.LilyPondFile._get_formatted_blocks()
-            \new Score
-            <<
-                \new Staff
-                {
+        >>> abjad.show(lilypond_file)
+
+        ..  docs::
+
+            \score { %! abjad.LilyPondFile._get_formatted_blocks()
+                \new Score
+                <<
+                    \new Staff
                     {
-                        \time 4/4
-                        c'4
-                        d'4
-                        e'4
-                        f'4
-                        \time 1/4
-                        R1 * 1/4
+                        {
+                            \time 4/4
+                            c'4
+                            d'4
+                            e'4
+                            f'4
+                            \time 1/4
+                            R1 * 1/4
+                        }
+                    }
+                    \new Staff
+                    {
+                        {
+                            \time 3/4
+                            a2.
+                            \time 2/4
+                            c'4
+                            r4
+                        }
+                    }
+                    \new Staff
+                    {
+                        {
+                            \time 5/4
+                            g''1
+                            ~
+                            g''4
+                        }
+                    }
+                    \new Staff
+                    {
+                        {
+                            \time 6/8
+                            c'2
+                            r4
+                            \time 2/4
+                            R1 * 1/2
+                        }
+                    }
+                >>
+                \layout {
+                    \context {
+                        \Score
+                        \remove "Timing_translator"
+                        \remove "Default_bar_line_engraver"
+                    }
+                    \context {
+                        \Staff
+                        \consists "Timing_translator"
+                        \consists "Default_bar_line_engraver"
                     }
                 }
-                \new Staff
-                {
-                    {
-                        \time 3/4
-                        a2.
-                        \time 2/4
-                        c'4
-                        r4
-                    }
-                }
-                \new Staff
-                {
-                    {
-                        \time 5/4
-                        g''1
-                        ~
-                        g''4
-                    }
-                }
-                \new Staff
-                {
-                    {
-                        \time 6/8
-                        c'2
-                        r4
-                        \time 2/4
-                        R1 * 1/2
-                    }
-                }
-            >>
-            \layout {
-                \context {
-                    \Score
-                    \remove "Timing_translator"
-                    \remove "Default_bar_line_engraver"
-                }
-                \context {
-                    \Staff
-                    \consists "Timing_translator"
-                    \consists "Default_bar_line_engraver"
-                }
-            }
-        } %! abjad.LilyPondFile._get_formatted_blocks()
+            } %! abjad.LilyPondFile._get_formatted_blocks()
 
         ..  figure:: ../_images/sync_containers-1lbrepesgil.png
 

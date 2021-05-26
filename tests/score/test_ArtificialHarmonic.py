@@ -6,12 +6,12 @@ import auxjad
 
 def test_ArtificialHarmonic_01():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4")
-    assert harm.style == 'harmonic'
+    assert harm.style == "#'harmonic"
     assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             g
-            \tweak style harmonic
+            \tweak style #'harmonic
             c'
         >4
         """)
@@ -28,7 +28,7 @@ def test_ArtificialHarmonic_02():
             r"""
             <
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >4
             """)
@@ -36,14 +36,14 @@ def test_ArtificialHarmonic_02():
 
 def test_ArtificialHarmonic_03():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4",
-                                     style='harmonic-mixed',
+                                     style="#'harmonic-mixed"
                                      )
-    assert harm.style == 'harmonic-mixed'
+    assert harm.style == "#'harmonic-mixed"
     assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
         <
             g
-            \tweak style harmonic-mixed
+            \tweak style #'harmonic-mixed
             c'
         >4
         """)
@@ -60,7 +60,7 @@ def test_ArtificialHarmonic_04():
             \parenthesize
             \tweak ParenthesesItem.font-size -4
             g
-            \tweak style harmonic
+            \tweak style #'harmonic
             c'
         >4
         """)
@@ -75,7 +75,7 @@ def test_ArtificialHarmonic_05():
         r"""
         <
             g
-            \tweak style harmonic
+            \tweak style #'harmonic
             c'
         >4 * 2/3
         """)
@@ -85,15 +85,15 @@ def test_ArtificialHarmonic_06():
     harm = auxjad.ArtificialHarmonic(r"<g c'>4")
     assert harm.written_pitches == abjad.PitchSegment(r"g c'")
     assert harm.written_duration == 1 / 4
-    assert harm.style == 'harmonic'
+    assert harm.style == "#'harmonic"
     assert not harm.is_parenthesized
     harm.written_pitches = [-5, 2]
     harm.written_duration = abjad.Duration(1, 8)
-    harm.style = 'harmonic-mixed'
+    harm.style = "#'harmonic-mixed"
     harm.is_parenthesized = True
     assert harm.written_pitches == abjad.PitchSegment(r"g d'")
     assert harm.written_duration == 1 / 8
-    assert harm.style == 'harmonic-mixed'
+    assert harm.style == "#'harmonic-mixed"
     assert harm.is_parenthesized
 
 
@@ -181,18 +181,22 @@ def test_ArtificialHarmonic_14():
         {
             <
                 a
-                \tweak style harmonic
+                \tweak style #'harmonic
                 d'
             >1
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
             <
                 a
-                \tweak style harmonic
+                \tweak style #'harmonic
                 d'
             >1
             ^ \markup { I. }
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
             <
                 a
-                \tweak style harmonic
+                \tweak style #'harmonic
                 d'
             >1
             _ \markup { I. }
@@ -209,7 +213,7 @@ def test_ArtificialHarmonic_15():
         r"""
         <
             a
-            \tweak style harmonic
+            \tweak style #'harmonic
             d'
         >1
         """)
@@ -230,9 +234,11 @@ def test_ArtificialHarmonic_17():
     assert harm.direction is abjad.Down
     assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
         <
             a
-            \tweak style harmonic
+            \tweak style #'harmonic
             d'
         >1
         _ \markup { I. }
@@ -241,10 +247,66 @@ def test_ArtificialHarmonic_17():
     assert harm.direction is abjad.Up
     assert abjad.lilypond(harm) == abjad.String.normalize(
         r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
         <
             a
-            \tweak style harmonic
+            \tweak style #'harmonic
             d'
         >1
         ^ \markup { I. }
+        """)
+
+
+def test_ArtificialHarmonic_18():
+    harm1 = auxjad.ArtificialHarmonic(r"<bf' ef''>1")
+    harm2 = auxjad.ArtificialHarmonic(r"<bf' ef''>1",
+                                      markup='III.',
+                                      )
+    harm3 = auxjad.ArtificialHarmonic(r"<bf' ef''>1",
+                                      markup='III.',
+                                      centre_markup=True,
+                                      )
+    harm4 = auxjad.ArtificialHarmonic(r"<bf' ef''>1",
+                                      markup='III.',
+                                      centre_markup=False,
+                                      )
+    assert abjad.lilypond(harm1) == abjad.String.normalize(
+        r"""
+        <
+            bf'
+            \tweak style #'harmonic
+            ef''
+        >1
+        """)
+    assert abjad.lilypond(harm2) == abjad.String.normalize(
+        r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        <
+            bf'
+            \tweak style #'harmonic
+            ef''
+        >1
+        ^ \markup { III. }
+        """)
+    assert abjad.lilypond(harm3) == abjad.String.normalize(
+        r"""
+        \once \override TextScript.parent-alignment-X = 0
+        \once \override TextScript.self-alignment-X = 0
+        <
+            bf'
+            \tweak style #'harmonic
+            ef''
+        >1
+        ^ \markup { III. }
+        """)
+    assert abjad.lilypond(harm4) == abjad.String.normalize(
+        r"""
+        <
+            bf'
+            \tweak style #'harmonic
+            ef''
+        >1
+        ^ \markup { III. }
         """)

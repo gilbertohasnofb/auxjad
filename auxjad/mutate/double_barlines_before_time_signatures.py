@@ -18,20 +18,23 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
         ...     r"\time 3/4 c'2. \time 4/4 d'1 e'1 \time 6/4 f'2. g'2."
         ... )
         >>> auxjad.mutate.double_barlines_before_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            \bar "||"
-            \time 4/4
-            d'1
-            e'1
-            \bar "||"
-            \time 6/4
-            f'2.
-            g'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                \bar "||"
+                \time 4/4
+                d'1
+                e'1
+                \bar "||"
+                \time 6/4
+                f'2.
+                g'2.
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-2O7JyxN1CS.png
 
@@ -55,21 +58,24 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
         ...     r"\time 4/4 R1"
         ... )
         >>> auxjad.mutate.double_barlines_before_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            R1 * 3/4
-            \bar "||"
-            \time 4/4
-            R1 * 2
-            \bar "||"
-            \time 6/4
-            R1 * 3/2
-            \bar "||"
-            \time 4/4
-            R1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                R1 * 3/4
+                \bar "||"
+                \time 4/4
+                R1 * 2
+                \bar "||"
+                \time 6/4
+                R1 * 3/2
+                \bar "||"
+                \time 4/4
+                R1
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-aYmnnFDdRh.png
 
@@ -91,25 +97,28 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
         >>> abjad.attach(abjad.BarLine('|'), staff[3])
         >>> abjad.attach(abjad.BarLine('!'), staff[5])
         >>> auxjad.mutate.double_barlines_before_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            R1
-            \bar ".|:"
-            \time 3/4
-            c'2.
-            \bar ":|."
-            \time 4/4
-            d'1
-            e'1
-            \bar "||"
-            \time 6/4
-            f'2.
-            g'2.
-            \bar "!"
-            \time 2/4
-            a'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                R1
+                \bar ".|:"
+                \time 3/4
+                c'2.
+                \bar ":|."
+                \time 4/4
+                d'1
+                e'1
+                \bar "||"
+                \time 6/4
+                f'2.
+                g'2.
+                \bar "!"
+                \time 2/4
+                a'2
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-jUymJWLdR7.png
 
@@ -164,9 +173,41 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
         ...     down[:],
         ...     context='Staff',
         ... )
-        >>> abjad.f(score)
-        \new Score
-        <<
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    c'1
+                    d'1
+                    \bar "||"
+                    \time 6/4
+                    e'1.
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    \clef "bass"
+                    c1
+                    d1
+                    \bar "||"
+                    \time 6/4
+                    e1.
+                }
+            >>
+
+        ..  figure:: ../_images/remove_repeated_time_signatures-yD6KL6xbrV.png
+
+        In this case, both individual staves will also have the bar lines:
+
+        >>> abjad.show(up)
+
+        ..  docs::
+
             \new Staff
             {
                 \time 4/4
@@ -176,6 +217,13 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
                 \time 6/4
                 e'1.
             }
+
+        ..  figure:: ../_images/remove_repeated_time_signatures-Zs1hSq2uwY.png
+
+        >>> abjad.show(down)
+
+        ..  docs::
+
             \new Staff
             {
                 \time 4/4
@@ -186,36 +234,6 @@ def double_barlines_before_time_signatures(selection: abjad.Selection,
                 \time 6/4
                 e1.
             }
-        >>
-
-        ..  figure:: ../_images/remove_repeated_time_signatures-yD6KL6xbrV.png
-
-        In this case, both individual staves will also have the bar lines:
-
-        >>> abjad.f(up)
-        \new Staff
-        {
-            \time 4/4
-            c'1
-            d'1
-            \bar "||"
-            \time 6/4
-            e'1.
-        }
-
-        ..  figure:: ../_images/remove_repeated_time_signatures-Zs1hSq2uwY.png
-
-        >>> abjad.f(down)
-        \new Staff
-        {
-            \time 4/4
-            \clef "bass"
-            c1
-            d1
-            \bar "||"
-            \time 6/4
-            e1.
-        }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-QYOgyhLJ2f.png
 

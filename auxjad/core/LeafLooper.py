@@ -42,31 +42,37 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'2
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'2
+                e'4
+            }
 
         ..  figure:: ../_images/LeafLooper-o372nj7r3sb.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 11/8
-            d'2
-            e'8
-            ~
-            e'8
-            f'8
-            ~
-            f'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 11/8
+                d'2
+                e'8
+                ~
+                e'8
+                f'8
+                ~
+                f'2
+            }
 
         ..  figure:: ../_images/LeafLooper-lszpb96x0rf.png
 
@@ -75,18 +81,21 @@ class LeafLooper(_LooperParent):
 
         >>> notes = looper.current_window
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 11/8
-            d'2
-            e'8
-            ~
-            e'8
-            f'8
-            ~
-            f'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 11/8
+                d'2
+                e'8
+                ~
+                e'8
+                f'8
+                ~
+                f'2
+            }
 
         ..  figure:: ../_images/LeafLooper-2c1jo6ftfnu.png
 
@@ -103,16 +112,19 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            d'8
-            e'8
-            ~
-            e'4.
-            f'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                d'8
+                e'8
+                ~
+                e'4.
+                f'8
+            }
 
         ..  figure:: ../_images/LeafLooper-uvu1p1g04ne.png
 
@@ -132,20 +144,23 @@ class LeafLooper(_LooperParent):
         >>> for window in looper:
         ...     staff.append(window)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'2
-            \time 5/8
-            d'2
-            e'8
-            e'8
-            f'2
-            \time 2/4
-            f'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'2
+                \time 5/8
+                d'2
+                e'8
+                e'8
+                f'2
+                \time 2/4
+                f'2
+            }
 
         ..  figure:: ../_images/LeafLooper-tlddw14wnrm.png
 
@@ -244,17 +259,20 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            e'4
-            f'4
-            d'4
-            e'4
-            c'4
-            d'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                e'4
+                f'4
+                d'4
+                e'4
+                c'4
+                d'4
+            }
 
         ..  figure:: ../_images/LeafLooper-tdypneg8a1i.png
 
@@ -274,26 +292,29 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            f'4
-            g'4
-            a'4
-            e'4
-            f'4
-            g'4
-            f'4
-            g'4
-            a'4
-            e'4
-            f'4
-            g'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                f'4
+                g'4
+                a'4
+                e'4
+                f'4
+                g'4
+                f'4
+                g'4
+                a'4
+                e'4
+                f'4
+                g'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/LeafLooper-la5quq8s3al.png
 
@@ -311,19 +332,22 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_n(4)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'4
-            d'4
-            g'4
-            a'4
-            a'4
-            b'4
-            c''4
-            d''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'4
+                d'4
+                g'4
+                a'4
+                a'4
+                b'4
+                c''4
+                d''4
+            }
 
         ..  figure:: ../_images/LeafLooper-u7t1hsb1o79.png
 
@@ -349,21 +373,24 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'4
-            d'4
-            \time 2/4
-            d'4
-            e'4
-            \time 2/4
-            e'4
-            f'4
-            \time 1/4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'4
+                d'4
+                \time 2/4
+                d'4
+                e'4
+                \time 2/4
+                e'4
+                f'4
+                \time 1/4
+                f'4
+            }
 
         ..  figure:: ../_images/LeafLooper-o5yqw4xinp.png
 
@@ -381,46 +408,49 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_all(tie_identical_pitches=True)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 9/8
-            c'4
-            d'2
-            r8
-            d'4
-            ~
-            \time 4/4
-            d'2
-            r8
-            d'4
-            <e' g'>8
-            \time 3/4
-            r8
-            d'4
-            <e' g'>8
-            r4
-            \time 11/8
-            d'4
-            <e' g'>8
-            r4
-            f'2.
-            \time 19/16
-            <e' g'>8
-            r4
-            f'2.
-            <e' g'>16
-            \time 17/16
-            r4
-            f'2.
-            <e' g'>16
-            \time 13/16
-            f'2.
-            <e' g'>16
-            ~
-            \time 1/16
-            <e' g'>16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 9/8
+                c'4
+                d'2
+                r8
+                d'4
+                ~
+                \time 4/4
+                d'2
+                r8
+                d'4
+                <e' g'>8
+                \time 3/4
+                r8
+                d'4
+                <e' g'>8
+                r4
+                \time 11/8
+                d'4
+                <e' g'>8
+                r4
+                f'2.
+                \time 19/16
+                <e' g'>8
+                r4
+                f'2.
+                <e' g'>16
+                \time 17/16
+                r4
+                f'2.
+                <e' g'>16
+                \time 13/16
+                f'2.
+                <e' g'>16
+                ~
+                \time 1/16
+                <e' g'>16
+            }
 
         ..  figure:: ../_images/LeafLooper-v1a75ntci7r.png
 
@@ -437,16 +467,19 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> window = looper.output_n(2)
         >>> staff = abjad.Staff(window)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'4
-            d'4
-            \time 2/4
-            d'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'4
+                d'4
+                \time 2/4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/LeafLooper-w389c0wnl2.png
 
@@ -463,13 +496,16 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'2
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'2
+                e'4
+            }
 
         ..  figure:: ../_images/LeafLooper-t3wqox0d0qe.png
 
@@ -503,23 +539,26 @@ class LeafLooper(_LooperParent):
         >>> looper = auxjad.LeafLooper(container, window_size=3)
         >>> notes = looper.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 7/8
-            c'4
-            d'4.
-            e'4
-            \time 3/4
-            d'4.
-            e'4
-            f'8
-            \time 3/8
-            e'4
-            f'8
-            \time 1/8
-            f'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/8
+                c'4
+                d'4.
+                e'4
+                \time 3/4
+                d'4.
+                e'4
+                f'8
+                \time 3/8
+                e'4
+                f'8
+                \time 1/8
+                f'8
+            }
 
         ..  figure:: ../_images/LeafLooper-aZUekjEPZZ.png
 
@@ -530,18 +569,21 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 7/8
-            c'4
-            d'4.
-            e'4
-            \time 3/4
-            d'4.
-            e'4
-            f'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/8
+                c'4
+                d'4.
+                e'4
+                \time 3/4
+                d'4.
+                e'4
+                f'8
+            }
 
         ..  figure:: ../_images/LeafLooper-QYvLl9Ce9c.png
 
@@ -559,31 +601,37 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/8
-            c'4
-            d'8
-            ~
-            d'8
-            e'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/8
+                c'4
+                d'8
+                ~
+                d'8
+                e'8
+            }
 
         ..  figure:: ../_images/LeafLooper-euq7xez3whk.png
 
         >>> looper.window_size = 4
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 9/8
-            d'4
-            e'8
-            f'4
-            g'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 9/8
+                d'4
+                e'8
+                f'4
+                g'2
+            }
 
         ..  figure:: ../_images/LeafLooper-9niipiwpbz.png
 
@@ -599,27 +647,33 @@ class LeafLooper(_LooperParent):
         >>>                             )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/LeafLooper-39uewm1fzrj.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/LeafLooper-n6jrizfcon.png
 
@@ -628,28 +682,34 @@ class LeafLooper(_LooperParent):
         ... )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            ds'''4
-            es'''4
-            fs'''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                ds'''4
+                es'''4
+                fs'''4
+            }
 
         ..  figure:: ../_images/LeafLooper-3lqsqrd3sar.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            cs'''4
-            ds'''4
-            es'''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                cs'''4
+                ds'''4
+                es'''4
+            }
 
         ..  figure:: ../_images/LeafLooper-g3xybel6xu.png
 
@@ -665,52 +725,55 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            \p
-            (
-            d'2
-            e'4
-            \f
-            )
-            \time 11/8
-            d'2
-            \p
-            (
-            e'4
-            \f
-            )
-            f'2
-            ~
-            f'8
-            \time 9/8
-            e'4
-            f'2
-            (
-            ~
-            f'8
-            g'4
-            )
-            \time 15/8
-            f'2
-            (
-            ~
-            f'8
-            g'4
-            a'1
-            \pp
-            )
-            \time 5/4
-            g'4
-            \f
-            (
-            a'1
-            \pp
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                \p
+                (
+                d'2
+                e'4
+                \f
+                )
+                \time 11/8
+                d'2
+                \p
+                (
+                e'4
+                \f
+                )
+                f'2
+                ~
+                f'8
+                \time 9/8
+                e'4
+                f'2
+                (
+                ~
+                f'8
+                g'4
+                )
+                \time 15/8
+                f'2
+                (
+                ~
+                f'8
+                g'4
+                a'1
+                \pp
+                )
+                \time 5/4
+                g'4
+                \f
+                (
+                a'1
+                \pp
+                )
+            }
 
         ..  figure:: ../_images/LeafLooper-cqzbiawxp4.png
 
@@ -724,26 +787,29 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'16
-            d'8.
-            ~
-            d'16
-            e'8.
-            \time 11/16
-            d'4
-            e'8.
-            f'4
-            \time 2/4
-            e'8.
-            f'16
-            ~
-            f'8.
-            g'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'16
+                d'8.
+                ~
+                d'16
+                e'8.
+                \time 11/16
+                d'4
+                e'8.
+                f'4
+                \time 2/4
+                e'8.
+                f'16
+                ~
+                f'8.
+                g'16
+            }
 
         ..  figure:: ../_images/LeafLooper-ab18rc3voqn.png
 
@@ -757,22 +823,25 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'16
-            d'4
-            e'8.
-            \time 11/16
-            d'4
-            e'8.
-            f'4
-            \time 2/4
-            e'8.
-            f'4
-            g'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'16
+                d'4
+                e'8.
+                \time 11/16
+                d'4
+                e'8.
+                f'4
+                \time 2/4
+                e'8.
+                f'4
+                g'16
+            }
 
         ..  figure:: ../_images/LeafLooper-fa30crzy146.png
 
@@ -801,34 +870,37 @@ class LeafLooper(_LooperParent):
         ...                            )
         >>> window = looper.output_all()
         >>> staff = abjad.Staff(window)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            d'8
-            #(ly:expect-warning "strange time signature found")
-            \time 7/24
-            d'8
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                a4
-            }
-            \times 2/3
-            {
-                \time 2/4
-                a4
-                g2
-            }
-            \tweak edge-height #'(0.7 . 0)
-            \times 2/3
-            {
+                \time 3/8
+                c'4
+                d'8
                 #(ly:expect-warning "strange time signature found")
-                \time 2/6
-                g2
+                \time 7/24
+                d'8
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    a4
+                }
+                \times 2/3
+                {
+                    \time 2/4
+                    a4
+                    g2
+                }
+                \tweak edge-height #'(0.7 . 0)
+                \times 2/3
+                {
+                    #(ly:expect-warning "strange time signature found")
+                    \time 2/6
+                    g2
+                }
             }
-        }
 
         ..  figure:: ../_images/LeafLooper-nre2ecw27l.png
 

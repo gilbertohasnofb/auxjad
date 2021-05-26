@@ -22,16 +22,19 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
 
         >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> auxjad.piano_pedal(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/piano_pedal-KaleXflNvL.png
 
@@ -57,27 +60,30 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> auxjad.piano_pedal(staff[:],
         ...                    until_the_end=True,
         ...                    )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
                             }
-                            \raise #-0.3 "→"
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/piano_pedal-rA7ZHeMrjf.png
 
@@ -89,17 +95,20 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> auxjad.piano_pedal(staff[:],
         ...                    omit_raise_pedal_glyph=True,
         ...                    )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            \once \override Staff.SustainPedal.stencil = ##f
-            f'4
-            \sustainOff
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                \once \override Staff.SustainPedal.stencil = ##f
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/piano_pedal-p8S1KwHLIx.png
 
@@ -110,28 +119,31 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         ...                    until_the_end=True,
         ...                    omit_raise_pedal_glyph=True,
         ...                    )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
                             }
-                            \raise #-0.3 "→"
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            \once \override Staff.SustainPedal.stencil = ##f
-            f'4
-            \sustainOff
-        }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                \once \override Staff.SustainPedal.stencil = ##f
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/piano_pedal-Fb5rE6QB1f.png
 
@@ -142,20 +154,23 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
         >>> auxjad.piano_pedal(staff[:])
         >>> abjad.setting(staff).pedal_sustain_style = "#'mixed"
-        >>> abjad.f(staff)
-        \new Staff
-        \with
-        {
-            pedalSustainStyle = #'mixed
-        }
-        {
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            \with
+            {
+                pedalSustainStyle = #'mixed
+            }
+            {
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/piano_pedal-6q9Swb2elq.png
 
@@ -166,31 +181,34 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
         ...                    until_the_end=True,
         ...                    )
         >>> abjad.setting(staff).pedal_sustain_style = "#'mixed"
-        >>> abjad.f(staff)
-        \new Staff
-        \with
-        {
-            pedalSustainStyle = #'mixed
-        }
-        {
-            \once \override Staff.SustainPedal.stencil =
-                #(lambda (grob) (grob-interpret-markup grob
-                    #{
-                        \markup {
-                            \concat {
-                                \musicglyph "pedal.Ped"
-                                \musicglyph "pedal.."
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            \with
+            {
+                pedalSustainStyle = #'mixed
+            }
+            {
+                \once \override Staff.SustainPedal.stencil =
+                    #(lambda (grob) (grob-interpret-markup grob
+                        #{
+                            \markup {
+                                \concat {
+                                    \musicglyph "pedal.Ped"
+                                    \musicglyph "pedal.."
+                                }
+                                \raise #-0.3 "→"
                             }
-                            \raise #-0.3 "→"
-                        }
-                    #}))
-            c'4
-            \sustainOn
-            d'4
-            e'4
-            f'4
-            \sustainOff
-        }
+                        #}))
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+                \sustainOff
+            }
 
         ..  figure:: ../_images/piano_pedal-cYyRwFvnFH.png
     """

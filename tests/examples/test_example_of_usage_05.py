@@ -35,14 +35,14 @@ def test_example_of_usage_05():
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             <d' gs' a'>16
@@ -52,12 +52,12 @@ def test_example_of_usage_05():
             r16
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >8.
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             r4
@@ -65,14 +65,14 @@ def test_example_of_usage_05():
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             <d' gs' a'>16
@@ -80,23 +80,23 @@ def test_example_of_usage_05():
             <d' gs' a'>16
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >8.
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             r4
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >8.
             <d' gs' a'>16
@@ -106,97 +106,97 @@ def test_example_of_usage_05():
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >16
             ~
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >8
             <d' gs' a'>8
             r4
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >16
             ~
             <
                 b
-                \tweak style harmonic
+                \tweak style #'harmonic
                 e'
             >8
             <d' gs' a'>8
             r4
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             r16
@@ -205,21 +205,21 @@ def test_example_of_usage_05():
             r4
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             r16
@@ -228,21 +228,21 @@ def test_example_of_usage_05():
             r4
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             r16
@@ -251,21 +251,21 @@ def test_example_of_usage_05():
             r4
             <
                 ds'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 gs'
             >4
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             r16
@@ -275,14 +275,14 @@ def test_example_of_usage_05():
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 a'
             >8
             r16
@@ -292,7 +292,7 @@ def test_example_of_usage_05():
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 g
-                \tweak style harmonic
+                \tweak style #'harmonic
                 c'
             >16
             r8.

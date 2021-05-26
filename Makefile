@@ -14,7 +14,7 @@ clean:
 html:
 	make -C docs/ html
 
-docs:
+docs-release:
 	make -C docs/ release
 
 flake_ignore = --ignore=E203,E266,W503

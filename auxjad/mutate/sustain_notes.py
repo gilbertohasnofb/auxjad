@@ -17,30 +17,36 @@ def sustain_notes(container: abjad.Container,
         Simply call the function on a container.
 
         >>> staff = abjad.Staff(r"c'16 r8. d'16 r8. e'16 r8. f'16 r8.")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            r8.
-            d'16
-            r8.
-            e'16
-            r8.
-            f'16
-            r8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                r8.
+                d'16
+                r8.
+                e'16
+                r8.
+                f'16
+                r8.
+            }
 
         ..  figure:: ../_images/sustain_notes-w1e1pmruyce.png
 
         >>> auxjad.mutate.sustain_notes(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/sustain_notes-ythfpvkrvue.png
 
@@ -59,30 +65,36 @@ def sustain_notes(container: abjad.Container,
         the same.
 
         >>> staff = abjad.Staff(r"c'16 r8. c'16 r8. c'16 r8. c'16 r8.")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            r8.
-            c'16
-            r8.
-            c'16
-            r8.
-            c'16
-            r8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                r8.
+                c'16
+                r8.
+                c'16
+                r8.
+                c'16
+                r8.
+            }
 
         ..  figure:: ../_images/sustain_notes-oliqicqqw7q.png
 
         >>> auxjad.mutate.sustain_notes(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            c'4
-            c'4
-            c'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                c'4
+                c'4
+                c'4
+            }
 
         ..  figure:: ../_images/sustain_notes-3alcbmhc2jt.png
 
@@ -92,28 +104,34 @@ def sustain_notes(container: abjad.Container,
         >>> staff = abjad.Staff(
         ...     r"<c' e'>16 r8. <c' e'>4 <c' e'>4 <c' e'>16 r8."
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            <c' e'>16
-            r8.
-            <c' e'>4
-            <c' e'>4
-            <c' e'>16
-            r8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <c' e'>16
+                r8.
+                <c' e'>4
+                <c' e'>4
+                <c' e'>16
+                r8.
+            }
 
         ..  figure:: ../_images/sustain_notes-ek4ujjintt8.png
 
         >>> auxjad.mutate.sustain_notes(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            <c' e'>4
-            <c' e'>4
-            <c' e'>4
-            <c' e'>4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <c' e'>4
+                <c' e'>4
+                <c' e'>4
+                <c' e'>4
+            }
 
         ..  figure:: ../_images/sustain_notes-f7au6hojq99.png
 
@@ -123,40 +141,46 @@ def sustain_notes(container: abjad.Container,
         >>> staff = abjad.Staff(
         ...     r"\times 2/3 {c'4 d'4 r4} r8 e'8 \times 2/3 {f'8 r4}"
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'4
-                d'4
-                r4
+                \times 2/3
+                {
+                    c'4
+                    d'4
+                    r4
+                }
+                r8
+                e'8
+                \times 2/3
+                {
+                    f'8
+                    r4
+                }
             }
-            r8
-            e'8
-            \times 2/3
-            {
-                f'8
-                r4
-            }
-        }
 
         ..  figure:: ../_images/sustain_notes-nsjvhnyrkea.png
 
         >>> auxjad.mutate.sustain_notes(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'4
-                d'2
-                ~
+                \times 2/3
+                {
+                    c'4
+                    d'2
+                    ~
+                }
+                d'8
+                e'8
+                f'4
             }
-            d'8
-            e'8
-            f'4
-        }
 
         ..  figure:: ../_images/sustain_notes-26l9hob8wko.png
 
@@ -169,80 +193,86 @@ def sustain_notes(container: abjad.Container,
         ...                     r"a'16 r8. b'4 c''8 r8 "
         ...                     r"r4. d''8 \times 4/5 {r8 d''2}"
         ...                     )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            r8.
-            d'16
-            r8.
-            r8
-            r32
-            <e' g'>32
-            r16
-            r4
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                r4
-                f'4
-                r4
-            }
-            r4
-            g'8
-            r8
-            a'4
-            ~
-            a'16
-            r8.
-            b'4
-            c''8
-            r8
-            r4.
-            d''8
-            \times 4/5
-            {
+                c'16
+                r8.
+                d'16
+                r8.
                 r8
-                d''2
+                r32
+                <e' g'>32
+                r16
+                r4
+                \times 2/3
+                {
+                    r4
+                    f'4
+                    r4
+                }
+                r4
+                g'8
+                r8
+                a'4
+                ~
+                a'16
+                r8.
+                b'4
+                c''8
+                r8
+                r4.
+                d''8
+                \times 4/5
+                {
+                    r8
+                    d''2
+                }
             }
-        }
 
         ..  figure:: ../_images/sustain_notes-cpw7dvpegge.png
 
         >>> auxjad.mutate.sustain_notes(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            ~
-            d'8
-            ~
-            d'32
-            <e' g'>16.
-            ~
-            <e' g'>4
-            ~
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <e' g'>4
-                f'2
+                c'4
+                d'4
                 ~
-            }
-            f'4
-            g'4
-            a'2
-            b'4
-            c''4
-            ~
-            c''4.
-            d''8
-            ~
-            \times 4/5
-            {
+                d'8
+                ~
+                d'32
+                <e' g'>16.
+                ~
+                <e' g'>4
+                ~
+                \times 2/3
+                {
+                    <e' g'>4
+                    f'2
+                    ~
+                }
+                f'4
+                g'4
+                a'2
+                b'4
+                c''4
+                ~
+                c''4.
                 d''8
-                d''2
+                ~
+                \times 4/5
+                {
+                    d''8
+                    d''2
+                }
             }
-        }
 
         ..  figure:: ../_images/sustain_notes-z8t2jwxsvar.png
 
@@ -257,55 +287,61 @@ def sustain_notes(container: abjad.Container,
         ...                     r"R1 * 5/8 "
         ...                     r"r8 g'8 a'8 r4"
         ...                     )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            r4
-            c'16
-            r8.
-            d'16
-            r4..
-            R1
-            r4
-            e'4
-            r2
-            \time 5/8
-            r8
-            f'4
-            r4
-            R1 * 5/8
-            r8
-            g'8
-            a'8
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                r4
+                c'16
+                r8.
+                d'16
+                r4..
+                R1
+                r4
+                e'4
+                r2
+                \time 5/8
+                r8
+                f'4
+                r4
+                R1 * 5/8
+                r8
+                g'8
+                a'8
+                r4
+            }
 
         ..  figure:: ../_images/sustain_notes-mJOOARIUAp.png
 
         >>> auxjad.mutate.sustain_notes(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            r4
-            c'4
-            d'2
-            ~
-            d'1
-            ~
-            d'4
-            e'2.
-            ~
-            \time 5/8
-            e'8
-            f'2
-            ~
-            f'4.
-            ~
-            f'4
-            f'8
-            g'4
-            a'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                r4
+                c'4
+                d'2
+                ~
+                d'1
+                ~
+                d'4
+                e'2.
+                ~
+                \time 5/8
+                e'8
+                f'2
+                ~
+                f'4.
+                ~
+                f'4
+                f'8
+                g'4
+                a'4
+            }
 
         ..  figure:: ../_images/sustain_notes-iLTiWERSvO.png
 
@@ -319,28 +355,31 @@ def sustain_notes(container: abjad.Container,
         ...                     r"R1 * 5/8 "
         ...                     r"r8 g'8 a'8 r4"
         ...                     )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            r4
-            c'16
-            r8.
-            d'16
-            r4..
-            R1
-            r4
-            e'4
-            r2
-            \time 5/8
-            r8
-            f'4
-            r4
-            R1 * 5/8
-            r8
-            g'8
-            a'8
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                r4
+                c'16
+                r8.
+                d'16
+                r4..
+                R1
+                r4
+                e'4
+                r2
+                \time 5/8
+                r8
+                f'4
+                r4
+                R1 * 5/8
+                r8
+                g'8
+                a'8
+                r4
+            }
 
         ..  figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
 
@@ -348,24 +387,27 @@ def sustain_notes(container: abjad.Container,
         to  ``False``:
 
         >>> auxjad.mutate.sustain_notes(staff, sustain_multimeasure_rests=True)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            r4
-            c'4
-            d'2
-            R1
-            r4
-            e'2.
-            ~
-            \time 5/8
-            e'8
-            f'2
-            R1 * 5/8
-            r8
-            g'8
-            a'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                r4
+                c'4
+                d'2
+                R1
+                r4
+                e'2.
+                ~
+                \time 5/8
+                e'8
+                f'2
+                R1 * 5/8
+                r8
+                g'8
+                a'4.
+            }
 
         ..  figure:: ../_images/sustain_notes-9WeilArLex.png
 
@@ -380,67 +422,73 @@ def sustain_notes(container: abjad.Container,
         ...                     r"R1 * 5/8 "
         ...                     r"r8 g'8 a'8 r4"
         ...                     )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            r4
-            c'16
-            r8.
-            d'16
-            r4..
-            R1
-            r4
-            e'4
-            r2
-            \time 5/8
-            r8
-            f'4
-            r4
-            R1 * 5/8
-            r8
-            g'8
-            a'8
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                r4
+                c'16
+                r8.
+                d'16
+                r4..
+                R1
+                r4
+                e'4
+                r2
+                \time 5/8
+                r8
+                f'4
+                r4
+                R1 * 5/8
+                r8
+                g'8
+                a'8
+                r4
+            }
 
         ..  figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
 
         To disable this behaviour, set ``rewrite_meter`` to ``False``:
 
         >>> auxjad.mutate.sustain_notes(staff, rewrite_meter=False)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            r4
-            c'16
-            ~
-            c'8.
-            d'16
-            ~
-            d'4..
-            ~
-            d'1
-            ~
-            d'4
-            e'4
-            ~
-            e'2
-            ~
-            \time 5/8
-            e'8
-            f'4
-            ~
-            f'4
-            ~
-            f'2
-            ~
-            f'8
-            f'8
-            g'8
-            ~
-            a'8
-            a'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                r4
+                c'16
+                ~
+                c'8.
+                d'16
+                ~
+                d'4..
+                ~
+                d'1
+                ~
+                d'4
+                e'4
+                ~
+                e'2
+                ~
+                \time 5/8
+                e'8
+                f'4
+                ~
+                f'4
+                ~
+                f'2
+                ~
+                f'8
+                f'8
+                g'8
+                ~
+                a'8
+                a'4
+            }
 
         ..  figure:: ../_images/sustain_notes-9WeilArLex.png
 

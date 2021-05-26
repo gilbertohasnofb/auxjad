@@ -27,22 +27,25 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    fs'4
+                    g'2
+                    bf'4
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-gdofr6vtutv.png
 
@@ -51,26 +54,29 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
-            }
-            \new Staff
-            {
-                \times 4/5
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
                     \time 4/4
-                    r4
-                    d''1
+                    fs'4
+                    g'2
+                    bf'4
                 }
-            }
-        >>
+                \new Staff
+                {
+                    \times 4/5
+                    {
+                        \time 4/4
+                        r4
+                        d''1
+                    }
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-ge0qzrwa7fr.png
 
@@ -79,26 +85,29 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                r2
-                bf'4
-            }
-            \new Staff
-            {
-                \times 4/5
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
                     \time 4/4
-                    r4
-                    d''1
+                    fs'4
+                    r2
+                    bf'4
                 }
-            }
-        >>
+                \new Staff
+                {
+                    \times 4/5
+                    {
+                        \time 4/4
+                        r4
+                        d''1
+                    }
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-0iynx7xenvmp.png
 
@@ -110,26 +119,29 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                r2
-                bf'4
-            }
-            \new Staff
-            {
-                \times 4/5
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
                     \time 4/4
-                    r4
-                    d''1
+                    fs'4
+                    r2
+                    bf'4
                 }
-            }
-        >>
+                \new Staff
+                {
+                    \times 4/5
+                    {
+                        \time 4/4
+                        r4
+                        d''1
+                    }
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-kinei9zncl.png
 
@@ -145,59 +157,62 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
-                fs'4
-                g'2
-                bf'4
-                fs'4
-                r2
-                bf'4
-                fs'4
-                r2
-                bf'4
-                r2.
-                bf'4
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                \times 4/5
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
-                    cs''4
-                    r1
+                    \time 4/4
+                    fs'4
+                    g'2
+                    bf'4
+                    fs'4
+                    g'2
+                    bf'4
+                    fs'4
+                    r2
+                    bf'4
+                    fs'4
+                    r2
+                    bf'4
+                    r2.
+                    bf'4
+                    R1
                 }
-                \times 4/5
+                \new Staff
                 {
-                    cs''4
-                    r1
+                    \time 4/4
+                    R1
+                    \times 4/5
+                    {
+                        cs''4
+                        r1
+                    }
+                    \times 4/5
+                    {
+                        cs''4
+                        r1
+                    }
+                    \times 4/5
+                    {
+                        cs''4
+                        d'1
+                    }
+                    \times 4/5
+                    {
+                        cs''4
+                        d'1
+                    }
+                    \times 4/5
+                    {
+                        cs''4
+                        d'1
+                    }
                 }
-                \times 4/5
-                {
-                    cs''4
-                    d'1
-                }
-                \times 4/5
-                {
-                    cs''4
-                    d'1
-                }
-                \times 4/5
-                {
-                    cs''4
-                    d'1
-                }
-            }
-        >>
+            >>
 
         ..  figure:: ../_images/CrossFader-0t206fb4ycne.png
 
@@ -214,35 +229,38 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                e'8
-                fs'4.
-                r2
-                e'8
-                fs'4.
-                r2
-                e'8
-                r2..
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                c''2
-                ~
-                c''8
-                r4.
-                c''2
-                ~
-                c''8
-                r4.
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    e'8
+                    fs'4.
+                    r2
+                    e'8
+                    fs'4.
+                    r2
+                    e'8
+                    r2..
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    c''2
+                    ~
+                    c''8
+                    r4.
+                    c''2
+                    ~
+                    c''8
+                    r4.
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-8o5fjalw1px.png
 
@@ -265,46 +283,49 @@ class CrossFader():
         >>> auxjad.mutate.remove_repeated_time_signatures(staff_a)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff_b)
         >>> score = abjad.Score([staff_a, staff_b])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                e'8
-                fs'4.
-                r2
-                e'8
-                fs'4.
-                r2
-                e'8
-                r2..
-                e'8
-                r2..
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                c''2
-                ~
-                c''8
-                r4.
-                c''2
-                ~
-                c''8
-                r4.
-                c''2
-                ~
-                c''8
-                d''4.
-                c''2
-                ~
-                c''8
-                d''4.
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    e'8
+                    fs'4.
+                    r2
+                    e'8
+                    fs'4.
+                    r2
+                    e'8
+                    r2..
+                    e'8
+                    r2..
+                    R1
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    c''2
+                    ~
+                    c''8
+                    r4.
+                    c''2
+                    ~
+                    c''8
+                    r4.
+                    c''2
+                    ~
+                    c''8
+                    d''4.
+                    c''2
+                    ~
+                    c''8
+                    d''4.
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-3g9fv4ew4h9.png
 
@@ -436,42 +457,45 @@ class CrossFader():
         >>> auxjad.mutate.remove_repeated_time_signatures(staff_a)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff_b)
         >>> score = abjad.Score([staff_a, staff_b])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                fs'4
-                g'2
-                bf'4
-                fs'4
-                g'2
-                bf'4
-                fs'4
-                r2
-                bf'4
-                fs'4
-                g'2
-                bf'4
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                \times 4/5
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
-                    cs''4
-                    r1
+                    \time 4/4
+                    fs'4
+                    g'2
+                    bf'4
+                    fs'4
+                    g'2
+                    bf'4
+                    fs'4
+                    r2
+                    bf'4
+                    fs'4
+                    g'2
+                    bf'4
                 }
-                \times 4/5
+                \new Staff
                 {
-                    cs''4
-                    r1
+                    \time 4/4
+                    R1
+                    \times 4/5
+                    {
+                        cs''4
+                        r1
+                    }
+                    \times 4/5
+                    {
+                        cs''4
+                        r1
+                    }
+                    R1
                 }
-                R1
-            }
-        >>
+            >>
 
         ..  figure:: ../_images/CrossFader-pauqe26ke8e.png
 
@@ -491,69 +515,72 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \times 2/3
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \times 2/3
+                    {
+                        \time 4/4
+                        <c' e'>2
+                        g'1
+                    }
+                    \times 2/3
+                    {
+                        <c' e'>2
+                        g'1
+                    }
+                    \times 2/3
+                    {
+                        <c' e'>2
+                        g'1
+                    }
+                    \times 2/3
+                    {
+                        <c' e'>2
+                        g'1
+                    }
+                    \times 2/3
+                    {
+                        c'2
+                        g'1
+                    }
+                    \times 2/3
+                    {
+                        c'2
+                        g'1
+                    }
+                    \times 2/3
+                    {
+                        c'2
+                        r1
+                    }
+                    R1
+                }
+                \new Staff
                 {
                     \time 4/4
-                    <c' e'>2
-                    g'1
+                    R1
+                    ef'2.
+                    r4
+                    <d' ef'>2.
+                    r4
+                    <d' ef'>2.
+                    bf4
+                    <d' ef'>2.
+                    bf4
+                    <d' ef'>2.
+                    <bf a'>4
+                    <d' ef'>2.
+                    <bf a'>4
+                    <d' ef'>2.
+                    <bf a'>4
                 }
-                \times 2/3
-                {
-                    <c' e'>2
-                    g'1
-                }
-                \times 2/3
-                {
-                    <c' e'>2
-                    g'1
-                }
-                \times 2/3
-                {
-                    <c' e'>2
-                    g'1
-                }
-                \times 2/3
-                {
-                    c'2
-                    g'1
-                }
-                \times 2/3
-                {
-                    c'2
-                    g'1
-                }
-                \times 2/3
-                {
-                    c'2
-                    r1
-                }
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                ef'2.
-                r4
-                <d' ef'>2.
-                r4
-                <d' ef'>2.
-                bf4
-                <d' ef'>2.
-                bf4
-                <d' ef'>2.
-                <bf a'>4
-                <d' ef'>2.
-                <bf a'>4
-                <d' ef'>2.
-                <bf a'>4
-            }
-        >>
+            >>
 
         ..  figure:: ../_images/CrossFader-lm8byjxoayn.png
 
@@ -593,35 +620,38 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/4
-                r4
-                c'4
-                d'4
-                r2
-                d'4
-                r2
-                d'4
-                R1 * 3/4
-                R1 * 3/4
-            }
-            \new Staff
-            {
-                \time 3/4
-                R1 * 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                r2
-                a''4
-                g''2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/4
+                    r4
+                    c'4
+                    d'4
+                    r2
+                    d'4
+                    r2
+                    d'4
+                    R1 * 3/4
+                    R1 * 3/4
+                }
+                \new Staff
+                {
+                    \time 3/4
+                    R1 * 3/4
+                    R1 * 3/4
+                    a''4
+                    r2
+                    a''4
+                    r2
+                    a''4
+                    g''2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-sm9qcruxat.png
 
@@ -634,36 +664,39 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/4
-                r4
-                c'4
-                d'4
-                r2
-                d'4
-                r2
-                d'4
-                r2
-                d'4
-                R1 * 3/4
-            }
-            \new Staff
-            {
-                \time 3/4
-                R1 * 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                g''2
-                a''4
-                g''2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/4
+                    r4
+                    c'4
+                    d'4
+                    r2
+                    d'4
+                    r2
+                    d'4
+                    r2
+                    d'4
+                    R1 * 3/4
+                }
+                \new Staff
+                {
+                    \time 3/4
+                    R1 * 3/4
+                    R1 * 3/4
+                    a''4
+                    r2
+                    a''4
+                    g''2
+                    a''4
+                    g''2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-2a4cyxsyxrg.png
 
@@ -677,39 +710,42 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/4
-                r4
-                c'4
-                d'4
-                r4
-                c'4
-                d'4
-                r4
-                c'4
-                d'4
-                r2
-                d'4
-                R1 * 3/4
-            }
-            \new Staff
-            {
-                \time 3/4
-                R1 * 3/4
-                a''4
-                r2
-                a''4
-                g''2
-                a''4
-                g''2
-                a''4
-                g''2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/4
+                    r4
+                    c'4
+                    d'4
+                    r4
+                    c'4
+                    d'4
+                    r4
+                    c'4
+                    d'4
+                    r2
+                    d'4
+                    R1 * 3/4
+                }
+                \new Staff
+                {
+                    \time 3/4
+                    R1 * 3/4
+                    a''4
+                    r2
+                    a''4
+                    g''2
+                    a''4
+                    g''2
+                    a''4
+                    g''2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-oap1pnwrfqc.png
 
@@ -729,95 +765,98 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                e'2
-                c'2
-                e'2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                R1
-                R1
-                R1
-                R1
-                R1
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                r4.
-                f''8
-                r2
-                r4.
-                f''8
-                r2
-                r4.
-                f''8
-                r8
-                a''8
-                r4
-                r4.
-                f''8
-                r8
-                a''8
-                b''8
-                r8
-                r4.
-                f''8
-                r8
-                a''8
-                b''8
-                r8
-                r4.
-                f''8
-                r8
-                a''8
-                b''8
-                c'''8
-                r4
-                e''8
-                f''8
-                r8
-                a''8
-                b''8
-                c'''8
-                r8
-                d''8
-                e''8
-                f''8
-                r8
-                a''8
-                b''8
-                c'''8
-                c''8
-                d''8
-                e''8
-                f''8
-                r8
-                a''8
-                b''8
-                c'''8
-                c''8
-                d''8
-                e''8
-                f''8
-                g''8
-                a''8
-                b''8
-                c'''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    e'2
+                    c'2
+                    e'2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    R1
+                    R1
+                    R1
+                    R1
+                    R1
+                    R1
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    r4.
+                    f''8
+                    r2
+                    r4.
+                    f''8
+                    r2
+                    r4.
+                    f''8
+                    r8
+                    a''8
+                    r4
+                    r4.
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    r8
+                    r4.
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    r8
+                    r4.
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    c'''8
+                    r4
+                    e''8
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    c'''8
+                    r8
+                    d''8
+                    e''8
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    c'''8
+                    c''8
+                    d''8
+                    e''8
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    c'''8
+                    c''8
+                    d''8
+                    e''8
+                    f''8
+                    g''8
+                    a''8
+                    b''8
+                    c'''8
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-o58h79ijsdf.png
 
@@ -830,103 +869,106 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                e'2
-                c'2
-                e'2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                r2
-                c'2
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                r4.
-                f''8
-                r2
-                r4.
-                f''8
-                r2
-                r4.
-                f''8
-                r8
-                a''8
-                r4
-                r4.
-                f''8
-                r8
-                a''8
-                b''8
-                r8
-                r4
-                e''8
-                f''8
-                r8
-                a''8
-                b''8
-                r8
-                r4
-                e''8
-                f''8
-                g''8
-                a''8
-                b''8
-                r8
-                c''8
-                r8
-                e''8
-                f''8
-                g''8
-                a''8
-                b''8
-                r8
-                c''8
-                r8
-                e''8
-                f''8
-                g''8
-                a''8
-                b''8
-                c'''8
-                c''8
-                d''8
-                e''8
-                f''8
-                g''8
-                a''8
-                b''8
-                c'''8
-                c''8
-                d''8
-                e''8
-                f''8
-                g''8
-                a''8
-                b''8
-                c'''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    e'2
+                    c'2
+                    e'2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    r2
+                    c'2
+                    R1
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    r4.
+                    f''8
+                    r2
+                    r4.
+                    f''8
+                    r2
+                    r4.
+                    f''8
+                    r8
+                    a''8
+                    r4
+                    r4.
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    r8
+                    r4
+                    e''8
+                    f''8
+                    r8
+                    a''8
+                    b''8
+                    r8
+                    r4
+                    e''8
+                    f''8
+                    g''8
+                    a''8
+                    b''8
+                    r8
+                    c''8
+                    r8
+                    e''8
+                    f''8
+                    g''8
+                    a''8
+                    b''8
+                    r8
+                    c''8
+                    r8
+                    e''8
+                    f''8
+                    g''8
+                    a''8
+                    b''8
+                    c'''8
+                    c''8
+                    d''8
+                    e''8
+                    f''8
+                    g''8
+                    a''8
+                    b''8
+                    c'''8
+                    c''8
+                    d''8
+                    e''8
+                    f''8
+                    g''8
+                    a''8
+                    b''8
+                    c'''8
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-l3dc3vxfpdnsxdym4gql.png
 
@@ -947,49 +989,52 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                r4
-                bf'2
-                r4
-                R1
-                R1
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                R1
-                R1
-                r2
-                d''2
-                c''2
-                d''2
-                c''2
-                d''2
-                c''2
-                d''2
-                c''2
-                d''2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    a'4
+                    bf'2
+                    r4
+                    a'4
+                    bf'2
+                    r4
+                    r4
+                    bf'2
+                    r4
+                    r4
+                    bf'2
+                    r4
+                    r4
+                    bf'2
+                    r4
+                    R1
+                    R1
+                    R1
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    R1
+                    R1
+                    r2
+                    d''2
+                    c''2
+                    d''2
+                    c''2
+                    d''2
+                    c''2
+                    d''2
+                    c''2
+                    d''2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-e480tbrvwg.png
 
@@ -1009,37 +1054,40 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-                a'4
-                bf'2
-                r4
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                r2
-                d''2
-                r2
-                d''2
-                r2
-                d''2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    a'4
+                    bf'2
+                    r4
+                    a'4
+                    bf'2
+                    r4
+                    a'4
+                    bf'2
+                    r4
+                    a'4
+                    bf'2
+                    r4
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    r2
+                    d''2
+                    r2
+                    d''2
+                    r2
+                    d''2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-743rxr2n02o.png
 
@@ -1060,32 +1108,35 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                fs'4
-                g'2
-                bf'4
-                fs'4
-                g'2
-                r4
-                fs'4
-                g'2
-                r4
-            }
-            \new Staff
-            {
-                R1
-                R1
-                \times 4/5
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
-                    cs''4
-                    r1
+                    fs'4
+                    g'2
+                    bf'4
+                    fs'4
+                    g'2
+                    r4
+                    fs'4
+                    g'2
+                    r4
                 }
-            }
-        >>
+                \new Staff
+                {
+                    R1
+                    R1
+                    \times 4/5
+                    {
+                        cs''4
+                        r1
+                    }
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-aypzofmynwe.png
 
@@ -1115,37 +1166,40 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                c'8
-                d'4
-                e'8
-                ~
-                e'2
-                r8
-                d'4
-                e'8
-                ~
-                e'2
-                r8
-                d'4
-                e'8
-                ~
-                e'2
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                R1
-                r2
-                d'2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'4
+                    e'8
+                    ~
+                    e'2
+                    r8
+                    d'4
+                    e'8
+                    ~
+                    e'2
+                    r8
+                    d'4
+                    e'8
+                    ~
+                    e'2
+                }
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    R1
+                    r2
+                    d'2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-vprhoh84quk.png
 
@@ -1199,53 +1253,56 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                f'4
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                f'4
-                \time 3/4
-                a'4
-                bf'2
-                ~
-                \time 2/4
-                bf'4
-                r4
-            }
-            \new Staff
-            {
-                \time 3/4
-                R1 * 3/4
-                \time 2/4
-                R1 * 1/2
-                \time 3/4
-                r16
-                cs''4..
-                r4
-                \time 2/4
-                R1 * 1/2
-                \time 3/4
-                r16
-                cs''4..
-                r4
-                \time 2/4
-                R1 * 1/2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/4
+                    a'4
+                    bf'2
+                    ~
+                    \time 2/4
+                    bf'4
+                    f'4
+                    \time 3/4
+                    a'4
+                    bf'2
+                    ~
+                    \time 2/4
+                    bf'4
+                    f'4
+                    \time 3/4
+                    a'4
+                    bf'2
+                    ~
+                    \time 2/4
+                    bf'4
+                    r4
+                }
+                \new Staff
+                {
+                    \time 3/4
+                    R1 * 3/4
+                    \time 2/4
+                    R1 * 1/2
+                    \time 3/4
+                    r16
+                    cs''4..
+                    r4
+                    \time 2/4
+                    R1 * 1/2
+                    \time 3/4
+                    r16
+                    cs''4..
+                    r4
+                    \time 2/4
+                    R1 * 1/2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-w99zcui5rj.png
 
@@ -1268,82 +1325,85 @@ class CrossFader():
         ...     abjad.Staff(selection_a),
         ...     abjad.Staff(selection_b),
         ... ])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 4/4
-                c'4.
-                \p
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                c'4.
-                \p
-                e'8
-                \f
-                - \tenuto
-                ~
-                e'2
-                r4.
-                e'8
-                - \tenuto
-                ~
-                e'2
-                r4.
-                e'8
-                - \tenuto
-                ~
-                e'2
-                R1
-            }
-            \new Staff
-            {
-                \time 4/4
-                R1
-                \times 2/3
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
-                    f'4
-                    \pp
-                    - \staccato
-                    r2
-                }
-                r2
-                \times 2/3
-                {
-                    f'4
-                    - \staccato
-                    r2
-                }
-                r2
-                \times 2/3
-                {
-                    f'4
-                    - \staccato
-                    r4
-                    d'4
+                    \time 4/4
+                    c'4.
+                    \p
+                    e'8
                     \f
-                    - \accent
+                    - \tenuto
                     ~
-                }
-                d'2
-                \times 2/3
-                {
-                    f'4
-                    \pp
-                    - \staccato
-                    r4
-                    d'4
+                    e'2
+                    c'4.
+                    \p
+                    e'8
                     \f
-                    - \accent
+                    - \tenuto
                     ~
+                    e'2
+                    r4.
+                    e'8
+                    - \tenuto
+                    ~
+                    e'2
+                    r4.
+                    e'8
+                    - \tenuto
+                    ~
+                    e'2
+                    R1
                 }
-                d'2
-            }
-        >>
+                \new Staff
+                {
+                    \time 4/4
+                    R1
+                    \times 2/3
+                    {
+                        f'4
+                        \pp
+                        - \staccato
+                        r2
+                    }
+                    r2
+                    \times 2/3
+                    {
+                        f'4
+                        - \staccato
+                        r2
+                    }
+                    r2
+                    \times 2/3
+                    {
+                        f'4
+                        - \staccato
+                        r4
+                        d'4
+                        \f
+                        - \accent
+                        ~
+                    }
+                    d'2
+                    \times 2/3
+                    {
+                        f'4
+                        \pp
+                        - \staccato
+                        r4
+                        d'4
+                        \f
+                        - \accent
+                        ~
+                    }
+                    d'2
+                }
+            >>
 
         ..  figure:: ../_images/CrossFader-o0yetbq5wqj.png
 
@@ -1377,83 +1437,86 @@ class CrossFader():
         ...     [abjad.Voice(selection_a), abjad.Voice(selection_b)],
         ...     simultaneous=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        <<
-            \new Voice
-            {
-                \time 4/4
-                \voiceOne
-                b'8
-                c''8
-                e''2
-                g''4
-                b'8
-                c''8
-                e''2
-                r4
-                b'8
-                c''8
-                e''2
-                r4
-                b'8
-                c''8
-                e''2
-                r4
-                b'8
-                c''8
-                e''2
-                r4
-                b'8
-                c''8
-                r2.
-                b'8
-                r2..
-                R1
-            }
-            \new Voice
-            {
-                \time 4/4
-                \voiceTwo
-                R1
-                R1
-                \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            <<
+                \new Voice
                 {
-                    r1
-                    c'2
+                    \time 4/4
+                    \voiceOne
+                    b'8
+                    c''8
+                    e''2
+                    g''4
+                    b'8
+                    c''8
+                    e''2
+                    r4
+                    b'8
+                    c''8
+                    e''2
+                    r4
+                    b'8
+                    c''8
+                    e''2
+                    r4
+                    b'8
+                    c''8
+                    e''2
+                    r4
+                    b'8
+                    c''8
+                    r2.
+                    b'8
+                    r2..
+                    R1
                 }
-                \times 2/3
+                \new Voice
                 {
-                    e'2
-                    r2
-                    c'2
+                    \time 4/4
+                    \voiceTwo
+                    R1
+                    R1
+                    \times 2/3
+                    {
+                        r1
+                        c'2
+                    }
+                    \times 2/3
+                    {
+                        e'2
+                        r2
+                        c'2
+                    }
+                    \times 2/3
+                    {
+                        e'2
+                        d'2
+                        c'2
+                    }
+                    \times 2/3
+                    {
+                        e'2
+                        d'2
+                        c'2
+                    }
+                    \times 2/3
+                    {
+                        e'2
+                        d'2
+                        c'2
+                    }
+                    \times 2/3
+                    {
+                        e'2
+                        d'2
+                        c'2
+                    }
                 }
-                \times 2/3
-                {
-                    e'2
-                    d'2
-                    c'2
-                }
-                \times 2/3
-                {
-                    e'2
-                    d'2
-                    c'2
-                }
-                \times 2/3
-                {
-                    e'2
-                    d'2
-                    c'2
-                }
-                \times 2/3
-                {
-                    e'2
-                    d'2
-                    c'2
-                }
-            }
-        >>
+            >>
 
         ..  figure:: ../_images/CrossFader-rZLSa2kyqM.png
 
@@ -1496,66 +1559,69 @@ class CrossFader():
         ...         \consists "Default_bar_line_engraver"
         ...     }'''
         ... )
-        >>> abjad.f(score)
-        \version "2.19.82"  %! abjad.LilyPondFile._get_format_pieces()
-        \language "english" %! abjad.LilyPondFile._get_format_pieces()
-        \header { %! abjad.LilyPondFile._get_formatted_blocks()
-            tagline = ##f
-        } %! abjad.LilyPondFile._get_formatted_blocks()
-        \layout {}
-        \paper {}
-        \score { %! abjad.LilyPondFile._get_formatted_blocks()
-            \new Score
-            <<
-                \new Staff
-                {
-                    \time 3/4
-                    c'4
-                    d'4
-                    e'4
-                    c'4
-                    d'4
-                    e'4
-                    c'4
-                    r4
-                    e'4
-                    c'4
-                    r2
-                    c'4
-                    r2
-                    R1 * 3/4
-                    R1 * 3/4
-                    R1 * 3/4
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \version "2.19.82"  %! abjad.LilyPondFile._get_format_pieces()
+            \language "english" %! abjad.LilyPondFile._get_format_pieces()
+            \header { %! abjad.LilyPondFile._get_formatted_blocks()
+                tagline = ##f
+            } %! abjad.LilyPondFile._get_formatted_blocks()
+            \layout {}
+            \paper {}
+            \score { %! abjad.LilyPondFile._get_formatted_blocks()
+                \new Score
+                <<
+                    \new Staff
+                    {
+                        \time 3/4
+                        c'4
+                        d'4
+                        e'4
+                        c'4
+                        d'4
+                        e'4
+                        c'4
+                        r4
+                        e'4
+                        c'4
+                        r2
+                        c'4
+                        r2
+                        R1 * 3/4
+                        R1 * 3/4
+                        R1 * 3/4
+                    }
+                    \new Staff
+                    {
+                        \time 4/4
+                        R1
+                        r2
+                        a'2
+                        r2
+                        a'2
+                        r2
+                        a'2
+                        g'2
+                        a'2
+                        g'2
+                        a'2
+                    }
+                >>
+                \layout {
+                    \context {
+                        \Score
+                        \remove "Timing_translator"
+                        \remove "Default_bar_line_engraver"
+                    }
+                    \context {
+                        \Staff
+                        \consists "Timing_translator"
+                        \consists "Default_bar_line_engraver"
+                    }
                 }
-                \new Staff
-                {
-                    \time 4/4
-                    R1
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    r2
-                    a'2
-                    g'2
-                    a'2
-                    g'2
-                    a'2
-                }
-            >>
-            \layout {
-                \context {
-                    \Score
-                    \remove "Timing_translator"
-                    \remove "Default_bar_line_engraver"
-                }
-                \context {
-                    \Staff
-                    \consists "Timing_translator"
-                    \consists "Default_bar_line_engraver"
-                }
-            }
-        } %! abjad.LilyPondFile._get_formatted_blocks()
+            } %! abjad.LilyPondFile._get_formatted_blocks()
 
         ..  figure:: ../_images/CrossFader-5qvaan79w8p.png
     """

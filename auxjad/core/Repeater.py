@@ -16,18 +16,21 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Repeater-tigd5dwtszh.png
 
@@ -36,18 +39,21 @@ class Repeater():
 
         >>> notes = repeater.current_window()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Repeater-hg86wd75fvp.png
 
@@ -58,25 +64,28 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'2.
-            \time 2/4
-            r2
-            g'2
-            \time 3/4
-            c'2.
-            \time 2/4
-            r2
-            g'2
-            \time 3/4
-            c'2.
-            \time 2/4
-            r2
-            g'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+                \time 2/4
+                r2
+                g'2
+                \time 3/4
+                c'2.
+                \time 2/4
+                r2
+                g'2
+                \time 3/4
+                c'2.
+                \time 2/4
+                r2
+                g'2
+            }
 
         ..  figure:: ../_images/Repeater-fqkjxhegzmv.png
 
@@ -89,20 +98,23 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/Repeater-k4hxxghalwh.png
 
@@ -110,22 +122,25 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            \time 2/4
-            f'2
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            \time 2/4
-            f'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                \time 2/4
+                f'2
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                \time 2/4
+                f'2
+            }
 
         ..  figure:: ../_images/Repeater-fee3qe1vdjl.png
 
@@ -148,20 +163,23 @@ class Repeater():
         ...     if abjad.get.duration(staff) == abjad.Duration((9, 4)):
         ...         break
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/Repeater-8oouugbk5zc.png
 
@@ -223,38 +241,44 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Repeater-f1kqq128afw.png
 
         >>> repeater.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = repeater(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'16
-            d'16
-            e'16
-            f'16
-            g'2.
-            c'16
-            d'16
-            e'16
-            f'16
-            g'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'16
+                d'16
+                e'16
+                f'16
+                g'2.
+                c'16
+                d'16
+                e'16
+                f'16
+                g'2.
+            }
 
         ..  figure:: ../_images/Repeater-jblq28xlso.png
 
@@ -266,18 +290,21 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater.output_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Repeater-w0hd2fp2w9e.png
 
@@ -293,19 +320,22 @@ class Repeater():
         ...                            )
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/Repeater-vr4af47iwjg.png
 
@@ -322,22 +352,25 @@ class Repeater():
         ...                            )
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/4
-            c'2.
-            d'4
-            e'4
-            \time 5/4
-            c'2.
-            d'4
-            e'4
-            \time 5/4
-            c'2.
-            d'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/4
+                c'2.
+                d'4
+                e'4
+                \time 5/4
+                c'2.
+                d'4
+                e'4
+                \time 5/4
+                c'2.
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/Repeater-xgpndbdb0j.png
 
@@ -346,19 +379,22 @@ class Repeater():
         clefs, optimising their position and omitting repetitions.
 
         >>> container = abjad.Staff(r"\clef bass f4\pp( e4) d4(")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            \clef "bass"
-            f4
-            \pp
-            (
-            e4
-            )
-            d4
-            (
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                \clef "bass"
+                f4
+                \pp
+                (
+                e4
+                )
+                d4
+                (
+            }
 
         ..  figure:: ../_images/Repeater-m1ibei9s3am.png
 
@@ -370,28 +406,31 @@ class Repeater():
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            \clef "bass"
-            f4
-            \pp
-            (
-            e4
-            )
-            d4
-            (
-            f4
-            e4
-            )
-            d4
-            (
-            f4
-            e4
-            )
-            d4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                \clef "bass"
+                f4
+                \pp
+                (
+                e4
+                )
+                d4
+                (
+                f4
+                e4
+                )
+                d4
+                (
+                f4
+                e4
+                )
+                d4
+            }
 
         ..  figure:: ../_images/Repeater-scjj2uwz2p.png
 
@@ -406,35 +445,38 @@ class Repeater():
         ...                            )
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            \clef "bass"
-            f4
-            \pp
-            (
-            e4
-            )
-            d4
-            (
-            \clef "bass"
-            f4
-            \pp
-            (
-            e4
-            )
-            d4
-            (
-            \clef "bass"
-            f4
-            \pp
-            (
-            e4
-            )
-            d4
-            (
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                \clef "bass"
+                f4
+                \pp
+                (
+                e4
+                )
+                d4
+                (
+                \clef "bass"
+                f4
+                \pp
+                (
+                e4
+                )
+                d4
+                (
+                \clef "bass"
+                f4
+                \pp
+                (
+                e4
+                )
+                d4
+                (
+            }
 
         ..  figure:: ../_images/Repeater-cc39a0h84dc.png
 

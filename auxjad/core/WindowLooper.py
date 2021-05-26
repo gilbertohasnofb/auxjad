@@ -24,34 +24,40 @@ class WindowLooper(_LooperParent):
         >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'2
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'2
+                e'4
+            }
 
         ..  figure:: ../_images/WindowLooper-a9k9q8xy1j.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'4
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'4
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+            }
 
         ..  figure:: ../_images/WindowLooper-oori8gjer9s.png
 
@@ -60,21 +66,24 @@ class WindowLooper(_LooperParent):
 
         >>> notes = looper.current_window()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'4
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'4
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+            }
 
         ..  figure:: ../_images/WindowLooper-7zc9e7o3dlr.png
 
@@ -90,21 +99,24 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'4
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'4
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+            }
 
         ..  figure:: ../_images/WindowLooper-dual73tnheq.png
 
@@ -121,28 +133,34 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'2
+            }
 
         ..  figure:: ../_images/WindowLooper-0wh7ajyal0qj.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'8
-            ~
-            d'4.
-            e'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                d'8
+                ~
+                d'4.
+                e'8
+            }
 
         ..  figure:: ../_images/WindowLooper-tt90u6gg2tp.png
 
@@ -165,34 +183,37 @@ class WindowLooper(_LooperParent):
         >>> for window in looper:
         ...     staff.append(window)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'2
-            c'8
-            d'8
-            ~
-            d'4.
-            e'8
-            d'2
-            e'4
-            d'4.
-            e'4
-            r8
-            d'4
-            e'4
-            r4
-            d'8
-            e'4
-            r4.
-            e'4
-            r2
-            e'8
-            r8
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'2
+                c'8
+                d'8
+                ~
+                d'4.
+                e'8
+                d'2
+                e'4
+                d'4.
+                e'4
+                r8
+                d'4
+                e'4
+                r4
+                d'8
+                e'4
+                r4.
+                e'4
+                r2
+                e'8
+                r8
+                r2
+            }
 
         ..  figure:: ../_images/WindowLooper-9sldax4dumb.png
 
@@ -210,22 +231,25 @@ class WindowLooper(_LooperParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            d'4
-            e'4
-            f'4
-            e'4
-            f'4
-            r4
-            f'4
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                d'4
+                e'4
+                f'4
+                e'4
+                f'4
+                r4
+                f'4
+                r2
+            }
 
         ..  figure:: ../_images/WindowLooper-4l025g7ycxr.png
 
@@ -238,17 +262,20 @@ class WindowLooper(_LooperParent):
         >>> staff = abjad.Staff()
         >>> for window in looper:
         ...     staff.append(window)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/WindowLooper-lq4cwlzlpp.png
 
@@ -373,20 +400,23 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            f'4
-            g'4
-            a'4
-            e'4
-            f'4
-            g'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                f'4
+                g'4
+                a'4
+                e'4
+                f'4
+                g'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/WindowLooper-ty5vqw6qk9d.png
 
@@ -407,26 +437,29 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            f'4
-            g'4
-            a'4
-            e'4
-            f'4
-            g'4
-            d'4
-            e'4
-            f'4
-            e'4
-            f'4
-            g'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                f'4
+                g'4
+                a'4
+                e'4
+                f'4
+                g'4
+                d'4
+                e'4
+                f'4
+                e'4
+                f'4
+                g'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/WindowLooper-p91xgsnmp3o.png
 
@@ -443,15 +476,18 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_n(4)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 1/4
-            c'4
-            f'4
-            b'4
-            c''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 1/4
+                c'4
+                f'4
+                b'4
+                c''4
+            }
 
         ..  figure:: ../_images/WindowLooper-81mbjuesmbr.png
 
@@ -492,22 +528,25 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            d'4
-            e'4
-            f'4
-            e'4
-            f'4
-            r4
-            f'4
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                d'4
+                e'4
+                f'4
+                e'4
+                f'4
+                r4
+                f'4
+                r2
+            }
 
         ..  figure:: ../_images/WindowLooper-y734t07uio.png
 
@@ -523,28 +562,31 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_all(tie_identical_pitches=True)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            <e' f' g'>2
-            ~
-            <e' f' g'>2
-            r4
-            <e' f' g'>4
-            r4
-            f'4
-            r4
-            f'2
-            ~
-            f'2.
-            ~
-            f'2
-            r4
-            f'4
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                <e' f' g'>2
+                ~
+                <e' f' g'>2
+                r4
+                <e' f' g'>4
+                r4
+                f'4
+                r4
+                f'2
+                ~
+                f'2.
+                ~
+                f'2
+                r4
+                f'4
+                r2
+            }
 
         ..  figure:: ../_images/WindowLooper-1giyp118geth.png
 
@@ -562,17 +604,20 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/WindowLooper-uikg5s4t26.png
 
@@ -588,13 +633,16 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'2
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'2
+                e'4
+            }
 
         ..  figure:: ../_images/WindowLooper-24ipt4uf4x8.png
 
@@ -617,49 +665,55 @@ class WindowLooper(_LooperParent):
         >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'2
-            e'4
-            c'8.
-            d'16
-            ~
-            d'4
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            c'8
-            d'8
-            ~
-            d'4
-            ~
-            d'8
-            e'4
-            f'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'2
+                e'4
+                c'8.
+                d'16
+                ~
+                d'4
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                c'8
+                d'8
+                ~
+                d'4
+                ~
+                d'8
+                e'4
+                f'8
+            }
 
         ..  figure:: ../_images/WindowLooper-52p5g0hqnep.png
 
         >>> looper.window_size = (3, 8)
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'16
-            d'16
-            ~
-            d'4
-            d'4.
-            d'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'16
+                d'16
+                ~
+                d'4
+                d'4.
+                d'4.
+            }
 
         ..  figure:: ../_images/WindowLooper-kzrb0fwup2.png
 
@@ -673,70 +727,82 @@ class WindowLooper(_LooperParent):
         >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'2
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'2
+                e'4
+            }
 
         ..  figure:: ../_images/WindowLooper-hx2wjkgko3j.png
 
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'4
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'4
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+            }
 
         ..  figure:: ../_images/WindowLooper-bjabk27oapb.png
 
         >>> looper.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2. a'1")
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'16
-            e'16
-            f'16
-            g'16
-            ~
-            g'2
-            ~
-            g'8.
-            a'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'16
+                e'16
+                f'16
+                g'16
+                ~
+                g'2
+                ~
+                g'8.
+                a'16
+            }
 
         ..  figure:: ../_images/WindowLooper-fdioda2e2ed.png
 
         >>> looper.head_position = 0
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'16
-            d'16
-            e'16
-            f'16
-            g'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'16
+                d'16
+                e'16
+                f'16
+                g'2.
+            }
 
         ..  figure:: ../_images/WindowLooper-vh12q82nw0e.png
 
@@ -751,38 +817,41 @@ class WindowLooper(_LooperParent):
         >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper.output_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            \p
-            - \staccato
-            \<
-            d'2
-            \f
-            - \tenuto
-            e'4
-            \ppp
-            - \accent
-            c'8.
-            \p
-            - \staccato
-            \<
-            d'16
-            \f
-            - \tenuto
-            ~
-            d'4
-            ~
-            d'8.
-            e'16
-            \ppp
-            - \accent
-            ~
-            e'8.
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                \p
+                - \staccato
+                \<
+                d'2
+                \f
+                - \tenuto
+                e'4
+                \ppp
+                - \accent
+                c'8.
+                \p
+                - \staccato
+                \<
+                d'16
+                \f
+                - \tenuto
+                ~
+                d'4
+                ~
+                d'8.
+                e'16
+                \ppp
+                - \accent
+                ~
+                e'8.
+                f'16
+            }
 
         ..  figure:: ../_images/WindowLooper-23jcqhmpqfm.png
 
@@ -810,22 +879,25 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+            }
 
         ..  figure:: ../_images/LeafLooper-toNYz7MCq3.png
 
@@ -840,18 +912,21 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper.output_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            c'8.
-            d'4
-            e'4
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                c'8.
+                d'4
+                e'4
+                f'16
+            }
 
         ..  figure:: ../_images/LeafLooper-osLcSeQ6gP.png
 
@@ -863,14 +938,17 @@ class WindowLooper(_LooperParent):
         >>> looper = auxjad.WindowLooper(container)
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/WindowLooper-5iew8d28rqj.png
 
@@ -882,16 +960,19 @@ class WindowLooper(_LooperParent):
         ...                              )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'8
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'8
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/WindowLooper-hzetruc3kz4.png
 
@@ -920,37 +1001,40 @@ class WindowLooper(_LooperParent):
         ...                              step_size=(1, 16))
         >>> notes = looper.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                \time 3/4
-                c'8
-                d'8
-                e'8
-            }
-            d'2
-            \times 2/3
-            {
-                c'32
+                \times 2/3
+                {
+                    \time 3/4
+                    c'8
+                    d'8
+                    e'8
+                }
+                d'2
+                \times 2/3
+                {
+                    c'32
+                    d'16
+                    ~
+                    d'16
+                    e'8
+                }
                 d'16
                 ~
-                d'16
-                e'8
+                d'2
+                \times 2/3
+                {
+                    d'16
+                    e'8
+                }
+                d'8
+                ~
+                d'2
             }
-            d'16
-            ~
-            d'2
-            \times 2/3
-            {
-                d'16
-                e'8
-            }
-            d'8
-            ~
-            d'2
-        }
 
         ..  figure:: ../_images/WindowLooper-cevvf9c9a9.png
     """

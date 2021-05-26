@@ -14,33 +14,39 @@ def reposition_slurs(selection: abjad.Selection,
         pitched leaf.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            r2
-            )
-            r1
-            e'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                r2
+                )
+                r1
+                e'1
+            }
 
         ..  figure:: ../_images/reposition_slurs-uxji4xx6ftk.png
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            r2
-            r1
-            e'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                r1
+                e'1
+            }
 
         ..  figure:: ../_images/reposition_slurs-7nnp5cttm4y.png
 
@@ -58,31 +64,37 @@ def reposition_slurs(selection: abjad.Selection,
         Slurs starting on rests are shifted to the next pitched leaf.
 
         >>> staff = abjad.Staff(r"c'1 r2( d'2 e'1)")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            r2
-            (
-            d'2
-            e'1
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                r2
+                (
+                d'2
+                e'1
+                )
+            }
 
         ..  figure:: ../_images/reposition_slurs-2j7hgqd7bt1.png
 
         >>> staff = abjad.Staff(r"c'1 r2( d'2 e'1)")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            r2
-            d'2
-            (
-            e'1
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                r2
+                d'2
+                (
+                e'1
+                )
+            }
 
         ..  figure:: ../_images/reposition_slurs-i957u1wt30m.png
 
@@ -90,33 +102,39 @@ def reposition_slurs(selection: abjad.Selection,
         This function also works when multiple rests are present.
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 r1) e'1")
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            r2
-            r1
-            )
-            e'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                r2
+                r1
+                )
+                e'1
+            }
 
         ..  figure:: ../_images/reposition_slurs-v76u42x7idk.png
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 r1) e'1")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            r2
-            r1
-            e'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                r1
+                e'1
+            }
 
         ..  figure:: ../_images/reposition_slurs-burs1t0daid.png
 
@@ -125,19 +143,22 @@ def reposition_slurs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            r2
-            e'1
-            (
-            f'1
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                e'1
+                (
+                f'1
+                )
+            }
 
         ..  figure:: ../_images/reposition_slurs-8wb7orpt285.png
 
@@ -149,17 +170,20 @@ def reposition_slurs(selection: abjad.Selection,
         ...     staff[:],
         ...     allow_slurs_under_rests=True,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            r2
-            e'1
-            f'1
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                r2
+                e'1
+                f'1
+                )
+            }
 
         ..  figure:: ../_images/reposition_slurs-ftb59kz6u8j.png
 
@@ -169,23 +193,26 @@ def reposition_slurs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            r2
-            e'2
-            (
-            f'2
-            )
-            g'1
-            (
-            a'1
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                e'2
+                (
+                f'2
+                )
+                g'1
+                (
+                a'1
+                )
+            }
 
         ..  figure:: ../_images/reposition_slurs-70dli8e0kqr.png
 
@@ -197,22 +224,25 @@ def reposition_slurs(selection: abjad.Selection,
         ...     staff[:],
         ...     close_unterminated_final_slur=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            r2
-            e'2
-            (
-            f'2
-            )
-            g'1
-            (
-            a'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                e'2
+                (
+                f'2
+                )
+                g'1
+                (
+                a'1
+            }
 
         ..  figure:: ../_images/reposition_slurs-1usa2dezl45.png
 
@@ -221,21 +251,24 @@ def reposition_slurs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( r1")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            r2
-            e'2
-            (
-            f'2
-            )
-            g'1
-            r1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                r2
+                e'2
+                (
+                f'2
+                )
+                g'1
+                r1
+            }
 
         ..  figure:: ../_images/reposition_slurs-a0uakfcltuf.png
 
@@ -247,20 +280,23 @@ def reposition_slurs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1( d'2) e'2) f'2( g'2( a'1)")
         >>> auxjad.mutate.reposition_slurs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            (
-            d'2
-            )
-            e'2
-            f'2
-            (
-            g'2
-            a'1
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                (
+                d'2
+                )
+                e'2
+                f'2
+                (
+                g'2
+                a'1
+                )
+            }
 
         ..  figure:: ../_images/reposition_slurs-0ugn322x3tr.png
 

@@ -22,23 +22,26 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                r2
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                c'4
-                d'4
-                r4
-                f'4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    r2
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    r4
+                    f'4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-dh5lutbv09v.png
 
@@ -46,22 +49,25 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                d'4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                r2.
-                f'4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    r2.
+                    f'4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-gj278dv7vff.png
 
@@ -79,57 +85,63 @@ class Hocketer():
         >>> for selection in hocketer[:]:
         ...     staff = abjad.Staff(selection)
         ...     score.append(staff)
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                r2.
-                f'4
-            }
-            \new Staff
-            {
-                c'4
-                r4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                r4
-                d'4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                c'4
-                d'4
-                r4
-                f'4
-            }
-            \new Staff
-            {
-                c'4
-                r4
-                e'4
-                r4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    r2.
+                    f'4
+                }
+                \new Staff
+                {
+                    c'4
+                    r4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    r4
+                    d'4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    r4
+                    f'4
+                }
+                \new Staff
+                {
+                    c'4
+                    r4
+                    e'4
+                    r4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-5r3ybkxhmd4.png
 
         Individual staves can also be retrieved as shown below.
 
         >>> staff = abjad.Staff(hocketer[0])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            r4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                r4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Hocketer-sodb0btsuhq.png
 
@@ -137,27 +149,30 @@ class Hocketer():
         >>> for selection in hocketer[1:4]:
         ...     staff = abjad.Staff(selection)
         ...     partial_score.append(selection)
-        >>> abjad.f(partial_score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                d'4
-                r2
-            }
-            \new Staff
-            {
-                r4
-                d'4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                R1
-            }
-        >>
+        >>> abjad.show(partial_score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    r2
+                }
+                \new Staff
+                {
+                    r4
+                    d'4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    R1
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-3gsh3qtl21d.png
 
@@ -171,24 +186,27 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                r4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                r4
-                d'4
-                r4
-                f'4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    r4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    r4
+                    d'4
+                    r4
+                    f'4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-i2jt38x28fd.png
 
@@ -196,24 +214,27 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                r4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                r4
-                d'4
-                r4
-                f'4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    r4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    r4
+                    d'4
+                    r4
+                    f'4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-4291u773dng.png
 
@@ -334,36 +355,39 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'8
-                r8
-                e'8
-                r8
-                g'8
-                r4.
-            }
-            \new Staff
-            {
-                r8
-                d'8
-                r4
-                r8
-                a'8
-                r4
-            }
-            \new Staff
-            {
-                r4.
-                f'8
-                r4
-                b'8
-                c''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'8
+                    r8
+                    e'8
+                    r8
+                    g'8
+                    r4.
+                }
+                \new Staff
+                {
+                    r8
+                    d'8
+                    r4
+                    r8
+                    a'8
+                    r4
+                }
+                \new Staff
+                {
+                    r4.
+                    f'8
+                    r4
+                    b'8
+                    c''8
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-qf9niqf7em.png
 
@@ -395,36 +419,39 @@ class Hocketer():
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
         >>> abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                d'4
-                r4
-                f'4
-                r4
-                a'4
-                r2
-            }
-            \new Staff
-            {
-                R1
-                r2
-                b'4
-                c''4
-            }
-            \new Staff
-            {
-                \clef "bass"
-                r2
-                e4
-                r4
-                g4
-                r2.
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    r4
+                    f'4
+                    r4
+                    a'4
+                    r2
+                }
+                \new Staff
+                {
+                    R1
+                    r2
+                    b'4
+                    c''4
+                }
+                \new Staff
+                {
+                    \clef "bass"
+                    r2
+                    e4
+                    r4
+                    g4
+                    r2.
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-akuL9BDgw8.png
 
@@ -465,29 +492,32 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                r8
-                d'8
-                r4
-                g'8
-                r4.
-            }
-            \new Staff
-            {
-                c'8
-                r8
-                e'8
-                f'8
-                r8
-                a'8
-                b'8
-                c''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    r8
+                    d'8
+                    r4
+                    g'8
+                    r4.
+                }
+                \new Staff
+                {
+                    c'8
+                    r8
+                    e'8
+                    f'8
+                    r8
+                    a'8
+                    b'8
+                    c''8
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-xyecbupzmm.png
 
@@ -517,34 +547,37 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                d'4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                r2
-                e'4
-                f'4
-            }
-            \new Staff
-            {
-                r2.
-                f'4
-            }
-            \new Staff
-            {
-                r4
-                d'4
-                r2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    e'4
+                    r4
+                }
+                \new Staff
+                {
+                    r2
+                    e'4
+                    f'4
+                }
+                \new Staff
+                {
+                    r2.
+                    f'4
+                }
+                \new Staff
+                {
+                    r4
+                    d'4
+                    r2
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-ytjqsp7r2bn.png
 
@@ -567,42 +600,45 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'8
-                d'8
-                r8
-                f'8
-                g'8
-                a'8
-                b'8
-                c''8
-            }
-            \new Staff
-            {
-                c'8
-                r8
-                e'8
-                f'8
-                r4
-                b'8
-                r8
-            }
-            \new Staff
-            {
-                r8
-                d'8
-                e'8
-                r8
-                g'8
-                a'8
-                r8
-                c''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'8
+                    d'8
+                    r8
+                    f'8
+                    g'8
+                    a'8
+                    b'8
+                    c''8
+                }
+                \new Staff
+                {
+                    c'8
+                    r8
+                    e'8
+                    f'8
+                    r4
+                    b'8
+                    r8
+                }
+                \new Staff
+                {
+                    r8
+                    d'8
+                    e'8
+                    r8
+                    g'8
+                    a'8
+                    r8
+                    c''8
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-9limlogk0b8.png
 
@@ -633,27 +669,30 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                r2
-                <e' g' b'>4
-                r4
-            }
-            \new Staff
-            {
-                <c' e' g'>4
-                <d' f' a'>4
-                r2
-            }
-            \new Staff
-            {
-                r2.
-                <c' f' a'>4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    r2
+                    <e' g' b'>4
+                    r4
+                }
+                \new Staff
+                {
+                    <c' e' g'>4
+                    <d' f' a'>4
+                    r2
+                }
+                \new Staff
+                {
+                    r2.
+                    <c' f' a'>4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-6gwHXAs6IY.png
 
@@ -668,31 +707,34 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                e'4
-                f'4
-                e'4
-                a'4
-            }
-            \new Staff
-            {
-                g'4
-                d'4
-                b'4
-                c'4
-            }
-            \new Staff
-            {
-                c'4
-                a'4
-                g'4
-                f'4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    e'4
+                    f'4
+                    e'4
+                    a'4
+                }
+                \new Staff
+                {
+                    g'4
+                    d'4
+                    b'4
+                    c'4
+                }
+                \new Staff
+                {
+                    c'4
+                    a'4
+                    g'4
+                    f'4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-gGsBUch6Ai.png
 
@@ -718,31 +760,34 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                e'4
-                f'4
-                g'4
-                c''4
-            }
-            \new Staff
-            {
-                g'4
-                a'4
-                b'4
-                a'4
-            }
-            \new Staff
-            {
-                c'4
-                d'4
-                e'4
-                f'4
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    e'4
+                    f'4
+                    g'4
+                    c''4
+                }
+                \new Staff
+                {
+                    g'4
+                    a'4
+                    b'4
+                    a'4
+                }
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    e'4
+                    f'4
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-Rycx76se89.png
 
@@ -762,29 +807,32 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'8
-                d'8
-                r4
-                r8
-                a'8
-                r4
-            }
-            \new Staff
-            {
-                r4
-                e'8
-                f'8
-                g'8
-                r8
-                b'8
-                c''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'8
+                    d'8
+                    r4
+                    r8
+                    a'8
+                    r4
+                }
+                \new Staff
+                {
+                    r4
+                    e'8
+                    f'8
+                    g'8
+                    r8
+                    b'8
+                    c''8
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-qtuvb2zrlz.png
 
@@ -799,32 +847,35 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'8
-                d'8
-                r8
-                r8
-                r8
-                a'8
-                r8
-                r8
-            }
-            \new Staff
-            {
-                r8
-                r8
-                e'8
-                f'8
-                g'8
-                r8
-                b'8
-                c''8
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'8
+                    d'8
+                    r8
+                    r8
+                    r8
+                    a'8
+                    r8
+                    r8
+                }
+                \new Staff
+                {
+                    r8
+                    r8
+                    e'8
+                    f'8
+                    g'8
+                    r8
+                    b'8
+                    c''8
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-l8cn8w7cju.png
 
@@ -838,27 +889,30 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/4
-                R1 * 3/4
-                r4
-                g'4
-                a'4
-            }
-            \new Staff
-            {
-                \time 3/4
-                c'4
-                d'4
-                e'4
-                f'4
-                r2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/4
+                    R1 * 3/4
+                    r4
+                    g'4
+                    a'4
+                }
+                \new Staff
+                {
+                    \time 3/4
+                    c'4
+                    d'4
+                    e'4
+                    f'4
+                    r2
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-ri1ursa6esi.png
 
@@ -873,27 +927,30 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 3/4
-                r2.
-                r4
-                g'4
-                a'4
-            }
-            \new Staff
-            {
-                \time 3/4
-                c'4
-                d'4
-                e'4
-                f'4
-                r2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 3/4
+                    r2.
+                    r4
+                    g'4
+                    a'4
+                }
+                \new Staff
+                {
+                    \time 3/4
+                    c'4
+                    d'4
+                    e'4
+                    f'4
+                    r2
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-20idpp518lf.png
 
@@ -906,33 +963,42 @@ class Hocketer():
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> hocketer = auxjad.Hocketer(container)
-        >>> abjad.f(hocketer.contents)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(hocketer.contents)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Hocketer-t07z297s2e.png
 
         >>> hocketer()
-        >>> abjad.f(hocketer.contents)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(hocketer.contents)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Hocketer-7g6cbvfgr1j.png
 
         >>> hocketer.contents = abjad.Container(r"cs2 ds2")
-        >>> abjad.f(hocketer.contents)
-        {
-            cs2
-            ds2
-        }
+        >>> abjad.show(hocketer.contents)
+
+        ..  docs::
+
+            {
+                cs2
+                ds2
+            }
 
         ..  figure:: ../_images/Hocketer-2l7eywciib3.png
 
@@ -948,16 +1014,19 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4.
-                d'8
-                e'2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4.
+                    d'8
+                    e'2
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-g3fmvrkd6nw.png
 
@@ -972,18 +1041,21 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(staff)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                ~
-                c'8
-                d'8
-                e'2
-            }
-        >>
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'4
+                    ~
+                    c'8
+                    d'8
+                    e'2
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-g7r2oxsx8zc.png
 
@@ -1014,84 +1086,87 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 5/4
-                r4
-                \times 2/3
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
                 {
-                    c'4
-                    d'2
-                }
-                r4.
-                f'8
-                \times 4/5
-                {
-                    \time 4/4
-                    r2.
-                    \times 2/3
-                    {
-                        a'8
-                        r8
-                        r2
-                    }
-                }
-            }
-            \new Staff
-            {
-                \time 5/4
-                R1 * 5/4
-                \time 4/4
-                R1
-            }
-            \new Staff
-            {
-                \time 5/4
-                r4
-                \times 2/3
-                {
+                    \time 5/4
                     r4
-                    d'2
-                }
-                e'4.
-                f'8
-                \times 4/5
-                {
-                    \time 4/4
-                    r2.
                     \times 2/3
                     {
-                        a'8
-                        r8
-                        b'2
+                        c'4
+                        d'2
+                    }
+                    r4.
+                    f'8
+                    \times 4/5
+                    {
+                        \time 4/4
+                        r2.
+                        \times 2/3
+                        {
+                            a'8
+                            r8
+                            r2
+                        }
                     }
                 }
-            }
-            \new Staff
-            {
-                \time 5/4
-                r4
-                \times 2/3
+                \new Staff
                 {
-                    c'4
-                    r2
-                }
-                r2
-                \times 4/5
-                {
+                    \time 5/4
+                    R1 * 5/4
                     \time 4/4
-                    g'2.
+                    R1
+                }
+                \new Staff
+                {
+                    \time 5/4
+                    r4
                     \times 2/3
                     {
                         r4
-                        b'2
+                        d'2
+                    }
+                    e'4.
+                    f'8
+                    \times 4/5
+                    {
+                        \time 4/4
+                        r2.
+                        \times 2/3
+                        {
+                            a'8
+                            r8
+                            b'2
+                        }
                     }
                 }
-            }
-        >>
+                \new Staff
+                {
+                    \time 5/4
+                    r4
+                    \times 2/3
+                    {
+                        c'4
+                        r2
+                    }
+                    r2
+                    \times 4/5
+                    {
+                        \time 4/4
+                        g'2.
+                        \times 2/3
+                        {
+                            r4
+                            b'2
+                        }
+                    }
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-seuga1yah9h.png
 
@@ -1112,25 +1187,28 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                r2.
-                r4
-                g'4
-                a'4
-            }
-            \new Staff
-            {
-                c'4
-                d'4
-                e'4
-                f'4
-                r2
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    r2.
+                    r4
+                    g'4
+                    a'4
+                }
+                \new Staff
+                {
+                    c'4
+                    d'4
+                    e'4
+                    f'4
+                    r2
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-6w9r9iicp29.png
 
@@ -1149,82 +1227,85 @@ class Hocketer():
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                c'2
-                \p
-                - \staccato
-                \<
-                d'2
-                \f
-                - \staccato
-                \>
-                e'1
-                f'2.
-                \pp
-                \<
-                g'4
-                \p
-                - \tenuto
-                a'2
-                \ff
-                \>
-                r2
-                \p
-                r2
-                c''2
-                \ppp
-            }
-            \new Staff
-            {
-                r2
-                d'2
-                \f
-                - \staccato
-                \>
-                e'1
-                r2.
-                \pp
-                g'4
-                \p
-                - \tenuto
-                r2
-                b'2
-                \>
-                ~
-                b'2
-                r2
-                \ppp
-            }
-            \new Staff
-            {
-                c'2
-                \p
-                - \staccato
-                \<
-                r2
-                \f
-                R1
-                f'2.
-                \pp
-                \<
-                r4
-                \p
-                a'2
-                \ff
-                \>
-                b'2
-                \p
-                \>
-                ~
-                b'2
-                c''2
-                \ppp
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    c'2
+                    \p
+                    - \staccato
+                    \<
+                    d'2
+                    \f
+                    - \staccato
+                    \>
+                    e'1
+                    f'2.
+                    \pp
+                    \<
+                    g'4
+                    \p
+                    - \tenuto
+                    a'2
+                    \ff
+                    \>
+                    r2
+                    \p
+                    r2
+                    c''2
+                    \ppp
+                }
+                \new Staff
+                {
+                    r2
+                    d'2
+                    \f
+                    - \staccato
+                    \>
+                    e'1
+                    r2.
+                    \pp
+                    g'4
+                    \p
+                    - \tenuto
+                    r2
+                    b'2
+                    \>
+                    ~
+                    b'2
+                    r2
+                    \ppp
+                }
+                \new Staff
+                {
+                    c'2
+                    \p
+                    - \staccato
+                    \<
+                    r2
+                    \f
+                    R1
+                    f'2.
+                    \pp
+                    \<
+                    r4
+                    \p
+                    a'2
+                    \ff
+                    \>
+                    b'2
+                    \p
+                    \>
+                    ~
+                    b'2
+                    c''2
+                    \ppp
+                }
+            >>
 
         ..  figure:: ../_images/Hocketer-zel37ga6xob.png
 

@@ -48,29 +48,32 @@ take care of time signatures.
 
     >>> notes = abjad.LeafMaker()(pitches, durations)
     >>> container = abjad.Container(notes)
-    >>> abjad.f(container)
-    {
-        a''16
-        d'''4
-        ~
-        d'''16
-        c'4
-        e''16
-        bf'4
-        fs'8.
-        a''8
-        d'''4
-        ~
-        d'''16
-        c'16
-        d'''4
-        a''4.
-        e''4
-        ~
-        e''16
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-2-looping-4qwapicxjz3.png
+    ..  docs::
+
+        {
+            a''16
+            d'''4
+            ~
+            d'''16
+            c'4
+            e''16
+            bf'4
+            fs'8.
+            a''8
+            d'''4
+            ~
+            d'''16
+            c'16
+            d'''4
+            a''4.
+            e''4
+            ~
+            e''16
+        }
+
+    ..  figure:: ../_images/example-2-looping-4qwapicxjz3.png
 
 At this point, we can create the :class:`auxjad.LeafLooper` and initialise it
 using the material we generated above. A :attr:`~auxjad.LeafLooper.window_size`
@@ -83,69 +86,72 @@ measures of the looping process for us. In this case, let's output seven
 measures.
 
     >>> staff = abjad.Staff(looper.output_n(7))
-    >>> abjad.f(container)
-    \new Staff
-    {
-        \time 11/16
-        a''16
-        d'''8
-        ~
-        d'''8.
-        c'16
-        ~
-        c'8.
-        e''16
-        \time 7/8
-        d'''4
-        ~
-        d'''16
-        c'16
-        ~
-        c'8.
-        e''16
-        bf'4
-        \time 3/4
-        c'4
-        e''16
-        bf'8.
-        ~
-        bf'16
-        fs'8.
-        \time 5/8
-        e''16
-        bf'16
-        ~
-        bf'8.
-        fs'16
-        ~
-        fs'8
-        a''8
-        \time 7/8
-        bf'4
-        fs'8
-        ~
-        fs'16
-        a''8
-        d'''16
-        ~
-        d'''4
-        \time 11/16
-        fs'8.
-        a''8
-        d'''4
-        ~
-        d'''16
-        c'16
-        \time 3/4
-        a''8
-        d'''8
-        ~
-        d'''8.
-        c'16
-        d'''4
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-2-looping-9mzjqtfcru8.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 11/16
+            a''16
+            d'''8
+            ~
+            d'''8.
+            c'16
+            ~
+            c'8.
+            e''16
+            \time 7/8
+            d'''4
+            ~
+            d'''16
+            c'16
+            ~
+            c'8.
+            e''16
+            bf'4
+            \time 3/4
+            c'4
+            e''16
+            bf'8.
+            ~
+            bf'16
+            fs'8.
+            \time 5/8
+            e''16
+            bf'16
+            ~
+            bf'8.
+            fs'16
+            ~
+            fs'8
+            a''8
+            \time 7/8
+            bf'4
+            fs'8
+            ~
+            fs'16
+            a''8
+            d'''16
+            ~
+            d'''4
+            \time 11/16
+            fs'8.
+            a''8
+            d'''4
+            ~
+            d'''16
+            c'16
+            \time 3/4
+            a''8
+            d'''8
+            ~
+            d'''8.
+            c'16
+            d'''4
+        }
+
+    ..  figure:: ../_images/example-2-looping-9mzjqtfcru8.png
 
 At this point, let's change the :attr:`~auxjad.LeafLooper.window_size` to a
 smaller value and output some more measures.
@@ -155,85 +161,88 @@ smaller value and output some more measures.
 
 This is the final result.
 
-    >>> abjad.f(container)
-    \new Staff
-    {
-        \time 11/16
-        a''16
-        d'''8
-        ~
-        d'''8.
-        c'16
-        ~
-        c'8.
-        e''16
-        \time 7/8
-        d'''4
-        ~
-        d'''16
-        c'16
-        ~
-        c'8.
-        e''16
-        bf'4
-        \time 3/4
-        c'4
-        e''16
-        bf'8.
-        ~
-        bf'16
-        fs'8.
-        \time 5/8
-        e''16
-        bf'16
-        ~
-        bf'8.
-        fs'16
-        ~
-        fs'8
-        a''8
-        \time 7/8
-        bf'4
-        fs'8
-        ~
-        fs'16
-        a''8
-        d'''16
-        ~
-        d'''4
-        \time 11/16
-        fs'8.
-        a''8
-        d'''4
-        ~
-        d'''16
-        c'16
-        \time 3/4
-        a''8
-        d'''8
-        ~
-        d'''8.
-        c'16
-        d'''4
-        \time 3/8
-        d'''4
-        ~
-        d'''16
-        c'16
-        \time 5/16
-        c'16
-        d'''4
-        \time 5/8
-        d'''4
-        a''4.
-        \time 11/16
-        a''4.
-        e''16
-        ~
-        e''4
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-2-looping-v5h9hyfmjj.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 11/16
+            a''16
+            d'''8
+            ~
+            d'''8.
+            c'16
+            ~
+            c'8.
+            e''16
+            \time 7/8
+            d'''4
+            ~
+            d'''16
+            c'16
+            ~
+            c'8.
+            e''16
+            bf'4
+            \time 3/4
+            c'4
+            e''16
+            bf'8.
+            ~
+            bf'16
+            fs'8.
+            \time 5/8
+            e''16
+            bf'16
+            ~
+            bf'8.
+            fs'16
+            ~
+            fs'8
+            a''8
+            \time 7/8
+            bf'4
+            fs'8
+            ~
+            fs'16
+            a''8
+            d'''16
+            ~
+            d'''4
+            \time 11/16
+            fs'8.
+            a''8
+            d'''4
+            ~
+            d'''16
+            c'16
+            \time 3/4
+            a''8
+            d'''8
+            ~
+            d'''8.
+            c'16
+            d'''4
+            \time 3/8
+            d'''4
+            ~
+            d'''16
+            c'16
+            \time 5/16
+            c'16
+            d'''4
+            \time 5/8
+            d'''4
+            a''4.
+            \time 11/16
+            a''4.
+            e''16
+            ~
+            e''4
+        }
+
+    ..  figure:: ../_images/example-2-looping-v5h9hyfmjj.png
 
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

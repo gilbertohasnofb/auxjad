@@ -16,25 +16,31 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'1 | d'1")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('treble'), staff[1])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "treble"
-            c'1
-            \clef "treble"
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "treble"
+                c'1
+                \clef "treble"
+                d'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-ve7c2iykuyb.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "treble"
-            c'1
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "treble"
+                c'1
+                d'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-w6sbmg4iihr.png
 
@@ -55,25 +61,31 @@ def reposition_clefs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
         >>> abjad.attach(abjad.Clef('treble'), staff[1])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \clef "treble"
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \clef "treble"
+                d'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-ozr2sz3jugc.png
 
         This function handles fallback clefs too:
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-0620w7q00lsr.png
 
@@ -83,29 +95,35 @@ def reposition_clefs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1 | d'2 e'4 r4 | f'1")
         >>> abjad.attach(abjad.Clef('treble'), staff[4])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'2
-            e'4
-            r4
-            \clef "treble"
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'2
+                e'4
+                r4
+                \clef "treble"
+                f'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-1dwpu3agebe.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'2
-            e'4
-            r4
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'2
+                e'4
+                r4
+                f'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-wjmmwbhtaq.png
 
@@ -116,32 +134,38 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'1 | a,2 bf,4 r4 | f'1")
         >>> abjad.attach(abjad.Clef('bass'), staff[1])
         >>> abjad.attach(abjad.Clef('treble'), staff[4])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \clef "bass"
-            a,2
-            bf,4
-            r4
-            \clef "treble"
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \clef "bass"
+                a,2
+                bf,4
+                r4
+                \clef "treble"
+                f'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-ooacruvoibr.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \clef "bass"
-            a,2
-            bf,4
-            r4
-            \clef "treble"
-            f'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \clef "bass"
+                a,2
+                bf,4
+                r4
+                \clef "treble"
+                f'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-8z0s96frl4x.png
 
@@ -151,29 +175,35 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | R1 | e'1")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('treble'), staff[4])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'2
-            r2
-            R1
-            \clef "treble"
-            e'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'2
+                r2
+                R1
+                \clef "treble"
+                e'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-wpuzqrszs7i.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'2
-            r2
-            R1
-            e'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'2
+                r2
+                R1
+                e'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-os7dqkh11vl.png
 
@@ -184,30 +214,36 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('bass'), staff[2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "treble"
-            c'1
-            d'2
-            \clef "bass"
-            r2
-            fs1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "treble"
+                c'1
+                d'2
+                \clef "bass"
+                r2
+                fs1
+            }
 
         ..  figure:: ../_images/reposition_clefs-jft5tljn0ni.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "treble"
-            c'1
-            d'2
-            r2
-            \clef "bass"
-            fs1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "treble"
+                c'1
+                d'2
+                r2
+                \clef "bass"
+                fs1
+            }
 
         ..  figure:: ../_images/reposition_clefs-pirrrq3p6di.png
 
@@ -217,16 +253,19 @@ def reposition_clefs(selection: abjad.Selection,
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('bass'), staff[2])
         >>> auxjad.mutate.reposition_clefs(staff[:], shift_clef_to_notes=False)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \clef "treble"
-            c'1
-            d'2
-            \clef "bass"
-            r2
-            fs1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "treble"
+                c'1
+                d'2
+                \clef "bass"
+                r2
+                fs1
+            }
 
         ..  figure:: ../_images/reposition_clefs-srrb69k33oe.png
 
@@ -237,34 +276,40 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 3/4 c'2. | d'4 r2 | R1 * 3/4 | e'2.")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('bass'), staff[2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            \clef "treble"
-            c'2.
-            d'4
-            \clef "bass"
-            r2
-            R1 * 3/4
-            e'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                \clef "treble"
+                c'2.
+                d'4
+                \clef "bass"
+                r2
+                R1 * 3/4
+                e'2.
+            }
 
         ..  figure:: ../_images/reposition_clefs-1l1ws1tqqt5.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            \clef "treble"
-            c'2.
-            d'4
-            r2
-            R1 * 3/4
-            \clef "bass"
-            e'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                \clef "treble"
+                c'2.
+                d'4
+                r2
+                R1 * 3/4
+                \clef "bass"
+                e'2.
+            }
 
         ..  figure:: ../_images/reposition_clefs-gmh7uqxjjrf.png
 
@@ -278,35 +323,41 @@ def reposition_clefs(selection: abjad.Selection,
         ...                      abjad.Tuplet((2, 3), "g'2 a'2 b'2"),
         ...                      ])
         >>> abjad.attach(abjad.Clef('treble'), staff[2][1])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'2
-            <d' f'>2
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g'2
-                \clef "treble"
-                a'2
-                b'2
+                c'2
+                <d' f'>2
+                \times 2/3
+                {
+                    g'2
+                    \clef "treble"
+                    a'2
+                    b'2
+                }
             }
-        }
 
         ..  figure:: ../_images/reposition_clefs-vwygykrmjd.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'2
-            <d' f'>2
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g'2
-                a'2
-                b'2
+                c'2
+                <d' f'>2
+                \times 2/3
+                {
+                    g'2
+                    a'2
+                    b'2
+                }
             }
-        }
 
         ..  figure:: ../_images/reposition_clefs-9gaqlf92kc.png
 
@@ -317,23 +368,29 @@ def reposition_clefs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
         >>> abjad.attach(abjad.Clef('treble'), staff[1])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            \clef "treble"
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \clef "treble"
+                d'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-tuxicnsglgk.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'1
-            d'1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+            }
 
         ..  figure:: ../_images/reposition_clefs-co27o4xxato.png
 
@@ -342,13 +399,16 @@ def reposition_clefs(selection: abjad.Selection,
 
         >>> staff = abjad.Staff(r"c1 | d1")
         >>> abjad.attach(abjad.Clef('bass'), staff[1])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c1
-            \clef "bass"
-            d1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c1
+                \clef "bass"
+                d1
+            }
 
         ..  figure:: ../_images/reposition_clefs-jyp5xd92vgi.png
 
@@ -356,12 +416,15 @@ def reposition_clefs(selection: abjad.Selection,
         ...     staff[:],
         ...     implicit_clef=abjad.Clef('bass'),
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c1
-            d1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c1
+                d1
+            }
 
         ..  figure:: ../_images/reposition_clefs-o7bi4n2n58.png
 
@@ -370,17 +433,20 @@ def reposition_clefs(selection: abjad.Selection,
 
         >>> music = abjad.Staff(r"\clef bass c4 d4 e4 f4")
         >>> music.extend(staff)
-        >>> abjad.f(music)
-        \new Staff
-        {
-            \clef "bass"
-            c4
-            d4
-            e4
-            f4
-            c1
-            d1
-        }
+        >>> abjad.show(music)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \clef "bass"
+                c4
+                d4
+                e4
+                f4
+                c1
+                d1
+            }
 
         ..  figure:: ../_images/reposition_clefs-7y32wepotnf.png
 

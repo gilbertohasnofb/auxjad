@@ -19,29 +19,35 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'4
-            c'4
-            f'4
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'4
+                c'4
+                f'4
+                e'4
+            }
 
         ..  figure:: ../_images/Shuffler-z2om98675v.png
 
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            e'4
-            d'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                e'4
+                d'4
+                f'4
+            }
 
         ..  figure:: ../_images/Shuffler-xu7sln4vt7n.png
 
@@ -50,15 +56,18 @@ class Shuffler:
 
         >>> notes = shuffler.current_window
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            e'4
-            d'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                e'4
+                d'4
+                f'4
+            }
 
         ..  figure:: ../_images/Shuffler-gphtpqn9jb.png
 
@@ -67,15 +76,18 @@ class Shuffler:
 
         >>> notes = shuffler.shuffle()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'4
-            f'4
-            c'4
-            d'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'4
+                f'4
+                c'4
+                d'4
+            }
 
         ..  figure:: ../_images/Shuffler-g965k0d03if.png
 
@@ -93,15 +105,18 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Shuffler-76039tn5b9k.png
 
@@ -214,21 +229,24 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r4
-            r16
-            e'16
-            f'8
-            ~
-            f'16
-            d'8.
-            ~
-            d'16
-            c'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r4
+                r16
+                e'16
+                f'8
+                ~
+                f'16
+                d'8.
+                ~
+                d'16
+                c'8.
+            }
 
         ..  figure:: ../_images/Shuffler-5j79m0wuxu.png
 
@@ -240,19 +258,22 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            f'8.
-            r4
-            d'8
-            ~
-            d'8.
-            ~
-            c'16
-            e'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                f'8.
+                r4
+                d'8
+                ~
+                d'8.
+                ~
+                c'16
+                e'8.
+            }
 
         ..  figure:: ../_images/Shuffler-f9jbzqkrkdf.png
 
@@ -271,31 +292,34 @@ class Shuffler:
         >>> notes = shuffler.shuffle_n(2)
         >>> staff.append(notes)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'4..
-            c'16
-            f'4.
-            e'8
-            d'4..
-            f'16
-            c'4.
-            e'8
-            f'16
-            d'4..
-            e'8
-            c'4.
-            c'4.
-            d'8
-            ~
-            d'4
-            ~
-            d'16
-            e'8
-            f'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'4..
+                c'16
+                f'4.
+                e'8
+                d'4..
+                f'16
+                c'4.
+                e'8
+                f'16
+                d'4..
+                e'8
+                c'4.
+                c'4.
+                d'8
+                ~
+                d'4
+                ~
+                d'16
+                e'8
+                f'16
+            }
 
         ..  figure:: ../_images/Shuffler-tyq8y6q8zr9.png
 
@@ -311,35 +335,38 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler.shuffle_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            e'8
-            g'8
-            f'8
-            a'8
-            b'8
-            c''8
-            c'8
-            c''8
-            e'8
-            g'8
-            f'8
-            a'8
-            b'8
-            d'8
-            c'8
-            c''8
-            e'8
-            g'8
-            b'8
-            a'8
-            f'8
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                e'8
+                g'8
+                f'8
+                a'8
+                b'8
+                c''8
+                c'8
+                c''8
+                e'8
+                g'8
+                f'8
+                a'8
+                b'8
+                d'8
+                c'8
+                c''8
+                e'8
+                g'8
+                b'8
+                a'8
+                f'8
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-Nbo5S6wcfQ.png
 
@@ -355,26 +382,29 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.rotate()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            d'4..
-            e'16
-            ~
-            e'8.
-            r16
-            r8.
-            f'16
-            ~
-            f'4
-            ~
-            f'8
-            ~
-            f'32
-            g'32
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                d'4..
+                e'16
+                ~
+                e'8.
+                r16
+                r8.
+                f'16
+                ~
+                f'4
+                ~
+                f'8
+                ~
+                f'32
+                g'32
+                c'16
+            }
 
         ..  figure:: ../_images/Shuffler-7vamgsxlr6.png
 
@@ -384,21 +414,24 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler.rotate()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            d'16
-            e'8.
-            ~
-            e'4
-            r4
-            f'4
-            g'4
-            ~
-            g'8..
-            c'32
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                d'16
+                e'8.
+                ~
+                e'4
+                r4
+                f'4
+                g'4
+                ~
+                g'8..
+                c'32
+            }
 
         ..  figure:: ../_images/Shuffler-89cx79bjji8.png
 
@@ -413,21 +446,24 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler.rotate(n_rotations=2, anticlockwise=True)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            f'16
-            g'8.
-            ~
-            g'4
-            c'4
-            d'4
-            e'4
-            ~
-            e'8..
-            r32
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                f'16
+                g'8.
+                ~
+                g'4
+                c'4
+                d'4
+                e'4
+                ~
+                e'8..
+                r32
+            }
 
         ..  figure:: ../_images/Shuffler-g6v6wjm12ub.png
 
@@ -445,17 +481,20 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'8.
-            f'4
-            r8
-            r8.
-            c'16
-            e'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'8.
+                f'4
+                r8
+                r8.
+                c'16
+                e'8.
+            }
 
         ..  figure:: ../_images/Shuffler-pmou83f7rlj.png
 
@@ -468,19 +507,22 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container, preserve_rest_position=True)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'4
-            e'16
-            r8.
-            r8
-            f'8
-            ~
-            f'16
-            c'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'4
+                e'16
+                r8.
+                r8
+                f'8
+                ~
+                f'16
+                c'8.
+            }
 
         ..  figure:: ../_images/Shuffler-7hbp2kdpqof.png
 
@@ -494,15 +536,18 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'8
-            f'2
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'8
+                f'2
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-tb78izpzvjp.png
 
@@ -516,27 +561,30 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.shuffle_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'8
-            g'16
-            c'16
-            ~
-            c'8.
-            f'16
-            ~
-            f'8
-            e'4.
-            g'16
-            f'8.
-            e'4
-            ~
-            e'8
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'8
+                g'16
+                c'16
+                ~
+                c'8.
+                f'16
+                ~
+                f'8
+                e'4.
+                g'16
+                f'8.
+                e'4
+                ~
+                e'8
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-vtia65lbk5.png
 
@@ -544,23 +592,26 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.rotate_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'8
-            e'4.
-            f'8.
-            g'16
-            c'4
-            e'4.
-            f'8
-            ~
-            f'16
-            g'16
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'8
+                e'4.
+                f'8.
+                g'16
+                c'4
+                e'4.
+                f'8
+                ~
+                f'16
+                g'16
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-3dqhy8eoiez.png
 
@@ -576,21 +627,24 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'4..
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'4..
-            r16
-            r8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'4..
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'4..
+                r16
+                r8.
+                c'16
+            }
 
         ..  figure:: ../_images/Shuffler-1v3lwhj430b.png
 
@@ -613,32 +667,35 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.shuffle_n(2)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            e'16
-            d'8.
-            ~
-            d'16
-            f'4..
-            \time 2/4
-            c'8.
-            r16
-            r4
-            \time 3/4
-            c'8.
-            f'16
-            ~
-            f'4.
-            r8
-            \time 2/4
-            r8.
-            d'16
-            ~
-            d'8.
-            e'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                e'16
+                d'8.
+                ~
+                d'16
+                f'4..
+                \time 2/4
+                c'8.
+                r16
+                r4
+                \time 3/4
+                c'8.
+                f'16
+                ~
+                f'4.
+                r8
+                \time 2/4
+                r8.
+                d'16
+                ~
+                d'8.
+                e'16
+            }
 
         ..  figure:: ../_images/Shuffler-yx11u6o14v.png
 
@@ -652,19 +709,22 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container, pitch_only=True)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/4
-            d'4
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                f'4
-                c'2
+                \time 5/4
+                d'4
+                \times 2/3
+                {
+                    f'4
+                    c'2
+                }
+                e'4.
+                r8
             }
-            e'4.
-            r8
-        }
 
         ..  figure:: ../_images/Shuffler-mjxubkel8y.png
 
@@ -691,49 +751,52 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler.shuffle_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'8
-            \p
-            - \staccato
-            d'8
-            - \staccato
-            f'4
-            \f
-            - \marcato
-            <c' e' g'>4
-            \p
-            - \tenuto
-            r4
-            r4
-            d'8
-            - \staccato
-            f'8
-            \f
-            - \marcato
-            ~
-            f'8
-            <c' e' g'>4
-            \p
-            - \tenuto
-            e'8
-            - \staccato
-            f'4
-            \f
-            - \marcato
-            e'8
-            \p
-            - \staccato
-            <c' e' g'>8
-            - \tenuto
-            ~
-            <c' e' g'>8
-            d'8
-            - \staccato
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'8
+                \p
+                - \staccato
+                d'8
+                - \staccato
+                f'4
+                \f
+                - \marcato
+                <c' e' g'>4
+                \p
+                - \tenuto
+                r4
+                r4
+                d'8
+                - \staccato
+                f'8
+                \f
+                - \marcato
+                ~
+                f'8
+                <c' e' g'>4
+                \p
+                - \tenuto
+                e'8
+                - \staccato
+                f'4
+                \f
+                - \marcato
+                e'8
+                \p
+                - \staccato
+                <c' e' g'>8
+                - \tenuto
+                ~
+                <c' e' g'>8
+                d'8
+                - \staccato
+                r4
+            }
 
         ..  figure:: ../_images/Shuffler-2ibui58pj8w.png
 
@@ -763,33 +826,42 @@ class Shuffler:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> shuffler = auxjad.Shuffler(container)
-        >>> abjad.f(shuffler.contents)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(shuffler.contents)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Shuffler-qsee7chymo.png
 
         >>> shuffler()
-        >>> abjad.f(shuffler.contents)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(shuffler.contents)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Shuffler-ii3fxe001ki.png
 
         >>> shuffler.contents = abjad.Container(r"cs2 ds2")
-        >>> abjad.f(shuffler.contents)
-        {
-            cs2
-            ds2
-        }
+        >>> abjad.show(shuffler.contents)
+
+        ..  docs::
+
+            {
+                cs2
+                ds2
+            }
 
         ..  figure:: ../_images/Shuffler-p2vd4mfvucp.png
 
@@ -801,14 +873,17 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'2
-            c'4.
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'2
+                c'4.
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-t4lsqxg18ab.png
 
@@ -820,16 +895,19 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'2
-            c'4
-            ~
-            c'8
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'2
+                c'4
+                ~
+                c'8
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-7na5znnhhwe.png
 
@@ -853,19 +931,22 @@ class Shuffler:
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'8
-            f'8
-            ~
-            f'4.
-            c'8
-            ~
-            c'8
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'8
+                f'8
+                ~
+                f'4.
+                c'8
+                ~
+                c'8
+                d'8
+            }
 
         ..  figure:: ../_images/Shuffler-7cfnxx7shci.png
 
@@ -873,21 +954,24 @@ class Shuffler:
         behaviour.
 
         >>> container = abjad.Container(r"c'4 d'8. e'16 f'2")
-        >>> abjad.f(container)
-        \new Staff
-        {
-            \time 4/4
-            e'16
-            f'8.
-            ~
-            f'4
-            ~
-            f'16
-            c'8.
-            ~
-            c'16
-            d'8.
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'16
+                f'8.
+                ~
+                f'4
+                ~
+                f'16
+                c'8.
+                ~
+                c'16
+                d'8.
+            }
 
         ..  figure:: ../_images/Shuffler-6gm4ev48j9k.png
 
@@ -896,15 +980,18 @@ class Shuffler:
         ...                            )
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            e'16
-            f'2
-            c'4
-            d'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                e'16
+                f'2
+                c'4
+                d'8.
+            }
 
         ..  figure:: ../_images/Shuffler-xlr4x3bhj6n.png
 
@@ -927,20 +1014,23 @@ class Shuffler:
         ...     if abjad.get.duration(staff) == abjad.Duration((9, 4)):
         ...         break
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            e'4
-            c'4
-            d'4
-            d'4
-            c'4
-            e'4
-            c'4
-            e'4
-            d'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                e'4
+                c'4
+                d'4
+                d'4
+                c'4
+                e'4
+                c'4
+                e'4
+                d'4
+            }
 
         ..  figure:: ../_images/Shuffler-3gyz7atvemx.png
     """

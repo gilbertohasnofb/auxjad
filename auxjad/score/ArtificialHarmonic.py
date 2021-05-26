@@ -14,13 +14,16 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         >>> harm = auxjad.ArtificialHarmonic("<g c'>4")
         >>> harm.style
-        'harmonic'
-        >>> abjad.f(harm)
-        <
-            g
-            \tweak style harmonic
-            c'
-        >4
+        "#'harmonic"
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4
 
         ..  figure:: ../_images/ArtificialHarmonic-16am9cj6p9u.png
 
@@ -32,30 +35,33 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> harm3 = auxjad.ArtificialHarmonic([-5, 0], 0.25)
         >>> harm4 = auxjad.ArtificialHarmonic([-5, 0], abjad.Duration(1, 4))
         >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            <
-                g
-                \tweak style harmonic
-                c'
-            >4
-            <
-                g
-                \tweak style harmonic
-                c'
-            >4
-            <
-                g
-                \tweak style harmonic
-                c'
-            >4
-            <
-                g
-                \tweak style harmonic
-                c'
-            >4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >4
+                <
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >4
+                <
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >4
+                <
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >4
+            }
 
         ..  figure:: ../_images/ArtificialHarmonic-je277bmakgs.png
 
@@ -71,19 +77,22 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     :attr:`style`:
         When instantiating this class, use the keyword argument :attr:`style`
         to set a different type of note head for the top note, such as
-        ``'harmonic-mixed'``:
+        ``"#'harmonic-mixed"``:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4",
-        ...                                  style='harmonic-mixed',
+        ...                                  style="#'harmonic-mixed",
         ...                                  )
         >>> harm.style
-        'harmonic-mixed'
-        >>> abjad.f(harm)
-        <
-            g
-            \tweak style harmonic-mixed
-            c'
-        >4
+        "#'harmonic-mixed"
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            <
+                g
+                \tweak style #'harmonic-mixed
+                c'
+            >4
 
         ..  figure:: ../_images/ArtificialHarmonic-ohqb65228iq.png
 
@@ -97,14 +106,17 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ...                                  )
         >>> harm.is_parenthesized
         True
-        >>> abjad.f(harm)
-        <
-            \parenthesize
-            \tweak ParenthesesItem.font-size -4
-            g
-            \tweak style harmonic
-            c'
-        >4
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            <
+                \parenthesize
+                \tweak ParenthesesItem.font-size -4
+                g
+                \tweak style #'harmonic
+                c'
+            >4
 
         ..  figure:: ../_images/ArtificialHarmonic-2q3jkx33yvl.png
 
@@ -116,12 +128,15 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ...                                  )
         >>> harm.multiplier
         abjad.Multiplier(2, 3)
-        >>> abjad.f(harm)
-        <
-            g
-            \tweak style harmonic
-            c'
-        >4 * 2/3
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            <
+                g
+                \tweak style #'harmonic
+                c'
+            >4 * 2/3
 
         ..  figure:: ../_images/ArtificialHarmonic-ouhdk3ugkcs.png
 
@@ -136,7 +151,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         >>> harm.written_duration
         1/4
         >>> harm.style
-        'harmonic'
+        "#'harmonic"
         >>> harm.is_parenthesized
         False
 
@@ -145,14 +160,14 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         >>> harm.written_pitches = [-5, 2]
         >>> harm.written_duration = abjad.Duration(1, 8)
-        >>> harm.style = 'harmonic-mixed'
+        >>> harm.style = "#'harmonic-mixed"
         >>> harm.is_parenthesized = True
         >>> harm.written_pitches
         "g d'"
         >>> harm.written_duration
         1/8
         >>> harm.style
-        'harmonic-mixed'
+        "#'harmonic-mixed"
         >>> harm.is_parenthesized
         True
 
@@ -187,10 +202,13 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         the artificial harmonic.
 
         >>> harm = auxjad.ArtificialHarmonic(r"<g c'>4-.\pp")
-        >>> abjad.f(harm.sounding_note())
-        g''4
-        \pp
-        - \staccato
+        >>> abjad.show(harm.sounding_note())
+
+        ..  docs::
+
+            g''4
+            \pp
+            - \staccato
 
         ..  figure:: ../_images/ArtificialHarmonic-dfabdv155mu.png
 
@@ -220,27 +238,34 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ...                                   markup='I.',
         ...                                   direction=abjad.Down)
         >>> staff = abjad.Staff([harm1, harm2, harm3])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            <
-                a
-                \tweak style harmonic
-                d'
-            >1
-            <
-                a
-                \tweak style harmonic
-                d'
-            >1
-            ^ \markup { I. }
-            <
-                a
-                \tweak style harmonic
-                d'
-            >1
-            _ \markup { I. }
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <
+                    a
+                    \tweak style #'harmonic
+                    d'
+                >1
+                \once \override TextScript.parent-alignment-X = 0
+                \once \override TextScript.self-alignment-X = 0
+                <
+                    a
+                    \tweak style #'harmonic
+                    d'
+                >1
+                ^ \markup { I. }
+                \once \override TextScript.parent-alignment-X = 0
+                \once \override TextScript.self-alignment-X = 0
+                <
+                    a
+                    \tweak style #'harmonic
+                    d'
+                >1
+                _ \markup { I. }
+            }
 
         ..  figure:: ../_images/ArtificialHarmonic-teysjphrrpn.png
 
@@ -251,14 +276,59 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ...                                  markup='I.',
         ...                                  )
         >>> harm.markup = None
-        >>> abjad.f(harm)
-        <
-            a
-            \tweak style harmonic
-            d'
-        >1
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            <
+                a
+                \tweak style #'harmonic
+                d'
+            >1
 
         ..  figure:: ../_images/ArtificialHarmonic-nov336z64r.png
+
+    :attr:`centre_markup`:
+        When a markup expression is added to the harmonic note by using the
+        :attr:`markup` optional keyword argument, it will be automatically
+        centred above the note (as the main purpose of this markup is to show
+        string numbers). To disable this behaviour, set :attr:`centre_markup`
+        to ``False``. Compare:
+
+        >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1",
+        ...                                   markup='III.',
+        ...                                   )
+        >>> abjad.show(harm1)
+
+        ..  docs::
+
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
+            <
+                bf'
+                \tweak style #'harmonic
+                ef''
+            >1
+            ^ \markup { III. }
+
+        ..  figure:: ../_images/ArtificialHarmonic-cFjQuNmS3p.png
+
+        >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
+        ...                                   markup='III.',
+        ...                                   centre_markup=False,
+        ...                                   )
+        >>> abjad.show(harm2)
+
+        ..  docs::
+
+            <
+                bf'
+                \tweak style #'harmonic
+                ef''
+            >1
+            ^ \markup { III. }
+
+        ..  figure:: ../_images/ArtificialHarmonic-gfhbSlQPlK.png
 
     ..  error::
 
@@ -277,6 +347,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     __slots__ = ('_style',
                  '_is_parenthesized',
                  '_direction',
+                 '_centre_markup',
                  '_markup',
                  )
 
@@ -286,9 +357,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                  *arguments,
                  multiplier: Optional[abjad.typings.DurationTyping] = None,
                  tag: Optional[abjad.Tag] = None,
-                 style: str = 'harmonic',
+                 style: str = "#'harmonic",
                  is_parenthesized: bool = False,
                  markup: Optional[str] = None,
+                 centre_markup: bool = True,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
                  ) -> None:
         r'Initialises self.'
@@ -299,6 +371,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         self.style = style
         self.is_parenthesized = is_parenthesized
         self._direction = direction
+        self.centre_markup = centre_markup
         self.markup = markup
 
     ### PUBLIC METHODS ###
@@ -334,6 +407,32 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         for indicator in abjad.get.indicators(self):
             abjad.attach(indicator, note)
         return note
+
+    ### PRIVATE METHODS ###
+
+    def _attach_centre_markup(self) -> None:
+        r'Attaches the centre markup tweaks.'
+        literal1 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.parent-alignment-X = 0'
+        )
+        literal2 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.self-alignment-X = 0'
+        )
+        abjad.attach(literal1, self)
+        abjad.attach(literal2, self)
+
+    def _detach_centre_markup(self) -> None:
+        r'Detaches the centre markup tweaks.'
+        literal1 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.parent-alignment-X = 0'
+        )
+        literal2 = abjad.LilyPondLiteral(
+            r'\once \override TextScript.self-alignment-X = 0'
+        )
+        if abjad.get.indicator(self, literal1):
+            abjad.detach(literal1, self)
+        if abjad.get.indicator(self, literal2):
+            abjad.detach(literal2, self)
 
     ### PUBLIC PROPERTIES ###
 
@@ -371,6 +470,21 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         abjad.tweak(self._note_heads[1]).style = self._style
 
     @property
+    def centre_markup(self) -> bool:
+        r"""Tweaks the markup of the harmonic note head to be centred or not
+        as LilyPond doesn't centralises markups above note heads by default.
+        """
+        return self._centre_markup
+
+    @centre_markup.setter
+    def centre_markup(self,
+                      centre_markup: bool,
+                      ) -> None:
+        if not isinstance(centre_markup, bool):
+            raise TypeError("'style' must be 'bool'")
+        self._centre_markup = centre_markup
+
+    @property
     def is_parenthesized(self) -> bool:
         r'Whether the bottom note head is parenthesised or not.'
         return self._is_parenthesized
@@ -385,3 +499,30 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         self._note_heads[0].is_parenthesized = self._is_parenthesized
         if self._is_parenthesized:
             abjad.tweak(self._note_heads[0]).ParenthesesItem__font_size = -4
+
+    @property
+    def markup(self) -> str:
+        r'The markup of the harmonic note head.'
+        return self._markup
+
+    @markup.setter
+    def markup(self,
+               markup: str,
+               ) -> None:
+        if markup is not None:
+            if not isinstance(markup, str):
+                raise TypeError("'markup' must be 'str'")
+            self._markup = markup
+            markup = abjad.Markup(self._markup,
+                                  direction=self._direction,
+                                  )
+            abjad.attach(markup, self)
+            if self._centre_markup:
+                self._attach_centre_markup()
+            else:
+                self._detach_centre_markup()
+        else:
+            self._markup = markup
+            if abjad.get.indicator(self, abjad.Markup):
+                abjad.detach(abjad.Markup, self)
+            self._detach_centre_markup()

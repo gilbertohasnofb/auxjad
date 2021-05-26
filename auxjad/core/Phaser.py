@@ -19,36 +19,42 @@ class Phaser():
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Phaser-953j4yo4hlo.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-3l0a96vbfbi.png
 
@@ -57,22 +63,25 @@ class Phaser():
 
         >>> notes = phaser.current_window()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-pn2qf2z6vzr.png
 
@@ -88,22 +97,25 @@ class Phaser():
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-fx0ywlw5u25.png
 
@@ -117,32 +129,38 @@ class Phaser():
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Phaser-zfxas2f5o87.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            f'4
-            c'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'4
+                e'8
+                ~
+                e'8
+                f'4
+                c'8
+            }
 
         ..  figure:: ../_images/Phaser-2e9dzvji4wg.png
 
@@ -162,38 +180,41 @@ class Phaser():
         >>> for window in phaser:
         ...     staff.append(window)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            ~
-            e'2.
-            d'4
-            e'2
-            ~
-            e'2
-            c'4
-            e'2.
-            ~
-            e'4
-            c'4
-            d'4
-            e'2.
-            c'4
-            d'4
-            e'4
-            e'2
-            c'4
-            d'4
-            e'2
-            e'4
-            c'4
-            d'4
-            e'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                ~
+                e'2.
+                d'4
+                e'2
+                ~
+                e'2
+                c'4
+                e'2.
+                ~
+                e'4
+                c'4
+                d'4
+                e'2.
+                c'4
+                d'4
+                e'4
+                e'2
+                c'4
+                d'4
+                e'2
+                e'4
+                c'4
+                d'4
+                e'2.
+            }
 
         ..  figure:: ../_images/Phaser-jd1h0w8pbpp.png
 
@@ -290,21 +311,24 @@ class Phaser():
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'8
-            d'8
-            e'8
-            c'16
-            d'8
-            e'8
-            c'16
-            d'8
-            e'8
-            c'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'8
+                d'8
+                e'8
+                c'16
+                d'8
+                e'8
+                c'16
+                d'8
+                e'8
+                c'8
+            }
 
         ..  figure:: ../_images/Phaser-x1gn7mv4jq.png
 
@@ -314,21 +338,24 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'8
-            d'8
-            e'8
-            e'16
-            c'8
-            d'8
-            e'16
-            e'8
-            c'8
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'8
+                d'8
+                e'8
+                e'16
+                c'8
+                d'8
+                e'16
+                e'8
+                c'8
+                d'8
+            }
 
         ..  figure:: ../_images/Phaser-g6y94qiwfro.png
 
@@ -344,31 +371,34 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            d'4
-            e'4
-            f'4
-            c'4
-            c'4
-            d'4
-            e'4
-            f'4
-            f'4
-            c'4
-            d'4
-            e'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                d'4
+                e'4
+                f'4
+                c'4
+                c'4
+                d'4
+                e'4
+                f'4
+                f'4
+                c'4
+                d'4
+                e'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Phaser-lu2p8o1g6p.png
 
@@ -384,51 +414,54 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            e'8
-            f'8
-            g'8
-            a'8
-            b'8
-            c''8
-            f'8
-            g'8
-            a'8
-            b'8
-            c''8
-            c'8
-            d'8
-            e'8
-            c''8
-            c'8
-            d'8
-            e'8
-            f'8
-            g'8
-            a'8
-            b'8
-            f'8
-            g'8
-            a'8
-            b'8
-            c''8
-            c'8
-            d'8
-            e'8
-            a'8
-            b'8
-            c''8
-            c'8
-            d'8
-            e'8
-            f'8
-            g'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                e'8
+                f'8
+                g'8
+                a'8
+                b'8
+                c''8
+                f'8
+                g'8
+                a'8
+                b'8
+                c''8
+                c'8
+                d'8
+                e'8
+                c''8
+                c'8
+                d'8
+                e'8
+                f'8
+                g'8
+                a'8
+                b'8
+                f'8
+                g'8
+                a'8
+                b'8
+                c''8
+                c'8
+                d'8
+                e'8
+                a'8
+                b'8
+                c''8
+                c'8
+                d'8
+                e'8
+                f'8
+                g'8
+            }
 
         ..  figure:: ../_images/Phaser-pvbugjwu5qd.png
 
@@ -464,21 +497,24 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4.
-            d'4.
-            c'8
-            d'4.
-            c'4
-            d'4
-            c'4.
-            d'8
-            c'4.
-            d'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4.
+                d'4.
+                c'8
+                d'4.
+                c'4
+                d'4
+                c'4.
+                d'8
+                c'4.
+                d'4.
+            }
 
         ..  figure:: ../_images/Phaser-y6r36v26mk7.png
 
@@ -494,19 +530,22 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_all(cycle_back_to_first=False)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'4.
-            d'4.
-            c'8
-            d'4.
-            c'4
-            d'4
-            c'4.
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4.
+                d'4.
+                c'8
+                d'4.
+                c'4
+                d'4
+                c'4.
+                d'8
+            }
 
         ..  figure:: ../_images/Phaser-1lc6vkz1wuf.png
 
@@ -521,37 +560,40 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            c'8..
-            d'32
-            ~
-            d'8..
-            e'32
-            ~
-            e'8..
-            f'32
-            ~
-            f'8..
-            c'32
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                c'8..
+                d'32
+                ~
+                d'8..
+                e'32
+                ~
+                e'8..
+                f'32
+                ~
+                f'8..
+                c'32
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-ii58nvyi3c.png
 
@@ -567,38 +609,41 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(3, tie_identical_pitches=True)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            c'8..
-            d'32
-            ~
-            d'8..
-            e'32
-            ~
-            e'8..
-            f'32
-            ~
-            f'8..
-            c'32
-            ~
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                c'8..
+                d'32
+                ~
+                d'8..
+                e'32
+                ~
+                e'8..
+                f'32
+                ~
+                f'8..
+                c'32
+                ~
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-gvzlwz9gol6.png
 
@@ -617,23 +662,26 @@ class Phaser():
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-            ~
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+                ~
+            }
 
         ..  figure:: ../_images/Phaser-hg27xwbz4t.png
 
@@ -648,36 +696,39 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/4
-            c'2
-            \time 3/8
-            d'4.
-            \time 2/4
-            e'2
-            c'4.
-            d'8
-            ~
-            \time 3/8
-            d'4
-            e'8
-            ~
-            \time 2/4
-            e'4.
-            c'8
-            c'4
-            d'4
-            ~
-            \time 3/8
-            d'8
-            e'4
-            ~
-            \time 2/4
-            e'4
-            c'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'2
+                \time 3/8
+                d'4.
+                \time 2/4
+                e'2
+                c'4.
+                d'8
+                ~
+                \time 3/8
+                d'4
+                e'8
+                ~
+                \time 2/4
+                e'4.
+                c'8
+                c'4
+                d'4
+                ~
+                \time 3/8
+                d'8
+                e'4
+                ~
+                \time 2/4
+                e'4
+                c'4
+            }
 
         ..  figure:: ../_images/Phaser-vw3gfizbkg.png
 
@@ -693,69 +744,72 @@ class Phaser():
         >>> staff = abjad.Staff()
         >>> notes = phaser.output_n(5)
         >>> staff.append(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            \p
-            - \staccato
-            \<
-            d'4
-            \f
-            - \tenuto
-            e'4
-            \p
-            - \accent
-            f'4
-            c'8
-            - \staccato
-            \<
-            d'4
-            \f
-            - \tenuto
-            e'8
-            \p
-            - \accent
-            ~
-            e'8
-            f'4
-            c'8
-            - \staccato
-            d'4
-            \f
-            - \tenuto
-            e'4
-            \p
-            - \accent
-            f'4
-            c'4
-            - \staccato
-            d'8
-            \f
-            - \tenuto
-            e'4
-            \p
-            - \accent
-            f'8
-            ~
-            f'8
-            c'4
-            - \staccato
-            d'8
-            \f
-            - \tenuto
-            e'4
-            \p
-            - \accent
-            f'4
-            c'4
-            - \staccato
-            \<
-            d'4
-            \f
-            - \tenuto
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                \p
+                - \staccato
+                \<
+                d'4
+                \f
+                - \tenuto
+                e'4
+                \p
+                - \accent
+                f'4
+                c'8
+                - \staccato
+                \<
+                d'4
+                \f
+                - \tenuto
+                e'8
+                \p
+                - \accent
+                ~
+                e'8
+                f'4
+                c'8
+                - \staccato
+                d'4
+                \f
+                - \tenuto
+                e'4
+                \p
+                - \accent
+                f'4
+                c'4
+                - \staccato
+                d'8
+                \f
+                - \tenuto
+                e'4
+                \p
+                - \accent
+                f'8
+                ~
+                f'8
+                c'4
+                - \staccato
+                d'8
+                \f
+                - \tenuto
+                e'4
+                \p
+                - \accent
+                f'4
+                c'4
+                - \staccato
+                \<
+                d'4
+                \f
+                - \tenuto
+            }
 
         ..  figure:: ../_images/Phaser-978yobu5f2q.png
 
@@ -768,122 +822,125 @@ class Phaser():
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'2
-            \p
-            \<
-            (
-            d'4.
-            e'8
-            \f
-            f'4
-            \p
-            \>
-            g'2
-            a'4
-            \pp
-            )
-            c'4..
-            \p
-            \<
-            (
-            d'16
-            ~
-            d'4
-            ~
-            d'16
-            e'8
-            \f
-            f'16
-            \p
-            ~
-            f'8.
-            \>
-            g'16
-            ~
-            g'4
-            ~
-            g'8.
-            a'16
-            \pp
-            ~
-            a'8.
-            )
-            c'16
-            \p
-            (
-            c'4.
-            \<
-            d'8
-            ~
-            d'4
-            e'8
-            \f
-            f'8
-            \p
-            ~
-            f'8
-            \>
-            g'8
-            ~
-            g'4
-            ~
-            g'8
-            a'4
-            \pp
-            )
-            c'8
-            \p
-            (
-            c'4
-            ~
-            c'16
-            \<
-            d'8.
-            ~
-            d'8.
-            e'16
-            \f
-            ~
-            e'16
-            f'8.
-            \p
-            ~
-            f'16
-            \>
-            g'8.
-            ~
-            g'4
-            ~
-            g'16
-            a'8.
-            \pp
-            ~
-            a'16
-            )
-            c'8.
-            \p
-            (
-            c'4
-            \<
-            d'4
-            ~
-            d'8
-            e'8
-            \f
-            f'4
-            \p
-            \>
-            g'2
-            a'4
-            \pp
-            )
-            c'4
-            \p
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'2
+                \p
+                \<
+                (
+                d'4.
+                e'8
+                \f
+                f'4
+                \p
+                \>
+                g'2
+                a'4
+                \pp
+                )
+                c'4..
+                \p
+                \<
+                (
+                d'16
+                ~
+                d'4
+                ~
+                d'16
+                e'8
+                \f
+                f'16
+                \p
+                ~
+                f'8.
+                \>
+                g'16
+                ~
+                g'4
+                ~
+                g'8.
+                a'16
+                \pp
+                ~
+                a'8.
+                )
+                c'16
+                \p
+                (
+                c'4.
+                \<
+                d'8
+                ~
+                d'4
+                e'8
+                \f
+                f'8
+                \p
+                ~
+                f'8
+                \>
+                g'8
+                ~
+                g'4
+                ~
+                g'8
+                a'4
+                \pp
+                )
+                c'8
+                \p
+                (
+                c'4
+                ~
+                c'16
+                \<
+                d'8.
+                ~
+                d'8.
+                e'16
+                \f
+                ~
+                e'16
+                f'8.
+                \p
+                ~
+                f'16
+                \>
+                g'8.
+                ~
+                g'4
+                ~
+                g'16
+                a'8.
+                \pp
+                ~
+                a'16
+                )
+                c'8.
+                \p
+                (
+                c'4
+                \<
+                d'4
+                ~
+                d'8
+                e'8
+                \f
+                f'4
+                \p
+                \>
+                g'2
+                a'4
+                \pp
+                )
+                c'4
+                \p
+            }
 
         ..  figure:: ../_images/Phaser-pxj7axmh58e.png
 
@@ -909,71 +966,83 @@ class Phaser():
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Phaser-ns0dbcanp5.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8.
-            d'16
-            ~
-            d'8.
-            e'16
-            ~
-            e'8.
-            f'16
-            ~
-            f'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8.
+                d'16
+                ~
+                d'8.
+                e'16
+                ~
+                e'8.
+                f'16
+                ~
+                f'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-utcxb4w611s.png
 
         >>> phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'16
-            d'16
-            e'16
-            f'16
-            g'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'16
+                d'16
+                e'16
+                f'16
+                g'2.
+            }
 
         ..  figure:: ../_images/Phaser-w0whe6c7jp.png
 
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            d'16
-            e'16
-            f'16
-            g'16
-            ~
-            g'2
-            ~
-            g'8.
-            c'16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                d'16
+                e'16
+                f'16
+                g'16
+                ~
+                g'2
+                ~
+                g'8.
+                c'16
+            }
 
         ..  figure:: ../_images/Phaser-cmo73lo14wo.png
 
@@ -985,14 +1054,17 @@ class Phaser():
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/Phaser-uhfkf8mzu4i.png
 
@@ -1004,16 +1076,19 @@ class Phaser():
         ...                        )
         >>> notes = phaser()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'8
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'8
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/Phaser-l6pvwhsj1hh.png
 
@@ -1042,20 +1117,23 @@ class Phaser():
         ...                        )
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            c'8
-            d'4
-            e'4
-            c'8
-            d'4
-            e'4
-            c'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                c'8
+                d'4
+                e'4
+                c'8
+                d'4
+                e'4
+                c'4
+            }
 
         ..  figure:: ../_images/Phaser-1rdkecll151.png
 
@@ -1080,47 +1158,50 @@ class Phaser():
         >>> phaser = auxjad.Phaser(container)
         >>> notes = phaser.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                \time 4/4
-                c'8
-                d'8
-                e'8
-            }
-            d'2.
-            \times 2/3
-            {
-                c'32
+                \times 2/3
+                {
+                    \time 4/4
+                    c'8
+                    d'8
+                    e'8
+                }
+                d'2.
+                \times 2/3
+                {
+                    c'32
+                    d'16
+                    ~
+                    d'16
+                    e'8
+                }
                 d'16
                 ~
-                d'16
-                e'8
+                d'2
+                ~
+                d'8.
+                c'16
+                \times 2/3
+                {
+                    d'16
+                    e'8
+                }
+                d'8
+                ~
+                d'2
+                ~
+                d'8
+                \times 2/3
+                {
+                    c'8
+                    d'16
+                }
             }
-            d'16
-            ~
-            d'2
-            ~
-            d'8.
-            c'16
-            \times 2/3
-            {
-                d'16
-                e'8
-            }
-            d'8
-            ~
-            d'2
-            ~
-            d'8
-            \times 2/3
-            {
-                c'8
-                d'16
-            }
-        }
 
         ..  figure:: ../_images/Phaser-lqvc5p5i25b.png
     """

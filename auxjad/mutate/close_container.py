@@ -21,53 +21,65 @@ def close_container(container: abjad.Container) -> None:
         >>> auxjad.mutate.close_container(container2)
         >>> auxjad.mutate.close_container(container3)
         >>> auxjad.mutate.close_container(container4)
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/close_container-nfnk06s90x.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/close_container-swyxwiup8pm.png
 
-        >>> abjad.f(container3)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            \time 1/4
-            c'4
-        }
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                \time 1/4
+                c'4
+            }
 
         ..  figure:: ../_images/close_container-mms5hiysbwe.png
 
-        >>> abjad.f(container4)
-        \new Staff
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(container4)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/close_container-aky7avbla4w.png
 
@@ -90,41 +102,50 @@ def close_container(container: abjad.Container) -> None:
         >>> auxjad.mutate.close_container(container1)
         >>> auxjad.mutate.close_container(container2)
         >>> auxjad.mutate.close_container(container3)
-        >>> abjad.f(container1)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            \time 1/4
-            g'4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                \time 1/4
+                g'4
+            }
 
         ..  figure:: ../_images/close_container-3tgyty245cq.png
 
-        >>> abjad.f(container2)
-        \new Staff
-        {
-            \time 3/4
-            a2.
-            \time 1/4
-            c'4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                a2.
+                \time 1/4
+                c'4
+            }
 
         ..  figure:: ../_images/close_container-st5d89zofoh.png
 
-        >>> abjad.f(container3)
-        \new Staff
-        {
-            \time 5/4
-            g1
-            ~
-            g4
-            \time 2/4
-            af'2
-        }
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/4
+                g1
+                ~
+                g4
+                \time 2/4
+                af'2
+            }
 
         ..  figure:: ../_images/close_container-wd5irlm76l.png
 
@@ -136,24 +157,30 @@ def close_container(container: abjad.Container) -> None:
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/close_container-xrwkorhtl5.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/close_container-ys6pcdlywy.png
 
@@ -164,18 +191,21 @@ def close_container(container: abjad.Container) -> None:
         >>> time_signature = abjad.TimeSignature((3, 4), partial=(1, 4))
         >>> abjad.attach(time_signature, container[0])
         >>> auxjad.mutate.close_container(container)
-        >>> abjad.f(container)
-        \new Staff
-        {
-            \partial 4
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            f'4
-            \time 1/4
-            g'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \partial 4
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                f'4
+                \time 1/4
+                g'4
+            }
 
         ..  figure:: ../_images/close_container-rfskjbbfnu.png
 

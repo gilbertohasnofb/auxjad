@@ -13,19 +13,22 @@ First, let's create a container with an arbitrary rhythm. The pitches do not
 matter at this point since we will randomise them shortly.
 
     >>> container = abjad.Container(r"c'4 ~ c'16 r8 c'16 c'4 c'16 r8.")
-    >>> abjad.f(container)
-    {
-        c'4
-        ~
-        c'16
-        r8
-        c'16
-        c'4
-        c'16
-        r8.
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-4-hocket-with-random-pitches-h990mzwoa7f.png
+    ..  docs::
+
+        {
+            c'4
+            ~
+            c'16
+            r8
+            c'16
+            c'4
+            c'16
+            r8.
+        }
+
+    ..  figure:: ../_images/example-4-hocket-with-random-pitches-h990mzwoa7f.png
 
 Next, let's initialise :class:`auxjad.PitchRandomiser` with this container as
 well as a :obj:`list` representing pitches. This will be the source for the
@@ -41,36 +44,39 @@ We can now output three measures with random pitches using the method
     >>> staff = abjad.Staff()
     >>> notes = randomiser.output_n(3)
     >>> staff.append(notes)
-    >>> abjad.f(container)
-    \new Staff
-    {
-        f'4
-        ~
-        f'16
-        r8
-        fs'16
-        d'4
-        cs'16
-        r8.
-        fs'4
-        ~
-        fs'16
-        r8
-        cs'16
-        ef'4
-        e'16
-        r8.
-        c'4
-        ~
-        c'16
-        r8
-        ef'16
-        c'4
-        cs'16
-        r8.
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-4-hocket-with-random-pitches-5s17pjm02j5.png
+    ..  docs::
+
+        \new Staff
+        {
+            f'4
+            ~
+            f'16
+            r8
+            fs'16
+            d'4
+            cs'16
+            r8.
+            fs'4
+            ~
+            fs'16
+            r8
+            cs'16
+            ef'4
+            e'16
+            r8.
+            c'4
+            ~
+            c'16
+            r8
+            ef'16
+            c'4
+            cs'16
+            r8.
+        }
+
+    ..  figure:: ../_images/example-4-hocket-with-random-pitches-5s17pjm02j5.png
 
 Let's now change the pitch :obj:`list` using the property
 :attr:`~auxjad.PitchRandomiser.pitches` of the randomiser.
@@ -81,60 +87,63 @@ Generating three more measures results in:
 
     >>> notes = randomiser.output_n(3)
     >>> staff.append(notes)
-    >>> abjad.f(container)
-    \new Staff
-    {
-        f'4
-        ~
-        f'16
-        r8
-        fs'16
-        d'4
-        cs'16
-        r8.
-        fs'4
-        ~
-        fs'16
-        r8
-        cs'16
-        ef'4
-        e'16
-        r8.
-        c'4
-        ~
-        c'16
-        r8
-        ef'16
-        c'4
-        cs'16
-        r8.
-        f''4
-        ~
-        f''16
-        r8
-        f''16
-        cs''4
-        f''16
-        r8.
-        f''4
-        ~
-        f''16
-        r8
-        a''16
-        e''4
-        f''16
-        r8.
-        a''4
-        ~
-        a''16
-        r8
-        cs''16
-        e''4
-        f''16
-        r8.
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-4-hocket-with-random-pitches-xnmxj4w1d0s.png
+    ..  docs::
+
+        \new Staff
+        {
+            f'4
+            ~
+            f'16
+            r8
+            fs'16
+            d'4
+            cs'16
+            r8.
+            fs'4
+            ~
+            fs'16
+            r8
+            cs'16
+            ef'4
+            e'16
+            r8.
+            c'4
+            ~
+            c'16
+            r8
+            ef'16
+            c'4
+            cs'16
+            r8.
+            f''4
+            ~
+            f''16
+            r8
+            f''16
+            cs''4
+            f''16
+            r8.
+            f''4
+            ~
+            f''16
+            r8
+            a''16
+            e''4
+            f''16
+            r8.
+            a''4
+            ~
+            a''16
+            r8
+            cs''16
+            e''4
+            f''16
+            r8.
+        }
+
+    ..  figure:: ../_images/example-4-hocket-with-random-pitches-xnmxj4w1d0s.png
 
 Up to now, the pitches were being selected with equal weight (i.e. an uniform
 distribution). Changing the :attr:`~auxjad.PitchRandomiser.weights` property to
@@ -148,84 +157,87 @@ Generating three more measures results in:
 
     >>> notes = randomiser.output_n(3)
     >>> staff.append(notes)
-    >>> abjad.f(container)
-    \new Staff
-    {
-        f'4
-        ~
-        f'16
-        r8
-        fs'16
-        d'4
-        cs'16
-        r8.
-        fs'4
-        ~
-        fs'16
-        r8
-        cs'16
-        ef'4
-        e'16
-        r8.
-        c'4
-        ~
-        c'16
-        r8
-        ef'16
-        c'4
-        cs'16
-        r8.
-        f''4
-        ~
-        f''16
-        r8
-        f''16
-        cs''4
-        f''16
-        r8.
-        f''4
-        ~
-        f''16
-        r8
-        a''16
-        e''4
-        f''16
-        r8.
-        a''4
-        ~
-        a''16
-        r8
-        cs''16
-        e''4
-        f''16
-        r8.
-        cs''4
-        ~
-        cs''16
-        r8
-        d''16
-        d''4
-        d''16
-        r8.
-        d''4
-        ~
-        d''16
-        r8
-        cs''16
-        d''4
-        a''16
-        r8.
-        d''4
-        ~
-        d''16
-        r8
-        cs''16
-        d''4
-        cs''16
-        r8.
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-4-hocket-with-random-pitches-7vipmn3n2ts.png
+    ..  docs::
+
+        \new Staff
+        {
+            f'4
+            ~
+            f'16
+            r8
+            fs'16
+            d'4
+            cs'16
+            r8.
+            fs'4
+            ~
+            fs'16
+            r8
+            cs'16
+            ef'4
+            e'16
+            r8.
+            c'4
+            ~
+            c'16
+            r8
+            ef'16
+            c'4
+            cs'16
+            r8.
+            f''4
+            ~
+            f''16
+            r8
+            f''16
+            cs''4
+            f''16
+            r8.
+            f''4
+            ~
+            f''16
+            r8
+            a''16
+            e''4
+            f''16
+            r8.
+            a''4
+            ~
+            a''16
+            r8
+            cs''16
+            e''4
+            f''16
+            r8.
+            cs''4
+            ~
+            cs''16
+            r8
+            d''16
+            d''4
+            d''16
+            r8.
+            d''4
+            ~
+            d''16
+            r8
+            cs''16
+            d''4
+            a''16
+            r8.
+            d''4
+            ~
+            d''16
+            r8
+            cs''16
+            d''4
+            cs''16
+            r8.
+        }
+
+    ..  figure:: ../_images/example-4-hocket-with-random-pitches-7vipmn3n2ts.png
 
 Let's now feed this staff of music into :class:`auxjad.Hocketer`. This class
 will distribute each note to a different voice, each given their own staff. See
@@ -244,131 +256,134 @@ To create the final score, we can simply assign its return value to an
     >>> score = abjad.Score()
     >>> for selection in music:
     ...     score.append(abjad.Staff(selection))
-    >>> abjad.f(score)
-    \new Score
-    <<
-        \new Staff
-        {
-            f'4
-            ~
-            f'16
-            r8.
-            r4
-            cs'16
-            r8.
-            R1
-            R1
-            f''4
-            ~
-            f''16
-            r16
-            r16
-            f''16
-            r2
-            R1
-            a''4
-            ~
-            a''16
-            r8.
-            e''4
-            r4
-            r2.
-            d''16
-            r8.
-            r4..
-            cs''16
-            r2
-            r4..
-            cs''16
-            r4
-            cs''16
-            r8.
-        }
-        \new Staff
-        {
-            r2
-            d'4
-            r4
-            fs'4
-            ~
-            fs'16
-            r8.
-            r2
-            c'4
-            ~
-            c'16
-            r16
-            r16
-            ef'16
-            r4
-            cs'16
-            r8.
-            r2.
-            f''16
-            r8.
-            f''4
-            ~
-            f''16
-            r16
-            r16
-            a''16
-            e''4
-            f''16
-            r8.
-            r4..
-            cs''16
-            r2
-            r4..
-            d''16
-            r2
-            d''4
-            ~
-            d''16
-            r8.
-            r4
-            a''16
-            r8.
-            R1
-        }
-        \new Staff
-        {
-            r4..
-            fs'16
-            r2
-            r4..
-            cs'16
-            ef'4
-            e'16
-            r8.
-            r2
-            c'4
-            r4
-            r2
-            cs''4
-            r4
-            R1
-            r2.
-            f''16
-            r8.
-            cs''4
-            ~
-            cs''16
-            r8.
-            d''4
-            r4
-            r2
-            d''4
-            r4
-            d''4
-            ~
-            d''16
-            r8.
-            d''4
-            r4
-        }
-    >>
+    >>> abjad.show(score)
 
-..  figure:: ../_images/example-4-hocket-with-random-pitches-af08ul3iyut.png
+    ..  docs::
+
+        \new Score
+        <<
+            \new Staff
+            {
+                f'4
+                ~
+                f'16
+                r8.
+                r4
+                cs'16
+                r8.
+                R1
+                R1
+                f''4
+                ~
+                f''16
+                r16
+                r16
+                f''16
+                r2
+                R1
+                a''4
+                ~
+                a''16
+                r8.
+                e''4
+                r4
+                r2.
+                d''16
+                r8.
+                r4..
+                cs''16
+                r2
+                r4..
+                cs''16
+                r4
+                cs''16
+                r8.
+            }
+            \new Staff
+            {
+                r2
+                d'4
+                r4
+                fs'4
+                ~
+                fs'16
+                r8.
+                r2
+                c'4
+                ~
+                c'16
+                r16
+                r16
+                ef'16
+                r4
+                cs'16
+                r8.
+                r2.
+                f''16
+                r8.
+                f''4
+                ~
+                f''16
+                r16
+                r16
+                a''16
+                e''4
+                f''16
+                r8.
+                r4..
+                cs''16
+                r2
+                r4..
+                d''16
+                r2
+                d''4
+                ~
+                d''16
+                r8.
+                r4
+                a''16
+                r8.
+                R1
+            }
+            \new Staff
+            {
+                r4..
+                fs'16
+                r2
+                r4..
+                cs'16
+                ef'4
+                e'16
+                r8.
+                r2
+                c'4
+                r4
+                r2
+                cs''4
+                r4
+                R1
+                r2.
+                f''16
+                r8.
+                cs''4
+                ~
+                cs''16
+                r8.
+                d''4
+                r4
+                r2
+                d''4
+                r4
+                d''4
+                ~
+                d''16
+                r8.
+                d''4
+                r4
+            }
+        >>
+
+    ..  figure:: ../_images/example-4-hocket-with-random-pitches-af08ul3iyut.png
 
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

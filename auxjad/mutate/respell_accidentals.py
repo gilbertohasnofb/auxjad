@@ -16,15 +16,18 @@ def respell_accidentals(selection: abjad.Selection,
 
         >>> container = abjad.Container(r"c'4 r4 <ef' e'>4 g'4 <c' cs'>4 r2.")
         >>> auxjad.mutate.respell_accidentals(container[:])
-        >>> abjad.f(container)
-        {
-            c'4
-            r4
-            <ds' e'>4
-            g'4
-            <c' df'>4
-            r2.
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                r4
+                <ds' e'>4
+                g'4
+                <c' df'>4
+                r2.
+            }
 
         ..  figure:: ../_images/respell_accidentals-x33afbbamt.png
 
@@ -53,42 +56,45 @@ def respell_accidentals(selection: abjad.Selection,
         >>> abjad.attach(literal, staff1)
         >>> abjad.attach(literal, staff2)
         >>> score = abjad.Score([staff1, staff2])
-        >>> abjad.f(score)
-        \new Score
-        <<
-            \new Staff
-            {
-                \accidentalStyle dodecaphonic
-                <c' cs'>16
-                <cs' d'>16
-                <d' ef'>16
-                <ef' e'>16
-                <e' f'>16
-                <f' fs'>16
-                <fs' g'>16
-                <g' af'>16
-                <af' a'>16
-                <a' bf'>16
-                <bf' b'>16
-                <b' c''>16
-            }
-            \new Staff
-            {
-                \accidentalStyle dodecaphonic
-                <c' df'>16
-                <cs' d'>16
-                <d' ef'>16
-                <ds' e'>16
-                <e' f'>16
-                <f' gf'>16
-                <fs' g'>16
-                <g' af'>16
-                <gs' a'>16
-                <a' bf'>16
-                <as' b'>16
-                <b' c''>16
-            }
-        >>
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \accidentalStyle dodecaphonic
+                    <c' cs'>16
+                    <cs' d'>16
+                    <d' ef'>16
+                    <ef' e'>16
+                    <e' f'>16
+                    <f' fs'>16
+                    <fs' g'>16
+                    <g' af'>16
+                    <af' a'>16
+                    <a' bf'>16
+                    <bf' b'>16
+                    <b' c''>16
+                }
+                \new Staff
+                {
+                    \accidentalStyle dodecaphonic
+                    <c' df'>16
+                    <cs' d'>16
+                    <d' ef'>16
+                    <ds' e'>16
+                    <e' f'>16
+                    <f' gf'>16
+                    <fs' g'>16
+                    <g' af'>16
+                    <gs' a'>16
+                    <a' bf'>16
+                    <as' b'>16
+                    <b' c''>16
+                }
+            >>
 
         ..  figure:: ../_images/respell_accidentals-jvg032q24il.png
 
@@ -100,16 +106,19 @@ def respell_accidentals(selection: abjad.Selection,
         >>> container2 = abjad.Container(r"<a c' cs' f'>1")
         >>> auxjad.mutate.respell_accidentals(container2[:])
         >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <a c' cs' f'>1
+                {
+                    <a c' cs' f'>1
+                }
+                {
+                    <a c' df' f'>1
+                }
             }
-            {
-                <a c' df' f'>1
-            }
-        }
 
         ..  figure:: ../_images/respell_accidentals-gyficck05p.png
 
@@ -119,16 +128,19 @@ def respell_accidentals(selection: abjad.Selection,
         >>> container2 = abjad.Container(r"<e' cs' g' ef'>1")
         >>> auxjad.mutate.respell_accidentals(container2[:])
         >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <cs' ef' e' g'>1
+                {
+                    <cs' ef' e' g'>1
+                }
+                {
+                    <cs' ds' e' g'>1
+                }
             }
-            {
-                <cs' ds' e' g'>1
-            }
-        }
 
         ..  figure:: ../_images/respell_accidentals-xbu6u6mu6qo.png
 
@@ -140,16 +152,19 @@ def respell_accidentals(selection: abjad.Selection,
         >>> container2 = abjad.Container(r"<c' cs''>1")
         >>> auxjad.mutate.respell_accidentals(container2[:])
         >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <c' cs''>1
+                {
+                    <c' cs''>1
+                }
+                {
+                    <c' cs''>1
+                }
             }
-            {
-                <c' cs''>1
-            }
-        }
 
         ..  figure:: ../_images/respell_accidentals-uszf11qb72d.png
 
@@ -165,16 +180,19 @@ def respell_accidentals(selection: abjad.Selection,
         ...     include_multiples=True,
         ... )
         >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <c' cs''>1
+                {
+                    <c' cs''>1
+                }
+                {
+                    <c' df''>1
+                }
             }
-            {
-                <c' df''>1
-            }
-        }
 
         ..  figure:: ../_images/respell_accidentals-8am8cu2rmgi.png
 
@@ -186,16 +204,19 @@ def respell_accidentals(selection: abjad.Selection,
         >>> container2 = abjad.Container(r"<c' cs' cs''>1")
         >>> auxjad.mutate.respell_accidentals(container2[:])
         >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <c' cs' cs''>1
+                {
+                    <c' cs' cs''>1
+                }
+                {
+                    <c' df' cs''>1
+                }
             }
-            {
-                <c' df' cs''>1
-            }
-        }
 
         ..  figure:: ../_images/respell_accidentals-47d16xk6gvs.png
 
@@ -209,16 +230,19 @@ def respell_accidentals(selection: abjad.Selection,
         ...     respell_by_pitch_class=True,
         ... )
         >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                <c' cs' cs''>1
+                {
+                    <c' cs' cs''>1
+                }
+                {
+                    <c' df' df''>1
+                }
             }
-            {
-                <c' df' df''>1
-            }
-        }
 
         ..  figure:: ../_images/respell_accidentals-kobft0oq9sl.png
     """

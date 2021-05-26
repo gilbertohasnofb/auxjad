@@ -14,10 +14,13 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         >>> harm = auxjad.HarmonicNote(r"c''4")
         >>> harm.style
-        'harmonic'
-        >>> abjad.f(harm)
-        \tweak style harmonic
-        c''4
+        "#'harmonic"
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            \tweak style #'harmonic
+            c''4
 
         ..  figure:: ../_images/HarmonicNote-jslykzpz7en.png
 
@@ -29,33 +32,39 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm3 = auxjad.HarmonicNote(12, 0.25)
         >>> harm4 = auxjad.HarmonicNote(12, abjad.Duration(1, 4))
         >>> staff = abjad.Staff([harm1, harm2, harm3, harm4])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \tweak style harmonic
-            c''4
-            \tweak style harmonic
-            c''4
-            \tweak style harmonic
-            c''4
-            \tweak style harmonic
-            c''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \tweak style #'harmonic
+                c''4
+                \tweak style #'harmonic
+                c''4
+                \tweak style #'harmonic
+                c''4
+                \tweak style #'harmonic
+                c''4
+            }
 
         ..  figure:: ../_images/HarmonicNote-kdx8pmkdspn.png
 
     :attr:`style`:
         When instantiating this class, use the keyword argument :attr:`style`
-        to set a different type of note head, such as ``'harmonic-mixed'``:
+        to set a different type of note head, such as ``"#'harmonic-mixed"``:
 
         >>> harm = auxjad.HarmonicNote(r"c''4",
-        ...                            style='harmonic-mixed',
+        ...                            style="#'harmonic-mixed",
         ...                            )
         >>> harm.style
-        'harmonic-mixed'
-        >>> abjad.f(harm)
-        \tweak style harmonic-mixed
-        c''4
+        "#'harmonic-mixed"
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            \tweak style #'harmonic-mixed
+            c''4
 
         ..  figure:: ../_images/HarmonicNote-z48i5il6vf.png
 
@@ -67,9 +76,12 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                            )
         >>> harm.multiplier
         abjad.Multiplier(2, 3)
-        >>> abjad.f(harm)
-        \tweak style harmonic
-        c''4 * 2/3
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            \tweak style #'harmonic
+            c''4 * 2/3
 
         ..  figure:: ../_images/HarmonicNote-4qbhly2hfi.png
 
@@ -83,20 +95,20 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.written_duration
         1/4
         >>> harm.style
-        'harmonic'
+        "#'harmonic"
 
         All these properties can be set to different values after
         initialisation:
 
         >>> harm.written_pitch = 18
         >>> harm.written_duration = abjad.Duration(1, 8)
-        >>> harm.style = 'harmonic-mixed'
+        >>> harm.style = "#'harmonic-mixed"
         >>> harm.written_pitch
         "fs''"
         >>> harm.written_duration
         1/8
         >>> harm.style
-        'harmonic-mixed'
+        "#'harmonic-mixed"
 
     Setting :attr:`style` to ``'flageolet'``:
         To create a harmonic note with a regular note head and with a flageolet
@@ -107,9 +119,12 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                            )
         >>> harm.style
         'flageolet'
-        >>> abjad.f(harm)
-        c''1
-        \flageolet
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            c''1
+            \flageolet
 
         ..  figure:: ../_images/HarmonicNote-4q2q7rz65lj.png
 
@@ -128,22 +143,25 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                             markup='III.',
         ...                             direction=abjad.Down)
         >>> staff = abjad.Staff([harm1, harm2, harm3])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \tweak style harmonic
-            d''1
-            \once \override TextScript.parent-alignment-X = 0
-            \once \override TextScript.self-alignment-X = 0
-            \tweak style harmonic
-            d''1
-            ^ \markup { III. }
-            \once \override TextScript.parent-alignment-X = 0
-            \once \override TextScript.self-alignment-X = 0
-            \tweak style harmonic
-            d''1
-            _ \markup { III. }
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \tweak style #'harmonic
+                d''1
+                \once \override TextScript.parent-alignment-X = 0
+                \once \override TextScript.self-alignment-X = 0
+                \tweak style #'harmonic
+                d''1
+                ^ \markup { III. }
+                \once \override TextScript.parent-alignment-X = 0
+                \once \override TextScript.self-alignment-X = 0
+                \tweak style #'harmonic
+                d''1
+                _ \markup { III. }
+            }
 
         ..  figure:: ../_images/HarmonicNote-v9uer4i864.png
 
@@ -154,9 +172,12 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                            markup='III.',
         ...                            )
         >>> harm.markup = None
-        >>> abjad.f(harm)
-        \tweak style harmonic
-        d''1
+        >>> abjad.show(harm)
+
+        ..  docs::
+
+            \tweak style #'harmonic
+            d''1
 
         ..  figure:: ../_images/HarmonicNote-2gqky0o8dgt.png
 
@@ -170,12 +191,15 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm1 = auxjad.HarmonicNote(r"d''1",
         ...                            markup='III.',
         ...                            )
-        >>> abjad.f(harm1)
-        \once \override TextScript.parent-alignment-X = 0
-        \once \override TextScript.self-alignment-X = 0
-        \tweak style harmonic
-        d''1
-        ^ \markup { III. }
+        >>> abjad.show(harm1)
+
+        ..  docs::
+
+            \once \override TextScript.parent-alignment-X = 0
+            \once \override TextScript.self-alignment-X = 0
+            \tweak style #'harmonic
+            d''1
+            ^ \markup { III. }
 
         ..  figure:: ../_images/HarmonicNote-Vb1lf8wt7O.png
 
@@ -183,10 +207,13 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ...                            markup='III.',
         ...                            centre_markup=False,
         ...                            )
-        >>> abjad.f(harm2)
-        \tweak style harmonic
-        d''1
-        ^ \markup { III. }
+        >>> abjad.show(harm2)
+
+        ..  docs::
+
+            \tweak style #'harmonic
+            d''1
+            ^ \markup { III. }
 
         ..  figure:: ../_images/HarmonicNote-ZxHdPOas1z.png
 
@@ -216,7 +243,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                  *arguments,
                  multiplier: Optional[abjad.typings.DurationTyping] = None,
                  tag: Optional[abjad.Tag] = None,
-                 style: str = 'harmonic',
+                 style: str = "#'harmonic",
                  markup: Optional[str] = None,
                  centre_markup: bool = True,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
@@ -228,7 +255,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         self.centre_markup = centre_markup
         self.markup = markup
 
-    ###########################
+    ### PRIVATE METHODS ###
 
     def _attach_centre_markup(self) -> None:
         r'Attaches the centre markup tweaks.'
@@ -268,7 +295,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         if not isinstance(style, str):
             raise TypeError("'style' must be 'str'")
         self._style = style
-        if not self._style == 'flageolet':
+        if not self._style.endswith('flageolet'):
             abjad.tweak(self._note_head).style = self._style
         else:
             flageolet = abjad.LilyPondLiteral(r'\flageolet',

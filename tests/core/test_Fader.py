@@ -1308,19 +1308,19 @@ def test_Fader_30():
             \time 4/4
             <
                 c'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 f'
             >2
             <c' f'>2
             <
                 c'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 f'
             >2
             f'2
             <
                 c'
-                \tweak style harmonic
+                \tweak style #'harmonic
                 f'
             >2
             r2

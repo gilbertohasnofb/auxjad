@@ -34,40 +34,46 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ... )
         >>> meter = abjad.Meter((3, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'16
-            d'16
-            ~
-            d'16
-            e'16
-            f'16
-            g'16
-            a'8
-            b'8
-            c''16
-            d''16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'16
+                d'16
+                ~
+                d'16
+                e'16
+                f'16
+                g'16
+                a'8
+                b'8
+                c''16
+                d''16
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-vlnd7l5fb7s.png
 
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'16
-            d'8
-            e'16
-            f'16
-            g'16
-            a'8
-            b'8
-            c''16
-            d''16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'16
+                d'8
+                e'16
+                f'16
+                g'16
+                a'8
+                b'8
+                c''16
+                d''16
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-e7vfnese0ut.png
 
@@ -93,60 +99,66 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...                     )
         >>> meter = abjad.Meter((3, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'32
-            d'32
-            e'16
-            ~
-            e'16
-            f'16
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g'32
-                a'32
-                b'32
+                \time 3/4
+                c'32
+                d'32
+                e'16
+                ~
+                e'16
+                f'16
+                \times 2/3
+                {
+                    g'32
+                    a'32
+                    b'32
+                }
+                c''16
+                ~
+                c''16
+                r16
+                r32.
+                d''64
+                e''16
+                ~
+                e''16
+                f''32
+                g''32
             }
-            c''16
-            ~
-            c''16
-            r16
-            r32.
-            d''64
-            e''16
-            ~
-            e''16
-            f''32
-            g''32
-        }
 
         ..  figure:: ../_images/prettify_rewrite_meter-kw09gse2zxj.png
 
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'32
-            d'32
-            e'8
-            f'16
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g'32
-                a'32
-                b'32
+                \time 3/4
+                c'32
+                d'32
+                e'8
+                f'16
+                \times 2/3
+                {
+                    g'32
+                    a'32
+                    b'32
+                }
+                c''8
+                r16
+                r32.
+                d''64
+                e''8
+                f''32
+                g''32
             }
-            c''8
-            r16
-            r32.
-            d''64
-            e''8
-            f''32
-            g''32
-        }
 
         ..  figure:: ../_images/prettify_rewrite_meter-u5gmtdippsa.png
 
@@ -161,46 +173,52 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
         >>> meter = abjad.Meter((6, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 6/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'8
-            ~
-            f'8
-            g'8
-            ~
-            g'8
-            a'8
-            ~
-            a'8
-            b'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 6/4
+                c'8
+                d'8
+                ~
+                d'8
+                e'8
+                ~
+                e'8
+                f'8
+                ~
+                f'8
+                g'8
+                ~
+                g'8
+                a'8
+                ~
+                a'8
+                b'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-tqi4p0u8qog.png
 
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 6/4
-            c'8
-            d'4
-            e'4
-            f'8
-            ~
-            f'8
-            g'4
-            a'4
-            b'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 6/4
+                c'8
+                d'4
+                e'4
+                f'8
+                ~
+                f'8
+                g'4
+                a'4
+                b'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-riif1glyqpo.png
 
@@ -215,28 +233,31 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     meter,
         ...     fuse_across_groups_of_beats=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 6/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'8
-            ~
-            f'8
-            g'8
-            ~
-            g'8
-            a'8
-            ~
-            a'8
-            b'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 6/4
+                c'8
+                d'8
+                ~
+                d'8
+                e'8
+                ~
+                e'8
+                f'8
+                ~
+                f'8
+                g'8
+                ~
+                g'8
+                a'8
+                ~
+                a'8
+                b'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-ki5xbiteij.png
 
@@ -249,23 +270,26 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((7, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 7/4
-            c'8
-            d'4
-            e'4
-            f'8
-            ~
-            f'8
-            g'4
-            a'8
-            ~
-            a'8
-            b'4
-            c''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/4
+                c'8
+                d'4
+                e'4
+                f'8
+                ~
+                f'8
+                g'4
+                a'8
+                ~
+                a'8
+                b'4
+                c''8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-bud0jhkvvl.png
 
@@ -273,23 +297,26 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 7/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            f'4
-            g'8
-            ~
-            g'8
-            a'4
-            b'4
-            c''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/4
+                c'8
+                d'4
+                e'8
+                ~
+                e'8
+                f'4
+                g'8
+                ~
+                g'8
+                a'4
+                b'4
+                c''8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-47y86pbwwv5.png
 
@@ -303,66 +330,72 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((5, 8))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate.rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/8
-            c'16
-            d'16
-            ~
-            d'16
-            e'16
-            ~
-            e'16
-            f'16
-            ~
-            f'16
-            g'16
-            ~
-            g'16
-            a'16
-            ~
-            a'16
-            b'16
-            ~
-            b'16
-            c''16
-            ~
-            c''16
-            d''16
-            ~
-            d''16
-            e''16
-            ~
-            e''16
-            f''16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/8
+                c'16
+                d'16
+                ~
+                d'16
+                e'16
+                ~
+                e'16
+                f'16
+                ~
+                f'16
+                g'16
+                ~
+                g'16
+                a'16
+                ~
+                a'16
+                b'16
+                ~
+                b'16
+                c''16
+                ~
+                c''16
+                d''16
+                ~
+                d''16
+                e''16
+                ~
+                e''16
+                f''16
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-8jdzmvf9yl.png
 
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 5/8
-            c'16
-            d'8
-            e'8
-            f'16
-            ~
-            f'16
-            g'8
-            a'16
-            ~
-            a'16
-            b'8
-            c''8
-            d''16
-            ~
-            d''16
-            e''8
-            f''16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/8
+                c'16
+                d'8
+                e'8
+                f'16
+                ~
+                f'16
+                g'8
+                a'16
+                ~
+                a'16
+                b'8
+                c''8
+                d''16
+                ~
+                d''16
+                e''8
+                f''16
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-pcn8x9hr6bb.png
 
@@ -375,57 +408,63 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate.rewrite_meter(measure, meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'8
-            ~
-            f'8
-            g'8
-            a'8
-            b'8
-            ~
-            b'8
-            c''8
-            d''16
-            e''8.
-            ~
-            e''16
-            f''8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                ~
+                d'8
+                e'8
+                ~
+                e'8
+                f'8
+                ~
+                f'8
+                g'8
+                a'8
+                b'8
+                ~
+                b'8
+                c''8
+                d''16
+                e''8.
+                ~
+                e''16
+                f''8.
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-s8fg7a2k0tr.png
 
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            f'4
-            g'8
-            a'8
-            b'4
-            c''8
-            d''16
-            e''8.
-            ~
-            e''16
-            f''8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'4
+                e'8
+                ~
+                e'8
+                f'4
+                g'8
+                a'8
+                b'4
+                c''8
+                d''16
+                e''8.
+                ~
+                e''16
+                f''8.
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-rgd7ok7fkq.png
 
@@ -441,31 +480,34 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     abjad.select(staff[:]).group_by_measure(),
         ... ):
         ...     abjad.mutate.rewrite_meter(measure, meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'16
-            g'16
-            \time 4/4
-            a'8
-            b'8
-            ~
-            b'8
-            c''8
-            d''16
-            e''8.
-            ~
-            e''16
-            f''8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                d'8
+                ~
+                d'8
+                e'8
+                ~
+                e'8
+                f'16
+                g'16
+                \time 4/4
+                a'8
+                b'8
+                ~
+                b'8
+                c''8
+                d''16
+                e''8.
+                ~
+                e''16
+                f''8.
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-o2izz0m7s9k.png
 
@@ -474,25 +516,28 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     abjad.select(staff[:]).group_by_measure(),
         ... ):
         ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'4
-            e'4
-            f'16
-            g'16
-            \time 4/4
-            a'8
-            b'4
-            c''8
-            d''16
-            e''8.
-            ~
-            e''16
-            f''8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                d'4
+                e'4
+                f'16
+                g'16
+                \time 4/4
+                a'8
+                b'4
+                c''8
+                d''16
+                e''8.
+                ~
+                e''16
+                f''8.
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-zh89kk66zon.png
 
@@ -506,18 +551,21 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((4, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            f'4
-            g'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'4
+                e'8
+                ~
+                e'8
+                f'4
+                g'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-nap4bbf7mxe.png
 
@@ -531,22 +579,25 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     meter,
         ...     fuse_quadruple_meter=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'8
-            ~
-            f'8
-            g'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                ~
+                d'8
+                e'8
+                ~
+                e'8
+                f'8
+                ~
+                f'8
+                g'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-juipg9nzna.png
 
@@ -559,15 +610,18 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((3, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'4
-            e'4
-            f'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                d'4
+                e'4
+                f'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-4wg3grpb94p.png
 
@@ -582,19 +636,22 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     meter,
         ...     fuse_triple_meter=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            d'8
-            ~
-            d'8
-            e'8
-            ~
-            e'8
-            f'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                d'8
+                ~
+                d'8
+                e'8
+                ~
+                e'8
+                f'8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-l16ostzscta.png
 
@@ -609,18 +666,21 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((4, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
         >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                d'8
+                c'4
+                \times 2/3
+                {
+                    d'8
+                    r4
+                }
                 r4
+                <e' g'>4
             }
-            r4
-            <e' g'>4
-        }
 
         ..  figure:: ../_images/prettify_rewrite_meter-a72jx4fc1xd.png
 
@@ -637,27 +697,30 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     meter,
         ...     extract_trivial_tuplets=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                c'4.
+                \times 2/3
+                {
+                    c'4.
+                }
+                \times 2/3
+                {
+                    d'8
+                    r4
+                }
+                \times 2/3
+                {
+                    r4.
+                }
+                \times 2/3
+                {
+                    <e' g'>4.
+                }
             }
-            \times 2/3
-            {
-                d'8
-                r4
-            }
-            \times 2/3
-            {
-                r4.
-            }
-            \times 2/3
-            {
-                <e' g'>4.
-            }
-        }
 
         ..  figure:: ../_images/prettify_rewrite_meter-v9q0ka94qcd.png
 
@@ -676,28 +739,31 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate.rewrite_meter(measure, meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'2
-            r4
-            e'4.
-            f'8
-            ~
-            f'4.
-            g'8
-            a'4.
-            b'4.
-            c''4
-            d''16
-            e''8.
-            f''4.
-            g''8
-            ~
-            g''8
-            a''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'2
+                r4
+                e'4.
+                f'8
+                ~
+                f'4.
+                g'8
+                a'4.
+                b'4.
+                c''4
+                d''16
+                e''8.
+                f''4.
+                g''8
+                ~
+                g''8
+                a''8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-1wvhrjife1i.png
 
@@ -709,30 +775,33 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         sort of leaves as shown below.
 
         >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'2
-            r4
-            e'4.
-            f'8
-            ~
-            f'4.
-            g'8
-            a'4.
-            b'8
-            ~
-            b'4
-            c''4
-            d''16
-            e''8.
-            f''4
-            ~
-            f''8
-            g''4
-            a''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'2
+                r4
+                e'4.
+                f'8
+                ~
+                f'4.
+                g'8
+                a'4.
+                b'8
+                ~
+                b'4
+                c''4
+                d''16
+                e''8.
+                f''4
+                ~
+                f''8
+                g''4
+                a''8
+            }
         ..  figure:: ../_images/prettify_rewrite_meter-56dy04wjzg.png
 
         Set ``split_quadruple_meter`` to ``False`` to disable this behaviour.
@@ -751,26 +820,29 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         ...     meter,
         ...     split_quadruple_meter=False,
         ... )
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'2
-            r4
-            e'4.
-            f'8
-            ~
-            f'4.
-            g'8
-            a'4.
-            b'4.
-            c''4
-            d''16
-            e''8.
-            f''4.
-            g''4
-            a''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'2
+                r4
+                e'4.
+                f'8
+                ~
+                f'4.
+                g'8
+                a'4.
+                b'4.
+                c''4
+                d''16
+                e''8.
+                f''4.
+                g''4
+                a''8
+            }
 
         ..  figure:: ../_images/prettify_rewrite_meter-ww1x0zsxlnd.png
 

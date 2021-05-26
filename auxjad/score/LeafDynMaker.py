@@ -19,30 +19,33 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'32
-            \pp
-            -\staccato
-            d'16
-            \p
-            -\accent
-            e'16.
-            \mp
-            -\tenuto
-            f'8
-            \mf
-            -\portato
-            g'8
-            \f
-            -\marcato
-            ~
-            g'32
-            a'8.
-            \ff
-            -\stopped
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'32
+                \pp
+                -\staccato
+                d'16
+                \p
+                -\accent
+                e'16.
+                \mp
+                -\tenuto
+                f'8
+                \mf
+                -\portato
+                g'8
+                \f
+                -\marcato
+                ~
+                g'32
+                a'8.
+                \ff
+                -\stopped
+            }
 
         ..  figure:: ../_images/LeafDynMaker-iv96zmptned.png
 
@@ -57,17 +60,20 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            f'4
-            \p
-            -\staccato
-            r8
-            <c' d' g'>16
-            \f
-            -\tenuto
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                f'4
+                \p
+                -\staccato
+                r8
+                <c' d' g'>16
+                \f
+                -\tenuto
+            }
 
         ..  figure:: ../_images/LeafDynMaker-odpaavswk29.png
 
@@ -85,22 +91,25 @@ class LeafDynMaker(abjad.LeafMaker):
         ...                        omit_repeated_dynamics=True,
         ...                        )
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'32
-            \pp
-            d'16
-            e'16.
-            \mp
-            f'8
-            \f
-            g'8
-            ~
-            g'32
-            a'8.
-            \p
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'32
+                \pp
+                d'16
+                e'16.
+                \mp
+                f'8
+                \f
+                g'8
+                ~
+                g'32
+                a'8.
+                \p
+            }
 
         ..  figure:: ../_images/LeafDynMaker-jryhls4d6ic.png
 
@@ -115,23 +124,26 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \p
-            -\staccato
-            d'4
-            \f
-            -\accent
-            e'4
-            \ff
-            f'4
-            g'4
-            a'4
-            b'4
-            c''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \p
+                -\staccato
+                d'4
+                \f
+                -\accent
+                e'4
+                \ff
+                f'4
+                g'4
+                a'4
+                b'4
+                c''4
+            }
 
         ..  figure:: ../_images/LeafDynMaker-1losyp9vc1di.png
 
@@ -154,34 +166,37 @@ class LeafDynMaker(abjad.LeafMaker):
         ...                        cyclic_articulations=True,
         ...                        )
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \p
-            - \staccato
-            d'4
-            \f
-            - \accent
-            e'4
-            \ff
-            - \staccato
-            f'4
-            \p
-            - \accent
-            g'4
-            \f
-            - \staccato
-            a'4
-            \ff
-            - \accent
-            b'4
-            \p
-            - \staccato
-            c''4
-            \f
-            - \accent
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \p
+                - \staccato
+                d'4
+                \f
+                - \accent
+                e'4
+                \ff
+                - \staccato
+                f'4
+                \p
+                - \accent
+                g'4
+                \f
+                - \staccato
+                a'4
+                \ff
+                - \accent
+                b'4
+                \p
+                - \staccato
+                c''4
+                \f
+                - \accent
+            }
 
         ..  figure:: ../_images/LeafDynMaker-x8zhyel42i.png
 
@@ -196,20 +211,23 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \p
-            -\staccato
-            d'4
-            e'4
-            f'4
-            g'4
-            a'4
-            b'4
-            c''4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \p
+                -\staccato
+                d'4
+                e'4
+                f'4
+                g'4
+                a'4
+                b'4
+                c''4
+            }
 
         ..  figure:: ../_images/LeafDynMaker-wwl4pcpmwhv232n7j7ws.png
 
@@ -229,27 +247,30 @@ class LeafDynMaker(abjad.LeafMaker):
         ...                        cyclic_articulations=True,
         ...                        )
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            \p
-            -\staccato
-            d'4
-            -\staccato
-            e'4
-            -\staccato
-            f'4
-            -\staccato
-            g'4
-            -\staccato
-            a'4
-            -\staccato
-            b'4
-            - \staccato
-            c''4
-            - \staccato
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \p
+                -\staccato
+                d'4
+                -\staccato
+                e'4
+                -\staccato
+                f'4
+                -\staccato
+                g'4
+                -\staccato
+                a'4
+                -\staccato
+                b'4
+                - \staccato
+                c''4
+                - \staccato
+            }
 
         ..  figure:: ../_images/LeafDynMaker-s5ic146v4qb.png
 
@@ -281,23 +302,26 @@ class LeafDynMaker(abjad.LeafMaker):
         >>> leaf_dyn_maker = auxjad.LeafDynMaker()
         >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'32
-            \p
-            - \accent
-            d'16
-            \f
-            - \tenuto
-            e'16.
-            - \staccato
-            f'8
-            g'8
-            ~
-            g'32
-            a'8.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'32
+                \p
+                - \accent
+                d'16
+                \f
+                - \tenuto
+                e'16.
+                - \staccato
+                f'8
+                g'8
+                ~
+                g'32
+                a'8.
+            }
 
         ..  figure:: ../_images/LeafDynMaker-79n2uz1n8j3.png
     """

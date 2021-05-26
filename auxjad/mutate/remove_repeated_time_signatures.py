@@ -12,29 +12,35 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
         >>> staff = abjad.Staff(r"c'4 d'8 | c'4 d'8")
         >>> abjad.attach(abjad.TimeSignature((3, 8)), staff[0])
         >>> abjad.attach(abjad.TimeSignature((3, 8)), staff[2])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            d'8
-            \time 3/8
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                d'8
+                \time 3/8
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-feZSi4Trsg.png
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            d'8
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                d'8
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-ImmpJOWn5U.png
 
@@ -55,31 +61,37 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
         >>> staff = abjad.Staff(r"c'4 d'8 e'4. c'4 d'8")
         >>> abjad.attach(abjad.TimeSignature((3, 8)), staff[0])
         >>> abjad.attach(abjad.TimeSignature((3, 8)), staff[3])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            d'8
-            e'4.
-            \time 3/8
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                d'8
+                e'4.
+                \time 3/8
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-ihs4kU1dMe.png
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/8
-            c'4
-            d'8
-            e'4.
-            c'4
-            d'8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/8
+                c'4
+                d'8
+                e'4.
+                c'4
+                d'8
+            }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-Ans1RrG5ZW.png
 
@@ -94,37 +106,43 @@ def remove_repeated_time_signatures(selection: abjad.Selection) -> None:
         ...                      ])
         >>> abjad.attach(abjad.TimeSignature((2, 2)), staff[0])
         >>> abjad.attach(abjad.TimeSignature((2, 2)), staff[2][0])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/2
-            c'2
-            <d' f'>2
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
                 \time 2/2
-                g2
-                a2
-                b2
+                c'2
+                <d' f'>2
+                \times 2/3
+                {
+                    \time 2/2
+                    g2
+                    a2
+                    b2
+                }
             }
-        }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-Nybwh816FT.png
 
         >>> auxjad.mutate.remove_repeated_time_signatures(staff[:])
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 2/2
-            c'2
-            <d' f'>2
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                g2
-                a2
-                b2
+                \time 2/2
+                c'2
+                <d' f'>2
+                \times 2/3
+                {
+                    g2
+                    a2
+                    b2
+                }
             }
-        }
 
         ..  figure:: ../_images/remove_repeated_time_signatures-PNCfPcnTtj.png
 

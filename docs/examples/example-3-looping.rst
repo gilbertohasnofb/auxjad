@@ -49,33 +49,36 @@ of time signatures.
     >>> leaf_dyn_maker = auxjad.LeafDynMaker()
     >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     >>> container = abjad.Container(notes)
-    >>> abjad.f(container)
-    {
-        bf'4.
-        \f
-        g'4.
-        \f
-        af'4
-        \mf
-        c'4.
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'2
-        \p
-        ~
-        bf'8
-        af'2
-        \p
-        - \tenuto
-        ~
-        af'8
-    }
+    >>> abjad.show(container)
 
-..  figure:: ../_images/example-3-looping-wcsvsyfmwm.png
+    ..  docs::
+
+        {
+            bf'4.
+            \f
+            g'4.
+            \f
+            af'4
+            \mf
+            c'4.
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'2
+            \p
+            ~
+            bf'8
+            af'2
+            \p
+            - \tenuto
+            ~
+            af'8
+        }
+
+    ..  figure:: ../_images/example-3-looping-wcsvsyfmwm.png
 
 Let's now use :class:`auxjad.WindowLooper` to output loops of windows of the
 material. By default, this class uses a window size of a 4/4 measure, and each
@@ -94,68 +97,71 @@ measures of the looping process for us. In this case, let's output six measures.
     >>> staff = abjad.Staff()
     >>> notes = looper.output_n(6)
     >>> staff.append(notes)
-    >>> abjad.f(staff)
-    \new Staff
-    {
-        \time 5/4
-        bf'4.
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        bf'8
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        g'4
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        ~
-        c'8
-        g'4
-        \f
-        ef'8
-        \p
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        c'4.
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'8
-        \p
-        ~
-        ef'4
-        bf'4
-        c'8
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'2
-    }
+    >>> abjad.show(staff)
 
-..  figure:: ../_images/example-3-looping-002erek662ml6.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 5/4
+            bf'4.
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            bf'8
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            g'4
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            ~
+            c'8
+            g'4
+            \f
+            ef'8
+            \p
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            ~
+            g'8
+            ef'4.
+            \p
+            c'4.
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'8
+            \p
+            ~
+            ef'4
+            bf'4
+            c'8
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'2
+        }
+
+    ..  figure:: ../_images/example-3-looping-002erek662ml6.png
 
 Let's now change the value of :attr:`~auxjad.WindowLooper.step_size` from a
 crotchet into a semiquaver and output six more measures.
@@ -163,143 +169,146 @@ crotchet into a semiquaver and output six more measures.
     >>> looper.step_size = (1, 16)
     >>> notes = looper.output_n(6)
     >>> staff.append(notes)
-    >>> abjad.f(staff)
-    \new Staff
-    {
-        \time 5/4
-        bf'4.
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        bf'8
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        g'4
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        ~
-        c'8
-        g'4
-        \f
-        ef'8
-        \p
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        c'4.
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'8
-        \p
-        ~
-        ef'4
-        bf'4
-        c'8
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'2
-        \time 5/4
-        c'16
-        \mf
-        - \tenuto
-        g'8.
-        \f
-        ~
-        g'16
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4..
-        ~
-        bf'16
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'8
-        ~
-        bf'4.
-        ~
-        bf'8
-        g'8.
-        \f
-        ef'16
-        \p
-        ~
-        ef'4
-        ~
-        ef'16
-        bf'8.
-        ~
-        bf'4
-        ~
-        bf'16
-        ~
-        bf'8
-        af'16
-        - \tenuto
-        g'8
-        \f
-        ef'4.
-        \p
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'8
-        af'8
-        - \tenuto
-        g'16
-        \f
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'16
-        af'8.
-        - \tenuto
-        ef'4.
-        bf'4.
-        ~
-        bf'4
-        af'4
-        - \tenuto
-    }
+    >>> abjad.show(staff)
 
-..  figure:: ../_images/example-3-looping-qodelstkbvo.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 5/4
+            bf'4.
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            bf'8
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            g'4
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            ~
+            c'8
+            g'4
+            \f
+            ef'8
+            \p
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            ~
+            g'8
+            ef'4.
+            \p
+            c'4.
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'8
+            \p
+            ~
+            ef'4
+            bf'4
+            c'8
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'2
+            \time 5/4
+            c'16
+            \mf
+            - \tenuto
+            g'8.
+            \f
+            ~
+            g'16
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4..
+            ~
+            bf'16
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'8
+            ~
+            bf'4.
+            ~
+            bf'8
+            g'8.
+            \f
+            ef'16
+            \p
+            ~
+            ef'4
+            ~
+            ef'16
+            bf'8.
+            ~
+            bf'4
+            ~
+            bf'16
+            ~
+            bf'8
+            af'16
+            - \tenuto
+            g'8
+            \f
+            ef'4.
+            \p
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'8
+            af'8
+            - \tenuto
+            g'16
+            \f
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'16
+            af'8.
+            - \tenuto
+            ef'4.
+            bf'4.
+            ~
+            bf'4
+            af'4
+            - \tenuto
+        }
+
+    ..  figure:: ../_images/example-3-looping-qodelstkbvo.png
 
 Notice that the time signature has been repeated. While the method
 :meth:`~auxjad.WindowLooper.output_n()` takes care of repeated time signatures,
@@ -311,142 +320,145 @@ adds to |abjad.mutate|.
 
 
     >>> abjad.mutate.remove_repeated_time_signatures(staff[:])
-    >>> abjad.f(staff)
-    \new Staff
-    {
-        \time 5/4
-        bf'4.
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        bf'8
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        g'4
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        ~
-        c'8
-        g'4
-        \f
-        ef'8
-        \p
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        c'4.
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'8
-        \p
-        ~
-        ef'4
-        bf'4
-        c'8
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'2
-        c'16
-        \mf
-        - \tenuto
-        g'8.
-        \f
-        ~
-        g'16
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4..
-        ~
-        bf'16
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'8
-        ~
-        bf'4.
-        ~
-        bf'8
-        g'8.
-        \f
-        ef'16
-        \p
-        ~
-        ef'4
-        ~
-        ef'16
-        bf'8.
-        ~
-        bf'4
-        ~
-        bf'16
-        ~
-        bf'8
-        af'16
-        - \tenuto
-        g'8
-        \f
-        ef'4.
-        \p
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'8
-        af'8
-        - \tenuto
-        g'16
-        \f
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'16
-        af'8.
-        - \tenuto
-        ef'4.
-        bf'4.
-        ~
-        bf'4
-        af'4
-        - \tenuto
-    }
+    >>> abjad.show(staff)
 
-..  figure:: ../_images/example-3-looping-5vih5zhn6de.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 5/4
+            bf'4.
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            bf'8
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            g'4
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            ~
+            c'8
+            g'4
+            \f
+            ef'8
+            \p
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            ~
+            g'8
+            ef'4.
+            \p
+            c'4.
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'8
+            \p
+            ~
+            ef'4
+            bf'4
+            c'8
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'2
+            c'16
+            \mf
+            - \tenuto
+            g'8.
+            \f
+            ~
+            g'16
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4..
+            ~
+            bf'16
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'8
+            ~
+            bf'4.
+            ~
+            bf'8
+            g'8.
+            \f
+            ef'16
+            \p
+            ~
+            ef'4
+            ~
+            ef'16
+            bf'8.
+            ~
+            bf'4
+            ~
+            bf'16
+            ~
+            bf'8
+            af'16
+            - \tenuto
+            g'8
+            \f
+            ef'4.
+            \p
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'8
+            af'8
+            - \tenuto
+            g'16
+            \f
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'16
+            af'8.
+            - \tenuto
+            ef'4.
+            bf'4.
+            ~
+            bf'4
+            af'4
+            - \tenuto
+        }
+
+    ..  figure:: ../_images/example-3-looping-5vih5zhn6de.png
 
 Let's now change the :attr:`~auxjad.WindowLooper.window_size` and output some
 more measures.
@@ -454,169 +466,172 @@ more measures.
     >>> looper.window_size = (3, 4)
     >>> notes = looper.output_n(6)
     >>> staff.append(notes)
-    >>> abjad.f(staff)
-    \new Staff
-    {
-        \time 5/4
-        bf'4.
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        bf'8
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        g'4
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        ~
-        c'8
-        g'4
-        \f
-        ef'8
-        \p
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        c'4.
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'8
-        \p
-        ~
-        ef'4
-        bf'4
-        c'8
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'2
-        c'16
-        \mf
-        - \tenuto
-        g'8.
-        \f
-        ~
-        g'16
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4..
-        ~
-        bf'16
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'8
-        ~
-        bf'4.
-        ~
-        bf'8
-        g'8.
-        \f
-        ef'16
-        \p
-        ~
-        ef'4
-        ~
-        ef'16
-        bf'8.
-        ~
-        bf'4
-        ~
-        bf'16
-        ~
-        bf'8
-        af'16
-        - \tenuto
-        g'8
-        \f
-        ef'4.
-        \p
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'8
-        af'8
-        - \tenuto
-        g'16
-        \f
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'16
-        af'8.
-        - \tenuto
-        ef'4.
-        bf'4.
-        ~
-        bf'4
-        af'4
-        - \tenuto
-        \time 3/4
-        ef'4
-        \p
-        ~
-        ef'16
-        bf'4..
-        ef'4
-        bf'2
-        ef'8.
-        bf'16
-        ~
-        bf'2
-        ef'8
-        bf'8
-        ~
-        bf'2
-        ef'16
-        bf'8.
-        ~
-        bf'4..
-        af'16
-        - \tenuto
-        bf'2
-        ~
-        bf'8
-        af'8
-        - \tenuto
-    }
+    >>> abjad.show(staff)
 
-..  figure:: ../_images/example-3-looping-snpku7bedo.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 5/4
+            bf'4.
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            bf'8
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            g'4
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            ~
+            c'8
+            g'4
+            \f
+            ef'8
+            \p
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            ~
+            g'8
+            ef'4.
+            \p
+            c'4.
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'8
+            \p
+            ~
+            ef'4
+            bf'4
+            c'8
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'2
+            c'16
+            \mf
+            - \tenuto
+            g'8.
+            \f
+            ~
+            g'16
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4..
+            ~
+            bf'16
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'8
+            ~
+            bf'4.
+            ~
+            bf'8
+            g'8.
+            \f
+            ef'16
+            \p
+            ~
+            ef'4
+            ~
+            ef'16
+            bf'8.
+            ~
+            bf'4
+            ~
+            bf'16
+            ~
+            bf'8
+            af'16
+            - \tenuto
+            g'8
+            \f
+            ef'4.
+            \p
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'8
+            af'8
+            - \tenuto
+            g'16
+            \f
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'16
+            af'8.
+            - \tenuto
+            ef'4.
+            bf'4.
+            ~
+            bf'4
+            af'4
+            - \tenuto
+            \time 3/4
+            ef'4
+            \p
+            ~
+            ef'16
+            bf'4..
+            ef'4
+            bf'2
+            ef'8.
+            bf'16
+            ~
+            bf'2
+            ef'8
+            bf'8
+            ~
+            bf'2
+            ef'16
+            bf'8.
+            ~
+            bf'4..
+            af'16
+            - \tenuto
+            bf'2
+            ~
+            bf'8
+            af'8
+            - \tenuto
+        }
+
+    ..  figure:: ../_images/example-3-looping-snpku7bedo.png
 
 At this point, let's use |auxjad.mutate.remove_repeated_dynamics()| to remove
 all repeated dynamics. While the method :meth:`~auxjad.WindowLooper.output_n()`
@@ -630,168 +645,171 @@ is also available as the extension method
 The final result is shown below.
 
     >>> abjad.mutate.remove_repeated_dynamics(staff[:])
-    >>> abjad.f(staff)
-    \new Staff
-    {
-        \time 5/4
-        bf'4.
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        bf'8
-        \f
-        g'4.
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        g'4
-        af'4
-        \mf
-        c'4
-        - \tenuto
-        ~
-        c'8
-        g'4
-        \f
-        ef'8
-        \p
-        af'4
-        \mf
-        c'4.
-        - \tenuto
-        g'8
-        \f
-        ~
-        g'8
-        ef'4.
-        \p
-        c'4.
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'8
-        \p
-        ~
-        ef'4
-        bf'4
-        c'8
-        \mf
-        - \tenuto
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'2
-        c'16
-        \mf
-        - \tenuto
-        g'8.
-        \f
-        ~
-        g'16
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4..
-        ~
-        bf'16
-        g'4
-        \f
-        ef'4.
-        \p
-        bf'8
-        ~
-        bf'4.
-        ~
-        bf'8
-        g'8.
-        \f
-        ef'16
-        \p
-        ~
-        ef'4
-        ~
-        ef'16
-        bf'8.
-        ~
-        bf'4
-        ~
-        bf'16
-        ~
-        bf'8
-        af'16
-        - \tenuto
-        g'8
-        \f
-        ef'4.
-        \p
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'8
-        af'8
-        - \tenuto
-        g'16
-        \f
-        ef'8.
-        \p
-        ~
-        ef'8.
-        bf'16
-        ~
-        bf'4
-        ~
-        bf'4
-        ~
-        bf'16
-        af'8.
-        - \tenuto
-        ef'4.
-        bf'4.
-        ~
-        bf'4
-        af'4
-        - \tenuto
-        \time 3/4
-        ef'4
-        ~
-        ef'16
-        bf'4..
-        ef'4
-        bf'2
-        ef'8.
-        bf'16
-        ~
-        bf'2
-        ef'8
-        bf'8
-        ~
-        bf'2
-        ef'16
-        bf'8.
-        ~
-        bf'4..
-        af'16
-        - \tenuto
-        bf'2
-        ~
-        bf'8
-        af'8
-        - \tenuto
-    }
+    >>> abjad.show(staff)
 
-..  figure:: ../_images/example-3-looping-16f4hdprg8k.png
+    ..  docs::
+
+        \new Staff
+        {
+            \time 5/4
+            bf'4.
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            bf'8
+            \f
+            g'4.
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            g'4
+            af'4
+            \mf
+            c'4
+            - \tenuto
+            ~
+            c'8
+            g'4
+            \f
+            ef'8
+            \p
+            af'4
+            \mf
+            c'4.
+            - \tenuto
+            g'8
+            \f
+            ~
+            g'8
+            ef'4.
+            \p
+            c'4.
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'8
+            \p
+            ~
+            ef'4
+            bf'4
+            c'8
+            \mf
+            - \tenuto
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'2
+            c'16
+            \mf
+            - \tenuto
+            g'8.
+            \f
+            ~
+            g'16
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4..
+            ~
+            bf'16
+            g'4
+            \f
+            ef'4.
+            \p
+            bf'8
+            ~
+            bf'4.
+            ~
+            bf'8
+            g'8.
+            \f
+            ef'16
+            \p
+            ~
+            ef'4
+            ~
+            ef'16
+            bf'8.
+            ~
+            bf'4
+            ~
+            bf'16
+            ~
+            bf'8
+            af'16
+            - \tenuto
+            g'8
+            \f
+            ef'4.
+            \p
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'8
+            af'8
+            - \tenuto
+            g'16
+            \f
+            ef'8.
+            \p
+            ~
+            ef'8.
+            bf'16
+            ~
+            bf'4
+            ~
+            bf'4
+            ~
+            bf'16
+            af'8.
+            - \tenuto
+            ef'4.
+            bf'4.
+            ~
+            bf'4
+            af'4
+            - \tenuto
+            \time 3/4
+            ef'4
+            ~
+            ef'16
+            bf'4..
+            ef'4
+            bf'2
+            ef'8.
+            bf'16
+            ~
+            bf'2
+            ef'8
+            bf'8
+            ~
+            bf'2
+            ef'16
+            bf'8.
+            ~
+            bf'4..
+            af'16
+            - \tenuto
+            bf'2
+            ~
+            bf'8
+            af'8
+            - \tenuto
+        }
+
+    ..  figure:: ../_images/example-3-looping-16f4hdprg8k.png
 
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

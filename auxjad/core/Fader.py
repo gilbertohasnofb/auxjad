@@ -21,46 +21,55 @@ class Fader():
         >>> fader = auxjad.Fader(staff)
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'16
-            d'8.
-            e'8
-            f'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'16
+                d'8.
+                e'8
+                f'4.
+            }
 
         ..  figure:: ../_images/Fader-pvlbt0azuqj.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'16
-            r8.
-            e'8
-            f'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'16
+                r8.
+                e'8
+                f'4.
+            }
 
         ..  figure:: ../_images/Fader-4bebflmnff9.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r2
-            e'8
-            f'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r2
+                e'8
+                f'4.
+            }
 
         ..  figure:: ../_images/Fader-64h0bb02goc.png
 
@@ -69,14 +78,17 @@ class Fader():
 
         >>> notes = fader.current_window()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r2
-            e'8
-            f'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r2
+                e'8
+                f'4.
+            }
 
         ..  figure:: ../_images/Fader-ruetb1tzhtn.png
 
@@ -92,15 +104,18 @@ class Fader():
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                r4
+            }
 
         ..  figure:: ../_images/Fader-rbnsf64kjoq.png
 
@@ -117,41 +132,50 @@ class Fader():
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            R1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                R1
+            }
 
         ..  figure:: ../_images/Fader-dzjqv7lsdis.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r2
-            r8
-            f'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r2
+                r8
+                f'4.
+            }
 
         ..  figure:: ../_images/Fader-f33perr6lfo.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'16
-            r8.
-            r8
-            f'4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'16
+                r8.
+                r8
+                f'4.
+            }
 
         ..  figure:: ../_images/Fader-qxvj8lkfph.png
 
@@ -163,71 +187,86 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Fader-3ldjnprohuo.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            r4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                r4
+                f'4
+            }
 
         ..  figure:: ../_images/Fader-wzeaqjgouz8.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                r2
+            }
 
         ..  figure:: ../_images/Fader-aqq1docvezb.png
 
         >>> fader.fader_type = 'in'
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                r4
+            }
 
         ..  figure:: ../_images/Fader-3jt6kto85h1.png
 
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Fader-2i22so5t5pf.png
 
@@ -244,19 +283,22 @@ class Fader():
         ...                      include_empty_measures=False,
         ...                      )
         >>> staff = abjad.Staff(fader.output_all())
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            r2.
-            c'4
-            d'4
-            r2
-            c'4
-            d'4
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                r2.
+                c'4
+                d'4
+                r2
+                c'4
+                d'4
+                e'2
+            }
 
         ..  figure:: ../_images/Fader-pg0bejhb7ke.png
 
@@ -266,19 +308,22 @@ class Fader():
         ...                      include_empty_measures=False,
         ...                      )
         >>> staff = abjad.Staff(fader.output_all())
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'2
-            r4
-            d'4
-            e'2
-            r2
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'2
+                r4
+                d'4
+                e'2
+                r2
+                e'2
+            }
 
         ..  figure:: ../_images/Fader-t1ir3ezcg6a.png
 
@@ -296,26 +341,29 @@ class Fader():
         >>> for window in fader:
         ...     staff.append(window)
         >>> auxjad.mutate.remove_repeated_time_signatures(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            r4
-            e'4
-            f'4
-            c'4
-            r4
-            e'4
-            r4
-            c'4
-            r2.
-            R1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                r4
+                e'4
+                f'4
+                c'4
+                r4
+                e'4
+                r4
+                c'4
+                r2.
+                R1
+            }
 
         ..  figure:: ../_images/Fader-qyve2exm08p.png
 
@@ -438,15 +486,18 @@ class Fader():
         >>> fader.mask
         [1, 1, 1, 1]
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Fader-nv5f76rv7f.png
 
@@ -454,15 +505,18 @@ class Fader():
         >>> fader.mask
         [0, 1, 1, 1]
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/Fader-6fr4wrb8god.png
 
@@ -471,16 +525,19 @@ class Fader():
         [1, 1, 1, 1, 1]
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'16
-            d'16
-            e'16
-            f'16
-            g'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'16
+                d'16
+                e'16
+                f'16
+                g'2.
+            }
 
         ..  figure:: ../_images/Fader-p8q5x8ti2d.png
 
@@ -488,16 +545,19 @@ class Fader():
         >>> fader.mask
         [1, 1, 1, 1, 1]
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'16
-            d'16
-            r16
-            f'16
-            g'2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'16
+                d'16
+                r16
+                f'16
+                g'2.
+            }
 
         ..  figure:: ../_images/Fader-mky4pulzf4i.png
 
@@ -509,20 +569,23 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'2
-            r4.
-            d'8
-            e'2
-            r2
-            e'2
-            R1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'2
+                r4.
+                d'8
+                e'2
+                r2
+                e'2
+                R1
+            }
 
         ..  figure:: ../_images/Fader-kiqwdhyx9vk.png
 
@@ -535,26 +598,29 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'16
-            f'16
-            g'4.
-            c'4.
-            r8
-            e'16
-            f'16
-            g'4.
-            c'4.
-            r8
-            e'16
-            f'16
-            r4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'16
+                f'16
+                g'4.
+                c'4.
+                r8
+                e'16
+                f'16
+                g'4.
+                c'4.
+                r8
+                e'16
+                f'16
+                r4.
+            }
 
         ..  figure:: ../_images/Fader-6mqxj9b5f13.png
 
@@ -566,52 +632,55 @@ class Fader():
         ...                             r"<bf f' a'>8 ~ <bf f' a'>4")
         >>> fader = auxjad.Fader(container)
         >>> staff = abjad.Staff(fader.output_all())
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            <c' e'>4
-            ~
-            <c' e'>16
-            d'8.
-            <gs e'>8
-            <bf f' a'>4.
-            <c' e'>4
-            ~
-            <c' e'>16
-            d'8.
-            gs8
-            <bf f' a'>4.
-            <c' e'>4
-            ~
-            <c' e'>16
-            d'8.
-            gs8
-            <bf a'>4.
-            c'4
-            ~
-            c'16
-            d'8.
-            gs8
-            <bf a'>4.
-            r4
-            r16
-            d'8.
-            gs8
-            <bf a'>4.
-            r4
-            r16
-            d'8.
-            gs8
-            bf4.
-            r2
-            gs8
-            bf4.
-            r2
-            r8
-            bf4.
-            R1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                <c' e'>4
+                ~
+                <c' e'>16
+                d'8.
+                <gs e'>8
+                <bf f' a'>4.
+                <c' e'>4
+                ~
+                <c' e'>16
+                d'8.
+                gs8
+                <bf f' a'>4.
+                <c' e'>4
+                ~
+                <c' e'>16
+                d'8.
+                gs8
+                <bf a'>4.
+                c'4
+                ~
+                c'16
+                d'8.
+                gs8
+                <bf a'>4.
+                r4
+                r16
+                d'8.
+                gs8
+                <bf a'>4.
+                r4
+                r16
+                d'8.
+                gs8
+                bf4.
+                r2
+                gs8
+                bf4.
+                r2
+                r8
+                bf4.
+                R1
+            }
 
         ..  figure:: ../_images/Fader-wjphyrz750d.png
 
@@ -663,31 +732,34 @@ class Fader():
         ...                      )
         >>> notes = fader.output_n(3)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            r8
-            f'8
-            g'8
-            a'8
-            b'8
-            c''8
-            r4.
-            f'8
-            g'8
-            a'8
-            b'8
-            c''8
-            r4.
-            f'8
-            r8
-            a'8
-            b'8
-            r8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                r8
+                f'8
+                g'8
+                a'8
+                b'8
+                c''8
+                r4.
+                f'8
+                g'8
+                a'8
+                b'8
+                c''8
+                r4.
+                f'8
+                r8
+                a'8
+                b'8
+                r8
+            }
 
         ..  figure:: ../_images/Fader-72wpb0iqtes.png
 
@@ -702,29 +774,32 @@ class Fader():
         ...                      )
         >>> notes = fader.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'4..
-            f'16
-            c'4.
-            d'8
-            e'4..
-            r16
-            c'4.
-            d'8
-            e'4..
-            r16
-            c'4.
-            d'8
-            r2
-            c'4.
-            d'8
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'4..
+                f'16
+                c'4.
+                d'8
+                e'4..
+                r16
+                c'4.
+                d'8
+                e'4..
+                r16
+                c'4.
+                d'8
+                r2
+                c'4.
+                d'8
+                r2
+            }
 
         ..  figure:: ../_images/Fader-1t2yh8imiu8.png
 
@@ -755,15 +830,18 @@ class Fader():
         [0, 1, 0, 0, 0]
         [0, 1, 1, 0, 0]
         >>> staff = abjad.Staff(fader.current_window)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r4
-            d'8
-            e'8
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r4
+                d'8
+                e'8
+                r2
+            }
 
         ..  figure:: ../_images/Fader-52bwgmr7rks.png
 
@@ -772,16 +850,19 @@ class Fader():
         [1, 0, 1, 1, 0]
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            r8
-            e'8
-            f'4..
-            r16
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                r8
+                e'8
+                f'4..
+                r16
+            }
 
         ..  figure:: ../_images/Fader-fa199pggrp.png
 
@@ -790,12 +871,15 @@ class Fader():
         [0, 0, 0, 0, 0]
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            R1
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                R1
+            }
 
         ..  figure:: ../_images/Fader-xq3g5bd8djr.png
 
@@ -809,13 +893,16 @@ class Fader():
         >>> container = abjad.Container(r"c'2 <d' e' f' g'>2")
         >>> fader = auxjad.Fader(container, mask=[1, 0, 1, 1, 0])
         >>> staff = abjad.Staff(fader())
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'2
-            <e' f'>2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'2
+                <e' f'>2
+            }
 
         ..  figure:: ../_images/Fader-5n18nhr5qq2.png
 
@@ -828,35 +915,41 @@ class Fader():
         >>> fader.random_mask()
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r8
-            d'8
-            r4
-            g'8
-            a'8
-            r4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r8
+                d'8
+                r4
+                g'8
+                a'8
+                r4
+            }
 
         ..  figure:: ../_images/Fader-r9z77w5l6vp.png
 
         >>> fader.random_mask()
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r8
-            d'8
-            r4
-            g'8
-            a'8
-            b'8
-            r8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r8
+                d'8
+                r4
+                g'8
+                a'8
+                b'8
+                r8
+            }
 
         ..  figure:: ../_images/Fader-t7p8rjahkdh.png
 
@@ -873,38 +966,44 @@ class Fader():
         >>> fader.shuffle_mask()
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            r8
-            d'8
-            e'8
-            f'8
-            g'8
-            a'8
-            b'8
-            r8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                r8
+                d'8
+                e'8
+                f'8
+                g'8
+                a'8
+                b'8
+                r8
+            }
 
         ..  figure:: ../_images/Fader-6bghb0g2wcx.png
 
         >>> fader.shuffle_mask()
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            e'8
-            r8
-            g'8
-            r8
-            b'8
-            c''8
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                e'8
+                r8
+                g'8
+                r8
+                b'8
+                c''8
+            }
 
         ..  figure:: ../_images/Fader-lvf1fqvizjn.png
 
@@ -922,23 +1021,26 @@ class Fader():
         ...                      )
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'8
-            e'2.
-            c'8
-            r8
-            e'2.
-            r8
-            r8
-            e'2.
-            r8
-            r8
-            r2.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'8
+                e'2.
+                c'8
+                r8
+                e'2.
+                r8
+                r8
+                e'2.
+                r8
+                r8
+                r2.
+            }
 
         ..  figure:: ../_images/Fader-lax06gkb3ap.png
 
@@ -954,13 +1056,16 @@ class Fader():
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            c'4
-            d'2
-            e'4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                d'2
+                e'4
+            }
 
         ..  figure:: ../_images/Fader-pcq5ecwz7ff.png
 
@@ -982,14 +1087,17 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4.
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4.
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/Fader-93hcv2prkua.png
 
@@ -1001,16 +1109,19 @@ class Fader():
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'4
-            ~
-            c'8
-            d'8
-            e'2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                ~
+                c'8
+                d'8
+                e'2
+            }
 
         ..  figure:: ../_images/Fader-cq661zyctf.png
 
@@ -1035,40 +1146,43 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 3/4
-            c'8
-            \f
-            - \accent
-            d'4.
-            \p
-            e'8..
-            - \tenuto
-            f'32
-            - \staccato
-            c'8
-            \f
-            - \accent
-            d'4.
-            \p
-            r8..
-            f'32
-            - \staccato
-            c'8
-            \f
-            - \accent
-            d'4.
-            \p
-            r4
-            c'8
-            \f
-            - \accent
-            r8
-            r2
-            R1 * 3/4
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'8
+                \f
+                - \accent
+                d'4.
+                \p
+                e'8..
+                - \tenuto
+                f'32
+                - \staccato
+                c'8
+                \f
+                - \accent
+                d'4.
+                \p
+                r8..
+                f'32
+                - \staccato
+                c'8
+                \f
+                - \accent
+                d'4.
+                \p
+                r4
+                c'8
+                \f
+                - \accent
+                r8
+                r2
+                R1 * 3/4
+            }
 
         ..  figure:: ../_images/Fader-ox08wd3ljps.png
 
@@ -1082,93 +1196,96 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_n(5)
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                \time 4/4
-                c'2
+                \times 2/3
+                {
+                    \time 4/4
+                    c'2
+                    \p
+                    \<
+                    (
+                    d'2
+                    e'2
+                    \f
+                }
+                f'4
                 \p
-                \<
-                (
-                d'2
-                e'2
-                \f
-            }
-            f'4
-            \p
-            \>
-            g'2
-            a'4
-            \pp
-            )
-            \times 2/3
-            {
-                c'2
+                \>
+                g'2
+                a'4
+                \pp
+                )
+                \times 2/3
+                {
+                    c'2
+                    \p
+                    \<
+                    (
+                    d'2
+                    e'2
+                    \f
+                    )
+                }
+                r4
+                g'2
                 \p
-                \<
+                \>
                 (
-                d'2
-                e'2
-                \f
+                a'4
+                \pp
+                )
+                \times 2/3
+                {
+                    r2
+                    d'2
+                    \p
+                    \<
+                    (
+                    e'2
+                    \f
+                    )
+                }
+                r4
+                g'2
+                \p
+                \>
+                (
+                a'4
+                \pp
+                )
+                \times 2/3
+                {
+                    r2
+                    d'2
+                    \p
+                    \<
+                    r2
+                    \f
+                    )
+                }
+                r4
+                g'2
+                \p
+                \>
+                (
+                a'4
+                \pp
+                )
+                R1
+                r4
+                g'2
+                \p
+                \>
+                (
+                a'4
+                \pp
                 )
             }
-            r4
-            g'2
-            \p
-            \>
-            (
-            a'4
-            \pp
-            )
-            \times 2/3
-            {
-                r2
-                d'2
-                \p
-                \<
-                (
-                e'2
-                \f
-                )
-            }
-            r4
-            g'2
-            \p
-            \>
-            (
-            a'4
-            \pp
-            )
-            \times 2/3
-            {
-                r2
-                d'2
-                \p
-                \<
-                r2
-                \f
-                )
-            }
-            r4
-            g'2
-            \p
-            \>
-            (
-            a'4
-            \pp
-            )
-            R1
-            r4
-            g'2
-            \p
-            \>
-            (
-            a'4
-            \pp
-            )
-        }
 
         ..  figure:: ../_images/Fader-jprjps4zxej.png
 
@@ -1192,35 +1309,38 @@ class Fader():
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \times 2/3
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
             {
-                \time 4/4
-                c'8
-                d'8
-                e'8
+                \times 2/3
+                {
+                    \time 4/4
+                    c'8
+                    d'8
+                    e'8
+                }
+                d'2.
+                \times 2/3
+                {
+                    r8
+                    d'8
+                    e'8
+                }
+                d'2.
+                \times 2/3
+                {
+                    r8
+                    d'8
+                    r8
+                }
+                d'2.
+                r4
+                d'2.
+                R1
             }
-            d'2.
-            \times 2/3
-            {
-                r8
-                d'8
-                e'8
-            }
-            d'2.
-            \times 2/3
-            {
-                r8
-                d'8
-                r8
-            }
-            d'2.
-            r4
-            d'2.
-            R1
-        }
 
         ..  figure:: ../_images/Fader-888tqk73kw3.png
 
@@ -1231,34 +1351,37 @@ class Fader():
         >>> fader = auxjad.Fader(container, fader_type='in')
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            R1
-            \time 3/4
-            R1 * 3/4
-            \time 4/4
-            c'2
-            r2
-            )
-            \time 3/4
-            R1 * 3/4
-            \time 4/4
-            c'2
-            (
-            d'2
-            )
-            \time 3/4
-            R1 * 3/4
-            \time 4/4
-            c'2
-            (
-            d'2
-            \time 3/4
-            e'2.
-            )
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                R1
+                \time 3/4
+                R1 * 3/4
+                \time 4/4
+                c'2
+                r2
+                )
+                \time 3/4
+                R1 * 3/4
+                \time 4/4
+                c'2
+                (
+                d'2
+                )
+                \time 3/4
+                R1 * 3/4
+                \time 4/4
+                c'2
+                (
+                d'2
+                \time 3/4
+                e'2.
+                )
+            }
 
         ..  figure:: ../_images/Fader-lkhKFVuUgx.png
     """

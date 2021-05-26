@@ -38,49 +38,61 @@ def fill_with_rests(container: abjad.Container,
         >>> auxjad.mutate.fill_with_rests(container2)
         >>> auxjad.mutate.fill_with_rests(container3)
         >>> auxjad.mutate.fill_with_rests(container4)
-        >>> abjad.f(container1)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/fill_with_rests-up297scg6t.png
 
-        >>> abjad.f(container2)
-        {
-            c'4
-            d'4
-            e'4
-            r4
-        }
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                r4
+            }
 
         ..  figure:: ../_images/fill_with_rests-azrrw0z0buw.png
 
-        >>> abjad.f(container3)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            r2.
-        }
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                r2.
+            }
 
         ..  figure:: ../_images/fill_with_rests-jtyw5ikc0k.png
 
-        >>> abjad.f(container4)
-        {
-            c'4
-            d'4
-            e'4
-            f'4
-            c'4
-            d'4
-            e'4
-            f'4
-        }
+        >>> abjad.show(container4)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
 
         ..  figure:: ../_images/fill_with_rests-xjkm2vzjfpr.png
 
@@ -103,40 +115,49 @@ def fill_with_rests(container: abjad.Container,
         >>> auxjad.mutate.fill_with_rests(staff1)
         >>> auxjad.mutate.fill_with_rests(staff2)
         >>> auxjad.mutate.fill_with_rests(staff3)
-        >>> abjad.f(staff1)
-        {
-            \time 4/4
-            c'4
-            d'4
-            e'4
-            f'4
-            g'4
-            r2.
-        }
+        >>> abjad.show(staff1)
+
+        ..  docs::
+
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+                g'4
+                r2.
+            }
 
         ..  figure:: ../_images/fill_with_rests-7zydps2jsb.png
 
-        >>> abjad.f(staff2)
-        {
-            \time 3/4
-            a2.
-            \time 2/4
-            c'4
-            r4
-        }
+        >>> abjad.show(staff2)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                a2.
+                \time 2/4
+                c'4
+                r4
+            }
 
         ..  figure:: ../_images/fill_with_rests-1lphcrl5pnr.png
 
-        >>> abjad.f(staff3)
-        {
-            \time 5/4
-            g1
-            ~
-            g4
-            \time 4/4
-            af'2
-            r2
-        }
+        >>> abjad.show(staff3)
+
+        ..  docs::
+
+            {
+                \time 5/4
+                g1
+                ~
+                g4
+                \time 4/4
+                af'2
+                r2
+            }
 
         ..  figure:: ../_images/fill_with_rests-e00jvx986r.png
 
@@ -148,24 +169,30 @@ def fill_with_rests(container: abjad.Container,
         function works with either |abjad.Container| and |abjad.Staff|.
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
-        >>> abjad.f(container)
-        {
-            %%% \time 3/4 %%%
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                %%% \time 3/4 %%%
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/fill_with_rests-b0qflg50qfn.png
 
         >>> staff = abjad.Staff([container])
-        >>> abjad.f(container)
-        {
-            \time 3/4
-            c'4
-            d'4
-            e'4
-        }
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                c'4
+                d'4
+                e'4
+            }
 
         ..  figure:: ../_images/fill_with_rests-qtaswjiecg.png
 
@@ -176,17 +203,20 @@ def fill_with_rests(container: abjad.Container,
         >>> time_signature = abjad.TimeSignature((3, 4), partial=(1, 4))
         >>> abjad.attach(time_signature, staff[0])
         >>> auxjad.mutate.fill_with_rests(staff)
-        >>> abjad.f(staff)
-        {
-            \partial 4
-            \time 3/4
-            c'4
-            d'4
-            e'4
-            f'4
-            g'4
-            r2
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            {
+                \partial 4
+                \time 3/4
+                c'4
+                d'4
+                e'4
+                f'4
+                g'4
+                r2
+            }
 
         ..  figure:: ../_images/fill_with_rests-9smva9ajdi.png
 
@@ -196,17 +226,20 @@ def fill_with_rests(container: abjad.Container,
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4")
         >>> auxjad.mutate.fill_with_rests(staff)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'4
-            e'8
-            ~
-            e'8
-            r4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'4
+                e'8
+                ~
+                e'8
+                r4.
+            }
 
         ..  figure:: ../_images/fill_with_rests-n83nmnfh92c.png
 
@@ -216,15 +249,18 @@ def fill_with_rests(container: abjad.Container,
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4")
         >>> auxjad.mutate.fill_with_rests(staff, disable_rewrite_meter=True)
-        >>> abjad.f(staff)
-        \new Staff
-        {
-            \time 4/4
-            c'8
-            d'4
-            e'4
-            r4.
-        }
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'8
+                d'4
+                e'4
+                r4.
+            }
 
         ..  figure:: ../_images/fill_with_rests-9rg2i4n1vhr.png
 

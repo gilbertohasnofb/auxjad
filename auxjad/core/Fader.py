@@ -1724,7 +1724,7 @@ class Fader():
             self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
             self._contents = abjad.mutate.copy(contents)
-        time_signatures = get.extract_time_signatures(
+        time_signatures = get.time_signature_list(
             self._contents,
             do_not_use_none=True,
         )

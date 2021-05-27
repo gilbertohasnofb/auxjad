@@ -38,10 +38,10 @@
 .. |abjad.mutate.sustain_notes()| replace:: :func:`abjad.mutate.sustain_notes() <auxjad.mutate.sustain_notes>`
 .. |abjad.mutate.sync_containers()| replace:: :func:`abjad.mutate.sync_containers() <auxjad.mutate.sync_containers>`
 
-.. |abjad.get.extract_time_signatures()| replace:: :func:`abjad.get.extract_time_signatures() <auxjad.get.extract_time_signatures>`
 .. |abjad.get.selection_is_full()| replace:: :func:`abjad.get.selection_is_full() <auxjad.get.selection_is_full>`
 .. |abjad.get.selections_are_identical()| replace:: :func:`abjad.get.selections_are_identical() <auxjad.get.selections_are_identical>`
 .. |abjad.get.leaves_are_tieable()| replace:: :func:`abjad.get.leaves_are_tieable() <auxjad.get.leaves_are_tieable>`
+.. |abjad.get.time_signature_list()| replace:: :func:`abjad.get.time_signature_list() <auxjad.get.time_signature_list>`
 .. |abjad.get.underfull_duration()| replace:: :func:`abjad.get.underfull_duration() <auxjad.get.underfull_duration>`
 .. |abjad.get.virtual_fundamental()| replace:: :func:`abjad.get.virtual_fundamental() <auxjad.get.virtual_fundamental>`
 
@@ -70,10 +70,10 @@
 .. |auxjad.mutate.sustain_notes()| replace:: :func:`auxjad.mutate.sustain_notes() <auxjad.mutate.sustain_notes>`
 .. |auxjad.mutate.sync_containers()| replace:: :func:`auxjad.mutate.sync_containers() <auxjad.mutate.sync_containers>`
 
-.. |auxjad.get.extract_time_signatures()| replace:: :func:`auxjad.get.extract_time_signatures() <auxjad.get.extract_time_signatures>`
 .. |auxjad.get.selection_is_full()| replace:: :func:`auxjad.get.selection_is_full() <auxjad.get.selection_is_full>`
 .. |auxjad.get.selections_are_identical()| replace:: :func:`auxjad.get.selections_are_identical() <auxjad.get.selections_are_identical>`
 .. |auxjad.get.leaves_are_tieable()| replace:: :func:`auxjad.get.leaves_are_tieable() <auxjad.get.leaves_are_tieable>`
+.. |auxjad.get.time_signature_list()| replace:: :func:`auxjad.get.time_signature_list() <auxjad.get.time_signature_list>`
 .. |auxjad.get.underfull_duration()| replace:: :func:`auxjad.get.underfull_duration() <auxjad.get.underfull_duration>`
 .. |auxjad.get.virtual_fundamental()| replace:: :func:`auxjad.get.virtual_fundamental() <auxjad.get.virtual_fundamental>`
 

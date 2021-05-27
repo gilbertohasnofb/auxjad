@@ -1650,7 +1650,7 @@ class Hocketer():
             self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:
             self._contents = abjad.mutate.copy(contents)
-        self._time_signatures = get.extract_time_signatures(
+        self._time_signatures = get.time_signature_list(
             contents,
             do_not_use_none=True,
         )

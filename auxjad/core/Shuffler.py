@@ -1514,7 +1514,7 @@ class Shuffler:
         dummy_container[:] = []
         self._update_logical_selections()
         self._get_pitch_list()
-        self._time_signatures = get.extract_time_signatures(
+        self._time_signatures = get.time_signature_list(
             self._contents,
             do_not_use_none=True,
         )

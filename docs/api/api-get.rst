@@ -26,10 +26,10 @@ for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
-    extract_time_signatures
     leaves_are_tieable
     selection_is_full
     selections_are_identical
+    time_signature_list
     underfull_duration
     virtual_fundamental
 

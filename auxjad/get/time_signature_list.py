@@ -1,12 +1,12 @@
 import abjad
 
 
-def extract_time_signatures(container: abjad.Container,
-                            *,
-                            do_not_use_none: bool = False,
-                            implicit_common_time: bool = True,
-                            omit_repeated: bool = False,
-                            ) -> list[abjad.TimeSignature]:
+def time_signature_list(container: abjad.Container,
+                        *,
+                        do_not_use_none: bool = False,
+                        implicit_common_time: bool = True,
+                        omit_repeated: bool = False,
+                        ) -> list[abjad.TimeSignature]:
     r"""Returns a :obj:`list` with the |abjad.TimeSignature| for all measures
     of an input |abjad.Container|.
 
@@ -15,8 +15,8 @@ def extract_time_signatures(container: abjad.Container,
         measure.
 
         >>> container = abjad.Container(r"\time 3/4 c'2. \time 4/4 e'1")
-        >>> time_sigs = auxjad.get.extract_time_signatures(container)
-        >>> time_sigs
+        >>> time_signatures = auxjad.get.time_signature_list(container)
+        >>> time_signatures
         [TimeSignature((3, 4)), TimeSignature((4, 4))]
 
     ..  note::
@@ -26,9 +26,9 @@ def extract_time_signatures(container: abjad.Container,
         |abjad.get| namespaces. Therefore, the two lines below are equivalent:
 
         >>> container = abjad.Container(r"\time 3/4 c'2. \time 4/4 e'1")
-        >>> auxjad.get.extract_time_signatures(container)
+        >>> auxjad.get.time_signature_list(container)
         [TimeSignature((3, 4)), TimeSignature((4, 4))]
-        >>> abjad.get.extract_time_signatures(container)
+        >>> abjad.get.time_signature_list(container)
         [TimeSignature((3, 4)), TimeSignature((4, 4))]
 
     ``do_not_use_none``:
@@ -38,18 +38,18 @@ def extract_time_signatures(container: abjad.Container,
         >>> container = abjad.Container(
         ...     r"\time 5/8 c'4 ~ c'16 \time 3/8 d'4. e'4."
         ... )
-        >>> time_sigs = auxjad.get.extract_time_signatures(container)
-        >>> time_sigs
+        >>> time_signatures = auxjad.get.time_signature_list(container)
+        >>> time_signatures
         [TimeSignature((5, 8)), TimeSignature((3, 8)), None]
 
         Set the keyword argument ``do_not_use_none`` to ``True`` to change this
         behaviour.
 
-        >>> time_sigs = auxjad.get.extract_time_signatures(
+        >>> time_signatures = auxjad.get.time_signature_list(
         ...     container,
         ...     do_not_use_none=True,
         ... )
-        >>> time_sigs
+        >>> time_signatures
         [TimeSignature((5, 8)), TimeSignature((3, 8)), TimeSignature((3, 8))]
 
     ``omit_repeated``:
@@ -59,18 +59,18 @@ def extract_time_signatures(container: abjad.Container,
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."
         ... )
-        >>> time_sigs = auxjad.get.extract_time_signatures(container)
-        >>> time_sigs
+        >>> time_signatures = auxjad.get.time_signature_list(container)
+        >>> time_signatures
         [abjad.TimeSignature((3, 4)), None, abjad.TimeSignature((3, 4)), None]
 
         Set the keyword argument ``omit_repeated`` to ``True`` to replace
         repeated time signatures with ``None``.
 
-        >>> time_sigs = auxjad.get.extract_time_signatures(
+        >>> time_signatures = auxjad.get.time_signature_list(
         ...     container,
         ...     omit_repeated=True,
         ... )
-        >>> time_sigs
+        >>> time_signatures
         [abjad.TimeSignature((3, 4)), None, None, None]
 
     ..  error::
@@ -81,7 +81,7 @@ def extract_time_signatures(container: abjad.Container,
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."
         ... )
-        >>> time_sigs = auxjad.get.extract_time_signatures(
+        >>> time_signatures = auxjad.get.time_signature_list(
         ...     container,
         ...     do_not_use_none=True,
         ...     omit_repeated=True,
@@ -94,17 +94,17 @@ def extract_time_signatures(container: abjad.Container,
         signature is not found. This function behaves the same way.
 
         >>> container = abjad.Container(r"c'1 d'1 e'1 f'1")
-        >>> time_sigs = auxjad.get.extract_time_signatures(container)
-        >>> time_sigs
+        >>> time_signatures = auxjad.get.time_signature_list(container)
+        >>> time_signatures
         [TimeSignature((4, 4)), None, None, None]
 
         To disable this behaviour, set ``implicit_common_time`` to ``False``.
 
-        >>> time_sigs = auxjad.get.extract_time_signatures(
+        >>> time_signatures = auxjad.get.time_signature_list(
         ...     container,
         ...     implicit_common_time=False,
         ... )
-        >>> time_sigs
+        >>> time_signatures
         [None, None, None, None]
 
     ..  error::
@@ -114,7 +114,7 @@ def extract_time_signatures(container: abjad.Container,
         a :exc:`ValueError` exception:
 
         >>> container = abjad.Container(r"c'1 d'1 e'1 f'1")
-        >>> time_sigs = auxjad.get.extract_time_signatures(
+        >>> time_signatures = auxjad.get.time_signature_list(
         ...     container,
         ...     do_not_use_none=True,
         ...     implicit_common_time=False,

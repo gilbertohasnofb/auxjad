@@ -16,8 +16,8 @@ This library is published under the MIT License.
 from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
 from .core.Fader import Fader
-from .core.FittestMeasureMaker import FittestMeasureMaker
 from .core.GeneticAlgorithm import GeneticAlgorithm
+from .core.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
 from .core.Hocketer import Hocketer
 from .core.LeafLooper import LeafLooper
 from .core.ListLooper import ListLooper
@@ -52,8 +52,8 @@ __all__ = [
     'CartographySelector',
     'CrossFader',
     'Fader',
-    'FittestMeasureMaker',
     'GeneticAlgorithm',
+    'GeneticAlgorithmMusicMaker',
     'Hocketer',
     'LeafLooper',
     'ListLooper',

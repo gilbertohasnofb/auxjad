@@ -6,9 +6,9 @@ from .. import mutate
 from .GeneticAlgorithm import GeneticAlgorithm
 
 
-class FittestMeasureMaker():
+class GeneticAlgorithmMusicMaker():
     r"""Uses two :class:`GeneticAlgorithm`'s, one for pitch and another for
-    attack points, in order to create musical measures. At each call of
+    attack points, in order to create musical cells. At each call of
     :meth:`__call__`, it iterates the genetic algorithms by one generation, and
     returns an |abjad.Selection| created with the fittest pitch and attack
     point individuals.
@@ -35,18 +35,18 @@ class FittestMeasureMaker():
         pitches and attack points. The evaluation function will compare all
         individuals in the population against this target when scoring them.
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ... )
-        >>> repr(measure_maker)
+        >>> repr(ga_music_maker)
         pitches: ["c'", "d'", "e'", "f'"]
         attack_points: [0, 4, 8, 12]
-        >>> len(measure_maker)
+        >>> len(ga_music_maker)
         4
-        >>> notes = measure_maker.target_music
+        >>> notes = ga_music_maker.target_music
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -61,14 +61,14 @@ class FittestMeasureMaker():
                 f'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-ahfUfls3cq.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-ahfUfls3cq.png
 
         Calling the instance will apply the genetic algorithm process and
         output an |abjad.Selection| with the fittest  individual in the
         population.
 
-        >>> notes = measure_maker()
-        >>> measure_maker.generation_number
+        >>> notes = ga_music_maker()
+        >>> ga_music_maker.generation_number
         0
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
@@ -88,13 +88,13 @@ class FittestMeasureMaker():
                 a'8
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-mIrHl4wwHA.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-mIrHl4wwHA.png
 
         Subsequent calls will create new generations of individuals, always
         outputting the fittest measure.
 
-        >>> notes = measure_maker()
-        >>> measure_maker.generation_number
+        >>> notes = ga_music_maker()
+        >>> ga_music_maker.generation_number
         1
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
@@ -114,19 +114,19 @@ class FittestMeasureMaker():
                 g'8.
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-hDxTq3Y2Ek.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-hDxTq3Y2Ek.png
 
     :meth:`output_n`:
         The method :meth:`output_n` can be used to output `n` iterations of the
         process. They are output as a single |abjad.Selection|:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -164,7 +164,7 @@ class FittestMeasureMaker():
                 e'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-PrfaIjhEbL.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-PrfaIjhEbL.png
 
     :attr:`pitch_genes`:
         While :attr:`attack_point_genes` must always take a :obj:`list` of
@@ -174,7 +174,7 @@ class FittestMeasureMaker():
         :obj:`str` for pitches, ``None`` for rests, :obj:`tuple` for chords,
         etc.
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", None, "e'", ("g'", "bf'")],
         ...     pitch_genes=[None,
         ...                  "c'",
@@ -190,7 +190,7 @@ class FittestMeasureMaker():
         ...     attack_point_genes=list(range(16)),
         ...     population_size=50,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -228,18 +228,18 @@ class FittestMeasureMaker():
                 <g' a'>4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-etoHzdnAIu.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-etoHzdnAIu.png
 
         Which is equivalent to:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=[0, None, 4, (7, 10)],
         ...     pitch_genes=[None, 0, 2, 4, 5, 7, (7, 9), (7, 10), (7, 12)],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ...     population_size=50,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -277,14 +277,14 @@ class FittestMeasureMaker():
                 <g' a'>4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-AfDY1QYNhW.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-AfDY1QYNhW.png
 
     :attr:`units_per_window` and :attr:`duration_unit`:
         By default, there are ``16`` attack points in a window, each lasting
         for ``abjad.Duration((1, 16))``. These can be changed using
         :attr:`units_per_window` and :attr:`duration_unit`:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 8, 16, 24],
@@ -292,7 +292,7 @@ class FittestMeasureMaker():
         ...     duration_unit=abjad.Duration((1, 32)),
         ...     units_per_window=32,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -336,19 +336,19 @@ class FittestMeasureMaker():
                 f'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-AqHoQPgphf.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-AqHoQPgphf.png
 
     :attr:`omit_time_signature`:
         By default, a time signature is added to the output automatically:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'", "g'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12, 16],
         ...     attack_point_genes=list(range(20)),
         ...     units_per_window=20,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -395,13 +395,13 @@ class FittestMeasureMaker():
                 g'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-bbsRWshiDI.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-bbsRWshiDI.png
 
         Setting :attr:`omit_time_signature` to ``True`` will result in no time
         signature. Note that the output might need to be cleaned up using
         |abjad.Meter.rewrite_meter()|.
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'", "g'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12, 16],
@@ -409,7 +409,7 @@ class FittestMeasureMaker():
         ...     units_per_window=20,
         ...     omit_time_signature=True,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -449,7 +449,7 @@ class FittestMeasureMaker():
                 g'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-IVSrzPV4OT.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-IVSrzPV4OT.png
 
     :attr:`time_signatures`:
         Time signatures can also be enforced in the output. Set
@@ -458,7 +458,7 @@ class FittestMeasureMaker():
 
         A single |abjad.TimeSignature| is applied to all measures:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
@@ -466,7 +466,7 @@ class FittestMeasureMaker():
         ...     duration_unit=abjad.Duration((1, 32)),
         ...     time_signatures=abjad.TimeSignature((2, 2))
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -512,11 +512,11 @@ class FittestMeasureMaker():
                 r2
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-Xc9iKXJoEx.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-Xc9iKXJoEx.png
 
         A :obj:`list` of |abjad.TimeSignature|'s is applied cyclically.
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'", "g'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12, 16],
@@ -527,7 +527,7 @@ class FittestMeasureMaker():
         ...                      abjad.TimeSignature((3, 4)),
         ...                      ],
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -583,7 +583,7 @@ class FittestMeasureMaker():
                 g'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-lJCYtjGY52.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-lJCYtjGY52.png
 
     :attr:`pitch_score_bias`:
         Pitches and attack points are scored separately and, by default,
@@ -593,13 +593,13 @@ class FittestMeasureMaker():
 
         This is the default output:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -638,19 +638,19 @@ class FittestMeasureMaker():
                 f'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-VEinjiTe3F.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-VEinjiTe3F.png
 
         With a high :attr:`pitch_score_bias`, pitch convergence will tend to be
         faster at the expense of attack points:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ...     pitch_score_weight=0.95,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -702,20 +702,20 @@ class FittestMeasureMaker():
                 f'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-iVD6l66hNl.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-iVD6l66hNl.png
 
 
         In contrast, a low :attr:`pitch_score_bias`, attack point convergence
         will tend to be  faster at the expense of pitches:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ...     pitch_score_weight=0.05,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -746,20 +746,20 @@ class FittestMeasureMaker():
                 f'4
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-1Ex8sgcS2s.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-1Ex8sgcS2s.png
 
     :attr:`attack_points_mode`:
         When using this class in attack points mode, each note will last a
         single unit instead of being extended until the next attack point:
 
-        >>> measure_maker = auxjad.FittestMeasureMaker(
+        >>> ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
         ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         ...     attack_point_target=[0, 4, 8, 12],
         ...     attack_point_genes=list(range(16)),
         ...     attack_points_mode=True,
         ... )
-        >>> notes = measure_maker.output_n(5)
+        >>> notes = ga_music_maker.output_n(5)
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
 
@@ -811,7 +811,7 @@ class FittestMeasureMaker():
                 r8.
             }
 
-        ..  figure:: ../_images/FittestMeasureMaker-5aInHHwMol.png
+        ..  figure:: ../_images/GeneticAlgorithmMusicMaker-5aInHHwMol.png
     """
     ### CLASS VARIABLES ###
 

@@ -25,8 +25,8 @@ for their individual documentation.
     CartographySelector
     CrossFader
     Fader
-    FittestMeasureMaker
     GeneticAlgorithm
+    GeneticAlgorithmMusicMaker
     Hocketer
     LeafLooper
     ListLooper

@@ -7,11 +7,11 @@ from .GeneticAlgorithm import GeneticAlgorithm
 
 
 class FittestMeasureMaker():
-    r"""This classes uses two :class:`GeneticAlgorithm`'s, one for pitch and
-    another for attack points, in order to create musical measures. At each
-    call of :meth:`__call__`, it iterates the genetic algorithms by one
-    generation, and returns an |abjad.Selection| created with the fittest pitch
-    and attack point individuals.
+    r"""Uses two :class:`GeneticAlgorithm`'s, one for pitch and another for
+    attack points, in order to create musical measures. At each call of
+    :meth:`__call__`, it iterates the genetic algorithms by one generation, and
+    returns an |abjad.Selection| created with the fittest pitch and attack
+    point individuals.
 
     ..  note::
 

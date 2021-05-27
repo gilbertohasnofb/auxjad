@@ -2,7 +2,7 @@ import abjad
 
 
 def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
-    r"""Returns a |abjad.Duration| representing the duration missing in the
+    r"""Returns an |abjad.Duration| representing the duration missing in the
     last measure of an input |abjad.Selection| which is not fully filled in.
 
     Basic usage:

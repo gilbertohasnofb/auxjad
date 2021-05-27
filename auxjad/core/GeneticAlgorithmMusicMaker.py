@@ -7,8 +7,8 @@ from .GeneticAlgorithm import GeneticAlgorithm
 
 
 class GeneticAlgorithmMusicMaker():
-    r"""Uses two :class:`GeneticAlgorithm`'s, one for pitch and another for
-    attack points, in order to create musical cells. At each call of
+    r"""Uses two :class:`auxjad.GeneticAlgorithm`'s, one for pitch and another
+    for attack points, in order to create musical cells. At each call of
     :meth:`__call__`, it iterates the genetic algorithms by one generation, and
     returns an |abjad.Selection| created with the fittest pitch and attack
     point individuals.

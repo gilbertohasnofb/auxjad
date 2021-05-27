@@ -24,6 +24,7 @@ for their individual documentation.
     ArtificialHarmonic
     HarmonicNote
     LeafDynMaker
+    Score.add_final_barline
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

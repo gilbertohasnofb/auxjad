@@ -33,6 +33,7 @@ from .indicators.TimeSignature import TimeSignature
 from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.LeafDynMaker import LeafDynMaker
+from .score.Score import Score
 
 from .spanners.half_piano_pedal import half_piano_pedal
 from .spanners.piano_pedal import piano_pedal
@@ -65,6 +66,7 @@ __all__ = [
     'ArtificialHarmonic',
     'HarmonicNote',
     'LeafDynMaker',
+    'Score',
     'half_piano_pedal',
     'piano_pedal',
     'get',

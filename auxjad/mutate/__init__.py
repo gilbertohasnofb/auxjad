@@ -1,6 +1,6 @@
 """
-mutations
-=========
+mutate
+======
 
 Auxjad's mutation functions. These can be accesses via either:
 

@@ -6,6 +6,8 @@
 .. _get: api-get.html
 .. |indicators| replace:: :mod:`indicators <auxjad.indicators>`
 .. _indicators: api-indicators.html
+.. |makers| replace:: :mod:`makers <auxjad.makers>`
+.. _makers: api-makers.html
 .. |mutate| replace:: :mod:`mutate <auxjad.mutate>`
 .. _mutate: api-mutate.html
 .. |score| replace:: :mod:`score <auxjad.score>`
@@ -47,6 +49,8 @@
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
+.. |abjad.Score.add_final_barline()| replace:: :meth:`abjad.Score.add_final_barline() <auxjad.score.Score.add_final_barline>`
+
 
 .. |auxjad.mutate.auto_rewrite_meter()| replace:: :func:`auxjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |auxjad.mutate.close_container()| replace:: :func:`auxjad.mutate.close_container() <auxjad.mutate.close_container>`
@@ -73,4 +77,6 @@
 .. |auxjad.get.underfull_duration()| replace:: :func:`auxjad.get.underfull_duration() <auxjad.get.underfull_duration>`
 .. |auxjad.get.virtual_fundamental()| replace:: :func:`auxjad.get.virtual_fundamental() <auxjad.get.virtual_fundamental>`
 
-.. |auxjad.TimeSignature.simplify_ratio()| replace:: :func:`auxjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
+.. |auxjad.TimeSignature.simplify_ratio()| replace:: :meth:`auxjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
+
+.. |auxjad.Score.add_final_barline()| replace:: :meth:`auxjad.Score.add_final_barline() <auxjad.score.Score.add_final_barline>`

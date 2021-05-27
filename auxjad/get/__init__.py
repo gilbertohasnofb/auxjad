@@ -1,8 +1,8 @@
 """
-getters
-=======
+get
+===
 
-Auxjad's getter functions. These can be accesses via either:
+Auxjad's inspection functions. These can be accesses via either:
 
 >>> abjad.get.auxjad_function(container)
 >>> auxjad.get.auxjad_function(container)

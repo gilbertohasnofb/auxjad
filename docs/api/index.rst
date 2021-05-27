@@ -1,14 +1,14 @@
 Auxjad API
 ==========
 
-Auxjad is made out of six subpackages: |core|_, |get|_, |indicators|_,
-|mutate|_, |score|_, and |spanners|_. |core|_ contains most of Auxjad's classes
-and is focused on algorithmic transformations and manipulations of
-|abjad.Container| objects. |indicators|_ and |spanners|_ contain derived
-classes and extension methods for Abjad's indicators and spanners. |score|_
-contains score component and component maker classes, such as an expanded leaf
-maker as well as harmonic leaves. |get|_ and |mutate|_ contains inspection and
-mutation functions.
+Auxjad is made out of seven subpackages: |core|_, |get|_, |indicators|_,
+|makers|_, |mutate|_, |score|_, and |spanners|_. |core|_ contains most of
+Auxjad's classes and is focused on algorithmic transformations and
+manipulations of |abjad.Container| objects. |indicators|_ and |spanners|_
+contain derived classes and extension methods for Abjad's indicators and
+spanners. |score|_ contains score component classes, such as harmonic leaves.
+|makers|_ contain an expanded leaf making class. |get|_ and |mutate|_ contain
+inspection and mutation functions.
 
 ..  note::
 
@@ -30,6 +30,8 @@ in the navigation pane in the left.
 +----------------+-------------------------------------------------------------+
 | |indicators|_  | indicator classes                                           |
 +----------------+-------------------------------------------------------------+
+| |makers|_      | leaf making classes                                         |
++----------------+-------------------------------------------------------------+
 | |mutate|_      | mutation functions                                          |
 +----------------+-------------------------------------------------------------+
 | |score|_       | score component classes: artificial and natural harmonics   |
@@ -45,6 +47,7 @@ in the navigation pane in the left.
     api-core
     api-get
     api-indicators
+    api-makers
     api-mutate
     api-score
     api-spanners

@@ -30,9 +30,10 @@ from .core.WindowLooper import WindowLooper
 
 from .indicators.TimeSignature import TimeSignature
 
+from .makers.LeafDynMaker import LeafDynMaker
+
 from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
-from .score.LeafDynMaker import LeafDynMaker
 from .score.Score import Score
 
 from .spanners.half_piano_pedal import half_piano_pedal
@@ -63,9 +64,9 @@ __all__ = [
     'TenneySelector',
     'WindowLooper',
     'TimeSignature',
+    'LeafDynMaker',
     'ArtificialHarmonic',
     'HarmonicNote',
-    'LeafDynMaker',
     'Score',
     'half_piano_pedal',
     'piano_pedal',

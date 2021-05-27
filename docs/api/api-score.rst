@@ -1,8 +1,8 @@
 score
 =====
 
-The |score|_ subpackage include score component and component maker classes
-such as an expanded leaf maker as well as harmonic leaves.
+The |score|_ subpackage include score component classes such as harmonic
+leaf classes.
 
 ..  note::
 
@@ -23,7 +23,6 @@ for their individual documentation.
 
     ArtificialHarmonic
     HarmonicNote
-    LeafDynMaker
     Score.add_final_barline
 
 .. include:: abjad-targets.rst

@@ -8,10 +8,10 @@ from .TenneySelector import TenneySelector
 
 
 class PitchRandomiser:
-    r"""This class takes an input |abjad.Container| (or child class) and a
-    series of pitches and randomises the container's pitches using that series.
-    The pitches can be of type :obj:`list`, :obj:`tuple`, :obj:`str`, or
-    |abjad.PitchSegment|.
+    r"""Takes an input |abjad.Container| (or child class) together with a  list
+    of pitches and randomises the container's pitch content using the list of
+    pitches. The pitches can be of type :obj:`list`, :obj:`tuple`, :obj:`str`,
+    or |abjad.PitchSegment|.
 
     Basic usage:
         Calling the object will output a selection of the input container with

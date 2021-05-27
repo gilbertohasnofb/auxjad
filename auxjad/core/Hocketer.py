@@ -7,8 +7,8 @@ from .. import get, mutate
 
 
 class Hocketer():
-    r"""This class is a hocket generator that takes a container as input and
-    randomly distributes its logical ties among different staves.
+    r"""A hocket generator that takes an |abjad.Container| (or child class) as
+    input and randomly distributes its logical ties among different staves.
 
     Basic usage:
         Calling the object will return a :obj:`tuple` of |abjad.Selection|

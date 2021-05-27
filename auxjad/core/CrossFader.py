@@ -8,9 +8,9 @@ from .Fader import Fader
 
 
 class CrossFader():
-    r"""This class takes two |abjad.Container|'s and gradually cross fades from
-    one into the other, by fading out the first while fading in the
-    second. It makes use of two :class:`auxjad.Fader` for that.
+    r"""Takes two |abjad.Container|'s' (or child class) and gradually
+    crossfades from one into the other, by fading out the first while fading in
+    the second. It makes use of two :class:`auxjad.Fader` for that.
 
     Basic usage:
         Calling the object will return a :obj:`tuple` of two

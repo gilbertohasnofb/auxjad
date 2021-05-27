@@ -26,8 +26,9 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
                         *,
                         min_fundamental: Optional[abjad.Pitch] = None,
                         ) -> abjad.NamedPitch:
-    r"""Returns the virtual fundamental of a |abjad.PitchSegment| or
-    |abjad.Chord|. Return value is of type |abjad.NamedPitch|.
+    r"""Returns the virtual fundamental (highest common fundamental) for all
+    pitches in a |abjad.PitchSegment| or |abjad.Chord|. Return value is of type
+    |abjad.NamedPitch|.
 
     Basic usage:
         This function will look for the highest fundamental whose harmonic

@@ -4,8 +4,8 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""This class creates leaves and logical ties from :obj:`list`'s of
-    pitches, durations, dynamics, and articulations. It is an extension of
+    r"""Creates leaves and logical ties from :obj:`list`'s of pitches,
+    durations, dynamics, and articulations. It is an extension of
     |abjad.LeafMaker| which can take optional :obj:`list`'s of dynamics and
     articulations.
 

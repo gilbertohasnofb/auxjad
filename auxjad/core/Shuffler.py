@@ -7,9 +7,9 @@ from .. import get, mutate
 
 
 class Shuffler:
-    r"""This class takes an input |abjad.Container| (or child class) and
-    shuffles or rotates its logical ties or pitches. When shuffling or rotating
-    pitches only, tuplets are supported, otherwise tuplets are not supported.
+    r"""Takes an |abjad.Container| (or child class) and shuffles or rotates its
+    logical ties or pitches. When shuffling or rotating pitches only, tuplets
+    are supported, otherwise tuplets are not supported.
 
     Basic usage:
         Calling the object will output a shuffled selection of the input

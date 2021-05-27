@@ -7,11 +7,11 @@ from ._LooperParent import _LooperParent
 
 
 class LeafLooper(_LooperParent):
-    r"""This class outputs slices of an |abjad.Container| using the metaphor
-    of a looping window of a constant number of elements. This number is given
-    by the argument :attr:`window_size`, which is an :obj:`int` representing
-    how many notes are to be included in each slice. The duration of the slice
-    will be the sum of the duration of these notes.
+    r"""Outputs slices of an |abjad.Container| (or child class) using the
+    metaphor of a looping window of a constant number of elements. This number
+    is given by the argument :attr:`window_size`, which is an :obj:`int`
+    representing how many notes are to be included in each slice. The duration
+    of the slice will be the sum of the duration of these notes.
 
     For instance, if the initial container had the logical ties
     :math:`[A, B, C, D, E, F]` (where each letter represents one logical tie)

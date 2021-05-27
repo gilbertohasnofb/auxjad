@@ -46,6 +46,11 @@ def test_TimeSignature_07():
 
 
 def test_TimeSignature_08():
-    time_signature = abjad.TimeSignature((8, 8))
+    time_signature = auxjad.TimeSignature((8, 8))
     time_signature.simplify_ratio()
     assert time_signature.pair == (4, 4)
+
+
+def test_TimeSignature_09():
+    assert (auxjad.TimeSignature.simplify_ratio
+            is abjad.TimeSignature.simplify_ratio)

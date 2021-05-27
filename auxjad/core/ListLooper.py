@@ -5,10 +5,10 @@ from ._LooperParent import _LooperParent
 
 
 class ListLooper(_LooperParent):
-    r"""This class outputs slices of a :obj:`list` using the metaphor of a
-    looping window of a constant number of elements. This number is given by
-    the argument :attr:`window_size`, which is an :obj:`int` representing how
-    many elements are to be included in each slice.
+    r"""Outputs slices of a :obj:`list` using the metaphor of a looping window
+    of a constant number of elements. This number is given by the argument
+    :attr:`window_size`, which is an :obj:`int` representing how many elements
+    are to be included in each slice.
 
     For instance, if the initial container had the elements
     ``[A, B, C, D, E, F]`` (where each letter represents an element of an

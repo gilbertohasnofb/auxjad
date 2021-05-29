@@ -49,7 +49,7 @@
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
-.. |abjad.Score.add_final_barline()| replace:: :meth:`abjad.Score.add_final_barline() <auxjad.score.Score.add_final_barline>`
+.. |abjad.Score.add_final_bar_line()| replace:: :meth:`abjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`
 
 
 .. |auxjad.mutate.auto_rewrite_meter()| replace:: :func:`auxjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
@@ -79,4 +79,4 @@
 
 .. |auxjad.TimeSignature.simplify_ratio()| replace:: :meth:`auxjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
-.. |auxjad.Score.add_final_barline()| replace:: :meth:`auxjad.Score.add_final_barline() <auxjad.score.Score.add_final_barline>`
+.. |auxjad.Score.add_final_bar_line()| replace:: :meth:`auxjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`

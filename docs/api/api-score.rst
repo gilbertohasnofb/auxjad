@@ -23,7 +23,7 @@ for their individual documentation.
 
     ArtificialHarmonic
     HarmonicNote
-    Score.add_final_barline
+    Score.add_final_bar_line
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

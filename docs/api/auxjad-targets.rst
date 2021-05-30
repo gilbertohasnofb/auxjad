@@ -20,9 +20,9 @@
 .. |auxjad.mutate| replace:: :mod:`auxjad.mutate <auxjad.mutate>`
 .. _auxjad.mutate: ../api/api-mutate.html
 
+.. |abjad.mutate.add_double_bar_lines_before_time_signatures()| replace:: :func:`abjad.mutate.add_double_bar_lines_before_time_signatures() <auxjad.mutate.add_double_bar_lines_before_time_signatures>`
 .. |abjad.mutate.auto_rewrite_meter()| replace:: :func:`abjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |abjad.mutate.close_container()| replace:: :func:`abjad.mutate.close_container() <auxjad.mutate.close_container>`
-.. |abjad.mutate.double_barlines_before_time_signatures()| replace:: :func:`abjad.mutate.double_barlines_before_time_signatures() <auxjad.mutate.double_barlines_before_time_signatures>`
 .. |abjad.mutate.enforce_time_signature()| replace:: :func:`abjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
 .. |abjad.mutate.extract_trivial_tuplets()| replace:: :func:`abjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
 .. |abjad.mutate.fill_with_rests()| replace:: :func:`abjad.mutate.fill_with_rests() <auxjad.mutate.fill_with_rests>`
@@ -52,9 +52,9 @@
 .. |abjad.Score.add_final_bar_line()| replace:: :meth:`abjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`
 
 
+.. |auxjad.mutate.add_double_bar_lines_before_time_signatures()| replace:: :func:`auxjad.mutate.add_double_bar_lines_before_time_signatures() <auxjad.mutate.add_double_bar_lines_before_time_signatures>`
 .. |auxjad.mutate.auto_rewrite_meter()| replace:: :func:`auxjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |auxjad.mutate.close_container()| replace:: :func:`auxjad.mutate.close_container() <auxjad.mutate.close_container>`
-.. |auxjad.mutate.double_barlines_before_time_signatures()| replace:: :func:`auxjad.mutate.double_barlines_before_time_signatures() <auxjad.mutate.double_barlines_before_time_signatures>`
 .. |auxjad.mutate.enforce_time_signature()| replace:: :func:`auxjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
 .. |auxjad.mutate.extract_trivial_tuplets()| replace:: :func:`auxjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
 .. |auxjad.mutate.fill_with_rests()| replace:: :func:`auxjad.mutate.fill_with_rests() <auxjad.mutate.fill_with_rests>`

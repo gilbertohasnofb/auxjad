@@ -10,11 +10,11 @@ Auxjad's mutation functions. These can be accesses via either:
 
 import abjad
 
+from .add_double_bar_lines_before_time_signatures import (
+    add_double_bar_lines_before_time_signatures,
+)
 from .auto_rewrite_meter import auto_rewrite_meter
 from .close_container import close_container
-from .double_barlines_before_time_signatures import (
-    double_barlines_before_time_signatures,
-)
 from .enforce_time_signature import enforce_time_signature
 from .extract_trivial_tuplets import extract_trivial_tuplets
 from .fill_with_rests import fill_with_rests
@@ -32,11 +32,11 @@ from .sync_containers import sync_containers
 
 ### EXTENSION FUNCTIONS ###
 
+abjad.mutate.add_double_bar_lines_before_time_signatures = (
+    add_double_bar_lines_before_time_signatures,
+)
 abjad.mutate.auto_rewrite_meter = auto_rewrite_meter
 abjad.mutate.close_container = close_container
-abjad.mutate.double_barlines_before_time_signatures = (
-    double_barlines_before_time_signatures,
-)
 abjad.mutate.enforce_time_signature = enforce_time_signature
 abjad.mutate.extract_trivial_tuplets = extract_trivial_tuplets
 abjad.mutate.fill_with_rests = fill_with_rests

@@ -24,9 +24,9 @@ names for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
+    add_double_bar_lines_before_time_signatures
     auto_rewrite_meter
     close_container
-    double_barlines_before_time_signatures
     enforce_time_signature
     extract_trivial_tuplets
     fill_with_rests

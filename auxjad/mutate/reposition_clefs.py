@@ -16,6 +16,15 @@ def reposition_clefs(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'1 | d'1")
         >>> abjad.attach(abjad.Clef('treble'), staff[0])
         >>> abjad.attach(abjad.Clef('treble'), staff[1])
+        >>> string = abjad.lilypond(staff)
+        >>> print(string)
+        \new Staff
+        {
+            \clef "treble"
+            c'1
+            \clef "treble"
+            d'1
+        }
         >>> abjad.show(staff)
 
         ..  docs::
@@ -31,6 +40,14 @@ def reposition_clefs(selection: abjad.Selection,
         ..  figure:: ../_images/reposition_clefs-ve7c2iykuyb.png
 
         >>> auxjad.mutate.reposition_clefs(staff[:])
+        >>> string = abjad.lilypond(staff)
+        >>> print(string)
+        \new Staff
+        {
+            \clef "treble"
+            c'1
+            d'1
+        }
         >>> abjad.show(staff)
 
         ..  docs::
@@ -46,15 +63,6 @@ def reposition_clefs(selection: abjad.Selection,
 
     ..  note::
 
-        Auxjad automatically adds this function as an extension function to
-        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
-        |abjad.mutate| namespaces. Therefore, the two lines below are
-        equivalent:
-
-        >>> auxjad.mutate.reposition_clefs(staff[:])
-        >>> abjad.mutate.reposition_clefs(staff[:])
-
-    LilyPond's fallback clef:
         As seen above, LilyPond automatically omits repeated clefs unless the
         first clef is omitted. In that case, it uses a treble clef as fallback,
         although it won't then remove a subsequent repeated treble clef:
@@ -88,6 +96,17 @@ def reposition_clefs(selection: abjad.Selection,
             }
 
         ..  figure:: ../_images/reposition_clefs-0620w7q00lsr.png
+
+    ..  note::
+
+        Auxjad automatically adds this function as an extension function to
+        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+        |abjad.mutate| namespaces. Therefore, the two lines below are
+        equivalent:
+
+        >>> auxjad.mutate.reposition_clefs(staff[:])
+        >>> abjad.mutate.reposition_clefs(staff[:])
+
 
     Clef structure:
         The function also removes clefs that are separated by an arbitrary

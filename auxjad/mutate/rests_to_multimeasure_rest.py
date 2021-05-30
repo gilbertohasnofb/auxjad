@@ -13,14 +13,26 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         Converts any measure filled with regular rests into a measure with a
         single multi-measure rest.
 
-        >>> container = abjad.Container(r"r1")
+        >>> container = abjad.Container(r"\time 3/4 r2.")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                \time 3/4
+                r2.
+            }
+
+        ..  figure:: ../_images/rests_to_multimeasure_rest-VIj5iWyLCG.png
+
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
         >>> abjad.show(container)
 
         ..  docs::
 
             {
-                R1
+                \time 3/4
+                R1 * 3/4
             }
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-uvebc7ft1zo.png
@@ -108,6 +120,26 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         ...                         "\time 6/8 r2. | "
         ...                         "\time 5/4 c'1 ~ c'4 | r1 r4"
         ...                         )
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                r2.
+                \time 6/8
+                r2.
+                \time 5/4
+                c'1
+                ~
+                c'4
+                r1
+                r4
+            }
+
+        ..  figure:: ../_images/rests_to_multimeasure_rest-oQfFRihzEY.png
+
         >>> auxjad.mutate.rests_to_multimeasure_rest(container[:])
         >>> abjad.show(container)
 

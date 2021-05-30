@@ -27,6 +27,30 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
 
         >>> staff1 = abjad.Staff(r"\time 4/4 g'2.")
         >>> staff2 = abjad.Staff(r"\time 4/4 c'1")
+        >>> abjad.show(staff1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'2.
+            }
+
+        ..  figure:: ../_images/sync_containers-H7jNwGEtFQ.png
+
+        >>> abjad.show(staff2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+            }
+
+        ..  figure:: ../_images/sync_containers-EjKqQCinPy.png
+
         >>> auxjad.mutate.sync_containers([staff1, staff2])
         >>> abjad.show(staff1)
 
@@ -135,6 +159,31 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
 
         >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Staff(r"\time 4/4 c'1")
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'1
+                f'4
+            }
+
+        ..  figure:: ../_images/sync_containers-udnAjAZtkw.png
+
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+            }
+
+        ..  figure:: ../_images/sync_containers-cy8dL4UUWV.png
+
         >>> auxjad.mutate.sync_containers([container1, container2])
         >>> abjad.show(container1)
 
@@ -159,7 +208,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
                 \time 4/4
                 c'1
                 \time 1/4
-                R1*1/4
+                R1 * 1/4
             }
 
         ..  figure:: ../_images/sync_containers-iaag195ty1d.png
@@ -170,6 +219,31 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
 
         >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Staff(r"\time 4/4 c'1")
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'1
+                f'4
+            }
+
+        ..  figure:: ../_images/sync_containers-uldd5Vni8a.png
+
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+            }
+
+        ..  figure:: ../_images/sync_containers-eTCrjHBr39.png
+
         >>> auxjad.mutate.sync_containers(
         ...     [container1, container2],
         ...     adjust_last_time_signature=False,
@@ -206,6 +280,32 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
 
         >>> container1 = abjad.Staff(r"\time 4/4 g'1 | f'4")
         >>> container2 = abjad.Staff(r"\time 4/4 c'1")
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                g'1
+                \time 1/4
+                f'4
+            }
+
+        ..  figure:: ../_images/sync_containers-Mbmjf7JLH8.png
+
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+            }
+
+        ..  figure:: ../_images/sync_containers-3RZwROEIt1.png
+
         >>> auxjad.mutate.sync_containers(
         ...     [container1, container2],
         ...     use_multimeasure_rests=False,
@@ -245,7 +345,47 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
 
         >>> container1 = abjad.Staff(r"\time 7/4 a'1 ~ a'2.")
         >>> container2 = abjad.Staff(r"\time 3/4 c'2.")
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/4
+                a'1
+                ~
+                a'2.
+            }
+
+        ..  figure:: ../_images/sync_containers-g61gTyfZGV.png
+
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'2.
+            }
+
+        ..  figure:: ../_images/sync_containers-UZvmef5N16.png
+
         >>> auxjad.mutate.sync_containers([container1, container2])
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 7/4
+                a'1
+                ~
+                a'2.
+            }
+
+        ..  figure:: ../_images/sync_containers-dQnq2ASkTu.png
+
         >>> abjad.show(container2)
 
         ..  docs::
@@ -268,6 +408,57 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> container2 = abjad.Staff(r"\time 4/4 c'1 | g'2")
         >>> container3 = abjad.Staff(r"\time 4/4 c'1 | g'2.")
         >>> container4 = abjad.Staff(r"\time 4/4 c'1")
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                g'4
+            }
+
+        ..  figure:: ../_images/sync_containers-epvaWYPYT7.png
+
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                g'2
+            }
+
+        ..  figure:: ../_images/sync_containers-Yja5mx93Fi.png
+
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+                g'2.
+            }
+
+        ..  figure:: ../_images/sync_containers-GTtAEELheA.png
+
+        >>> abjad.show(container4)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'1
+            }
+
+        ..  figure:: ../_images/sync_containers-VCFpuJX7ID.png
+
         >>> containers = [container1,
         ...               container2,
         ...               container3,
@@ -394,6 +585,61 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> container2 = abjad.Staff(r"\time 3/4 a2. \time 4/4 c'4")
         >>> container3 = abjad.Staff(r"\time 5/4 g''1 ~ g''4")
         >>> container4 = abjad.Staff(r"\time 6/8 c'2")
+        >>> abjad.show(container1)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+
+        ..  figure:: ../_images/sync_containers-qAt4FSyAIl.png
+
+        >>> abjad.show(container2)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                a2.
+                \time 4/4
+                c'4
+            }
+
+        ..  figure:: ../_images/sync_containers-EKrqsCDVNs.png
+
+        >>> abjad.show(container3)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/4
+                g''1
+                ~
+                g''4
+            }
+
+        ..  figure:: ../_images/sync_containers-lw5fknvt4o.png
+
+        >>> abjad.show(container4)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 6/8
+                c'2
+            }
+
+        ..  figure:: ../_images/sync_containers-iXGajGKBZl.png
+
         >>> containers = [container1,
         ...               container2,
         ...               container3,
@@ -412,7 +658,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
                 e'4
                 f'4
                 \time 1/4
-                R1*1/4
+                R1 * 1/4
             }
 
         ..  figure:: ../_images/sync_containers-mec52wgbrz9.png

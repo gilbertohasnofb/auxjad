@@ -2,7 +2,7 @@ score
 =====
 
 The |score|_ subpackage include score component classes such as harmonic
-leaf classes.
+leaf classes as well as extension methods to |abjad.Score|.
 
 ..  note::
 
@@ -23,6 +23,7 @@ for their individual documentation.
 
     ArtificialHarmonic
     HarmonicNote
+    Score.add_double_bar_lines_before_time_signatures
     Score.add_final_bar_line
 
 .. include:: abjad-targets.rst

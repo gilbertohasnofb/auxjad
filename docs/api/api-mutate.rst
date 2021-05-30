@@ -24,7 +24,6 @@ names for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
-    add_double_bar_lines_before_time_signatures
     auto_rewrite_meter
     close_container
     enforce_time_signature

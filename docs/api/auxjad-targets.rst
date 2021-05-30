@@ -20,7 +20,6 @@
 .. |auxjad.mutate| replace:: :mod:`auxjad.mutate <auxjad.mutate>`
 .. _auxjad.mutate: ../api/api-mutate.html
 
-.. |abjad.mutate.add_double_bar_lines_before_time_signatures()| replace:: :func:`abjad.mutate.add_double_bar_lines_before_time_signatures() <auxjad.mutate.add_double_bar_lines_before_time_signatures>`
 .. |abjad.mutate.auto_rewrite_meter()| replace:: :func:`abjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |abjad.mutate.close_container()| replace:: :func:`abjad.mutate.close_container() <auxjad.mutate.close_container>`
 .. |abjad.mutate.enforce_time_signature()| replace:: :func:`abjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
@@ -49,10 +48,9 @@
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
+.. |abjad.Score.add_double_bar_lines_before_time_signatures()| replace:: :meth:`abjad.Score.add_double_bar_lines_before_time_signatures() <auxjad.score.Score.add_double_bar_lines_before_time_signatures>`
 .. |abjad.Score.add_final_bar_line()| replace:: :meth:`abjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`
 
-
-.. |auxjad.mutate.add_double_bar_lines_before_time_signatures()| replace:: :func:`auxjad.mutate.add_double_bar_lines_before_time_signatures() <auxjad.mutate.add_double_bar_lines_before_time_signatures>`
 .. |auxjad.mutate.auto_rewrite_meter()| replace:: :func:`auxjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |auxjad.mutate.close_container()| replace:: :func:`auxjad.mutate.close_container() <auxjad.mutate.close_container>`
 .. |auxjad.mutate.enforce_time_signature()| replace:: :func:`auxjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
@@ -79,4 +77,5 @@
 
 .. |auxjad.TimeSignature.simplify_ratio()| replace:: :meth:`auxjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
+.. |auxjad.Score.add_double_bar_lines_before_time_signatures()| replace:: :meth:`auxjad.Score.add_double_bar_lines_before_time_signatures() <auxjad.score.Score.add_double_bar_lines_before_time_signatures>`
 .. |auxjad.Score.add_final_bar_line()| replace:: :meth:`auxjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`

@@ -25,7 +25,7 @@ from .remove_repeated_time_signatures import remove_repeated_time_signatures
 from .reposition_clefs import reposition_clefs
 from .reposition_dynamics import reposition_dynamics
 from .reposition_slurs import reposition_slurs
-from .respell_accidentals import respell_accidentals
+from .respell_augmented_unisons import respell_augmented_unisons
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .sustain_notes import sustain_notes
 from .sync_containers import sync_containers
@@ -47,7 +47,7 @@ abjad.mutate.remove_repeated_time_signatures = remove_repeated_time_signatures
 abjad.mutate.reposition_clefs = reposition_clefs
 abjad.mutate.reposition_dynamics = reposition_dynamics
 abjad.mutate.reposition_slurs = reposition_slurs
-abjad.mutate.respell_accidentals = respell_accidentals
+abjad.mutate.respell_augmented_unisons = respell_augmented_unisons
 abjad.mutate.rests_to_multimeasure_rest = rests_to_multimeasure_rest
 abjad.mutate.sustain_notes = sustain_notes
 abjad.mutate.sync_containers = sync_containers

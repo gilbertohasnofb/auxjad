@@ -15,7 +15,7 @@ def test_example_of_usage_05():
         abjad.Chord([2, 8, 9], (1, 8)),
         auxjad.ArtificialHarmonic(r"<d' a'>8", is_parenthesized=True),
     ])
-    abjad.mutate.respell_accidentals(container[:])
+    abjad.mutate.respell_augmented_unisons(container[:])
     shuffler = auxjad.Shuffler(container)
     staff = abjad.Staff()
     notes = shuffler.shuffle_n(4)

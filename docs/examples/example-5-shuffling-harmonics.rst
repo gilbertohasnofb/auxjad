@@ -58,11 +58,11 @@ and rests.
     ..  figure:: ../_images/example-5-shuffling-harmonics-vuu4ho4hjk7.png
 
 The spelling of the chord ``<d' af' a'>`` could be improved. This can be done
-by using either |auxjad.mutate.respell_accidentals()| on a selection. Auxjad
-automatically adds this mutation as an extension method to |abjad.mutate| so
-it can also be accessed using |abjad.mutate.respell_accidentals()|.
+by using |auxjad.mutate.respell_augmented_unisons()|. Auxjad automatically adds
+this mutation as an extension method to |abjad.mutate| so it can also be
+accessed using |abjad.mutate.respell_augmented_unisons()|.
 
-    >>> abjad.mutate.respell_accidentals(container[:])
+    >>> abjad.mutate.respell_augmented_unisons(container[:])
     >>> abjad.show(container)
 
     ..  docs::

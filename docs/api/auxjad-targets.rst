@@ -33,7 +33,7 @@
 .. |abjad.mutate.reposition_clefs()| replace:: :func:`abjad.mutate.reposition_clefs() <auxjad.mutate.reposition_clefs>`
 .. |abjad.mutate.reposition_dynamics()| replace:: :func:`abjad.mutate.reposition_dynamics() <auxjad.mutate.reposition_dynamics>`
 .. |abjad.mutate.reposition_slurs()| replace:: :func:`abjad.mutate.reposition_slurs() <auxjad.mutate.reposition_slurs>`
-.. |abjad.mutate.respell_accidentals()| replace:: :func:`abjad.mutate.respell_accidentals() <auxjad.mutate.respell_accidentals>`
+.. |abjad.mutate.respell_augmented_unisons()| replace:: :func:`abjad.mutate.respell_augmented_unisons() <auxjad.mutate.respell_augmented_unisons>`
 .. |abjad.mutate.rests_to_multimeasure_rest()| replace:: :func:`abjad.mutate.rests_to_multimeasure_rest() <auxjad.mutate.rests_to_multimeasure_rest>`
 .. |abjad.mutate.sustain_notes()| replace:: :func:`abjad.mutate.sustain_notes() <auxjad.mutate.sustain_notes>`
 .. |abjad.mutate.sync_containers()| replace:: :func:`abjad.mutate.sync_containers() <auxjad.mutate.sync_containers>`
@@ -65,7 +65,7 @@
 .. |auxjad.mutate.reposition_clefs()| replace:: :func:`auxjad.mutate.reposition_clefs() <auxjad.mutate.reposition_clefs>`
 .. |auxjad.mutate.reposition_dynamics()| replace:: :func:`auxjad.mutate.reposition_dynamics() <auxjad.mutate.reposition_dynamics>`
 .. |auxjad.mutate.reposition_slurs()| replace:: :func:`auxjad.mutate.reposition_slurs() <auxjad.mutate.reposition_slurs>`
-.. |auxjad.mutate.respell_accidentals()| replace:: :func:`auxjad.mutate.respell_accidentals() <auxjad.mutate.respell_accidentals>`
+.. |auxjad.mutate.respell_augmented_unisons()| replace:: :func:`auxjad.mutate.respell_augmented_unisons() <auxjad.mutate.respell_augmented_unisons>`
 .. |auxjad.mutate.rests_to_multimeasure_rest()| replace:: :func:`auxjad.mutate.rests_to_multimeasure_rest() <auxjad.mutate.rests_to_multimeasure_rest>`
 .. |auxjad.mutate.sustain_notes()| replace:: :func:`auxjad.mutate.sustain_notes() <auxjad.mutate.sustain_notes>`
 .. |auxjad.mutate.sync_containers()| replace:: :func:`auxjad.mutate.sync_containers() <auxjad.mutate.sync_containers>`

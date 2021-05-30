@@ -37,7 +37,7 @@ names for their individual documentation.
     reposition_clefs
     reposition_dynamics
     reposition_slurs
-    respell_accidentals
+    respell_augmented_unisons
     rests_to_multimeasure_rest
     sustain_notes
     sync_containers

@@ -3,9 +3,9 @@ import abjad
 import auxjad
 
 
-def test_respell_accidentals_01():
+def test_respell_augmented_unisons_01():
     staff = abjad.Staff(r"c'4 r4 <ef' e'>4 g'4 <c' cs'>4 r2.")
-    auxjad.mutate.respell_accidentals(staff[:])
+    auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -20,11 +20,11 @@ def test_respell_accidentals_01():
         """)
 
 
-def test_respell_accidentals_02():
+def test_respell_augmented_unisons_02():
     staff = abjad.Staff()
     for pitch in range(12):
         staff.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
-    auxjad.mutate.respell_accidentals(staff[:])
+    auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -45,9 +45,9 @@ def test_respell_accidentals_02():
         """)
 
 
-def test_respell_accidentals_03():
+def test_respell_augmented_unisons_03():
     staff = abjad.Staff(r"<a c' cs' f'>1")
-    auxjad.mutate.respell_accidentals(staff[:])
+    auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -57,9 +57,9 @@ def test_respell_accidentals_03():
         """)
 
 
-def test_respell_accidentals_04():
+def test_respell_augmented_unisons_04():
     staff = abjad.Staff(r"<e' cs' g' ef'>1")
-    auxjad.mutate.respell_accidentals(staff[:])
+    auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -69,9 +69,9 @@ def test_respell_accidentals_04():
         """)
 
 
-def test_respell_accidentals_05():
+def test_respell_augmented_unisons_05():
     staff = abjad.Staff(r"<c' cs''>1")
-    auxjad.mutate.respell_accidentals(staff[:])
+    auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -79,7 +79,7 @@ def test_respell_accidentals_05():
             <c' cs''>1
         }
         """)
-    auxjad.mutate.respell_accidentals(staff[:], include_multiples=True)
+    auxjad.mutate.respell_augmented_unisons(staff[:], include_multiples=True)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -89,9 +89,9 @@ def test_respell_accidentals_05():
         """)
 
 
-def test_respell_accidentals_06():
+def test_respell_augmented_unisons_06():
     staff = abjad.Staff(r"<c' cs' cs''>1")
-    auxjad.mutate.respell_accidentals(staff[:])
+    auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -100,7 +100,10 @@ def test_respell_accidentals_06():
         }
         """)
     staff = abjad.Staff(r"<c' cs' cs''>1")
-    auxjad.mutate.respell_accidentals(staff[:], respell_by_pitch_class=True)
+    auxjad.mutate.respell_augmented_unisons(
+        staff[:],
+        respell_by_pitch_class=True,
+    )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -110,9 +113,37 @@ def test_respell_accidentals_06():
         """)
 
 
-def test_respell_accidentals_07():
+def test_respell_augmented_unisons_07():
+    staff = abjad.Staff(r"""
+        <e' bs'>1
+        <e' b' bs'>1
+        <e' cf''>1
+        <e' cf'' c''>1
+        <es' c''>1
+        <e' es' c''>1
+        <ff' c''>1
+        <ff' f' c''>1
+        """)
+    auxjad.mutate.respell_augmented_unisons(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            <e' bs'>1
+            <e' b' c''>1
+            <e' cf''>1
+            <e' b' c''>1
+            <es' c''>1
+            <e' f' c''>1
+            <ff' c''>1
+            <e' f' c''>1
+        }
+        """)
+
+
+def test_respell_augmented_unisons_08():
     staff = abjad.Staff(r"c'4 r4 <ef' e'>4 g'4 <c' cs'>4 r2.")
-    abjad.mutate.respell_accidentals(staff[:])
+    abjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff

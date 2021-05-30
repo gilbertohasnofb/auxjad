@@ -1,11 +1,11 @@
 import abjad
 
 
-def respell_accidentals(selection: abjad.Selection,
-                        *,
-                        include_multiples: bool = False,
-                        respell_by_pitch_class: bool = False,
-                        ) -> None:
+def respell_augmented_unisons(selection: abjad.Selection,
+                              *,
+                              include_multiples: bool = False,
+                              respell_by_pitch_class: bool = False,
+                              ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function changes the accidentals of individual pitches of all chords
     in a container in order to avoid augmented unisons.
@@ -15,7 +15,22 @@ def respell_accidentals(selection: abjad.Selection,
         have augmented unisons.
 
         >>> container = abjad.Container(r"c'4 r4 <ef' e'>4 g'4 <c' cs'>4 r2.")
-        >>> auxjad.mutate.respell_accidentals(container[:])
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                r4
+                <ef' e'>4
+                g'4
+                <c' cs'>4
+                r2.
+            }
+
+        ..  figure:: ../_images/respell_augmented_unisons-OXnGvQzGT2.png
+
+        >>> auxjad.mutate.respell_augmented_unisons(container[:])
         >>> abjad.show(container)
 
         ..  docs::
@@ -29,7 +44,48 @@ def respell_accidentals(selection: abjad.Selection,
                 r2.
             }
 
-        ..  figure:: ../_images/respell_accidentals-x33afbbamt.png
+        ..  figure:: ../_images/respell_augmented_unisons-x33afbbamt.png
+
+        This can be useful when using tuples of integers to create chords that
+        contain minor seconds:
+
+        >>> pitches = [(0, 1), (8, 9, 12), (0, 4, 5, 6), (-1, 5, 6)]
+        >>> durations = [(1, 8), (3, 8), (7, 16), (1, 16)]
+        >>> maker = abjad.LeafMaker()
+        >>> chords = maker(pitches, durations)
+        >>> staff = abjad.Staff(chords)
+        >>> literal = abjad.LilyPondLiteral(r'\accidentalStyle dodecaphonic')
+        >>> abjad.attach(literal, staff)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \accidentalStyle dodecaphonic
+                <c' cs'>8
+                <af' a' c''>4.
+                <c' e' f' fs'>4..
+                <b f' fs'>16
+            }
+
+        ..  figure:: ../_images/respell_augmented_unisons-mWVWwV9uBx.png
+
+        >>> auxjad.mutate.respell_augmented_unisons(staff[:])
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \accidentalStyle dodecaphonic
+                <c' df'>8
+                <gs' a' c''>4.
+                <c' e' f' gf'>4..
+                <b f' gf'>16
+            }
+
+        ..  figure:: ../_images/respell_augmented_unisons-IfzaseW4oS.png
 
     ..  note::
 
@@ -38,213 +94,187 @@ def respell_accidentals(selection: abjad.Selection,
         |abjad.mutate| namespaces. Therefore, the two lines below are
         equivalent:
 
-        >>> auxjad.mutate.respell_accidentals(staff[:])
-        >>> abjad.mutate.respell_accidentals(staff[:])
+        >>> auxjad.mutate.respell_augmented_unisons(staff[:])
+        >>> abjad.mutate.respell_augmented_unisons(staff[:])
 
     2-note chords:
-        The example below shows the default spelling of 2-note chords in
-        Abjad in the upper staff, and the respelt 2-note chords in the bottom
-        staff.
+        The example below shows first the default spelling of 2-note chords in
+        Abjad followed by the respelt 2-note chords.
 
-        >>> staff1 = abjad.Staff()
-        >>> staff2 = abjad.Staff()
+        >>> staff = abjad.Staff()
         >>> for pitch in range(12):
-        ...     staff1.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
-        ...     staff2.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
-        >>> auxjad.mutate.respell_accidentals(staff2[:])
+        ...     staff.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
         >>> literal = abjad.LilyPondLiteral(r'\accidentalStyle dodecaphonic')
-        >>> abjad.attach(literal, staff1)
-        >>> abjad.attach(literal, staff2)
-        >>> score = abjad.Score([staff1, staff2])
-        >>> abjad.show(score)
+        >>> abjad.attach(literal, staff)
+        >>> abjad.show(staff)
 
         ..  docs::
 
-            \new Score
-            <<
-                \new Staff
-                {
-                    \accidentalStyle dodecaphonic
-                    <c' cs'>16
-                    <cs' d'>16
-                    <d' ef'>16
-                    <ef' e'>16
-                    <e' f'>16
-                    <f' fs'>16
-                    <fs' g'>16
-                    <g' af'>16
-                    <af' a'>16
-                    <a' bf'>16
-                    <bf' b'>16
-                    <b' c''>16
-                }
-                \new Staff
-                {
-                    \accidentalStyle dodecaphonic
-                    <c' df'>16
-                    <cs' d'>16
-                    <d' ef'>16
-                    <ds' e'>16
-                    <e' f'>16
-                    <f' gf'>16
-                    <fs' g'>16
-                    <g' af'>16
-                    <gs' a'>16
-                    <a' bf'>16
-                    <as' b'>16
-                    <b' c''>16
-                }
-            >>
+            \new Staff
+            {
+                \accidentalStyle dodecaphonic
+                <c' cs'>16
+                <cs' d'>16
+                <d' ef'>16
+                <ef' e'>16
+                <e' f'>16
+                <f' fs'>16
+                <fs' g'>16
+                <g' af'>16
+                <af' a'>16
+                <a' bf'>16
+                <bf' b'>16
+                <b' c''>16
+            }
 
-        ..  figure:: ../_images/respell_accidentals-jvg032q24il.png
+        ..  figure:: ../_images/respell_augmented_unisons-qQduIqCRpz.png
 
-    augmented unissons in larger chords:
+        >>> auxjad.mutate.respell_augmented_unisons(staff[:])
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \accidentalStyle dodecaphonic
+                <c' df'>16
+                <cs' d'>16
+                <d' ef'>16
+                <ds' e'>16
+                <e' f'>16
+                <f' gf'>16
+                <fs' g'>16
+                <g' af'>16
+                <gs' a'>16
+                <a' bf'>16
+                <as' b'>16
+                <b' c''>16
+            }
+
+        ..  figure:: ../_images/respell_augmented_unisons-jvg032q24il.png
+
+    augmented unissons in chords with 3 or more pitches:
         The function looks for all augmented unissons in chords of 3 or more
         pitches:
 
-        >>> container1 = abjad.Container(r"<a c' cs' f'>1")
-        >>> container2 = abjad.Container(r"<a c' cs' f'>1")
-        >>> auxjad.mutate.respell_accidentals(container2[:])
-        >>> staff = abjad.Staff([container1, container2])
+        >>> staff = abjad.Staff(r"<a c' cs' f'>1")
         >>> abjad.show(staff)
 
         ..  docs::
 
             \new Staff
             {
-                {
-                    <a c' cs' f'>1
-                }
-                {
-                    <a c' df' f'>1
-                }
+                <a c' cs' f'>1
             }
 
-        ..  figure:: ../_images/respell_accidentals-gyficck05p.png
+        ..  figure:: ../_images/respell_augmented_unisons-IklJO81q1E.png
 
-        It is not a problem if the pitches are input out of order.
-
-        >>> container1 = abjad.Container(r"<e' cs' g' ef'>1")
-        >>> container2 = abjad.Container(r"<e' cs' g' ef'>1")
-        >>> auxjad.mutate.respell_accidentals(container2[:])
-        >>> staff = abjad.Staff([container1, container2])
+        >>> auxjad.mutate.respell_augmented_unisons(staff[:])
         >>> abjad.show(staff)
 
         ..  docs::
 
             \new Staff
             {
-                {
-                    <cs' ef' e' g'>1
-                }
-                {
-                    <cs' ds' e' g'>1
-                }
+                <a c' df' f'>1
             }
 
-        ..  figure:: ../_images/respell_accidentals-xbu6u6mu6qo.png
+        ..  figure:: ../_images/respell_augmented_unisons-gyficck05p.png
 
     ``include_multiples``:
         By default, this function only changes spelling for pitches that are
         1 semitone apart.
 
-        >>> container1 = abjad.Container(r"<c' cs''>1")
-        >>> container2 = abjad.Container(r"<c' cs''>1")
-        >>> auxjad.mutate.respell_accidentals(container2[:])
-        >>> staff = abjad.Staff([container1, container2])
+        >>> staff = abjad.Staff(r"<c' cs''>1")
         >>> abjad.show(staff)
 
         ..  docs::
 
             \new Staff
             {
-                {
-                    <c' cs''>1
-                }
-                {
-                    <c' cs''>1
-                }
+                <c' cs''>1
             }
 
-        ..  figure:: ../_images/respell_accidentals-uszf11qb72d.png
+        ..  figure:: ../_images/respell_augmented_unisons-HPqFrADjeh.png
+
+        >>> auxjad.mutate.respell_augmented_unisons(staff[:])
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <c' cs''>1
+            }
+
+        ..  figure:: ../_images/respell_augmented_unisons-uszf11qb72d.png
 
         To consider pitches in different octaves (thus including augmented
         unisons, augmented octaves, augmented fifteenths, etc.), call this
         function with the keyword argument ``include_multiples`` set to
         ``True``.
 
-        >>> container1 = abjad.Container(r"<c' cs''>1")
-        >>> container2 = abjad.Container(r"<c' cs''>1")
-        >>> auxjad.mutate.respell_accidentals(
-        ...     container2[:],
+        >>> staff = abjad.Staff(r"<c' cs''>1")
+        >>> auxjad.mutate.respell_augmented_unisons(
+        ...     staff[:],
         ...     include_multiples=True,
         ... )
-        >>> staff = abjad.Staff([container1, container2])
-        >>> abjad.show(staff)
 
         ..  docs::
 
             \new Staff
             {
-                {
-                    <c' cs''>1
-                }
-                {
-                    <c' df''>1
-                }
+                <c' df''>1
             }
 
-        ..  figure:: ../_images/respell_accidentals-8am8cu2rmgi.png
+        ..  figure:: ../_images/respell_augmented_unisons-8am8cu2rmgi.png
 
     ``respell_by_pitch_class``:
         By default, when this function changes the spelling of a pitch, it does
         not change the spelling of all other pitches with the same pitch-class.
 
-        >>> container1 = abjad.Container(r"<c' cs' cs''>1")
-        >>> container2 = abjad.Container(r"<c' cs' cs''>1")
-        >>> auxjad.mutate.respell_accidentals(container2[:])
-        >>> staff = abjad.Staff([container1, container2])
+        >>> staff = abjad.Staff(r"<c' cs' cs''>1")
         >>> abjad.show(staff)
 
         ..  docs::
 
             \new Staff
             {
-                {
                     <c' cs' cs''>1
-                }
-                {
-                    <c' df' cs''>1
-                }
             }
 
-        ..  figure:: ../_images/respell_accidentals-47d16xk6gvs.png
+        ..  figure:: ../_images/respell_augmented_unisons-eWixL7iCEq.png
+
+        >>> auxjad.mutate.respell_augmented_unisons(staff[:])
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                <c' df' cs''>1
+            }
+
+        ..  figure:: ../_images/respell_augmented_unisons-47d16xk6gvs.png
 
         To alter all pitch-classes, call this function with the keyword
         argument ``respell_by_pitch_class`` set to ``True``.
 
-        >>> container1 = abjad.Container(r"<c' cs' cs''>1")
-        >>> container2 = abjad.Container(r"<c' cs' cs''>1")
-        >>> auxjad.mutate.respell_accidentals(
-        ...     container2[:],
+        >>> staff = abjad.Staff(r"<c' cs' cs''>1")
+        >>> auxjad.mutate.respell_augmented_unisons(
+        ...     staff[:],
         ...     respell_by_pitch_class=True,
         ... )
-        >>> staff = abjad.Staff([container1, container2])
         >>> abjad.show(staff)
 
         ..  docs::
 
             \new Staff
             {
-                {
-                    <c' cs' cs''>1
-                }
-                {
-                    <c' df' df''>1
-                }
+                <c' df' df''>1
             }
 
-        ..  figure:: ../_images/respell_accidentals-kobft0oq9sl.png
+        ..  figure:: ../_images/respell_augmented_unisons-kobft0oq9sl.png
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("argument must be 'abjad.Selection'")
@@ -256,6 +286,7 @@ def respell_accidentals(selection: abjad.Selection,
     for leaf in selection.leaves():
         if isinstance(leaf, abjad.Chord):
             accidentals = [pitch.accidental for pitch in leaf.written_pitches]
+            original_accidentals = accidentals[:]
             if not include_multiples:
                 # dealing only with intervals of size equal to 1 semitone
                 for i in range(len(leaf.written_pitches) - 1):
@@ -313,10 +344,16 @@ def respell_accidentals(selection: abjad.Selection,
                                     accidentals[j] = abjad.Accidental('s')
             # rewritting chord with new spelling
             respelt_pitches = []
-            for pitch, accidental in zip(leaf.written_pitches, accidentals):
-                if accidental == abjad.Accidental('f'):
+            for pitch, accidental, original_accidental in zip(
+                leaf.written_pitches,
+                accidentals,
+                original_accidentals,
+            ):
+                if (accidental != original_accidental
+                        and accidental == abjad.Accidental('f')):
                     respelt_pitches.append(pitch._respell(accidental='flats'))
-                elif accidental == abjad.Accidental('s'):
+                elif (accidental != original_accidental
+                        and accidental == abjad.Accidental('s')):
                     respelt_pitches.append(pitch._respell(accidental='sharps'))
                 else:
                     respelt_pitches.append(pitch)

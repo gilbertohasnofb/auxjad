@@ -1,4 +1,4 @@
-|auxjad-socialify|
+|Auxjad image|
 
 |PyPI| |Build| |Python versions| |License| |Bug report| |Documentation|
 
@@ -27,8 +27,8 @@ Or if you are using virtual environments, simply use::
 You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.4`_
 and `LilyPond`_.
 
-.. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
-    :target: https://github.com/gilbertohasnofb/auxjad
+.. |Auxjad image| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad.png
+   :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
 .. |Build| image:: https://img.shields.io/travis/gilbertohasnofb/auxjad?style=for-the-badge

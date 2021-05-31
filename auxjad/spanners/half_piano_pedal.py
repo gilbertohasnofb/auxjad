@@ -299,5 +299,7 @@ def half_piano_pedal(argument: Union[abjad.Component, abjad.Selection],
                       )
 
 
+### EXTENSION FUNCTIONS ###
+
 abjad.spanners.half_piano_pedal = half_piano_pedal
 abjad.half_piano_pedal = half_piano_pedal

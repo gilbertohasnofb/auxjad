@@ -1,4 +1,4 @@
-|auxjad-socialify|
+|Auxjad image|
 
 Welcome to Auxjad's documentation!
 ==================================
@@ -54,9 +54,7 @@ and `LilyPond`_.
 .. _`Python 3.9`: https://www.python.org/
 .. _LilyPond: http://lilypond.org/
 
-.. |auxjad-socialify| image:: https://socialify.git.ci/gilbertohasnofb/auxjad/image?description=1&font=Inter&language=1&owner=1&pattern=Plus&theme=Dark
-    :target: https://github.com/gilbertohasnofb/auxjad
-.. |GitHub| image:: https://img.shields.io/badge/GitHub-auxjad-blue?style=for-the-badge&logo=github
+.. |Auxjad image| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad.png
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad

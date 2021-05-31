@@ -1680,8 +1680,8 @@ class CrossFader():
                             "child class")
         self._fade_out_contents = fade_out_contents
         self._fade_in_contents = fade_in_contents
-        self._fader_out = Fader(self._fade_out_contents, fader_type='out')
-        self._fader_in = Fader(self._fade_in_contents, fader_type='in')
+        self._fader_out = Fader(self._fade_out_contents, mode='out')
+        self._fader_in = Fader(self._fade_in_contents, mode='in')
         self._faders = (self._fader_in, self._fader_out)
         self._is_first_window = True
         self._is_first_process = True

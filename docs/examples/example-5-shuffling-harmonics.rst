@@ -273,13 +273,13 @@ measures of shuffled logical ties.
 
 We can now grab the last window output by shuffler and use it as the input
 container of a :class:`auxjad.Fader`. When its property
-:attr:`~auxjad.Fader.fader_type` is set to ``'out'``, it will remove a logical
-tie one by one at each iteration. Note how :class:`auxjad.Fader` removes the
-notes of chords one by one, but consider an :class:`auxjad.ArtificialHarmonic`
-as a single note.
+:attr:`~auxjad.Fader.mode` is set to ``'out'``, it will remove a logical tie
+one by one at each iteration. Note how :class:`auxjad.Fader` removes the notes
+of chords one by one, but consider an :class:`auxjad.ArtificialHarmonic` as a
+single note.
 
     >>> container = abjad.Container(shuffler.current_window)
-    >>> fader = auxjad.Fader(container, fader_type='out')
+    >>> fader = auxjad.Fader(container, mode='out')
 
     >>> notes = fader.output_all()
     >>> staff.append(notes)

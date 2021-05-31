@@ -21,7 +21,7 @@ def test_example_of_usage_05():
     notes = shuffler.shuffle_n(4)
     staff.append(notes)
     container = abjad.Container(shuffler.current_window)
-    fader = auxjad.Fader(container, fader_type='out')
+    fader = auxjad.Fader(container, mode='out')
     notes = fader.output_all()
     staff.append(notes)
     abjad.mutate.prettify_rewrite_meter(staff[:], abjad.Meter((4, 4)))

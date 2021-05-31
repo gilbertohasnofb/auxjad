@@ -643,8 +643,8 @@ class LeafLooper(_LooperParent):
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
         >>> looper = auxjad.LeafLooper(container,
-        >>>                             window_size=3,
-        >>>                             )
+        ...                            window_size=3,
+        ...                            )
         >>> notes = looper()
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)

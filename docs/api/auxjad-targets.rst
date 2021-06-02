@@ -14,6 +14,8 @@
 .. _score: api-score.html
 .. |spanners| replace:: :mod:`spanners <auxjad.spanners>`
 .. _spanners: api-spanners.html
+.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
+.. _utilities: api-utilities.html
 
 .. |auxjad.get| replace:: :mod:`auxjad.get <auxjad.get>`
 .. _auxjad.get: ../api/api-get.html
@@ -45,6 +47,8 @@
 .. |abjad.get.virtual_fundamental()| replace:: :func:`abjad.get.virtual_fundamental() <auxjad.get.virtual_fundamental>`
 
 .. |abjad.half_piano_pedal()| replace:: :func:`abjad.half_piano_pedal() <auxjad.half_piano_pedal>`
+
+.. |abjad.staff_splitter()| replace:: :func:`abjad.staff_splitter() <auxjad.staff_splitter>`
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 

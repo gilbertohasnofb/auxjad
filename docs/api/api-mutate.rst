@@ -1,5 +1,5 @@
 mutate
-========
+======
 
 The |mutate|_ subpackage contains mutation functions. Mutations act on an
 input |abjad.Selection|, |abjad.Container|, or |abjad.Leaf| (depending on the

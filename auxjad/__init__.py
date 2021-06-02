@@ -39,6 +39,8 @@ from .score.Score import Score
 from .spanners.half_piano_pedal import half_piano_pedal
 from .spanners.piano_pedal import piano_pedal
 
+from .utilities.staff_splitter import staff_splitter
+
 from . import get
 
 from . import mutate
@@ -70,6 +72,7 @@ __all__ = [
     'Score',
     'half_piano_pedal',
     'piano_pedal',
+    'staff_splitter',
     'get',
     'mutate',
 ]

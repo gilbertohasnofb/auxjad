@@ -1,14 +1,15 @@
 Auxjad API
 ==========
 
-Auxjad is made out of seven subpackages: |core|_, |get|_, |indicators|_,
-|makers|_, |mutate|_, |score|_, and |spanners|_. |core|_ contains most of
-Auxjad's classes and is focused on algorithmic transformations and
+Auxjad is made out of eight subpackages: |core|_, |get|_, |indicators|_,
+|makers|_, |mutate|_, |score|_, |spanners|_, and |utilities|_. |core|_ contains
+most of Auxjad's classes and is focused on algorithmic transformations and
 manipulations of |abjad.Container| objects. |indicators|_ and |spanners|_
 contain derived classes and extension methods for Abjad's indicators and
 spanners. |score|_ contains score component classes, such as harmonic leaves.
 |makers|_ contain an expanded leaf making class. |get|_ and |mutate|_ contain
-inspection and mutation functions.
+inspection and mutation functions, while |utilities|_ contain utility functions
+that are neither inspections nor mutations.
 
 ..  note::
 
@@ -38,6 +39,8 @@ in the navigation pane in the left.
 +----------------+-------------------------------------------------------------+
 | |spanners|_    | spanner classes                                             |
 +----------------+-------------------------------------------------------------+
+| |utilities|_   | utility functions                                           |
++----------------+-------------------------------------------------------------+
 
 .. toctree::
     :hidden:
@@ -51,6 +54,7 @@ in the navigation pane in the left.
     api-mutate
     api-score
     api-spanners
+    api-utilities
 
 .. include:: abjad-targets.rst
 .. include:: auxjad-targets.rst

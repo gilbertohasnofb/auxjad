@@ -659,8 +659,8 @@ class PitchRandomiser:
 
     def __init__(self,
                  contents: abjad.Container,
-                 pitches: Union[list[Union[int, str, abjad.Pitch]],
-                                tuple[Union[int, str, abjad.Pitch]],
+                 pitches: Union[list[Union[int, float, str, abjad.Pitch]],
+                                tuple[Union[int, float, str, abjad.Pitch]],
                                 str,
                                 abjad.PitchSegment,
                                 ],
@@ -813,8 +813,8 @@ class PitchRandomiser:
 
     @pitches.setter
     def pitches(self,
-                pitches: Union[list[Union[int, str, abjad.Pitch]],
-                               tuple[Union[int, str, abjad.Pitch]],
+                pitches: Union[list[Union[int, float, str, abjad.Pitch]],
+                               tuple[Union[int, float, str, abjad.Pitch]],
                                str,
                                abjad.PitchSegment,
                                ],

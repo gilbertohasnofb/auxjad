@@ -384,6 +384,7 @@ def reposition_slurs(selection: abjad.Selection,
                 if (abjad.get.indicator(previous_leaf, abjad.StopSlur)
                         is None):
                     abjad.attach(abjad.StopSlur(), previous_leaf)
+                    active_slur = False
                 for next_leaf in leaves[index + 1:]:
                     if not isinstance(next_leaf, (abjad.Rest,
                                                   abjad.MultimeasureRest,

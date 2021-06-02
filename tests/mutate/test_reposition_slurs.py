@@ -303,3 +303,103 @@ def test_reposition_slurs_13():
             e'1
         }
         """)
+
+
+def test_reposition_slurs_14():
+    staff = abjad.Staff(r"c'1( d'1 e'1 f'1")
+    auxjad.mutate.reposition_slurs(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'1
+            e'1
+            f'1
+            )
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'1( e'1 f'1)")
+    auxjad.mutate.reposition_slurs(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'1
+            e'1
+            f'1
+            )
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'1 e'1) f'1")
+    auxjad.mutate.reposition_slurs(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'1
+            e'1
+            )
+            f'1
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'1 e'1) f'1)")
+    auxjad.mutate.reposition_slurs(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'1
+            e'1
+            )
+            f'1
+        }
+        """)
+
+
+def test_reposition_slurs_15():
+    staff = abjad.Staff(r"c'1( d'1 r1 r1 r1 e'1 f'1)")
+    auxjad.mutate.reposition_slurs(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'1
+            )
+            r1
+            r1
+            r1
+            e'1
+            (
+            f'1
+            )
+        }
+        """)
+    staff = abjad.Staff(r"c'1( d'1 r1 r1 r1 e'1 f'1)")
+    auxjad.mutate.reposition_slurs(staff[:],
+                                   allow_slurs_under_rests=True,
+                                   )
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            (
+            d'1
+            r1
+            r1
+            r1
+            e'1
+            f'1
+            )
+        }
+        """)

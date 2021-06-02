@@ -1267,7 +1267,6 @@ class Fader():
                     \<
                     r2
                     \f
-                    )
                 }
                 r4
                 g'2

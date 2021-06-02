@@ -1199,7 +1199,6 @@ def test_Fader_27():
                 \<
                 r2
                 \f
-                )
             }
             r4
             g'2

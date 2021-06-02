@@ -211,7 +211,10 @@ def test_remove_repeated_dynamics_06():
 
 def test_remove_repeated_dynamics_07():
     staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-    auxjad.mutate.remove_repeated_dynamics(staff[:], reset_after_rests=(4, 4))
+    auxjad.mutate.remove_repeated_dynamics(staff[:],
+                                           reset_after_rests=True,
+                                           reset_after_duration=(4, 4),
+                                           )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -223,7 +226,10 @@ def test_remove_repeated_dynamics_07():
         }
         """)
     staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
-    auxjad.mutate.remove_repeated_dynamics(staff[:], reset_after_rests=2 / 4)
+    auxjad.mutate.remove_repeated_dynamics(staff[:],
+                                           reset_after_rests=True,
+                                           reset_after_duration=2 / 4,
+                                           )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -241,7 +247,8 @@ def test_remove_repeated_dynamics_08():
     staff = abjad.Staff(r"c'4\pp r2. | R1 | c'1\pp")
     auxjad.mutate.remove_repeated_dynamics(
         staff[:],
-        reset_after_rests=abjad.Duration(4, 4),
+        reset_after_rests=True,
+        reset_after_duration=abjad.Duration(4, 4),
     )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -256,7 +263,10 @@ def test_remove_repeated_dynamics_08():
         }
         """)
     staff = abjad.Staff(r"c'4\pp r2. | R1 | c'1\pp")
-    auxjad.mutate.remove_repeated_dynamics(staff[:], reset_after_rests=2)
+    auxjad.mutate.remove_repeated_dynamics(staff[:],
+                                           reset_after_rests=True,
+                                           reset_after_duration=2,
+                                           )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff

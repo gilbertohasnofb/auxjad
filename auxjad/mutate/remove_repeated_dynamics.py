@@ -1,3 +1,5 @@
+from typing import Optional, Union
+
 import abjad
 
 
@@ -5,6 +7,9 @@ def remove_repeated_dynamics(selection: abjad.Selection,
                              *,
                              ignore_hairpins: bool = False,
                              reset_after_rests: bool = False,
+                             reset_after_duration: Optional[
+                                 Union[float, int, str, tuple, abjad.Duration]
+                             ] = None,
                              ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated dynamic markings.
@@ -277,8 +282,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         ..  figure:: ../_images/remove_repeated_dynamics-wtno2t8qroh.png
 
-        To override the previous behaviour, set ``reset_after_rests=True`` and
-        dynamics will always be restated after a rest.
+        To override the previous behaviour, set ``reset_after_rests`` to
+        ``True`` and dynamics will always be restated after a rest.
 
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.mutate.remove_repeated_dynamics(
@@ -300,12 +305,14 @@ def remove_repeated_dynamics(selection: abjad.Selection,
 
         ..  figure:: ../_images/remove_repeated_dynamics-3e6g7u0q1i1.png
 
-    ``reset_after_rests`` and non-:obj:`bool` values:
-        The argument ``reset_after_rests`` takes not only :obj:`bool` values
-        but also durations (|abjad.Duration|, :obj:`tuple`, :obj:`float`,
-        etc.). This sets the maximum length of rests before which identical
-        dynamics are restated. If the total length of rests falls below that
-        value, then repeated dynamics are removed.
+    ``reset_after_duration``:
+        With ``reset_after_rests`` is set to ``True``, it is possible to
+        specify a minimum duration of silence required for the dynamics to be
+        restated using the argument ``reset_after_duration``. It takes an
+        |abjad.Duration| or also :obj:`str`, :obj:`tuple`, :obj:`float`, etc.
+        This sets the maximum length of rests before which identical dynamics
+        are restated. If the total length of rests falls below that value, then
+        repeated dynamics are removed.
 
         In the case below, a rest of ``r2``. is shorter than a duration of
         ``(4, 4)``, so the repeated dynamic is removed.
@@ -313,7 +320,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.mutate.remove_repeated_dynamics(
         ...     staff[:],
-        ...     reset_after_rests=(4, 4),
+        ...     reset_after_rests=True,
+        ...     reset_after_duration=(4, 4),
         ... )
         >>> abjad.show(staff)
 
@@ -334,7 +342,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
         >>> auxjad.mutate.remove_repeated_dynamics(
         ...     staff[:],
-        ...     reset_after_rests=2 / 4,
+        ...     reset_after_rests=True,
+        ...     reset_after_duration=2 / 4,
         ... )
         >>> abjad.show(staff)
 
@@ -357,7 +366,8 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         >>> staff = abjad.Staff(r"c'4\pp r2. | c'4\pp r2. | R1 | c'1\pp")
         >>> auxjad.mutate.remove_repeated_dynamics(
         ...     staff[:],
-        ...     reset_after_rests=abjad.Duration(4, 4),
+        ...     reset_after_rests=True,
+        ...     reset_after_duration=abjad.Duration(4, 4),
         ... )
         >>> abjad.show(staff)
 
@@ -395,19 +405,32 @@ def remove_repeated_dynamics(selection: abjad.Selection,
                       ):
         raise TypeError("'reset_after_rests' must be a number, 'bool' or "
                         "'abjad.Duration'")
+    if reset_after_duration is not None:
+        if not isinstance(reset_after_duration, (int,
+                                                 float,
+                                                 tuple,
+                                                 str,
+                                                 abjad.Duration,
+                                                 )):
+            raise TypeError("'reset_after_duration' must be 'abjad.Duration', "
+                            "'str', 'tuple', or a number")
 
     previous_dynamic = None
     current_dynamic = None
     duration_since_last_note = abjad.Duration(0)
     for leaf in selection.leaves():
-        if type(leaf) in (abjad.Rest, abjad.MultimeasureRest):
-            if isinstance(reset_after_rests, bool) and reset_after_rests:
-                previous_dynamic = None
-            elif reset_after_rests:
-                duration_since_last_note += leaf.written_duration
-                if (duration_since_last_note
-                        >= abjad.Duration(reset_after_rests)):
+        if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)):
+            dynamic = abjad.get.indicator(leaf, abjad.Dynamic)
+            if dynamic is not None:
+                previous_dynamic = dynamic
+            if reset_after_rests:
+                if reset_after_duration is None:
                     previous_dynamic = None
+                else:
+                    duration_since_last_note += leaf.written_duration
+                    if (duration_since_last_note
+                            >= abjad.Duration(reset_after_duration)):
+                        previous_dynamic = None
         else:
             duration_since_last_note = abjad.Duration(0)
             indicators = abjad.get.indicators(leaf)

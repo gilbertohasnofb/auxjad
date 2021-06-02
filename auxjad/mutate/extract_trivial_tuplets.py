@@ -307,7 +307,7 @@ def extract_trivial_tuplets(selection: abjad.Selection) -> None:
             for _ in range(n_elements - 1):
                 tuplet.pop(-1)
             if not after_tie:
-                abjad.detach(abjad.Tie(), leaves[0])
+                abjad.detach(abjad.Tie, leaves[0])
             if duration.is_assignable:
                 leaves[0].written_duration = duration
                 abjad.mutate.extract(tuplet)

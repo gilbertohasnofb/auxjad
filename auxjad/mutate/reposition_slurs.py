@@ -323,7 +323,7 @@ def reposition_slurs(selection: abjad.Selection,
         for leaf in leaves[::-1]:
             if abjad.get.indicator(leaf, abjad.StartSlur) is not None:
                 if leaf is leaves[-1]:
-                    abjad.detach(abjad.StartSlur(), leaf)
+                    abjad.detach(abjad.StartSlur, leaf)
                 elif (abjad.get.indicator(leaves[-1], abjad.StopSlur) is None):
                     abjad.attach(abjad.StopSlur(), leaves[-1])
             if abjad.get.indicator(leaf, abjad.StopSlur) is not None:
@@ -337,12 +337,12 @@ def reposition_slurs(selection: abjad.Selection,
             start_slur_count += 1
             stop_slur_count = 0
             if start_slur_count > 1:
-                abjad.detach(abjad.StartSlur(), leaf)
+                abjad.detach(abjad.StartSlur, leaf)
         elif abjad.get.indicator(leaf, abjad.StopSlur) is not None:
             stop_slur_count += 1
             start_slur_count = 0
             if stop_slur_count > 1:
-                abjad.detach(abjad.StopSlur(), leaf)
+                abjad.detach(abjad.StopSlur, leaf)
 
     # shifting slurs from rests to notes
     shifted_startslur = None

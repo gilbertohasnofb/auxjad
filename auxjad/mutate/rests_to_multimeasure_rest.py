@@ -4,6 +4,7 @@ import abjad
 def rests_to_multimeasure_rest(selection: abjad.Selection,
                                *,
                                ignore_clefs: bool = False,
+                               ignore_dynamics: bool = False,
                                ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function looks for measures filled with regular rests and converts
@@ -310,6 +311,109 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
 
         ..  figure:: ../_images/rests_to_multimeasure_rest-KGRZJ8fvQF.png
 
+    ``ignore_dynamics``
+        By default, the last dynamic or hairpin of an empty measure is
+        preserved when replacing it with a multi-measure rest:
+
+        >>> staff = abjad.Staff(r"c'1\p\< r2\! r2 d'1\f\> r2 r2\ppp")
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                r2
+                \!
+                r2
+                d'1
+                \f
+                \>
+                r2
+                r2
+                \ppp
+            }
+
+
+        ..  figure:: ../_images/rests_to_multimeasure_rest-J9T5UY8r9w.png
+
+        >>> abjad.mutate.rests_to_multimeasure_rest(staff[:])
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                R1
+                \!
+                d'1
+                \f
+                \>
+                R1
+                \ppp
+            }
+
+        ..  figure:: ../_images/rests_to_multimeasure_rest-77r9QeaZBA.png
+
+        Invoke the mutation with ``ignore_dynamics`` set to ``True`` to disable
+        this behaviour and ignore all dynamics and hairpins:
+
+        >>> staff = abjad.Staff(r"c'1\p\< r2\! r2 d'1\f\> r2 r2\ppp")
+        >>> abjad.mutate.rests_to_multimeasure_rest(
+        ...     staff[:],
+        ...     ignore_dynamics=True,
+        ... )
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                R1
+                d'1
+                \f
+                \>
+                R1
+            }
+
+        ..  figure:: ../_images/rests_to_multimeasure_rest-3UhZukx9Pw.png
+
+        ..  warning::
+
+            Note that dynamics are only ignored when converting rests to
+            multi-measure rests. All other dynamics are preserved in the score.
+            This can result in problems displaying dynamics when one or more
+            unterminated hairpins is present. In the example above, the last
+            note's hairpin is unterminated and, because of that, LilyPond
+            ignores all dynamics in that staff:
+
+            >>> staff = abjad.Staff(r"c'1\p\< r2\! r2 d'1\f\> r2 r2\ppp")
+            >>> abjad.mutate.rests_to_multimeasure_rest(
+            ...     staff[:],
+            ...     ignore_dynamics=True,
+            ... )
+            >>> string = abjad.lilypond(staff)
+            >>> print(string)
+            \new Staff
+            {
+                c'1
+                \p
+                \<
+                R1
+                d'1
+                \f
+                \>
+                R1
+            }
+
     ..  warning::
 
         The input selection must be a contiguous logical voice. When dealing
@@ -323,6 +427,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         raise ValueError("argument must be contiguous logical voice")
     if not isinstance(ignore_clefs, bool):
         raise TypeError("'ignore_clefs' must be 'bool'")
+    if not isinstance(ignore_dynamics, bool):
+        raise TypeError("'ignore_dynamics' must be 'bool'")
 
     measures = selection.group_by_measure()
     effective_time_signature = abjad.TimeSignature((4, 4))
@@ -350,6 +456,14 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
                     clef = abjad.get.indicator(leaf, abjad.Clef)
                     if clef is not None:
                         break
+            if not ignore_dynamics:
+                for leaf in measure.leaves()[::-1]:
+                    dynamics = abjad.get.indicator(leaf, (abjad.Dynamic,
+                                                          abjad.StartHairpin,
+                                                          abjad.StopHairpin,
+                                                          ))
+                    if dynamics is not None:
+                        break
             duration = abjad.get.duration(measure)
             if duration == effective_time_signature.duration:
                 if duration == 1:
@@ -364,6 +478,8 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
                     abjad.attach(time_signature, multimeasure_rest)
                 if not ignore_clefs and clef is not None:
                     abjad.attach(clef, multimeasure_rest)
+                if not ignore_dynamics and dynamics is not None:
+                    abjad.attach(dynamics, multimeasure_rest)
                 for indicator in abjad.get.indicators(head):
                     if isinstance(indicator, indicators_tuple):
                         abjad.attach(indicator, multimeasure_rest)

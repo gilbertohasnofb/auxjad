@@ -90,7 +90,7 @@ def test_rests_to_multimeasure_rest_05():
 
 def test_rests_to_multimeasure_rest_06():
     staff = abjad.Staff(r"r2 r8.. r32 r16 r8 r16")
-    abjad.mutate.rests_to_multimeasure_rest(staff[:], )
+    abjad.mutate.rests_to_multimeasure_rest(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -105,7 +105,7 @@ def test_rests_to_multimeasure_rest_07():
                         r"\time 3/4 \clef treble r2. "
                         r"\time 5/4 r2 \clef bass r2."
                         )
-    abjad.mutate.rests_to_multimeasure_rest(staff[:], )
+    abjad.mutate.rests_to_multimeasure_rest(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -134,5 +134,42 @@ def test_rests_to_multimeasure_rest_07():
             R1 * 3/4
             \time 5/4
             R1 * 5/4
+        }
+        """)
+
+
+def test_rests_to_multimeasure_rest_08():
+    staff = abjad.Staff(r"c'1\p\< r2\! r2 d'1\f\> r2 r2\ppp")
+    abjad.mutate.rests_to_multimeasure_rest(staff[:])
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            \p
+            \<
+            R1
+            \!
+            d'1
+            \f
+            \>
+            R1
+            \ppp
+        }
+        """)
+    staff = abjad.Staff(r"c'1\p\< r2\! r2 d'1\f\> r2 r2\ppp")
+    abjad.mutate.rests_to_multimeasure_rest(staff[:], ignore_dynamics=True)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            \p
+            \<
+            R1
+            d'1
+            \f
+            \>
+            R1
         }
         """)

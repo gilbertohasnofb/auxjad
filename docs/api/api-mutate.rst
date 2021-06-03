@@ -27,6 +27,7 @@ names for their individual documentation.
     auto_rewrite_meter
     close_container
     enforce_time_signature
+    extend_notes
     extract_trivial_tuplets
     fill_with_rests
     merge_hairpins

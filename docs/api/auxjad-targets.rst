@@ -25,6 +25,7 @@
 .. |abjad.mutate.auto_rewrite_meter()| replace:: :func:`abjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |abjad.mutate.close_container()| replace:: :func:`abjad.mutate.close_container() <auxjad.mutate.close_container>`
 .. |abjad.mutate.enforce_time_signature()| replace:: :func:`abjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
+.. |abjad.mutate.extend_notes()| replace:: :func:`abjad.mutate.extend_notes() <auxjad.mutate.extend_notes>`
 .. |abjad.mutate.extract_trivial_tuplets()| replace:: :func:`abjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
 .. |abjad.mutate.fill_with_rests()| replace:: :func:`abjad.mutate.fill_with_rests() <auxjad.mutate.fill_with_rests>`
 .. |abjad.mutate.merge_hairpins()| replace:: :func:`abjad.mutate.merge_hairpins() <auxjad.mutate.merge_hairpins>`
@@ -59,6 +60,7 @@
 .. |auxjad.mutate.auto_rewrite_meter()| replace:: :func:`auxjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |auxjad.mutate.close_container()| replace:: :func:`auxjad.mutate.close_container() <auxjad.mutate.close_container>`
 .. |auxjad.mutate.enforce_time_signature()| replace:: :func:`auxjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
+.. |auxjad.mutate.extend_notes()| replace:: :func:`auxjad.mutate.extend_notes() <auxjad.mutate.extend_notes>`
 .. |auxjad.mutate.extract_trivial_tuplets()| replace:: :func:`auxjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
 .. |auxjad.mutate.fill_with_rests()| replace:: :func:`auxjad.mutate.fill_with_rests() <auxjad.mutate.fill_with_rests>`
 .. |auxjad.mutate.merge_hairpins()| replace:: :func:`auxjad.mutate.merge_hairpins() <auxjad.mutate.merge_hairpins>`

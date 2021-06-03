@@ -13,6 +13,7 @@ import abjad
 from .auto_rewrite_meter import auto_rewrite_meter
 from .close_container import close_container
 from .enforce_time_signature import enforce_time_signature
+from .extend_notes import extend_notes
 from .extract_trivial_tuplets import extract_trivial_tuplets
 from .fill_with_rests import fill_with_rests
 from .merge_hairpins import merge_hairpins
@@ -33,6 +34,7 @@ from .sync_containers import sync_containers
 abjad.mutate.auto_rewrite_meter = auto_rewrite_meter
 abjad.mutate.close_container = close_container
 abjad.mutate.enforce_time_signature = enforce_time_signature
+abjad.mutate.extend_notes = extend_notes
 abjad.mutate.extract_trivial_tuplets = extract_trivial_tuplets
 abjad.mutate.fill_with_rests = fill_with_rests
 abjad.mutate.merge_hairpins = merge_hairpins

@@ -27,6 +27,7 @@
 .. |abjad.mutate.enforce_time_signature()| replace:: :func:`abjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
 .. |abjad.mutate.extract_trivial_tuplets()| replace:: :func:`abjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
 .. |abjad.mutate.fill_with_rests()| replace:: :func:`abjad.mutate.fill_with_rests() <auxjad.mutate.fill_with_rests>`
+.. |abjad.mutate.merge_hairpins()| replace:: :func:`abjad.mutate.merge_hairpins() <auxjad.mutate.merge_hairpins>`
 .. |abjad.mutate.merge_partial_tuplets()| replace:: :func:`abjad.mutate.merge_partial_tuplets() <auxjad.mutate.merge_partial_tuplets>`
 .. |abjad.mutate.prettify_rewrite_meter()| replace:: :func:`abjad.mutate.prettify_rewrite_meter() <auxjad.mutate.prettify_rewrite_meter>`
 .. |abjad.mutate.remove_repeated_dynamics()| replace:: :func:`abjad.mutate.remove_repeated_dynamics() <auxjad.mutate.remove_repeated_dynamics>`
@@ -60,6 +61,7 @@
 .. |auxjad.mutate.enforce_time_signature()| replace:: :func:`auxjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
 .. |auxjad.mutate.extract_trivial_tuplets()| replace:: :func:`auxjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
 .. |auxjad.mutate.fill_with_rests()| replace:: :func:`auxjad.mutate.fill_with_rests() <auxjad.mutate.fill_with_rests>`
+.. |auxjad.mutate.merge_hairpins()| replace:: :func:`auxjad.mutate.merge_hairpins() <auxjad.mutate.merge_hairpins>`
 .. |auxjad.mutate.merge_partial_tuplets()| replace:: :func:`auxjad.mutate.merge_partial_tuplets() <auxjad.mutate.merge_partial_tuplets>`
 .. |auxjad.mutate.prettify_rewrite_meter()| replace:: :func:`auxjad.mutate.prettify_rewrite_meter() <auxjad.mutate.prettify_rewrite_meter>`
 .. |auxjad.mutate.remove_repeated_dynamics()| replace:: :func:`auxjad.mutate.remove_repeated_dynamics() <auxjad.mutate.remove_repeated_dynamics>`

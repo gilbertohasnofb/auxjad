@@ -29,6 +29,7 @@ names for their individual documentation.
     enforce_time_signature
     extract_trivial_tuplets
     fill_with_rests
+    merge_hairpins
     merge_partial_tuplets
     prettify_rewrite_meter
     remove_repeated_dynamics

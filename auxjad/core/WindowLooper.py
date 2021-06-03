@@ -1301,10 +1301,10 @@ class WindowLooper(_LooperParent):
         |abjad.Duration|.
         """
         if not isinstance(head_position,
-                          (int, float, str, tuple, abjad.Duration),
+                          (abjad.Duration, str, tuple, int, float),
                           ):
-            raise TypeError("'head_position' must be a number, 'tuple', or "
-                            "'abjad.Duration'")
+            raise TypeError("'head_position' must be 'abjad.Duration', 'str', "
+                            "'tuple', or a number")
         if abjad.Duration(head_position) >= self._contents_length:
             raise ValueError("'head_position' must be smaller than the "
                              "length of 'contents'")
@@ -1361,9 +1361,9 @@ class WindowLooper(_LooperParent):
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
-        if not isinstance(step_size, (int, float, str, tuple, abjad.Duration)):
-            raise TypeError("'step_size' must be a number, 'tuple', or "
-                            "'abjad.Duration'")
+        if not isinstance(step_size, (abjad.Duration, str, tuple, int, float)):
+            raise TypeError("'step_size' must be 'abjad.Duration', 'str', "
+                            "'tuple', or a number")
         self._step_size = abjad.Duration(step_size)
 
     @property

@@ -400,20 +400,19 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         raise ValueError("argument must be contiguous logical voice")
     if not isinstance(ignore_hairpins, bool):
         raise TypeError("'ignore_hairpins' must be 'bool'")
-    if not isinstance(reset_after_rests,
-                      (bool, int, float, tuple, str, abjad.Duration),
-                      ):
-        raise TypeError("'reset_after_rests' must be a number, 'bool' or "
-                        "'abjad.Duration'")
+    if not isinstance(reset_after_rests, bool):
+        raise TypeError("'reset_after_rests' must be 'bool'")
     if reset_after_duration is not None:
-        if not isinstance(reset_after_duration, (int,
-                                                 float,
-                                                 tuple,
+        if not isinstance(reset_after_duration, (abjad.Duration,
                                                  str,
-                                                 abjad.Duration,
+                                                 tuple,
+                                                 int,
+                                                 float,
                                                  )):
             raise TypeError("'reset_after_duration' must be 'abjad.Duration', "
                             "'str', 'tuple', or a number")
+        if not isinstance(reset_after_duration, abjad.Duration):
+            reset_after_duration = abjad.Duration(reset_after_duration)
 
     previous_dynamic = None
     current_dynamic = None
@@ -428,8 +427,7 @@ def remove_repeated_dynamics(selection: abjad.Selection,
                     previous_dynamic = None
                 else:
                     duration_since_last_note += leaf.written_duration
-                    if (duration_since_last_note
-                            >= abjad.Duration(reset_after_duration)):
+                    if duration_since_last_note >= reset_after_duration:
                         previous_dynamic = None
         else:
             duration_since_last_note = abjad.Duration(0)

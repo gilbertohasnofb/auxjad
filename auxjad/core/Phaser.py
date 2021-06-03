@@ -1546,9 +1546,9 @@ class Phaser():
                                    abjad.Duration,
                                    ],
                   ) -> None:
-        if not isinstance(step_size, (int, float, str, tuple, abjad.Duration)):
-            raise TypeError("'step_size' must be a number, 'tuple', or "
-                            "'abjad.Duration'")
+        if not isinstance(step_size, (abjad.Duration, str, tuple, int, float)):
+            raise TypeError("'step_size' must be 'abjad.Duration', 'str', "
+                            "'tuple', or a number")
         self._step_size = abjad.Duration(step_size)
 
     @property

@@ -26,7 +26,6 @@ for their individual documentation.
     CrossFader
     Fader
     GeneticAlgorithm
-    GeneticAlgorithmMusicMaker
     Hocketer
     LeafLooper
     ListLooper

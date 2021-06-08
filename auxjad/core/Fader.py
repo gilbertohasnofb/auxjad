@@ -629,8 +629,9 @@ class Fader():
         This class also support chords. Each of their individual notes are
         removed or added one by one.
 
-        >>> container = abjad.Container(r"<c' e'>4 ~ <c' e'>16 d'8. <gs e'>8 "
-        ...                             r"<bf f' a'>8 ~ <bf f' a'>4")
+        >>> container = abjad.Container(
+        ...     r"<c' e'>4 ~ <c' e'>16 d'8. <gs e'>8 <bf f' a'>8 ~ <bf f' a'>4"
+        ... )
         >>> fader = auxjad.Fader(container)
         >>> staff = abjad.Staff(fader.output_all())
         >>> abjad.show(staff)

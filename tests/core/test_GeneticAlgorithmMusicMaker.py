@@ -7,19 +7,19 @@ import auxjad
 
 def test_GeneticAlgorithmMusicMaker_01():
     random.seed(78612)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
     )
-    assert repr(ga_music_maker) == abjad.String.normalize(
+    assert repr(maker) == abjad.String.normalize(
         r"""
         pitches: ["c'", "d'", "e'", "f'"]
         attack_points: [0, 4, 8, 12]
         """)
-    assert len(ga_music_maker) == 4
-    notes = ga_music_maker.target_music
+    assert len(maker) == 4
+    notes = maker.target_music
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -32,8 +32,8 @@ def test_GeneticAlgorithmMusicMaker_01():
             f'4
         }
         """)
-    notes = ga_music_maker()
-    assert ga_music_maker.generation_number == 0
+    notes = maker()
+    assert maker.generation_number == 0
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -50,8 +50,8 @@ def test_GeneticAlgorithmMusicMaker_01():
             a'8
         }
         """)
-    notes = ga_music_maker()
-    assert ga_music_maker.generation_number == 1
+    notes = maker()
+    assert maker.generation_number == 1
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -72,13 +72,13 @@ def test_GeneticAlgorithmMusicMaker_01():
 
 def test_GeneticAlgorithmMusicMaker_02():
     random.seed(48891)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -118,7 +118,7 @@ def test_GeneticAlgorithmMusicMaker_02():
 
 def test_GeneticAlgorithmMusicMaker_03():
     random.seed(98119)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 8, 16, 24],
@@ -126,7 +126,7 @@ def test_GeneticAlgorithmMusicMaker_03():
         duration_unit=abjad.Duration((1, 32)),
         units_per_window=32,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -172,14 +172,14 @@ def test_GeneticAlgorithmMusicMaker_03():
 
 def test_GeneticAlgorithmMusicMaker_04():
     random.seed(66732)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
         duration_unit=abjad.Duration((1, 32)),
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -221,14 +221,14 @@ def test_GeneticAlgorithmMusicMaker_04():
 
 def test_GeneticAlgorithmMusicMaker_05():
     random.seed(81242)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'", "g'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12, 16],
         attack_point_genes=list(range(20)),
         units_per_window=20,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -274,7 +274,7 @@ def test_GeneticAlgorithmMusicMaker_05():
         }
         """)
     random.seed(81242)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'", "g'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12, 16],
@@ -282,7 +282,7 @@ def test_GeneticAlgorithmMusicMaker_05():
         units_per_window=20,
         omit_time_signature=True,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -324,14 +324,14 @@ def test_GeneticAlgorithmMusicMaker_05():
 
 def test_GeneticAlgorithmMusicMaker_06():
     random.seed(22714)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
         duration_unit=abjad.Duration((1, 32)),
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -371,7 +371,7 @@ def test_GeneticAlgorithmMusicMaker_06():
         }
         """)
     random.seed(22714)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
@@ -379,7 +379,7 @@ def test_GeneticAlgorithmMusicMaker_06():
         duration_unit=abjad.Duration((1, 32)),
         time_signatures=abjad.TimeSignature((2, 2))
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -427,7 +427,7 @@ def test_GeneticAlgorithmMusicMaker_06():
 
 def test_GeneticAlgorithmMusicMaker_07():
     random.seed(81242)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'", "g'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12, 16],
@@ -438,7 +438,7 @@ def test_GeneticAlgorithmMusicMaker_07():
                          abjad.TimeSignature((3, 4)),
                          ],
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -496,13 +496,13 @@ def test_GeneticAlgorithmMusicMaker_07():
 
 def test_GeneticAlgorithmMusicMaker_08():
     random.seed(77132)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -539,14 +539,14 @@ def test_GeneticAlgorithmMusicMaker_08():
             f'4
         }
         """)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
         pitch_score_bias=0.95,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -596,14 +596,14 @@ def test_GeneticAlgorithmMusicMaker_08():
             f'4
         }
         """)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
         pitch_score_bias=0.05,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -636,14 +636,14 @@ def test_GeneticAlgorithmMusicMaker_08():
 
 def test_GeneticAlgorithmMusicMaker_09():
     random.seed(87111)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", "d'", "e'", "f'"],
         pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
         attack_points_mode=True,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -697,7 +697,7 @@ def test_GeneticAlgorithmMusicMaker_09():
 
 def test_GeneticAlgorithmMusicMaker_10():
     random.seed(71441)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=["c'", None, "e'", ("g'", "bf'")],
         pitch_genes=[None,
                      "c'",
@@ -713,7 +713,7 @@ def test_GeneticAlgorithmMusicMaker_10():
         attack_point_genes=list(range(16)),
         population_size=50,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -753,14 +753,14 @@ def test_GeneticAlgorithmMusicMaker_10():
 
 def test_GeneticAlgorithmMusicMaker_11():
     random.seed(71441)
-    ga_music_maker = auxjad.GeneticAlgorithmMusicMaker(
+    maker = auxjad.GeneticAlgorithmMusicMaker(
         pitch_target=[0, None, 4, (7, 10)],
         pitch_genes=[None, 0, 2, 4, 5, 7, (7, 9), (7, 10), (7, 12)],
         attack_point_target=[0, 4, 8, 12],
         attack_point_genes=list(range(16)),
         population_size=50,
     )
-    notes = ga_music_maker.output_n(5)
+    notes = maker.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""

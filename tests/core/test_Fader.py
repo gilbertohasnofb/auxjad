@@ -1223,8 +1223,9 @@ def test_Fader_27():
 
 def test_Fader_28():
     random.seed(17613)
-    container = abjad.Container(r"<c' e'>4 ~ <c' e'>16 d'8. <gs e'>8 "
-                                r"<bf f' a'>8 ~ <bf f' a'>4")
+    container = abjad.Container(
+        r"<c' e'>4 ~ <c' e'>16 d'8. <gs e'>8 <bf f' a'>8 ~ <bf f' a'>4"
+    )
     fader = auxjad.Fader(container)
     staff = abjad.Staff(fader.output_all())
     assert abjad.lilypond(staff) == abjad.String.normalize(

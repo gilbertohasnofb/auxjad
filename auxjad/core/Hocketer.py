@@ -1215,9 +1215,10 @@ class Hocketer():
     Indicators:
         Dynamics and hairpins are supported.
 
-        >>> container = abjad.Container(r"c'2-.\p\< d'2-.\f\> e'1 "
-        ...                             r"f'2.\pp\< g'4--\p a'2\ff\> "
-        ...                             r"b'2\p\> ~ b'2 c''2\ppp")
+        >>> container = abjad.Container(
+        ...     r"c'2-.\p\< d'2-.\f\> e'1 f'2.\pp\< g'4--\p "
+        ...     r"a'2\ff\> b'2\p\> ~ b'2 c''2\ppp"
+        ... )
         >>> hocketer = auxjad.Hocketer(container,
         ...                            n_voices=3,
         ...                            k=2,

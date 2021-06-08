@@ -1,7 +1,7 @@
 makers
 ======
 
-The |makers|_ subpackage include an expanded leaf making class
+The |makers|_ subpackage includes leaf making classes.
 
 ..  note::
 
@@ -20,6 +20,7 @@ for their individual documentation.
 .. autosummary::
     :toctree: ../_api_members
 
+    GeneticAlgorithmMusicMaker
     LeafDynMaker
 
 .. include:: abjad-targets.rst

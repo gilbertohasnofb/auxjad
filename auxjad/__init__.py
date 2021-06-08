@@ -17,7 +17,6 @@ from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
 from .core.Fader import Fader
 from .core.GeneticAlgorithm import GeneticAlgorithm
-from .core.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
 from .core.Hocketer import Hocketer
 from .core.LeafLooper import LeafLooper
 from .core.ListLooper import ListLooper
@@ -30,6 +29,7 @@ from .core.WindowLooper import WindowLooper
 
 from .indicators.TimeSignature import TimeSignature
 
+from .makers.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
 from .makers.LeafDynMaker import LeafDynMaker
 
 from .score.ArtificialHarmonic import ArtificialHarmonic
@@ -55,8 +55,8 @@ __all__ = [
     'CrossFader',
     'Fader',
     'GeneticAlgorithm',
-    'GeneticAlgorithmMusicMaker',
     'Hocketer',
+    'GeneticAlgorithmMusicMaker',
     'LeafLooper',
     'ListLooper',
     'Phaser',

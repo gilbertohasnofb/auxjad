@@ -71,9 +71,10 @@ class GeneticAlgorithm():
         0.209603072
 
     Evolution:
-        As expected, each generation will become increasingly fit in relation
-        to the :attr:`target`. Setting :attr:`population_size` to ``50`` and
-        running the genetic algorithm for ``10`` iterations,
+        As expected, each generation will become increasingly fitter in
+        relation to the :attr:`target`. The example below shows the fittest
+        individual of each of ``10`` generations, with a
+        :attr:`population_size` to  ``50``:
 
         >>> ga = auxjad.GeneticAlgorithm(
         ...     target=['A', 'B', 'C', 'D', 'E'],

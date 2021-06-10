@@ -36,7 +36,6 @@ from .score.ArtificialHarmonic import ArtificialHarmonic
 from .score.HarmonicNote import HarmonicNote
 from .score.Score import Score
 
-from .spanners.half_piano_pedal import half_piano_pedal
 from .spanners.piano_pedal import piano_pedal
 
 from .utilities.staff_splitter import staff_splitter
@@ -70,7 +69,6 @@ __all__ = [
     'ArtificialHarmonic',
     'HarmonicNote',
     'Score',
-    'half_piano_pedal',
     'piano_pedal',
     'staff_splitter',
     'get',

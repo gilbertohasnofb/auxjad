@@ -78,7 +78,7 @@ def enforce_time_signature(container: abjad.Container,
 
         >>> auxjad.mutate.enforce_time_signature(
         ...     staff,
-        ...     abjad.TimeSignature((2, 4))
+        ...     abjad.TimeSignature((2, 4)),
         ... )
         >>> abjad.mutate.enforce_time_signature(
         ...     staff,

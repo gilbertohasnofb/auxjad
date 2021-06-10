@@ -48,8 +48,6 @@
 .. |abjad.get.underfull_duration()| replace:: :func:`abjad.get.underfull_duration() <auxjad.get.underfull_duration>`
 .. |abjad.get.virtual_fundamental()| replace:: :func:`abjad.get.virtual_fundamental() <auxjad.get.virtual_fundamental>`
 
-.. |abjad.half_piano_pedal()| replace:: :func:`abjad.half_piano_pedal() <auxjad.half_piano_pedal>`
-
 .. |abjad.staff_splitter()| replace:: :func:`abjad.staff_splitter() <auxjad.staff_splitter>`
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`

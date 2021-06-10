@@ -681,6 +681,60 @@ def test_staff_splitter_11():
 
 
 def test_staff_splitter_12():
+    staff = abjad.Staff(
+        r"\time 2/4 a8( b c' d') \times 2/3 {<g b d'>2 <e' f'>4}"
+        r"\time 3/4 <d a c' g'>4--  r8 <f a bf>4."
+    )
+    staves = abjad.staff_splitter(staff)
+    score = abjad.Score(staves)
+    assert abjad.lilypond(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 2/4
+                \clef "treble"
+                r4
+                c'8
+                (
+                d'8
+                )
+                \times 2/3
+                {
+                    d'2
+                    <e' f'>4
+                }
+                \time 3/4
+                <c' g'>4
+                - \tenuto
+                r2
+            }
+            \new Staff
+            {
+                \time 2/4
+                \clef "bass"
+                a8
+                (
+                b8
+                )
+                r4
+                \times 2/3
+                {
+                    <g b>2
+                    r4
+                }
+                \time 3/4
+                <d a>4
+                - \tenuto
+                r8
+                <f a bf>4.
+            }
+        >>
+        """)
+
+
+def test_staff_splitter_13():
     staff = abjad.Staff(r"a4 b4 c'4 d'4")
     staves = abjad.staff_splitter(staff)
     score = abjad.Score(staves)

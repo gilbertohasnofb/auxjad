@@ -25,7 +25,9 @@ def _make_rest_from_leaf(leaf: abjad.Leaf,
                                   abjad.Repeat,
                                   abjad.StaffChange,
                                   abjad.StartHairpin,
+                                  abjad.StartSlur,
                                   abjad.StopHairpin,
+                                  abjad.StopSlur,
                                   abjad.TimeSignature,
                                   )):
             abjad.attach(indicator, rest)
@@ -770,6 +772,91 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
             the output. If there are rests or multi-measure rests in the upper
             staff, the dynamics can get lost. The best approach is to add them
             after the split.
+
+    Slurs and articulations:
+        This function will automatically handle slurs and articulations:
+
+        >>> staff = abjad.Staff(
+        ...     r"\time 2/4 a8( b c' d') \times 2/3 {<g b d'>2 <e' f'>4}"
+        ...     r"\time 3/4 <d a c' g'>4--  r8 <f a bf>4."
+        ... )
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                a8
+                (
+                b8
+                c'8
+                d'8
+                )
+                \times 2/3
+                {
+                    <g b d'>2
+                    <e' f'>4
+                }
+                \time 3/4
+                <d a c' g'>4
+                - \tenuto
+                r8
+                <f a bf>4.
+            }
+
+        ..  figure:: ../_images/staff_splitter-SZjT1IJCsn.png
+
+        >>> staves = auxjad.staff_splitter(staff)
+        >>> score = abjad.Score(staves)
+        >>> abjad.show(score)
+
+        ..  docs::
+
+            \new Score
+            <<
+                \new Staff
+                {
+                    \time 2/4
+                    \clef "treble"
+                    r4
+                    c'8
+                    (
+                    d'8
+                    )
+                    \times 2/3
+                    {
+                        d'2
+                        <e' f'>4
+                    }
+                    \time 3/4
+                    <c' g'>4
+                    - \tenuto
+                    r2
+                }
+                \new Staff
+                {
+                    \time 2/4
+                    \clef "bass"
+                    a8
+                    (
+                    b8
+                    )
+                    r4
+                    \times 2/3
+                    {
+                        <g b>2
+                        r4
+                    }
+                    \time 3/4
+                    <d a>4
+                    - \tenuto
+                    r8
+                    <f a bf>4.
+                }
+            >>
+
+        ..  figure:: ../_images/staff_splitter-RbPPaLUzjO.png
     """
     if not isinstance(staff, (abjad.Staff, abjad.Selection)):
         raise TypeError("'staff' must be 'abjad.Staff' or 'abjad.Selection'")

@@ -266,7 +266,7 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
 
         >>> staves = auxjad.staff_splitter(staff,
         ...                                threshold='g',
-        ...                                lower_clef='bass',
+        ...                                upper_clef='bass',
         ...                                )
         >>> score = abjad.Score(staves)
         >>> abjad.show(score)
@@ -313,8 +313,8 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
         ..  figure:: ../_images/staff_splitter-uoSjmalLzc.png
 
         >>> staves = auxjad.staff_splitter(staff,
-        ...                                threshold='g',
-        ...                                lower_clef='bass',
+        ...                                threshold="e'",
+        ...                                add_clefs=False,
         ...                                )
         >>> score = abjad.Score(staves)
         >>> abjad.show(score)
@@ -348,8 +348,8 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
 
             >>> staff = abjad.Staff(r"c'4 d'4 e'4 <d' f' a'>4")
             >>> staves = auxjad.staff_splitter(staff,
-            ...                                threshold='g',
-            ...                                lower_clef='bass',
+            ...                                threshold="e'",
+            ...                                add_clefs=False,
             ...                                )
             >>> string = abjad.lilypond(score)
             >>> print(string)

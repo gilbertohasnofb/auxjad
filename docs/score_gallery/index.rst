@@ -59,7 +59,7 @@ For flute, soprano sax, violin, violoncello, and accordion.
 
 |score Cartography 8|
 
-Recording: *available soon*
+Recording: https://soundcloud.com/gilberto-agostinho/cartography-8
 
 
 

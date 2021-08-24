@@ -39,8 +39,10 @@ def auto_rewrite_meter(container: abjad.Container,
     Basic usage:
         For this example, the following container will be mutated:
 
-        >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
+        >>> staff = abjad.Staff(
+        ...     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        ...     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16"
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::
@@ -113,8 +115,10 @@ def auto_rewrite_meter(container: abjad.Container,
         Applying |auxjad.mutate.auto_rewrite_meter()| to the same initial
         container shown in the first figure above outputs:
 
-        >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
+        >>> staff = abjad.Staff(
+        ...     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        ...     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16"
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
         >>> abjad.show(staff)
 
@@ -157,8 +161,10 @@ def auto_rewrite_meter(container: abjad.Container,
     Time signature changes:
         It automatically handles time signature changes.
 
-        >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"\time 6/8 b'4 c''4 r4 ")
+        >>> staff = abjad.Staff(
+        ...     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        ...     r"\time 6/8 b'4 c''4 r4 "
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
         >>> abjad.show(staff)
 
@@ -189,8 +195,10 @@ def auto_rewrite_meter(container: abjad.Container,
         By default, this function invokes both |abjad.Meter.rewrite_meter()|
         and |auxjad.mutate.prettify_rewrite_meter()|.
 
-        >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
+        >>> staff = abjad.Staff(
+        ...     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        ...     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8"
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
         >>> abjad.show(staff)
 
@@ -223,8 +231,10 @@ def auto_rewrite_meter(container: abjad.Container,
         Set ``prettify_rewrite_meter`` to ``False`` to not invoke
         |auxjad.mutate.prettify_rewrite_meter()|.
 
-        >>> staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-        ...                     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
+        >>> staff = abjad.Staff(
+        ...     r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        ...     r"c'16 d'4. e'16 f'8 g'4 a'16 b'16"
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(
         ...     staff,
         ...     prettify_rewrite_meter=False,
@@ -267,8 +277,10 @@ def auto_rewrite_meter(container: abjad.Container,
         When no ``meter_list`` is supplied, this function detects the time
         signature of each measure and uses those when rewritting it:
 
-        >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
-        ...                     r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8")
+        >>> staff = abjad.Staff(
+        ...     r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
+        ...     r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8"
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
         >>> abjad.show(staff)
 
@@ -306,8 +318,10 @@ def auto_rewrite_meter(container: abjad.Container,
         ``meter_list`` to a :obj:`list` of |abjad.Meter|'s or
         |abjad.TimeSignature|'s.
 
-        >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
-        ...                     r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8")
+        >>> staff = abjad.Staff(
+        ...     r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
+        ...     r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8"
+        ... )
         >>> meter_list = [abjad.Meter((7, 4), increase_monotonic=True),
         ...               abjad.Meter((5, 4), increase_monotonic=True),
         ...               ]
@@ -459,9 +473,10 @@ def auto_rewrite_meter(container: abjad.Container,
         By default, consecutive partial tuplets with the same ratio that sum up
         to an assignable duration will be merged together:
 
-        >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
-        ...                     r"\times 2/3 {e'2} \times 2/3 {f'1}"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"\times 2/3 {c'2 d'1}"
+        ...     r"\times 2/3 {e'2} \times 2/3 {f'1}"
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(staff)
         >>> abjad.show(staff)
 
@@ -485,9 +500,10 @@ def auto_rewrite_meter(container: abjad.Container,
 
         Set ``merge_partial_tuplets`` to ``False`` to disable this behaviour.
 
-        >>> staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
-        ...                     r"\times 2/3 {e'2} \times 2/3 {f'1}"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"\times 2/3 {c'2 d'1}"
+        ...     r"\times 2/3 {e'2} \times 2/3 {f'1}"
+        ... )
         >>> auxjad.mutate.auto_rewrite_meter(
         ...     staff,
         ...     merge_partial_tuplets=False,

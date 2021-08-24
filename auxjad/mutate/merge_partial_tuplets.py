@@ -106,9 +106,11 @@ def merge_partial_tuplets(selection: abjad.Selection,
     ``merge_across_barlines``:
         By default, partial tuplets are not merged across barlines.
 
-        >>> staff = abjad.Staff(r"\time 3/4 c'2. "
-        ...                     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
-        ...                     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
+        >>> staff = abjad.Staff(
+        ...     r"\time 3/4 c'2. "
+        ...     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
+        ...     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}"
+        ... )
         >>> auxjad.mutate.merge_partial_tuplets(staff[:])
         >>> abjad.show(staff)
 
@@ -146,9 +148,11 @@ def merge_partial_tuplets(selection: abjad.Selection,
 
         To change  this behaviour, set ``merge_across_barlines`` to ``True``.
 
-        >>> staff = abjad.Staff(r"\time 3/4 c'2. "
-        ...                     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
-        ...                     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
+        >>> staff = abjad.Staff(
+        ...     r"\time 3/4 c'2. "
+        ...     r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
+        ...     r"\times 2/3 {f'4} r4 \times 2/3 {g'2}"
+        ... )
         >>> auxjad.mutate.merge_partial_tuplets(
         ...     staff[:],
         ...     merge_across_barlines=True,
@@ -185,8 +189,10 @@ def merge_partial_tuplets(selection: abjad.Selection,
     Tied partial tuplets:
         Tied partial tuplets are also handled by this function.
 
-        >>> staff = abjad.Staff(r"\times 2/3 {r4} \times 2/3 {c'2} "
-        ...                     r"\times 4/5 {d'2~} \times 4/5{d'8}")
+        >>> staff = abjad.Staff(
+        ...     r"\times 2/3 {r4} \times 2/3 {c'2} "
+        ...     r"\times 4/5 {d'2~} \times 4/5{d'8}"
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::

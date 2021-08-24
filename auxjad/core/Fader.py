@@ -1193,8 +1193,9 @@ class Fader():
         appear in the middle of a slurred phrase, while hairpins are shortened
         and adjusted as required.
 
-        >>> container = abjad.Container(r"\times 2/3 {c'2(\p\< d'2 e'2\f} "
-        ...                             r"f'4\p\> g'2 a'4\pp)")
+        >>> container = abjad.Container(
+        ...     r"\times 2/3 {c'2(\p\< d'2 e'2\f} f'4\p\> g'2 a'4\pp)"
+        ... )
         >>> fader = auxjad.Fader(container)
         >>> notes = fader.output_n(5)
         >>> staff = abjad.Staff(notes)

@@ -45,8 +45,9 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         false positive:
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"\times 3/2 {c'4 d'4 e'4} "
-        ...                          "f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(
+        ...     r"\times 3/2 {c'4 d'4 e'4} f'4 <g' a'>2 r2"
+        ... )
         >>> selections = [container1[:], container2[:]]
         >>> auxjad.get.selections_are_identical(selections)
         False
@@ -86,28 +87,33 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         False
 
         >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
-        ...                          r"f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(
+        ...     r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2"
+        ... )
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]
         >>> auxjad.get.selections_are_identical(selections)
         False
 
-        >>> container1 = abjad.Staff(r"c'4 \grace{c''4} d'4 e'4 "
-        ...                          r"f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"c'4 \grace{c''8} d'4 e'4 "
-        ...                          r"f'4 <g' a'>2 r2")
+        >>> container1 = abjad.Staff(
+        ...     r"c'4 \grace{c''4} d'4 e'4 f'4 <g' a'>2 r2"
+        ... )
+        >>> container2 = abjad.Staff(
+        ...     r"c'4 \grace{c''8} d'4 e'4 f'4 <g' a'>2 r2"
+        ... )
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]
         >>> auxjad.get.selections_are_identical(selections)
         False
 
-        >>> container1 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
-        ...                          r"f'4 <g' a'>2 r2")
-        >>> container2 = abjad.Staff(r"c'4 \grace{c''16} d'4 e'4 "
-        ...                          r"f'4 <g' a'>2 r2")
+        >>> container1 = abjad.Staff(
+        ...     r"c'4 \grace{c''16} d'4 e'4 f'4 <g' a'>2 r2"
+        ... )
+        >>> container2 = abjad.Staff(
+        ...     r"c'4 \grace{c''16} d'4 e'4 f'4 <g' a'>2 r2"
+        ... )
         >>> selection1 = abjad.select(container1)
         >>> selection2 = abjad.select(container2)
         >>> selections = [selection1, selection2]

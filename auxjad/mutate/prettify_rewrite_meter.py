@@ -93,10 +93,11 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         searches for logical ties of specific length and offset, and its
         surroundings do not matter.
 
-        >>> staff = abjad.Staff(r"\time 3/4 c'32 d'32 e'8 f'16 "
-        ...                     r"\times 2/3 {g'32 a'32 b'32} c''8 "
-        ...                     r"r16 r32. d''64 e''8 f''32 g''32"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"\time 3/4 c'32 d'32 e'8 f'16 "
+        ...     r"\times 2/3 {g'32 a'32 b'32} c''8 "
+        ...     r"r16 r32. d''64 e''8 f''32 g''32"
+        ... )
         >>> meter = abjad.Meter((3, 4))
         >>> abjad.mutate.rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
@@ -324,9 +325,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         This function can take handle multiple measures at once, as long as
         they share the same meter.
 
-        >>> staff = abjad.Staff(r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
-        ...                     r"a'16 b'8 c''8 d''8 e''8 f''16"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
+        ...     r"a'16 b'8 c''8 d''8 e''8 f''16"
+        ... )
         >>> meter = abjad.Meter((5, 8))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate.rewrite_meter(staff[:], meter)
@@ -403,8 +405,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         Similarly to |abjad.Meter.rewrite_meter()|, this function accepts
         selections of multiple measures:
 
-        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
-        ...                     r"a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> staff = abjad.Staff(
+        ...     r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
+        ...     r"a'8 b'4 c''8 d''16 e''4 f''8."
+        ... )
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     abjad.mutate.rewrite_meter(measure, meter)
@@ -472,8 +476,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
         If the measures have different meters, they can be passed on
         individually using :func:`zip()` as shown below.
 
-        >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
-        ...                     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8.")
+        >>> staff = abjad.Staff(
+        ...     r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
+        ...     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8."
+        ... )
         >>> meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
         >>> for meter, measure in zip(
         ...     meters,

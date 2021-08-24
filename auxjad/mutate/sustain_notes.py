@@ -188,11 +188,12 @@ def sustain_notes(container: abjad.Container,
         This function can handle containers with a mixture of notes, chords,
         and rests, as well as tuplets.
 
-        >>> staff = abjad.Staff(r"c'16 r8. d'16 r8. r8 r32 <e' g'>32 r16 r4 "
-        ...                     r"\times 2/3 {r4 f'4 r4} r4 g'8 r8 a'4 ~ "
-        ...                     r"a'16 r8. b'4 c''8 r8 "
-        ...                     r"r4. d''8 \times 4/5 {r8 d''2}"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"c'16 r8. d'16 r8. r8 r32 <e' g'>32 r16 r4 "
+        ...     r"\times 2/3 {r4 f'4 r4} r4 g'8 r8 a'4 ~ "
+        ...     r"a'16 r8. b'4 c''8 r8 "
+        ...     r"r4. d''8 \times 4/5 {r8 d''2}"
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::
@@ -280,13 +281,14 @@ def sustain_notes(container: abjad.Container,
         This mutation also handles multi-measure rests, including ones with
         non-assignable durations:
 
-        >>> staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
-        ...                     r"R1"
-        ...                     r"r4 e'4 r2"
-        ...                     r"\time 5/8 r8 f'4 r4"
-        ...                     r"R1 * 5/8 "
-        ...                     r"r8 g'8 a'8 r4"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"r4 c'16 r8. d'16 r4.. "
+        ...     r"R1"
+        ...     r"r4 e'4 r2"
+        ...     r"\time 5/8 r8 f'4 r4"
+        ...     r"R1 * 5/8 "
+        ...     r"r8 g'8 a'8 r4"
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::
@@ -348,13 +350,14 @@ def sustain_notes(container: abjad.Container,
     ``sustain_multimeasure_rests``:
         By default, notes are tied across multi-measure rests.
 
-        >>> staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
-        ...                     r"R1"
-        ...                     r"r4 e'4 r2"
-        ...                     r"\time 5/8 r8 f'4 r4"
-        ...                     r"R1 * 5/8 "
-        ...                     r"r8 g'8 a'8 r4"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"r4 c'16 r8. d'16 r4.. "
+        ...     r"R1"
+        ...     r"r4 e'4 r2"
+        ...     r"\time 5/8 r8 f'4 r4"
+        ...     r"R1 * 5/8 "
+        ...     r"r8 g'8 a'8 r4"
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::
@@ -415,13 +418,14 @@ def sustain_notes(container: abjad.Container,
         By default, |auxjad.mutate.auto_rewrite_meter()| is summoned after
         notes are sustained.
 
-        >>> staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
-        ...                     r"R1"
-        ...                     r"r4 e'4 r2"
-        ...                     r"\time 5/8 r8 f'4 r4"
-        ...                     r"R1 * 5/8 "
-        ...                     r"r8 g'8 a'8 r4"
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"r4 c'16 r8. d'16 r4.. "
+        ...     r"R1"
+        ...     r"r4 e'4 r2"
+        ...     r"\time 5/8 r8 f'4 r4"
+        ...     r"R1 * 5/8 "
+        ...     r"r8 g'8 a'8 r4"
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::

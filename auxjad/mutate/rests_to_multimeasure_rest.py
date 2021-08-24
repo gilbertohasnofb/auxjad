@@ -117,10 +117,11 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         Works with selections from containers with multiple time signatures as
         well as notes.
 
-        >>> container = abjad.Staff(r"\time 3/4 r2. | "
-        ...                         "\time 6/8 r2. | "
-        ...                         "\time 5/4 c'1 ~ c'4 | r1 r4"
-        ...                         )
+        >>> container = abjad.Staff(
+        ...     r"\time 3/4 r2. | "
+        ...     "\time 6/8 r2. | "
+        ...     "\time 5/4 c'1 ~ c'4 | r1 r4"
+        ... )
         >>> abjad.show(container)
 
         ..  docs::
@@ -236,10 +237,11 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         By default, the last clef of an empty measure is preserved when
         replacing it with a multi-measure rest:
 
-        >>> staff = abjad.Staff(r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
-        ...                     r"\time 3/4 \clef treble r2. "
-        ...                     r"\time 5/4 r2 \clef bass r2."
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
+        ...     r"\time 3/4 \clef treble r2. "
+        ...     r"\time 5/4 r2 \clef bass r2."
+        ... )
         >>> abjad.show(staff)
 
         ..  docs::
@@ -288,10 +290,11 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
         Invoke the mutation with ``ignore_clefs`` set to ``True`` to disable
         this behaviour and ignore all clefs:
 
-        >>> staff = abjad.Staff(r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
-        ...                     r"\time 3/4 \clef treble r2. "
-        ...                     r"\time 5/4 r2 \clef bass r2."
-        ...                     )
+        >>> staff = abjad.Staff(
+        ...     r"\clef bass r4 r4 \times 2/3 {r4 r8} r4 "
+        ...     r"\time 3/4 \clef treble r2. "
+        ...     r"\time 5/4 r2 \clef bass r2."
+        ... )
         >>> abjad.mutate.rests_to_multimeasure_rest(
         ...     staff[:],
         ...     ignore_clefs=True,

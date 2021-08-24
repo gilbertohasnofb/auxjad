@@ -13,9 +13,11 @@ def test_leaves_are_tieable_02():
     leaf1 = abjad.Note(r"c'2.")
     leaf2 = abjad.Note(r"c'16")
     leaf3 = abjad.Note(r"f'''16")
+    leaf4 = abjad.Note(r"r2.")
     assert auxjad.get.leaves_are_tieable([leaf1, leaf2])
     assert not auxjad.get.leaves_are_tieable([leaf1, leaf3])
     assert not auxjad.get.leaves_are_tieable([leaf2, leaf3])
+    assert not auxjad.get.leaves_are_tieable([leaf3, leaf4])
 
 
 def test_leaves_are_tieable_03():
@@ -30,7 +32,9 @@ def test_leaves_are_tieable_03():
 def test_leaves_are_tieable_04():
     chord1 = abjad.Chord(r"<c' e' g'>4")
     chord2 = abjad.Chord(r"<c' e' g' bf'>4")
-    assert not auxjad.get.leaves_are_tieable([chord1, chord2])
+    note = abjad.Note(r"c'4")
+    assert auxjad.get.leaves_are_tieable([chord1, chord2])
+    assert auxjad.get.leaves_are_tieable([chord2, note])
 
 
 def test_leaves_are_tieable_05():
@@ -39,9 +43,9 @@ def test_leaves_are_tieable_05():
 
 
 def test_leaves_are_tieable_06():
-    container = abjad.Container(r"r4 g'4 r2")
-    leaves = [container[0], container[2]]
-    assert not auxjad.get.leaves_are_tieable(leaves)
+    leaf = abjad.Note(r"c'4")
+    rest = abjad.Rest(r"r4")
+    assert not auxjad.get.leaves_are_tieable([leaf, rest])
 
 
 def test_leaves_are_tieable_07():
@@ -79,3 +83,39 @@ def test_leaves_are_tieable_11():
     assert abjad.get.leaves_are_tieable([leaf1, leaf2])
     assert not abjad.get.leaves_are_tieable([leaf1, leaf3])
     assert not abjad.get.leaves_are_tieable([leaf2, leaf3])
+
+
+def test_leaves_are_tieable_12():
+    leaf1 = abjad.Note(r"c'4")
+    leaf2 = abjad.Chord(r"<c' e'>4")
+    leaf3 = abjad.Note(r"c'2")
+    assert auxjad.get.leaves_are_tieable([leaf1, leaf2])
+    assert not auxjad.get.leaves_are_tieable([leaf1, leaf2],
+                                             only_identical_pitches=True,
+                                             )
+    assert auxjad.get.leaves_are_tieable([leaf2, leaf3])
+    assert not auxjad.get.leaves_are_tieable([leaf2, leaf3],
+                                             only_identical_pitches=True,
+                                             )
+
+
+def test_leaves_are_tieable_13():
+    chord1 = abjad.Chord(r"<c' e' g'>4")
+    chord2 = abjad.Chord(r"<c' e' g' bf'>4")
+    chord3 = abjad.Chord(r"<c' e' fs'>4")
+    assert auxjad.get.leaves_are_tieable([chord1, chord2])
+    assert not auxjad.get.leaves_are_tieable([chord1, chord2],
+                                             only_identical_pitches=True,
+                                             )
+    assert auxjad.get.leaves_are_tieable([chord2, chord3])
+    assert not auxjad.get.leaves_are_tieable([chord2, chord3],
+                                             only_identical_pitches=True,
+                                             )
+
+
+def test_leaves_are_tieable_14():
+    staff = abjad.Staff(r"c'2 c'4. <c' e'>8")
+    assert auxjad.get.leaves_are_tieable(staff[:])
+    assert not auxjad.get.leaves_are_tieable(staff[:],
+                                             only_identical_pitches=True,
+                                             )

@@ -8,7 +8,10 @@ import auxjad
 
 def test_WindowLooper_01():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert abjad.lilypond(looper) == abjad.String.normalize(
         r"""
         {
@@ -295,7 +298,10 @@ def test_WindowLooper_05():
 
 def test_WindowLooper_06():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     notes = looper.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -425,7 +431,11 @@ def test_WindowLooper_07():
 
 def test_WindowLooper_08():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.WindowLooper(container, omit_time_signatures=True)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 omit_time_signatures=True,
+                                 )
     notes = looper()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -443,23 +453,83 @@ def test_WindowLooper_09():
     wrong_type_input = 'foobar'
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     with pytest.raises(TypeError):
-        assert auxjad.WindowLooper(wrong_type_input)
-        assert auxjad.WindowLooper(container, window_size=17j)
-        assert auxjad.WindowLooper(container, step_size=True)
-        assert auxjad.WindowLooper(container, max_steps='foo')
-        assert auxjad.WindowLooper(container, repetition_chance='bar')
-        assert auxjad.WindowLooper(container, forward_bias=False)
-        assert auxjad.WindowLooper(container, head_position=62.3j)
-        assert auxjad.WindowLooper(container, omit_time_signatures='xyz')
-        assert auxjad.WindowLooper(container, fill_with_rests=1.2)
+        assert auxjad.WindowLooper(wrong_type_input,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=17j,
+                                   step_size=(1, 16),
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=True,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   max_steps='foo',
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   repetition_chance='bar',
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   forward_bias=False,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   head_position=62.3j,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   omit_time_signatures='xyz',
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   fill_with_rests=1.2,
+                                   )
     with pytest.raises(ValueError):
-        assert auxjad.WindowLooper(container, window_size=(100, 1))
-        assert auxjad.WindowLooper(container, max_steps=-1)
-        assert auxjad.WindowLooper(container, repetition_chance=-0.3)
-        assert auxjad.WindowLooper(container, repetition_chance=1.4)
-        assert auxjad.WindowLooper(container, forward_bias=-0.3)
-        assert auxjad.WindowLooper(container, forward_bias=1.4)
-        assert auxjad.WindowLooper(container, head_position=(100, 1))
+        assert auxjad.WindowLooper(container,
+                                   window_size=(100, 1),
+                                   step_size=(1, 16),
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   max_steps=-1,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   repetition_chance=-0.3,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   repetition_chance=1.4,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   forward_bias=-0.3,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   forward_bias=1.4,
+                                   )
+        assert auxjad.WindowLooper(container,
+                                   window_size=(4, 4),
+                                   step_size=(1, 16),
+                                   head_position=(100, 1),
+                                   )
 
 
 def test_WindowLooper_10():
@@ -666,6 +736,8 @@ def test_WindowLooper_17():
 def test_WindowLooper_18():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
     looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
                                  process_on_first_call=True,
                                  )
     notes = looper()
@@ -691,7 +763,10 @@ def test_WindowLooper_18():
 
 def test_WindowLooper_19():
     container = abjad.Container(r"c'4-.\p\< d'2--\f e'4->\ppp f'2 ~ f'8")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     staff = abjad.Staff()
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
@@ -733,7 +808,10 @@ def test_WindowLooper_19():
 
 def test_WindowLooper_20():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     notes = looper()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -803,17 +881,21 @@ def test_WindowLooper_20():
 
 def test_WindowLooper_21():
     container = abjad.Container(r"c'1")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert len(looper) == 16
     container = abjad.Container(r"c'1")
     looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
                                  step_size=(1, 4),
                                  )
     assert len(looper) == 4
     container = abjad.Container(r"c'2..")
     looper = auxjad.WindowLooper(container,
-                                 step_size=(1, 4),
                                  window_size=(2, 4),
+                                 step_size=(1, 4),
                                  )
     assert len(looper) == 4
 
@@ -902,7 +984,10 @@ def test_WindowLooper_24():
 
 def test_WindowLooper_25():
     container = abjad.Container(r"c'4. d'8 e'2")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     notes = looper()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -916,6 +1001,8 @@ def test_WindowLooper_25():
         }
         """)
     looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
                                  boundary_depth=1,
                                  )
     notes = looper()
@@ -1015,45 +1102,75 @@ def test_WindowLooper_26():
 
 def test_WindowLooper_27():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.WindowLooper(container)
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
     tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
-    looper = auxjad.WindowLooper(tuplet)
+    looper = auxjad.WindowLooper(tuplet,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.WindowLooper(voice)
+    looper = auxjad.WindowLooper(voice,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.WindowLooper(staff)
+    looper = auxjad.WindowLooper(staff,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
     score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
-    looper = auxjad.WindowLooper(score)
+    looper = auxjad.WindowLooper(score,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
     staff = abjad.Staff([voice])
-    looper = auxjad.WindowLooper(staff)
+    looper = auxjad.WindowLooper(staff,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     score = abjad.Score([staff])
-    looper = auxjad.WindowLooper(score)
+    looper = auxjad.WindowLooper(score,
+                                 window_size=(4, 4),
+                                 step_size=(1, 16),
+                                 )
     assert isinstance(looper(), abjad.Selection)
 
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.WindowLooper(staff)
+        auxjad.WindowLooper(staff,
+                            window_size=(4, 4),
+                            step_size=(1, 16),
+                            )
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.WindowLooper(score)
+        auxjad.WindowLooper(score,
+                            window_size=(4, 4),
+                            step_size=(1, 16),
+                            )
 
 
 def test_WindowLooper_28():
     container = abjad.Container(r"c'4.\p( d'8 e'8\f) f'4.\p( ~ f'4 g'1\pp)")
-    looper = auxjad.WindowLooper(container, step_size=(1, 4))
+    looper = auxjad.WindowLooper(container,
+                                 window_size=(4, 4),
+                                 step_size=(1, 4),
+                                 )
     notes = looper.output_n(6)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(

@@ -8,7 +8,9 @@ import auxjad
 
 def test_Phaser_01():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     assert abjad.lilypond(phaser) == abjad.String.normalize(
         r"""
         {
@@ -361,7 +363,9 @@ def test_Phaser_06():
 
 def test_Phaser_07():
     container = abjad.Container(r"\times 2/3 {c'8 d'8 e'8} d'2.")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -413,16 +417,41 @@ def test_Phaser_08():
     wrong_type_input = 'foobar'
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     with pytest.raises(TypeError):
-        assert auxjad.Phaser(wrong_type_input)
-        assert auxjad.Phaser(container, step_size=62.3j)
-        assert auxjad.Phaser(container, max_steps='foo')
-        assert auxjad.Phaser(container, forward_bias='bar')
-        assert auxjad.Phaser(container, process_on_first_call='xyz')
-        assert auxjad.Phaser(container, remove_ties_connecting_windows=17j)
+        assert auxjad.Phaser(wrong_type_input,
+                             step_size=(1, 16),
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=62.3j,
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             max_steps='foo',
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             forward_bias='bar',
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             process_on_first_call='xyz',
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             remove_ties_connecting_windows=17j,
+                             )
     with pytest.raises(ValueError):
-        assert auxjad.Phaser(container, max_steps=-1)
-        assert auxjad.Phaser(container, forward_bias=-0.3)
-        assert auxjad.Phaser(container, forward_bias=1.4)
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             max_steps=-1,
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             forward_bias=-0.3,
+                             )
+        assert auxjad.Phaser(container,
+                             step_size=(1, 16),
+                             forward_bias=1.4,
+                             )
 
 
 def test_Phaser_09():
@@ -601,7 +630,9 @@ def test_Phaser_11():
 
 def test_Phaser_12():
     container = abjad.Container(r"\time 3/8 c'8 d'8 e'8")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     notes = phaser.output_n(3)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -622,6 +653,7 @@ def test_Phaser_12():
         }
         """)
     phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
                            forward_bias=0.0,
                            )
     notes = phaser.output_n(3)
@@ -677,6 +709,7 @@ def test_Phaser_13():
 def test_Phaser_14():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
                            process_on_first_call=True,
                            )
     notes = phaser()
@@ -704,6 +737,7 @@ def test_Phaser_14():
 def test_Phaser_15():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
                            process_on_first_call=True,
                            remove_unterminated_ties=False,
                            )
@@ -806,7 +840,9 @@ def test_Phaser_16():
 
 def test_Phaser_17():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -877,10 +913,14 @@ def test_Phaser_17():
 
 def test_Phaser_18():
     container = abjad.Container(r"c'1")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     assert len(phaser) == 16
     container = abjad.Container(r"c'1 d'1 e'1 f'1")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     assert len(phaser) == 64
     container = abjad.Container(r"c'1")
     phaser = auxjad.Phaser(container,
@@ -1023,7 +1063,9 @@ def test_Phaser_21():
 
 def test_Phaser_22():
     container = abjad.Container(r"c'4. d'8 e'2")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -1037,6 +1079,7 @@ def test_Phaser_22():
         }
         """)
     phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
                            boundary_depth=1,
                            )
     notes = phaser()
@@ -1141,45 +1184,47 @@ def test_Phaser_23():
 
 def test_Phaser_24():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
     tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
-    phaser = auxjad.Phaser(tuplet)
+    phaser = auxjad.Phaser(tuplet, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(voice)
+    phaser = auxjad.Phaser(voice, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    phaser = auxjad.Phaser(staff)
+    phaser = auxjad.Phaser(staff, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
     score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
-    phaser = auxjad.Phaser(score)
+    phaser = auxjad.Phaser(score, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
     staff = abjad.Staff([voice])
-    phaser = auxjad.Phaser(staff)
+    phaser = auxjad.Phaser(staff, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
     staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
     score = abjad.Score([staff])
-    phaser = auxjad.Phaser(score)
+    phaser = auxjad.Phaser(score, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
 
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.Phaser(staff)
+        auxjad.Phaser(staff, step_size=(1, 16))
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.Phaser(score)
+        auxjad.Phaser(score, step_size=(1, 16))
 
 
 def test_Phaser_25():
     container = abjad.Container(r"c'2(\p\< d'4. e'8\f f'4\p\> g'2 a'4\pp)")
-    phaser = auxjad.Phaser(container)
+    phaser = auxjad.Phaser(container,
+                           step_size=(1, 16),
+                           )
     notes = phaser.output_n(5)
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(

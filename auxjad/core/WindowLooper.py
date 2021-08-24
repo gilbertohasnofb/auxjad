@@ -18,7 +18,23 @@ class WindowLooper(_LooperParent):
         and output the sliced window. It requires an :attr:`window_size` and a
         :attr:`step_size`.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                d'2
+                e'4
+                f'2
+                ~
+                f'8
+                g'4.
+            }
+
+        ..  figure:: ../_images/WindowLooper-trzwtEJ4uG.png
+
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(4, 4),
         ...                              step_size=(1, 16),
@@ -94,7 +110,7 @@ class WindowLooper(_LooperParent):
         very first call, initialise the class with the keyword argument
         :attr:`process_on_first_call` set to ``True``.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(4, 4),
         ...                              step_size=(1, 16),
@@ -129,7 +145,7 @@ class WindowLooper(_LooperParent):
         take a :obj:`tuple` or an |abjad.Meter| as input, while
         :attr:`step_size` takes a :obj:`tuple` or an |abjad.Duration|.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(1, 8),
@@ -304,7 +320,7 @@ class WindowLooper(_LooperParent):
         :attr:`process_on_first_call` to ``True`` and the looping process will
         be applied on the very first call.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(3, 4),
         ...                              step_size=(5, 8),
@@ -633,7 +649,7 @@ class WindowLooper(_LooperParent):
         is ``False``), or use the :attr:`omit_time_signatures` property after
         initialisation.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(4, 4),
         ...                              step_size=(1, 16),
@@ -669,7 +685,7 @@ class WindowLooper(_LooperParent):
         property :attr:`window_size`. In the example below, the initial window
         is of size ``(4, 4)``, but changes to ``(3, 8)`` after three calls.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(4, 4),
         ...                              step_size=(1, 16),
@@ -734,7 +750,7 @@ class WindowLooper(_LooperParent):
         remain on its previous value and must be reset to ``0`` if that's
         required.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.WindowLooper(container,
         ...                              window_size=(4, 4),
         ...                              step_size=(1, 16),

@@ -18,6 +18,19 @@ class PitchRandomiser:
         randomised pitches. Pitches are randomly selected from :attr:`pitches`.
 
         >>> container = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+
+        ..  figure:: ../_images/PitchRandomiser-PxSLuwtgn9.png
+
         >>> pitches = r"fs' gs' a' b' cs''"
         >>> randomiser = auxjad.PitchRandomiser(container,
         ...                                     pitches,

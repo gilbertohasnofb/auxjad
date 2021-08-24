@@ -13,6 +13,19 @@ class Repeater():
         number of repetitions.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+
+        ..  figure:: ../_images/Repeater-aK6JHsJPDM.png
+
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(2)
         >>> staff = abjad.Staff(notes)
@@ -60,7 +73,7 @@ class Repeater():
     Time signatures:
         This class handles different time signatures.
 
-        >>> container = abjad.Staff(r"\time 3/4 c'2. \time 2/4 r2 g'2")
+        >>> container = abjad.Container(r"\time 3/4 c'2. \time 2/4 r2 g'2")
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
@@ -118,7 +131,7 @@ class Repeater():
 
         ..  figure:: ../_images/Repeater-k4hxxghalwh.png
 
-        >>> container = abjad.Staff(r"\time 3/4 c'4 d'4 e'4 f'2")
+        >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'2")
         >>> repeater = auxjad.Repeater(container)
         >>> notes = repeater(2)
         >>> staff = abjad.Staff(notes)
@@ -314,7 +327,7 @@ class Repeater():
         is ``False``), or use the :attr:`omit_time_signatures` property after
         initialisation.
 
-        >>> container = abjad.Staff(r"c'4 d'4 e'4")
+        >>> container = abjad.Container(r"c'4 d'4 e'4")
         >>> repeater = auxjad.Repeater(container,
         ...                            omit_time_signatures=True,
         ...                            )
@@ -346,7 +359,7 @@ class Repeater():
         ``False``), or use the :attr:`force_identical_time_signatures` property
         after initialisation.
 
-        >>> container = abjad.Staff(r"\time 5/4 c'2. d'4 e'4")
+        >>> container = abjad.Container(r"\time 5/4 c'2. d'4 e'4")
         >>> repeater = auxjad.Repeater(container,
         ...                            force_identical_time_signatures=True,
         ...                            )
@@ -378,7 +391,7 @@ class Repeater():
         By default, this class automatically handles dynamics, slurs, and
         clefs, optimising their position and omitting repetitions.
 
-        >>> container = abjad.Staff(r"\clef bass f4\pp( e4) d4(")
+        >>> container = abjad.Container(r"\clef bass f4\pp( e4) d4(")
         >>> abjad.show(staff)
 
         ..  docs::

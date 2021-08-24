@@ -24,7 +24,11 @@ ly_header = r"""
 \layout{
     indent = 0
     \numericTimeSignature
+    tupletFullLength = ##t
     \override Flag.stencil = #flat-flag
+    \override Tie.layer = #-2
+    \override Staff.TimeSignature.layer = #-1
+    \override Staff.TimeSignature.whiteout = ##t
     \context {
         \Score
         \override SpacingSpanner.base-shortest-duration =

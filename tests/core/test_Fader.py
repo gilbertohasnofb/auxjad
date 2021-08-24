@@ -8,13 +8,12 @@ import auxjad
 
 def test_Fader_01():
     random.seed(13987)
-    staff = abjad.Staff(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-    fader = auxjad.Fader(staff)
+    container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'4.")
+    fader = auxjad.Fader(container)
     assert abjad.lilypond(fader) == abjad.String.normalize(
         r"""
-        \new Staff
         {
-            \time 4/4
+            %%% \time 4/4 %%%
             c'4
             ~
             c'16
@@ -157,7 +156,7 @@ def test_Fader_02():
 
 
 def test_Fader_03():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     fader = auxjad.Fader(container,
                          mode='in',
                          max_steps=2,
@@ -708,15 +707,14 @@ def test_Fader_15():
 
 def test_Fader_16():
     random.seed(91634)
-    staff = abjad.Staff(r"c'4 ~ c'16 d'8. e'8 f'8 ~ f'4")
-    fader = auxjad.Fader(staff,
+    container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'4.")
+    fader = auxjad.Fader(container,
                          mode='in',
                          )
     assert abjad.lilypond(fader) == abjad.String.normalize(
         r"""
-        \new Staff
         {
-            \time 4/4
+            %%% \time 4/4 %%%
             c'4
             ~
             c'16

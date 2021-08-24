@@ -17,6 +17,19 @@ class Hocketer():
         input container.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+
+        ..  figure:: ../_images/Hocketer-svcW7YQBUu.png
+
         >>> hocketer = auxjad.Hocketer(container)
         >>> music = hocketer()
         >>> score = abjad.Score()

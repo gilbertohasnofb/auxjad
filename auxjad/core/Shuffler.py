@@ -16,6 +16,19 @@ class Shuffler:
         container.
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+            }
+
+        ..  figure:: ../_images/Shuffler-1oLQZeQNPo.png
+
         >>> shuffler = auxjad.Shuffler(container)
         >>> notes = shuffler()
         >>> staff = abjad.Staff(notes)
@@ -958,9 +971,7 @@ class Shuffler:
 
         ..  docs::
 
-            \new Staff
             {
-                \time 4/4
                 e'16
                 f'8.
                 ~

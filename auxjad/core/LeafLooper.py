@@ -36,7 +36,23 @@ class LeafLooper(_LooperParent):
         the number of elements of the window as arguments. Each call of the
         object will move the window forwards and output the result.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
+        >>> abjad.show(container)
+
+        ..  docs::
+
+            {
+                c'4
+                d'2
+                e'4
+                f'2
+                ~
+                f'8
+                g'4.
+            }
+
+        ..  figure:: ../_images/LeafLooper-IKft5wLQ8J.png
+
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=3,
         ...                            )
@@ -183,7 +199,7 @@ class LeafLooper(_LooperParent):
         ``0``. Lastly, set :attr:`end_with_max_n_leaves` to ``True`` to end the
         process when the final window has the maximum number of leaves.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=3,
         ...                            step_size=1,
@@ -355,7 +371,7 @@ class LeafLooper(_LooperParent):
         The function :func:`len()` can be used to get the total number of
         elements in the contents.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=3,
         ...                            )
@@ -489,7 +505,7 @@ class LeafLooper(_LooperParent):
         is ``False``), or use the :attr:`omit_time_signatures` property after
         initialisation.
 
-        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+        >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.LeafLooper(container,
         ...                            window_size=3,
         ...                            omit_time_signatures=True,

@@ -7,7 +7,7 @@ import auxjad
 
 
 def test_LeafLooper_01():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.LeafLooper(container, window_size=3)
     assert abjad.lilypond(looper) == abjad.String.normalize(
         r"""
@@ -18,7 +18,7 @@ def test_LeafLooper_01():
             f'2
             ~
             f'8
-            g'1
+            g'4.
         }
         """
     )
@@ -72,7 +72,7 @@ def test_LeafLooper_01():
 
 
 def test_LeafLooper_02():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.LeafLooper(container,
                                window_size=3,
                                step_size=1,
@@ -114,7 +114,7 @@ def test_LeafLooper_02():
 
 
 def test_LeafLooper_03():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.LeafLooper(container, window_size=3)
     assert looper.head_position == 0
     looper()
@@ -126,7 +126,7 @@ def test_LeafLooper_03():
 
 
 def test_LeafLooper_04():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.LeafLooper(container, window_size=3)
     assert len(looper) == 5
 
@@ -293,7 +293,7 @@ def test_LeafLooper_09():
 
 
 def test_LeafLooper_10():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.LeafLooper(container,
                                window_size=3,
                                omit_time_signatures=True,
@@ -314,7 +314,7 @@ def test_LeafLooper_10():
 
 def test_LeafLooper_11():
     wrong_type_input = 'foo'
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     with pytest.raises(TypeError):
         assert auxjad.LeafLooper(wrong_type_input, window_size=3)
         assert auxjad.LeafLooper(container, window_size='foobar')

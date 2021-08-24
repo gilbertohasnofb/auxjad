@@ -21,6 +21,31 @@ class CrossFader():
 
         >>> fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
         >>> fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
+        >>> abjad.show(fade_out_container)
+
+        ..  docs::
+
+            {
+                fs'4
+                g'2
+                bf'4
+            }
+
+        ..  figure:: ../_images/CrossFader-7yWgnyhyA3.png
+
+        >>> abjad.show(fade_in_container)
+
+        ..  docs::
+
+            {
+                \times 4/5 {
+                    cs''4
+                    d''1
+                }
+            }
+
+        ..  figure:: ../_images/CrossFader-aS29mS1xIB.png
+
         >>> fader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> selection_a, selection_b = fader()
         >>> score = abjad.Score([

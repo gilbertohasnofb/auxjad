@@ -7,7 +7,7 @@ import auxjad
 
 
 def test_WindowLooper_01():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(4, 4),
                                  step_size=(1, 16),
@@ -21,7 +21,7 @@ def test_WindowLooper_01():
             f'2
             ~
             f'8
-            g'1
+            g'4.
         }
         """
     )
@@ -81,7 +81,7 @@ def test_WindowLooper_01():
 
 
 def test_WindowLooper_02():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(3, 4),
                                  step_size=(1, 8),
@@ -229,7 +229,7 @@ def test_WindowLooper_03():
 
 
 def test_WindowLooper_04():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(3, 4),
                                  step_size=(5, 8),
@@ -312,7 +312,7 @@ def test_WindowLooper_05():
 
 
 def test_WindowLooper_06():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(4, 4),
                                  step_size=(1, 16),
@@ -452,7 +452,7 @@ def test_WindowLooper_07():
 
 
 def test_WindowLooper_08():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(4, 4),
                                  step_size=(1, 16),
@@ -474,7 +474,7 @@ def test_WindowLooper_08():
 
 def test_WindowLooper_09():
     wrong_type_input = 'foobar'
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     with pytest.raises(TypeError):
         assert auxjad.WindowLooper(wrong_type_input,
                                    window_size=(4, 4),
@@ -764,7 +764,7 @@ def test_WindowLooper_17():
 
 
 def test_WindowLooper_18():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(4, 4),
                                  step_size=(1, 16),
@@ -839,7 +839,7 @@ def test_WindowLooper_19():
 
 
 def test_WindowLooper_20():
-    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'1")
+    container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.WindowLooper(container,
                                  window_size=(4, 4),
                                  step_size=(1, 16),

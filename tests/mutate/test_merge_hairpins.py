@@ -20,7 +20,8 @@ def test_merge_hairpins_01():
             g'1
             \mp
         }
-        """)
+        """
+    )
     auxjad.mutate.merge_hairpins(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -35,7 +36,8 @@ def test_merge_hairpins_01():
             g'1
             \mp
         }
-        """)
+        """
+    )
 
 
 def test_merge_hairpins_02():
@@ -55,7 +57,8 @@ def test_merge_hairpins_02():
             g'1
             \pp
         }
-        """)
+        """
+    )
     auxjad.mutate.merge_hairpins(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -70,7 +73,8 @@ def test_merge_hairpins_02():
             g'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_merge_hairpins_03():
@@ -90,7 +94,8 @@ def test_merge_hairpins_03():
             g'1
             \pp
         }
-        """)
+        """
+    )
     auxjad.mutate.merge_hairpins(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -107,7 +112,8 @@ def test_merge_hairpins_03():
             g'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_merge_hairpins_04():
@@ -139,7 +145,8 @@ def test_merge_hairpins_04():
             b'1
             \ppp
         }
-        """)
+        """
+    )
     auxjad.mutate.merge_hairpins(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -166,7 +173,8 @@ def test_merge_hairpins_04():
             b'1
             \ppp
         }
-        """)
+        """
+    )
 
 
 def test_merge_hairpins_05():
@@ -214,7 +222,8 @@ def test_merge_hairpins_05():
             c'1
             \pp
         }
-        """)
+        """
+    )
     auxjad.mutate.merge_hairpins(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -243,7 +252,8 @@ def test_merge_hairpins_05():
             c'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_merge_hairpins_06():
@@ -264,7 +274,8 @@ def test_merge_hairpins_06():
             g'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_merge_hairpins_07():
@@ -283,4 +294,5 @@ def test_merge_hairpins_07():
             g'1
             \mp
         }
-        """)
+        """
+    )

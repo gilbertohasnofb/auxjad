@@ -105,4 +105,5 @@ def test_example_of_usage_02():
             ~
             e''4
         }
-        """)
+        """
+    )

@@ -13,7 +13,8 @@ def test_extract_trivial_tuplets_01():
             r2
             c'2
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_02():
@@ -25,7 +26,8 @@ def test_extract_trivial_tuplets_02():
         {
             r1
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_03():
@@ -37,7 +39,8 @@ def test_extract_trivial_tuplets_03():
         {
             c'1
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_04():
@@ -49,7 +52,8 @@ def test_extract_trivial_tuplets_04():
         {
             <c' d'>1
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_05():
@@ -68,7 +72,8 @@ def test_extract_trivial_tuplets_05():
                 r2
             }
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_06():
@@ -82,7 +87,8 @@ def test_extract_trivial_tuplets_06():
             r2.
             r2.
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_07():
@@ -94,13 +100,15 @@ def test_extract_trivial_tuplets_07():
         {
             r1
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_08():
-    staff = abjad.Staff(r"\times 2/3 {c'4} r2 \times 2/3 {d'2}"
-                        r"\times 2/3 {e'1.}"
-                        )
+    staff = abjad.Staff(
+        r"\times 2/3 {c'4} r2 \times 2/3 {d'2}"
+        r"\times 2/3 {e'1.}"
+    )
     abjad.mutate.extract_trivial_tuplets(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -119,7 +127,8 @@ def test_extract_trivial_tuplets_08():
             }
             e'1
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_09():
@@ -137,7 +146,8 @@ def test_extract_trivial_tuplets_09():
             ~
             g4
         }
-        """)
+        """
+    )
 
 
 def test_extract_trivial_tuplets_10():
@@ -159,4 +169,5 @@ def test_extract_trivial_tuplets_10():
             ~
             c'1
         }
-        """)
+        """
+    )

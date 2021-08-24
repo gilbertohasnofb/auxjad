@@ -16,12 +16,15 @@ def test_merge_partial_tuplets_01():
                 d'2
             }
         }
-        """)
+        """
+    )
 
 
 def test_merge_partial_tuplets_02():
-    staff = abjad.Staff(r"\times 2/3 {r4} \times 2/3 {c'2} "
-                        r"\times 4/5 {d'2~} \times 4/5{d'8}")
+    staff = abjad.Staff(
+        r"\times 2/3 {r4} \times 2/3 {c'2} "
+        r"\times 4/5 {d'2~} \times 4/5{d'8}"
+    )
     auxjad.mutate.merge_partial_tuplets(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -39,7 +42,8 @@ def test_merge_partial_tuplets_02():
                 d'8
             }
         }
-        """)
+        """
+    )
 
 
 def test_merge_partial_tuplets_03():
@@ -56,7 +60,8 @@ def test_merge_partial_tuplets_03():
                 e'2
             }
         }
-        """)
+        """
+    )
 
 
 def test_merge_partial_tuplets_04():
@@ -76,7 +81,8 @@ def test_merge_partial_tuplets_04():
                 \ff
             }
         }
-        """)
+        """
+    )
 
 
 def test_merge_partial_tuplets_05():
@@ -101,13 +107,16 @@ def test_merge_partial_tuplets_05():
                 a'4
             }
         }
-        """)
+        """
+    )
 
 
 def test_merge_partial_tuplets_06():
-    staff = abjad.Staff(r"\time 3/4 c'2. "
-                        r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
-                        r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
+    staff = abjad.Staff(
+        r"\time 3/4 c'2. "
+        r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
+        r"\times 2/3 {f'4} r4 \times 2/3 {g'2}"
+    )
     auxjad.mutate.merge_partial_tuplets(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -138,10 +147,13 @@ def test_merge_partial_tuplets_06():
                 g'2
             }
         }
-        """)
-    staff = abjad.Staff(r"\time 3/4 c'2. "
-                        r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
-                        r"\times 2/3 {f'4} r4 \times 2/3 {g'2}")
+        """
+    )
+    staff = abjad.Staff(
+        r"\time 3/4 c'2. "
+        r"\times 2/3 {d'4} r4 \times 2/3 {e'2} "
+        r"\times 2/3 {f'4} r4 \times 2/3 {g'2}"
+    )
     auxjad.mutate.merge_partial_tuplets(staff[:], merge_across_barlines=True)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -167,7 +179,8 @@ def test_merge_partial_tuplets_06():
                 g'2
             }
         }
-        """)
+        """
+    )
 
 
 def test_merge_partial_tuplets_07():
@@ -183,4 +196,5 @@ def test_merge_partial_tuplets_07():
                 d'2
             }
         }
-        """)
+        """
+    )

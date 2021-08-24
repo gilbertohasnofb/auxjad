@@ -151,4 +151,5 @@ def test_example_of_usage_04():
                 r4
             }
         >>
-        """)
+        """
+    )

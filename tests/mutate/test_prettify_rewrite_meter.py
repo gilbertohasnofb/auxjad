@@ -26,7 +26,8 @@ def test_prettify_rewrite_meter_01():
             c''16
             d''16
         }
-        """)
+        """
+    )
     auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -43,14 +44,16 @@ def test_prettify_rewrite_meter_01():
             c''16
             d''16
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_02():
-    staff = abjad.Staff(r"\time 3/4 c'32 d'32 e'8 f'16 "
-                        r"\times 2/3 {g'32 a'32 b'32} c''8 "
-                        r"r16 r32. d''64 e''8 f''32 g''32"
-                        )
+    staff = abjad.Staff(
+        r"\time 3/4 c'32 d'32 e'8 f'16 "
+        r"\times 2/3 {g'32 a'32 b'32} c''8 "
+        r"r16 r32. d''64 e''8 f''32 g''32"
+    )
     meter = abjad.Meter((3, 4))
     abjad.Meter.rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -82,7 +85,8 @@ def test_prettify_rewrite_meter_02():
             f''32
             g''32
         }
-        """)
+        """
+    )
     auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -107,7 +111,8 @@ def test_prettify_rewrite_meter_02():
             f''32
             g''32
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_03():
@@ -137,7 +142,8 @@ def test_prettify_rewrite_meter_03():
             a'8
             b'8
         }
-        """)
+        """
+    )
     auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -154,7 +160,8 @@ def test_prettify_rewrite_meter_03():
             a'4
             b'8
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_04():
@@ -184,7 +191,8 @@ def test_prettify_rewrite_meter_04():
             a'8
             b'8
         }
-        """)
+        """
+    )
     auxjad.mutate.prettify_rewrite_meter(
         staff[:],
         meter,
@@ -213,7 +221,8 @@ def test_prettify_rewrite_meter_04():
             a'8
             b'8
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_05():
@@ -239,7 +248,8 @@ def test_prettify_rewrite_meter_05():
             b'4
             c''8
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
     meter = abjad.Meter((7, 4), increase_monotonic=True)
     abjad.Meter.rewrite_meter(staff[:], meter)
@@ -262,13 +272,15 @@ def test_prettify_rewrite_meter_05():
             b'4
             c''8
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_06():
-    staff = abjad.Staff(r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
-                        r"a'16 b'8 c''8 d''8 e''8 f''16"
-                        )
+    staff = abjad.Staff(
+        r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
+        r"a'16 b'8 c''8 d''8 e''8 f''16"
+    )
     meter = abjad.Meter((5, 8))
     for measure in abjad.select(staff[:]).group_by_measure():
         abjad.Meter.rewrite_meter(measure, meter)
@@ -307,7 +319,8 @@ def test_prettify_rewrite_meter_06():
             e''16
             f''16
         }
-        """)
+        """
+    )
     auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -332,7 +345,8 @@ def test_prettify_rewrite_meter_06():
             e''8
             f''16
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_07():
@@ -353,7 +367,8 @@ def test_prettify_rewrite_meter_07():
             f'4
             g'8
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
     meter = abjad.Meter((4, 4))
     abjad.Meter.rewrite_meter(staff[:], meter)
@@ -378,7 +393,8 @@ def test_prettify_rewrite_meter_07():
             f'8
             g'8
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_08():
@@ -396,7 +412,8 @@ def test_prettify_rewrite_meter_08():
             e'4
             f'8
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
     meter = abjad.Meter((3, 4))
     abjad.Meter.rewrite_meter(staff[:], meter)
@@ -418,13 +435,16 @@ def test_prettify_rewrite_meter_08():
             e'8
             f'8
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_09():
-    staff = abjad.Staff(r"\times 2/3 {c'16 d'8 ~ } "
-                        r"\times 2/3 {d'32 e'8 f'32 ~ } "
-                        r"f'32 \times 2/3 {g'16 a'32} r32")
+    staff = abjad.Staff(
+        r"\times 2/3 {c'16 d'8 ~ } "
+        r"\times 2/3 {d'32 e'8 f'32 ~ } "
+        r"f'32 \times 2/3 {g'16 a'32} r32"
+    )
     abjad.attach(abjad.TimeSignature((3, 8)), staff[0][0])
     meter = abjad.Meter((3, 8))
     abjad.Meter.rewrite_meter(staff[:], meter)
@@ -456,7 +476,8 @@ def test_prettify_rewrite_meter_09():
             }
             r32
         }
-        """)
+        """
+    )
     auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -486,12 +507,15 @@ def test_prettify_rewrite_meter_09():
             }
             r32
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_10():
-    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
-                        r"a'8 b'4 c''8 d''16 e''4 f''8.")
+    staff = abjad.Staff(
+        r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
+        r"a'8 b'4 c''8 d''16 e''4 f''8."
+    )
     meter = abjad.Meter((4, 4))
     for measure in abjad.select(staff[:]).group_by_measure():
         abjad.Meter.rewrite_meter(measure, meter)
@@ -522,7 +546,8 @@ def test_prettify_rewrite_meter_10():
             e''16
             f''8.
         }
-        """)
+        """
+    )
     for measure in abjad.select(staff[:]).group_by_measure():
         auxjad.mutate.prettify_rewrite_meter(measure, meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -546,12 +571,15 @@ def test_prettify_rewrite_meter_10():
             e''16
             f''8.
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_11():
-    staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
-                        r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8.")
+    staff = abjad.Staff(
+        r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
+        r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8."
+    )
     meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
     for meter, measure in zip(meters,
                               abjad.select(staff[:]).group_by_measure(),
@@ -583,7 +611,8 @@ def test_prettify_rewrite_meter_11():
             e''16
             f''8.
         }
-        """)
+        """
+    )
     for meter, measure in zip(meters,
                               abjad.select(staff[:]).group_by_measure(),
                               ):
@@ -608,7 +637,8 @@ def test_prettify_rewrite_meter_11():
             e''16
             f''8.
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_12():
@@ -646,7 +676,8 @@ def test_prettify_rewrite_meter_13():
             r4
             <e' g'>4
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_14():
@@ -683,7 +714,8 @@ def test_prettify_rewrite_meter_14():
                 <e' g'>4.
             }
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_15():
@@ -719,7 +751,8 @@ def test_prettify_rewrite_meter_15():
             g''8
             a''8
         }
-        """)
+        """
+    )
     abjad.mutate.prettify_rewrite_meter(staff[:], meter)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -746,7 +779,8 @@ def test_prettify_rewrite_meter_15():
             g''4
             a''8
         }
-        """)
+        """
+    )
     staff = abjad.Staff(
         r"c'4 d'2 r4"
         r"e'4. f'2 g'8"
@@ -782,7 +816,8 @@ def test_prettify_rewrite_meter_15():
             g''4
             a''8
         }
-        """)
+        """
+    )
 
 
 def test_prettify_rewrite_meter_16():
@@ -807,4 +842,5 @@ def test_prettify_rewrite_meter_16():
             c''16
             d''16
         }
-        """)
+        """
+    )

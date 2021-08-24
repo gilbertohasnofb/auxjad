@@ -11,7 +11,8 @@ def test_HarmonicNote_01():
         r"""
         \tweak style #'harmonic
         c''4
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_02():
@@ -25,7 +26,8 @@ def test_HarmonicNote_02():
             r"""
             \tweak style #'harmonic
             c''4
-            """)
+            """
+        )
 
 
 def test_HarmonicNote_03():
@@ -37,7 +39,8 @@ def test_HarmonicNote_03():
         r"""
         \tweak style #'harmonic-mixed
         c''4
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_04():
@@ -49,7 +52,8 @@ def test_HarmonicNote_04():
         r"""
         \tweak style #'harmonic
         c''4 * 2/3
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_05():
@@ -74,7 +78,8 @@ def test_HarmonicNote_06():
         r"""
         c''1
         \flageolet
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_07():
@@ -103,7 +108,8 @@ def test_HarmonicNote_07():
             d''1
             _ \markup { III. }
         }
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_08():
@@ -115,7 +121,8 @@ def test_HarmonicNote_08():
         r"""
         \tweak style #'harmonic
         d''1
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_09():
@@ -138,7 +145,8 @@ def test_HarmonicNote_10():
         \tweak style #'harmonic
         d''1
         _ \markup { III. }
-        """)
+        """
+    )
     harm.direction = abjad.Up
     assert harm.direction is abjad.Up
     assert abjad.lilypond(harm) == abjad.String.normalize(
@@ -148,7 +156,8 @@ def test_HarmonicNote_10():
         \tweak style #'harmonic
         d''1
         ^ \markup { III. }
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_11():
@@ -168,7 +177,8 @@ def test_HarmonicNote_11():
         r"""
         \tweak style #'harmonic
         d''1
-        """)
+        """
+    )
     assert abjad.lilypond(harm2) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
@@ -176,7 +186,8 @@ def test_HarmonicNote_11():
         \tweak style #'harmonic
         d''1
         ^ \markup { III. }
-        """)
+        """
+    )
     assert abjad.lilypond(harm3) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
@@ -184,13 +195,15 @@ def test_HarmonicNote_11():
         \tweak style #'harmonic
         d''1
         ^ \markup { III. }
-        """)
+        """
+    )
     assert abjad.lilypond(harm4) == abjad.String.normalize(
         r"""
         \tweak style #'harmonic
         d''1
         ^ \markup { III. }
-        """)
+        """
+    )
 
 
 def test_HarmonicNote_12():
@@ -202,7 +215,8 @@ def test_HarmonicNote_12():
         r"""
         c''1
         \flageolet
-        """)
+        """
+    )
     harm = auxjad.HarmonicNote(r"c''1",
                                style=r'\flageolet',
                                )
@@ -211,7 +225,8 @@ def test_HarmonicNote_12():
         r"""
         c''1
         \flageolet
-        """)
+        """
+    )
     harm = auxjad.HarmonicNote(r"c''1",
                                style="#'flageolet",
                                )
@@ -220,4 +235,5 @@ def test_HarmonicNote_12():
         r"""
         c''1
         \flageolet
-        """)
+        """
+    )

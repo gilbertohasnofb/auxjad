@@ -18,7 +18,8 @@ def test_reposition_dynamics_01():
             e'1
             \f
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_02():
@@ -35,7 +36,8 @@ def test_reposition_dynamics_02():
             \f
             e'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_03():
@@ -53,7 +55,8 @@ def test_reposition_dynamics_03():
             e'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_04():
@@ -69,7 +72,8 @@ def test_reposition_dynamics_04():
             r1
             e'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_05():
@@ -85,7 +89,8 @@ def test_reposition_dynamics_05():
             e'1
             f'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1\p d'1 e'1\p f'1")
     auxjad.mutate.reposition_dynamics(staff[:], remove_repeated_dynamics=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -99,7 +104,8 @@ def test_reposition_dynamics_05():
             \p
             f'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_06():
@@ -115,7 +121,8 @@ def test_reposition_dynamics_06():
             r1
             e'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1\p d'1 r1\f e'1\p")
     auxjad.mutate.reposition_dynamics(staff[:], remove_repeated_dynamics=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -129,7 +136,8 @@ def test_reposition_dynamics_06():
             e'1
             \p
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_07():
@@ -149,7 +157,8 @@ def test_reposition_dynamics_07():
             e'1
             \f
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_08():
@@ -171,7 +180,8 @@ def test_reposition_dynamics_08():
             e'1
             \f
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_09():
@@ -189,7 +199,8 @@ def test_reposition_dynamics_09():
             e'1
             \p
         }
-    """)
+        """
+    )
     staff = abjad.Staff(r"c'1\p\> d'1\f\> e'1\p")
     auxjad.mutate.reposition_dynamics(staff[:], check_hairpin_trends=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -205,7 +216,8 @@ def test_reposition_dynamics_09():
             e'1
             \p
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_10():
@@ -226,7 +238,8 @@ def test_reposition_dynamics_10():
             f'1
             \p
         }
-    """)
+        """
+    )
 
 
 def test_reposition_dynamics_11():
@@ -257,7 +270,8 @@ def test_reposition_dynamics_11():
             \!
             g'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_12():
@@ -285,7 +299,8 @@ def test_reposition_dynamics_12():
             g'1
             \ppp
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_13():
@@ -301,7 +316,8 @@ def test_reposition_dynamics_13():
             d'1
             \f
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_14():
@@ -320,7 +336,8 @@ def test_reposition_dynamics_14():
             r1
             e'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1\p\< d'2 r2\f r1 e'1")
     auxjad.mutate.reposition_dynamics(
         staff[:],
@@ -340,7 +357,8 @@ def test_reposition_dynamics_14():
             e'1
             \f
         }
-        """)
+        """
+    )
 
 
 def test_reposition_dynamics_15():
@@ -358,4 +376,5 @@ def test_reposition_dynamics_15():
             e'1
             \f
         }
-        """)
+        """
+    )

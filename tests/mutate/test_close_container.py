@@ -22,7 +22,8 @@ def test_close_container_01():
             e'4
             f'4
         }
-        """)
+        """
+    )
     assert abjad.lilypond(container2) == abjad.String.normalize(
         r"""
         \new Staff
@@ -32,7 +33,8 @@ def test_close_container_01():
             d'4
             e'4
         }
-        """)
+        """
+    )
     assert abjad.lilypond(container3) == abjad.String.normalize(
         r"""
         \new Staff
@@ -44,7 +46,8 @@ def test_close_container_01():
             \time 1/4
             c'4
         }
-        """)
+        """
+    )
     assert abjad.lilypond(container4) == abjad.String.normalize(
         r"""
         \new Staff
@@ -58,7 +61,8 @@ def test_close_container_01():
             e'4
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_close_container_02():
@@ -80,7 +84,8 @@ def test_close_container_02():
             \time 1/4
             g'4
         }
-        """)
+        """
+    )
     assert abjad.lilypond(container2) == abjad.String.normalize(
         r"""
         \new Staff
@@ -90,7 +95,8 @@ def test_close_container_02():
             \time 1/4
             c'4
         }
-        """)
+        """
+    )
     assert abjad.lilypond(container3) == abjad.String.normalize(
         r"""
         \new Staff
@@ -102,7 +108,8 @@ def test_close_container_02():
             \time 2/4
             af'2
         }
-        """)
+        """
+    )
 
 
 def test_close_container_03():
@@ -119,7 +126,8 @@ def test_close_container_03():
             %%% \time 1/4 %%%
             g'4
         }
-        """)
+        """
+    )
     staff = abjad.Staff([container])
     assert abjad.lilypond(container) == abjad.String.normalize(
         r"""
@@ -132,7 +140,8 @@ def test_close_container_03():
             \time 1/4
             g'4
         }
-        """)
+        """
+    )
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
         \new Staff
@@ -147,7 +156,8 @@ def test_close_container_03():
                 g'4
             }
         }
-        """)
+        """
+    )
 
 
 def test_close_container_04():
@@ -168,7 +178,8 @@ def test_close_container_04():
             \time 1/4
             g'4
         }
-        """)
+        """
+    )
 
 
 def test_close_container_05():

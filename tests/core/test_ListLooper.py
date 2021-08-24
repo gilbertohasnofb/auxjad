@@ -143,7 +143,8 @@ def test_ListLooper_08():
                 r4
             }
         }
-        """)
+        """
+    )
 
 
 def test_ListLooper_09():

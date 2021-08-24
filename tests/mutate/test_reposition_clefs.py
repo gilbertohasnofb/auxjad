@@ -16,7 +16,8 @@ def test_reposition_clefs_01():
             \clef "treble"
             d'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -26,7 +27,8 @@ def test_reposition_clefs_01():
             c'1
             d'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 | d'1")
     abjad.attach(abjad.Clef('treble'), staff[1])
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -37,7 +39,8 @@ def test_reposition_clefs_01():
             \clef "treble"
             d'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -46,7 +49,8 @@ def test_reposition_clefs_01():
             c'1
             d'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_02():
@@ -65,7 +69,8 @@ def test_reposition_clefs_02():
             \clef "treble"
             f'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -78,7 +83,8 @@ def test_reposition_clefs_02():
             r4
             f'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 | d'2 e'4 r4 | f'1")
     abjad.attach(abjad.Clef('treble'), staff[4])
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -92,7 +98,8 @@ def test_reposition_clefs_02():
             \clef "treble"
             f'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -104,7 +111,8 @@ def test_reposition_clefs_02():
             r4
             f'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_03():
@@ -125,7 +133,8 @@ def test_reposition_clefs_03():
             \clef "treble"
             f'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -140,7 +149,8 @@ def test_reposition_clefs_03():
             \clef "treble"
             f'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 | a,2 bf,4 r4 | f'1")
     abjad.attach(abjad.Clef('bass'), staff[1])
     abjad.attach(abjad.Clef('treble'), staff[4])
@@ -156,7 +166,8 @@ def test_reposition_clefs_03():
             \clef "treble"
             f'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -170,7 +181,8 @@ def test_reposition_clefs_03():
             \clef "treble"
             f'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_04():
@@ -189,7 +201,8 @@ def test_reposition_clefs_04():
             \clef "treble"
             e'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -202,7 +215,8 @@ def test_reposition_clefs_04():
             R1
             e'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 | d'2 r2 | R1 | e'1")
     abjad.attach(abjad.Clef('treble'), staff[4])
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -216,7 +230,8 @@ def test_reposition_clefs_04():
             \clef "treble"
             e'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -228,7 +243,8 @@ def test_reposition_clefs_04():
             R1
             e'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_05():
@@ -246,7 +262,8 @@ def test_reposition_clefs_05():
             r2
             fs1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -259,7 +276,8 @@ def test_reposition_clefs_05():
             \clef "bass"
             fs1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
     abjad.attach(abjad.Clef('bass'), staff[2])
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -272,7 +290,8 @@ def test_reposition_clefs_05():
             r2
             fs1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -284,7 +303,8 @@ def test_reposition_clefs_05():
             \clef "bass"
             fs1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_06():
@@ -302,7 +322,8 @@ def test_reposition_clefs_06():
             r2
             fs1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:], shift_clef_to_notes=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -315,7 +336,8 @@ def test_reposition_clefs_06():
             r2
             fs1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
     abjad.attach(abjad.Clef('bass'), staff[2])
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -328,7 +350,8 @@ def test_reposition_clefs_06():
             r2
             fs1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:], shift_clef_to_notes=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -340,7 +363,8 @@ def test_reposition_clefs_06():
             r2
             fs1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_07():
@@ -365,7 +389,8 @@ def test_reposition_clefs_07():
                 b'2
             }
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -381,7 +406,8 @@ def test_reposition_clefs_07():
                 b'2
             }
         }
-        """)
+        """
+    )
     staff = abjad.Staff([abjad.Note("c'2"),
                          abjad.Chord("<d' f'>2"),
                          abjad.Tuplet((2, 3), "g'2 a'2 b'2"),
@@ -401,7 +427,8 @@ def test_reposition_clefs_07():
                 b'2
             }
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -416,7 +443,8 @@ def test_reposition_clefs_07():
                 b'2
             }
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_08():
@@ -430,7 +458,8 @@ def test_reposition_clefs_08():
             \clef "treble"
             d'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -439,7 +468,8 @@ def test_reposition_clefs_08():
             c'1
             d'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_09():
@@ -453,7 +483,8 @@ def test_reposition_clefs_09():
             \clef "bass"
             d1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:], implicit_clef=abjad.Clef('bass'))
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -462,7 +493,8 @@ def test_reposition_clefs_09():
             c1
             d1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_10():
@@ -479,7 +511,8 @@ def test_reposition_clefs_10():
             \clef "treble"
             d'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:], shift_clef_to_notes=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -491,7 +524,8 @@ def test_reposition_clefs_10():
             \clef "treble"
             d'1
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -501,7 +535,8 @@ def test_reposition_clefs_10():
             r1
             d'1
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_11():
@@ -521,7 +556,8 @@ def test_reposition_clefs_11():
             R1 * 3/4
             e'2.
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:], shift_clef_to_notes=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -536,7 +572,8 @@ def test_reposition_clefs_11():
             R1 * 3/4
             e'2.
         }
-        """)
+        """
+    )
     auxjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -551,7 +588,8 @@ def test_reposition_clefs_11():
             \clef "bass"
             e'2.
         }
-        """)
+        """
+    )
 
 
 def test_reposition_clefs_12():
@@ -567,7 +605,8 @@ def test_reposition_clefs_12():
             \clef "treble"
             d'1
         }
-        """)
+        """
+    )
     abjad.mutate.reposition_clefs(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -577,4 +616,5 @@ def test_reposition_clefs_12():
             c'1
             d'1
         }
-        """)
+        """
+    )

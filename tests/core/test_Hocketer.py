@@ -21,7 +21,8 @@ def test_Hocketer_01():
             e'4
             f'4
         }
-        """)
+        """
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
@@ -44,7 +45,8 @@ def test_Hocketer_01():
                 f'4
             }
         >>
-        """)
+        """
+    )
     music = hocketer.current_window
     with pytest.raises(AttributeError):
         hocketer.current_window = abjad.Container(r"c''2 e''2")
@@ -69,7 +71,8 @@ def test_Hocketer_01():
                 f'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_02():
@@ -111,7 +114,8 @@ def test_Hocketer_02():
                 c''8
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_03():
@@ -185,7 +189,8 @@ def test_Hocketer_04():
             e'4
             f'4
         }
-        """)
+        """
+    )
     hocketer()
     assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
         r"""
@@ -195,7 +200,8 @@ def test_Hocketer_04():
             e'4
             f'4
         }
-        """)
+        """
+    )
     hocketer.contents = abjad.Container(r"cs2 ds2")
     assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
         r"""
@@ -203,7 +209,8 @@ def test_Hocketer_04():
             cs2
             ds2
         }
-        """)
+        """
+    )
 
 
 def test_Hocketer_05():
@@ -246,7 +253,8 @@ def test_Hocketer_06():
                 c''8
             }
         >>
-        """)
+        """
+    )
     random.seed(12174)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container,
@@ -283,7 +291,8 @@ def test_Hocketer_06():
                 c''8
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_07():
@@ -318,7 +327,8 @@ def test_Hocketer_07():
                 c''8
             }
         >>
-        """)
+        """
+    )
     assert hocketer.weights == [2.1, 5.7]
     hocketer.reset_weights()
     assert hocketer.weights == [1.0, 1.0]
@@ -361,7 +371,8 @@ def test_Hocketer_08():
                 r2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_09():
@@ -394,7 +405,8 @@ def test_Hocketer_09():
                 r2
             }
         >>
-        """)
+        """
+    )
     random.seed(15663)
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
     hocketer = auxjad.Hocketer(container,
@@ -426,7 +438,8 @@ def test_Hocketer_09():
                 r2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_10():
@@ -478,7 +491,8 @@ def test_Hocketer_10():
                 c''8
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_11():
@@ -598,7 +612,8 @@ def test_Hocketer_12():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_13():
@@ -621,7 +636,8 @@ def test_Hocketer_13():
                 e'2
             }
         >>
-        """)
+        """
+    )
     hocketer = auxjad.Hocketer(container,
                                n_voices=1,
                                boundary_depth=1,
@@ -643,7 +659,8 @@ def test_Hocketer_13():
                 e'2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_14():
@@ -677,7 +694,8 @@ def test_Hocketer_14():
                 r2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_15():
@@ -772,7 +790,8 @@ def test_Hocketer_15():
                 \ppp
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_16():
@@ -865,7 +884,8 @@ def test_Hocketer_17():
                 r4
             }
         >>
-        """)
+        """
+    )
     staff = abjad.Staff(hocketer[0])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -874,7 +894,8 @@ def test_Hocketer_17():
             r2.
             f'4
         }
-        """)
+        """
+    )
     partial_score = abjad.Score()
     for selection in hocketer[1:4]:
         staff = abjad.Staff(selection)
@@ -905,7 +926,8 @@ def test_Hocketer_17():
                 f'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_18():
@@ -944,7 +966,8 @@ def test_Hocketer_18():
                 a8
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_19():
@@ -993,7 +1016,8 @@ def test_Hocketer_19():
                 r2.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_20():
@@ -1058,7 +1082,8 @@ def test_Hocketer_20():
                 r4.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_21():
@@ -1096,7 +1121,8 @@ def test_Hocketer_21():
                 <c' f' a'>4
             }
         >>
-        """)
+        """
+    )
 
     container = abjad.Container(
         r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4"
@@ -1136,7 +1162,8 @@ def test_Hocketer_21():
                 f'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_22():
@@ -1183,7 +1210,8 @@ def test_Hocketer_22():
                 f'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Hocketer_23():

@@ -246,7 +246,7 @@ class TenneySelector():
         >>> selector = auxjad.TenneySelector(
         ...     ['A', 'B', 'C', 'D', 'E', 'F'],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
-        >>> )
+        ... )
         >>> selector.weights
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
         >>> selector.probabilities
@@ -266,7 +266,7 @@ class TenneySelector():
         >>> selector = auxjad.TenneySelector(
         ...     ['A', 'B', 'C', 'D', 'E', 'F'],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
-        >>> )
+        ... )
         >>> selector.weights
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
         >>> selector.weights = None
@@ -334,7 +334,7 @@ class TenneySelector():
         >>> selector = auxjad.TenneySelector(
         ...     ['A', 'B', 'C', 'D', 'E', 'F'],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
-        >>> )
+        ... )
         >>> for _ in range(30):
         ...     selector()
         >>> len(selector)

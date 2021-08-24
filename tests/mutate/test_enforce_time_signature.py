@@ -20,7 +20,8 @@ def test_enforce_time_signature_01():
             ~
             d'2
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_02():
@@ -39,7 +40,8 @@ def test_enforce_time_signature_02():
             d'2
             r4
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_03():
@@ -68,7 +70,8 @@ def test_enforce_time_signature_03():
             \time 1/4
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_04():
@@ -96,7 +99,8 @@ def test_enforce_time_signature_04():
             ~
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_05():
@@ -116,7 +120,8 @@ def test_enforce_time_signature_05():
             c'4
             d'1
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_06():
@@ -139,7 +144,8 @@ def test_enforce_time_signature_06():
             e'1
             f'1
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_07():
@@ -197,7 +203,8 @@ def test_enforce_time_signature_07():
             f'4
             r8
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_08():
@@ -227,7 +234,8 @@ def test_enforce_time_signature_08():
             ~
             f'2.
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_09():
@@ -277,7 +285,8 @@ def test_enforce_time_signature_09():
             ~
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_10():
@@ -308,7 +317,8 @@ def test_enforce_time_signature_10():
             \time 4/4
             f'1
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_11():
@@ -339,7 +349,8 @@ def test_enforce_time_signature_12():
             c'8.
             d'16
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.mutate.enforce_time_signature(
         staff,
@@ -364,7 +375,8 @@ def test_enforce_time_signature_12():
             c'8.
             d'16
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_13():
@@ -386,7 +398,8 @@ def test_enforce_time_signature_13():
             d'4.
             e'4
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
     time_signatures = [abjad.TimeSignature((5, 4)),
                        abjad.TimeSignature((3, 4)),
@@ -409,7 +422,8 @@ def test_enforce_time_signature_13():
             d'4.
             e'4
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_14():
@@ -424,7 +438,8 @@ def test_enforce_time_signature_14():
             d'8
             e'2
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'4. d'8 e'2")
     auxjad.mutate.enforce_time_signature(
         staff,
@@ -442,7 +457,8 @@ def test_enforce_time_signature_14():
             d'8
             e'2
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_15():
@@ -464,7 +480,8 @@ def test_enforce_time_signature_15():
             c'8.
             d'16
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.mutate.enforce_time_signature(
         staff,
@@ -489,7 +506,8 @@ def test_enforce_time_signature_15():
             c'8.
             d'16
         }
-        """)
+        """
+    )
 
 
 def test_enforce_time_signature_16():
@@ -525,7 +543,8 @@ def test_enforce_time_signature_16():
                 r16
             }
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\times 6/7 {c'4. r16} \times 6/7 {d'4. r16}")
     auxjad.mutate.enforce_time_signature(
         staff,
@@ -551,4 +570,5 @@ def test_enforce_time_signature_16():
                 r16
             }
         }
-        """)
+        """
+    )

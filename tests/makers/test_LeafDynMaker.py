@@ -36,7 +36,8 @@ def test_LeafDynMaker_01():
             \ff
             - \stopped
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_02():
@@ -59,7 +60,8 @@ def test_LeafDynMaker_02():
             \f
             - \tenuto
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_03():
@@ -90,7 +92,8 @@ def test_LeafDynMaker_03():
             a'8.
             \p
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_04():
@@ -119,7 +122,8 @@ def test_LeafDynMaker_04():
             b'4
             c''4
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_05():
@@ -165,7 +169,8 @@ def test_LeafDynMaker_05():
             \f
             - \accent
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_06():
@@ -191,7 +196,8 @@ def test_LeafDynMaker_06():
             b'4
             c''4
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_07():
@@ -229,7 +235,8 @@ def test_LeafDynMaker_07():
             c''4
             - \staccato
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_08():
@@ -275,7 +282,8 @@ def test_LeafDynMaker_08():
             g'32
             a'8.
         }
-        """)
+        """
+    )
 
 
 def test_LeafDynMaker_09():
@@ -290,4 +298,5 @@ def test_LeafDynMaker_09():
             \p
             - \tenuto
         }
-        """)
+        """
+    )

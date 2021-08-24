@@ -299,4 +299,5 @@ def test_example_of_usage_05():
             r2
             R1
         }
-        """)
+        """
+    )

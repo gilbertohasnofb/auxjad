@@ -18,7 +18,8 @@ def test_remove_repeated_time_signatures_01():
             c'4
             d'8
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_time_signatures(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -30,7 +31,8 @@ def test_remove_repeated_time_signatures_01():
             c'4
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_time_signatures_02():
@@ -49,7 +51,8 @@ def test_remove_repeated_time_signatures_02():
             c'4
             d'8
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_time_signatures(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -62,7 +65,8 @@ def test_remove_repeated_time_signatures_02():
             c'4
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_time_signatures_03():
@@ -87,7 +91,8 @@ def test_remove_repeated_time_signatures_03():
                 b2
             }
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_time_signatures(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -103,7 +108,8 @@ def test_remove_repeated_time_signatures_03():
                 b2
             }
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_time_signatures_04():
@@ -119,7 +125,8 @@ def test_remove_repeated_time_signatures_04():
             e'2
             d'2
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_time_signatures_05():
@@ -137,7 +144,8 @@ def test_remove_repeated_time_signatures_05():
             c'4
             d'8
         }
-        """)
+        """
+    )
     abjad.mutate.remove_repeated_time_signatures(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -149,4 +157,5 @@ def test_remove_repeated_time_signatures_05():
             c'4
             d'8
         }
-        """)
+        """
+    )

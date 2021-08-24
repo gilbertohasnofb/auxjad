@@ -14,7 +14,8 @@ def test_ArtificialHarmonic_01():
             \tweak style #'harmonic
             c'
         >4
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_02():
@@ -31,7 +32,8 @@ def test_ArtificialHarmonic_02():
                 \tweak style #'harmonic
                 c'
             >4
-            """)
+            """
+        )
 
 
 def test_ArtificialHarmonic_03():
@@ -46,7 +48,8 @@ def test_ArtificialHarmonic_03():
             \tweak style #'harmonic-mixed
             c'
         >4
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_04():
@@ -63,7 +66,8 @@ def test_ArtificialHarmonic_04():
             \tweak style #'harmonic
             c'
         >4
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_05():
@@ -78,7 +82,8 @@ def test_ArtificialHarmonic_05():
             \tweak style #'harmonic
             c'
         >4 * 2/3
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_06():
@@ -149,7 +154,8 @@ def test_ArtificialHarmonic_11():
         g''4
         \pp
         - \staccato
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_12():
@@ -201,7 +207,8 @@ def test_ArtificialHarmonic_14():
             >1
             _ \markup { I. }
         }
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_15():
@@ -216,7 +223,8 @@ def test_ArtificialHarmonic_15():
             \tweak style #'harmonic
             d'
         >1
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_16():
@@ -242,7 +250,8 @@ def test_ArtificialHarmonic_17():
             d'
         >1
         _ \markup { I. }
-        """)
+        """
+    )
     harm.direction = abjad.Up
     assert harm.direction is abjad.Up
     assert abjad.lilypond(harm) == abjad.String.normalize(
@@ -255,7 +264,8 @@ def test_ArtificialHarmonic_17():
             d'
         >1
         ^ \markup { I. }
-        """)
+        """
+    )
 
 
 def test_ArtificialHarmonic_18():
@@ -278,7 +288,8 @@ def test_ArtificialHarmonic_18():
             \tweak style #'harmonic
             ef''
         >1
-        """)
+        """
+    )
     assert abjad.lilypond(harm2) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
@@ -289,7 +300,8 @@ def test_ArtificialHarmonic_18():
             ef''
         >1
         ^ \markup { III. }
-        """)
+        """
+    )
     assert abjad.lilypond(harm3) == abjad.String.normalize(
         r"""
         \once \override TextScript.parent-alignment-X = 0
@@ -300,7 +312,8 @@ def test_ArtificialHarmonic_18():
             ef''
         >1
         ^ \markup { III. }
-        """)
+        """
+    )
     assert abjad.lilypond(harm4) == abjad.String.normalize(
         r"""
         <
@@ -309,4 +322,5 @@ def test_ArtificialHarmonic_18():
             ef''
         >1
         ^ \markup { III. }
-        """)
+        """
+    )

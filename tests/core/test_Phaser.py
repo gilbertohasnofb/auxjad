@@ -19,7 +19,8 @@ def test_Phaser_01():
             e'4
             f'4
         }
-        """)
+        """
+    )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -32,7 +33,8 @@ def test_Phaser_01():
             e'4
             f'4
         }
-        """)
+        """
+    )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -52,7 +54,8 @@ def test_Phaser_01():
             f'8.
             c'16
         }
-        """)
+        """
+    )
     notes = phaser.current_window
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -72,7 +75,8 @@ def test_Phaser_01():
             f'8.
             c'16
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_02():
@@ -92,7 +96,8 @@ def test_Phaser_02():
             e'4
             f'4
         }
-        """)
+        """
+    )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -108,7 +113,8 @@ def test_Phaser_02():
             f'4
             c'8
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_03():
@@ -129,7 +135,8 @@ def test_Phaser_03():
             ~
             e'2.
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -143,7 +150,8 @@ def test_Phaser_03():
             e'2
             c'4
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -157,7 +165,8 @@ def test_Phaser_03():
             c'4
             d'4
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -170,7 +179,8 @@ def test_Phaser_03():
             d'4
             e'4
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -183,7 +193,8 @@ def test_Phaser_03():
             d'4
             e'2
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -196,7 +207,8 @@ def test_Phaser_03():
             d'4
             e'2.
         }
-        """)
+        """
+    )
     with pytest.raises(StopIteration):
         assert phaser.__next__()
 
@@ -266,7 +278,8 @@ def test_Phaser_05():
             c'4.
             d'4.
         }
-        """)
+        """
+    )
     phaser = auxjad.Phaser(container,
                            step_size=(1, 4),
                            )
@@ -286,7 +299,8 @@ def test_Phaser_05():
             c'4.
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_06():
@@ -307,7 +321,8 @@ def test_Phaser_06():
             ~
             e'2.
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -321,7 +336,8 @@ def test_Phaser_06():
             e'2
             c'4
         }
-        """)
+        """
+    )
     phaser.step_size = (1, 16)
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
@@ -341,7 +357,8 @@ def test_Phaser_06():
             c'8.
             d'16
         }
-        """)
+        """
+    )
     notes = phaser.__next__()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -358,7 +375,8 @@ def test_Phaser_06():
             c'4
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_07():
@@ -410,7 +428,8 @@ def test_Phaser_07():
                 d'16
             }
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_08():
@@ -484,7 +503,8 @@ def test_Phaser_09():
             d'8
             c'4.
         }
-        """)
+        """
+    )
     phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            remove_unterminated_ties=False,
@@ -517,7 +537,8 @@ def test_Phaser_09():
             c'4.
             ~
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_10():
@@ -550,7 +571,8 @@ def test_Phaser_10():
             c'8
             <d' fs' a'>4.
         }
-        """)
+        """
+    )
     phaser = auxjad.Phaser(container,
                            step_size=(1, 8),
                            remove_unterminated_ties=False,
@@ -583,7 +605,8 @@ def test_Phaser_10():
             <d' fs' a'>4.
             ~
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_11():
@@ -625,7 +648,8 @@ def test_Phaser_11():
             f'8.
             c'16
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_12():
@@ -651,7 +675,8 @@ def test_Phaser_12():
             e'8
             c'8
         }
-        """)
+        """
+    )
     phaser = auxjad.Phaser(container,
                            step_size=(1, 16),
                            forward_bias=0.0,
@@ -674,7 +699,8 @@ def test_Phaser_12():
             c'8
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_13():
@@ -703,7 +729,8 @@ def test_Phaser_13():
             d'8
             e'8
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_14():
@@ -731,7 +758,8 @@ def test_Phaser_14():
             f'8.
             c'16
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_15():
@@ -761,7 +789,8 @@ def test_Phaser_15():
             c'16
             ~
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_16():
@@ -835,7 +864,8 @@ def test_Phaser_16():
             \f
             - \tenuto
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_17():
@@ -855,7 +885,8 @@ def test_Phaser_17():
             e'4
             f'4
         }
-        """)
+        """
+    )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -875,7 +906,8 @@ def test_Phaser_17():
             f'8.
             c'16
         }
-        """)
+        """
+    )
     phaser.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
     notes = phaser()
     staff = abjad.Staff(notes)
@@ -890,7 +922,8 @@ def test_Phaser_17():
             f'16
             g'2.
         }
-        """)
+        """
+    )
     notes = phaser()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -908,7 +941,8 @@ def test_Phaser_17():
             g'8.
             c'16
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_18():
@@ -962,7 +996,8 @@ def test_Phaser_19():
             e'4
             c'4
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_20():
@@ -1000,7 +1035,8 @@ def test_Phaser_20():
             e'4
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_21():
@@ -1058,7 +1094,8 @@ def test_Phaser_21():
             f'8
             g'8
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_22():
@@ -1077,7 +1114,8 @@ def test_Phaser_22():
             d'8
             e'2
         }
-        """)
+        """
+    )
     phaser = auxjad.Phaser(container,
                            step_size=(1, 16),
                            boundary_depth=1,
@@ -1095,7 +1133,8 @@ def test_Phaser_22():
             d'8
             e'2
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_23():
@@ -1144,7 +1183,8 @@ def test_Phaser_23():
             d'4
             e'2.
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_time_signatures(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -1179,7 +1219,8 @@ def test_Phaser_23():
             d'4
             e'2.
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_24():
@@ -1344,7 +1385,8 @@ def test_Phaser_25():
             c'4
             \p
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_26():
@@ -1387,7 +1429,8 @@ def test_Phaser_26():
             f'8.
             c'16
         }
-        """)
+        """
+    )
 
 
 def test_Phaser_27():
@@ -1443,4 +1486,5 @@ def test_Phaser_27():
             c'2
             d'2
         }
-        """)
+        """
+    )

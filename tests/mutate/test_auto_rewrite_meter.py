@@ -5,8 +5,10 @@ import auxjad
 
 
 def test_auto_rewrite_meter_01():
-    staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-                        r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
+    staff = abjad.Staff(
+        r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        r"c'16 d'4. e'16 f'8 g'4 a'16 b'16"
+    )
     auxjad.mutate.auto_rewrite_meter(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -31,12 +33,15 @@ def test_auto_rewrite_meter_01():
             a'16
             b'16
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_02():
-    staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-                        r"\time 6/8 b'4 c''4 r4 ")
+    staff = abjad.Staff(
+        r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        r"\time 6/8 b'4 c''4 r4 "
+    )
     auxjad.mutate.auto_rewrite_meter(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -58,12 +63,15 @@ def test_auto_rewrite_meter_02():
             c''8
             r4
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_03():
-    staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
-                        r"c'16 d'4. e'16 f'8 g'4 a'16 b'16")
+    staff = abjad.Staff(
+        r"c'16 d'8 e'16 f'8 g'4 a'4 b'8 "
+        r"c'16 d'4. e'16 f'8 g'4 a'16 b'16"
+    )
     abjad.mutate.auto_rewrite_meter(staff, prettify_rewrite_meter=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -94,12 +102,15 @@ def test_auto_rewrite_meter_03():
             a'16
             b'16
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_04():
-    staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
-                        r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8")
+    staff = abjad.Staff(
+        r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
+        r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8"
+    )
     auxjad.mutate.auto_rewrite_meter(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -128,9 +139,12 @@ def test_auto_rewrite_meter_04():
             a''4
             b''8
         }
-        """)
-    staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
-                        r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8")
+        """
+    )
+    staff = abjad.Staff(
+        r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8 "
+        r"\time 5/4 d''8 e''4 f''4 g''4 a''4 b''8"
+    )
     meter_list = [abjad.Meter((7, 4), increase_monotonic=True),
                   abjad.Meter((5, 4), increase_monotonic=True),
                   ]
@@ -162,7 +176,8 @@ def test_auto_rewrite_meter_04():
             a''4
             b''8
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_06():
@@ -204,7 +219,8 @@ def test_auto_rewrite_meter_06():
             a''16
             r8.
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_07():
@@ -232,7 +248,8 @@ def test_auto_rewrite_meter_08():
             r4
             <e' g'>4
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_09():
@@ -263,13 +280,15 @@ def test_auto_rewrite_meter_09():
                 <e' g'>4.
             }
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_10():
-    staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
-                        r"\times 2/3 {e'2} \times 2/3 {f'1}"
-                        )
+    staff = abjad.Staff(
+        r"\times 2/3 {c'2 d'1}"
+        r"\times 2/3 {e'2} \times 2/3 {f'1}"
+    )
     abjad.mutate.auto_rewrite_meter(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -286,10 +305,12 @@ def test_auto_rewrite_meter_10():
                 f'1
             }
         }
-        """)
-    staff = abjad.Staff(r"\times 2/3 {c'2 d'1}"
-                        r"\times 2/3 {e'2} \times 2/3 {f'1}"
-                        )
+        """
+    )
+    staff = abjad.Staff(
+        r"\times 2/3 {c'2 d'1}"
+        r"\times 2/3 {e'2} \times 2/3 {f'1}"
+    )
     abjad.mutate.auto_rewrite_meter(staff, merge_partial_tuplets=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -311,7 +332,8 @@ def test_auto_rewrite_meter_10():
                 f'1
             }
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_11():
@@ -342,7 +364,8 @@ def test_auto_rewrite_meter_11():
             ~
             b'4
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
     auxjad.mutate.auto_rewrite_meter(staff, boundary_depth=1)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -368,7 +391,8 @@ def test_auto_rewrite_meter_11():
             ~
             b'4
         }
-        """)
+        """
+    )
 
 
 def test_auto_rewrite_meter_12():
@@ -388,4 +412,5 @@ def test_auto_rewrite_meter_12():
             a'4
             b'8
         }
-        """)
+        """
+    )

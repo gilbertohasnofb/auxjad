@@ -18,7 +18,8 @@ def test_remove_repeated_dynamics_01():
             d'8
             \f
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_dynamics(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -31,7 +32,8 @@ def test_remove_repeated_dynamics_01():
             \f
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_02():
@@ -50,7 +52,8 @@ def test_remove_repeated_dynamics_02():
             d'8
             \f
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_dynamics(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -64,7 +67,8 @@ def test_remove_repeated_dynamics_02():
             d'8
             \f
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_03():
@@ -91,7 +95,8 @@ def test_remove_repeated_dynamics_03():
                 b2
             }
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_dynamics(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -107,7 +112,8 @@ def test_remove_repeated_dynamics_03():
                 b2
             }
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_04():
@@ -127,7 +133,8 @@ def test_remove_repeated_dynamics_04():
             d'8
             \f
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_dynamics(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -143,7 +150,8 @@ def test_remove_repeated_dynamics_04():
             \f
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_05():
@@ -163,7 +171,8 @@ def test_remove_repeated_dynamics_05():
             d'8
             \f
         }
-        """)
+        """
+    )
     auxjad.mutate.remove_repeated_dynamics(staff[:], ignore_hairpins=True)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -178,7 +187,8 @@ def test_remove_repeated_dynamics_05():
             c'4
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_06():
@@ -193,7 +203,8 @@ def test_remove_repeated_dynamics_06():
             r2.
             c'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
     auxjad.mutate.remove_repeated_dynamics(staff[:], reset_after_rests=True)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -206,7 +217,8 @@ def test_remove_repeated_dynamics_06():
             c'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_07():
@@ -224,7 +236,8 @@ def test_remove_repeated_dynamics_07():
             r2.
             c'1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'4\pp r2. | c'1\pp")
     auxjad.mutate.remove_repeated_dynamics(staff[:],
                                            reset_after_rests=True,
@@ -240,7 +253,8 @@ def test_remove_repeated_dynamics_07():
             c'1
             \pp
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_08():
@@ -261,7 +275,8 @@ def test_remove_repeated_dynamics_08():
             c'1
             \pp
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'4\pp r2. | R1 | c'1\pp")
     auxjad.mutate.remove_repeated_dynamics(staff[:],
                                            reset_after_rests=True,
@@ -277,7 +292,8 @@ def test_remove_repeated_dynamics_08():
             R1
             c'1
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_09():
@@ -295,7 +311,8 @@ def test_remove_repeated_dynamics_09():
             d'8
             \f
         }
-        """)
+        """
+    )
     abjad.mutate.remove_repeated_dynamics(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -308,7 +325,8 @@ def test_remove_repeated_dynamics_09():
             \f
             d'8
         }
-        """)
+        """
+    )
 
 
 def test_remove_repeated_dynamics_10():
@@ -337,7 +355,8 @@ def test_remove_repeated_dynamics_10():
             g'1
             \pp
         }
-        """)
+        """
+    )
     assert abjad.lilypond(staff2) == abjad.String.normalize(
         r"""
         \new Staff
@@ -360,4 +379,5 @@ def test_remove_repeated_dynamics_10():
             \pp
         }
 
-        """)
+        """
+    )

@@ -17,7 +17,8 @@ def test_respell_augmented_unisons_01():
             <c' df'>4
             r2.
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_02():
@@ -42,7 +43,8 @@ def test_respell_augmented_unisons_02():
             <as' b'>16
             <b' c''>16
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_03():
@@ -54,7 +56,8 @@ def test_respell_augmented_unisons_03():
         {
             <a c' df' f'>1
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_04():
@@ -66,7 +69,8 @@ def test_respell_augmented_unisons_04():
         {
             <cs' ds' e' g'>1
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_05():
@@ -78,7 +82,8 @@ def test_respell_augmented_unisons_05():
         {
             <c' cs''>1
         }
-        """)
+        """
+    )
     auxjad.mutate.respell_augmented_unisons(staff[:], include_multiples=True)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -86,7 +91,8 @@ def test_respell_augmented_unisons_05():
         {
             <c' df''>1
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_06():
@@ -98,7 +104,8 @@ def test_respell_augmented_unisons_06():
         {
             <c' df' cs''>1
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"<c' cs' cs''>1")
     auxjad.mutate.respell_augmented_unisons(
         staff[:],
@@ -110,11 +117,13 @@ def test_respell_augmented_unisons_06():
         {
             <c' df' df''>1
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_07():
-    staff = abjad.Staff(r"""
+    staff = abjad.Staff(
+        r"""
         <e' bs'>1
         <e' b' bs'>1
         <e' cf''>1
@@ -123,7 +132,8 @@ def test_respell_augmented_unisons_07():
         <e' es' c''>1
         <ff' c''>1
         <ff' f' c''>1
-        """)
+        """
+    )
     auxjad.mutate.respell_augmented_unisons(staff[:])
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -138,7 +148,8 @@ def test_respell_augmented_unisons_07():
             <ff' c''>1
             <e' f' c''>1
         }
-        """)
+        """
+    )
 
 
 def test_respell_augmented_unisons_08():
@@ -155,4 +166,5 @@ def test_respell_augmented_unisons_08():
             <c' df'>4
             r2.
         }
-        """)
+        """
+    )

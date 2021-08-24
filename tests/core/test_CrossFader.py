@@ -28,7 +28,8 @@ def test_CrossFader_01():
                 d''1
             }
         }
-        """)
+        """
+    )
     selection_a, selection_b = fader()
     score = abjad.Score([
         abjad.Staff(selection_a),
@@ -51,7 +52,8 @@ def test_CrossFader_01():
                 R1
             }
         >>
-        """)
+        """
+    )
     selection_a, selection_b = fader()
     score = abjad.Score([
         abjad.Staff(selection_a),
@@ -78,7 +80,8 @@ def test_CrossFader_01():
                 }
             }
         >>
-        """)
+        """
+    )
     selection_a, selection_b = fader.current_window
     score = abjad.Score([
         abjad.Staff(selection_a),
@@ -105,7 +108,8 @@ def test_CrossFader_01():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_02():
@@ -182,7 +186,8 @@ def test_CrossFader_03():
                 R1
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_04():
@@ -249,7 +254,8 @@ def test_CrossFader_04():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_05():
@@ -292,7 +298,8 @@ def test_CrossFader_05():
                 r4.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_06():
@@ -355,7 +362,8 @@ def test_CrossFader_06():
                 d''4.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_07():
@@ -400,7 +408,8 @@ def test_CrossFader_07():
                 r4.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_08():
@@ -443,7 +452,8 @@ def test_CrossFader_08():
                 g''2
             }
         >>
-        """)
+        """
+    )
     random.seed(62190)
     fader = auxjad.CrossFader(fade_out_container,
                               fade_in_container,
@@ -485,7 +495,8 @@ def test_CrossFader_08():
                 g''2
             }
         >>
-        """)
+        """
+    )
     random.seed(62190)
     fader = auxjad.CrossFader(fade_out_container,
                               fade_in_container,
@@ -531,7 +542,8 @@ def test_CrossFader_08():
                 g''2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_09():
@@ -636,7 +648,8 @@ def test_CrossFader_09():
                 c'''8
             }
         >>
-        """)
+        """
+    )
     random.seed(50137)
     fader = auxjad.CrossFader(fade_out_container,
                               fade_in_container,
@@ -745,7 +758,8 @@ def test_CrossFader_09():
                 c'''8
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_10():
@@ -769,7 +783,8 @@ def test_CrossFader_10():
             g'8
             a'8
         }
-        """)
+        """
+    )
 
 
 def test_CrossFader_11():
@@ -830,7 +845,8 @@ def test_CrossFader_11():
                 d''2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_12():
@@ -878,7 +894,8 @@ def test_CrossFader_12():
                 d''2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_13():
@@ -943,7 +960,8 @@ def test_CrossFader_13():
                 R1 * 1/2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_14():
@@ -986,7 +1004,8 @@ def test_CrossFader_14():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_15():
@@ -1034,7 +1053,8 @@ def test_CrossFader_15():
                 d'2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_16():
@@ -1092,7 +1112,8 @@ def test_CrossFader_16():
                 a'2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_17():
@@ -1244,7 +1265,8 @@ def test_CrossFader_18():
                 d'2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_19():
@@ -1325,7 +1347,8 @@ def test_CrossFader_19():
                 <bf a'>4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_CrossFader_20():
@@ -1420,4 +1443,5 @@ def test_CrossFader_20():
                 }
             }
         >>
-        """)
+        """
+    )

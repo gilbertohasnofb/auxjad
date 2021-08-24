@@ -362,4 +362,5 @@ def test_example_of_usage_01():
                 r8
             }
         >>
-        """)
+        """
+    )

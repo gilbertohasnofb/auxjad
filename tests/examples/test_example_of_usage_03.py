@@ -194,4 +194,5 @@ def test_example_of_usage_03():
             af'8
             - \tenuto
         }
-        """)
+        """
+    )

@@ -16,7 +16,8 @@ def test_sustain_notes_01():
             e'4
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_02():
@@ -31,7 +32,8 @@ def test_sustain_notes_02():
             c'4
             c'4
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_03():
@@ -46,7 +48,8 @@ def test_sustain_notes_03():
             <c' e'>4
             <c' e'>4
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_04():
@@ -66,15 +69,17 @@ def test_sustain_notes_04():
             e'8
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_05():
-    staff = abjad.Staff(r"c'16 r8. d'16 r8. r8 r32 <e' g'>32 r16 r4 "
-                        r"\times 2/3 {r4 f'4 r4} r4 g'8 r8 a'4 ~ "
-                        r"a'16 r8. b'4 c''8 r8 "
-                        r"r4. d''8 \times 4/5 {r8 d''2}"
-                        )
+    staff = abjad.Staff(
+        r"c'16 r8. d'16 r8. r8 r32 <e' g'>32 r16 r4 "
+        r"\times 2/3 {r4 f'4 r4} r4 g'8 r8 a'4 ~ "
+        r"a'16 r8. b'4 c''8 r8 "
+        r"r4. d''8 \times 4/5 {r8 d''2}"
+    )
     auxjad.mutate.sustain_notes(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -111,7 +116,8 @@ def test_sustain_notes_05():
                 d''2
             }
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_06():
@@ -121,13 +127,16 @@ def test_sustain_notes_06():
 
 
 def test_sustain_notes_07():
-    staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
-                        r"R1"
-                        r"r4 e'4 r2"
-                        r"\time 5/8 r8 f'4 r4"
-                        r"R1 * 5/8 "
-                        r"r8 g'8 a'8 r4"
-                        )
+    staff = abjad.Staff(
+        r"""
+        r4 c'16 r8. d'16 r4..
+        R1
+        r4 e'4 r2
+        \time 5/8 r8 f'4 r4
+        R1 * 5/8
+        r8 g'8 a'8 r4
+        """
+    )
     auxjad.mutate.sustain_notes(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -153,17 +162,21 @@ def test_sustain_notes_07():
             g'4
             a'4
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_08():
-    staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
-                        r"R1"
-                        r"r4 e'4 r2"
-                        r"\time 5/8 r8 f'4 r4"
-                        r"R1 * 5/8 "
-                        r"r8 g'8 a'8 r4"
-                        )
+    staff = abjad.Staff(
+        r"""
+        r4 c'16 r8. d'16 r4..
+        R1
+        r4 e'4 r2
+        \time 5/8 r8 f'4 r4
+        R1 * 5/8
+        r8 g'8 a'8 r4
+        """
+    )
     auxjad.mutate.sustain_notes(staff, sustain_multimeasure_rests=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -184,17 +197,21 @@ def test_sustain_notes_08():
             g'8
             a'4.
         }
-        """)
+        """
+    )
 
 
 def test_sustain_notes_09():
-    staff = abjad.Staff(r"r4 c'16 r8. d'16 r4.. "
-                        r"R1"
-                        r"r4 e'4 r2"
-                        r"\time 5/8 r8 f'4 r4"
-                        r"R1 * 5/8 "
-                        r"r8 g'8 a'8 r4"
-                        )
+    staff = abjad.Staff(
+        r"""
+        r4 c'16 r8. d'16 r4..
+        R1
+        r4 e'4 r2
+        \time 5/8 r8 f'4 r4
+        R1 * 5/8
+        r8 g'8 a'8 r4
+        """
+    )
     auxjad.mutate.sustain_notes(staff, rewrite_meter=False)
     assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
@@ -230,4 +247,5 @@ def test_sustain_notes_09():
             a'8
             a'4
         }
-        """)
+        """
+    )

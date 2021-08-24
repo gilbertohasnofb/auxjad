@@ -17,7 +17,8 @@ def test_piano_pedal_01():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_02():
@@ -47,7 +48,8 @@ def test_piano_pedal_02():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_03():
@@ -67,7 +69,8 @@ def test_piano_pedal_03():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_04():
@@ -99,7 +102,8 @@ def test_piano_pedal_04():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_05():
@@ -121,7 +125,8 @@ def test_piano_pedal_05():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_06():
@@ -156,7 +161,8 @@ def test_piano_pedal_06():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_07():
@@ -188,7 +194,8 @@ def test_piano_pedal_07():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_08():
@@ -218,7 +225,8 @@ def test_piano_pedal_08():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_09():
@@ -250,7 +258,8 @@ def test_piano_pedal_09():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_10():
@@ -282,7 +291,8 @@ def test_piano_pedal_10():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_11():
@@ -316,7 +326,8 @@ def test_piano_pedal_11():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_12():
@@ -351,7 +362,8 @@ def test_piano_pedal_12():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_13():
@@ -388,7 +400,8 @@ def test_piano_pedal_13():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_14():
@@ -422,7 +435,8 @@ def test_piano_pedal_14():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )
 
 
 def test_piano_pedal_15():
@@ -439,4 +453,5 @@ def test_piano_pedal_15():
             f'4
             \sustainOff
         }
-        """)
+        """
+    )

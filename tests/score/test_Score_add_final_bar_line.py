@@ -20,7 +20,8 @@ def test_Score_add_final_bar_line_01():
                 \bar "|."
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_02():
@@ -49,7 +50,8 @@ def test_Score_add_final_bar_line_02():
                 \bar "|."
             }
         >>
-        """)
+        """
+    )
     assert abjad.lilypond(staff_1) == abjad.String.normalize(
         r"""
         \new Staff
@@ -60,7 +62,8 @@ def test_Score_add_final_bar_line_02():
             f''1
             \bar "|."
         }
-        """)
+        """
+    )
     assert abjad.lilypond(staff_2) == abjad.String.normalize(
         r"""
         \new Staff
@@ -71,7 +74,8 @@ def test_Score_add_final_bar_line_02():
             f'1
             \bar "|."
         }
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_03():
@@ -111,7 +115,8 @@ def test_Score_add_final_bar_line_03():
                 }
             >>
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_04():
@@ -152,7 +157,8 @@ def test_Score_add_final_bar_line_04():
                 }
             >>
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_05():
@@ -201,7 +207,8 @@ def test_Score_add_final_bar_line_05():
                 \bar "|."
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_06():
@@ -251,7 +258,8 @@ def test_Score_add_final_bar_line_06():
                 \bar "|."
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_07():
@@ -287,7 +295,8 @@ def test_Score_add_final_bar_line_07():
                 }
             >>
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_08():
@@ -316,7 +325,8 @@ def test_Score_add_final_bar_line_08():
                 \bar ":|."
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_09():
@@ -345,7 +355,8 @@ def test_Score_add_final_bar_line_09():
                 \bar "||"
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_10():
@@ -381,7 +392,8 @@ def test_Score_add_final_bar_line_10():
                 }
             >>
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_final_bar_line_11():

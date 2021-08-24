@@ -19,7 +19,8 @@ def test_extend_notes_01():
             f'4
             r2.
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_02():
@@ -42,7 +43,8 @@ def test_extend_notes_02():
             g'4.
             r8
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_03():
@@ -61,7 +63,8 @@ def test_extend_notes_03():
             f'4
             r2.
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'16 r2... d'16 r2... e'16 r2... f'16 r2...")
     auxjad.mutate.extend_notes(staff, 0.25)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -77,7 +80,8 @@ def test_extend_notes_03():
             f'4
             r2.
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'16 r2... d'16 r2... e'16 r2... f'16 r2...")
     auxjad.mutate.extend_notes(staff, 1 / 4)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -93,7 +97,8 @@ def test_extend_notes_03():
             f'4
             r2.
         }
-        """)
+        """
+    )
     staff = abjad.Staff(r"c'16 r2... d'16 r2... e'16 r2... f'16 r2...")
     auxjad.mutate.extend_notes(staff, "1/4")
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -109,7 +114,8 @@ def test_extend_notes_03():
             f'4
             r2.
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_04():
@@ -126,7 +132,8 @@ def test_extend_notes_04():
             f'2
             g'2
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_05():
@@ -151,7 +158,8 @@ def test_extend_notes_05():
             \mp
             r4
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_06():
@@ -184,7 +192,8 @@ def test_extend_notes_06():
             f'16
             r8.
         }
-        """)
+        """
+    )
     staff = abjad.Staff(
         r"r16. c'32 r4. r16. d'32 r4. r16. e'32 r4. r16. f'32 r4."
     )
@@ -226,7 +235,8 @@ def test_extend_notes_06():
             r32
             r8
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_07():
@@ -248,7 +258,8 @@ def test_extend_notes_07():
             e'2
             f'4
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_08():
@@ -284,7 +295,8 @@ def test_extend_notes_08():
             r16
             r16
         }
-        """)
+        """
+    )
 
 
 def test_extend_notes_09():
@@ -303,4 +315,5 @@ def test_extend_notes_09():
             f'4
             r2.
         }
-        """)
+        """
+    )

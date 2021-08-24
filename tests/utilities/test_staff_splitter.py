@@ -26,7 +26,8 @@ def test_staff_splitter_01():
                 r2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_02():
@@ -54,7 +55,8 @@ def test_staff_splitter_02():
                 <f a>4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_03():
@@ -97,7 +99,8 @@ def test_staff_splitter_03():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_04():
@@ -124,7 +127,8 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """)
+        """
+    )
     staves = auxjad.staff_splitter(staff, threshold='E4')
     score = abjad.Score(staves)
     assert abjad.lilypond(score) == abjad.String.normalize(
@@ -147,7 +151,8 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """)
+        """
+    )
     staves = auxjad.staff_splitter(staff, threshold=abjad.NamedPitch("e'"))
     score = abjad.Score(staves)
     assert abjad.lilypond(score) == abjad.String.normalize(
@@ -170,7 +175,8 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """)
+        """
+    )
     staves = auxjad.staff_splitter(staff, threshold=abjad.NumberedPitch(4))
     score = abjad.Score(staves)
     assert abjad.lilypond(score) == abjad.String.normalize(
@@ -193,7 +199,8 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """)
+        """
+    )
     staves = auxjad.staff_splitter(staff, threshold=4)
     score = abjad.Score(staves)
     assert abjad.lilypond(score) == abjad.String.normalize(
@@ -216,7 +223,8 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_05():
@@ -246,7 +254,8 @@ def test_staff_splitter_05():
                 d'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_06():
@@ -276,7 +285,8 @@ def test_staff_splitter_06():
                 f4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_07():
@@ -304,7 +314,8 @@ def test_staff_splitter_07():
                 d'4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_08():
@@ -349,7 +360,8 @@ def test_staff_splitter_08():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_09():
@@ -400,7 +412,8 @@ def test_staff_splitter_09():
                 }
             }
         >>
-        """)
+        """
+    )
     staff = abjad.Staff(
         r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
         r"\times 2/3 {a2\pp <g b>1\mp}"
@@ -453,7 +466,8 @@ def test_staff_splitter_09():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_10():
@@ -504,7 +518,8 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """)
+        """
+    )
     staff = abjad.Staff(
         r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
         r"\times 2/3 {a2\pp <g b>1\mp}"
@@ -550,7 +565,8 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """)
+        """
+    )
     staff = abjad.Staff(
         r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
         r"\times 2/3 {a2\pp <g b>1\mp}"
@@ -598,7 +614,8 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """)
+        """
+    )
     staff = abjad.Staff(
         r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
         r"\times 2/3 {a2\pp <g b>1\mp}"
@@ -647,7 +664,8 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_11():
@@ -677,7 +695,8 @@ def test_staff_splitter_11():
                 r4
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_12():
@@ -731,7 +750,8 @@ def test_staff_splitter_12():
                 <f a bf>4.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_staff_splitter_13():
@@ -757,4 +777,5 @@ def test_staff_splitter_13():
                 r2
             }
         >>
-        """)
+        """
+    )

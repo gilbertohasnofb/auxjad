@@ -27,7 +27,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_01():
                 g'2.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_02():
@@ -70,7 +71,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_02():
                 g'2.
             }
         >>
-        """)
+        """
+    )
     assert abjad.lilypond(staff_1) == abjad.String.normalize(
         r"""
         \new Staff
@@ -86,7 +88,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_02():
             f''2.
             g''2.
         }
-        """)
+        """
+    )
     assert abjad.lilypond(staff_2) == abjad.String.normalize(
         r"""
         \new Staff
@@ -102,7 +105,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_02():
             f'2.
             g'2.
         }
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_03():
@@ -151,7 +155,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_03():
                 }
             >>
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_04():
@@ -202,7 +207,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_04():
                 }
             >>
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_05():
@@ -267,7 +273,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_05():
                 g'2.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_06():
@@ -334,7 +341,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_06():
                 g'2.
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_07():
@@ -362,7 +370,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_07():
                 R1
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_08():
@@ -403,7 +412,8 @@ def test_Score_add_double_bar_lines_before_time_signatures_08():
                 a'2
             }
         >>
-        """)
+        """
+    )
 
 
 def test_Score_add_double_bar_lines_before_time_signatures_09():

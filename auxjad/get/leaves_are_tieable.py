@@ -155,7 +155,7 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
                             "'abjad.LogicalTie's")
     if not isinstance(only_identical_pitches, bool):
         raise TypeError("'only_identical_pitches' must be 'bool'")
-    if len(leaves) == 1:
+    if len(leaves) < 2:
         raise ValueError("argument must contain two or more leaves")
 
     for index, leaf1 in enumerate(leaves[:-1]):

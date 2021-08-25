@@ -1451,7 +1451,7 @@ class Shuffler:
         return self.__repr__()
 
     @staticmethod
-    def _get_logical_selections(container) -> None:
+    def _get_logical_selections(container) -> abjad.Selection:
         r'Updates the selection of logical ties of a container.'
         def group_logical_ties(logical_tie):
             if isinstance(logical_tie.head, abjad.Rest):

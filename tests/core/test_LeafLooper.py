@@ -912,3 +912,13 @@ def test_LeafLooper_26():
         }
         """
     )
+
+
+def test_LeafLooper_27():
+    v1 = abjad.Voice(r"g'2 f'2 g'2 c''2")
+    v2 = abjad.Voice(r"a4 b2 a4 d'4 e'2 d'4")
+    abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), v1[0])
+    abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), v2[0])
+    staff = abjad.Staff([v1, v2], simultaneous=True)
+    with pytest.raises(ValueError):
+        looper = auxjad.LeafLooper(staff, window_size=3)  # noqa: F841

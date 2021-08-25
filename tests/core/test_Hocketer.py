@@ -825,16 +825,18 @@ def test_Hocketer_16():
     hocketer = auxjad.Hocketer(score)
     for voice in hocketer():
         assert isinstance(voice, abjad.Selection)
+
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.Hocketer(staff)
+        hocketer = auxjad.Hocketer(staff)  # noqa: F841
+
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.Hocketer(score)
+        hocketer = auxjad.Hocketer(score)  # noqa: F841
 
 
 def test_Hocketer_17():
@@ -1229,3 +1231,13 @@ def test_Hocketer_23():
                                      ]
     hocketer.n_voices = 4
     assert hocketer.pitch_ranges is None
+
+
+def test_Hocketer_24():
+    v1 = abjad.Voice(r"g'2 f'2 g'2 c''2")
+    v2 = abjad.Voice(r"a4 b2 a4 d'4 e'2 d'4")
+    abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), v1[0])
+    abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), v2[0])
+    staff = abjad.Staff([v1, v2], simultaneous=True)
+    with pytest.raises(ValueError):
+        hocketer = auxjad.Hocketer(staff)  # noqa: F841

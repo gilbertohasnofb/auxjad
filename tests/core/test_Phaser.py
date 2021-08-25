@@ -1252,13 +1252,13 @@ def test_Phaser_24():
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.Phaser(staff, step_size=(1, 16))
+        phaser = auxjad.Phaser(staff, step_size=(1, 16))  # noqa: F841
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.Phaser(score, step_size=(1, 16))
+        phaser = auxjad.Phaser(score, step_size=(1, 16))  # noqa: F841
 
 
 def test_Phaser_25():
@@ -1488,3 +1488,13 @@ def test_Phaser_27():
         }
         """
     )
+
+
+def test_Phaser_28():
+    v1 = abjad.Voice(r"g'2 f'2 g'2 c''2")
+    v2 = abjad.Voice(r"a4 b2 a4 d'4 e'2 d'4")
+    abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), v1[0])
+    abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), v2[0])
+    staff = abjad.Staff([v1, v2], simultaneous=True)
+    with pytest.raises(ValueError):
+        phaser = auxjad.Phaser(staff, step_size=(1, 8))  # noqa: F841

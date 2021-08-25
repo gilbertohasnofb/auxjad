@@ -1193,19 +1193,19 @@ def test_WindowLooper_27():
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.WindowLooper(staff,
-                            window_size=(4, 4),
-                            step_size=(1, 16),
-                            )
+        looper = auxjad.WindowLooper(staff,  # noqa: F841
+                                     window_size=(4, 4),
+                                     step_size=(1, 16),
+                                     )
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.WindowLooper(score,
-                            window_size=(4, 4),
-                            step_size=(1, 16),
-                            )
+        looper = auxjad.WindowLooper(score,  # noqa: F841
+                                     window_size=(4, 4),
+                                     step_size=(1, 16),
+                                     )
 
 
 def test_WindowLooper_28():

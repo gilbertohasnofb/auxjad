@@ -1230,13 +1230,3 @@ def test_Hocketer_23():
                                      ]
     hocketer.n_voices = 4
     assert hocketer.pitch_ranges is None
-
-
-def test_Hocketer_24():
-    v1 = abjad.Voice(r"g'2 f'2 g'2 c''2")
-    v2 = abjad.Voice(r"a4 b2 a4 d'4 e'2 d'4")
-    abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), v1[0])
-    abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), v2[0])
-    staff = abjad.Staff([v1, v2], simultaneous=True)
-    with pytest.raises(ValueError):
-        hocketer = auxjad.Hocketer(staff)  # noqa: F841

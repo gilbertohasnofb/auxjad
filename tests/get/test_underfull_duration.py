@@ -35,9 +35,9 @@ def test_underfull_duration_03():
 
 def test_underfull_duration_04():
     container1 = abjad.Container(r"R1")
-    container2 = abjad.Container(r"\time 3/4 R1*3/4 \time 2/4 r2")
-    container3 = abjad.Container(r"\time 5/4 R1*5/4 \time 4/4 g''4")
-    container4 = abjad.Container(r"\time 6/8 R1*1/2")
+    container2 = abjad.Container(r"\time 3/4 R1 * 3/4 \time 2/4 r2")
+    container3 = abjad.Container(r"\time 5/4 R1 * 5/4 \time 4/4 g''4")
+    container4 = abjad.Container(r"\time 6/8 R1 * 1/2")
     assert auxjad.get.underfull_duration(container1[:]) == 0
     assert auxjad.get.underfull_duration(container2[:]) == 0
     assert auxjad.get.underfull_duration(container3[:]) == 3 / 4
@@ -47,7 +47,7 @@ def test_underfull_duration_04():
 def test_underfull_duration_05():
     container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
     with pytest.raises(ValueError):
-        assert auxjad.get.underfull_duration(container[:])
+        auxjad.get.underfull_duration(container[:])
 
 
 def test_underfull_duration_06():

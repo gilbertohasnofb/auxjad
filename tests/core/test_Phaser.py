@@ -210,7 +210,7 @@ def test_Phaser_03():
         """
     )
     with pytest.raises(StopIteration):
-        assert phaser.__next__()
+        notes = phaser.__next__()  # noqa: F841
 
 
 def test_Phaser_04():
@@ -436,41 +436,41 @@ def test_Phaser_08():
     wrong_type_input = 'foobar'
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     with pytest.raises(TypeError):
-        assert auxjad.Phaser(wrong_type_input,
-                             step_size=(1, 16),
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=62.3j,
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             max_steps='foo',
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             forward_bias='bar',
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             process_on_first_call='xyz',
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             remove_ties_connecting_windows=17j,
-                             )
+        phaser = auxjad.Phaser(wrong_type_input,  # noqa: F841
+                               step_size=(1, 16),
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=62.3j,
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               max_steps='foo',
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               forward_bias='bar',
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               process_on_first_call='xyz',
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               remove_ties_connecting_windows=17j,
+                               )
     with pytest.raises(ValueError):
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             max_steps=-1,
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             forward_bias=-0.3,
-                             )
-        assert auxjad.Phaser(container,
-                             step_size=(1, 16),
-                             forward_bias=1.4,
-                             )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               max_steps=-1,
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               forward_bias=-0.3,
+                               )
+        phaser = auxjad.Phaser(container,  # noqa: F841
+                               step_size=(1, 16),
+                               forward_bias=1.4,
+                               )
 
 
 def test_Phaser_09():
@@ -1252,13 +1252,13 @@ def test_Phaser_24():
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.Phaser(staff, step_size=(1, 16))
+        phaser = auxjad.Phaser(staff, step_size=(1, 16))  # noqa: F841
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.Phaser(score, step_size=(1, 16))
+        phaser = auxjad.Phaser(score, step_size=(1, 16))  # noqa: F841
 
 
 def test_Phaser_25():

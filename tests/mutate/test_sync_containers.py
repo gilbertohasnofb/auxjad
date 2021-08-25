@@ -430,7 +430,7 @@ def test_sync_containers_11():
     container1 = abjad.Container(r"\time 4/4 g'1 | f'4")
     container2 = abjad.Container(r"\time 5/4 c'1 | \time 4/4 d'4")
     with pytest.raises(ValueError):
-        assert auxjad.mutate.sync_containers([container1, container2])
+        auxjad.mutate.sync_containers([container1, container2])
 
 
 def test_sync_containers_12():

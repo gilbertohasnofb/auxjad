@@ -104,7 +104,7 @@ def test_ArtificialHarmonic_06():
 
 def test_ArtificialHarmonic_07():
     with pytest.raises(ValueError):
-        auxjad.ArtificialHarmonic(r"<g c' d'>4")
+        harm = auxjad.ArtificialHarmonic(r"<g c' d'>4")  # noqa: F841
 
 
 def test_ArtificialHarmonic_08():
@@ -125,8 +125,9 @@ def test_ArtificialHarmonic_08():
 
 
 def test_ArtificialHarmonic_09():
+    harm = auxjad.ArtificialHarmonic(r"<g ef'>4")
     with pytest.raises(ValueError):
-        auxjad.ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
+        harm.sounding_pitch()
 
 
 def test_ArtificialHarmonic_10():
@@ -159,8 +160,9 @@ def test_ArtificialHarmonic_11():
 
 
 def test_ArtificialHarmonic_12():
+    harm = auxjad.ArtificialHarmonic(r"<g ef'>4")
     with pytest.raises(ValueError):
-        auxjad.ArtificialHarmonic(r"<g ef'>4").sounding_note()
+        harm.sounding_note()
 
 
 def test_ArtificialHarmonic_13():

@@ -518,7 +518,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
                 \time 4/4
                 c'1
                 \time 3/4
-                R1*3/4
+                R1 * 3/4
             }
 
         ..  figure:: ../_images/sync_containers-8b6vn3azaom.png
@@ -702,7 +702,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
                 c'2
                 r4
                 \time 2/4
-                R1*1/2
+                R1 * 1/2
             }
 
         ..  figure:: ../_images/sync_containers-msu922pcn6e.png

@@ -477,7 +477,10 @@ def test_PitchRandomiser_17():
     assert auxjad.PitchRandomiser(container, pitches, weights=weights)
     weights = [1, 1, 5, 2, 3, 4, 8]
     with pytest.raises(ValueError):
-        assert auxjad.PitchRandomiser(container, pitches, weights=weights)
+        randomiser = auxjad.PitchRandomiser(container,  # noqa: F841
+                                            pitches,
+                                            weights=weights,
+                                            )
 
 
 def test_PitchRandomiser_18():
@@ -544,3 +547,42 @@ def test_PitchRandomiser_19():
                                         pitches,
                                         )
     assert len(randomiser) == 7
+
+
+def test_PitchRandomiser_20():
+    pitches = r"fs' gs' a' b' cs''"
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    randomiser = auxjad.PitchRandomiser(container, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    randomiser = auxjad.PitchRandomiser(tuplet, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    randomiser = auxjad.PitchRandomiser(voice, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    randomiser = auxjad.PitchRandomiser(staff, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    randomiser = auxjad.PitchRandomiser(score, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    randomiser = auxjad.PitchRandomiser(staff, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    randomiser = auxjad.PitchRandomiser(score, pitches)
+    assert isinstance(randomiser(), abjad.Selection)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        randomiser = auxjad.PitchRandomiser(staff, pitches)  # noqa: F841
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        randomiser = auxjad.PitchRandomiser(score, pitches)  # noqa: F841

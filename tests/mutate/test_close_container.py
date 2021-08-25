@@ -185,4 +185,4 @@ def test_close_container_04():
 def test_close_container_05():
     container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
     with pytest.raises(ValueError):
-        assert auxjad.mutate.close_container(container)
+        auxjad.mutate.close_container(container)

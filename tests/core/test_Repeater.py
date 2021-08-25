@@ -204,7 +204,7 @@ def test_Repeater_07():
 def test_Repeater_08():
     container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
     with pytest.raises(ValueError):
-        assert auxjad.Repeater(container)
+        repeater = auxjad.Repeater(container)  # noqa: F841
 
 
 def test_Repeater_09():
@@ -431,3 +431,41 @@ def test_Repeater_14():
         }
         """
     )
+
+
+def test_Repeater_15():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    repeater = auxjad.Repeater(container)
+    assert isinstance(repeater(), abjad.Selection)
+    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    repeater = auxjad.Repeater(tuplet)
+    assert isinstance(repeater(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    repeater = auxjad.Repeater(voice)
+    assert isinstance(repeater(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    repeater = auxjad.Repeater(staff)
+    assert isinstance(repeater(), abjad.Selection)
+    score = abjad.Score([abjad.Staff(r"c'4 d'4 e'4 f'4")])
+    repeater = auxjad.Repeater(score)
+    assert isinstance(repeater(), abjad.Selection)
+    voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    staff = abjad.Staff([voice])
+    repeater = auxjad.Repeater(staff)
+    assert isinstance(repeater(), abjad.Selection)
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    score = abjad.Score([staff])
+    repeater = auxjad.Repeater(score)
+    assert isinstance(repeater(), abjad.Selection)
+
+    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
+    voice2 = abjad.Voice(r"g2 f2")
+    staff = abjad.Staff([voice1, voice2], simultaneous=True)
+    with pytest.raises(ValueError):
+        repeater = auxjad.Repeater(staff)  # noqa: F841
+
+    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    staff2 = abjad.Staff(r"g2 f2")
+    score = abjad.Score([staff1, staff2])
+    with pytest.raises(ValueError):
+        repeater = auxjad.Repeater(score)  # noqa: F841

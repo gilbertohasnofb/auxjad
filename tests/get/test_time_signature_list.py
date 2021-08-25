@@ -62,11 +62,10 @@ def test_time_signature_list_05():
         r"\time 3/4 c'2. d'2. \time 3/4 e'2. f'2."
     )
     with pytest.raises(ValueError):
-        auxjad.get.time_signature_list(
-            container,
-            do_not_use_none=True,
-            omit_repeated=True,
-        )
+        auxjad.get.time_signature_list(container,
+                                       do_not_use_none=True,
+                                       omit_repeated=True,
+                                       )
 
 
 def test_time_signature_list_06():
@@ -102,8 +101,7 @@ def test_time_signature_list_07():
                                ]
     container = abjad.Container(r"c'1 d'1 e'1 f'1")
     with pytest.raises(ValueError):
-        time_signatures = auxjad.get.time_signature_list(
-            container,
-            do_not_use_none=True,
-            implicit_common_time=False,
-        )
+        auxjad.get.time_signature_list(container,
+                                       do_not_use_none=True,
+                                       implicit_common_time=False,
+                                       )

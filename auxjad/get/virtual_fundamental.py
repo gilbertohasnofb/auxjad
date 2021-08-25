@@ -85,14 +85,14 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
         >>> pitches = abjad.PitchSegment(r"c'' cs'' d'' ef'' e'' fs''")
         >>> auxjad.get.virtual_fundamental(
         ...     pitches,
-        ...     min_fundamental=abjad.NamedPitch(r"c,,,")
+        ...     min_fundamental=abjad.NamedPitch(r"c,,,"),
         ... )
         d,,
 
         >>> pitches = abjad.PitchSegment(r"c'' cs'' d'' ef'' e'' fs''")
         >>> auxjad.get.virtual_fundamental(
         ...     pitches,
-        ...     min_fundamental=abjad.NumberedPitch(-48)
+        ...     min_fundamental=abjad.NumberedPitch(-48),
         ... )
         d,,
 
@@ -104,7 +104,7 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
         >>> pitches = abjad.PitchSegment(r"c'' cs'' d'' ef'' e'' fs''")
         >>> auxjad.get.virtual_fundamental(
         ...     pitches,
-        ...     min_fundamental=abjad.NamedPitch(r"c'")
+        ...     min_fundamental=abjad.NamedPitch(r"c'"),
         ... )
         ValueError: No fundamental found above c'
     """

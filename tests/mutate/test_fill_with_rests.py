@@ -183,7 +183,7 @@ def test_fill_with_rests_04():
 def test_fill_with_rests_05():
     container = abjad.Container(r"\time 5/4 g''1 \time 4/4 f'1")
     with pytest.raises(ValueError):
-        assert auxjad.mutate.fill_with_rests(container)
+        auxjad.mutate.fill_with_rests(container)
 
 
 def test_fill_with_rests_06():

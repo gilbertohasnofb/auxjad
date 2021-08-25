@@ -289,7 +289,7 @@ def test_LeafLooper_09():
         """
     )
     with pytest.raises(StopIteration):
-        assert looper.__next__()
+        notes = looper.__next__()  # noqa: F841
 
 
 def test_LeafLooper_10():
@@ -316,58 +316,62 @@ def test_LeafLooper_11():
     wrong_type_input = 'foo'
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     with pytest.raises(TypeError):
-        assert auxjad.LeafLooper(wrong_type_input, window_size=3)
-        assert auxjad.LeafLooper(container, window_size='foobar')
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 step_size='foobar',
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 max_steps='foobar',
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 repetition_chance='foobar',
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 head_position='foobar',
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 omit_time_signatures='foobar',
-                                 )
+        looper = auxjad.LeafLooper(wrong_type_input,  # noqa: F841
+                                   window_size=3,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size='foobar',
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   step_size='foobar',
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   max_steps='foobar',
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   repetition_chance='foobar',
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   head_position='foobar',
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   omit_time_signatures='foobar',
+                                   )
     with pytest.raises(ValueError):
-        assert auxjad.LeafLooper(container, window_size=100)
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 step_size=-1,
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 step_size=100,
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 max_steps=-1,
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 repetition_chance=-0.3,
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 repetition_chance=1.4,
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 head_position=-1,
-                                 )
-        assert auxjad.LeafLooper(container,
-                                 window_size=3,
-                                 head_position=100,
-                                 )
+        looper = auxjad.LeafLooper(container, window_size=100)  # noqa: F841
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   step_size=-1,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   step_size=100,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   max_steps=-1,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   repetition_chance=-0.3,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   repetition_chance=1.4,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   head_position=-1,
+                                   )
+        looper = auxjad.LeafLooper(container,  # noqa: F841
+                                   window_size=3,
+                                   head_position=100,
+                                   )
 
 
 def test_LeafLooper_12():
@@ -466,7 +470,7 @@ def test_LeafLooper_15():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LeafLooper(container, window_size=2)
     with pytest.raises(RuntimeError):
-        looper.output_n(100)
+        notes = looper.output_n(100)  # noqa: F841
 
 
 def test_LeafLooper_16():
@@ -736,13 +740,13 @@ def test_LeafLooper_23():
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.LeafLooper(staff, window_size=2)
+        looper = auxjad.LeafLooper(staff, window_size=2)  # noqa: F841
 
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.LeafLooper(score, window_size=2)
+        looper = auxjad.LeafLooper(score, window_size=2)  # noqa: F841
 
 
 def test_LeafLooper_24():

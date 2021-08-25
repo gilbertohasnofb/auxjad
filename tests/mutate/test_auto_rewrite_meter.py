@@ -226,7 +226,7 @@ def test_auto_rewrite_meter_06():
 def test_auto_rewrite_meter_07():
     staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
     with pytest.raises(TypeError):
-        assert auxjad.mutate.auto_rewrite_meter(staff[:])
+        auxjad.mutate.auto_rewrite_meter(staff[:])
 
 
 def test_auto_rewrite_meter_08():

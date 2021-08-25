@@ -498,7 +498,7 @@ def test_Hocketer_10():
 def test_Hocketer_11():
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     with pytest.raises(ValueError):
-        hocketer = auxjad.Hocketer(container,
+        hocketer = auxjad.Hocketer(container,  # noqa: F841
                                    n_voices=2,
                                    k=4,
                                    force_k_voices=True,
@@ -511,7 +511,6 @@ def test_Hocketer_11():
                                )
     with pytest.raises(ValueError):
         hocketer.k = 5
-    with pytest.raises(ValueError):
         hocketer.n_voices = 2
 
     hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
@@ -825,16 +824,18 @@ def test_Hocketer_16():
     hocketer = auxjad.Hocketer(score)
     for voice in hocketer():
         assert isinstance(voice, abjad.Selection)
+
     voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
     voice2 = abjad.Voice(r"g2 f2")
     staff = abjad.Staff([voice1, voice2], simultaneous=True)
     with pytest.raises(ValueError):
-        auxjad.Hocketer(staff)
+        hocketer = auxjad.Hocketer(staff)  # noqa: F841
+
     staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     staff2 = abjad.Staff(r"g2 f2")
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
-        auxjad.Hocketer(score)
+        hocketer = auxjad.Hocketer(score)  # noqa: F841
 
 
 def test_Hocketer_17():

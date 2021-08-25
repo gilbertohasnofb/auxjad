@@ -50,7 +50,7 @@ def test_virtual_fundamental_08():
     pitches = abjad.PitchSegment(r"c'' cs'' d'' ef'' e'' fs''")
     fundamental = auxjad.get.virtual_fundamental(
         pitches,
-        min_fundamental=abjad.NamedPitch(r"c,,,")
+        min_fundamental=abjad.NamedPitch(r"c,,,"),
     )
     assert fundamental == abjad.NamedPitch(r"d,,")
 
@@ -59,7 +59,7 @@ def test_virtual_fundamental_09():
     pitches = abjad.PitchSegment(r"c'' cs'' d'' ef'' e'' fs''")
     fundamental = auxjad.get.virtual_fundamental(
         pitches,
-        min_fundamental=abjad.NumberedPitch(-48)
+        min_fundamental=abjad.NumberedPitch(-48),
     )
     assert fundamental == abjad.NamedPitch(r"d,,")
 
@@ -69,7 +69,7 @@ def test_virtual_fundamental_10():
     with pytest.raises(ValueError):
         auxjad.get.virtual_fundamental(
             pitches,
-            min_fundamental=abjad.NamedPitch(r"c'")
+            min_fundamental=abjad.NamedPitch(r"c'"),
         )
 
 

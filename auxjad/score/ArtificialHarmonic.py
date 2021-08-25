@@ -218,9 +218,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         :exc:`ValueError` exception when it cannot calculate the sounding pitch
         for the given interval.
 
-        >>> ArtificialHarmonic(r"<g ef'>4").sounding_pitch()
+        >>> harm = auxjad.ArtificialHarmonic(r"<g ef'>4")
+        >>> harm.sounding_pitch()
         ValueError: cannot calculate sounding pitch for given interval
-        >>> ArtificialHarmonic(r"<g ef'>4").sounding_note()
+        >>> harm.sounding_note()
         ValueError: cannot calculate sounding pitch for given interval
 
     :attr:`markup`:

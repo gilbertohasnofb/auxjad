@@ -36,7 +36,7 @@ class Fader():
                 f'4
             }
 
-        ..  figure:: ../_images/WindowLooper-trzwtEJ4uG.png
+        ..  figure:: ../_images/Fader-cQstYYC7CZ.png
 
         >>> fader = auxjad.Fader(container)
         >>> notes = fader()

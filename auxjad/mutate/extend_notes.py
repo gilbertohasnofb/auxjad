@@ -88,7 +88,7 @@ def extend_notes(container: abjad.Container,
 
     Longer notes:
         This function will not alter the length of logical ties that are
-        lasting for maximum duration.
+        already equal to or larger than the maximum extension duration.
 
         >>> staff = abjad.Staff(r"c'16 r2... d'2 r2 e'2. r4 f'1")
         >>> abjad.show(staff)
@@ -106,7 +106,7 @@ def extend_notes(container: abjad.Container,
                 f'1
             }
 
-        ..  figure:: ../_images/extend_notes-gJGtjtm3fu.png
+        ..  figure:: ../_images/extend_notes-56rOAsxHPP.png
 
         >>> auxjad.mutate.extend_notes(staff, abjad.Duration((1, 4)))
         >>> abjad.show(staff)
@@ -124,7 +124,7 @@ def extend_notes(container: abjad.Container,
                 f'1
             }
 
-        ..  figure:: ../_images/extend_notes-6pjHLREOap.png
+        ..  figure:: ../_images/extend_notes-egF496w5Bs.png
 
     Chords:
         This function works with chords:

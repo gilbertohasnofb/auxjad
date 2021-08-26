@@ -76,7 +76,7 @@ for namespace in namespaces:
                 for match in matches:
                     contents = match[0]
                     filename = match[1] + '.ly'
-                    with open(output_directory + filename, 'w+') as f:
+                    with open(output_directory + filename, 'x') as f:
                         f.write(ly_header)
                         contents = textwrap.dedent(contents)
                         if r'\new' in contents:

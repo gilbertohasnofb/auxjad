@@ -111,7 +111,7 @@ def merge_hairpins(selection: abjad.Selection) -> None:
                 \pp
             }
 
-        ..  figure:: ../_images/merge_hairpins-GUIqXKDXaQ.png
+        ..  figure:: ../_images/merge_hairpins-Lvzn2f6PU6.png
 
         >>> abjad.mutate.merge_hairpins(staff[:])
         >>> abjad.show(staff)
@@ -132,7 +132,7 @@ def merge_hairpins(selection: abjad.Selection) -> None:
                 \pp
             }
 
-        ..  figure:: ../_images/merge_hairpins-adbT777qMg.png
+        ..  figure:: ../_images/merge_hairpins-EJdWJwkUJE.png
 
     ..  note::
 

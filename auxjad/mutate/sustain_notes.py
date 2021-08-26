@@ -452,7 +452,7 @@ def sustain_notes(container: abjad.Container,
                 r4
             }
 
-        ..  figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
+        ..  figure:: ../_images/sustain_notes-Egibb7mRfJ.png
 
         To disable this behaviour, set ``rewrite_meter`` to ``False``:
 
@@ -494,7 +494,7 @@ def sustain_notes(container: abjad.Container,
                 a'4
             }
 
-        ..  figure:: ../_images/sustain_notes-9WeilArLex.png
+        ..  figure:: ../_images/sustain_notes-iTuoVMoWgm.png
 
     ..  warning::
 

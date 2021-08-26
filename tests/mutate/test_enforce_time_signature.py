@@ -1,5 +1,4 @@
 import abjad
-import pytest
 
 import auxjad
 
@@ -322,12 +321,25 @@ def test_enforce_time_signature_10():
 
 
 def test_enforce_time_signature_11():
-    staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
+    staff = abjad.Staff(r"c'1 d'1 e'2. f'2.")
     time_signatures = [None,
-                       (4, 4),
+                       None,
+                       (3, 4),
+                       None,
                        ]
-    with pytest.raises(ValueError):
-        auxjad.mutate.enforce_time_signature(staff, time_signatures)
+    auxjad.mutate.enforce_time_signature(staff, time_signatures)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'1
+            d'1
+            \time 3/4
+            e'2.
+            f'2.
+        }
+        """
+    )
 
 
 def test_enforce_time_signature_12():

@@ -348,6 +348,34 @@ def enforce_time_signature(container: abjad.Container,
 
         ..  figure:: ../_images/enforce_time_signature-3s9h7p1k05x.png
 
+    Implicit time signature:
+        If the first time signature in a list is ``None``, this function
+        assumes the music is written in 4/4 time signature, although it does
+        not force it in the output. This is similar to LilyPond's behaviour,
+        which fallbacks to a 4/4 time signature when none is present.
+
+        >>> staff = abjad.Staff(r"c'1 d'1 e'2. f'2.")
+        >>> time_signatures = [None,
+        ...                    None,
+        ...                    (3, 4),
+        ...                    None,
+        ...                    ]
+        >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'1
+                d'1
+                \time 3/4
+                e'2.
+                f'2.
+            }
+
+        ..  figure:: ../_images/enforce_time_signature-cJe2YevEo7.png
+
     ``cyclic``:
         To cycle through the :obj:`list` of time signatures until the container
         is exhausted, set the optional keyword argument ``cyclic`` to ``True``.
@@ -713,8 +741,10 @@ def enforce_time_signature(container: abjad.Container,
         time_signatures_ = time_signatures[:]
     else:
         time_signatures_ = [time_signatures]
+    implicit_first_time_signature = False
     if time_signatures_[0] is None:
-        raise ValueError("first element of the input list must not be 'None'")
+        time_signatures_[0] = abjad.TimeSignature((4, 4))
+        implicit_first_time_signature = True
     # converting all elements to abjad.TimeSignature
     for index, time_signature in enumerate(time_signatures_):
         if time_signature is None:
@@ -790,6 +820,9 @@ def enforce_time_signature(container: abjad.Container,
             container,
             disable_rewrite_meter=disable_rewrite_meter,
         )
+    # removing first time signature if implicit
+    if implicit_first_time_signature:
+        abjad.detach(abjad.TimeSignature, abjad.select(container).leaf(0))
     # rewrite meter
     if not disable_rewrite_meter:
         measures = abjad.select(container[:]).group_by_measure()

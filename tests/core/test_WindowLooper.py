@@ -998,10 +998,12 @@ def test_WindowLooper_23():
 
 
 def test_WindowLooper_24():
-    random.seed(19814)
-    container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
+    random.seed(81723)
+    container = abjad.Container(
+        r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4 e''4 f''4"
+    )
     looper = auxjad.WindowLooper(container,
-                                 window_size=(1, 4),
+                                 window_size=(3, 4),
                                  step_size=(1, 4),
                                  max_steps=4,
                                  )
@@ -1011,11 +1013,19 @@ def test_WindowLooper_24():
         r"""
         \new Staff
         {
-            \time 1/4
+            \time 3/4
             c'4
+            d'4
+            e'4
+            e'4
             f'4
-            b'4
+            g'4
+            f'4
+            g'4
+            a'4
             c''4
+            d''4
+            e''4
         }
         """
     )

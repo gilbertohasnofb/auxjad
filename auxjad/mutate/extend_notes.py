@@ -467,7 +467,7 @@ def extend_notes(container: abjad.Container,
     ``use_multimeasure_rests``:
         By default, this function uses multi-measure rests
 
-        staff = abjad.Staff(r"\time 3/4 r8 c'8 r4 c'4 r2. r8 c'8 r2 r2.")
+        >>> staff = abjad.Staff(r"\time 3/4 r8 c'8 r4 c'4 r2. r8 c'8 r2 r2.")
         >>> auxjad.mutate.extend_notes(staff, abjad.Duration((2, 4)))
         >>> abjad.show(staff)
 
@@ -487,7 +487,7 @@ def extend_notes(container: abjad.Container,
                 ~
                 c'4.
                 r8
-                r1 * 3/4
+                R1 * 3/4
             }
 
         ..  figure:: ../_images/extend_notes-WaLYhL24UG.png
@@ -496,7 +496,7 @@ def extend_notes(container: abjad.Container,
         Set the keyword argument ``use_multimeasure_rests`` to ``False`` to
         disable this behaviour.
 
-        staff = abjad.Staff(r"\time 3/4 r8 c'8 r4 c'4 r2. r8 c'8 r2 r2.")
+        >>> staff = abjad.Staff(r"\time 3/4 r8 c'8 r4 c'4 r2. r8 c'8 r2 r2.")
         >>> auxjad.mutate.extend_notes(staff,
         ...                            abjad.Duration((2, 4)),
         ...                            use_multimeasure_rests=False,

@@ -12,6 +12,7 @@ import abjad
 
 from .auto_rewrite_meter import auto_rewrite_meter
 from .close_container import close_container
+from .contract_notes import contract_notes
 from .enforce_time_signature import enforce_time_signature
 from .extend_notes import extend_notes
 from .extract_trivial_tuplets import extract_trivial_tuplets
@@ -33,6 +34,7 @@ from .sync_containers import sync_containers
 
 abjad.mutate.auto_rewrite_meter = auto_rewrite_meter
 abjad.mutate.close_container = close_container
+abjad.mutate.contract_notes = contract_notes
 abjad.mutate.enforce_time_signature = enforce_time_signature
 abjad.mutate.extend_notes = extend_notes
 abjad.mutate.extract_trivial_tuplets = extract_trivial_tuplets

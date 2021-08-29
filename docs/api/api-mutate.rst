@@ -26,6 +26,7 @@ names for their individual documentation.
 
     auto_rewrite_meter
     close_container
+    contract_notes
     enforce_time_signature
     extend_notes
     extract_trivial_tuplets

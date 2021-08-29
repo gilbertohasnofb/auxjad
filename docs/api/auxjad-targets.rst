@@ -24,6 +24,7 @@
 
 .. |abjad.mutate.auto_rewrite_meter()| replace:: :func:`abjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |abjad.mutate.close_container()| replace:: :func:`abjad.mutate.close_container() <auxjad.mutate.close_container>`
+.. |abjad.mutate.contract_notes()| replace:: :func:`abjad.mutate.contract_notes() <auxjad.mutate.contract_notes>`
 .. |abjad.mutate.enforce_time_signature()| replace:: :func:`abjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
 .. |abjad.mutate.extend_notes()| replace:: :func:`abjad.mutate.extend_notes() <auxjad.mutate.extend_notes>`
 .. |abjad.mutate.extract_trivial_tuplets()| replace:: :func:`abjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`
@@ -57,6 +58,7 @@
 
 .. |auxjad.mutate.auto_rewrite_meter()| replace:: :func:`auxjad.mutate.auto_rewrite_meter() <auxjad.mutate.auto_rewrite_meter>`
 .. |auxjad.mutate.close_container()| replace:: :func:`auxjad.mutate.close_container() <auxjad.mutate.close_container>`
+.. |auxjad.mutate.contract_notes()| replace:: :func:`auxjad.mutate.contract_notes() <auxjad.mutate.contract_notes>`
 .. |auxjad.mutate.enforce_time_signature()| replace:: :func:`auxjad.mutate.enforce_time_signature() <auxjad.mutate.enforce_time_signature>`
 .. |auxjad.mutate.extend_notes()| replace:: :func:`auxjad.mutate.extend_notes() <auxjad.mutate.extend_notes>`
 .. |auxjad.mutate.extract_trivial_tuplets()| replace:: :func:`auxjad.mutate.extract_trivial_tuplets() <auxjad.mutate.extract_trivial_tuplets>`

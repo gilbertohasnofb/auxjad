@@ -281,22 +281,30 @@ def test_Repeater_09():
 def test_Repeater_10():
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
     repeater = auxjad.Repeater(container,
+                               repeat_type='volta',
+                               include_2x_volta_text=False,
                                omit_time_signatures=False,
                                force_identical_time_signatures=False,
                                reposition_clefs=True,
                                reposition_dynamics=True,
                                reposition_slurs=True,
                                )
+    assert repeater.repeat_type == 'volta'
+    assert not repeater.include_2x_volta_text
     assert not repeater.omit_time_signatures
     assert not repeater.force_identical_time_signatures
     assert repeater.reposition_clefs
     assert repeater.reposition_dynamics
     assert repeater.reposition_slurs
+    repeater.repeat_type = 'unfold'
+    repeater.include_2x_volta_text = True
     repeater.omit_time_signatures = True
     repeater.force_identical_time_signatures = True
     repeater.reposition_clefs = False
     repeater.reposition_dynamics = False
     repeater.reposition_slurs = False
+    assert repeater.repeat_type == 'unfold'
+    assert repeater.include_2x_volta_text
     assert repeater.omit_time_signatures
     assert repeater.force_identical_time_signatures
     assert not repeater.reposition_clefs
@@ -469,3 +477,151 @@ def test_Repeater_15():
     score = abjad.Score([staff1, staff2])
     with pytest.raises(ValueError):
         repeater = auxjad.Repeater(score)  # noqa: F841
+
+
+def test_Repeater_16():
+    container = abjad.Container(r"c'2 d'2")
+    repeater = auxjad.Repeater(container,
+                               repeat_type='unfold'
+                               )
+    notes = repeater(5)
+    staff = abjad.Staff(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            c'2
+            d'2
+            c'2
+            d'2
+            c'2
+            d'2
+            c'2
+            d'2
+            c'2
+            d'2
+        }
+        """
+    )
+    container = abjad.Container(r"c'2 d'2")
+    repeater = auxjad.Repeater(container,
+                               repeat_type='volta'
+                               )
+    notes = repeater(5)
+    staff = abjad.Staff(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \repeat volta 5
+            {
+                c'2
+                d'2
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "5×"}
+            }
+        }
+        """
+    )
+
+
+def test_Repeater_17():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    repeater = auxjad.Repeater(container,
+                               repeat_type='volta',
+                               )
+    notes = repeater(3)
+    staff = abjad.Staff(notes)
+    repeater.contents = abjad.Container(r"g'2 a'2")
+    notes = repeater(2)
+    staff.append(notes)
+    repeater.contents = abjad.Container(r"b'16 c''16 d''16 e''16 r2.")
+    notes = repeater(5)
+    staff.append(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \repeat volta 3
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "3×"}
+            }
+            \repeat volta 2
+            {
+                g'2
+                a'2
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "2×"}
+            }
+            \repeat volta 5
+            {
+                b'16
+                c''16
+                d''16
+                e''16
+                r2.
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "5×"}
+            }
+        }
+
+        """
+    )
+
+
+def test_Repeater_18():
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    repeater = auxjad.Repeater(container,
+                               repeat_type='volta',
+                               include_2x_volta_text=False,
+                               )
+    notes = repeater(3)
+    staff = abjad.Staff(notes)
+    repeater.contents = abjad.Container(r"g'2 a'2")
+    notes = repeater(2)
+    staff.append(notes)
+    repeater.contents = abjad.Container(r"b'16 c''16 d''16 e''16 r2.")
+    notes = repeater(5)
+    staff.append(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \repeat volta 3
+            {
+                c'4
+                d'4
+                e'4
+                f'4
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "3×"}
+            }
+            \repeat volta 2
+            {
+                g'2
+                a'2
+            }
+            \repeat volta 5
+            {
+                b'16
+                c''16
+                d''16
+                e''16
+                r2.
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "5×"}
+            }
+        }
+        """
+    )

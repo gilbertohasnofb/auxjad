@@ -32,7 +32,7 @@ and `LilyPond`_.
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
 .. |Build| image:: https://img.shields.io/travis/gilbertohasnofb/auxjad?style=for-the-badge
-   :target: https://travis-ci.com/gilbertohasnofb/auxjad
+   :target: https://app.travis-ci.com/gilbertohasnofb/auxjad
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
    :target: https://www.python.org/downloads/release/python-360/
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge

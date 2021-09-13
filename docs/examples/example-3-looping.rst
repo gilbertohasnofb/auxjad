@@ -245,18 +245,14 @@ crotchet into a semiquaver and output six more measures.
             ef'8.
             bf'16
             ~
-            bf'4..
-            ~
-            bf'16
+            bf'2
             g'4
             \f
             ef'4.
             \p
             bf'8
             ~
-            bf'4.
-            ~
-            bf'8
+            bf'2
             g'8.
             \f
             ef'16
@@ -267,11 +263,7 @@ crotchet into a semiquaver and output six more measures.
             ef'16
             bf'8.
             ~
-            bf'4
-            ~
-            bf'16
-            ~
-            bf'8
+            bf'4..
             af'16
             - \tenuto
             g'8
@@ -280,9 +272,7 @@ crotchet into a semiquaver and output six more measures.
             \p
             bf'4
             ~
-            bf'4
-            ~
-            bf'8
+            bf'4.
             af'8
             - \tenuto
             g'16
@@ -395,18 +385,14 @@ adds to |abjad.mutate|.
             ef'8.
             bf'16
             ~
-            bf'4..
-            ~
-            bf'16
+            bf'2
             g'4
             \f
             ef'4.
             \p
             bf'8
             ~
-            bf'4.
-            ~
-            bf'8
+            bf'2
             g'8.
             \f
             ef'16
@@ -430,9 +416,7 @@ adds to |abjad.mutate|.
             \p
             bf'4
             ~
-            bf'4
-            ~
-            bf'8
+            bf'4.
             af'8
             - \tenuto
             g'16
@@ -541,18 +525,14 @@ more measures.
             ef'8.
             bf'16
             ~
-            bf'4..
-            ~
-            bf'16
+            bf'2
             g'4
             \f
             ef'4.
             \p
             bf'8
             ~
-            bf'4.
-            ~
-            bf'8
+            bf'2
             g'8.
             \f
             ef'16
@@ -576,9 +556,7 @@ more measures.
             \p
             bf'4
             ~
-            bf'4
-            ~
-            bf'8
+            bf'4.
             af'8
             - \tenuto
             g'16
@@ -720,9 +698,7 @@ The final result is shown below.
             ef'8.
             bf'16
             ~
-            bf'4..
-            ~
-            bf'16
+            bf'2
             g'4
             \f
             ef'4.
@@ -742,11 +718,7 @@ The final result is shown below.
             ef'16
             bf'8.
             ~
-            bf'4
-            ~
-            bf'16
-            ~
-            bf'8
+            bf'4..
             af'16
             - \tenuto
             g'8
@@ -755,9 +727,7 @@ The final result is shown below.
             \p
             bf'4
             ~
-            bf'4
-            ~
-            bf'8
+            bf'4.
             af'8
             - \tenuto
             g'16

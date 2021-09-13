@@ -106,18 +106,14 @@ def test_example_of_usage_03():
             ef'8.
             bf'16
             ~
-            bf'4..
-            ~
-            bf'16
+            bf'2
             g'4
             \f
             ef'4.
             \p
             bf'8
             ~
-            bf'4.
-            ~
-            bf'8
+            bf'2
             g'8.
             \f
             ef'16
@@ -128,11 +124,7 @@ def test_example_of_usage_03():
             ef'16
             bf'8.
             ~
-            bf'4
-            ~
-            bf'16
-            ~
-            bf'8
+            bf'4..
             af'16
             - \tenuto
             g'8
@@ -141,9 +133,7 @@ def test_example_of_usage_03():
             \p
             bf'4
             ~
-            bf'4
-            ~
-            bf'8
+            bf'4.
             af'8
             - \tenuto
             g'16

@@ -7,103 +7,131 @@ import auxjad
 
 def test_example_of_usage_02():
     random.seed(18762)
-    pitch_selector = auxjad.TenneySelector(["c'", "fs'", "bf'",
-                                            "e''", "a''", "d'''"])
+    pitch_selector = auxjad.TenneySelector(["d'",
+                                            ("c'", "d'", "e'"),
+                                            ("b", "d'", "g'"),
+                                            ("bf", "d'", "a'"),
+                                            ("a", "d'", "b'"),
+                                            ])
     duration_selector = auxjad.TenneySelector([(1, 16),
                                                (2, 16),
                                                (3, 16),
                                                (4, 16),
-                                               (5, 16),
-                                               (6, 16),
                                                ])
     pitches = []
     durations = []
-    for _ in range(12):
+    for _ in range(14):
         pitches.append(pitch_selector())
         durations.append(duration_selector())
     notes = abjad.LeafMaker()(pitches, durations)
     container = abjad.Container(notes)
-    looper = auxjad.LeafLooper(container, window_size=4)
+    looper = auxjad.LeafLooper(container,
+                               window_size=4,
+                               after_rest=(1, 2),
+                               after_rest_in_new_measure=True,
+                               )
     staff = abjad.Staff(looper.output_n(7))
-    looper.window_size = 2
-    staff.append(looper.output_n(4))
-    assert abjad.lilypond(staff) == abjad.String.normalize(
+    looper.window_size = 3
+    looper.after_rest = (3, 16)
+    staff.append(looper.output_n(5))
+    staff.pop(-1)
+    score = abjad.Score([staff])
+    score.add_final_bar_line()
+    assert abjad.lilypond(score) == abjad.String.normalize(
         r"""
-        \new Staff
-        {
-            \time 11/16
-            a''16
-            d'''8
-            ~
-            d'''8.
-            c'16
-            ~
-            c'8.
-            e''16
-            \time 7/8
-            d'''4
-            ~
-            d'''16
-            c'16
-            ~
-            c'8.
-            e''16
-            bf'4
-            \time 3/4
-            c'4
-            e''16
-            bf'8.
-            ~
-            bf'16
-            fs'8.
-            \time 5/8
-            e''16
-            bf'16
-            ~
-            bf'8.
-            fs'16
-            ~
-            fs'8
-            a''8
-            \time 7/8
-            bf'4
-            fs'8
-            ~
-            fs'16
-            a''8
-            d'''16
-            ~
-            d'''4
-            \time 11/16
-            fs'8.
-            a''8
-            d'''4
-            ~
-            d'''16
-            c'16
-            \time 3/4
-            a''8
-            d'''8
-            ~
-            d'''8.
-            c'16
-            d'''4
-            \time 3/8
-            d'''4
-            ~
-            d'''16
-            c'16
-            \time 5/16
-            c'16
-            d'''4
-            \time 5/8
-            d'''4
-            a''4.
-            \time 11/16
-            a''4.
-            e''16
-            ~
-            e''4
-        }
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 9/16
+                <bf d' a'>16
+                <a d' b'>8
+                ~
+                <a d' b'>16
+                d'8
+                ~
+                d'8
+                <b d' g'>16
+                \time 2/4
+                R1 * 1/2
+                \time 5/8
+                <a d' b'>8.
+                d'8.
+                ~
+                d'16
+                <b d' g'>16
+                <bf d' a'>8
+                \time 2/4
+                R1 * 1/2
+                \time 5/8
+                d'4
+                <b d' g'>16
+                <bf d' a'>16
+                ~
+                <bf d' a'>16
+                <c' d' e'>8.
+                \time 2/4
+                R1 * 1/2
+                \time 7/16
+                <b d' g'>16
+                <bf d' a'>8
+                <c' d' e'>8.
+                <a d' b'>16
+                \time 2/4
+                R1 * 1/2
+                \time 5/8
+                <bf d' a'>8
+                <c' d' e'>8.
+                <a d' b'>16
+                <bf d' a'>4
+                \time 2/4
+                R1 * 1/2
+                \time 9/16
+                <c' d' e'>8.
+                <a d' b'>16
+                <bf d' a'>8
+                ~
+                <bf d' a'>8
+                d'16
+                \time 2/4
+                R1 * 1/2
+                <a d' b'>16
+                <bf d' a'>8.
+                ~
+                <bf d' a'>16
+                d'16
+                <a d' b'>8
+                R1 * 1/2
+                \time 7/16
+                <bf d' a'>4
+                d'16
+                <a d' b'>8
+                \time 3/16
+                R1 * 3/16
+                \time 7/16
+                d'16
+                <a d' b'>8
+                <bf d' a'>4
+                \time 3/16
+                R1 * 3/16
+                \time 9/16
+                <a d' b'>8
+                <bf d' a'>4
+                <b d' g'>8.
+                \time 3/16
+                R1 * 3/16
+                \time 2/4
+                <bf d' a'>4
+                <b d' g'>8.
+                <c' d' e'>16
+                \time 3/16
+                R1 * 3/16
+                \time 3/8
+                <b d' g'>8.
+                <c' d' e'>16
+                <bf d' a'>8
+                \bar "|."
+            }
+        >>
         """
     )

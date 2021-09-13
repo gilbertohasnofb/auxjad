@@ -196,8 +196,14 @@ class LeafLooper(_LooperParent):
         value of ``0.0`` will move the window only backwards).
         :attr:`head_position` can be used to offset the starting position of
         the looping window. It must be an :obj:`int` and its default value is
-        ``0``. Lastly, set :attr:`end_with_max_n_leaves` to ``True`` to end the
-        process when the final window has the maximum number of leaves.
+        ``0``. Set :attr:`end_with_max_n_leaves` to ``True`` to end the process
+        when the final window has the maximum number of leaves. The attribute
+        :attr:`after_rest` sets the length of rests that separate consecutive
+        iterations (default is ``abjad.Duration(0)``, i.e. no rest). When using
+        after rests, :attr:`after_rest_in_new_measure` dictates whether or not
+        rests are appended to the same output measure or to a new one. When in
+        their own measure, :attr:`use_multimeasure_rests` sets if multi-measure
+        rests should be used or not.
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> looper = auxjad.LeafLooper(container,
@@ -210,6 +216,9 @@ class LeafLooper(_LooperParent):
         ...                            end_with_max_n_leaves=True,
         ...                            omit_time_signatures=False,
         ...                            process_on_first_call=True,
+        ...                            after_rest=(1, 8),
+        ...                            after_rest_in_new_measure=True,
+        ...                            use_multimeasure_rests=False,
         ...                            )
         >>> looper.window_size
         3
@@ -229,6 +238,12 @@ class LeafLooper(_LooperParent):
         False
         >>> looper.process_on_first_call
         True
+        >>> looper.after_rest
+        abjad.Duration((1, 8))
+        >>> looper.after_rest_in_new_measure
+        True
+        >>> looper.use_multimeasure_rests
+        False
 
         Use the properties below to change these values after initialisation.
 
@@ -241,6 +256,9 @@ class LeafLooper(_LooperParent):
         >>> looper.end_with_max_n_leaves = False
         >>> looper.omit_time_signatures = True
         >>> looper.process_on_first_call = False
+        >>> looper.after_rest = 0
+        >>> looper.after_rest_in_new_measure = False
+        >>> looper.use_multimeasure_rests = True
         >>> looper.window_size
         2
         >>> looper.step_size
@@ -259,6 +277,12 @@ class LeafLooper(_LooperParent):
         True
         >>> looper.process_on_first_call
         False
+        >>> looper.after_rest
+        abjad.Duration(0)
+        >>> looper.after_rest_in_new_measure
+        False
+        >>> looper.use_multimeasure_rests
+        True
 
     Setting :attr:`forward_bias` to ``0.0``:
         Set :attr:`forward_bias` to ``0.0`` to move backwards instead of
@@ -499,6 +523,16 @@ class LeafLooper(_LooperParent):
 
         ..  figure:: ../_images/LeafLooper-w389c0wnl2.png
 
+    ..  tip::
+
+        All methods that return an |abjad.Selection| will add an initial time
+        signature to it. The :meth:`output_n` and :meth:`output_all` methods
+        automatically remove repeated time signatures. When joining selections
+        output by multiple method calls, use
+        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
+        container after fusing the selections to remove any unecessary time
+        signature changes.
+
     :attr:`omit_time_signatures`:
         To disable time signatures altogether, initialise this class with the
         keyword argument :attr:`omit_time_signatures` set to ``True`` (default
@@ -525,15 +559,139 @@ class LeafLooper(_LooperParent):
 
         ..  figure:: ../_images/LeafLooper-t3wqox0d0qe.png
 
-    ..  tip::
+    :attr:`after_rest`:
+        To append rests after the output (useful to create separations between
+        consecutive windows), set the keyword argument :attr:`after_rest` to
+        an :obj:`int`, :obj:`float`, :obj:`tuple`, or |abjad.Duration| with the
+        total length of the rests. Setting it to ``abjad.Duration(0)`` will
+        disable rests (which is the default value).
 
-        All methods that return an |abjad.Selection| will add an initial time
-        signature to it. The :meth:`output_n` and :meth:`output_all` methods
-        automatically remove repeated time signatures. When joining selections
-        output by multiple method calls, use
-        |auxjad.mutate.remove_repeated_time_signatures()| on the whole
-        container after fusing the selections to remove any unecessary time
-        signature changes.
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            after_rest=(1, 8),
+        ...                            )
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 5/8
+                c'4
+                d'8
+                ~
+                d'8
+                r8
+                d'4
+                e'8
+                ~
+                e'8
+                r8
+                e'4
+                f'8
+                ~
+                f'8
+                r8
+                \time 3/8
+                f'4
+                r8
+            }
+
+        ..  figure:: ../_images/LeafLooper-AXXMUqnFfD.png
+
+    :attr:`after_rest_in_new_measure`:
+        When using after rests, the keyword argument
+        :attr:`after_rest_in_new_measure` controls whether or not the rests are
+        appended to the same output measure or to a new one.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            after_rest=(1, 8),
+        ...                            after_rest_in_new_measure=True,
+        ...                            )
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'4
+                d'4
+                \time 1/8
+                R1 * 1/8
+                \time 2/4
+                d'4
+                e'4
+                \time 1/8
+                R1 * 1/8
+                \time 2/4
+                e'4
+                f'4
+                \time 1/8
+                R1 * 1/8
+                \time 1/4
+                f'4
+                \time 1/8
+                R1 * 1/8
+            }
+
+        ..  figure:: ../_images/LeafLooper-FQtegfLdcr.png
+
+
+    :attr:`use_multimeasure_rests`:
+        When after rests are used and :attr:`after_rest_in_new_measure` is set
+        to ``True``, multi-measure rests are automatically used. To use regular
+        rests, set :attr:`use_multimeasure_rests` to ``False``.
+
+        >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
+        >>> looper = auxjad.LeafLooper(container,
+        ...                            window_size=2,
+        ...                            after_rest=(1, 8),
+        ...                            after_rest_in_new_measure=True,
+        ...                            use_multimeasure_rests=False,
+        ...                            )
+        >>> notes = looper.output_all()
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 2/4
+                c'4
+                d'4
+                \time 1/8
+                r8
+                \time 2/4
+                d'4
+                e'4
+                \time 1/8
+                r8
+                \time 2/4
+                e'4
+                f'4
+                \time 1/8
+                r8
+                \time 1/4
+                f'4
+                \time 1/8
+                r8
+            }
+
+        ..  figure:: ../_images/LeafLooper-wqN3GAcMTR.png
+
+    ..  note::
+
+        Multi-measure rests will not be used if :attr:`omit_time_signatures` is
+        ``True``, regardless of the value of :attr:`use_multimeasure_rests`.
 
     :attr:`end_with_max_n_leaves`:
         When ``True``, the last bar in the output will contain the maximum
@@ -948,6 +1106,9 @@ class LeafLooper(_LooperParent):
                  '_fuse_across_groups_of_beats',
                  '_fuse_quadruple_meter',
                  '_fuse_triple_meter',
+                 '_after_rest',
+                 '_after_rest_in_new_measure',
+                 '_use_multimeasure_rests',
                  )
 
     ### INITIALISER ###
@@ -973,6 +1134,15 @@ class LeafLooper(_LooperParent):
                  fuse_across_groups_of_beats: bool = True,
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
+                 after_rest: Union[int,
+                                   float,
+                                   str,
+                                   tuple[int],
+                                   abjad.Duration,
+                                   abjad.Rest,
+                                   ] = 0,
+                 after_rest_in_new_measure: bool = False,
+                 use_multimeasure_rests: bool = True,
                  ) -> None:
         r'Initialises self.'
         self.contents = contents
@@ -987,6 +1157,9 @@ class LeafLooper(_LooperParent):
         self.fuse_across_groups_of_beats = fuse_across_groups_of_beats
         self.fuse_quadruple_meter = fuse_quadruple_meter
         self.fuse_triple_meter = fuse_triple_meter
+        self.after_rest = after_rest
+        self.after_rest_in_new_measure = after_rest_in_new_measure
+        self.use_multimeasure_rests = use_multimeasure_rests
         super().__init__(head_position=head_position,
                          window_size=window_size,
                          step_size=step_size,
@@ -1031,6 +1204,26 @@ class LeafLooper(_LooperParent):
                                       )
                 abjad.mutate.replace(logical_tie_, tuplet)
             time_signature_duration += effective_duration
+        if self._after_rest > 0:
+            if (self._after_rest_in_new_measure
+                    and self._use_multimeasure_rests
+                    and not self._omit_time_signatures):
+                if self._after_rest == 1:
+                    multiplier = None
+                else:
+                    multiplier = abjad.Multiplier(self._after_rest)
+                rest = abjad.MultimeasureRest((4, 4),
+                                              multiplier=multiplier,
+                                              )
+            else:
+                rest = abjad.LeafMaker()([None], [self._after_rest])
+            if not self._after_rest_in_new_measure:
+                time_signature_duration += self._after_rest
+            else:
+                time_signature = abjad.TimeSignature(self._after_rest)
+                time_signature.simplify_ratio()
+                abjad.attach(time_signature, abjad.select(rest).leaf(0))
+            dummy_container.append(rest)
         if len(logical_ties) > 0:
             time_signature = abjad.TimeSignature(time_signature_duration)
             time_signature.simplify_ratio()
@@ -1284,6 +1477,62 @@ class LeafLooper(_LooperParent):
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
+
+    @property
+    def after_rest(self) -> abjad.Duration:
+        r"""Sets the length of the rest appended at the end of the window
+        (default is ``0``).
+        """
+        return self._after_rest
+
+    @after_rest.setter
+    def after_rest(self,
+                   after_rest: Union[int,
+                                     float,
+                                     str,
+                                     tuple[int],
+                                     abjad.Duration,
+                                     abjad.Rest,
+                                     ],
+                   ) -> None:
+        if not isinstance(after_rest,
+                          (abjad.Duration, abjad.Rest, str, tuple, int, float),
+                          ):
+            raise TypeError("'after_rest' must be 'abjad.Duration', "
+                            "'abjad.Rest', 'str', 'tuple', or a number")
+        if isinstance(after_rest, abjad.Rest):
+            after_rest = abjad.get.duration(after_rest)
+        self._after_rest = abjad.Duration(after_rest)
+
+    @property
+    def after_rest_in_new_measure(self) -> bool:
+        r"""If ``True``, then after rests will be added to their own measure
+        (default is ``False``).
+        """
+        return self._after_rest_in_new_measure
+
+    @after_rest_in_new_measure.setter
+    def after_rest_in_new_measure(self,
+                                  after_rest_in_new_measure: bool,
+                                  ) -> None:
+        if not isinstance(after_rest_in_new_measure, bool):
+            raise TypeError("'after_rest_in_new_measure' must be 'bool'")
+        self._after_rest_in_new_measure = after_rest_in_new_measure
+
+    @property
+    def use_multimeasure_rests(self) -> bool:
+        r"""If ``True``, then multi-measure rests will be used for after rests
+        when added to their own measure (default is ``True``).
+        """
+        return self._use_multimeasure_rests
+
+    @use_multimeasure_rests.setter
+    def use_multimeasure_rests(self,
+                               use_multimeasure_rests: bool,
+                               ) -> None:
+        if not isinstance(use_multimeasure_rests, bool):
+            raise TypeError("'use_multimeasure_rests' must be 'bool'")
+        self._use_multimeasure_rests = use_multimeasure_rests
 
     ### PRIVATE PROPERTIES ###
 

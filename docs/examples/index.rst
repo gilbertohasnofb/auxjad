@@ -14,7 +14,7 @@ documentation of specific functions and classes.
     example-1-clapping-music
     example-2-looping
     example-3-looping
-    example-4-hocket-with-random-pitches
+    example-4-random-repetitions
     example-5-shuffling-harmonics
 
 .. include:: ../api/abjad-targets.rst

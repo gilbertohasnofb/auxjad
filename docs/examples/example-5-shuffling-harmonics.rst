@@ -15,11 +15,11 @@ Let's use the class :class:`auxjad.ArtificialHarmonic` as well as some chords
 and rests.
 
     >>> container = abjad.Container([
-    ...     auxjad.ArtificialHarmonic(r"<ds' gs'>4"),
+    ...     auxjad.ArtificialHarmonic(r"<ef' af'>4"),
     ...     auxjad.ArtificialHarmonic(r"<b e'>8."),
     ...     auxjad.ArtificialHarmonic(r"<g c'>16", is_parenthesized=True),
     ...     abjad.Rest(r"r4"),
-    ...     abjad.Chord([2, 8, 9], (1, 8)),
+    ...     abjad.Chord([-5, 8, 9], (1, 8)),
     ...     auxjad.ArtificialHarmonic(r"<d' a'>8", is_parenthesized=True),
     ... ])
     >>> abjad.show(container)
@@ -28,9 +28,9 @@ and rests.
 
         {
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 b
@@ -45,7 +45,7 @@ and rests.
                 c'
             >16
             r4
-            <d' af' a'>8
+            <g af' a'>8
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
@@ -57,7 +57,7 @@ and rests.
 
     ..  figure:: ../_images/example-5-shuffling-harmonics-vuu4ho4hjk7.png
 
-The spelling of the chord ``<d' af' a'>`` could be improved. This can be done
+The spelling of the chord ``<g af' a'>`` could be improved. This can be done
 by using |auxjad.mutate.respell_augmented_unisons()|. Auxjad automatically adds
 this mutation as an extension method to |abjad.mutate| so it can also be
 accessed using |abjad.mutate.respell_augmented_unisons()|.
@@ -69,9 +69,9 @@ accessed using |abjad.mutate.respell_augmented_unisons()|.
 
         {
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 b
@@ -86,7 +86,7 @@ accessed using |abjad.mutate.respell_augmented_unisons()|.
                 c'
             >16
             r4
-            <d' gs' a'>8
+            <g gs' a'>8
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
@@ -131,18 +131,10 @@ measures of shuffled logical ties.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
+            >8
+            <g gs' a'>16
             ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
+            <g gs' a'>16
             r8.
             r16
             <
@@ -151,9 +143,9 @@ measures of shuffled logical ties.
                 e'
             >8.
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             r4
             <
@@ -169,32 +161,24 @@ measures of shuffled logical ties.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
+            >8
+            <g gs' a'>16
             ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
+            <g gs' a'>16
             <
                 b
                 \tweak style #'harmonic
                 e'
             >8.
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             r4
             <
@@ -202,24 +186,16 @@ measures of shuffled logical ties.
                 \tweak style #'harmonic
                 e'
             >8.
-            <d' gs' a'>16
+            <g gs' a'>16
             ~
-            <d' gs' a'>16
+            <g gs' a'>16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
@@ -228,9 +204,9 @@ measures of shuffled logical ties.
                 c'
             >16
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -245,15 +221,7 @@ measures of shuffled logical ties.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             <
                 b
                 \tweak style #'harmonic
@@ -265,7 +233,7 @@ measures of shuffled logical ties.
                 \tweak style #'harmonic
                 e'
             >8
-            <d' gs' a'>8
+            <g gs' a'>8
             r4
         }
 
@@ -303,18 +271,10 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
+            >8
+            <g gs' a'>16
             ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
+            <g gs' a'>16
             r8.
             r16
             <
@@ -323,9 +283,9 @@ single note.
                 e'
             >8.
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             r4
             <
@@ -341,32 +301,24 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
+            >8
+            <g gs' a'>16
             ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
+            <g gs' a'>16
             <
                 b
                 \tweak style #'harmonic
                 e'
             >8.
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             r4
             <
@@ -374,24 +326,16 @@ single note.
                 \tweak style #'harmonic
                 e'
             >8.
-            <d' gs' a'>16
+            <g gs' a'>16
             ~
-            <d' gs' a'>16
+            <g gs' a'>16
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             <
                 \parenthesize
                 \tweak ParenthesesItem.font-size -4
@@ -400,9 +344,9 @@ single note.
                 c'
             >16
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -417,15 +361,7 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             <
                 b
                 \tweak style #'harmonic
@@ -437,13 +373,13 @@ single note.
                 \tweak style #'harmonic
                 e'
             >8
-            <d' gs' a'>8
+            <g gs' a'>8
             r4
             \time 4/4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -458,15 +394,7 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             <
                 b
                 \tweak style #'harmonic
@@ -478,12 +406,12 @@ single note.
                 \tweak style #'harmonic
                 e'
             >8
-            <d' gs' a'>8
+            <g gs' a'>8
             r4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -498,23 +426,15 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             r16
             r8
-            <d' gs' a'>8
+            <g gs' a'>8
             r4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -529,23 +449,15 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             r16
             r8
-            <d' gs'>8
+            <g gs'>8
             r4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -560,23 +472,15 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             r16
             r8
             gs'8
             r4
             <
-                ds'
+                ef'
                 \tweak style #'harmonic
-                gs'
+                af'
             >4
             <
                 \parenthesize
@@ -591,15 +495,7 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             r16
             r2
             r4
@@ -616,15 +512,7 @@ single note.
                 d'
                 \tweak style #'harmonic
                 a'
-            >16
-            ~
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >16
+            >8
             r16
             r2
             r4
@@ -641,17 +529,6 @@ single note.
         }
 
     ..  figure:: ../_images/example-5-shuffling-harmonics-1rxgv2my0lr.png
-
-To finalise the score, let's improve the spelling of some rhythms. Most classes
-and functions in this library use |abjad.Meter.rewrite_meter()| mutation
-to adjust the spelling of rhythms according to a meter. Unfortunately, this
-mutation sometimes uses ties within a single beat, resulting in rhythms that
-are less ideally notated than they could.
-|auxjad.mutate.prettify_rewrite_meter()| fuses pitched leaves according to
-some specific rules, improving the default output of
-|abjad.Meter.rewrite_meter()|. This function is also available as the method
-|abjad.mutate.prettify_rewrite_meter()|, which Auxjad automatically adds as
-an extension method to |abjad.mutate|.
 
 Notice that the time signature has been repeated. While the method
 :meth:`~auxjad.Fader.output_all()` takes care of repeated time signatures,
@@ -659,285 +536,291 @@ dynamics, and clefs, consecutive calls may result in repetitions. But we can
 simply use |auxjad.mutate.remove_repeated_time_signatures()| to take care of
 that for us. This function is also available as the extension method
 |abjad.mutate.remove_repeated_time_signatures()|, which Auxjad automatically
-adds to |abjad.mutate|.
+adds to |abjad.mutate|. To finalise the score, let's remove the last empty
+measure and add a final bar line.
 
-    >>> abjad.mutate.prettify_rewrite_meter(staff[:], abjad.Meter((4, 4)))
     >>> abjad.mutate.remove_repeated_time_signatures(staff[:])
-    >>> abjad.show(staff)
+    >>> staff.pop(-1)
+    >>> score = abjad.Score([staff])
+    >>> score.add_final_bar_line()
+    >>> abjad.show(score)
 
     ..  docs::
 
-        \new Staff
-        {
-            \time 4/4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
-            r8.
-            r16
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >8.
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            r4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >8.
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            r4
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >8.
-            <d' gs' a'>16
-            ~
-            <d' gs' a'>16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >16
-            ~
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >8
-            <d' gs' a'>8
-            r4
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >16
-            ~
-            <
-                b
-                \tweak style #'harmonic
-                e'
-            >8
-            <d' gs' a'>8
-            r4
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            r16
-            r8
-            <d' gs' a'>8
-            r4
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            r16
-            r8
-            <d' gs'>8
-            r4
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            r16
-            r8
-            gs'8
-            r4
-            <
-                ds'
-                \tweak style #'harmonic
-                gs'
-            >4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            r16
-            r2
-            r4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                d'
-                \tweak style #'harmonic
-                a'
-            >8
-            r16
-            r2
-            r4
-            <
-                \parenthesize
-                \tweak ParenthesesItem.font-size -4
-                g
-                \tweak style #'harmonic
-                c'
-            >16
-            r8.
-            r2
-            R1
-        }
+        \new Score
+        <<
+            \new Staff
+            {
+                \time 4/4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                <g gs' a'>16
+                ~
+                <g gs' a'>16
+                r8.
+                r16
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >8.
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                r4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                <g gs' a'>16
+                ~
+                <g gs' a'>16
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >8.
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                r4
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >8.
+                <g gs' a'>16
+                ~
+                <g gs' a'>16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >16
+                ~
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >8
+                <g gs' a'>8
+                r4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >16
+                ~
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >8
+                <g gs' a'>8
+                r4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                r16
+                r8
+                <g gs' a'>8
+                r4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                r16
+                r8
+                <g gs'>8
+                r4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                r16
+                r8
+                gs'8
+                r4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                r16
+                r2
+                r4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                r16
+                r2
+                r4
+                <
+                    \parenthesize
+                    \tweak ParenthesesItem.font-size -4
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                r8.
+                r2
+                \bar "|."
+            }
+        >>
 
     ..  figure:: ../_images/example-5-shuffling-harmonics-rmw99goyuc.png
 

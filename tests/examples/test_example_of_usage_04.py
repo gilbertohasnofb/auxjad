@@ -6,150 +6,155 @@ import auxjad
 
 
 def test_example_of_usage_04():
-    random.seed(98611)
-    container = abjad.Container(r"c'4 ~ c'16 r8 c'16 c'4 c'16 r8.")
+    random.seed(64993)
+    container = abjad.Container(r"c'4-- c'8.-- c'16( c'8)-. c'8-. c'8-. r8")
+    pitch_list = ["c'", "cs'", "d'", "ef'", "e'"]
     randomiser = auxjad.PitchRandomiser(container,
-                                        pitches=[0, 1, 2, 3, 4, 5, 6],
+                                        pitches=pitch_list,
                                         )
-    staff = abjad.Staff()
-    notes = randomiser.output_n(3)
-    staff.append(notes)
-    randomiser.pitches = [13, 14, 16, 17, 21]
-    notes = randomiser.output_n(3)
-    staff.append(notes)
+    notes = randomiser.output_n(2)
+    group_1 = abjad.Staff(notes)
+    randomiser.pitches = ["a", "b", "bf'", "a''", "b''"]
+    notes = randomiser.output_n(2)
+    group_2 = abjad.Staff(notes)
+    container = abjad.Container(
+        r"\time 3/4 c'4--( ~ "
+        r"\times 4/5 {c'16 c'16-. c'16-. c'16-. c'16-.)} "
+        r"r8 c'8->"
+    )
+    randomiser.contents = container
     randomiser.weights = [6, 3, 2, 1, 1]
-    notes = randomiser.output_n(3)
+    notes = randomiser.output_n(2)
+    group_3 = abjad.Staff(notes)
+    staff = abjad.Staff()
+    repeater = auxjad.Repeater(group_1, repeat_type='volta')
+    notes = repeater(3)
     staff.append(notes)
-    hocketer = auxjad.Hocketer(staff,
-                               n_voices=3,
-                               )
-    music = hocketer()
-    score = abjad.Score()
-    for selection in music:
-        score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
+    repeater.contents = group_2
+    notes = repeater(5)
+    staff.append(notes)
+    repeater.contents = group_3
+    notes = repeater(4)
+    staff.append(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
         r"""
-        \new Score
-        <<
-            \new Staff
+        \new Staff
+        {
+            \repeat volta 3
             {
-                f'4
-                ~
-                f'16
-                r8.
-                r4
-                cs'16
-                r8.
-                R1
-                R1
-                f''4
-                ~
-                f''16
-                r16
-                r16
-                f''16
-                r2
-                R1
-                a''4
-                ~
-                a''16
-                r8.
-                e''4
-                r4
-                r2.
-                d''16
-                r8.
-                r4..
-                cs''16
-                r2
-                r4..
-                cs''16
-                r4
-                cs''16
-                r8.
-            }
-            \new Staff
-            {
-                r2
                 d'4
-                r4
-                fs'4
-                ~
-                fs'16
-                r8.
-                r2
-                c'4
-                ~
-                c'16
-                r16
-                r16
-                ef'16
-                r4
-                cs'16
-                r8.
-                r2.
-                f''16
-                r8.
-                f''4
-                ~
-                f''16
-                r16
-                r16
-                a''16
-                e''4
-                f''16
-                r8.
-                r4..
-                cs''16
-                r2
-                r4..
-                d''16
-                r2
-                d''4
-                ~
-                d''16
-                r8.
-                r4
-                a''16
-                r8.
-                R1
-            }
-            \new Staff
-            {
-                r4..
-                fs'16
-                r2
-                r4..
-                cs'16
-                ef'4
+                - \tenuto
+                c'8.
+                - \tenuto
                 e'16
-                r8.
-                r2
-                c'4
-                r4
-                r2
-                cs''4
-                r4
-                R1
-                r2.
-                f''16
-                r8.
-                cs''4
-                ~
-                cs''16
-                r8.
-                d''4
-                r4
-                r2
-                d''4
-                r4
-                d''4
-                ~
-                d''16
-                r8.
-                d''4
-                r4
+                (
+                e'8
+                - \staccato
+                )
+                cs'8
+                - \staccato
+                ef'8
+                - \staccato
+                r8
+                cs'4
+                - \tenuto
+                ef'8.
+                - \tenuto
+                e'16
+                (
+                ef'8
+                - \staccato
+                )
+                e'8
+                - \staccato
+                d'8
+                - \staccato
+                r8
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "3×"}
             }
-        >>
+            \repeat volta 5
+            {
+                a4
+                - \tenuto
+                a8.
+                - \tenuto
+                a16
+                (
+                b''8
+                - \staccato
+                )
+                b''8
+                - \staccato
+                a''8
+                - \staccato
+                r8
+                b''4
+                - \tenuto
+                b8.
+                - \tenuto
+                a16
+                (
+                a8
+                - \staccato
+                )
+                bf'8
+                - \staccato
+                a8
+                - \staccato
+                r8
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "5×"}
+            }
+            \repeat volta 4
+            {
+                \time 3/4
+                b4
+                - \tenuto
+                (
+                ~
+                \times 4/5
+                {
+                    b16
+                    b16
+                    - \staccato
+                    a''16
+                    - \staccato
+                    b16
+                    - \staccato
+                    a''16
+                    - \staccato
+                    )
+                }
+                r8
+                b''8
+                - \accent
+                bf'4
+                - \tenuto
+                (
+                ~
+                \times 4/5
+                {
+                    bf'16
+                    a16
+                    - \staccato
+                    b16
+                    - \staccato
+                    a16
+                    - \staccato
+                    b16
+                    - \staccato
+                    )
+                }
+                r8
+                b8
+                - \accent
+                \tweak RehearsalMark.self-alignment-X #RIGHT
+                \tweak RehearsalMark.break-visibility #begin-of-line-invisible
+                \mark \markup{\box "4×"}
+            }
+        }
         """
     )

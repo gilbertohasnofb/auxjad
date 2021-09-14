@@ -852,7 +852,13 @@ class Repeater():
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
-            self._contents = abjad.mutate.copy(contents[0])
+            self._contents = abjad.Container()
+            for component in contents[0].components:
+                self._contents.append(abjad.mutate.copy(component))
+        elif isinstance(contents, abjad.Staff):
+            self._contents = abjad.Container()
+            for component in contents.components:
+                self._contents.append(abjad.mutate.copy(component))
         elif isinstance(contents, abjad.Tuplet):
             self._contents = abjad.Container([abjad.mutate.copy(contents)])
         else:

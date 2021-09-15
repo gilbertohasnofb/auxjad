@@ -1,7 +1,7 @@
 |Auxjad image|
 
-Welcome to Auxjad's documentation!
-==================================
+Welcome to Auxjad's documentation
+=================================
 
 |PyPI| |Build| |Python versions| |License| |Bug report|
 
@@ -9,7 +9,7 @@ Auxjad is a library of auxiliary classes and functions for `Abjad 3.4`_ aimed
 at composers of algorithmic music. All classes and functions have a |doc|_
 attribute with usage instructions.
 
-The code of this library is available at the `Auxjad Repository`_ at GitHub.
+This library's code is available at the `Auxjad Repository`_ at GitHub.
 
 Bugs can be reported through the project's `Issue Tracker`_.
 
@@ -35,6 +35,18 @@ Or if you are using virtual environments, simply use::
 
 You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.4`_
 and `LilyPond`_.
+
+
+
+Documentation
+=============
+
+Each member of this library is individually documented in the `Auxjad API`_ page. In the `Score gallery`_ page, you will find examples of my own compositions created with these tools. The `Examples of usage`_ page contains simple examples showing some of the capabilities of this library.
+
+.. _`Auxjad API`: https://gilbertohasnofb.github.io/auxjad-docs/api/index.html
+.. _`Score gallery`: https://gilbertohasnofb.github.io/auxjad-docs/score_gallery/index.html
+.. _`Examples of usage`: https://gilbertohasnofb.github.io/auxjad-docs/examples/index.html
+
 
 
 .. toctree::

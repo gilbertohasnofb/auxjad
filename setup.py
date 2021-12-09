@@ -23,8 +23,8 @@ with open('README.rst', 'r') as file:
     auxjad_long_description = file.read()
 
 setup(
-    name='auxjad',
-    description='Auxiliary functions and classes for Abjad 3.4.',
+    name='Auxjad',
+    description='Auxiliary classes and functions for Abjad.',
     author='Gilberto Agostinho',
     author_email='gilbertohasnofb@gmail.com',
     version=auxjad.__version__,

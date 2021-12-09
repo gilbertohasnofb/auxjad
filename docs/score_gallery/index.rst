@@ -11,7 +11,7 @@ For flute, clarinet, violin, viola, cello, and piano.
 
 |score follow the well-worn path in the grass|
 
-Recording: *available soon*
+Recording: https://soundcloud.com/gilberto-agostinho/follow-the-well-worn-path-in-the-grass
 
 
 *what holds them together* (2020)
@@ -40,6 +40,16 @@ For solo cello.
 |score and thereafter they shape us|
 
 Recording: https://soundcloud.com/gilberto-agostinho/and-thereafter-they-shape-us
+
+
+*Cartography #11* (2018)
+#######################
+
+For solo piano.
+
+|score Cartography 11|
+
+Recording: *available soon*
 
 
 *Cartography #9* (2018)
@@ -74,6 +84,9 @@ Recording: https://soundcloud.com/gilberto-agostinho/cartography-8
 
 .. |score and thereafter they shape us| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-and-thereafter-they-shape-us.png
    :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-and-thereafter-they-shape-us.pdf
+
+.. |score Cartography 11| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-11.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-11.pdf
 
 .. |score Cartography 9| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-9.png
    :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-9.pdf

@@ -1,4 +1,4 @@
-|Auxjad image|
+|Auxjad banner|
 
 Welcome to Auxjad's documentation
 =================================
@@ -66,7 +66,7 @@ Each member of this library is individually documented in the `Auxjad API`_ page
 .. _`Python 3.9`: https://www.python.org/
 .. _LilyPond: http://lilypond.org/
 
-.. |Auxjad image| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad.png
+.. |Auxjad banner| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad

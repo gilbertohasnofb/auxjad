@@ -52,26 +52,26 @@ take care of time signatures.
     >>> container = abjad.Container(notes)
     >>> abjad.show(container)
 
-    ..  docs::
+..  docs::
 
-        {
-            <bf d' a'>16
-            <a d' b'>8.
-            d'4
-            <b d' g'>16
-            <bf d' a'>8
-            <c' d' e'>8.
-            <a d' b'>16
-            <bf d' a'>4
-            d'16
-            <a d' b'>8
-            <bf d' a'>4
-            <b d' g'>8.
-            <c' d' e'>16
-            <bf d' a'>8
-        }
+    {
+        <bf d' a'>16
+        <a d' b'>8.
+        d'4
+        <b d' g'>16
+        <bf d' a'>8
+        <c' d' e'>8.
+        <a d' b'>16
+        <bf d' a'>4
+        d'16
+        <a d' b'>8
+        <bf d' a'>4
+        <b d' g'>8.
+        <c' d' e'>16
+        <bf d' a'>8
+    }
 
-    ..  figure:: ../_images/example-2-looping-4qwapicxjz3.png
+..  figure:: ../_images/example-2-looping-4qwapicxjz3.png
 
 At this point, we can create the :class:`auxjad.LeafLooper` and initialise it
 using the material we generated above. A :attr:`~auxjad.LeafLooper.window_size`
@@ -95,72 +95,72 @@ measures.
     >>> staff = abjad.Staff(looper.output_n(7))
     >>> abjad.show(staff)
 
-    ..  docs::
+..  docs::
 
-        \new Staff
-        {
-            \time 9/16
-            <bf d' a'>16
-            <a d' b'>8
-            ~
-            <a d' b'>16
-            d'8
-            ~
-            d'8
-            <b d' g'>16
-            \time 2/4
-            R1 * 1/2
-            \time 5/8
-            <a d' b'>8.
-            d'8.
-            ~
-            d'16
-            <b d' g'>16
-            <bf d' a'>8
-            \time 2/4
-            R1 * 1/2
-            \time 5/8
-            d'4
-            <b d' g'>16
-            <bf d' a'>16
-            ~
-            <bf d' a'>16
-            <c' d' e'>8.
-            \time 2/4
-            R1 * 1/2
-            \time 7/16
-            <b d' g'>16
-            <bf d' a'>8
-            <c' d' e'>8.
-            <a d' b'>16
-            \time 2/4
-            R1 * 1/2
-            \time 5/8
-            <bf d' a'>8
-            <c' d' e'>8.
-            <a d' b'>16
-            <bf d' a'>4
-            \time 2/4
-            R1 * 1/2
-            \time 9/16
-            <c' d' e'>8.
-            <a d' b'>16
-            <bf d' a'>8
-            ~
-            <bf d' a'>8
-            d'16
-            \time 2/4
-            R1 * 1/2
-            <a d' b'>16
-            <bf d' a'>8.
-            ~
-            <bf d' a'>16
-            d'16
-            <a d' b'>8
-            R1 * 1/2
-        }
+    \new Staff
+    {
+        \time 9/16
+        <bf d' a'>16
+        <a d' b'>8
+        ~
+        <a d' b'>16
+        d'8
+        ~
+        d'8
+        <b d' g'>16
+        \time 2/4
+        R1 * 1/2
+        \time 5/8
+        <a d' b'>8.
+        d'8.
+        ~
+        d'16
+        <b d' g'>16
+        <bf d' a'>8
+        \time 2/4
+        R1 * 1/2
+        \time 5/8
+        d'4
+        <b d' g'>16
+        <bf d' a'>16
+        ~
+        <bf d' a'>16
+        <c' d' e'>8.
+        \time 2/4
+        R1 * 1/2
+        \time 7/16
+        <b d' g'>16
+        <bf d' a'>8
+        <c' d' e'>8.
+        <a d' b'>16
+        \time 2/4
+        R1 * 1/2
+        \time 5/8
+        <bf d' a'>8
+        <c' d' e'>8.
+        <a d' b'>16
+        <bf d' a'>4
+        \time 2/4
+        R1 * 1/2
+        \time 9/16
+        <c' d' e'>8.
+        <a d' b'>16
+        <bf d' a'>8
+        ~
+        <bf d' a'>8
+        d'16
+        \time 2/4
+        R1 * 1/2
+        <a d' b'>16
+        <bf d' a'>8.
+        ~
+        <bf d' a'>16
+        d'16
+        <a d' b'>8
+        R1 * 1/2
+    }
 
-    ..  figure:: ../_images/example-2-looping-9mzjqtfcru8.png
+..  figure:: ../_images/example-2-looping-9mzjqtfcru8.png
 
 At this point, let's change the :attr:`~auxjad.LeafLooper.window_size` to a
 smaller value as well as change the duration of the separator rest. Let's then
@@ -171,8 +171,120 @@ output five more measures.
     >>> staff.append(looper.output_n(5))
     >>> abjad.show(staff)
 
-    ..  docs::
+..  docs::
 
+    \new Staff
+    {
+        \time 9/16
+        <bf d' a'>16
+        <a d' b'>8
+        ~
+        <a d' b'>16
+        d'8
+        ~
+        d'8
+        <b d' g'>16
+        \time 2/4
+        R1 * 1/2
+        \time 5/8
+        <a d' b'>8.
+        d'8.
+        ~
+        d'16
+        <b d' g'>16
+        <bf d' a'>8
+        \time 2/4
+        R1 * 1/2
+        \time 5/8
+        d'4
+        <b d' g'>16
+        <bf d' a'>16
+        ~
+        <bf d' a'>16
+        <c' d' e'>8.
+        \time 2/4
+        R1 * 1/2
+        \time 7/16
+        <b d' g'>16
+        <bf d' a'>8
+        <c' d' e'>8.
+        <a d' b'>16
+        \time 2/4
+        R1 * 1/2
+        \time 5/8
+        <bf d' a'>8
+        <c' d' e'>8.
+        <a d' b'>16
+        <bf d' a'>4
+        \time 2/4
+        R1 * 1/2
+        \time 9/16
+        <c' d' e'>8.
+        <a d' b'>16
+        <bf d' a'>8
+        ~
+        <bf d' a'>8
+        d'16
+        \time 2/4
+        R1 * 1/2
+        <a d' b'>16
+        <bf d' a'>8.
+        ~
+        <bf d' a'>16
+        d'16
+        <a d' b'>8
+        R1 * 1/2
+        \time 7/16
+        <bf d' a'>4
+        d'16
+        <a d' b'>8
+        \time 3/16
+        R1 * 3/16
+        \time 7/16
+        d'16
+        <a d' b'>8
+        <bf d' a'>4
+        \time 3/16
+        R1 * 3/16
+        \time 9/16
+        <a d' b'>8
+        <bf d' a'>4
+        <b d' g'>8.
+        \time 3/16
+        R1 * 3/16
+        \time 2/4
+        <bf d' a'>4
+        <b d' g'>8.
+        <c' d' e'>16
+        \time 3/16
+        R1 * 3/16
+        \time 3/8
+        <b d' g'>8.
+        <c' d' e'>16
+        <bf d' a'>8
+        \time 3/16
+        R1 * 3/16
+    }
+
+..  figure:: ../_images/example-2-looping-v5h9hyfmjj.png
+
+
+Let's now remove the last empty bar, add this staff to an |abjad.Score| and
+call the method :meth:`~auxjad.Score.add_final_bar_line()` which Auxjad adds to
+|abjad.Score|.
+
+    >>> staff.pop(-1)
+    >>> score = abjad.Score([staff])
+    >>> score.add_final_bar_line()
+
+This is the final result:
+
+    >>> abjad.show(score)
+
+..  docs::
+
+    \new Score
+    <<
         \new Staff
         {
             \time 9/16
@@ -262,123 +374,11 @@ output five more measures.
             <b d' g'>8.
             <c' d' e'>16
             <bf d' a'>8
-            \time 3/16
-            R1 * 3/16
+            \bar "|."
         }
+    >>
 
-    ..  figure:: ../_images/example-2-looping-v5h9hyfmjj.png
-
-
-Let's now remove the last empty bar, add this staff to an |abjad.Score| and
-call the method :meth:`~auxjad.Score.add_final_bar_line()` which Auxjad adds to
-|abjad.Score|.
-
-    >>> staff.pop(-1)
-    >>> score = abjad.Score([staff])
-    >>> score.add_final_bar_line()
-
-This is the final result:
-
-    >>> abjad.show(score)
-
-    ..  docs::
-
-        \new Score
-        <<
-            \new Staff
-            {
-                \time 9/16
-                <bf d' a'>16
-                <a d' b'>8
-                ~
-                <a d' b'>16
-                d'8
-                ~
-                d'8
-                <b d' g'>16
-                \time 2/4
-                R1 * 1/2
-                \time 5/8
-                <a d' b'>8.
-                d'8.
-                ~
-                d'16
-                <b d' g'>16
-                <bf d' a'>8
-                \time 2/4
-                R1 * 1/2
-                \time 5/8
-                d'4
-                <b d' g'>16
-                <bf d' a'>16
-                ~
-                <bf d' a'>16
-                <c' d' e'>8.
-                \time 2/4
-                R1 * 1/2
-                \time 7/16
-                <b d' g'>16
-                <bf d' a'>8
-                <c' d' e'>8.
-                <a d' b'>16
-                \time 2/4
-                R1 * 1/2
-                \time 5/8
-                <bf d' a'>8
-                <c' d' e'>8.
-                <a d' b'>16
-                <bf d' a'>4
-                \time 2/4
-                R1 * 1/2
-                \time 9/16
-                <c' d' e'>8.
-                <a d' b'>16
-                <bf d' a'>8
-                ~
-                <bf d' a'>8
-                d'16
-                \time 2/4
-                R1 * 1/2
-                <a d' b'>16
-                <bf d' a'>8.
-                ~
-                <bf d' a'>16
-                d'16
-                <a d' b'>8
-                R1 * 1/2
-                \time 7/16
-                <bf d' a'>4
-                d'16
-                <a d' b'>8
-                \time 3/16
-                R1 * 3/16
-                \time 7/16
-                d'16
-                <a d' b'>8
-                <bf d' a'>4
-                \time 3/16
-                R1 * 3/16
-                \time 9/16
-                <a d' b'>8
-                <bf d' a'>4
-                <b d' g'>8.
-                \time 3/16
-                R1 * 3/16
-                \time 2/4
-                <bf d' a'>4
-                <b d' g'>8.
-                <c' d' e'>16
-                \time 3/16
-                R1 * 3/16
-                \time 3/8
-                <b d' g'>8.
-                <c' d' e'>16
-                <bf d' a'>8
-                \bar "|."
-            }
-        >>
-
-    ..  figure:: ../_images/example-2-looping-KzWUHdwdBN.png
+..  figure:: ../_images/example-2-looping-KzWUHdwdBN.png
 
 .. include:: ../api/abjad-targets.rst
 .. include:: ../api/auxjad-targets.rst

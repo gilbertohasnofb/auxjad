@@ -142,15 +142,15 @@ class Shuffler:
         >>> len(shuffler)
         5
 
-         Do note that consecutive rests are considered as a single logical tie,
-         so in the example below the :func:`len()` function returns ``5`` and
-         not ``6``. When shuffling or rotating logical ties, consecutive rests
-         are also shuffled and rotated together.
+        Do note that consecutive rests are considered as a single logical tie,
+        so in the example below the :func:`len()` function returns ``5`` and
+        not ``6``. When shuffling or rotating logical ties, consecutive rests
+        are also shuffled and rotated together.
 
-         >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
-         >>> shuffler = auxjad.Shuffler(container)
-         >>> len(shuffler)
-         5
+        >>> container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
+        >>> shuffler = auxjad.Shuffler(container)
+        >>> len(shuffler)
+        5
 
     Arguments and properties:
         This class has many keyword arguments, all of which can be altered

@@ -27,7 +27,7 @@ Or if you are using virtual environments, simply use::
 You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.4`_
 and `LilyPond`_.
 
-.. |Auxjad image| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad.png
+.. |Auxjad image| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad

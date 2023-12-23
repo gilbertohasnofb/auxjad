@@ -31,7 +31,7 @@ and `LilyPond`_.
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
-.. |Build| image:: https://img.shields.io/github/actions/workflow/status/gilbertohasnofb/auxjad/github-actions.yml
+.. |Build| image:: https://img.shields.io/github/actions/workflow/status/gilbertohasnofb/auxjad/github-actions.yml?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/actions/workflows/github-actions.yml
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
    :target: https://www.python.org/downloads/release/python-390/

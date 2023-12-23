@@ -71,7 +71,7 @@ Each member of this library is individually documented in the `Auxjad API`_ page
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
 .. |Build| image:: https://img.shields.io/github/actions/workflow/status/gilbertohasnofb/auxjad/github-actions.yml
-   :target: https://github.com/gilbertohasnofb/auxjad/actions/workflows/github-actions.yml
+   :target: https://github.com/gilbertohasnofb/auxjad/actions/workflows/github-actions.yml?style=for-the-badge
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
    :target: https://www.python.org/downloads/release/python-390/
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge

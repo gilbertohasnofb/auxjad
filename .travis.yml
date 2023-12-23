@@ -1,6 +1,0 @@
-language: python
-python:
-  - &mainstream_python 3.9
-cache: pip
-script:
-  - python -m pytest -v

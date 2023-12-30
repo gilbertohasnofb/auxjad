@@ -20,12 +20,14 @@ The recommended way to install Auxjad is via `pip`_::
 
     ~$ pip install --user auxjad
 
-Or if you are using virtual environments, simply use::
+If you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.4`_
-and `LilyPond`_.
+Auxjad requires `Python 3.9`_ or later, as well as `Abjad 3.4`_ and
+`LilyPond 2.22`_. Please note that Auxjad has not been tested with newer
+versions of LilyPond, and it is **not compatible** with newever versions of
+Abjad.
 
 .. |Auxjad image| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad
@@ -48,4 +50,4 @@ and `LilyPond`_.
 .. _pip: https://pip.pypa.io/en/stable/
 .. _`Python 3.9`: https://www.python.org/
 .. _`Abjad 3.4`: https://abjad.github.io/
-.. _LilyPond: http://lilypond.org/
+.. _`LilyPond 2.22`: http://lilypond.org/

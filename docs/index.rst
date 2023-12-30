@@ -21,7 +21,6 @@ This library is published under the `MIT License`_.
 .. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 
 
-
 Installation
 ============
 
@@ -29,24 +28,27 @@ The recommended way to install Auxjad is via `pip`_::
 
     ~$ pip install --user auxjad
 
-Or if you are using virtual environments, simply use::
+If you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-You will also need to install `Python 3.9`_ or higher, as well as `Abjad 3.4`_
-and `LilyPond`_.
-
+Auxjad requires `Python 3.9`_ or later, as well as `Abjad 3.4`_ and
+`LilyPond 2.22`_. Please note that Auxjad has not been tested with newer
+versions of LilyPond, and it is **not compatible** with newever versions of
+Abjad.
 
 
 Documentation
 =============
 
-Each member of this library is individually documented in the `Auxjad API`_ page. In the `Score gallery`_ page, you will find examples of my own compositions created with these tools. The `Examples of usage`_ page contains simple examples showing some of the capabilities of this library.
+Each member of this library is individually documented in the `Auxjad API`_
+page. In the `Score gallery`_ page, you will find examples of my own
+compositions created with these tools. The `Examples of usage`_ page contains
+simple examples showing some of the capabilities of this library.
 
 .. _`Auxjad API`: https://gilbertohasnofb.github.io/auxjad-docs/api/index.html
 .. _`Score gallery`: https://gilbertohasnofb.github.io/auxjad-docs/score_gallery/index.html
 .. _`Examples of usage`: https://gilbertohasnofb.github.io/auxjad-docs/examples/index.html
-
 
 
 .. toctree::
@@ -64,7 +66,7 @@ Each member of this library is individually documented in the `Auxjad API`_ page
 .. _doc: https://docs.python.org/3/tutorial/controlflow.html#tut-docstrings
 .. _pip: https://pip.pypa.io/en/stable/
 .. _`Python 3.9`: https://www.python.org/
-.. _LilyPond: http://lilypond.org/
+.. _`LilyPond 2.22`: http://lilypond.org/
 
 .. |Auxjad banner| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad

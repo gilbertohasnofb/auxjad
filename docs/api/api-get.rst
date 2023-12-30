@@ -9,7 +9,7 @@ function). They do not alter the input when return a value (normally a
 
 ..  note::
 
-    All mutation functions are also added as extension functions to
+    All inspection functions are also added as extension functions to
     |abjad.get|, so it is possible to simply use |abjad.get| instead of
     |auxjad.get|_:
 
@@ -27,6 +27,7 @@ for their individual documentation.
     :toctree: ../_api_members
 
     leaves_are_tieable
+    rhythms_are_identical
     selection_is_full
     selections_are_identical
     time_signature_list

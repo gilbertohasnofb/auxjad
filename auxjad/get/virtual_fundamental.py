@@ -6,8 +6,10 @@ import abjad
 def _generate_harmonics_from_pitch(fundamental: abjad.Pitch,
                                    upper_bound: abjad.Pitch,
                                    ) -> list:
-    r"""Generates the harmonic series for a given fundamental pitch up to a
-    given upper bound."""
+    r"""Private function used by |auxjad.get.virtual_fundamental()|. Generates
+    the harmonic series for a given fundamental pitch up to a given upper
+    bound.
+    """
     harmonic_intervals = [12, 7, 5, 4, 3, 3, 2, 2, 2, 1, 2, 1, 2, 1, 1]
     harmonics = [fundamental]
     for interval in harmonic_intervals:

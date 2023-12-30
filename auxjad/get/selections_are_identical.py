@@ -24,6 +24,22 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         >>> auxjad.get.selections_are_identical(selections)
         True
 
+        This function can handle multiple selections, and will compare them
+        among each other returning ``True`` if all are identical:
+
+        >>> container1 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container2 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container3 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> container4 = abjad.Staff(r"c'4 d'4 e'4 f'4 <g' a'>2 r2")
+        >>> selections = [
+        ...     container1[:],
+        ...     container2[:],
+        ...     container3[:],
+        ...     container4[:],
+        ... ]
+        >>> auxjad.get.selections_are_identical(selections)
+        True
+
     ..  note::
 
         Auxjad automatically adds this function as an extension function to
@@ -35,7 +51,7 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         >>> selections = [container1[:], container2[:]]
         >>> auxjad.get.selections_are_identical(selections)
         True
-        >>> auxjad.get.selections_are_identical(selections)
+        >>> abjad.get.selections_are_identical(selections)
         True
 
     Effective durations:
@@ -122,10 +138,9 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
 
     ..  warning::
 
-        It is important though to create selections using |abjad.select()| as
-        shown in the example above instead of using the syntax
-        ``container[:]``, since the latter selects only leaves which are not
-        grace notes.
+        It is important to create selections using |abjad.select()| as shown in 
+        the example above, instead of using the syntax ``container[:]``, since
+        the latter ignores grace notes.
 
     ..  note::
 
@@ -175,7 +190,10 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
                                    in abjad.get.indicators(leaf1)]
                     indicators2 = [format(indicator) for indicator
                                    in abjad.get.indicators(leaf2)]
-                    for indicator1 in indicators1:
-                        if indicator1 not in indicators2:
-                            return False
+                    if not all(indicator1 in indicators2
+                               for indicator1 in indicators1):
+                        return False
+                    if not all(indicator2 in indicators1
+                               for indicator2 in indicators2):
+                        return False
     return True

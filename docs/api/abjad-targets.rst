@@ -531,7 +531,8 @@
 .. |abjad.select| replace:: :mod:`abjad.select <abjad.select>`
 .. |abjad.select()| replace:: :func:`abjad.select() <abjad.select.select>`
 .. |abjad.logical_ties()| replace:: :func:`abjad.logical_ties() <abjad.select.logical_ties>`
-.. |abjad.group_by()| replace:: :func:`abjad.group_by() <abjad.select.group_by>`
+.. |abjad.select.logical_ties()| replace:: :func:`abjad.select.logical_ties() <abjad.select.logical_ties>`
+.. |abjad.select.group_by()| replace:: :func:`abjad.select.group_by() <abjad.select.group_by>`
 .. |abjad.DurationInequality| replace:: :class:`abjad.DurationInequality <abjad.select.DurationInequality>`
 .. |abjad.Inequality| replace:: :class:`abjad.Inequality <abjad.select.Inequality>`
 .. |abjad.LengthInequality| replace:: :class:`abjad.LengthInequality <abjad.select.LengthInequality>`

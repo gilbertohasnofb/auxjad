@@ -1,15 +1,16 @@
 Auxjad API
 ==========
 
-Auxjad is made out of eight subpackages: |core|_, |get|_, |indicators|_,
-|makers|_, |mutate|_, |score|_, |spanners|_, and |utilities|_. |core|_ contains
-most of Auxjad's classes and is focused on algorithmic transformations and
-manipulations of |abjad.Container| objects. |indicators|_ and |spanners|_
-contain derived classes and extension methods for Abjad's indicators and
-spanners. |score|_ contains score component classes, such as harmonic leaves.
-|makers|_ contain an expanded leaf making class. |get|_ and |mutate|_ contain
-inspection and mutation functions, while |utilities|_ contain utility functions
-that are neither inspections nor mutations.
+Auxjad is made out of nine subpackages: |core|_, |get|_, |indicators|_,
+|makers|_, |mutate|_, |score|_, |select_|, |spanners|_, and |utilities|_.
+
+|core|_ contains most of Auxjad's classes and is focused on algorithmic
+transformations and manipulations of |abjad.Container| objects. |indicators|_
+and |spanners|_ contain derived classes and extension methods for Abjad's
+indicators and spanners. |score|_ contains score component classes, such as
+harmonic leaves. |makers|_ contain an expanded leaf making class. |get|_,
+|mutate|_, and |select_| contain inspection, selection, and mutation functions,
+respectively. |utilities|_ contain general utility functions..
 
 ..  note::
 
@@ -37,6 +38,8 @@ in the navigation pane in the left.
 +----------------+-------------------------------------------------------------+
 | |score|_       | score component classes: artificial and natural harmonics   |
 +----------------+-------------------------------------------------------------+
+| |select|_      | selection functions                                         |
++----------------+-------------------------------------------------------------+
 | |spanners|_    | spanner classes                                             |
 +----------------+-------------------------------------------------------------+
 | |utilities|_   | utility functions                                           |
@@ -53,6 +56,7 @@ in the navigation pane in the left.
     api-makers
     api-mutate
     api-score
+    api-select
     api-spanners
     api-utilities
 

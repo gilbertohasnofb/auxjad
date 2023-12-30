@@ -44,6 +44,8 @@ from . import get
 
 from . import mutate
 
+from . import select
+
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
 __version__ = "1.0.1"
@@ -73,4 +75,5 @@ __all__ = [
     'staff_splitter',
     'get',
     'mutate',
+    'select',
 ]

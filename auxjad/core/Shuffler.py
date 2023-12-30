@@ -3,7 +3,7 @@ from typing import Any, Optional, Union
 
 import abjad
 
-from .. import get, mutate
+from .. import get, mutate, select
 
 
 class Shuffler:
@@ -1227,9 +1227,7 @@ class Shuffler:
 
     def _update_logical_selections(self) -> None:
         r'Updates the selection of logical ties of :attr:`contents`.'
-        self._logical_selections = self._get_logical_selections(
-            self._contents
-        )
+        self._logical_selections = select.logical_selections(self._contents)
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> None:
@@ -1362,7 +1360,7 @@ class Shuffler:
         r'Rewrites the logical selections of the current window.'
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
-        logical_selections = self._get_logical_selections(
+        logical_selections = select.logical_selections(
             abjad.mutate.copy(self._contents)
         )
         self._force_dynamics(logical_selections)
@@ -1449,17 +1447,6 @@ class Shuffler:
     def _get_lilypond_format(self) -> str:
         r'Returns interpreter representation of  :attr:`contents`.'
         return self.__repr__()
-
-    @staticmethod
-    def _get_logical_selections(container) -> abjad.Selection:
-        r'Updates the selection of logical ties of a container.'
-        def group_logical_ties(logical_tie):
-            if isinstance(logical_tie.head, abjad.Rest):
-                return True
-            else:
-                return logical_tie.head
-        logical_ties = abjad.select(container).logical_ties()
-        return logical_ties.group_by(group_logical_ties)
 
     @staticmethod
     def _remove_all_time_signatures(container) -> None:

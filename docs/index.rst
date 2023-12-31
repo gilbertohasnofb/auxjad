@@ -32,10 +32,9 @@ If you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-Auxjad requires `Python 3.9`_ or later, as well as `Abjad 3.4`_ and
-`LilyPond 2.22`_. Please note that Auxjad has not been tested with newer
-versions of LilyPond, and it is **not compatible** with newever versions of
-Abjad.
+Auxjad requires `Python 3.9`_ and `LilyPond 2.24`_ or later, as well as
+`Abjad 3.4`_. Please note that Auxjad is **not compatible** with newever
+versions of Abjad.
 
 
 Documentation
@@ -66,7 +65,7 @@ simple examples showing some of the capabilities of this library.
 .. _doc: https://docs.python.org/3/tutorial/controlflow.html#tut-docstrings
 .. _pip: https://pip.pypa.io/en/stable/
 .. _`Python 3.9`: https://www.python.org/
-.. _`LilyPond 2.22`: http://lilypond.org/
+.. _`LilyPond 2.24`: http://lilypond.org/
 
 .. |Auxjad banner| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad

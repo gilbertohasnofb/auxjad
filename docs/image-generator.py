@@ -14,8 +14,13 @@ pattern = r"""\.\. {1,2}docs::\s+
 
 # header for lilypond file
 ly_header = r"""
+\version "2.24"
+
 \include "lilypond-book-preamble.ly"
 \language "english"
+
+#(ly:set-option 'tall-page-formats 'eps,png,pdf)
+#(ly:set-option 'separate-page-formats 'eps,png,pdf)
 
 \paper {
     line-width = 17\cm

@@ -1582,7 +1582,7 @@ class Fader():
     ### PRIVATE METHODS ###
 
     def _remove_element(self) -> None:
-        r'Sets a random element of the mask to ``False``.'
+        r'Sets a random element of the mask to `0`.'
         for n in range(random.randint(1, self._max_steps)):
             if 1 in self._mask:
                 total_count = sum(self._mask)
@@ -1596,7 +1596,7 @@ class Fader():
                 raise RuntimeError("'current_window' is already empty")
 
     def _add_element(self) -> None:
-        r'Sets a random element of the mask to ``True``.'
+        r'Sets a random element of the mask to `1`.'
         for n in range(random.randint(1, self._max_steps)):
             if 0 in self._mask:
                 total_count = self.__len__() - sum(self._mask)

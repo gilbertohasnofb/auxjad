@@ -138,7 +138,7 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
 
     ..  warning::
 
-        It is important to create selections using |abjad.select()| as shown in 
+        It is important to create selections using |abjad.select()| as shown in
         the example above, instead of using the syntax ``container[:]``, since
         the latter ignores grace notes.
 

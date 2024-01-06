@@ -3,8 +3,6 @@ import abjad
 import auxjad
 
 
-
-
 def test_rhythms_are_identical_01():
     container1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
     container2 = abjad.Staff(r"c''4 b'4 a'4 g'4")

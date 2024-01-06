@@ -46,13 +46,13 @@ def logical_selections(container: Union[abjad.Container, abjad.Selection],
         equivalent:
 
         >>> container = abjad.Container(r"c'4 ~ c'16 r8. r4.. d'16 ~ d'4")
-        >>> for logical_selection in auxjad.select.logical_selections(container):
-        ...     print(logical_selection.leaves())
+        >>> for logical_sel in auxjad.select.logical_selections(container):
+        ...     print(logical_sel.leaves())
         Selection([Note("c'4"), Note("c'16")])
         Selection([Rest('r8.'), Rest('r4..')])
         Selection([Note("d'16"), Note("d'4")])
-        >>> for logical_selection in abjad.select.logical_selections(container):
-        ...     print(logical_selection.leaves())
+        >>> for logical_sel in abjad.select.logical_selections(container):
+        ...     print(logical_sel.leaves())
         Selection([Note("c'4"), Note("c'16")])
         Selection([Rest('r8.'), Rest('r4..')])
         Selection([Note("d'16"), Note("d'4")])

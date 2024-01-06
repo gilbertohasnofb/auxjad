@@ -911,7 +911,7 @@ def test_Echoer_17():
 def test_Echoer_18():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     with pytest.raises(RuntimeError):
-            echoer = auxjad.Echoer(container)  # noqa: F841
+        echoer = auxjad.Echoer(container)  # noqa: F841
 
 
 def test_Echoer_19():

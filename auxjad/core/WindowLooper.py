@@ -1353,9 +1353,8 @@ class WindowLooper(_LooperParent):
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r"""Returns the length of :attr:`contents` in terms of \
-        :attr:`step_size`.
-        """
+        r"""Returns the length of :attr:`contents` in terms of
+        :attr:`step_size`."""
         return ceil(self._contents_length / self._step_size)
 
     def __call__(self) -> abjad.Selection:

@@ -152,18 +152,20 @@ def rhythms_are_identical(selections: Union[Iterable[abjad.Component],
 
     for index, selection1 in enumerate(selections[:-1]):
         for selection2 in selections[index + 1:]:
-            logical_selections1 = [ls for ls in select.logical_selections(selection1)]
-            logical_selections2 = [ls for ls in select.logical_selections(selection2)]
+            logical_selections1 = [logical_selection for logical_selection
+                                   in select.logical_selections(selection1)]
+            logical_selections2 = [logical_selection for logical_selection
+                                   in select.logical_selections(selection2)]
             if len(logical_selections1) != len(logical_selections2):
                 return False
-            for logical_selection1, logical_selection2 in zip(logical_selections1,
+            for logical_sel1, logical_sel2 in zip(logical_selections1,
                                                   logical_selections2,
                                                   ):
-                if (abjad.get.duration(logical_selection1)
-                        != abjad.get.duration(logical_selection2)):
+                if (abjad.get.duration(logical_sel1)
+                        != abjad.get.duration(logical_sel2)):
                     return False
-                leaf1 = logical_selection1.leaf(0)
-                leaf2 = logical_selection2.leaf(0)
+                leaf1 = logical_sel1.leaf(0)
+                leaf2 = logical_sel2.leaf(0)
                 leaf1_graces = abjad.get.before_grace_container(leaf1)
                 leaf2_graces = abjad.get.before_grace_container(leaf2)
                 if not isinstance(leaf1_graces, type(leaf2_graces)):

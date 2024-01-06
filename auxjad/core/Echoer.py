@@ -1,15 +1,14 @@
 import random
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 import abjad
 
 from .. import get, mutate
-from ..score.ArtificialHarmonic import ArtificialHarmonic
 
 
 class Echoer():
     r"""Takes an |abjad.Container| (or child class) as input and, using it as
-    reference, gradually lowers all dynamics, removing notes that are below a 
+    reference, gradually lowers all dynamics, removing notes that are below a
     given threshold, returning the output as an |abjad.Selection|.
 
     Basic usage:
@@ -156,12 +155,8 @@ class Echoer():
         ..  figure:: ../_images/Echoer-rbnsf64kjoq.png
 
     :attr:`min_dynamic`:
-        This class has two modes, set by the keyword argument :attr:`min_dynamic`. The
-        default mode is ``'out'`` (i.e. 'fade out mode'), in which the echoer
-        will gradually remove notes one by one (see examples above). When set
-        to ``'in'`` (i.e. 'fade in mode'), the echoer will start with an empty
-        container with the same length and time signature  structure as the
-        input music and will gradually add the original notes one by one.
+        The threshold dynamic used to remove softer notes during each iteration
+        of the process is set by :attr:`min_dynamic`.
 
         >>> container = abjad.Container(r"c'4\f d'4 e'4 f'4")
         >>> echoer = auxjad.Echoer(container,
@@ -223,7 +218,7 @@ class Echoer():
         ..  figure:: ../_images/Echoer-qxvj8lkfph.png
 
     Changing :attr:`min_dynamic` after initialisation:
-        The property :attr:`min_dynamic` can also be changed after 
+        The property :attr:`min_dynamic` can also be changed after
         initialisation, as shown below.
 
         >>> container = abjad.Container(r"c'4\mf d'4\mp e'\p f'\pp")
@@ -322,7 +317,7 @@ class Echoer():
         ..  figure:: ../_images/Echoer-2i22so5t5pf.png
 
     :attr:`include_empty_measures`:
-        Set :attr:`include_empty_measures` to ``False`` to exclude empty 
+        Set :attr:`include_empty_measures` to ``False`` to exclude empty
         measures at the end of the process (default is ``True``).
 
         >>> container = abjad.Container(r"c'4\p d'4 e' f'")
@@ -421,14 +416,14 @@ class Echoer():
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
-        creation, besides :attr:`min_dynamic`. By default, calling the object 
+        creation, besides :attr:`min_dynamic`. By default, calling the object
         for the first time will return the original container; set
         :attr:`process_on_first_call` to ``True`` and the echo process will be
         applied on the very first call. :attr:`max_steps` sets the maximum
-        number of iterations of the echoing process that can be applied in a 
-        single call, ranging between ``1`` and the input value (default is also 
-        ``1``). :attr:`repetition_chance` sets the chance of a window repeating 
-        itself, from ``0.0`` to ``1.0`` (default is ``0.0``, i.e. no 
+        number of iterations of the echoing process that can be applied in a
+        single call, ranging between ``1`` and the input value (default is also
+        ``1``). :attr:`repetition_chance` sets the chance of a window repeating
+        itself, from ``0.0`` to ``1.0`` (default is ``0.0``, i.e. no
         repetitions). :attr:`disable_rewrite_meter` disables the
         |abjad.Meter.rewrite_meter()| mutation which is applied to the
         container after every call, and :attr:`omit_time_signatures` will
@@ -1256,7 +1251,7 @@ class Echoer():
         Do note that some elements that span multiple notes (such as ottava
         indicators, manual beams, etc.) can become problematic when notes
         containing them are split into two. As a rule of thumb, it is always
-        better to attach those to the music after the echoing process has 
+        better to attach those to the music after the echoing process has
         ended.
 
     Tuplets:
@@ -1383,7 +1378,7 @@ class Echoer():
                  '_fuse_quadruple_meter',
                  '_fuse_triple_meter',
                  )
-    
+
     _dynamic_name_to_dynamic_ordinal = {
         'ppppp': -5,
         'pppp': -4,
@@ -1486,11 +1481,6 @@ class Echoer():
                 or random.random() > self._repetition_chance):
             if not self._is_first_window or self._process_on_first_call:
                 self._soften_mask()
-        # if (not self._include_empty_measures
-        #         and all(item is None for item in self._mask)):
-        #     # returning empty container when mask fully empty and empty 
-        #     # measure at the end not to be included. Unlike Fader which 
-        #     return abjad.Container()[:]
         self._mask_to_selection()
         return self.current_window
 
@@ -1560,7 +1550,7 @@ class Echoer():
             dyn_list = self._mask_to_dyn_list()
             previous_dyn = None
             for logical_tie, new_dyn in zip(logical_ties, dyn_list):
-                current_dyn = abjad.get.indicator(logical_tie.head, 
+                current_dyn = abjad.get.indicator(logical_tie.head,
                                                   abjad.Dynamic,
                                                   )
                 if current_dyn is not None:
@@ -1598,7 +1588,7 @@ class Echoer():
     def _get_lilypond_format(self) -> str:
         r'Returns interpreter representation of  :attr:`contents`.'
         return self.__repr__()
-    
+
     def _get_mask(self) -> None:
         r'Creates a mask of dynamic ordinals from :attr:`contents`.'
         logical_ties = abjad.select(self._contents).logical_ties(pitched=True)
@@ -1618,7 +1608,7 @@ class Echoer():
             previous_dyn = dyn
         if self._mask[0] is None:
             raise RuntimeError("first note of 'contents' must have a dynamic")
-    
+
     def _mask_to_dyn_list(self) -> list[str]:
         r'Converts the numerical mask into a list of dynamic strings.'
         dyn_list = []
@@ -1629,23 +1619,23 @@ class Echoer():
             else:
                 dyn_list.append(None)
         return dyn_list
-    
+
     def _soften_mask(self) -> list[Union[int, None]]:
         r'Lowers the dynamics of the mask by one level.'
         for n in range(random.randint(1, self._max_steps)):
             if any(item is not None for item in self._mask):
-                self._mask = [self._soften_dynamic(item, 
+                self._mask = [self._soften_dynamic(item,
                                                    self._min_dynamic_number,
                                                    )
                               for item in self._mask]
             elif n == 0:
                 raise RuntimeError("'current_window' is already empty")
-        
+
     @staticmethod
     def _soften_dynamic(item: Union[int, None],
                         min_dyn_number: int,
                         ) -> Union[int, None]:
-        r"""Lowers a numerical dynamic level by one, setting it to ``None`` if 
+        r"""Lowers a numerical dynamic level by one, setting it to ``None`` if
         dynamic below a given threshold.
         """
         if item is None:
@@ -1986,11 +1976,10 @@ class Echoer():
         if self._include_empty_measures:
             return all(item is None for item in self._mask)
         else:
-            return all(item in (None, self._min_dynamic_number) 
+            return all(item in (None, self._min_dynamic_number)
                        for item in self._mask)
-        
+
     @property
     def _min_dynamic_number(self) -> int:
         r'Numerical representation of :attr:`min_dynamic`.'
         return self._dynamic_name_to_dynamic_ordinal[self._min_dynamic]
-        

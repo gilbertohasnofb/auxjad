@@ -12,8 +12,8 @@ def test_logical_selections_01():
         r"d'16 ~ d'4",
     ]
     for logical_selection, expected_result in zip(logical_selections,
-                                                   expected_results,
-                                                   ):
+                                                  expected_results,
+                                                  ):
         selections = [logical_selection.leaves(),
                       abjad.Container(expected_result)[:],
                       ]
@@ -33,8 +33,8 @@ def test_logical_selections_02():
         r"<e' f'>8",
     ]
     for logical_selection, expected_result in zip(logical_selections,
-                                                   expected_results,
-                                                   ):
+                                                  expected_results,
+                                                  ):
         selections = [logical_selection.leaves(),
                       abjad.Container(expected_result)[:],
                       ]
@@ -50,8 +50,8 @@ def test_logical_selections_03():
         r"d'16 ~ d'2.",
     ]
     for logical_selection, expected_result in zip(logical_selections,
-                                                   expected_results,
-                                                   ):
+                                                  expected_results,
+                                                  ):
         selections = [logical_selection.leaves(),
                       abjad.Container(expected_result)[:],
                       ]

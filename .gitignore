@@ -1,6 +1,9 @@
 # Sandbox file
 /sandbox.py
 
+# VSCode folder
+/.vscode
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

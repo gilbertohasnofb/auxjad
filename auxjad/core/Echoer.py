@@ -1159,89 +1159,89 @@ class Echoer():
 
         ..  docs::
 
-        \new Staff
-        {
-            \times 2/3
+            \new Staff
             {
-                \time 4/4
-                c'2
-                \p
-                \<
-                (
-                d'2
-                e'2
-                \ff
-            }
-            f'4
-            \mf
-            \>
-            g'2
-            a'4
-            \mp
-            )
-            \times 2/3
-            {
-                c'2
-                \pp
-                \<
-                (
-                d'2
-                e'2
-                \f
-            }
-            f'4
-            \mp
-            \>
-            g'2
-            a'4
-            \p
-            )
-            \times 2/3
-            {
-                c'2
-                \ppp
-                \<
-                (
-                d'2
-                e'2
+                \times 2/3
+                {
+                    \time 4/4
+                    c'2
+                    \p
+                    \<
+                    (
+                    d'2
+                    e'2
+                    \ff
+                }
+                f'4
                 \mf
-            }
-            f'4
-            \p
-            \>
-            g'2
-            a'4
-            \pp
-            )
-            \times 2/3
-            {
-                r1
-                e'2
+                \>
+                g'2
+                a'4
                 \mp
-                (
-            }
-            f'4
-            \pp
-            \>
-            g'2
-            a'4
-            \ppp
-            )
-            \times 2/3
-            {
-                r1
-                e'2
+                )
+                \times 2/3
+                {
+                    c'2
+                    \pp
+                    \<
+                    (
+                    d'2
+                    e'2
+                    \f
+                }
+                f'4
+                \mp
+                \>
+                g'2
+                a'4
                 \p
-                (
+                )
+                \times 2/3
+                {
+                    c'2
+                    \ppp
+                    \<
+                    (
+                    d'2
+                    e'2
+                    \mf
+                }
+                f'4
+                \p
+                \>
+                g'2
+                a'4
+                \pp
+                )
+                \times 2/3
+                {
+                    r1
+                    e'2
+                    \mp
+                    (
+                }
+                f'4
+                \pp
+                \>
+                g'2
+                a'4
+                \ppp
+                )
+                \times 2/3
+                {
+                    r1
+                    e'2
+                    \p
+                    (
+                }
+                f'4
+                \ppp
+                \>
+                g'2
+                )
+                r4
+                \!
             }
-            f'4
-            \ppp
-            \>
-            g'2
-            )
-            r4
-            \!
-        }
 
         ..  figure:: ../_images/Echoer-jprjps4zxej.png
 
@@ -1328,33 +1328,33 @@ class Echoer():
 
         ..  docs::
 
-        \new Staff
-        {
-            \time 3/8
-            c'4.
-            \pp
-            \time 2/4
-            d'2
-            \ff
-            \time 3/8
-            e'4.
-            \mp
-            c'4.
-            \ppp
-            \time 2/4
-            d'2
-            \f
-            \time 3/8
-            e'4.
-            \p
-            R1 * 3/8
-            \time 2/4
-            d'2
-            \mf
-            \time 3/8
-            e'4.
-            \pp
-        }
+            \new Staff
+            {
+                \time 3/8
+                c'4.
+                \pp
+                \time 2/4
+                d'2
+                \ff
+                \time 3/8
+                e'4.
+                \mp
+                c'4.
+                \ppp
+                \time 2/4
+                d'2
+                \f
+                \time 3/8
+                e'4.
+                \p
+                R1 * 3/8
+                \time 2/4
+                d'2
+                \mf
+                \time 3/8
+                e'4.
+                \pp
+            }
 
         ..  figure:: ../_images/Echoer-lkhKFVuUgx.png
     """

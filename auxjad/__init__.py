@@ -15,6 +15,7 @@ This library is published under the MIT License.
 
 from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
+from .core.Echoer import Echoer
 from .core.Fader import Fader
 from .core.GeneticAlgorithm import GeneticAlgorithm
 from .core.Hocketer import Hocketer
@@ -54,6 +55,7 @@ __all__ = [
     '__version__',
     'CartographySelector',
     'CrossFader',
+    'Echoer',
     'Fader',
     'GeneticAlgorithm',
     'Hocketer',

@@ -24,6 +24,7 @@ for their individual documentation.
 
     CartographySelector
     CrossFader
+    Echoer
     Fader
     GeneticAlgorithm
     Hocketer

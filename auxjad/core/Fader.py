@@ -1159,7 +1159,7 @@ class Fader():
         documentation of this function for more details on these arguments.
 
     Indicators:
-        This class can handle dynamics and articulations too.
+        This class can handle dynamics and articulations.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'8->\f d'8\p ~ d'4 e'8..-- f'32-."

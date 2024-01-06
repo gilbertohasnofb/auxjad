@@ -180,7 +180,7 @@ def test_auto_rewrite_meter_04():
     )
 
 
-def test_auto_rewrite_meter_06():
+def test_auto_rewrite_meter_05():
     staff = abjad.Staff(
         r"\time 3/4 c'8 d'4 e'4 f'8 "
         r"\time 5/8 g'4 a'4 r8 "
@@ -223,13 +223,13 @@ def test_auto_rewrite_meter_06():
     )
 
 
-def test_auto_rewrite_meter_07():
+def test_auto_rewrite_meter_06():
     staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
     with pytest.raises(TypeError):
         auxjad.mutate.auto_rewrite_meter(staff[:])
 
 
-def test_auto_rewrite_meter_08():
+def test_auto_rewrite_meter_07():
     staff = abjad.Staff(
         r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
         r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
@@ -252,7 +252,7 @@ def test_auto_rewrite_meter_08():
     )
 
 
-def test_auto_rewrite_meter_09():
+def test_auto_rewrite_meter_08():
     staff = abjad.Staff(
         r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
         r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
@@ -284,7 +284,7 @@ def test_auto_rewrite_meter_09():
     )
 
 
-def test_auto_rewrite_meter_10():
+def test_auto_rewrite_meter_09():
     staff = abjad.Staff(
         r"\times 2/3 {c'2 d'1}"
         r"\times 2/3 {e'2} \times 2/3 {f'1}"
@@ -336,7 +336,7 @@ def test_auto_rewrite_meter_10():
     )
 
 
-def test_auto_rewrite_meter_11():
+def test_auto_rewrite_meter_10():
     staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
     meter = abjad.Meter((4, 4))
     for measure in abjad.select(staff[:]).group_by_measure():
@@ -395,7 +395,7 @@ def test_auto_rewrite_meter_11():
     )
 
 
-def test_auto_rewrite_meter_12():
+def test_auto_rewrite_meter_11():
     staff = abjad.Staff(r"c'16 d'8 e'16 f'8 g'4 a'4 b'8")
     abjad.mutate.auto_rewrite_meter(staff)
     assert abjad.lilypond(staff) == abjad.String.normalize(

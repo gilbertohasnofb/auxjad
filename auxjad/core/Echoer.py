@@ -1063,7 +1063,7 @@ class Echoer():
         documentation of this function for more details on these arguments.
 
     Indicators:
-        This class can handle dynamics, slurs, and articulations.
+        This class can handle dynamics and articulations.
 
         >>> container = abjad.Container(
         ...     r"\time 3/4 c'8.->\mf d'16 ~ d'4 e'8..--\p f'32-.\f"

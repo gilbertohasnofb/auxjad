@@ -3,7 +3,7 @@ SPHINXBUILD   = python3.9 -msphinx  # sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
-.PHONY: help clean html latex images
+.PHONY: help clean images html latex release
 
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -37,6 +37,7 @@ images:
 html:
 	rm -Rif "$(SOURCEDIR)"/_api_members
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	firefox --new-tab ./_build/html/index.html
 
 latex:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

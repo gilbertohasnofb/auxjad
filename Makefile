@@ -1,4 +1,5 @@
-.PHONY: docs build docs-webpage
+.PHONY: build clean docs-html docs-release flake8 release-webpage isort-check \
+	isort-reformat pytest reformat release check test
 
 build:
 	python3.9 setup.py sdist
@@ -11,7 +12,7 @@ clean:
 	rm -Rif build
 	rm -Rif dist
 
-html:
+docs-html:
 	make -C docs/ html
 
 docs-release:
@@ -23,7 +24,7 @@ flake_exclude = --exclude=./sandbox.py,./docs/conf.py
 flake8:
 	python3.9 -m flake8 ${flake_ignore} ${flake_exclude}
 
-docs-webpage:
+release-webpage:
 	rm -Rf auxjad-docs/
 	git clone https://github.com/gilbertohasnofb/auxjad-docs auxjad-docs
 	rsync -rtv --del --exclude=.git --exclude=README.rst \
@@ -74,7 +75,7 @@ release:
 	make build
 	pip install -U twine
 	twine upload dist/*.tar.gz
-	make docs-webpage
+	make release-webpage
 
 check:
 	make flake8

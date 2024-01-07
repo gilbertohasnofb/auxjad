@@ -875,15 +875,7 @@ class Echoer():
         ..  figure:: ../_images/Echoer-1t2yh8imiu8.png
 
     :meth:`reset`:
-        The property :attr:`mask` is used to represent whether each note is
-        hidden or present. It is a :obj:`list` of the same length as the number
-        of notes in the input container (use the :func:`len()` function to read
-        that value). When :attr:`mode` is set to ``'out'``, the mask is
-        initialised with ``1``'s, and when it is set to ``'in'``, it is
-        initialised with ``0``'s. Change it to a mix of ``1``'s and ``0``'s to
-        start the process with some notes already hidden or present. Use the
-        method :meth:`reset` to reset it back to its default value (depending
-        on :attr:`mode`).
+        Use the method :meth:`reset` to reset the process.
 
         >>> container = abjad.Container(r"c'4\mf d'4\mp e'\p f'\pp")
         >>> echoer = auxjad.Echoer(container)

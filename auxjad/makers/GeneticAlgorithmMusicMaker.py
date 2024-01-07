@@ -16,19 +16,38 @@ class GeneticAlgorithmMusicMaker():
     ..  note::
 
         Many of the properties of this class reflect the behaviour of
-        properties of :class:`GeneticAlgorithm`. Some, such as
-        :attr:`population_size`, :attr:`select_n_parents`,
-        :attr:`keep_n_parents`, :attr:`mutation_chance`,
-        :attr:`mutation_index`, and :attr:`evaluation_index`, have the same
-        name as those in :class:`GeneticAlgorithm`. :attr:`pitch_target` and
-        :attr:`attack_point_target`, :attr:`pitch_genes` and
-        :attr:`attack_point_genes`, and :attr:`pitch_initial_individual` and
-        :attr:`attack_point_initial_individual` work as
-        :attr:`GeneticAlgorithm.target`, :attr:`GeneticAlgorithm.genes`, and
-        :attr:`GeneticAlgorithm.initial_individual`, respectively.
+        properties of :class:`GeneticAlgorithm`. Some have the same name as
+        those in :class:`GeneticAlgorithm`, including:
 
-        For the details of how these properties work, please refer to
-        :class:`GeneticAlgorithm`'s documentation page.
+        * :attr:`population_size` and :attr:`GeneticAlgorithm.population_size`
+        * :attr:`select_n_parents` and
+          :attr:`GeneticAlgorithm.select_n_parents`
+        * :attr:`keep_n_parents` and :attr:`GeneticAlgorithm.keep_n_parents`
+        * :attr:`mutation_chance` and :attr:`GeneticAlgorithm.mutation_chance`
+        * :attr:`mutation_index` and :attr:`GeneticAlgorithm.mutation_index`
+        * :attr:`evaluation_index` and
+          :attr:`GeneticAlgorithm.evaluation_index`
+        * :attr:`generation_number` and
+          :attr:`GeneticAlgorithm.generation_number`
+        * :attr:`scores` and :attr:`GeneticAlgorithm.scores`
+        * :attr:`fittest_individual_score` and
+          :attr:`GeneticAlgorithm.fittest_individual_score`
+
+        Properties related to pitch and attach points will also have
+        equivalents:
+
+        * :attr:`pitch_target` and :attr:`attack_point_target` are equivalent
+          to :attr:`GeneticAlgorithm.target`
+        * :attr:`pitch_genes` and :attr:`attack_point_genes` are equivalent to
+          :attr:`GeneticAlgorithm.genes`
+        * :attr:`pitch_initial_individual` and
+          :attr:`attack_point_initial_individual` are equivalent to
+          :attr:`GeneticAlgorithm.initial_individual`
+        * :attr:`pitch_population` and :attr:`attack_point_population` are
+          equivalent to :attr:`GeneticAlgorithm.population`
+        * :attr:`fittest_pitch_individual` and
+          :attr:`fittest_attack_point_individual` are equivalent to
+          :attr:`GeneticAlgorithm.fittest_individual`
 
     Basic usage:
         At its basic, this class needs a target and a list of genes for both
@@ -866,15 +885,6 @@ class GeneticAlgorithmMusicMaker():
         None
         >>> maker.fittest_individual_score
         None
-
-    .. note::
-
-        Please refer to the documentation of :class:`auxjad.GeneticAlgorithm`
-        to better understand the attributes :attr:`generation_number`,
-        :attr:`pitch_population`, :attr:`attack_point_population`,
-        :attr:`scores`, :attr:`fittest_pitch_individual`,
-        :attr:`fittest_attack_point_individual`, and
-        :attr:`fittest_individual_score`.
         """
     ### CLASS VARIABLES ###
 

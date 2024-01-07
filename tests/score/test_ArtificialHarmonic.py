@@ -61,7 +61,7 @@ def test_ArtificialHarmonic_04():
         r"""
         <
             \parenthesize
-            \tweak ParenthesesItem.font-size -4
+            \tweak Parentheses.font-size -3
             g
             \tweak style #'harmonic
             c'

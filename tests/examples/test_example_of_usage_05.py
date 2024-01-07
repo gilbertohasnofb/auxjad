@@ -37,14 +37,14 @@ def test_example_of_usage_05():
                 \time 4/4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -67,14 +67,14 @@ def test_example_of_usage_05():
                 r4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -108,14 +108,14 @@ def test_example_of_usage_05():
                 <g gs' a'>16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
                 >8
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
@@ -127,46 +127,14 @@ def test_example_of_usage_05():
                 >4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
-                    d'
-                    \tweak style #'harmonic
-                    a'
-                >8
-                <
-                    b
-                    \tweak style #'harmonic
-                    e'
-                >16
-                ~
-                <
-                    b
-                    \tweak style #'harmonic
-                    e'
-                >8
-                <g gs' a'>8
-                r4
-                <
-                    ef'
-                    \tweak style #'harmonic
-                    af'
-                >4
-                <
-                    \parenthesize
-                    \tweak ParenthesesItem.font-size -4
-                    g
-                    \tweak style #'harmonic
-                    c'
-                >16
-                <
-                    \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -191,14 +159,46 @@ def test_example_of_usage_05():
                 >4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
+                    d'
+                    \tweak style #'harmonic
+                    a'
+                >8
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >16
+                ~
+                <
+                    b
+                    \tweak style #'harmonic
+                    e'
+                >8
+                <g gs' a'>8
+                r4
+                <
+                    ef'
+                    \tweak style #'harmonic
+                    af'
+                >4
+                <
+                    \parenthesize
+                    \tweak Parentheses.font-size -3
+                    g
+                    \tweak style #'harmonic
+                    c'
+                >16
+                <
+                    \parenthesize
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -214,14 +214,14 @@ def test_example_of_usage_05():
                 >4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -237,14 +237,14 @@ def test_example_of_usage_05():
                 >4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -260,14 +260,14 @@ def test_example_of_usage_05():
                 >4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -277,14 +277,14 @@ def test_example_of_usage_05():
                 r4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'
                 >16
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     d'
                     \tweak style #'harmonic
                     a'
@@ -294,7 +294,7 @@ def test_example_of_usage_05():
                 r4
                 <
                     \parenthesize
-                    \tweak ParenthesesItem.font-size -4
+                    \tweak Parentheses.font-size -3
                     g
                     \tweak style #'harmonic
                     c'

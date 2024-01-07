@@ -112,7 +112,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
             <
                 \parenthesize
-                \tweak ParenthesesItem.font-size -4
+                \tweak Parentheses.font-size -3
                 g
                 \tweak style #'harmonic
                 c'
@@ -499,7 +499,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         self._is_parenthesized = is_parenthesized
         self._note_heads[0].is_parenthesized = self._is_parenthesized
         if self._is_parenthesized:
-            abjad.tweak(self._note_heads[0]).ParenthesesItem__font_size = -4
+            abjad.tweak(self._note_heads[0]).Parentheses__font_size = -3
 
     @property
     def markup(self) -> str:

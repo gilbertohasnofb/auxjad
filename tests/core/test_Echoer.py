@@ -320,7 +320,7 @@ def test_Echoer_05():
 
 def test_Echoer_06():
     container = abjad.Container(
-        r"c'4\p ~ c'16 r8. r8. <d' e'>16\mp ~ <d' e'>4"
+        r"<c' g' e'>4\p ~ <c' g' e'>16 r8. r8 <d' f' a'>4.\mp"
     )
     echoer = auxjad.Echoer(container)
     notes = echoer.output_all()
@@ -330,42 +330,34 @@ def test_Echoer_06():
         \new Staff
         {
             \time 4/4
-            c'4
+            <c' e' g'>4
             \p
             ~
-            c'16
+            <c' e' g'>16
             r8.
-            r8.
-            <d' e'>16
+            r8
+            <d' f' a'>4.
             \mp
-            ~
-            <d' e'>4
-            c'4
+            <c' e' g'>4
             \pp
             ~
-            c'16
+            <c' e' g'>16
             r8.
-            r8.
-            <d' e'>16
+            r8
+            <d' f' a'>4.
             \p
-            ~
-            <d' e'>4
-            c'4
+            <c' e' g'>4
             \ppp
             ~
-            c'16
+            <c' e' g'>16
             r8.
-            r8.
-            <d' e'>16
+            r8
+            <d' f' a'>4.
             \pp
-            ~
-            <d' e'>4
             r2
-            r8.
-            <d' e'>16
+            r8
+            <d' f' a'>4.
             \ppp
-            ~
-            <d' e'>4
             R1
         }
         """

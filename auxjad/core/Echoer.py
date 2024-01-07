@@ -347,7 +347,6 @@ class Echoer():
                 d'4
                 e'4
                 f'4
-                R1
             }
 
         ..  figure:: ../_images/Echoer-pg0bejhb7ke.png
@@ -695,7 +694,7 @@ class Echoer():
         This class also support chords and rest in :attr:`contents`.
 
         >>> container = abjad.Container(
-        ...     r"c'4\p ~ c'16 r8. r8. <d' e'>16\mp ~ <d' e'>4"
+        ...     r"<c' g' e'>4\p ~ <c' g' e'>16 r8. r8 <d' f' a'>4.\mp"
         ... )
         >>> echoer = auxjad.Echoer(container)
         >>> staff = abjad.Staff(echoer.output_all())
@@ -706,42 +705,34 @@ class Echoer():
             \new Staff
             {
                 \time 4/4
-                c'4
+                <c' e' g'>4
                 \p
                 ~
-                c'16
+                <c' e' g'>16
                 r8.
-                r8.
-                <d' e'>16
+                r8
+                <d' f' a'>4.
                 \mp
-                ~
-                <d' e'>4
-                c'4
+                <c' e' g'>4
                 \pp
                 ~
-                c'16
+                <c' e' g'>16
                 r8.
-                r8.
-                <d' e'>16
+                r8
+                <d' f' a'>4.
                 \p
-                ~
-                <d' e'>4
-                c'4
+                <c' e' g'>4
                 \ppp
                 ~
-                c'16
+                <c' e' g'>16
                 r8.
-                r8.
-                <d' e'>16
+                r8
+                <d' f' a'>4.
                 \pp
-                ~
-                <d' e'>4
                 r2
-                r8.
-                <d' e'>16
+                r8
+                <d' f' a'>4.
                 \ppp
-                ~
-                <d' e'>4
                 R1
             }
 

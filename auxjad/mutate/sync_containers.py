@@ -708,12 +708,9 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         ..  figure:: ../_images/sync_containers-msu922pcn6e.png
 
     Polymetric notation:
-        It's important to note that LilyPond does not support simultanoues
-        staves with different time signatures (i.e. polymetric notation) by
-        default. In order to enable it, the ``"Timing_translator"`` and
-        ``"Default_bar_line_engraver"`` must be removed from the ``Score``
-        context and added to the ``Staff`` context. Below is a full example of
-        how this can be accomplished using Abjad.
+        In order to enable polymetric notation in LilyPond, the command
+        ``"\enablePolymeter"`` must be added to the layout block. Below is a
+        full example of how this can be accomplished using Abjad.
 
         >>> container1 = abjad.Container(r"\time 4/4 c'4 d'4 e'4 f'4")
         >>> container2 = abjad.Container(r"\time 3/4 a2. \time 4/4 c'4")
@@ -737,19 +734,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         >>> score_block.items.append(score)
         >>> score_block.items.append(layout_block)
         >>> lilypond_file.items.append(score_block)
-        >>> layout_block.items.append(
-        ...     r'''
-        ...     \context {
-        ...         \Score
-        ...         \remove "Timing_translator"
-        ...         \remove "Default_bar_line_engraver"
-        ...     }
-        ...     \context {
-        ...         \Staff
-        ...         \consists "Timing_translator"
-        ...         \consists "Default_bar_line_engraver"
-        ...     }
-        ...     ''')
+        >>> layout_block.items.append(r'\enablePolymeter')
         >>> abjad.show(lilypond_file)
 
         ..  docs::
@@ -800,16 +785,7 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
                     }
                 >>
                 \layout {
-                    \context {
-                        \Score
-                        \remove "Timing_translator"
-                        \remove "Default_bar_line_engraver"
-                    }
-                    \context {
-                        \Staff
-                        \consists "Timing_translator"
-                        \consists "Default_bar_line_engraver"
-                    }
+                    \enablePolymeter
                 }
             } %! abjad.LilyPondFile._get_formatted_blocks()
 

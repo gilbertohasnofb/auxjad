@@ -1551,7 +1551,10 @@ class CrossFader():
         should be considered experimental. LilyPond must be set up to allow
         different simultaneous time signatures, and
         |auxjad.mutate.sync_containers()| can be used to add rests to the end
-        of the shorter staff.
+        of the shorter staff. In order to enable polymetric notation in
+        LilyPond, the command ``"\enablePolymeter"`` must be added to the
+        layout block. Below is a full example of how this can be accomplished
+        using Abjad.
 
         >>> fade_out_container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> fade_in_container = abjad.Container(r"\time 4/4 g'2 a'2")
@@ -1572,18 +1575,7 @@ class CrossFader():
         >>> score_block.items.append(score)
         >>> score_block.items.append(layout_block)
         >>> lilypond_file.items.append(score_block)
-        >>> layout_block.items.append(
-        ...     r'''\context {
-        ...         \Score
-        ...         \remove "Timing_translator"
-        ...         \remove "Default_bar_line_engraver"
-        ...     }
-        ...     \context {
-        ...         \Staff
-        ...         \consists "Timing_translator"
-        ...         \consists "Default_bar_line_engraver"
-        ...     }'''
-        ... )
+        >>> layout_block.items.append(r'\enablePolymeter')
         >>> abjad.show(score)
 
         ..  docs::
@@ -1635,16 +1627,7 @@ class CrossFader():
                     }
                 >>
                 \layout {
-                    \context {
-                        \Score
-                        \remove "Timing_translator"
-                        \remove "Default_bar_line_engraver"
-                    }
-                    \context {
-                        \Staff
-                        \consists "Timing_translator"
-                        \consists "Default_bar_line_engraver"
-                    }
+                    \enablePolymeter
                 }
             } %! abjad.LilyPondFile._get_formatted_blocks()
 

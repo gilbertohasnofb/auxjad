@@ -1802,8 +1802,8 @@ class CrossFader():
         self._is_first_process = True
         self._initial_repetitions_counter = 0
         self._final_repetitions_counter = 0
-        self._fader_in.reset_mask()
-        self._fader_out.reset_mask()
+        self._fader_in.reset()
+        self._fader_out.reset()
 
     ### PRIVATE METHODS ###
 

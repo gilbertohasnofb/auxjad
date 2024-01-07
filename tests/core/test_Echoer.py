@@ -1543,3 +1543,63 @@ def test_Echoer_29():
         }
         """
     )
+
+
+def test_Echoer_30():
+    container = abjad.Container(r"c'4\mf d'4\mp e'\p f'\pp")
+    echoer = auxjad.Echoer(container)
+    notes = echoer()
+    staff = abjad.Staff(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            \mf
+            d'4
+            \mp
+            e'4
+            \p
+            f'4
+            \pp
+        }
+        """
+    )
+    notes = echoer()
+    staff = abjad.Staff(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            \mp
+            d'4
+            \p
+            e'4
+            \pp
+            f'4
+            \ppp
+        }
+        """
+    )
+    echoer.reset()
+    notes = echoer()
+    staff = abjad.Staff(notes)
+    assert abjad.lilypond(staff) == abjad.String.normalize(
+        r"""
+        \new Staff
+        {
+            \time 4/4
+            c'4
+            \mf
+            d'4
+            \mp
+            e'4
+            \p
+            f'4
+            \pp
+        }
+        """
+    )

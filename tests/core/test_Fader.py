@@ -628,7 +628,7 @@ def test_Fader_14():
         }
         """
     )
-    fader.reset_mask()
+    fader.reset()
     notes = fader()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -641,7 +641,7 @@ def test_Fader_14():
         """
     )
     fader.mode = 'out'
-    fader.reset_mask()
+    fader.reset()
     notes = fader()
     staff = abjad.Staff(notes)
     assert abjad.lilypond(staff) == abjad.String.normalize(
@@ -913,7 +913,7 @@ def test_Fader_19():
         }
         """
     )
-    fader.reset_mask()
+    fader.reset()
     assert fader.mask == [0, 0, 0, 0, 0]
     notes = fader()
     staff = abjad.Staff(notes)

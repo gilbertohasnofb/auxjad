@@ -100,15 +100,15 @@ def test_GeneticAlgorithm_05():
         target=['A', 'B', 'C', 'D', 'E'],
         genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
     )
-    assert ga.fittest_individual is None
     assert ga.generation_number is None
+    assert ga.fittest_individual is None
     for _ in range(10):
         ga()
-    assert ga.fittest_individual == ['A', 'B', 'C', 'D', 'E']
     assert ga.generation_number == 9
+    assert ga.fittest_individual == ['A', 'B', 'C', 'D', 'E']
     ga.reset()
-    assert ga.fittest_individual is None
     assert ga.generation_number is None
+    assert ga.fittest_individual is None
 
 
 def test_GeneticAlgorithm_06():

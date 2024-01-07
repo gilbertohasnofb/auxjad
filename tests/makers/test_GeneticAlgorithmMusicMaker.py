@@ -814,3 +814,40 @@ def test_GeneticAlgorithmMusicMaker_11():
         }
         """
     )
+
+
+def test_GeneticAlgorithmMusicMaker_12():
+    random.seed(41273)
+    maker = auxjad.GeneticAlgorithmMusicMaker(
+        pitch_target=["c'", "d'", "e'", "f'"],
+        pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
+        attack_point_target=[0, 4, 8, 12],
+        attack_point_genes=list(range(16)),
+    )
+    assert maker.generation_number is None
+    assert maker.fittest_pitch_individual is None
+    assert maker.fittest_attack_point_individual is None
+    assert maker.fittest_individual_score is None
+    for _ in range(10):
+        maker()
+    assert maker.generation_number == 9
+    assert maker.fittest_pitch_individual == ["c'", "d'", "e'", "f'"]
+    assert maker.fittest_attack_point_individual == [0, 4, 8, 12]
+    assert maker.fittest_individual_score == 0.5
+    maker.reset()
+    assert maker.generation_number is None
+    assert maker.fittest_pitch_individual is None
+    assert maker.fittest_attack_point_individual is None
+    assert maker.fittest_individual_score is None
+
+
+def test_GeneticAlgorithmMusicMaker_13():
+    maker = auxjad.GeneticAlgorithmMusicMaker(
+        pitch_target=["c'", "d'", "e'", "f'"],
+        pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
+        attack_point_target=[0, 4, 8, 12],
+        attack_point_genes=list(range(16)),
+        duration_unit=abjad.Duration((1, 32)),
+        units_per_window=16,
+    )
+    assert maker.total_duration == abjad.Duration((1, 2))

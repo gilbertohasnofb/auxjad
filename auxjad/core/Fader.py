@@ -824,7 +824,7 @@ class Fader():
 
         ..  figure:: ../_images/Fader-1t2yh8imiu8.png
 
-    :attr:`mask` and :meth:`reset_mask`:
+    :attr:`mask` and :meth:`reset`:
         The property :attr:`mask` is used to represent whether each note is
         hidden or present. It is a :obj:`list` of the same length as the number
         of notes in the input container (use the :func:`len()` function to read
@@ -832,8 +832,8 @@ class Fader():
         initialised with ``1``'s, and when it is set to ``'in'``, it is
         initialised with ``0``'s. Change it to a mix of ``1``'s and ``0``'s to
         start the process with some notes already hidden or present. Use the
-        method :meth:`reset_mask` to reset it back to its default value
-        (depending on :attr:`mode`).
+        method :meth:`reset` to reset it back to its default value (depending
+        on :attr:`mode`).
 
         >>> container = abjad.Container(r"c'4 d'8 e'8 f'4 ~ f'8. g'16")
         >>> fader = auxjad.Fader(container)
@@ -887,7 +887,7 @@ class Fader():
 
         ..  figure:: ../_images/Fader-fa199pggrp.png
 
-        >>> fader.reset_mask()
+        >>> fader.reset()
         >>> fader.mask
         [0, 0, 0, 0, 0]
         >>> notes = fader()
@@ -903,6 +903,8 @@ class Fader():
             }
 
         ..  figure:: ../_images/Fader-xq3g5bd8djr.png
+
+    .. note::
 
         When a container has chords, each of their notes will be represented by
         an index in the mask, from the lowest pitched one to the highest
@@ -1561,8 +1563,10 @@ class Fader():
         dummy_container[:] = []
         return output
 
-    def reset_mask(self) -> None:
-        r'Creates a mask filled with a default value for the notes.'
+    def reset(self) -> None:
+        r"""Resets mask, filling it with a default value depending on
+        :attr:`mode`.
+        """
         self._is_first_window = True
         if self._mode == 'out':
             self._mask = [1 for _ in range(self.__len__())]
@@ -1752,7 +1756,7 @@ class Fader():
         dummy_container = abjad.mutate.copy(contents)
         self._current_window = dummy_container[:]
         dummy_container[:] = []
-        self.reset_mask()
+        self.reset()
         self._is_first_window = True
 
     @property

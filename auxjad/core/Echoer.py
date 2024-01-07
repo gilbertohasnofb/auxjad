@@ -874,6 +874,80 @@ class Echoer():
 
         ..  figure:: ../_images/Echoer-1t2yh8imiu8.png
 
+    :meth:`reset`:
+        The property :attr:`mask` is used to represent whether each note is
+        hidden or present. It is a :obj:`list` of the same length as the number
+        of notes in the input container (use the :func:`len()` function to read
+        that value). When :attr:`mode` is set to ``'out'``, the mask is
+        initialised with ``1``'s, and when it is set to ``'in'``, it is
+        initialised with ``0``'s. Change it to a mix of ``1``'s and ``0``'s to
+        start the process with some notes already hidden or present. Use the
+        method :meth:`reset` to reset it back to its default value (depending
+        on :attr:`mode`).
+
+        >>> container = abjad.Container(r"c'4\mf d'4\mp e'\p f'\pp")
+        >>> echoer = auxjad.Echoer(container)
+        >>> notes = echoer()
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                \mf
+                d'4
+                \mp
+                e'4
+                \p
+                f'4
+                \pp
+            }
+
+        ..  figure:: ../_images/Echoer-Is3abUvpyU.png
+
+        >>> notes = echoer()
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                \mp
+                d'4
+                \p
+                e'4
+                \pp
+                f'4
+                \ppp
+            }
+
+        ..  figure:: ../_images/Echoer-gNgOHWmr1T.png
+
+        >>> echoer.reset()
+        >>> notes = echoer()
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 4/4
+                c'4
+                \mf
+                d'4
+                \mp
+                e'4
+                \p
+                f'4
+                \pp
+            }
+
+        ..  figure:: ../_images/Echoer-ioSV8IbIIL.png
+
     :attr:`use_multimeasure_rests` and :attr:`disable_rewrite_meter`:
         By default, all rests in a measure filled only with rests will be
         converted into a multi-measure rest. Set :attr:`use_multimeasure_rests`

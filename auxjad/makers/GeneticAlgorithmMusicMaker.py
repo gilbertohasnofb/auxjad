@@ -338,6 +338,22 @@ class GeneticAlgorithmMusicMaker():
 
         ..  figure:: ../_images/GeneticAlgorithmMusicMaker-AqHoQPgphf.png
 
+    :attr:`total_duration`:
+        The property :attr:`total_duration` can be used to check the total
+        duration of the window size (that is, :attr:`duration_unit` times
+        :attr:`units_per_window`).
+
+        >>> maker = auxjad.GeneticAlgorithmMusicMaker(
+        ...     pitch_target=["c'", "d'", "e'", "f'"],
+        ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
+        ...     attack_point_target=[0, 4, 8, 12],
+        ...     attack_point_genes=list(range(16)),
+        ...     duration_unit=abjad.Duration((1, 32)),
+        ...     units_per_window=16,
+        ... )
+        >>> maker.total_duration
+        1/2
+
     :attr:`omit_time_signature`:
         By default, a time signature is added to the output automatically:
 
@@ -812,7 +828,54 @@ class GeneticAlgorithmMusicMaker():
             }
 
         ..  figure:: ../_images/GeneticAlgorithmMusicMaker-5aInHHwMol.png
-    """
+
+    :meth:`reset`:
+        Use the :meth:`reset` method to reset the genetic algorithm at any
+        point:
+
+        >>> maker = auxjad.GeneticAlgorithmMusicMaker(
+        ...     pitch_target=["c'", "d'", "e'", "f'"],
+        ...     pitch_genes=["c'", "d'", "e'", "f'", "g'", "a'", "b'", "c''"],
+        ...     attack_point_target=[0, 4, 8, 12],
+        ...     attack_point_genes=list(range(16)),
+        ... )
+        >>> maker.generation_number
+        None
+        >>> maker.fittest_pitch_individual
+        None
+        >>> maker.fittest_attack_point_individual
+        None
+        >>> maker.fittest_individual_score
+        None
+        >>> for _ in range(10):
+        ...     maker()
+        >>> maker.generation_number
+        9
+        >>> maker.fittest_pitch_individual
+        ["c'", "d'", "e'", "f'"]
+        >>> maker.fittest_attack_point_individual
+        [0, 4, 8, 12]
+        >>> maker.fittest_individual_score
+        0.5
+        >>> maker.reset()
+        >>> maker.generation_number
+        None
+        >>> maker.fittest_pitch_individual
+        None
+        >>> maker.fittest_attack_point_individual
+        None
+        >>> maker.fittest_individual_score
+        None
+
+    .. note::
+
+        Please refer to the documentation of :class:`auxjad.GeneticAlgorithm`
+        to better understand the attributes :attr:`generation_number`,
+        :attr:`pitch_population`, :attr:`attack_point_population`,
+        :attr:`scores`, :attr:`fittest_pitch_individual`,
+        :attr:`fittest_attack_point_individual`, and
+        :attr:`fittest_individual_score`.
+        """
     ### CLASS VARIABLES ###
 
     __slots__ = ('_pitch_target',
@@ -960,6 +1023,9 @@ class GeneticAlgorithmMusicMaker():
         r'Resets that genetic algorithm.'
         self._pitch_ga.reset()
         self._attack_point_ga.reset()
+        self._pitch_population = None
+        self._attack_point_population = None
+        self._scores = None
 
     def output_n(self,
                  n: int
@@ -1451,6 +1517,8 @@ class GeneticAlgorithmMusicMaker():
         """
         try:
             return self._pitch_population[0]
+        except AttributeError:
+            return None
         except TypeError:
             return None
 
@@ -1461,6 +1529,8 @@ class GeneticAlgorithmMusicMaker():
         """
         try:
             return self._attack_point_population[0]
+        except AttributeError:
+            return None
         except TypeError:
             return None
 
@@ -1471,5 +1541,7 @@ class GeneticAlgorithmMusicMaker():
         """
         try:
             return self._scores[0]
+        except AttributeError:
+            return None
         except TypeError:
             return None

@@ -181,20 +181,20 @@ class GeneticAlgorithm():
         ...     target=['A', 'B', 'C', 'D', 'E'],
         ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
         ... )
-        >>> ga.fittest_individual
-        None
         >>> ga.generation_number
+        None
+        >>> ga.fittest_individual
         None
         >>> for _ in range(10):
         ...     ga()
-        >>> ga.fittest_individual
-        ['C', 'B', 'C', 'D', 'E']
         >>> ga.generation_number
         9
-        >>> ga.reset()
         >>> ga.fittest_individual
-        None
+        ['C', 'B', 'C', 'D', 'E']
+        >>> ga.reset()
         >>> ga.generation_number
+        None
+        >>> ga.fittest_individual
         None
     """
 

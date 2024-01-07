@@ -534,6 +534,7 @@ class Hocketer():
 
         ..  figure:: ../_images/Hocketer-xyecbupzmm.png
 
+    :meth:`reset_weights`:
         Use the method :meth:`reset_weights` to reset the weights back to their
         default values.
 

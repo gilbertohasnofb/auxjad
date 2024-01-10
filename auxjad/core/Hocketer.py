@@ -1629,6 +1629,7 @@ class Hocketer():
                                                abjad.PitchSegment,
                                                None,
                                                ]:
+        r'Gets the pitch of the first leaf of a logical tie.'
         if isinstance(logical_tie.head, abjad.Note):
             return logical_tie.head.written_pitch
         elif isinstance(logical_tie.head, abjad.Chord):
@@ -1637,7 +1638,8 @@ class Hocketer():
             return None
 
     @staticmethod
-    def _remove_all_time_signatures(container) -> None:
+    def _remove_all_time_signatures(container: abjad.Container,
+                                    ) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):

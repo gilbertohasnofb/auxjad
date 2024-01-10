@@ -1354,7 +1354,8 @@ class WindowLooper(_LooperParent):
 
     def __len__(self) -> int:
         r"""Returns the length of :attr:`contents` in terms of
-        :attr:`step_size`."""
+        :attr:`step_size`.
+        """
         return ceil(self._contents_length / self._step_size)
 
     def __call__(self) -> abjad.Selection:

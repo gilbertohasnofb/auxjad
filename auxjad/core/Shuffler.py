@@ -1449,14 +1449,19 @@ class Shuffler:
         return self.__repr__()
 
     @staticmethod
-    def _remove_all_time_signatures(container) -> None:
+    def _remove_all_time_signatures(container: abjad.Container,
+                                    ) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
-    def _force_dynamics(container) -> None:
+    def _force_dynamics(container: abjad.Container,
+                        ) -> None:
+        r"""Enforces the current dynamic level to every logical tie without a
+        dynamic marking.
+        """
         logical_ties = abjad.select(container).logical_ties()
         for logical_tie in logical_ties[1:]:
             if abjad.get.indicator(logical_tie[0], abjad.Dynamic) is None:

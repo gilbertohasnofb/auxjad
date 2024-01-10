@@ -745,9 +745,11 @@ class Score(abjad.Score):
                     self._double_bar_line_adder(voice)
 
     @staticmethod
-    def _double_bar_line_adder(container: abjad.Container) -> None:
+    def _double_bar_line_adder(container: abjad.Container,
+                               ) -> None:
         r"""Goes through a container and adds double bar lines before each and
-        every time signature change."""
+        every time signature change.
+        """
         leaves = abjad.select(container).leaves()
         for i, leaf in enumerate(leaves[1:], 1):
             time_signature = abjad.get.indicator(leaf, abjad.TimeSignature)

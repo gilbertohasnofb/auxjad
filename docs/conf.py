@@ -230,12 +230,13 @@ class HiddenDoctestDirective(Directive):
     ### PUBLIC METHODS ###
 
     def run(self):
-        'Executes the directive.'
+        r'Executes the directive.'
         self.assert_has_content()
         return []
 
 
 def setup(app):
+    r'Adds directives.'
     app.add_directive('docs', HiddenDoctestDirective)
     # replacing abjad's todo custom directive with a regular warning
     app.add_directive('todo', directives.admonitions.Warning)

@@ -885,7 +885,8 @@ class GeneticAlgorithmMusicMaker():
         None
         >>> maker.fittest_individual_score
         None
-        """
+    """
+
     ### CLASS VARIABLES ###
 
     __slots__ = ('_pitch_target',
@@ -1226,7 +1227,8 @@ class GeneticAlgorithmMusicMaker():
     @property
     def omit_time_signature(self) -> bool:
         r"""When ``True``, a time signature won't be added to the first leaf of
-        the output."""
+        the output.
+        """
         return self._omit_time_signature
 
     @omit_time_signature.setter
@@ -1264,7 +1266,8 @@ class GeneticAlgorithmMusicMaker():
     @property
     def attack_points_mode(self) -> bool:
         r"""When ``True``, each note will last only for the duration of the
-        unit, instead of extending it to the next attack point."""
+        unit, instead of extending it to the next attack point.
+        """
         return self._attack_points_mode
 
     @attack_points_mode.setter

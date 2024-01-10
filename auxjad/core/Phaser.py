@@ -1498,8 +1498,8 @@ class Phaser():
         return self.__repr__()
 
     @staticmethod
-    def _tie_identical_pitches(currrent_selection,
-                               previous_container,
+    def _tie_identical_pitches(currrent_selection: abjad.Selection,
+                               previous_container: abjad.Container,
                                ) -> None:
         r'Ties identical pitches when joining windows.'
         if len(previous_container) == 0:
@@ -1511,12 +1511,15 @@ class Phaser():
             abjad.attach(abjad.Tie(), last_leaf)
 
     @staticmethod
-    def _biased_choice(bias) -> None:
-        r'Returns either +1 or -1 according to a bias value.'
-        return random.choices([1, -1], weights=[bias, 1.0 - bias])[0]
+    def _biased_choice(forward_bias: float,
+                       ) -> None:
+        r'Returns either +1 or -1 according to a forward bias value.'
+        weights = [forward_bias, 1.0 - forward_bias]
+        return random.choices([1, -1], weights=weights)[0]
 
     @staticmethod
-    def _remove_all_time_signatures(container) -> None:
+    def _remove_all_time_signatures(container: abjad.Container,
+                                    ) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):

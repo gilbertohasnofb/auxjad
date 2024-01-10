@@ -434,7 +434,8 @@ class LeafDynMaker(abjad.LeafMaker):
                     abjad.attach(articulation, logical_tie.head)
 
     @staticmethod
-    def _listify(argument) -> list[Any]:
+    def _listify(argument: Any,
+                 ) -> list[Any]:
         r'Returns a :obj:`list` if argument is not a :obj:`list`.'
         if argument:
             if isinstance(argument, list):

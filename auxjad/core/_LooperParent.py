@@ -1,5 +1,5 @@
 import random
-from typing import Union
+from typing import Any, Union
 
 import abjad
 
@@ -30,13 +30,13 @@ class _LooperParent():
 
     def __init__(self,
                  *,
-                 head_position,
-                 window_size,
-                 step_size,
-                 max_steps,
-                 repetition_chance,
-                 forward_bias,
-                 process_on_first_call,
+                 head_position: Any,
+                 window_size: Any,
+                 step_size: Any,
+                 max_steps: int = 1,
+                 repetition_chance: float = 0.0,
+                 forward_bias: float = 1.0,
+                 process_on_first_call: bool = False,
                  ) -> None:
         r'Initialises self.'
         if not isinstance(process_on_first_call, bool):
@@ -161,12 +161,15 @@ class _LooperParent():
         pass
 
     @staticmethod
-    def _biased_choice(bias) -> None:
-        r'Returns either +1 or -1 according to a bias value.'
-        return random.choices([1, -1], weights=[bias, 1.0 - bias])[0]
+    def _biased_choice(forward_bias: float,
+                       ) -> None:
+        r'Returns either +1 or -1 according to a forward bias value.'
+        weights = [forward_bias, 1.0 - forward_bias]
+        return random.choices([1, -1], weights=weights)[0]
 
     @staticmethod
-    def _remove_all_time_signatures(container) -> None:
+    def _remove_all_time_signatures(container: abjad.Container,
+                                    ) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):

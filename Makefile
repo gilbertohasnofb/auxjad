@@ -1,5 +1,5 @@
-.PHONY: build clean docs-html docs-release flake8 release-webpage isort-check \
-	isort-reformat pytest reformat release check test
+.PHONY: build clean docs-html docs-release flake8 pydoctsyle release-webpage \
+	isort-check isort-reformat pytest reformat release check test
 
 build:
 	python3.9 setup.py sdist
@@ -23,6 +23,11 @@ flake_exclude = --exclude=./sandbox.py,./docs/conf.py
 
 flake8:
 	python3.9 -m flake8 ${flake_ignore} ${flake_exclude}
+
+pydocstyle_select = --select=D101,D102,D103,D105,D107
+
+pydoctsyle:
+	python3.9 -m pydocstyle ${pydocstyle_select}
 
 release-webpage:
 	rm -Rf auxjad-docs/
@@ -83,5 +88,6 @@ check:
 
 test:
 	make flake8
+	make pydoctsyle
 	make isort-check
 	make pytest

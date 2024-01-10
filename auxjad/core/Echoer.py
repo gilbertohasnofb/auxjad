@@ -1703,7 +1703,8 @@ class Echoer():
         return item
 
     @staticmethod
-    def _convert_pitched_logical_tie_to_rest(logical_tie) -> None:
+    def _convert_pitched_logical_tie_to_rest(logical_tie: abjad.LogicalTie,
+                                             ) -> None:
         r'Converts all leaves of a pitched logical tie into rests.'
         indicators_tuple = (abjad.BarLine,
                             abjad.Clef,
@@ -1735,7 +1736,8 @@ class Echoer():
             abjad.mutate.replace(leaf, rest)
 
     @staticmethod
-    def _remove_all_time_signatures(container) -> None:
+    def _remove_all_time_signatures(container: abjad.Container,
+                                    ) -> None:
         r'Removes all time signatures of an |abjad.Container|.'
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
@@ -1783,7 +1785,7 @@ class Echoer():
         return current_window
 
     @property
-    def min_dynamic(self) -> Union[abjad.Dynamic, str]:
+    def min_dynamic(self) -> str:
         r'The minimum dynamic below which notes are removed.'
         return self._min_dynamic
 

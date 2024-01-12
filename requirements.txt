@@ -1,6 +1,6 @@
 abjad==3.4
 flake8
 isort
-pydoctsyle
+pydocstyle
 pytest
 setuptools

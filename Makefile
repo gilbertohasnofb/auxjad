@@ -1,4 +1,4 @@
-.PHONY: build clean docs-html docs-release flake8 pydoctsyle release-webpage \
+.PHONY: build clean docs-html docs-release flake8 pydocstyle release-webpage \
 	isort-check isort-reformat pytest reformat release check test
 
 build:
@@ -26,7 +26,7 @@ flake8:
 
 pydocstyle_select = --select=D101,D102,D103,D105,D107
 
-pydoctsyle:
+pydocstyle:
 	python3.9 -m pydocstyle ${pydocstyle_select}
 
 release-webpage:
@@ -88,6 +88,6 @@ check:
 
 test:
 	make flake8
-	make pydoctsyle
+	make pydocstyle
 	make isort-check
 	make pytest

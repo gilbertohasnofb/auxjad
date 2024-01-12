@@ -158,9 +158,10 @@ def test_sustain_notes_07():
             f'4.
             ~
             f'4
+            ~
             f'8
-            g'4
-            a'4
+            g'8
+            a'4.
         }
         """
     )
@@ -241,10 +242,11 @@ def test_sustain_notes_09():
             f'2
             ~
             f'8
+            ~
             f'8
             g'8
-            ~
             a'8
+            ~
             a'4
         }
         """

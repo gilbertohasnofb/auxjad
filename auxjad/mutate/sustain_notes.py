@@ -1,5 +1,6 @@
 import abjad
 
+from .. import select
 from .auto_rewrite_meter import auto_rewrite_meter
 
 
@@ -277,15 +278,14 @@ def sustain_notes(container: abjad.Container,
 
         ..  figure:: ../_images/sustain_notes-z8t2jwxsvar.png
 
-    Multi-measure rests:
-        This mutation also handles multi-measure rests, including ones with
-        non-assignable durations:
+    ``sustain_multimeasure_rests``:
+        By default, notes are tied across multi-measure rests.
 
         >>> staff = abjad.Staff(
         ...     r"r4 c'16 r8. d'16 r4.. "
-        ...     r"R1"
-        ...     r"r4 e'4 r2"
-        ...     r"\time 5/8 r8 f'4 r4"
+        ...     r"R1 "
+        ...     r"r4 e'4 r2 "
+        ...     r"\time 5/8 r8 f'4 r4 "
         ...     r"R1 * 5/8 "
         ...     r"r8 g'8 a'8 r4"
         ... )
@@ -340,51 +340,13 @@ def sustain_notes(container: abjad.Container,
                 f'4.
                 ~
                 f'4
+                ~
                 f'8
-                g'4
-                a'4
+                g'8
+                a'4.
             }
 
         ..  figure:: ../_images/sustain_notes-iLTiWERSvO.png
-
-    ``sustain_multimeasure_rests``:
-        By default, notes are tied across multi-measure rests.
-
-        >>> staff = abjad.Staff(
-        ...     r"r4 c'16 r8. d'16 r4.. "
-        ...     r"R1"
-        ...     r"r4 e'4 r2"
-        ...     r"\time 5/8 r8 f'4 r4"
-        ...     r"R1 * 5/8 "
-        ...     r"r8 g'8 a'8 r4"
-        ... )
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                r4
-                c'16
-                r8.
-                d'16
-                r4..
-                R1
-                r4
-                e'4
-                r2
-                \time 5/8
-                r8
-                f'4
-                r4
-                R1 * 5/8
-                r8
-                g'8
-                a'8
-                r4
-            }
-
-        ..  figure:: ../_images/sustain_notes-P2CLdKi6Cs.png
 
         To disable sustaining across those, set ``sustain_multimeasure_rests``
         to  ``False``:
@@ -487,10 +449,11 @@ def sustain_notes(container: abjad.Container,
                 f'2
                 ~
                 f'8
+                ~
                 f'8
                 g'8
-                ~
                 a'8
+                ~
                 a'4
             }
 
@@ -511,39 +474,51 @@ def sustain_notes(container: abjad.Container,
         raise TypeError("'sustain_multimeasure_rests' must be 'bool'")
     if not isinstance(rewrite_meter, bool):
         raise TypeError("'rewrite_meter' must be 'bool'")
-    leaves = abjad.select(container).leaves()
+
+    logical_selections = select.logical_selections(
+        container,
+        include_multimeasure_rests=sustain_multimeasure_rests,
+    )
     pitch = None
-    pitches = None
-    for index, leaf in enumerate(leaves):
-        if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)):
-            if isinstance(leaf, abjad.MultimeasureRest):
+    last_leaf = None
+    for logical_selection in logical_selections:
+        first_leaf = abjad.select(logical_selection).leaf(0)
+        # if pitched
+        if isinstance(first_leaf, abjad.Note):
+            pitch = first_leaf.written_pitch
+            last_leaf = abjad.select(logical_selection).leaf(-1)
+            continue
+        elif isinstance(first_leaf, abjad.Chord):
+            # needs 2D list as abjad.LeafMaker considers a single pitch list as
+            # a series of consecutive pitches, but any sublist as a chord
+            pitch = [[pitch for pitch in first_leaf.written_pitches]]
+            last_leaf = abjad.select(logical_selection).leaf(-1)
+            continue
+        # if not pitched
+        for leaf in abjad.select(logical_selection).leaves():
+            if last_leaf is None:
+                break
+            elif isinstance(leaf, abjad.Rest):
+                duration = leaf.written_duration
+            elif isinstance(leaf, abjad.MultimeasureRest):
                 if not sustain_multimeasure_rests:
                     pitch = None
-                    pitches = None
-                    continue
+                    last_leaf = None
+                    break
                 duration = abjad.get.duration(leaf)
             else:
-                duration = leaf.written_duration
-            if pitch is not None:
-                new_leaf = abjad.LeafMaker()(pitch, duration)
-            elif pitches is not None:
-                new_leaf = abjad.LeafMaker()([pitches], [duration])
-            if pitch is not None or pitches is not None:
-                for indicator in abjad.get.indicators(leaf):
-                    abjad.attach(indicator,
-                                 abjad.select(new_leaf).leaf(0),
-                                 )
-                abjad.mutate.replace(leaf, new_leaf)
-                previous_leaf = abjad.select(container).leaves()[index - 1]
-                if abjad.get.indicator(previous_leaf, abjad.Tie) is None:
-                    if not isinstance(previous_leaf, abjad.MultimeasureRest):
-                        abjad.attach(abjad.Tie(), previous_leaf)
-        elif isinstance(leaf, abjad.Note):
-            pitch = leaf.written_pitch
-            pitches = None
-        elif isinstance(leaf, abjad.Chord):
-            pitch = None
-            pitches = [pitch for pitch in leaf.written_pitches]
+                raise TypeError("Leaves in 'container' must be notes, chords,"
+                                "rests, or multi-measure rests")
+            if abjad.get.indicator(last_leaf, abjad.Tie) is None:
+                abjad.attach(abjad.Tie(), last_leaf)
+            new_leaves = abjad.LeafMaker()(pitch, duration)
+            for indicator in abjad.get.indicators(leaf):
+                abjad.attach(indicator,
+                             abjad.select(new_leaves).leaf(0),
+                             )
+            abjad.mutate.replace(leaf, new_leaves)
+            last_leaf = abjad.select(new_leaves).leaf(-1)
+
     # rewriting meter
     if rewrite_meter:
         auto_rewrite_meter(container)

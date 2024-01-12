@@ -202,13 +202,11 @@ def test_contract_notes_08():
             c'8
             ~
             c'4.
-            ~
             r8
             r8
             d'8
             ~
             d'4.
-            ~
             r8
         }
         """
@@ -225,11 +223,9 @@ def test_contract_notes_08():
             \time 3/4
             r8
             c'2
-            ~
             r8
             r8
             d'2
-            ~
             r8
         }
         """

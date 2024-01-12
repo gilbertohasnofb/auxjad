@@ -389,13 +389,11 @@ def contract_notes(container: abjad.Container,
                 c'8
                 ~
                 c'4.
-                ~
                 r8
                 r8
                 d'8
                 ~
                 d'4.
-                ~
                 r8
             }
 
@@ -419,11 +417,9 @@ def contract_notes(container: abjad.Container,
                 \time 3/4
                 r8
                 c'2
-                ~
                 r8
                 r8
                 d'2
-                ~
                 r8
             }
 
@@ -484,8 +480,6 @@ def contract_notes(container: abjad.Container,
             continue
         pitched_duration = total_duration - rest_duration
 
-        indicators = abjad.get.indicators(logical_tie.head)
-
         if pitched_duration > abjad.Duration((0, 1)):
             if isinstance(logical_tie.head, abjad.Note):
                 pitches = logical_tie.head.written_pitch
@@ -495,8 +489,11 @@ def contract_notes(container: abjad.Container,
                 [pitches, None],
                 [pitched_duration, rest_duration],
             )
-            if len(indicators) > 0:
+            indicators = abjad.get.indicators(logical_tie.head)
+            if indicators is not None:
                 for indicator in indicators:
+                    if isinstance(indicator, abjad.Tie):
+                        continue
                     abjad.attach(indicator, replacement_items[0])
         else:
             replacement_items = abjad.LeafMaker()([None], [rest_duration])

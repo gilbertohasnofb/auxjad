@@ -89,9 +89,9 @@ def logical_selections(container: Union[abjad.Container, abjad.Selection],
         >>> for logical_selection in logical_selections:
         ...     print(logical_selection.leaves())
         Selection([Note("c'2."), Note("c'16")])
-        Selection([Rest('r8.')
-        MultimeasureRest('R1')
-        Rest('r4..')])
+        Selection([Rest('r8.')])
+        Selection([MultimeasureRest('R1')])
+        Selection([Rest('r4..')])
         Selection([Note("d'16"), Note("d'2.")])
     """
     if not isinstance(container, (abjad.Container, abjad.Selection)):

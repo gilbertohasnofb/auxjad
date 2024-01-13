@@ -70,6 +70,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
+docs/_logs/
 docs/_build/
 docs/_static/
 # docs/_templates/

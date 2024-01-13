@@ -29,7 +29,7 @@ import auxjad  # noqa: E402
 # -- Project information -----------------------------------------------------
 
 project = 'Auxjad'
-copyright = '2020, Gilberto Agostinho'
+copyright = '2024, Gilberto Agostinho'
 author = 'Gilberto Agostinho'
 email = 'gilbertohasnofb@gmail.com'
 
@@ -89,9 +89,71 @@ language = None
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-# The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'monokai'
+# -- Custom syntax highlighting syle ------------------------------------------
 
+from pygments.style import Style
+from pygments.token import (
+     Comment, Error, Generic, Literal, Name, Number, Operator, Other, 
+     Punctuation, String, Text, Keyword,
+)
+
+
+class PandaStyle(Style):
+    r"""Panda Syntax Theme
+
+    Custom `pygments_style` theme based on:
+    https://github.com/tinkertrain/panda-syntax-vscode
+    """
+    background_color = '#292a2b'
+    default_style = ''
+    # Token documentation: https://pygments.org/docs/tokens/
+    styles = {  
+        Comment: 'italic #676b79',
+        Error: '#dee2e2',
+        Generic: '#676b79',
+        Generic.Prompt: '#ff75b5',
+        Generic.Error: 'bold #ff4f4f',
+        Literal: '#dee2e2',
+        Name: '#dee2e2',
+        Name.Builtin: '#dee2e2',
+        Name.Function: '#4cb3ec',
+        Name.Decorator: '#4cb3ec',
+        Name.Variable: '#dee2e2',
+        Name.Tag: '#4cb3ec',
+        Name.Constant: '#ffba70',
+        Name.Entity: 'italic #4cb3ec',
+        Name.Attribute: '#dee2e2',
+        Name.Label: '#dee2e2',
+        Name.Exception: '#ffba70',
+        Number: '#ffba70',
+        Operator: '#dee2e2',
+        Operator.Word: '#ffba70',
+        Other: '#dee2e2',
+        Punctuation: '#dee2e2',
+        String: '#19f9d8',
+        Text: '#dee2e2',
+        Keyword: '#ff75b5',
+        Keyword.Constant: '#ffba70',
+        Keyword.Declaration: '#ffba70',
+        Keyword.Type: '#ffba70',
+    }
+
+
+def pygments_monkeypatch_style(mod_name, cls):
+    r'Monkey Patching custom theme'
+    import sys
+    import pygments.styles
+    cls_name = cls.__name__
+    mod = type(__import__("os"))(mod_name)
+    setattr(mod, cls_name, cls)
+    setattr(pygments.styles, mod_name, mod)
+    sys.modules["pygments.styles." + mod_name] = mod
+    from pygments.styles import STYLE_MAP
+    STYLE_MAP[mod_name] = mod_name + "::" + cls_name
+
+
+pygments_monkeypatch_style("panda", PandaStyle)
+pygments_style = "panda"
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -103,6 +165,7 @@ html_theme_options = {
     'canonical_url': 'https://gilbertohasnofb.github.io/auxjad-docs/',
     'display_version': True,
     'logo_only': False,
+    # 'style_nav_header_background': '#4cb3ec',
 }
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -236,7 +299,7 @@ class HiddenDoctestDirective(Directive):
 
 
 def setup(app):
-    r'Adds directives.'
+    r'Setups directives.'
     app.add_directive('docs', HiddenDoctestDirective)
     # replacing abjad's todo custom directive with a regular warning
     app.add_directive('todo', directives.admonitions.Warning)

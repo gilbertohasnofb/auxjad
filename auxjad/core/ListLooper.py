@@ -391,7 +391,7 @@ class ListLooper(_LooperParent):
                  end_with_max_n_elements: bool = False,
                  process_on_first_call: bool = False,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self.end_with_max_n_elements = end_with_max_n_elements
         super().__init__(head_position=head_position,
@@ -406,11 +406,11 @@ class ListLooper(_LooperParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`contents`.'
+        r"""Returns interpreter representation of :attr:`contents`."""
         return str(self._contents)
 
     def __len__(self) -> int:
-        r'Returns a length of :attr:`contents`.'
+        r"""Returns a length of :attr:`contents`."""
         return len(self._contents)
 
     ### PUBLIC METHODS ###
@@ -457,7 +457,7 @@ class ListLooper(_LooperParent):
 
     @property
     def contents(self) -> list[Any]:
-        r'The :obj:`list` to be sliced and looped.'
+        r"""The :obj:`list` to be sliced and looped."""
         return self._contents
 
     @contents.setter
@@ -471,7 +471,9 @@ class ListLooper(_LooperParent):
 
     @property
     def current_window(self) -> Union[list[Any], None]:
-        r'Read-only property, returns the window at the current head position.'
+        r"""Read-only property, returns the window at the current head
+        position.
+        """
         if self._current_window is None:
             return self._current_window
         return copy.deepcopy(self._current_window)[:]

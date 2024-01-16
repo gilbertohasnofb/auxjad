@@ -38,7 +38,7 @@ class _LooperParent():
                  forward_bias: float = 1.0,
                  process_on_first_call: bool = False,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self.head_position = head_position
@@ -74,7 +74,7 @@ class _LooperParent():
         return self.current_window
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -163,14 +163,14 @@ class _LooperParent():
     @staticmethod
     def _biased_choice(forward_bias: float,
                        ) -> None:
-        r'Returns either +1 or -1 according to a forward bias value.'
+        r"""Returns either +1 or -1 according to a forward bias value."""
         weights = [forward_bias, 1.0 - forward_bias]
         return random.choices([1, -1], weights=weights)[0]
 
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -190,7 +190,7 @@ class _LooperParent():
 
     @property
     def head_position(self) -> int:
-        r'The position of the head at the start of a looping window.'
+        r"""The position of the head at the start of a looping window."""
         return self._head_position
 
     @head_position.setter
@@ -209,7 +209,7 @@ class _LooperParent():
 
     @property
     def window_size(self) -> int:
-        r'The length of the looping window.'
+        r"""The length of the looping window."""
         return self._window_size
 
     @window_size.setter
@@ -227,7 +227,7 @@ class _LooperParent():
 
     @property
     def step_size(self) -> int:
-        r'The size of each step when moving the head.'
+        r"""The size of each step when moving the head."""
         return self._step_size
 
     @step_size.setter
@@ -245,7 +245,7 @@ class _LooperParent():
 
     @property
     def max_steps(self) -> int:
-        r'The maximum number of steps per operation.'
+        r"""The maximum number of steps per operation."""
         return self._max_steps
 
     @max_steps.setter
@@ -260,7 +260,7 @@ class _LooperParent():
 
     @property
     def repetition_chance(self) -> float:
-        r'The chance of the head not moving, thus repeating the output.'
+        r"""The chance of the head not moving, thus repeating the output."""
         return self._repetition_chance
 
     @repetition_chance.setter
@@ -310,7 +310,9 @@ class _LooperParent():
 
     @property
     def current_window(self) -> Union[abjad.Selection, None]:
-        r'Read-only property, returns the window at the current head position.'
+        r"""Read-only property, returns the window at the current head
+        position.
+        """
         if self._current_window is None:
             return self._current_window
         current_window = abjad.mutate.copy(self._current_window)

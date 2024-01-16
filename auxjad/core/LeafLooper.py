@@ -1144,7 +1144,7 @@ class LeafLooper(_LooperParent):
                  after_rest_in_new_measure: bool = False,
                  use_multimeasure_rests: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self.end_with_max_n_leaves = end_with_max_n_leaves
         self.omit_time_signatures = omit_time_signatures
@@ -1172,11 +1172,11 @@ class LeafLooper(_LooperParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`contents`.'
+        r"""Returns interpreter representation of :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of logical ties of :attr:`contents`.'
+        r"""Returns the number of logical ties of :attr:`contents`."""
         return len(self._contents_logical_ties)
 
     ### PRIVATE METHODS ###
@@ -1234,7 +1234,7 @@ class LeafLooper(_LooperParent):
                       dummy_container: abjad.Container,
                       start: int,
                       ) -> None:
-        r'Handles the notation aspects of the looping window.'
+        r"""Handles the notation aspects of the looping window."""
         start_head = abjad.select(dummy_container).logical_tie(0)[0]
         start_tail = abjad.select(dummy_container).logical_tie(0)[-1]
         if (abjad.get.indicator(start_head, abjad.StartSlur) is None
@@ -1271,14 +1271,14 @@ class LeafLooper(_LooperParent):
         dummy_container[:] = []
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be sliced and looped.'
+        r"""The |abjad.Container| to be sliced and looped."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1329,7 +1329,7 @@ class LeafLooper(_LooperParent):
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, the output will contain no time signatures.'
+        r"""When ``True``, the output will contain no time signatures."""
         return self._omit_time_signatures
 
     @omit_time_signatures.setter

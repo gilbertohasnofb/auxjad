@@ -374,7 +374,7 @@ class TenneySelector():
                  weights: Optional[list] = None,
                  curvature: float = 1.0,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if weights is not None:
@@ -405,11 +405,11 @@ class TenneySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`contents`.'
+        r"""Returns interpreter representation of :attr:`contents`."""
         return str(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the length of :attr:`contents`.'
+        r"""Returns the length of :attr:`contents`."""
         return len(self._contents)
 
     def __call__(self) -> Any:
@@ -497,14 +497,14 @@ class TenneySelector():
     def _growth_function(self,
                          count: int,
                          ) -> float:
-        r'Applies the growth exponent given a number of counts.'
+        r"""Applies the growth exponent given a number of counts."""
         return count ** self._curvature
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def contents(self) -> list[Any]:
-        r'The :obj:`list` from which the selector picks elements.'
+        r"""The :obj:`list` from which the selector picks elements."""
         return self._contents
 
     @contents.setter
@@ -519,7 +519,9 @@ class TenneySelector():
 
     @property
     def weights(self) -> list[Union[float, int]]:
-        r'The :obj:`list` with weights for each element of :attr:`contents`.'
+        r"""The :obj:`list` with weights for each element of
+        :attr:`contents`.
+        """
         return self._weights
 
     @weights.setter
@@ -542,7 +544,7 @@ class TenneySelector():
 
     @property
     def curvature(self) -> float:
-        r'The exponent of the growth function.'
+        r"""The exponent of the growth function."""
         return self._curvature
 
     @curvature.setter
@@ -565,7 +567,7 @@ class TenneySelector():
 
     @property
     def previous_result(self) -> Any:
-        r'Read-only property, returns the previously output element.'
+        r"""Read-only property, returns the previously output element."""
         if self._previous_index is not None:
             return self._contents[self._previous_index]
         else:
@@ -573,5 +575,5 @@ class TenneySelector():
 
     @property
     def probabilities(self) -> list[float]:
-        r'Read-only property, returns the probabilities vector.'
+        r"""Read-only property, returns the probabilities vector."""
         return self._probabilities

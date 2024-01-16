@@ -1091,7 +1091,7 @@ class Shuffler:
                  fuse_triple_meter: bool = True,
                  swap_limit: Optional[int] = None,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self.pitch_only = pitch_only
         self.preserve_rest_position = preserve_rest_position
@@ -1112,15 +1112,15 @@ class Shuffler:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`contents`.'
+        r"""Returns interpreter representation of :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of logical ties of :attr:`contents`.'
+        r"""Returns the number of logical ties of :attr:`contents`."""
         return len(self._logical_selections)
 
     def __call__(self) -> abjad.Selection:
-        r'Calls the shuffling process, returning an |abjad.Selection|'
+        r"""Calls the shuffling process, returning an |abjad.Selection|"""
         return self.shuffle()
 
     def __next__(self) -> abjad.Selection:
@@ -1130,13 +1130,13 @@ class Shuffler:
         return self.__call__()
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
 
     def shuffle(self) -> abjad.Selection:
-        r'Shuffles logical ties or pitches of :attr:`contents`.'
+        r"""Shuffles logical ties or pitches of :attr:`contents`."""
         if self._is_first_window and not self._process_on_first_call:
             if not self._pitch_only:
                 self._rewrite_logical_selections()
@@ -1155,7 +1155,7 @@ class Shuffler:
                n_rotations: int = 1,
                anticlockwise: bool = False,
                ) -> abjad.Selection:
-        r'Rotates logical ties or pitches of :attr:`contents`.'
+        r"""Rotates logical ties or pitches of :attr:`contents`."""
         if not isinstance(n_rotations, int):
             raise TypeError("'n_rotations' must be 'int'")
         if n_rotations < 1:
@@ -1226,12 +1226,12 @@ class Shuffler:
     ### PRIVATE METHODS ###
 
     def _update_logical_selections(self) -> None:
-        r'Updates the selection of logical ties of :attr:`contents`.'
+        r"""Updates the selection of logical ties of :attr:`contents`."""
         self._logical_selections = select.logical_selections(self._contents)
         self._logical_selections_indeces = list(range(self.__len__()))
 
     def _get_pitch_list(self) -> None:
-        r'Creates a :obj:`list` of all pitches in :attr:`contents`.'
+        r"""Creates a :obj:`list` of all pitches in :attr:`contents`."""
         self._pitches = []
         for logical_selection in self._logical_selections:
             leaf = logical_selection.leaves()[0]
@@ -1245,7 +1245,7 @@ class Shuffler:
     def _shuffle_list_preserving_rests(self,
                                        input_list: list[Any],
                                        ) -> None:
-        r'Shuffles a :obj:`list` while keeping rest indeces unchanged.'
+        r"""Shuffles a :obj:`list` while keeping rest indeces unchanged."""
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
         self._random_shuffle(dummy_list)
@@ -1257,7 +1257,7 @@ class Shuffler:
                                       n_rotations: int = 1,
                                       anticlockwise: bool = False,
                                       ) -> None:
-        r'Rotates a :obj:`list` while keeping rest indeces unchanged.'
+        r"""Rotates a :obj:`list` while keeping rest indeces unchanged."""
         dummy_list = [input_list[i] for i in range(len(input_list))
                       if self._pitches[i] is not None]
         self._rotate_list(dummy_list,
@@ -1269,7 +1269,7 @@ class Shuffler:
     def _random_shuffle(self,
                         input_list: list[Any],
                         ) -> None:
-        r'Random shuffles a :obj:`list`.'
+        r"""Random shuffles a :obj:`list`."""
         if self._swap_limit is None:
             random.shuffle(input_list)
         else:
@@ -1282,7 +1282,7 @@ class Shuffler:
                                        input_list: list[Any],
                                        destination_list: list[Any],
                                        ) -> None:
-        r'Substitutes back an altered :obj:`list` while preserving rests.'
+        r"""Substitutes back an altered :obj:`list` while preserving rests."""
         counter = 0
         for index, pitch in enumerate(self._pitches):
             if pitch is not None:
@@ -1290,7 +1290,7 @@ class Shuffler:
                 counter += 1
 
     def _shuffle_logical_selections(self) -> abjad.Selection:
-        r'Shuffles the logical ties of :attr:`contents`.'
+        r"""Shuffles the logical ties of :attr:`contents`."""
         if len(abjad.select(self._contents).tuplets()) > 0:
             raise ValueError("'contents' contain one ore more tuplets; "
                              "tuplets are currently supported only in "
@@ -1305,7 +1305,7 @@ class Shuffler:
         return self.current_window
 
     def _shuffle_pitches(self) -> abjad.Selection:
-        r'Shuffles only the pitches of :attr:`contents`.'
+        r"""Shuffles only the pitches of :attr:`contents`."""
         if not self._preserve_rest_position:
             self._random_shuffle(self._pitches)
         else:
@@ -1318,7 +1318,7 @@ class Shuffler:
                                    n_rotations: int = 1,
                                    anticlockwise: bool = False,
                                    ) -> abjad.Selection:
-        r'Rotates the logical ties of :attr:`contents`.'
+        r"""Rotates the logical ties of :attr:`contents`."""
         if len(abjad.select(self._contents).tuplets()) > 0:
             raise ValueError("'contents' contain one ore more tuplets; "
                              "tuplets are currently supported only in "
@@ -1342,7 +1342,7 @@ class Shuffler:
                         n_rotations: int = 1,
                         anticlockwise: bool = False,
                         ) -> abjad.Selection:
-        r'Rotates the pitches of :attr:`contents`.'
+        r"""Rotates the pitches of :attr:`contents`."""
         if not self._preserve_rest_position:
             self._rotate_list(self._pitches,
                               n_rotations=n_rotations,
@@ -1357,7 +1357,7 @@ class Shuffler:
         return self.current_window
 
     def _rewrite_logical_selections(self) -> None:
-        r'Rewrites the logical selections of the current window.'
+        r"""Rewrites the logical selections of the current window."""
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
         logical_selections = select.logical_selections(
@@ -1401,7 +1401,7 @@ class Shuffler:
         dummy_container[:] = []
 
     def _rewrite_pitches(self) -> None:
-        r'Rewrites the pitches of the current window.'
+        r"""Rewrites the pitches of the current window."""
         dummy_container = abjad.Container(abjad.mutate.copy(self._contents[:]))
         leaf_counter = 0
         for pitch, logical_selection in zip(self._pitches,
@@ -1445,13 +1445,13 @@ class Shuffler:
         dummy_container[:] = []
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1481,7 +1481,7 @@ class Shuffler:
                      n_rotations: int = 1,
                      anticlockwise: bool = False,
                      ) -> None:
-        r'Rotates a :obj:`list`.'
+        r"""Rotates a :obj:`list`."""
         for _ in range(n_rotations):
             if not anticlockwise:
                 element = input_list.pop(0)
@@ -1494,7 +1494,7 @@ class Shuffler:
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be shuffled.'
+        r"""The |abjad.Container| to be shuffled."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1577,7 +1577,7 @@ class Shuffler:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, the output will contain no time signatures.'
+        r"""When ``True``, the output will contain no time signatures."""
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -1748,7 +1748,7 @@ class Shuffler:
 
     @property
     def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the result of the last operation.'
+        r"""Read-only property, returns the result of the last operation."""
         current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)

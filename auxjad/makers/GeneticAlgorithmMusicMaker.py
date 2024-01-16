@@ -941,7 +941,7 @@ class GeneticAlgorithmMusicMaker():
                  attack_points_mode: bool = False,
                  pitch_score_bias: float = 0.5,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         if len(pitch_target) != len(attack_point_target):
             raise ValueError("'pitch_target' and 'attack_point_target' must "
                              "have the same length")
@@ -994,7 +994,7 @@ class GeneticAlgorithmMusicMaker():
         return string
 
     def __len__(self) -> int:
-        r'Returns the number of genes in each individual.'
+        r"""Returns the number of genes in each individual."""
         return len(self._pitch_ga._target)
 
     def __call__(self) -> abjad.Selection:
@@ -1025,13 +1025,13 @@ class GeneticAlgorithmMusicMaker():
             raise StopIteration
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
 
     def reset(self) -> None:
-        r'Resets that genetic algorithm.'
+        r"""Resets that genetic algorithm."""
         self._pitch_ga.reset()
         self._attack_point_ga.reset()
         self._pitch_population = None
@@ -1109,7 +1109,7 @@ class GeneticAlgorithmMusicMaker():
     def _sort_by_attack_point(attack_points: list,
                               pitches: list,
                               ) -> tuple:
-        r'Sorts pitches and attack points.'
+        r"""Sorts pitches and attack points."""
         zipped_lists = []
         # zipping while removing simultaneous attacks
         for attack_point, pitch in zip(attack_points, pitches):
@@ -1195,7 +1195,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def duration_unit(self) -> abjad.Duration:
-        r'Unit for the duration grid. Default is abjad.Duration((1, 16)).'
+        r"""Unit for the duration grid. Default is abjad.Duration((1, 16))."""
         return self._duration_unit
 
     @duration_unit.setter
@@ -1209,7 +1209,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def units_per_window(self) -> int:
-        r'Number of units per window. Default is 16.'
+        r"""Number of units per window. Default is 16."""
         return self._units_per_window
 
     @units_per_window.setter
@@ -1280,7 +1280,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def pitch_target(self) -> list:
-        r'Target pitch individual used for evaluation.'
+        r"""Target pitch individual used for evaluation."""
         return self._pitch_ga.target
 
     @pitch_target.setter
@@ -1295,7 +1295,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def pitch_genes(self) -> list:
-        r'List of possible genes that make up all pitch individuals.'
+        r"""List of possible genes that make up all pitch individuals."""
         return self._pitch_ga.genes
 
     @pitch_genes.setter
@@ -1306,7 +1306,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def pitch_initial_individual(self) -> Union[list, None]:
-        r'Optional initial pitch individual.'
+        r"""Optional initial pitch individual."""
         return self._pitch_ga.initial_individual
 
     @pitch_initial_individual.setter
@@ -1317,7 +1317,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def attack_point_target(self) -> list:
-        r'Target attack point individual used for evaluation.'
+        r"""Target attack point individual used for evaluation."""
         return self._attack_point_ga.target
 
     @attack_point_target.setter
@@ -1332,7 +1332,9 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def attack_point_genes(self) -> list:
-        r'List of possible genes that make up all attack point individuals.'
+        r"""List of possible genes that make up all attack point
+        individuals.
+        """
         return self._attack_point_ga.genes
 
     @attack_point_genes.setter
@@ -1343,7 +1345,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def attack_point_initial_individual(self) -> Union[list, None]:
-        r'Optional initial attack point individual.'
+        r"""Optional initial attack point individual."""
         return self._attack_point_ga.initial_individual
 
     @attack_point_initial_individual.setter
@@ -1357,7 +1359,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def population_size(self) -> int:
-        r'Number of individuals in any given generation.'
+        r"""Number of individuals in any given generation."""
         return self._pitch_ga.population_size
 
     @population_size.setter
@@ -1397,7 +1399,7 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def mutation_chance(self) -> float:
-        r'Percentage of the total population who will experience mutation.'
+        r"""Percentage of the total population who will experience mutation."""
         return self._pitch_ga.mutation_chance
 
     @mutation_chance.setter
@@ -1487,12 +1489,12 @@ class GeneticAlgorithmMusicMaker():
 
     @property
     def target_music(self) -> abjad.Selection:
-        r'Read-only property, returns the target as an |abjad.Selection|.'
+        r"""Read-only property, returns the target as an |abjad.Selection|."""
         return abjad.mutate.copy(self._target_music)
 
     @property
     def total_duration(self) -> list:
-        r'Read-only property, returns the total duration of the window.'
+        r"""Read-only property, returns the total duration of the window."""
         return self._total_duration
 
     @property

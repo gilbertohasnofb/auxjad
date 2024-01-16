@@ -683,7 +683,7 @@ class PitchRandomiser:
                  process_on_first_call: bool = True,
                  use_tenney_selector: bool = False,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self._weights = []
         self.pitches = pitches
@@ -696,15 +696,15 @@ class PitchRandomiser:
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`pitches`.'
+        r"""Returns interpreter representation of :attr:`pitches`."""
         return repr(self._pitches)
 
     def __len__(self) -> int:
-        r'Returns the number of available :attr:`pitches`.'
+        r"""Returns the number of available :attr:`pitches`."""
         return len(self._pitches)
 
     def __call__(self) -> abjad.Selection:
-        r'Calls the randomise process, returning an |abjad.Selection|'
+        r"""Calls the randomise process, returning an |abjad.Selection|"""
         self._randomise()
         return self.current_window
 
@@ -715,7 +715,7 @@ class PitchRandomiser:
         return self.__call__()
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -742,14 +742,14 @@ class PitchRandomiser:
     ### PRIVATE METHODS ###
 
     def _randomise(self) -> abjad.Selection:
-        r'Randomises pitches of :attr:`contents`.'
+        r"""Randomises pitches of :attr:`contents`."""
         if self._is_first_window and not self._process_on_first_call:
             self._is_first_window = False
         else:
             self._rewrite_pitches()
 
     def _rewrite_pitches(self) -> None:
-        r'Rewrites the pitches of the current window.'
+        r"""Rewrites the pitches of the current window."""
         dummy_container = abjad.mutate.copy(self._contents)
         logical_ties = abjad.select(dummy_container).logical_ties()
         for logical_tie in logical_ties:
@@ -788,7 +788,7 @@ class PitchRandomiser:
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -797,7 +797,7 @@ class PitchRandomiser:
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be shuffled.'
+        r"""The |abjad.Container| to be shuffled."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -822,7 +822,7 @@ class PitchRandomiser:
 
     @property
     def pitches(self) -> abjad.PitchSegment:
-        r'Pitches available for the randomiser.'
+        r"""Pitches available for the randomiser."""
         return self._pitches
 
     @pitches.setter
@@ -848,7 +848,7 @@ class PitchRandomiser:
 
     @property
     def weights(self) -> list[Union[float, int]]:
-        r'The :obj:`list` with weights for each element of :attr:`pitches`'
+        r"""The :obj:`list` with weights for each element of :attr:`pitches`"""
         return self._weights
 
     @weights.setter
@@ -871,7 +871,7 @@ class PitchRandomiser:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, the output will contain no time signatures.'
+        r"""When ``True``, the output will contain no time signatures."""
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -915,7 +915,7 @@ class PitchRandomiser:
 
     @property
     def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the result of the last operation.'
+        r"""Read-only property, returns the result of the last operation."""
         current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)

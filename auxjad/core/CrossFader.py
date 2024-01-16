@@ -1679,7 +1679,7 @@ class CrossFader():
                  maximum_dot_count: Optional[int] = None,
                  rewrite_tuplets: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         if not isinstance(fade_out_contents, abjad.Container):
             raise TypeError("'fade_out_contents' must be 'abjad.Container' or "
                             "child class")
@@ -1711,14 +1711,14 @@ class CrossFader():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of both contents.'
+        r"""Returns interpreter representation of both contents."""
         string = abjad.lilypond(self._fader_out)
         string += '\n'
         string += abjad.lilypond(self._fader_in)
         return string
 
     def __len__(self) -> int:
-        r'Returns the sum of the number of notes of both contents.'
+        r"""Returns the sum of the number of notes of both contents."""
         return len(self._fader_in) + len(self._fader_out)
 
     def __call__(self) -> tuple[abjad.Selection]:
@@ -1738,7 +1738,7 @@ class CrossFader():
             raise StopIteration
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -1797,7 +1797,7 @@ class CrossFader():
         return output
 
     def reset(self) -> None:
-        r'Resets to the initial state.'
+        r"""Resets to the initial state."""
         self._is_first_window = True
         self._is_first_process = True
         self._initial_repetitions_counter = 0
@@ -1808,7 +1808,7 @@ class CrossFader():
     ### PRIVATE METHODS ###
 
     def _cross_fade_process(self) -> None:
-        r'Processes both faders according to the cross fade process.'
+        r"""Processes both faders according to the cross fade process."""
         if self._is_first_window:
             self._fader_out()
             self._fader_in()
@@ -1845,14 +1845,14 @@ class CrossFader():
                         self._is_first_process = False
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def fade_out_contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be faded out.'
+        r"""The |abjad.Container| to be faded out."""
         return abjad.mutate.copy(self._fade_out_contents)
 
     @fade_out_contents.setter
@@ -1872,7 +1872,7 @@ class CrossFader():
 
     @property
     def fade_in_contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be faded in.'
+        r"""The |abjad.Container| to be faded in."""
         return abjad.mutate.copy(self._fade_in_contents)
 
     @fade_in_contents.setter
@@ -2036,7 +2036,9 @@ class CrossFader():
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, all time signatures will be omitted from the output.'
+        r"""When ``True``, all time signatures will be omitted from the
+        output.
+        """
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -2051,7 +2053,9 @@ class CrossFader():
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r'When ``True``, multi-measure rests will be used for silent measures.'
+        r"""When ``True``, multi-measure rests will be used for silent
+        measures.
+        """
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter

@@ -1385,7 +1385,7 @@ class Hocketer():
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self._voices = None
         self._n_voices = n_voices
@@ -1412,11 +1412,11 @@ class Hocketer():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`contents`.'
+        r"""Returns interpreter representation of :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of voices of the hocketer.'
+        r"""Returns the number of voices of the hocketer."""
         return self._n_voices
 
     def __call__(self) -> tuple[abjad.Selection]:
@@ -1439,7 +1439,9 @@ class Hocketer():
     ### PUBLIC METHODS ###
 
     def reset_weights(self) -> None:
-        r'Resets the weight vector of all voices to an uniform distribution.'
+        r"""Resets the weight vector of all voices to an uniform
+        distribution.
+        """
         self._weights = [1.0 for _ in range(self.__len__())]
 
     ### PRIVATE METHODS ###
@@ -1537,7 +1539,7 @@ class Hocketer():
         return dummy_voices
 
     def _select_voices(self) -> list[int]:
-        r'Creates a :obj:`list` of selected voices for each logical tie.'
+        r"""Creates a :obj:`list` of selected voices for each logical tie."""
         selected_voices = []
         if not self._force_k_voices:
             for logical_tie in abjad.select(self._contents).logical_ties():
@@ -1608,7 +1610,7 @@ class Hocketer():
                         pitch: Union[abjad.Pitch, abjad.PitchSegment, None],
                         voice: int,
                         ) -> bool:
-        r'Checks if a pitch is playable by a specific voice.'
+        r"""Checks if a pitch is playable by a specific voice."""
         if self._pitch_ranges is None or pitch is None:
             return True
         elif isinstance(pitch, abjad.PitchSegment):
@@ -1620,7 +1622,7 @@ class Hocketer():
         return False
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     @staticmethod
@@ -1629,7 +1631,7 @@ class Hocketer():
                                                abjad.PitchSegment,
                                                None,
                                                ]:
-        r'Gets the pitch of the first leaf of a logical tie.'
+        r"""Gets the pitch of the first leaf of a logical tie."""
         if isinstance(logical_tie.head, abjad.Note):
             return logical_tie.head.written_pitch
         elif isinstance(logical_tie.head, abjad.Chord):
@@ -1640,7 +1642,7 @@ class Hocketer():
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1649,7 +1651,7 @@ class Hocketer():
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be hocketed.'
+        r"""The |abjad.Container| to be hocketed."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1674,7 +1676,7 @@ class Hocketer():
 
     @property
     def n_voices(self) -> int:
-        r'Number of individual voices in the output.'
+        r"""Number of individual voices in the output."""
         return self._n_voices
 
     @n_voices.setter
@@ -1693,7 +1695,7 @@ class Hocketer():
 
     @property
     def weights(self) -> list[Union[float, int]]:
-        r'The :obj:`list` with weights for each voice.'
+        r"""The :obj:`list` with weights for each voice."""
         return self._weights
 
     @weights.setter
@@ -1715,7 +1717,7 @@ class Hocketer():
 
     @property
     def k(self) -> int:
-        r'Number of random choice operations applied to a logical tie.'
+        r"""Number of random choice operations applied to a logical tie."""
         return self._k
 
     @k.setter
@@ -1792,7 +1794,9 @@ class Hocketer():
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, all time signatures will be omitted from the output.'
+        r"""When ``True``, all time signatures will be omitted from the
+        output.
+        """
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -1821,7 +1825,9 @@ class Hocketer():
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r'When ``True``, multi-measure rests will be used for silent measures.'
+        r"""When ``True``, multi-measure rests will be used for silent
+        measures.
+        """
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter

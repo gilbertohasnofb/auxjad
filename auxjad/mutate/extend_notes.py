@@ -4,7 +4,7 @@ from .. import get, mutate
 
 
 def _groupped_logical_ties(container) -> list:
-    r'Selects logical ties with all consecutive rests.'
+    r"""Selects logical ties with all consecutive rests."""
     groupped_logical_ties = []
     selection = abjad.Selection()
     for logical_tie in abjad.select(container).logical_ties():

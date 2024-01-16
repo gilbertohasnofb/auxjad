@@ -1287,7 +1287,7 @@ class Phaser():
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self._pivot_point = abjad.Duration(0)
         self.step_size = step_size
@@ -1309,7 +1309,7 @@ class Phaser():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
@@ -1342,7 +1342,7 @@ class Phaser():
         return self.current_window
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -1418,7 +1418,7 @@ class Phaser():
         self._pivot_point += step * diretion
 
     def _make_music(self) -> None:
-        r'Applies the phasing process and handles the output container.'
+        r"""Applies the phasing process and handles the output container."""
         dummy_container = self._phase_contents()
         # dealing with dynamics
         mutate.reposition_dynamics(dummy_container[:])
@@ -1494,14 +1494,14 @@ class Phaser():
         return dummy_container
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     @staticmethod
     def _tie_identical_pitches(currrent_selection: abjad.Selection,
                                previous_container: abjad.Container,
                                ) -> None:
-        r'Ties identical pitches when joining windows.'
+        r"""Ties identical pitches when joining windows."""
         if len(previous_container) == 0:
             return
         first_leaf = currrent_selection.leaf(0)
@@ -1513,14 +1513,14 @@ class Phaser():
     @staticmethod
     def _biased_choice(forward_bias: float,
                        ) -> None:
-        r'Returns either +1 or -1 according to a forward bias value.'
+        r"""Returns either +1 or -1 according to a forward bias value."""
         weights = [forward_bias, 1.0 - forward_bias]
         return random.choices([1, -1], weights=weights)[0]
 
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1529,7 +1529,7 @@ class Phaser():
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be phased.'
+        r"""The |abjad.Container| to be phased."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1556,7 +1556,7 @@ class Phaser():
 
     @property
     def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the previously output selection.'
+        r"""Read-only property, returns the previously output selection."""
         current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
@@ -1564,12 +1564,12 @@ class Phaser():
 
     @property
     def pivot_point(self) -> abjad.Duration:
-        r'Read-only property, returns the position of the pivot point.'
+        r"""Read-only property, returns the position of the pivot point."""
         return self._pivot_point
 
     @property
     def step_size(self) -> abjad.Duration:
-        r'The size of each step when moving the pivot point.'
+        r"""The size of each step when moving the pivot point."""
         return self._step_size
 
     @step_size.setter
@@ -1588,7 +1588,7 @@ class Phaser():
 
     @property
     def max_steps(self) -> int:
-        r'The maximum number of steps per operation.'
+        r"""The maximum number of steps per operation."""
         return self._max_steps
 
     @max_steps.setter
@@ -1622,7 +1622,9 @@ class Phaser():
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, all time signatures will be omitted from the output.'
+        r"""When ``True``, all time signatures will be omitted from the
+        output.
+        """
         return self._omit_time_signatures
 
     @omit_time_signatures.setter

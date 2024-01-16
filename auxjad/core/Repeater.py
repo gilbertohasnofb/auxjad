@@ -719,7 +719,7 @@ class Repeater():
                  repeat_type: str = 'unfold',
                  include_2x_volta_text: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
         self.force_identical_time_signatures = force_identical_time_signatures
@@ -732,7 +732,7 @@ class Repeater():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __call__(self,
@@ -762,7 +762,7 @@ class Repeater():
         return self.__call__()
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -780,7 +780,7 @@ class Repeater():
     def _repeat_unfold(self,
                        n: int,
                        ) -> None:
-        r'Repeats a container ``n`` times.'
+        r"""Repeats a container ``n`` times."""
         dummy_container = abjad.mutate.copy(self._contents)
         for _ in range(n - 1):
             dummy_container.extend(abjad.mutate.copy(self._contents))
@@ -798,7 +798,7 @@ class Repeater():
     def _repeat_volta(self,
                       n: int,
                       ) -> None:
-        r'Adds repetition bars and ``n`` times written indication.'
+        r"""Adds repetition bars and ``n`` times written indication."""
         dummy_contents = abjad.mutate.copy(self._contents)
         if n == 1:
             self._current_window = dummy_contents[:]
@@ -825,13 +825,13 @@ class Repeater():
         dummy_contents[:] = []
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -840,7 +840,7 @@ class Repeater():
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be shuffled.'
+        r"""The |abjad.Container| to be shuffled."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -878,7 +878,7 @@ class Repeater():
 
     @property
     def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the previously output selection.'
+        r"""Read-only property, returns the previously output selection."""
         current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
@@ -886,7 +886,9 @@ class Repeater():
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, all time signatures will be omitted from the output.'
+        r"""When ``True``, all time signatures will be omitted from the
+        output.
+        """
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -915,7 +917,7 @@ class Repeater():
 
     @property
     def reposition_clefs(self) -> bool:
-        r'When ``True``, |auxjad.mutate.reposition_clefs()| is invoked.'
+        r"""When ``True``, |auxjad.mutate.reposition_clefs()| is invoked."""
         return self._reposition_clefs
 
     @reposition_clefs.setter
@@ -928,7 +930,7 @@ class Repeater():
 
     @property
     def reposition_dynamics(self) -> bool:
-        r'When ``True``, |auxjad.mutate.reposition_dynamics()| is invoked.'
+        r"""When ``True``, |auxjad.mutate.reposition_dynamics()| is invoked."""
         return self._reposition_dynamics
 
     @reposition_dynamics.setter
@@ -941,7 +943,7 @@ class Repeater():
 
     @property
     def reposition_slurs(self) -> bool:
-        r'When ``True``, |auxjad.mutate.reposition_slurs()| is invoked.'
+        r"""When ``True``, |auxjad.mutate.reposition_slurs()| is invoked."""
         return self._reposition_slurs
 
     @reposition_slurs.setter
@@ -954,7 +956,7 @@ class Repeater():
 
     @property
     def repeat_type(self) -> bool:
-        r"Defines the type of repeat, either ``'unfold'`` or ``'volta'``."
+        r"""Defines the type of repeat, either ``'unfold'`` or ``'volta'``."""
         return self._repeat_type
 
     @repeat_type.setter

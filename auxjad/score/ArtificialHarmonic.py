@@ -364,7 +364,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
                  centre_markup: bool = True,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         if len(self.written_pitches) != 2:
             raise ValueError("'ArtificialHarmonic' requires exactly two "
@@ -378,7 +378,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ### PUBLIC METHODS ###
 
     def sounding_pitch(self) -> abjad.Pitch:
-        r'Returns the sounding pitch of the harmonic as an |abjad.Pitch|.'
+        r"""Returns the sounding pitch of the harmonic as an |abjad.Pitch|."""
         interval = abs(self.written_pitches[1]
                        - self.written_pitches[0]).semitones
         sounding_pitch_dict = {1: 48,
@@ -403,7 +403,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         return sounding_pitch
 
     def sounding_note(self) -> abjad.Note:
-        r'Returns the sounding note of the harmonic as an |abjad.Note|.'
+        r"""Returns the sounding note of the harmonic as an |abjad.Note|."""
         note = abjad.Note(self.sounding_pitch(), self._written_duration)
         for indicator in abjad.get.indicators(self):
             abjad.attach(indicator, note)
@@ -412,7 +412,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
     ### PRIVATE METHODS ###
 
     def _attach_centre_markup(self) -> None:
-        r'Attaches the centre markup tweaks.'
+        r"""Attaches the centre markup tweaks."""
         literal1 = abjad.LilyPondLiteral(
             r'\once \override TextScript.parent-alignment-X = 0'
         )
@@ -423,7 +423,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         abjad.attach(literal2, self)
 
     def _detach_centre_markup(self) -> None:
-        r'Detaches the centre markup tweaks.'
+        r"""Detaches the centre markup tweaks."""
         literal1 = abjad.LilyPondLiteral(
             r'\once \override TextScript.parent-alignment-X = 0'
         )
@@ -439,7 +439,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     @property
     def written_pitches(self) -> abjad.pitch.segments.PitchSegment:
-        r'The written pitches of the two note heads.'
+        r"""The written pitches of the two note heads."""
         return abjad.pitch.segments.PitchSegment(
             items=(note_head.written_pitch for note_head in self._note_heads),
             item_class=abjad.pitch.pitches.NamedPitch,
@@ -458,7 +458,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     @property
     def style(self) -> str:
-        r'The style of the upper note head.'
+        r"""The style of the upper note head."""
         return self._style
 
     @style.setter
@@ -487,7 +487,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     @property
     def is_parenthesized(self) -> bool:
-        r'Whether the bottom note head is parenthesised or not.'
+        r"""Whether the bottom note head is parenthesised or not."""
         return self._is_parenthesized
 
     @is_parenthesized.setter
@@ -503,7 +503,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     @property
     def markup(self) -> str:
-        r'The markup of the harmonic note head.'
+        r"""The markup of the harmonic note head."""
         return self._markup
 
     @markup.setter

@@ -299,7 +299,7 @@ class CartographySelector():
                  *,
                  decay_rate: float = 0.75,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if not isinstance(decay_rate, float):
@@ -315,11 +315,11 @@ class CartographySelector():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`contents`.'
+        r"""Returns interpreter representation of :attr:`contents`."""
         return str(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the length of :attr:`contents`.'
+        r"""Returns the length of :attr:`contents`."""
         return len(self._contents)
 
     def __call__(self,
@@ -449,7 +449,7 @@ class CartographySelector():
         self.mirror_swap(random.randint(0, max_index))
 
     def shuffle(self) -> None:
-        r'Shuffles the position of the elements of :attr:`contents`.'
+        r"""Shuffles the position of the elements of :attr:`contents`."""
         random.shuffle(self._contents)
 
     ### PRIVATE METHODS ###
@@ -466,7 +466,7 @@ class CartographySelector():
 
     @property
     def contents(self) -> list[Any]:
-        r'The :obj:`list` from which the selector picks elements.'
+        r"""The :obj:`list` from which the selector picks elements."""
         return self._contents
 
     @contents.setter
@@ -511,7 +511,7 @@ class CartographySelector():
 
     @property
     def previous_result(self) -> Any:
-        r'Read-only property, returns the previously output element.'
+        r"""Read-only property, returns the previously output element."""
         if self._previous_index is not None:
             return self._contents[self._previous_index]
         else:
@@ -519,5 +519,5 @@ class CartographySelector():
 
     @property
     def weights(self) -> list[float]:
-        r'Read-only property, returns the weight vector.'
+        r"""Read-only property, returns the weight vector."""
         return self._weights

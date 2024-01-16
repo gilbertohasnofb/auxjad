@@ -4,7 +4,7 @@ import abjad
 
 
 class Score(abjad.Score):
-    r"Score."
+    r"""Score."""
 
     def add_final_bar_line(self,
                            bar_line: Union[str, abjad.BarLine] = "|.",

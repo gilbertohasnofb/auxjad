@@ -2,7 +2,7 @@ import abjad
 
 
 class TimeSignature(abjad.TimeSignature):
-    r"Time signature."
+    r"""Time signature."""
 
     def simplify_ratio(self,
                        *,

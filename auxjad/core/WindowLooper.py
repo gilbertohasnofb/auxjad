@@ -1321,7 +1321,7 @@ class WindowLooper(_LooperParent):
                  after_rest_in_new_measure: bool = False,
                  use_multimeasure_rests: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
         self.fill_with_rests = fill_with_rests
@@ -1349,7 +1349,7 @@ class WindowLooper(_LooperParent):
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
@@ -1403,7 +1403,7 @@ class WindowLooper(_LooperParent):
                       start: int,
                       end: int,
                       ) -> None:
-        r'Handles the notation aspects of the looping window.'
+        r"""Handles the notation aspects of the looping window."""
         window_size = self._window_size
         # passing on indicators from the head of an initial splitted leaf
         for index in range(start - 1, -1, -1):
@@ -1501,14 +1501,14 @@ class WindowLooper(_LooperParent):
         dummy_container[:] = []
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be sliced and looped.'
+        r"""The |abjad.Container| to be sliced and looped."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1533,7 +1533,7 @@ class WindowLooper(_LooperParent):
 
     @property
     def head_position(self) -> abjad.Duration:
-        r'The position of the head at the start of a looping window.'
+        r"""The position of the head at the start of a looping window."""
         return self._head_position
 
     @head_position.setter
@@ -1562,7 +1562,7 @@ class WindowLooper(_LooperParent):
 
     @property
     def window_size(self) -> abjad.Meter:
-        r'The length of the looping window.'
+        r"""The length of the looping window."""
         return self._window_size
 
     @window_size.setter
@@ -1595,7 +1595,7 @@ class WindowLooper(_LooperParent):
 
     @property
     def step_size(self) -> abjad.Duration:
-        r'The size of each step when moving the head.'
+        r"""The size of each step when moving the head."""
         return self._step_size
 
     @step_size.setter
@@ -1617,7 +1617,7 @@ class WindowLooper(_LooperParent):
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, the output will contain no time signatures.'
+        r"""When ``True``, the output will contain no time signatures."""
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -1646,7 +1646,7 @@ class WindowLooper(_LooperParent):
 
     @property
     def fill_with_rests(self) -> bool:
-        r'When ``True``, the output will contain no time signatures.'
+        r"""When ``True``, the output will contain no time signatures."""
         return self._fill_with_rests
 
     @fill_with_rests.setter

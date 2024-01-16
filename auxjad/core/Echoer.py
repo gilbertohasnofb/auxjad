@@ -1499,7 +1499,7 @@ class Echoer():
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.min_dynamic = min_dynamic
         self.max_steps = max_steps
         self.contents = contents
@@ -1522,11 +1522,11 @@ class Echoer():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of logical ties of :attr:`contents`.'
+        r"""Returns the number of logical ties of :attr:`contents`."""
         logical_ties = abjad.select(self._contents).logical_ties(pitched=True)
         return len(logical_ties)
 
@@ -1550,7 +1550,7 @@ class Echoer():
         return self.__call__()
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -1591,14 +1591,14 @@ class Echoer():
         return output
 
     def reset(self) -> None:
-        r'Resets the process, regenerating the mask.'
+        r"""Resets the process, regenerating the mask."""
         self._is_first_window = True
         self._get_mask()
 
     ### PRIVATE METHODS ###
 
     def _mask_to_selection(self) -> None:
-        r'Applies the mask to :attr:`contents`.'
+        r"""Applies the mask to :attr:`contents`."""
         dummy_container = abjad.mutate.copy(self._contents)
         if not self._is_first_window or self._process_on_first_call:
             logical_ties = abjad.select(dummy_container).logical_ties(
@@ -1643,11 +1643,11 @@ class Echoer():
         self._is_first_window = False
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     def _get_mask(self) -> None:
-        r'Creates a mask of dynamic ordinals from :attr:`contents`.'
+        r"""Creates a mask of dynamic ordinals from :attr:`contents`."""
         logical_ties = abjad.select(self._contents).logical_ties(pitched=True)
         self._mask = []
         previous_dyn = None
@@ -1667,7 +1667,7 @@ class Echoer():
             raise RuntimeError("first note of 'contents' must have a dynamic")
 
     def _mask_to_dyn_list(self) -> list[str]:
-        r'Converts the numerical mask into a list of dynamic strings.'
+        r"""Converts the numerical mask into a list of dynamic strings."""
         dyn_list = []
         for dyn_number in self._mask:
             if dyn_number is not None:
@@ -1678,7 +1678,7 @@ class Echoer():
         return dyn_list
 
     def _soften_mask(self) -> list[Union[int, None]]:
-        r'Lowers the dynamics of the mask by one level.'
+        r"""Lowers the dynamics of the mask by one level."""
         for n in range(random.randint(1, self._max_steps)):
             if any(item is not None for item in self._mask):
                 self._mask = [self._soften_dynamic(item,
@@ -1705,7 +1705,7 @@ class Echoer():
     @staticmethod
     def _convert_pitched_logical_tie_to_rest(logical_tie: abjad.LogicalTie,
                                              ) -> None:
-        r'Converts all leaves of a pitched logical tie into rests.'
+        r"""Converts all leaves of a pitched logical tie into rests."""
         indicators_tuple = (abjad.BarLine,
                             abjad.Clef,
                             abjad.Dynamic,
@@ -1738,7 +1738,7 @@ class Echoer():
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1747,7 +1747,7 @@ class Echoer():
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be faded.'
+        r"""The |abjad.Container| to be faded."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1778,7 +1778,7 @@ class Echoer():
 
     @property
     def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the previously output selection.'
+        r"""Read-only property, returns the previously output selection."""
         current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
@@ -1786,7 +1786,7 @@ class Echoer():
 
     @property
     def min_dynamic(self) -> str:
-        r'The minimum dynamic below which notes are removed.'
+        r"""The minimum dynamic below which notes are removed."""
         return self._min_dynamic
 
     @min_dynamic.setter
@@ -1802,7 +1802,7 @@ class Echoer():
 
     @property
     def max_steps(self) -> int:
-        r'The maximum number of steps per operation.'
+        r"""The maximum number of steps per operation."""
         return self._max_steps
 
     @max_steps.setter
@@ -1832,7 +1832,9 @@ class Echoer():
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, all time signatures will be omitted from the output.'
+        r"""When ``True``, all time signatures will be omitted from the
+        output.
+        """
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -1845,7 +1847,9 @@ class Echoer():
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r'When ``True``, multi-measure rests will be used for silent measures.'
+        r"""When ``True``, multi-measure rests will be used for silent
+        measures.
+        """
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter
@@ -2040,5 +2044,5 @@ class Echoer():
 
     @property
     def _min_dynamic_number(self) -> int:
-        r'Numerical representation of :attr:`min_dynamic`.'
+        r"""Numerical representation of :attr:`min_dynamic`."""
         return self._dynamic_name_to_dynamic_ordinal[self._min_dynamic]

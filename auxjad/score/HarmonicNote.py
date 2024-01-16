@@ -248,7 +248,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
                  centre_markup: bool = True,
                  direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
         self._direction = direction
@@ -258,7 +258,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
     ### PRIVATE METHODS ###
 
     def _attach_centre_markup(self) -> None:
-        r'Attaches the centre markup tweaks.'
+        r"""Attaches the centre markup tweaks."""
         literal1 = abjad.LilyPondLiteral(
             r'\once \override TextScript.parent-alignment-X = 0'
         )
@@ -269,7 +269,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         abjad.attach(literal2, self)
 
     def _detach_centre_markup(self) -> None:
-        r'Detaches the centre markup tweaks.'
+        r"""Detaches the centre markup tweaks."""
         literal1 = abjad.LilyPondLiteral(
             r'\once \override TextScript.parent-alignment-X = 0'
         )
@@ -285,7 +285,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     @property
     def style(self) -> str:
-        r'The style of the harmonic note head.'
+        r"""The style of the harmonic note head."""
         return self._style
 
     @style.setter
@@ -320,7 +320,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     @property
     def markup(self) -> str:
-        r'The markup of the harmonic note head.'
+        r"""The markup of the harmonic note head."""
         return self._markup
 
     @markup.setter

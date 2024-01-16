@@ -336,7 +336,7 @@ class LeafDynMaker(abjad.LeafMaker):
     ### INITIALISER ###
 
     def __init__(self) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         super().__init__()
 
     ### SPECIAL METHODS ###
@@ -415,7 +415,7 @@ class LeafDynMaker(abjad.LeafMaker):
                                         ]],
                                         omit_repeated_dynamics: bool,
                                         ) -> None:
-        r'Adds dynamics and articulations to logical ties.'
+        r"""Adds dynamics and articulations to logical ties."""
         previous_dynamic = None
         for logical_tie, dynamic, articulation in zip(logical_ties,
                                                       dynamics_,
@@ -436,7 +436,7 @@ class LeafDynMaker(abjad.LeafMaker):
     @staticmethod
     def _listify(argument: Any,
                  ) -> list[Any]:
-        r'Returns a :obj:`list` if argument is not a :obj:`list`.'
+        r"""Returns a :obj:`list` if argument is not a :obj:`list`."""
         if argument:
             if isinstance(argument, list):
                 return argument

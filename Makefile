@@ -24,7 +24,7 @@ flake_exclude = --exclude=./sandbox.py,./docs/conf.py
 flake8:
 	python3.9 -m flake8 ${flake_ignore} ${flake_exclude}
 
-pydocstyle_select = --select=D101,D102,D103,D105,D107
+pydocstyle_select = --select=D101,D102,D103,D105,D107,D300,D301
 
 pydocstyle:
 	python3.9 -m pydocstyle ${pydocstyle_select}

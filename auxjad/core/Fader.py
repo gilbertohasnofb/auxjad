@@ -1457,7 +1457,7 @@ class Fader():
                  fuse_quadruple_meter: bool = True,
                  fuse_triple_meter: bool = True,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         self.mode = mode
         self.max_steps = max_steps
         self.contents = contents
@@ -1482,11 +1482,11 @@ class Fader():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r'Returns the number of notes of :attr:`contents`.'
+        r"""Returns the number of notes of :attr:`contents`."""
         length = 0
         logical_ties = abjad.select(self._contents).logical_ties(pitched=True)
         for logical_tie in logical_ties:
@@ -1523,7 +1523,7 @@ class Fader():
         return self.__call__()
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
@@ -1574,19 +1574,19 @@ class Fader():
             self._mask = [0 for _ in range(self.__len__())]
 
     def random_mask(self) -> None:
-        r"Creates a mask randomly filled with ``1``'s and ``0``'s."
+        r"""Creates a mask randomly filled with ``1``'s and ``0``'s."""
         self._is_first_window = True
         self._mask = [random.randint(0, 1) for _ in range(self.__len__())]
 
     def shuffle_mask(self) -> None:
-        r"Shuffles the current mask."
+        r"""Shuffles the current mask."""
         self._is_first_window = True
         random.shuffle(self._mask)
 
     ### PRIVATE METHODS ###
 
     def _remove_element(self) -> None:
-        r'Sets a random element of the mask to `0`.'
+        r"""Sets a random element of the mask to `0`."""
         for n in range(random.randint(1, self._max_steps)):
             if 1 in self._mask:
                 total_count = sum(self._mask)
@@ -1600,7 +1600,7 @@ class Fader():
                 raise RuntimeError("'current_window' is already empty")
 
     def _add_element(self) -> None:
-        r'Sets a random element of the mask to `1`.'
+        r"""Sets a random element of the mask to `1`."""
         for n in range(random.randint(1, self._max_steps)):
             if 0 in self._mask:
                 total_count = self.__len__() - sum(self._mask)
@@ -1614,7 +1614,7 @@ class Fader():
                 raise RuntimeError("'current_window' is already full")
 
     def _mask_to_selection(self) -> None:
-        r'Applies the mask to :attr:`contents`.'
+        r"""Applies the mask to :attr:`contents`."""
         dummy_container = abjad.mutate.copy(self._contents)
         logical_ties = abjad.select(dummy_container).logical_ties(pitched=True)
         mask_index = 0
@@ -1672,13 +1672,13 @@ class Fader():
         self._is_first_window = False
 
     def _get_lilypond_format(self) -> str:
-        r'Returns interpreter representation of  :attr:`contents`.'
+        r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
     @staticmethod
     def _convert_pitched_logical_tie_to_rest(logical_tie: abjad.LogicalTie,
                                              ) -> None:
-        r'Converts all leaves of a pitched logical tie into rests.'
+        r"""Converts all leaves of a pitched logical tie into rests."""
         indicators_tuple = (abjad.BarLine,
                             abjad.Clef,
                             abjad.Dynamic,
@@ -1711,7 +1711,7 @@ class Fader():
     @staticmethod
     def _remove_all_time_signatures(container: abjad.Container,
                                     ) -> None:
-        r'Removes all time signatures of an |abjad.Container|.'
+        r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
@@ -1732,7 +1732,7 @@ class Fader():
 
     @property
     def contents(self) -> abjad.Container:
-        r'The |abjad.Container| to be faded.'
+        r"""The |abjad.Container| to be faded."""
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
@@ -1763,7 +1763,7 @@ class Fader():
 
     @property
     def current_window(self) -> abjad.Selection:
-        r'Read-only property, returns the previously output selection.'
+        r"""Read-only property, returns the previously output selection."""
         current_window = abjad.mutate.copy(self._current_window)
         if self._omit_time_signatures:
             self._remove_all_time_signatures(current_window)
@@ -1771,7 +1771,7 @@ class Fader():
 
     @property
     def mode(self) -> str:
-        r"Mode of fading, must be either ``'in'`` or ``'out'``."
+        r"""Mode of fading, must be either ``'in'`` or ``'out'``."""
         return self._mode
 
     @mode.setter
@@ -1786,7 +1786,7 @@ class Fader():
 
     @property
     def max_steps(self) -> int:
-        r'The maximum number of steps per operation.'
+        r"""The maximum number of steps per operation."""
         return self._max_steps
 
     @max_steps.setter
@@ -1837,7 +1837,9 @@ class Fader():
 
     @property
     def omit_time_signatures(self) -> bool:
-        r'When ``True``, all time signatures will be omitted from the output.'
+        r"""When ``True``, all time signatures will be omitted from the
+        output.
+        """
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
@@ -1850,7 +1852,9 @@ class Fader():
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r'When ``True``, multi-measure rests will be used for silent measures.'
+        r"""When ``True``, multi-measure rests will be used for silent
+        measures.
+        """
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter

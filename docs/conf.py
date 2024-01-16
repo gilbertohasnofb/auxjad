@@ -99,7 +99,7 @@ from pygments.token import (
 
 
 class PandaStyle(Style):
-    r"""Panda Syntax Theme
+    r"""Panda Syntax Theme.
 
     Custom `pygments_style` theme based on:
     https://github.com/tinkertrain/panda-syntax-vscode
@@ -140,7 +140,7 @@ class PandaStyle(Style):
 
 
 def pygments_monkeypatch_style(mod_name, cls):
-    r'Monkey Patching custom theme'
+    r"""Monkeypatch custom theme."""
     import sys
     import pygments.styles
     cls_name = cls.__name__
@@ -276,7 +276,7 @@ from docutils.parsers.rst import Directive, directives
 
 
 class HiddenDoctestDirective(Directive):
-    """An hidden doctest directive.
+    r"""An hidden doctest directive.
     Contributes no formatting to documents built by Sphinx.
     """
 
@@ -293,13 +293,13 @@ class HiddenDoctestDirective(Directive):
     ### PUBLIC METHODS ###
 
     def run(self):
-        r'Executes the directive.'
+        r"""Execute the directive."""
         self.assert_has_content()
         return []
 
 
 def setup(app):
-    r'Setups directives.'
+    r"""Setup directives."""
     app.add_directive('docs', HiddenDoctestDirective)
     # replacing abjad's todo custom directive with a regular warning
     app.add_directive('todo', directives.admonitions.Warning)

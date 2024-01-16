@@ -229,7 +229,7 @@ class GeneticAlgorithm():
                  mutation_index: float = 0.1,
                  evaluation_index: float = 0.2,
                  ) -> None:
-        r'Initialises self.'
+        r"""Initialises self."""
         if not isinstance(genes, list):
             raise TypeError("'genes' must be 'list'")
         if not isinstance(target, list):
@@ -255,11 +255,11 @@ class GeneticAlgorithm():
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        r'Returns interpreter representation of :attr:`target`.'
+        r"""Returns interpreter representation of :attr:`target`."""
         return repr(self._target)
 
     def __len__(self) -> int:
-        r'Returns the number of genes in each individual.'
+        r"""Returns the number of genes in each individual."""
         return len(self._target)
 
     def __call__(self) -> None:
@@ -284,13 +284,13 @@ class GeneticAlgorithm():
             raise StopIteration
 
     def __iter__(self) -> None:
-        r'Returns an iterator, allowing instances to be used as iterators.'
+        r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
     ### PUBLIC METHODS ###
 
     def reset(self) -> None:
-        r'Resets that genetic algorithm.'
+        r"""Resets that genetic algorithm."""
         self._generation_number = None
         self._population = None
         self._scores = None
@@ -363,7 +363,7 @@ class GeneticAlgorithm():
             self._scores.append(score)
 
     def _crossover_population(self) -> None:
-        r'Crossover process used to generate offsprings.'
+        r"""Crossover process used to generate offsprings."""
         selected_parents = self._population[:self._select_n_parents]
         if self._keep_n_parents > 0:
             new_generation = self._population[:self._keep_n_parents]
@@ -396,7 +396,7 @@ class GeneticAlgorithm():
 
     @property
     def target(self) -> list:
-        r'Target individual used for evaluation.'
+        r"""Target individual used for evaluation."""
         return self._target
 
     @target.setter
@@ -414,7 +414,7 @@ class GeneticAlgorithm():
 
     @property
     def genes(self) -> list:
-        r'List of possible genes that make up all individuals.'
+        r"""List of possible genes that make up all individuals."""
         return self._genes
 
     @genes.setter
@@ -429,7 +429,9 @@ class GeneticAlgorithm():
 
     @property
     def initial_individual(self) -> Union[list, None]:
-        r'Optional initial individual (instead of random initial population).'
+        r"""Optional initial individual (instead of random initial
+        population).
+        """
         return self._initial_individual
 
     @initial_individual.setter
@@ -450,7 +452,7 @@ class GeneticAlgorithm():
 
     @property
     def population_size(self) -> int:
-        r'Number of individuals in any given generation.'
+        r"""Number of individuals in any given generation."""
         return self._population_size
 
     @population_size.setter
@@ -499,7 +501,7 @@ class GeneticAlgorithm():
 
     @property
     def mutation_chance(self) -> float:
-        r'The chance of any given individual experiencing mutation.'
+        r"""The chance of any given individual experiencing mutation."""
         return self._mutation_chance
 
     @mutation_chance.setter

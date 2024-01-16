@@ -20,7 +20,7 @@ class _HarmonicParent:
 
     @property
     def direction(self) -> Union[str, abjad.enums.VerticalAlignment]:
-        r'The direction of the harmonic note head.'
+        r"""The direction of the harmonic note head."""
         return self._direction
 
     @direction.setter
@@ -39,7 +39,7 @@ class _HarmonicParent:
 
     @property
     def markup(self) -> str:
-        r'The markup of the harmonic note head.'
+        r"""The markup of the harmonic note head."""
         return self._markup
 
     @markup.setter

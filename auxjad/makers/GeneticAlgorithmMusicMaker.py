@@ -989,9 +989,11 @@ class GeneticAlgorithmMusicMaker():
         r"""Returns interpreter representation of :attr:`target`'s of both
         instances of the genetic algorithm (pitches and attack points).
         """
-        string = 'pitches: ' + repr(self._pitch_ga._target) + '\n'
-        string += 'attack_points: ' + repr(self._attack_point_ga._target)
-        return string
+        strings = (
+            f'pitches: {repr(self._pitch_ga._target)}',
+            f'attack_points: {repr(self._attack_point_ga._target)}',
+        )
+        return '\n'.join(strings)
 
     def __len__(self) -> int:
         r"""Returns the number of genes in each individual."""

@@ -86,15 +86,15 @@ for namespace in namespaces:
                         contents = textwrap.dedent(contents)
                         if r'\new' in contents:
                             f.write(contents)
-                        elif contents[0] == r'{' and contents[-1] == r'}':
+                        elif contents[0] == '{' and contents[-1] == '}':
                             f.write(r'\new Staff' + '\n')
                             f.write(contents)
                         else:  # wrap in {} otherwise
                             contents = textwrap.indent(contents, '    ')
                             f.write(r'\new Staff' + '\n')
-                            f.write(r'{' + '\n')
+                            f.write('{\n')
                             f.write(contents)
-                            f.write('\n' + r'}')
+                            f.write('\n}')
 
 # generating lilypond files from example-n.rst files
 for read_file in os.listdir('./examples'):
@@ -112,12 +112,12 @@ for read_file in os.listdir('./examples'):
                         contents = textwrap.dedent(contents)
                         if r'\new' in contents:
                             f.write(contents)
-                        elif contents[0] == r'{' and contents[-1] == r'}':
+                        elif contents[0] == '{' and contents[-1] == '}':
                             f.write(r'\new Staff' + '\n')
                             f.write(contents)
                         else:  # wrap in {} otherwise
                             contents = textwrap.indent(contents, '    ')
                             f.write(r'\new Staff' + '\n')
-                            f.write(r'{' + '\n')
+                            f.write('{\n')
                             f.write(contents)
-                            f.write('\n' + r'}')
+                            f.write('\n}')

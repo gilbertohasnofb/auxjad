@@ -806,19 +806,17 @@ class Repeater():
             return
         repeat = abjad.Repeat(repeat_count=n)
         abjad.attach(repeat, dummy_contents)
+        strings = [
+            r'\tweak RehearsalMark.self-alignment-X #RIGHT',
+            r'\tweak RehearsalMark.break-visibility #begin-of-line-invisible',
+            r'\mark \markup{\box "' + str(n) + '×"}',
+        ]
         if n > 2 or (n == 2 and self._include_2x_volta_text):
-            strings = [
-                r"\tweak RehearsalMark.self-alignment-X #RIGHT",
-                r"\tweak RehearsalMark.break-visibility "
-                + r"#begin-of-line-invisible",
-                r'\mark \markup{\box "' + str(n) + r'×"}'
-            ]
             for string in strings:
-                abjad.attach(abjad.LilyPondLiteral(string,
-                                                   format_slot='after',
-                                                   ),
-                             abjad.select(dummy_contents).leaf(-1),
-                             )
+                abjad.attach(
+                    abjad.LilyPondLiteral(string, format_slot='after'),
+                    abjad.select(dummy_contents).leaf(-1),
+                )
         dummy_container = abjad.Container([abjad.mutate.copy(dummy_contents)])
         self._current_window = dummy_container[:]
         dummy_container[:] = []

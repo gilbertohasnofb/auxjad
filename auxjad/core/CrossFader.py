@@ -1712,10 +1712,11 @@ class CrossFader():
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of both contents."""
-        string = abjad.lilypond(self._fader_out)
-        string += '\n'
-        string += abjad.lilypond(self._fader_in)
-        return string
+        strings = (
+            abjad.lilypond(self._fader_out),
+            abjad.lilypond(self._fader_in),
+        )
+        return '\n'.join(strings)
 
     def __len__(self) -> int:
         r"""Returns the sum of the number of notes of both contents."""

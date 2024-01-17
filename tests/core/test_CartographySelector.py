@@ -10,7 +10,9 @@ def test_CartographySelector_01():
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
     assert selector.contents == [0, 1, 2, 3, 4]
     assert format(selector) == '[0, 1, 2, 3, 4]'
-    assert selector.weights == [1.0, 0.75, 0.5625, 0.421875, 0.31640625]
+    assert selector.weights == pytest.approx(
+        [1.0, 0.75, 0.5625, 0.421875, 0.31640625],
+    )
     assert selector.previous_index is None
     assert selector.previous_result is None
     assert len(selector) == 5
@@ -98,12 +100,7 @@ def test_CartographySelector_10():
     random.seed(83552)
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
     selector.decay_rate = 0.2
-    assert selector.weights == [1.0,
-                                0.2,
-                                0.04000000000000001,
-                                0.008000000000000002,
-                                0.0016000000000000003,
-                                ]
+    assert selector.weights == pytest.approx([1.0, 0.2, 0.04, 0.008, 0.0016])
     result = ''
     for _ in range(30):
         result += str(selector())

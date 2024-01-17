@@ -38,13 +38,9 @@ def test_TenneySelector_02():
     for _ in range(30):
         result += selector()
     assert result == 'CDCBFECBCEBCFCEDFACDBADCADCDFE'
-    assert selector.probabilities == [1.0016107337527294,
-                                      1.002199640244188,
-                                      1.001099215984204,
-                                      1.0006933874625807,
-                                      0.0,
-                                      1.0,
-                                      ]
+    assert selector.probabilities == pytest.approx(
+        [1.0016107, 1.0021996, 1.0010992, 1.0006934, 0.0, 1.0]
+    )
 
 
 def test_TenneySelector_03():
@@ -56,13 +52,9 @@ def test_TenneySelector_03():
     for _ in range(30):
         result += selector()
     assert result == 'DFAECBDFAECBDFAECBDFAECBDFAECB'
-    assert selector.probabilities == [17874877.39956566,
-                                      0.0,
-                                      1.0,
-                                      42106007735.02238,
-                                      37640.547696542824,
-                                      1416810830.8957152,
-                                      ]
+    assert selector.probabilities == pytest.approx(
+        [17874877.4, 0.0, 1.0, 42106007735.0, 37640.548, 1416810830.9]
+    )
 
 
 def test_TenneySelector_04():

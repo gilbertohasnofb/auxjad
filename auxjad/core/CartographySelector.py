@@ -131,7 +131,7 @@ class CartographySelector():
         >>> selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
         >>> selector.contents
         [10, 7, 14, 31, 98]
-        >>> selector.drop_n_and_append(100, 2)
+        >>> selector.drop_n_and_append(100, n=2)
         >>> selector.contents
         [10, 7, 31, 98, 100]
 
@@ -368,6 +368,7 @@ class CartographySelector():
         indexing or slicing.
         """
         self._contents[key] = value
+        self._generate_weights()
 
     def __delitem__(self,
                     key: int,
@@ -391,6 +392,7 @@ class CartographySelector():
 
     def drop_n_and_append(self,
                           new_element: Any,
+                          *,
                           n: int,
                           ) -> None:
         r"""A type of content transformation similar to
@@ -428,15 +430,15 @@ class CartographySelector():
     def mirror_swap(self,
                     index: int,
                     ) -> None:
-        r"""A type of content transformation which swaps takes an input index
-        and swaps the element at tit with its complementary element.
+        r"""A type of content transformation which takes an input index and
+        swaps the element at that position with its complementary element.
         Complementary elements are defined as the pair of elements which share
         the same distance from the centre of the :attr:`contents` (in terms of
         number of indeces), and are located at either side of this centre.
         """
-        aux = self._contents[index]
-        self._contents[index] = self._contents[-1 - index]
-        self._contents[-1 - index] = aux
+        self._contents[index], self._contents[-1 - index] = (
+            self._contents[-1 - index], self._contents[index],
+        )
 
     def mirror_random_swap(self) -> None:
         r"""A type of content transformation which will apply

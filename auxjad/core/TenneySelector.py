@@ -304,17 +304,17 @@ class TenneySelector():
         'C'
         >>> selector[1:4]
         ['B', 'C', 'D']
-        >>> selector[2] = 'foo'
+        >>> selector[2] = 'X'
         >>> selector.contents
-        ['A', 'B', 'foo', 'D', 'E', 'F']
-        >>> selector[:] = ['foo', 'bar', 'X', 'Y', 'Z', '...']
+        ['A', 'B', 'X', 'D', 'E', 'F']
+        >>> selector[:] = ['A', 'B', 'X', 'D', 'foo', 'bar']
         >>> selector.contents
-        ['foo', 'bar', 'X', 'Y', 'Z', '...']
+        ['A', 'B', 'X', 'D', 'foo', 'bar']
         >>> selector.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
         >>> del selector[0:2]
         >>> selector.contents
-        ['X', 'Y', 'Z', '...']
+        ['X', 'D', 'foo', 'bar']
         >>> selector.probabilities
         [1.0, 7.0, 5.0, 0.0]
 
@@ -391,7 +391,9 @@ class TenneySelector():
             raise TypeError("'curvature' must be 'float'")
         if curvature < 0.0:
             raise ValueError("'curvature' must be larger than 0.0")
-
+        # initialising using attributes, not properties, due to cyclic
+        # dependencies, as self._generate_probabilities() is called on all the
+        # relevant properties that could be used
         self._contents = contents[:]
         if weights is not None:
             self._weights = weights[:]
@@ -445,7 +447,11 @@ class TenneySelector():
         r"""Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
+        length_before_set = self.__len__()
         self._contents[key] = value
+        print(length_before_set, self.__len__())
+        if length_before_set != self.__len__():
+            self.weights = None
 
     def __delitem__(self,
                     key: int,
@@ -577,3 +583,12 @@ class TenneySelector():
     def probabilities(self) -> list[float]:
         r"""Read-only property, returns the probabilities vector."""
         return self._probabilities
+
+    @property
+    def counter(self) -> Union[list[int], None]:
+        r"""Read-only property, returns the list with the counts of how many
+        iterations has it been since a given element hasn't been selected. It
+        is initialised to a list of 1's. A 0 is assigned to the index of the
+        selected element while all others are increased by 1.
+        """
+        return self._counter

@@ -6,8 +6,7 @@ import auxjad
 
 
 def test_CartographySelector__init__():
-    r"""Confirm correct initialisation of attributes.
-    """
+    r"""Confirm correct initialisation of attributes."""
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
     assert selector.contents == [0, 1, 2, 3, 4]
     assert format(selector) == '[0, 1, 2, 3, 4]'
@@ -16,24 +15,29 @@ def test_CartographySelector__init__():
     )
     assert selector.previous_index is None
     assert selector.previous_result is None
-    with pytest.raises(AttributeError):
-        selector.previous_index = 3
-        selector.previous_result = 7
 
 
 def test_CartographySelector__call__():
-    r"""Confirm correct behaviour when calling instance.
-    """
+    r"""Confirm correct behaviour when calling instance."""
     random.seed(41298)
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    assert selector.previous_index is None
-    assert selector.previous_result is None
     result = ''
     for _ in range(30):
         result += str(selector())
     assert result == '203001402200011111101400310140'
     assert selector.previous_index == 0
     assert selector.previous_result == 0
+
+
+def test_CartographySelector_previous_index_and_previous_result_read_only():
+    r"""Confirm attributes previous_index and previous_result are both read
+    only.
+    """
+    selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
+    with pytest.raises(AttributeError):
+        selector.previous_index = 3
+    with pytest.raises(AttributeError):
+        selector.previous_result = 7
 
 
 def test_CartographySelector_decay_rate():
@@ -99,7 +103,6 @@ def test_CartographySelector__len__():
     r"""Confirm __len__ returns the correct length of contents and weights."""
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4], decay_rate=0.5)
     assert len(selector) == 5
-    selector.contents = [0, 1, 2, 3, 4]
     assert selector.weights == [1.0, 0.5, 0.25, 0.125, 0.0625]
 
 
@@ -133,16 +136,6 @@ def test_CartographySelector_change_decay_rate():
     for _ in range(30):
         result += str(selector())
     assert result == '000001002100000201001030000100'
-
-
-def test_CartographySelector_11():
-    r"""
-    """
-    random.seed(19844)
-    selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
-    assert selector() == 31
-    assert selector.previous_index == 3
-    assert selector.previous_result == 31
 
 
 def test_CartographySelector__getitem__():
@@ -186,7 +179,8 @@ def test_CartographySelector__delitem__regenerates_weights():
 
 
 def test_CartographySelector__setitem__regenerates_weights():
-    r"""Confirm __setitem__ can set items in specific index or index ranges.
+    r"""Confirm __setitem__ can set items regenerates weights when contents
+    changes size.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
     selector[2] = 207

@@ -136,8 +136,8 @@ class GeneticAlgorithmMusicMaker():
         ..  figure:: ../_images/GeneticAlgorithmMusicMaker-hDxTq3Y2Ek.png
 
     :meth:`output_n`:
-        The method :meth:`output_n` can be used to output `n` iterations of the
-        process. They are output as a single |abjad.Selection|:
+        The method :meth:`output_n` can be used to output ``n`` iterations of
+        the process. They are output as a single |abjad.Selection|:
 
         >>> maker = auxjad.GeneticAlgorithmMusicMaker(
         ...     pitch_target=["c'", "d'", "e'", "f'"],
@@ -1502,7 +1502,7 @@ class GeneticAlgorithmMusicMaker():
     @property
     def generation_number(self) -> list:
         r"""Read-only property, returns the number of the current generation
-        (initial generation is `0`).
+        (initial generation is ``0``).
         """
         return self._pitch_ga._generation_number
 

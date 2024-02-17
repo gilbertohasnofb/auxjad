@@ -101,7 +101,7 @@ from pygments.token import (
 class PandaStyle(Style):
     r"""Panda Syntax Theme.
 
-    Custom `pygments_style` theme based on:
+    Custom ``pygments_style`` theme based on:
     https://github.com/tinkertrain/panda-syntax-vscode
     """
     background_color = '#292a2b'

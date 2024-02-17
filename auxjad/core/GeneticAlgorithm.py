@@ -330,7 +330,7 @@ class GeneticAlgorithm():
                   ) -> float:
         r"""Evaluates all genes of a given individual, returning a
         :obj:`float`. The higher the value, the fitter the individual is, with
-        `1.0` being a perfect fit. Use :attr:`evaluation_index` to tweak the
+        ``1.0`` being a perfect fit. Use :attr:`evaluation_index` to tweak the
         behaviour of this function.
         """
         individual_score = 0
@@ -511,9 +511,9 @@ class GeneticAlgorithm():
         if not isinstance(mutation_chance, float):
             raise TypeError("'mutation_chance' must be 'float'")
         if mutation_chance < 0.0:
-            raise ValueError("'mutation_chance' must be a positive `float`")
+            raise ValueError("'mutation_chance' must be a positive 'float'")
         elif mutation_chance > 1.0:
-            raise ValueError("'mutation_chance' cannot be larger than `1.0`")
+            raise ValueError("'mutation_chance' cannot be larger than 1.0")
         self._mutation_chance = mutation_chance
 
     @property
@@ -530,9 +530,9 @@ class GeneticAlgorithm():
         if not isinstance(mutation_index, float):
             raise TypeError("'mutation_index' must be 'float'")
         if mutation_index < 0.0:
-            raise ValueError("'mutation_index' must be a positive `float`")
+            raise ValueError("'mutation_index' must be a positive 'float'")
         elif mutation_index > 1.0:
-            raise ValueError("'mutation_index' cannot be larger than `1.0`")
+            raise ValueError("'mutation_index' cannot be larger than 1.0")
         self._mutation_index = mutation_index
 
     @property
@@ -574,7 +574,7 @@ class GeneticAlgorithm():
         if evaluation_index <= 0.0:
             raise ValueError("'evaluation_index' must be a greater than 0.0")
         elif evaluation_index >= 1.0:
-            raise ValueError("'evaluation_index' must be less than `1.0`")
+            raise ValueError("'evaluation_index' must be less than 1.0")
         self._evaluation_index = evaluation_index
 
     @property

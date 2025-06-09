@@ -1,5 +1,5 @@
 SPHINXOPTS    =
-SPHINXBUILD   = python3.9 -msphinx  # sphinx-build
+SPHINXBUILD   = python3 -m sphinx  # sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
@@ -18,7 +18,7 @@ images:
 	mkdir "$(SOURCEDIR)"/_images/
 	mkdir "$(SOURCEDIR)"/_images/lilypond-files/
 	mkdir "$(SOURCEDIR)"/_logs/
-	python3.9 ./image-generator.py
+	python3 ./image-generator.py
 	for f in `ls $(SOURCEDIR)/_images/lilypond-files/*.ly`; \
 		do \
 			echo "Compiling: $$(basename $${f%})"; \

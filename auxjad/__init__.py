@@ -4,7 +4,7 @@ Auxjad
 
 Auxjad is a library of auxiliary classes and functions for Abjad 3.4 aimed at
 composers of algorithmic music. All classes and functions have a ``__doc__``
-attribute with usage instructions.
+    attribute with usage instructions.
 
 Documentation is available at https://gilbertohasnofb.github.io/auxjad-docs/.
 
@@ -48,8 +48,8 @@ from . import mutate
 from . import select
 
 
-__author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
-__version__ = "1.0.3"
+__author__ = 'Gilberto Agostinho <gilbertohasnofb@gmail.com>'
+__version__ = '1.0.3'
 __all__ = [
     '__author__',
     '__version__',

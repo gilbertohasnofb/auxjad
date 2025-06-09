@@ -2,7 +2,7 @@
 	isort-check isort-reformat pytest reformat release check test
 
 build:
-	python3.9 setup.py sdist
+	python3 -m build
 
 clean:
 	find . -name '*.pyc' | xargs rm
@@ -22,12 +22,12 @@ flake_ignore = --ignore=E203,E266,W503
 flake_exclude = --exclude=./sandbox.py,./docs/conf.py
 
 flake8:
-	python3.9 -m flake8 ${flake_ignore} ${flake_exclude}
+	python3 -m flake8 ${flake_ignore} ${flake_exclude}
 
 pydocstyle_select = --select=D101,D102,D103,D105,D107,D300,D301
 
 pydocstyle:
-	python3.9 -m pydocstyle ${pydocstyle_select}
+	python3 -m pydocstyle ${pydocstyle_select}
 
 release-webpage:
 	rm -Rf auxjad-docs/
@@ -42,7 +42,7 @@ release-webpage:
 	rm -Rf auxjad-docs/
 
 isort-check:
-	python3.9 -m isort \
+	python3 -m isort \
 	--case-sensitive \
 	--check-only \
 	--diff \
@@ -56,7 +56,7 @@ isort-check:
 	.
 
 isort-reformat:
-	python3.9 -m isort \
+	python3 -m isort \
 	--case-sensitive \
 	--line-width=79 \
 	--multi-line=3 \
@@ -68,7 +68,7 @@ isort-reformat:
 	.
 
 pytest:
-	python3.9 -m pytest
+	python3 -m pytest
 
 reformat:
 	make isort-reformat

@@ -72,7 +72,6 @@ if __name__ == '__main__':
         name='auxjad',
         package_dir={'': 'auxjad'},
         packages=setuptools.find_packages(where='auxjad'),
-        packages=['auxjad'],
         platforms='Any',
         python_requires='>=3.9',
         url='https://gilbertohasnofb.github.io/auxjad-docs/',

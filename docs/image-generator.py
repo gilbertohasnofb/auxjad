@@ -3,7 +3,15 @@ import re
 import sys
 import textwrap
 
-sys.path.insert(0, os.path.dirname(os.getcwd()))
+
+# appending ../src/auxjad to path
+sys.path.insert(
+    0,
+    os.path.join(
+        os.path.dirname(os.getcwd()),
+        'src',
+    )
+)
 import auxjad  # noqa: E402
 
 # the pattern below looks for any line containing '..  docs::', then captures
@@ -47,8 +55,16 @@ ly_header = r"""
 output_directory = './_images/lilypond-files/'
 
 namespaces = [auxjad,
+              
+              # modules
+              auxjad.get,
+              auxjad.mutate,
+              auxjad.select,
+
+              # core
               auxjad.CartographySelector,
               auxjad.CrossFader,
+              auxjad.Echoer,
               auxjad.Fader,
               auxjad.GeneticAlgorithm,
               auxjad.Hocketer,
@@ -60,15 +76,24 @@ namespaces = [auxjad,
               auxjad.Shuffler,
               auxjad.TenneySelector,
               auxjad.WindowLooper,
+
+              # indicators
               auxjad.TimeSignature,
-              auxjad.ArtificialHarmonic,
-              auxjad.HarmonicNote,
+
+              # makers
               auxjad.GeneticAlgorithmMusicMaker,
               auxjad.LeafDynMaker,
+
+              # score
+              auxjad.ArtificialHarmonic,
+              auxjad.HarmonicNote,
               auxjad.Score,
+
+              # spanners
               auxjad.piano_pedal,
-              auxjad.get,
-              auxjad.mutate,
+
+              # utilities
+              auxjad.staff_splitter,
               ]
 
 # generating lilypond files from docstrings

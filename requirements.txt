@@ -1,6 +1,7 @@
 abjad==3.4
-flake8
-isort
-pydocstyle
-pytest
-setuptools
+flake8==7.2.0
+isort==6.0.1
+pydocstyle==6.3.0
+pytest==8.4.0
+setuptools==80.9.0
+sphinx==8.2.3

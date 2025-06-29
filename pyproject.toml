@@ -1,0 +1,61 @@
+[build-system]
+requires = [
+    "abjad==3.4",
+    "setuptools>=61.0",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "auxjad"
+dynamic = ["version", "dependencies"]
+description = "Auxiliary classes and functions for Abjad."
+license = { text = "MIT" }
+readme = "README.rst"
+requires-python = ">=3.9"
+keywords = [
+    "auxjad",
+    "algorithmic composition",
+    "generative music",
+    "computer music",
+    "music composition",
+    "music notation",
+    "lilypond",
+    "abjad",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Artistic Software",
+    "Topic :: Utilities",
+]
+
+[[project.authors]]
+name = "Gilberto Agostinho"
+email = "gilbertohasnofb@gmail.com"
+
+[project.urls]
+homepage = "https://gilbertohasnofb.github.io/auxjad-docs/"
+source = "https://github.com/gilbertohasnofb/auxjad"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+testpaths = "tests"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["auxjad"]
+package-dir = { "" = "src" }
+
+[tool.setuptools.package-data]
+"*" = ["LICENSE", "README.rst"]
+"auxjad" = ["**/*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "auxjad.__version__"}
+dependencies = {file = ["requirements.txt"]}

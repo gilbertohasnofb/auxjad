@@ -13,6 +13,8 @@ Bugs can be reported through the project's Issue Tracker.
 This library is published under the MIT License.
 """
 
+from ._version import __version__
+
 from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
 from .core.Echoer import Echoer
@@ -49,7 +51,6 @@ from . import select
 
 
 __author__ = 'Gilberto Agostinho <gilbertohasnofb@gmail.com>'
-__version__ = '1.0.3'
 __all__ = [
     '__author__',
     '__version__',

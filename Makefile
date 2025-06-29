@@ -49,8 +49,9 @@ isort-check:
 	--line-width=79 \
 	--multi-line=3 \
 	--project=auxjad \
-	--skip=auxjad/__init__.py \
+	--skip=src/auxjad/__init__.py \
 	--skip=sandbox.py \
+	--skip-gitignore \
 	--trailing-comma \
 	--use-parentheses \
 	.
@@ -61,8 +62,9 @@ isort-reformat:
 	--line-width=79 \
 	--multi-line=3 \
 	--project=auxjad \
-	--skip=auxjad/__init__.py \
+	--skip=src/auxjad/__init__.py \
 	--skip=sandbox.py \
+	--skip-gitignore \
 	--trailing-comma \
 	--use-parentheses \
 	.

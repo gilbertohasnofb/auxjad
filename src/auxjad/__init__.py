@@ -13,7 +13,7 @@ Bugs can be reported through the project's Issue Tracker.
 This library is published under the MIT License.
 """
 
-from ._version import __version__
+from . import get, mutate, select
 
 from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
@@ -43,11 +43,7 @@ from .spanners.piano_pedal import piano_pedal
 
 from .utilities.staff_splitter import staff_splitter
 
-from . import get
-
-from . import mutate
-
-from . import select
+from ._version import __version__
 
 
 __author__ = 'Gilberto Agostinho <gilbertohasnofb@gmail.com>'

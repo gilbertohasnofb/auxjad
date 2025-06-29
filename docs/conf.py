@@ -23,7 +23,15 @@ import os
 import re
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
+
+# appending ../src/auxjad to path
+sys.path.insert(
+    0,
+    os.path.join(
+        os.path.dirname(os.getcwd()),
+        'src',
+    )
+)
 import auxjad  # noqa: E402
 
 # -- Project information -----------------------------------------------------
@@ -82,7 +90,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -163,8 +171,8 @@ pygments_style = "panda"
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'canonical_url': 'https://gilbertohasnofb.github.io/auxjad-docs/',
-    'display_version': True,
     'logo_only': False,
+    # 'display_version': True,  # deprecated
     # 'style_nav_header_background': '#4cb3ec',
 }
 

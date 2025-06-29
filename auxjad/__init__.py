@@ -13,39 +13,39 @@ Bugs can be reported through the project's Issue Tracker.
 This library is published under the MIT License.
 """
 
-from .core.CartographySelector import CartographySelector
-from .core.CrossFader import CrossFader
-from .core.Echoer import Echoer
-from .core.Fader import Fader
-from .core.GeneticAlgorithm import GeneticAlgorithm
-from .core.Hocketer import Hocketer
-from .core.LeafLooper import LeafLooper
-from .core.ListLooper import ListLooper
-from .core.Phaser import Phaser
-from .core.PitchRandomiser import PitchRandomiser
-from .core.Repeater import Repeater
-from .core.Shuffler import Shuffler
-from .core.TenneySelector import TenneySelector
-from .core.WindowLooper import WindowLooper
+from auxjad.core.CartographySelector import CartographySelector
+from auxjad.core.CrossFader import CrossFader
+from auxjad.core.Echoer import Echoer
+from auxjad.core.Fader import Fader
+from auxjad.core.GeneticAlgorithm import GeneticAlgorithm
+from auxjad.core.Hocketer import Hocketer
+from auxjad.core.LeafLooper import LeafLooper
+from auxjad.core.ListLooper import ListLooper
+from auxjad.core.Phaser import Phaser
+from auxjad.core.PitchRandomiser import PitchRandomiser
+from auxjad.core.Repeater import Repeater
+from auxjad.core.Shuffler import Shuffler
+from auxjad.core.TenneySelector import TenneySelector
+from auxjad.core.WindowLooper import WindowLooper
 
-from .indicators.TimeSignature import TimeSignature
+from auxjad.indicators.TimeSignature import TimeSignature
 
-from .makers.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
-from .makers.LeafDynMaker import LeafDynMaker
+from auxjad.makers.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
+from auxjad.makers.LeafDynMaker import LeafDynMaker
 
-from .score.ArtificialHarmonic import ArtificialHarmonic
-from .score.HarmonicNote import HarmonicNote
-from .score.Score import Score
+from auxjad.score.ArtificialHarmonic import ArtificialHarmonic
+from auxjad.score.HarmonicNote import HarmonicNote
+from auxjad.score.Score import Score
 
-from .spanners.piano_pedal import piano_pedal
+from auxjad.spanners.piano_pedal import piano_pedal
 
-from .utilities.staff_splitter import staff_splitter
+from auxjad.utilities.staff_splitter import staff_splitter
 
-from . import get
+from auxjad import get
 
-from . import mutate
+from auxjad import mutate
 
-from . import select
+from auxjad import select
 
 
 __author__ = 'Gilberto Agostinho <gilbertohasnofb@gmail.com>'

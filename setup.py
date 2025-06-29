@@ -57,9 +57,6 @@ keywords = [
     'abjad',
 ]
 
-with open('README.rst', 'r') as file:
-    auxjad_long_description = file.read()
-
 if __name__ == '__main__':
     setuptools.setup(
         author_email='gilbertohasnofb@gmail.com',
@@ -70,8 +67,7 @@ if __name__ == '__main__':
         license='MIT',
         long_description=auxjad_long_description,
         name='auxjad',
-        package_dir={'': 'auxjad'},
-        packages=setuptools.find_packages(where='auxjad'),
+        packages=['auxjad'],
         platforms='Any',
         python_requires='>=3.9',
         url='https://gilbertohasnofb.github.io/auxjad-docs/',

@@ -492,39 +492,47 @@ def test_WindowLooper_09():
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=17j,
                                      step_size=(1, 16),
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
-                                     step_size=True,
+                                     step_size=[1, 16],
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      max_steps='foo',
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      repetition_chance='bar',
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      forward_bias=False,
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      head_position=62.3j,
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      omit_time_signatures='xyz',
                                      )
+    with pytest.raises(TypeError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
@@ -535,31 +543,37 @@ def test_WindowLooper_09():
                                      window_size=(100, 1),
                                      step_size=(1, 16),
                                      )
+    with pytest.raises(ValueError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      max_steps=-1,
                                      )
+    with pytest.raises(ValueError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      repetition_chance=-0.3,
                                      )
+    with pytest.raises(ValueError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      repetition_chance=1.4,
                                      )
+    with pytest.raises(ValueError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      forward_bias=-0.3,
                                      )
+    with pytest.raises(ValueError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),
                                      forward_bias=1.4,
                                      )
+    with pytest.raises(ValueError):
         looper = auxjad.WindowLooper(container,  # noqa: F841
                                      window_size=(4, 4),
                                      step_size=(1, 16),

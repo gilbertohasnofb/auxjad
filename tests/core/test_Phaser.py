@@ -439,21 +439,26 @@ def test_Phaser_08():
         phaser = auxjad.Phaser(wrong_type_input,  # noqa: F841
                                step_size=(1, 16),
                                )
+    with pytest.raises(TypeError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=62.3j,
                                )
+    with pytest.raises(TypeError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=(1, 16),
                                max_steps='foo',
                                )
+    with pytest.raises(TypeError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=(1, 16),
                                forward_bias='bar',
                                )
+    with pytest.raises(TypeError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=(1, 16),
                                process_on_first_call='xyz',
                                )
+    with pytest.raises(TypeError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=(1, 16),
                                remove_ties_connecting_windows=17j,
@@ -463,10 +468,12 @@ def test_Phaser_08():
                                step_size=(1, 16),
                                max_steps=-1,
                                )
+    with pytest.raises(ValueError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=(1, 16),
                                forward_bias=-0.3,
                                )
+    with pytest.raises(ValueError):
         phaser = auxjad.Phaser(container,  # noqa: F841
                                step_size=(1, 16),
                                forward_bias=1.4,

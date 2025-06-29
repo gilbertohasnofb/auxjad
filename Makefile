@@ -19,7 +19,7 @@ docs-release:
 	make -C docs/ release
 
 flake_ignore = --ignore=E203,E266,W503
-flake_exclude = --exclude=./sandbox.py,./docs/conf.py
+flake_exclude = --exclude=.venv,./sandbox.py,./docs/conf.py
 
 flake8:
 	python3 -m flake8 ${flake_ignore} ${flake_exclude}

@@ -6,8 +6,8 @@ import pytest
 import auxjad
 
 
-def test_Hocketer_01():
-    random.seed(82132)
+def test_Hocketer__init__():
+    r"""Confirm correct initialisation of attributes."""
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(container)
     assert hocketer.n_voices == 2
@@ -23,6 +23,15 @@ def test_Hocketer_01():
         }
         """
     )
+    with pytest.raises(AttributeError):
+        hocketer.current_window = abjad.Container(r"c''2 e''2")
+
+
+def test_Hocketer__call__():
+    r"""Confirm correct behaviour when calling instance."""
+    random.seed(82132)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    hocketer = auxjad.Hocketer(container)
     music = hocketer()
     score = abjad.Score()
     for selection in music:
@@ -47,35 +56,10 @@ def test_Hocketer_01():
         >>
         """
     )
-    music = hocketer.current_window
-    with pytest.raises(AttributeError):
-        hocketer.current_window = abjad.Container(r"c''2 e''2")
-    score = abjad.Score()
-    for selection in music:
-        score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
-        \new Score
-        <<
-            \new Staff
-            {
-                r2
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                c'4
-                d'4
-                r4
-                f'4
-            }
-        >>
-        """
-    )
 
 
-def test_Hocketer_02():
+def test_Hocketer_n_voices():
+    r"""Confirm number of voices can be set to a non-default value."""
     random.seed(48765)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container, n_voices=3)
@@ -118,7 +102,10 @@ def test_Hocketer_02():
     )
 
 
-def test_Hocketer_03():
+def test_Hocketer_initialising_then_changing_attributes():
+    r"""Confirm correct initialisation of attributes then confirm they are
+    modifiable.
+    """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
     hocketer = auxjad.Hocketer(container,
                                n_voices=3,
@@ -178,7 +165,8 @@ def test_Hocketer_03():
     assert hocketer.rewrite_tuplets
 
 
-def test_Hocketer_04():
+def test_Hocketer_change_of_contents_after_initialisation():
+    r"""Confirm contents can be changed after initialisation."""
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(container)
     assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
@@ -213,7 +201,8 @@ def test_Hocketer_04():
     )
 
 
-def test_Hocketer_05():
+def test_Hocketer__len__():
+    r"""Confirm len() returns the number of voices."""
     container = abjad.Container(r"c'2 d'2 e'2 f' 2")
     hocketer = auxjad.Hocketer(container)
     assert len(hocketer) == 2
@@ -221,7 +210,8 @@ def test_Hocketer_05():
     assert len(hocketer) == 7
 
 
-def test_Hocketer_06():
+def test_Hocketer_disable_rewrite_meter():
+    r"""Confirm rewrite meter can be disabled."""
     random.seed(12174)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container)
@@ -295,7 +285,10 @@ def test_Hocketer_06():
     )
 
 
-def test_Hocketer_07():
+def test_Hocketer_weights():
+    r"""Confirm attribute weights can be used to give more weight to some of
+    the voices.
+    """
     random.seed(87201)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container, weights=[2.1, 5.7])
@@ -329,53 +322,19 @@ def test_Hocketer_07():
         >>
         """
     )
+
+
+def test_Hocketer_reset_weights():
+    r"""Confirm reset_weights sets the weights to a uniform distribution."""
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
+    hocketer = auxjad.Hocketer(container, weights=[2.1, 5.7])
     assert hocketer.weights == [2.1, 5.7]
     hocketer.reset_weights()
     assert hocketer.weights == [1.0, 1.0]
 
 
-def test_Hocketer_08():
-    random.seed(98212)
-    container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    hocketer = auxjad.Hocketer(container, n_voices=4, k=2)
-    music = hocketer()
-    score = abjad.Score()
-    for selection in music:
-        score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
-        \new Score
-        <<
-            \new Staff
-            {
-                c'4
-                d'4
-                e'4
-                r4
-            }
-            \new Staff
-            {
-                r2
-                e'4
-                f'4
-            }
-            \new Staff
-            {
-                r2.
-                f'4
-            }
-            \new Staff
-            {
-                r4
-                d'4
-                r2
-            }
-        >>
-        """
-    )
-
-
-def test_Hocketer_09():
+def test_Hocketer_use_multimeasure_rests():
+    r"""Confirm use of multi-measure rests can be disabled."""
     random.seed(15663)
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
     hocketer = auxjad.Hocketer(container)
@@ -442,7 +401,54 @@ def test_Hocketer_09():
     )
 
 
-def test_Hocketer_10():
+def test_Hocketer_k():
+    r"""Confirm k sets the number of times each logical selection is
+    processed.
+    """
+    random.seed(98212)
+    container = abjad.Container(r"c'4 d'4 e'4 f'4")
+    hocketer = auxjad.Hocketer(container, n_voices=4, k=2)
+    music = hocketer()
+    score = abjad.Score()
+    for selection in music:
+        score.append(abjad.Staff(selection))
+    assert abjad.lilypond(score) == abjad.String.normalize(
+        r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                c'4
+                d'4
+                e'4
+                r4
+            }
+            \new Staff
+            {
+                r2
+                e'4
+                f'4
+            }
+            \new Staff
+            {
+                r2.
+                f'4
+            }
+            \new Staff
+            {
+                r4
+                d'4
+                r2
+            }
+        >>
+        """
+    )
+
+
+def test_Hocketer_force_k_voices():
+    r"""Confirm force_k_voices forces each logical selection to appear exactly
+    k times.
+    """
     random.seed(14432)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container,
@@ -495,7 +501,11 @@ def test_Hocketer_10():
     )
 
 
-def test_Hocketer_11():
+def test_Hocketer_force_k_voices_checks_for_number_of_available_voices():
+    r"""Confirm that when force_k_voices is enabled, Hocketer checks if k is
+    smaller than or equal to the number of available voices, raising an
+    exception if not.
+    """
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     with pytest.raises(ValueError):
         hocketer = auxjad.Hocketer(container,  # noqa: F841
@@ -504,6 +514,13 @@ def test_Hocketer_11():
                                    force_k_voices=True,
                                    )
 
+
+def test_Hocketer_available_voices_check_after_initialisation():
+    r"""Confirm that when force_k_voices is enabled, Hocketer checks if k is
+    smaller than or equal to the number of available voices, raising an
+    exception if not, even after initialisation.
+    """
+    container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     hocketer = auxjad.Hocketer(container,
                                n_voices=4,
                                k=3,
@@ -511,14 +528,15 @@ def test_Hocketer_11():
                                )
     with pytest.raises(ValueError):
         hocketer.k = 5
+    with pytest.raises(ValueError):
         hocketer.n_voices = 2
-
     hocketer = auxjad.Hocketer(container, n_voices=4, k=5)
     with pytest.raises(ValueError):
         hocketer.force_k_voices = True
 
 
-def test_Hocketer_12():
+def test_Hocketer_time_signature_and_tuplets():
+    r"""Confirm function handles both time signatures and tuplets correctly."""
     random.seed(48765)
     container = abjad.Container(
         r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"
@@ -615,7 +633,10 @@ def test_Hocketer_12():
     )
 
 
-def test_Hocketer_13():
+def test_Hocketer_boundary_depth():
+    r"""Confirm rewrite meter's boundary_depth can be set to a non-default
+    value.
+    """
     container = abjad.Container(r"c'4. d'8 e'2")
     hocketer = auxjad.Hocketer(container,
                                n_voices=1,

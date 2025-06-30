@@ -3,7 +3,6 @@ import re
 import sys
 import textwrap
 
-
 # appending ../src/auxjad to path
 sys.path.insert(
     0,
@@ -55,12 +54,10 @@ ly_header = r"""
 output_directory = './_images/lilypond-files/'
 
 namespaces = [auxjad,
-              
               # modules
               auxjad.get,
               auxjad.mutate,
               auxjad.select,
-
               # core
               auxjad.CartographySelector,
               auxjad.CrossFader,
@@ -76,22 +73,17 @@ namespaces = [auxjad,
               auxjad.Shuffler,
               auxjad.TenneySelector,
               auxjad.WindowLooper,
-
               # indicators
               auxjad.TimeSignature,
-
               # makers
               auxjad.GeneticAlgorithmMusicMaker,
               auxjad.LeafDynMaker,
-
               # score
               auxjad.ArtificialHarmonic,
               auxjad.HarmonicNote,
               auxjad.Score,
-
               # spanners
               auxjad.piano_pedal,
-
               # utilities
               auxjad.staff_splitter,
               ]

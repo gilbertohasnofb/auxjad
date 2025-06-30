@@ -50,12 +50,10 @@ __author__ = 'Gilberto Agostinho <gilbertohasnofb@gmail.com>'
 __all__ = [
     '__author__',
     '__version__',
-
     # modules
     'get',
     'mutate',
     'select',
-
     # core
     'CartographySelector',
     'CrossFader',
@@ -71,22 +69,17 @@ __all__ = [
     'Shuffler',
     'TenneySelector',
     'WindowLooper',
-
     # indicators
     'TimeSignature',
-
     # makers
     'GeneticAlgorithmMusicMaker',
     'LeafDynMaker',
-
     # score
     'ArtificialHarmonic',
     'HarmonicNote',
     'Score',
-
     # spanners
     'piano_pedal',
-
     # utilities
     'staff_splitter',
 ]

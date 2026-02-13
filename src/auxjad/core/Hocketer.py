@@ -1387,7 +1387,6 @@ class Hocketer:
         fuse_quadruple_meter: bool = True,
         fuse_triple_meter: bool = True,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self._voices = None
         self._n_voices = n_voices

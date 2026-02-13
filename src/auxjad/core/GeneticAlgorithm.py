@@ -231,7 +231,6 @@ class GeneticAlgorithm:
         mutation_index: float = 0.1,
         evaluation_index: float = 0.2,
     ) -> None:
-        r"""Initialises self."""
         if not isinstance(genes, list):
             raise TypeError("'genes' must be 'list'")
         if not isinstance(target, list):

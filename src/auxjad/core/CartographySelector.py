@@ -301,7 +301,6 @@ class CartographySelector:
         *,
         decay_rate: float = 0.75,
     ) -> None:
-        r"""Initialises self."""
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if not isinstance(decay_rate, float):

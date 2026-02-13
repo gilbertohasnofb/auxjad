@@ -721,7 +721,6 @@ class Repeater:
         repeat_type: str = "unfold",
         include_2x_volta_text: bool = True,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
         self.force_identical_time_signatures = force_identical_time_signatures

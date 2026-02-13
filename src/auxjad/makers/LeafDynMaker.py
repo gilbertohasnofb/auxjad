@@ -337,7 +337,6 @@ class LeafDynMaker(abjad.LeafMaker):
     ### INITIALISER ###
 
     def __init__(self) -> None:
-        r"""Initialises self."""
         super().__init__()
 
     ### SPECIAL METHODS ###

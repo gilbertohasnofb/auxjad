@@ -1327,7 +1327,6 @@ class WindowLooper(_LooperParent):
         after_rest_in_new_measure: bool = False,
         use_multimeasure_rests: bool = True,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
         self.fill_with_rests = fill_with_rests

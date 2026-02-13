@@ -1681,7 +1681,6 @@ class CrossFader:
         maximum_dot_count: Optional[int] = None,
         rewrite_tuplets: bool = True,
     ) -> None:
-        r"""Initialises self."""
         if not isinstance(fade_out_contents, abjad.Container):
             raise TypeError("'fade_out_contents' must be 'abjad.Container' or child class")
         if not isinstance(fade_in_contents, abjad.Container):

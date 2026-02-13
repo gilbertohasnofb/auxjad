@@ -1147,7 +1147,6 @@ class LeafLooper(_LooperParent):
         after_rest_in_new_measure: bool = False,
         use_multimeasure_rests: bool = True,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self.end_with_max_n_leaves = end_with_max_n_leaves
         self.omit_time_signatures = omit_time_signatures

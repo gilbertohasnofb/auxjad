@@ -1459,7 +1459,6 @@ class Fader:
         fuse_quadruple_meter: bool = True,
         fuse_triple_meter: bool = True,
     ) -> None:
-        r"""Initialises self."""
         self.mode = mode
         self.max_steps = max_steps
         self.contents = contents

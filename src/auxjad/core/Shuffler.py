@@ -1093,7 +1093,6 @@ class Shuffler:
         fuse_triple_meter: bool = True,
         swap_limit: Optional[int] = None,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self.pitch_only = pitch_only
         self.preserve_rest_position = preserve_rest_position

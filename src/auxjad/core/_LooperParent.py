@@ -40,7 +40,6 @@ class _LooperParent:
         forward_bias: float = 1.0,
         process_on_first_call: bool = False,
     ) -> None:
-        r"""Initialises self."""
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self.head_position = head_position

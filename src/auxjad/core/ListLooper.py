@@ -392,7 +392,6 @@ class ListLooper(_LooperParent):
         end_with_max_n_elements: bool = False,
         process_on_first_call: bool = False,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self.end_with_max_n_elements = end_with_max_n_elements
         super().__init__(

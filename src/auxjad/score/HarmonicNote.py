@@ -245,7 +245,6 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         centre_markup: bool = True,
         direction: Union[str, abjad.enums.VerticalAlignment] = "up",
     ) -> None:
-        r"""Initialises self."""
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
         self._direction = direction

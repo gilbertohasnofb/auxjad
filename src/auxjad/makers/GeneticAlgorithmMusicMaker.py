@@ -943,7 +943,6 @@ class GeneticAlgorithmMusicMaker:
         attack_points_mode: bool = False,
         pitch_score_bias: float = 0.5,
     ) -> None:
-        r"""Initialises self."""
         if len(pitch_target) != len(attack_point_target):
             raise ValueError("'pitch_target' and 'attack_point_target' must have the same length")
         self._pitch_ga = GeneticAlgorithm(

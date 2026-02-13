@@ -686,7 +686,6 @@ class PitchRandomiser:
         process_on_first_call: bool = True,
         use_tenney_selector: bool = False,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self._weights = []
         self.pitches = pitches

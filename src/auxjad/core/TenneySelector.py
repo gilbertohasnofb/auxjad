@@ -376,7 +376,6 @@ class TenneySelector:
         weights: Optional[list] = None,
         curvature: float = 1.0,
     ) -> None:
-        r"""Initialises self."""
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if weights is not None:

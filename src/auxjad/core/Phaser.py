@@ -1290,7 +1290,6 @@ class Phaser:
         fuse_quadruple_meter: bool = True,
         fuse_triple_meter: bool = True,
     ) -> None:
-        r"""Initialises self."""
         self.contents = contents
         self._pivot_point = abjad.Duration(0)
         self.step_size = step_size

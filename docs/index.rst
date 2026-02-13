@@ -74,7 +74,7 @@ simple examples showing some of the capabilities of this library.
 .. |Build| image:: https://img.shields.io/github/actions/workflow/status/gilbertohasnofb/auxjad/github-actions.yml?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/actions/workflows/github-actions.yml
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
-   :target: https://www.python.org/downloads/release/python-390/
+   :target: https://www.python.org/downloads/release/python-3100/
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
    :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 .. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg?style=for-the-badge

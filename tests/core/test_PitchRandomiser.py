@@ -455,8 +455,8 @@ def test_PitchRandomiser_17():
     assert auxjad.PitchRandomiser(container, pitches, weights=weights)
     weights = [1, 1, 5, 2, 3, 4, 8]
     with pytest.raises(ValueError):
-        randomiser = auxjad.PitchRandomiser(
-            container,  # noqa: F841
+        randomiser = auxjad.PitchRandomiser(  # noqa: F841
+            container,
             pitches,
             weights=weights,
         )

@@ -488,8 +488,8 @@ def test_Hocketer_force_k_voices_checks_for_number_of_available_voices():
     """
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     with pytest.raises(ValueError):
-        hocketer = auxjad.Hocketer(
-            container,  # noqa: F841
+        hocketer = auxjad.Hocketer(  # noqa: F841
+            container,
             n_voices=2,
             k=4,
             force_k_voices=True,

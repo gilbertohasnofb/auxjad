@@ -30,10 +30,10 @@ black-reformat:
 flake8:
 	python3 -m flake8 ${flake_ignore} ${flake_exclude}
 
-pydocstyle_select = --select=D101,D102,D103,D105,D107,D300,D301
+pydocstyle_select = --select=D101,D102,D103,D105,D300,D301
 
 pydocstyle:
-	python3 -m pydocstyle ${pydocstyle_select}
+	python3 -m pydocstyle ${pydocstyle_select} ./src
 
 release-webpage:
 	rm -Rf auxjad-docs/

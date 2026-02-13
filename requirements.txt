@@ -1,4 +1,5 @@
 abjad==3.4
+black>=25.1.0
 flake8==7.2.0
 isort==6.0.1
 pydocstyle==6.3.0

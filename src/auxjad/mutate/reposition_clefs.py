@@ -1,11 +1,12 @@
 import abjad
 
 
-def reposition_clefs(selection: abjad.Selection,
-                     *,
-                     shift_clef_to_notes: bool = True,
-                     implicit_clef: abjad.Clef = abjad.Clef('treble'),
-                     ) -> None:
+def reposition_clefs(
+    selection: abjad.Selection,
+    *,
+    shift_clef_to_notes: bool = True,
+    implicit_clef: abjad.Clef = abjad.Clef("treble"),
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated clefs. It can also be used
     to shift clefs from rests to pitched leaves.
@@ -497,8 +498,7 @@ def reposition_clefs(selection: abjad.Selection,
                     shifted_clef = abjad.get.indicator(leaf, abjad.Clef)
                     abjad.detach(abjad.Clef, leaf)
             else:
-                if (abjad.get.indicator(leaf, abjad.Clef) is None
-                        and shifted_clef is not None):
+                if abjad.get.indicator(leaf, abjad.Clef) is None and shifted_clef is not None:
                     abjad.attach(shifted_clef, leaf)
                 shifted_clef = None
 

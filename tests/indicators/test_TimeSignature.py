@@ -52,5 +52,4 @@ def test_TimeSignature_08():
 
 
 def test_TimeSignature_09():
-    assert (auxjad.TimeSignature.simplify_ratio
-            is abjad.TimeSignature.simplify_ratio)
+    assert auxjad.TimeSignature.simplify_ratio is abjad.TimeSignature.simplify_ratio

@@ -13,16 +13,14 @@ def test_Hocketer__init__():
     assert hocketer.n_voices == 2
     assert hocketer.weights == [1.0, 1.0]
     assert hocketer.k == 1
-    assert abjad.lilypond(hocketer) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(hocketer) == abjad.String.normalize(r"""
         {
             c'4
             d'4
             e'4
             f'4
         }
-        """
-    )
+        """)
     with pytest.raises(AttributeError):
         hocketer.current_window = abjad.Container(r"c''2 e''2")
 
@@ -36,8 +34,7 @@ def test_Hocketer__call__():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -54,8 +51,7 @@ def test_Hocketer__call__():
                 f'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_n_voices():
@@ -67,8 +63,7 @@ def test_Hocketer_n_voices():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -98,8 +93,7 @@ def test_Hocketer_n_voices():
                 c''8
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_initialising_then_changing_attributes():
@@ -107,32 +101,35 @@ def test_Hocketer_initialising_then_changing_attributes():
     modifiable.
     """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               weights=[1, 2, 5],
-                               k=2,
-                               force_k_voices=True,
-                               explode_chords=True,
-                               pitch_ranges=[abjad.PitchRange("[C4, D6]"),
-                                             abjad.PitchRange("[C2, A4]"),
-                                             abjad.PitchRange("[C1, E3]"),
-                                             ],
-                               disable_rewrite_meter=True,
-                               use_multimeasure_rests=False,
-                               omit_time_signatures=True,
-                               boundary_depth=0,
-                               maximum_dot_count=1,
-                               rewrite_tuplets=False,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        weights=[1, 2, 5],
+        k=2,
+        force_k_voices=True,
+        explode_chords=True,
+        pitch_ranges=[
+            abjad.PitchRange("[C4, D6]"),
+            abjad.PitchRange("[C2, A4]"),
+            abjad.PitchRange("[C1, E3]"),
+        ],
+        disable_rewrite_meter=True,
+        use_multimeasure_rests=False,
+        omit_time_signatures=True,
+        boundary_depth=0,
+        maximum_dot_count=1,
+        rewrite_tuplets=False,
+    )
     assert hocketer.n_voices == 3
     assert hocketer.weights == [1, 2, 5]
     assert hocketer.k == 2
     assert hocketer.force_k_voices
     assert hocketer.explode_chords
-    assert hocketer.pitch_ranges == [abjad.PitchRange("[C4, D6]"),
-                                     abjad.PitchRange("[C2, A4]"),
-                                     abjad.PitchRange("[C1, E3]"),
-                                     ]
+    assert hocketer.pitch_ranges == [
+        abjad.PitchRange("[C4, D6]"),
+        abjad.PitchRange("[C2, A4]"),
+        abjad.PitchRange("[C1, E3]"),
+    ]
     assert hocketer.disable_rewrite_meter
     assert not hocketer.use_multimeasure_rests
     assert hocketer.omit_time_signatures
@@ -169,36 +166,30 @@ def test_Hocketer_change_of_contents_after_initialisation():
     r"""Confirm contents can be changed after initialisation."""
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     hocketer = auxjad.Hocketer(container)
-    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(r"""
         {
             c'4
             d'4
             e'4
             f'4
         }
-        """
-    )
+        """)
     hocketer()
-    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(r"""
         {
             c'4
             d'4
             e'4
             f'4
         }
-        """
-    )
+        """)
     hocketer.contents = abjad.Container(r"cs2 ds2")
-    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(hocketer.contents) == abjad.String.normalize(r"""
         {
             cs2
             ds2
         }
-        """
-    )
+        """)
 
 
 def test_Hocketer__len__():
@@ -219,8 +210,7 @@ def test_Hocketer_disable_rewrite_meter():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -243,19 +233,18 @@ def test_Hocketer_disable_rewrite_meter():
                 c''8
             }
         >>
-        """
-    )
+        """)
     random.seed(12174)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-    hocketer = auxjad.Hocketer(container,
-                               disable_rewrite_meter=True,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        disable_rewrite_meter=True,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -281,8 +270,7 @@ def test_Hocketer_disable_rewrite_meter():
                 c''8
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_weights():
@@ -296,8 +284,7 @@ def test_Hocketer_weights():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -320,8 +307,7 @@ def test_Hocketer_weights():
                 c''8
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_reset_weights():
@@ -342,8 +328,7 @@ def test_Hocketer_use_multimeasure_rests():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -364,19 +349,18 @@ def test_Hocketer_use_multimeasure_rests():
                 r2
             }
         >>
-        """
-    )
+        """)
     random.seed(15663)
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
-    hocketer = auxjad.Hocketer(container,
-                               use_multimeasure_rests=False,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        use_multimeasure_rests=False,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -397,8 +381,7 @@ def test_Hocketer_use_multimeasure_rests():
                 r2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_k():
@@ -412,8 +395,7 @@ def test_Hocketer_k():
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -441,8 +423,7 @@ def test_Hocketer_k():
                 r2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_force_k_voices():
@@ -451,17 +432,17 @@ def test_Hocketer_force_k_voices():
     """
     random.seed(14432)
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               k=2,
-                               force_k_voices=True,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        k=2,
+        force_k_voices=True,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -497,8 +478,7 @@ def test_Hocketer_force_k_voices():
                 c''8
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_force_k_voices_checks_for_number_of_available_voices():
@@ -508,11 +488,12 @@ def test_Hocketer_force_k_voices_checks_for_number_of_available_voices():
     """
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
     with pytest.raises(ValueError):
-        hocketer = auxjad.Hocketer(container,  # noqa: F841
-                                   n_voices=2,
-                                   k=4,
-                                   force_k_voices=True,
-                                   )
+        hocketer = auxjad.Hocketer(  # noqa: F841
+            container,
+            n_voices=2,
+            k=4,
+            force_k_voices=True,
+        )
 
 
 def test_Hocketer_available_voices_check_after_initialisation():
@@ -521,11 +502,12 @@ def test_Hocketer_available_voices_check_after_initialisation():
     exception if not, even after initialisation.
     """
     container = abjad.Container(r"c'8 d'8 e'8 f'8 g'8 a'8 b'8 c''8")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=4,
-                               k=3,
-                               force_k_voices=True,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=4,
+        k=3,
+        force_k_voices=True,
+    )
     with pytest.raises(ValueError):
         hocketer.k = 5
     with pytest.raises(ValueError):
@@ -542,16 +524,16 @@ def test_Hocketer_time_signature_and_tuplets():
         r"\time 5/4 r4 \times 2/3 {c'4 d'2} e'4. f'8"
         r"\times 4/5 {\time 4/4 g'2. \times 2/3 {a'8 r8 b'2}}"
     )
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=4,
-                               k=2,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=4,
+        k=2,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -629,8 +611,7 @@ def test_Hocketer_time_signature_and_tuplets():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_boundary_depth():
@@ -638,15 +619,15 @@ def test_Hocketer_boundary_depth():
     value.
     """
     container = abjad.Container(r"c'4. d'8 e'2")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=1,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=1,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -656,18 +637,17 @@ def test_Hocketer_boundary_depth():
                 e'2
             }
         >>
-        """
+        """)
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=1,
+        boundary_depth=1,
     )
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=1,
-                               boundary_depth=1,
-                               )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -679,23 +659,22 @@ def test_Hocketer_boundary_depth():
                 e'2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_14():
     random.seed(15663)
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'4 g'4 a'4")
-    hocketer = auxjad.Hocketer(container,
-                               omit_time_signatures=True,
-                               use_multimeasure_rests=False,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        omit_time_signatures=True,
+        use_multimeasure_rests=False,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -714,27 +693,25 @@ def test_Hocketer_14():
                 r2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_15():
     random.seed(12432)
     container = abjad.Container(
-        r"c'2-.\p\< d'2-.\f\> e'1 f'2.\pp\< g'4--\p "
-        r"a'2\ff\> b'2\p\> ~ b'2 c''2\ppp"
+        r"c'2-.\p\< d'2-.\f\> e'1 f'2.\pp\< g'4--\p " r"a'2\ff\> b'2\p\> ~ b'2 c''2\ppp"
     )
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               k=2,
-                               force_k_voices=True,
-                               )
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        k=2,
+        force_k_voices=True,
+    )
     music = hocketer()
     score = abjad.Score()
     for selection in music:
         score.append(abjad.Staff(selection))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -810,8 +787,7 @@ def test_Hocketer_15():
                 \ppp
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_16():
@@ -819,7 +795,7 @@ def test_Hocketer_16():
     hocketer = auxjad.Hocketer(container)
     for voice in hocketer():
         assert isinstance(voice, abjad.Selection)
-    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    tuplet = abjad.Tuplet("3:2", r"c'2 d'2 e'2")
     hocketer = auxjad.Hocketer(tuplet)
     for voice in hocketer():
         assert isinstance(voice, abjad.Selection)
@@ -868,8 +844,7 @@ def test_Hocketer_17():
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -906,24 +881,20 @@ def test_Hocketer_17():
                 r4
             }
         >>
-        """
-    )
+        """)
     staff = abjad.Staff(hocketer[0])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             r2.
             f'4
         }
-        """
-    )
+        """)
     partial_score = abjad.Score()
     for selection in hocketer[1:4]:
         staff = abjad.Staff(selection)
         partial_score.append(staff)
-    assert abjad.lilypond(partial_score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(partial_score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -948,26 +919,27 @@ def test_Hocketer_17():
                 f'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_18():
     random.seed(97813)
     container = abjad.Container(r"c4 d8 e'8 f'4 g'8 a8")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=2,
-                               pitch_ranges=[abjad.PitchRange("[C4, B5]"),
-                                             abjad.PitchRange("[C3, B3]"),
-                                             ])
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=2,
+        pitch_ranges=[
+            abjad.PitchRange("[C4, B5]"),
+            abjad.PitchRange("[C3, B3]"),
+        ],
+    )
     hocketer()
     score = abjad.Score()
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    abjad.attach(abjad.Clef('bass'), abjad.select(score[1]).leaf(0))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    abjad.attach(abjad.Clef("bass"), abjad.select(score[1]).leaf(0))
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -988,27 +960,28 @@ def test_Hocketer_18():
                 a8
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_19():
     random.seed(66191)
     container = abjad.Container(r"c' d' e f' g a' b' c''")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               pitch_ranges=[abjad.PitchRange("[C4, C5]"),
-                                             abjad.PitchRange("[C4, C5]"),
-                                             abjad.PitchRange("[C3, B3]"),
-                                             ])
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        pitch_ranges=[
+            abjad.PitchRange("[C4, C5]"),
+            abjad.PitchRange("[C4, C5]"),
+            abjad.PitchRange("[C3, B3]"),
+        ],
+    )
     hocketer()
     score = abjad.Score()
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    abjad.attach(abjad.Clef("bass"), abjad.select(score[2]).leaf(0))
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1038,31 +1011,32 @@ def test_Hocketer_19():
                 r2.
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_20():
     random.seed(81742)
     container = abjad.Container(r"c'8 d'8 e8 f'8 g8 a'8 b'8 c''8")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=4,
-                               k=2,
-                               force_k_voices=True,
-                               pitch_ranges=[abjad.PitchRange("[C4, C5]"),
-                                             abjad.PitchRange("[C4, C5]"),
-                                             abjad.PitchRange("[E3, G4]"),
-                                             abjad.PitchRange("[E3, G4]"),
-                                             ])
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=4,
+        k=2,
+        force_k_voices=True,
+        pitch_ranges=[
+            abjad.PitchRange("[C4, C5]"),
+            abjad.PitchRange("[C4, C5]"),
+            abjad.PitchRange("[E3, G4]"),
+            abjad.PitchRange("[E3, G4]"),
+        ],
+    )
     hocketer()
     score = abjad.Score()
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
-    abjad.attach(abjad.Clef('bass'), abjad.select(score[3]).leaf(0))
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    abjad.attach(abjad.Clef("bass"), abjad.select(score[2]).leaf(0))
+    abjad.attach(abjad.Clef("bass"), abjad.select(score[3]).leaf(0))
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1104,25 +1078,22 @@ def test_Hocketer_20():
                 r4.
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_21():
     random.seed(48124)
-    container = abjad.Container(
-        r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4"
+    container = abjad.Container(r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4")
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
     )
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               )
     hocketer()
     score = abjad.Score()
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1143,23 +1114,20 @@ def test_Hocketer_21():
                 <c' f' a'>4
             }
         >>
-        """
-    )
+        """)
 
-    container = abjad.Container(
-        r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4"
+    container = abjad.Container(r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c'>4")
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        explode_chords=True,
     )
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               explode_chords=True,
-                               )
     hocketer()
     score = abjad.Score()
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1184,30 +1152,28 @@ def test_Hocketer_21():
                 f'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_22():
     random.seed(91776)
-    container = abjad.Container(
-        r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c''>4"
+    container = abjad.Container(r"<c' e' g'>4 <d' f' a'>4 <e' g' b'>4 <f' a' c''>4")
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        explode_chords=True,
+        pitch_ranges=[
+            abjad.PitchRange("[E4, C5]"),
+            abjad.PitchRange("[E4, C5]"),
+            abjad.PitchRange("[C4, F4]"),
+        ],
     )
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               explode_chords=True,
-                               pitch_ranges=[abjad.PitchRange("[E4, C5]"),
-                                             abjad.PitchRange("[E4, C5]"),
-                                             abjad.PitchRange("[C4, F4]"),
-                                             ],
-                               )
     hocketer()
     score = abjad.Score()
     for selection in hocketer[:]:
         staff = abjad.Staff(selection)
         score.append(staff)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1232,22 +1198,24 @@ def test_Hocketer_22():
                 f'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_Hocketer_23():
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
-    hocketer = auxjad.Hocketer(container,
-                               n_voices=3,
-                               pitch_ranges=[abjad.PitchRange("[C4, D6]"),
-                                             abjad.PitchRange("[C2, A4]"),
-                                             abjad.PitchRange("[C1, E3]"),
-                                             ],
-                               )
-    assert hocketer.pitch_ranges == [abjad.PitchRange("[C4, D6]"),
-                                     abjad.PitchRange("[C2, A4]"),
-                                     abjad.PitchRange("[C1, E3]"),
-                                     ]
+    hocketer = auxjad.Hocketer(
+        container,
+        n_voices=3,
+        pitch_ranges=[
+            abjad.PitchRange("[C4, D6]"),
+            abjad.PitchRange("[C2, A4]"),
+            abjad.PitchRange("[C1, E3]"),
+        ],
+    )
+    assert hocketer.pitch_ranges == [
+        abjad.PitchRange("[C4, D6]"),
+        abjad.PitchRange("[C2, A4]"),
+        abjad.PitchRange("[C1, E3]"),
+    ]
     hocketer.n_voices = 4
     assert hocketer.pitch_ranges is None

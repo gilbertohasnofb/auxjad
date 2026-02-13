@@ -7,15 +7,16 @@ from .extract_trivial_tuplets import (
 )
 
 
-def prettify_rewrite_meter(selection: abjad.Selection,
-                           meter: Union[abjad.Meter, abjad.TimeSignature],
-                           *,
-                           fuse_across_groups_of_beats: bool = True,
-                           fuse_quadruple_meter: bool = True,
-                           fuse_triple_meter: bool = True,
-                           extract_trivial_tuplets: bool = True,
-                           split_quadruple_meter: bool = True,
-                           ) -> None:
+def prettify_rewrite_meter(
+    selection: abjad.Selection,
+    meter: Union[abjad.Meter, abjad.TimeSignature],
+    *,
+    fuse_across_groups_of_beats: bool = True,
+    fuse_quadruple_meter: bool = True,
+    fuse_triple_meter: bool = True,
+    extract_trivial_tuplets: bool = True,
+    split_quadruple_meter: bool = True,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function fuses pitched leaves according to the rules shown below,
     improving the default output of |abjad.Meter.rewrite_meter()|.
@@ -871,8 +872,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     if not selection.leaves().are_contiguous_logical_voice():
         raise ValueError("first argument must be contiguous logical voice")
     if not isinstance(meter, (abjad.Meter, abjad.TimeSignature)):
-        raise TypeError("argument must be 'abjad.Meter' or "
-                        "'abjad.TimeSignature'")
+        raise TypeError("argument must be 'abjad.Meter' or 'abjad.TimeSignature'")
     if not isinstance(fuse_across_groups_of_beats, bool):
         raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
     if not isinstance(fuse_quadruple_meter, bool):
@@ -898,19 +898,22 @@ def prettify_rewrite_meter(selection: abjad.Selection,
     def _merge_indicators_then_fuse(logical_tie):
         last_indicators = abjad.get.indicators(logical_tie[-1])
         initial_indicators = abjad.get.indicators(logical_tie[0])
-        initial_indicators_types = tuple(type(indicator) for indicator
-                                         in initial_indicators)
+        initial_indicators_types = tuple(type(indicator) for indicator in initial_indicators)
         abjad.mutate.fuse(logical_tie)
         for indicator in last_indicators:
-            if isinstance(indicator, (abjad.Dynamic,
-                                      abjad.StopSlur,
-                                      abjad.StopGroup,
-                                      abjad.StopHairpin,
-                                      abjad.StopTextSpan,
-                                      abjad.StopTrillSpan,
-                                      abjad.StopPianoPedal,
-                                      abjad.StopPhrasingSlur,
-                                      )):
+            if isinstance(
+                indicator,
+                (
+                    abjad.Dynamic,
+                    abjad.StopSlur,
+                    abjad.StopGroup,
+                    abjad.StopHairpin,
+                    abjad.StopTextSpan,
+                    abjad.StopTrillSpan,
+                    abjad.StopPianoPedal,
+                    abjad.StopPhrasingSlur,
+                ),
+            ):
                 if not isinstance(indicator, initial_indicators_types):
                     abjad.attach(indicator, logical_tie[0])
 
@@ -928,8 +931,7 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if (not offset + base / 2
-                        in meter.depthwise_offset_inventory[1]):
+                if not offset + base / 2 in meter.depthwise_offset_inventory[1]:
                     _merge_indicators_then_fuse(logical_tie)
 
     if fuse_quadruple_meter and meter.numerator == 4:
@@ -939,10 +941,11 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if not offset + base / 2 in (abjad.Offset(0, 1),
-                                             abjad.Offset(2 * base),
-                                             abjad.Offset(4 * base),
-                                             ):
+                if not offset + base / 2 in (
+                    abjad.Offset(0, 1),
+                    abjad.Offset(2 * base),
+                    abjad.Offset(4 * base),
+                ):
                     _merge_indicators_then_fuse(logical_tie)
 
     if fuse_triple_meter and meter.numerator == 3:
@@ -952,9 +955,10 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if not offset + base / 2 in (abjad.Offset(0, 1),
-                                             abjad.Offset(3 * base),
-                                             ):
+                if not offset + base / 2 in (
+                    abjad.Offset(0, 1),
+                    abjad.Offset(3 * base),
+                ):
                     _merge_indicators_then_fuse(logical_tie)
 
     logical_ties = selection.logical_ties()  # splitting not only pitched
@@ -972,23 +976,23 @@ def prettify_rewrite_meter(selection: abjad.Selection,
             offset1 %= meter.duration
             if offset1 == abjad.Offset(0, 1):
                 offset1 = abjad.Offset(meter.duration)
-            if (offset0 % abjad.Offset(base) == abjad.Offset(0, 1)
-                    and offset1 % abjad.Offset(base) == abjad.Offset(0, 1)):
+            if offset0 % abjad.Offset(base) == abjad.Offset(0, 1) and offset1 % abjad.Offset(
+                base
+            ) == abjad.Offset(0, 1):
                 # do not split things like r4 c'2.
                 continue
             if offset0 < half_point_offset < offset1:
-                if (offset1 == abjad.Offset(meter.duration)
-                        and len(logical_tie) == 1):
+                if offset1 == abjad.Offset(meter.duration) and len(logical_tie) == 1:
                     # do not split r8 c'2.., r16 c'2..., etc.
                     break
-                if any(abjad.get.duration(leaf)
-                       == abjad.Duration(2 * base) for leaf in logical_tie):
+                if any(
+                    abjad.get.duration(leaf) == abjad.Duration(2 * base) for leaf in logical_tie
+                ):
                     # do not split r8 c'8~c'2 r4, r16 c'8.~c'2~c'8 r8, etc.
                     break
                 # do not split tuplets
                 result = selection.tuplets()
-                result = abjad.select(abjad.select(_).logical_ties()
-                                      for _ in result)
+                result = abjad.select(abjad.select(_).logical_ties() for _ in result)
                 result = result.flatten()
                 if logical_tie in result:
                     break

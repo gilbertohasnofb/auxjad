@@ -375,33 +375,34 @@ class ListLooper(_LooperParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_end_with_max_n_elements')
+    __slots__ = "_end_with_max_n_elements"
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: list[Any],
-                 *,
-                 window_size: int,
-                 step_size: int = 1,
-                 max_steps: int = 1,
-                 repetition_chance: float = 0.0,
-                 forward_bias: float = 1.0,
-                 head_position: int = 0,
-                 end_with_max_n_elements: bool = False,
-                 process_on_first_call: bool = False,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        contents: list[Any],
+        *,
+        window_size: int,
+        step_size: int = 1,
+        max_steps: int = 1,
+        repetition_chance: float = 0.0,
+        forward_bias: float = 1.0,
+        head_position: int = 0,
+        end_with_max_n_elements: bool = False,
+        process_on_first_call: bool = False,
+    ) -> None:
         self.contents = contents
         self.end_with_max_n_elements = end_with_max_n_elements
-        super().__init__(head_position=head_position,
-                         window_size=window_size,
-                         step_size=step_size,
-                         max_steps=max_steps,
-                         repetition_chance=repetition_chance,
-                         forward_bias=forward_bias,
-                         process_on_first_call=process_on_first_call,
-                         )
+        super().__init__(
+            head_position=head_position,
+            window_size=window_size,
+            step_size=step_size,
+            max_steps=max_steps,
+            repetition_chance=repetition_chance,
+            forward_bias=forward_bias,
+            process_on_first_call=process_on_first_call,
+        )
 
     ### SPECIAL METHODS ###
 
@@ -461,9 +462,10 @@ class ListLooper(_LooperParent):
         return self._contents
 
     @contents.setter
-    def contents(self,
-                 contents: list[Any],
-                 ) -> None:
+    def contents(
+        self,
+        contents: list[Any],
+    ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
@@ -495,9 +497,10 @@ class ListLooper(_LooperParent):
         return self._end_with_max_n_elements
 
     @end_with_max_n_elements.setter
-    def end_with_max_n_elements(self,
-                                end_with_max_n_elements: bool,
-                                ) -> None:
+    def end_with_max_n_elements(
+        self,
+        end_with_max_n_elements: bool,
+    ) -> None:
         if not isinstance(end_with_max_n_elements, bool):
             raise TypeError("'end_with_max_n_elements' must be 'bool'")
         self._end_with_max_n_elements = end_with_max_n_elements
@@ -510,8 +513,8 @@ class ListLooper(_LooperParent):
         the head position has overtaken the :attr:`contents`'s length).
         """
         if self._end_with_max_n_elements:
-            return (self._head_position + self._window_size > self.__len__()
-                    or self._head_position < 0)
+            return (
+                self._head_position + self._window_size > self.__len__() or self._head_position < 0
+            )
         else:
-            return (self._head_position >= self.__len__()
-                    or self._head_position < 0)
+            return self._head_position >= self.__len__() or self._head_position < 0

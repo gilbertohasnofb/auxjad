@@ -5,16 +5,17 @@ import abjad
 from abjad import piano_pedal as piano_pedal_
 
 
-def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
-                *,
-                half_pedal: bool = False,
-                until_the_end: bool = False,
-                omit_raise_pedal_glyph: bool = False,
-                selector: abjad.Expression = abjad.select().leaves(),
-                start_piano_pedal: abjad.StartPianoPedal = None,
-                stop_piano_pedal: abjad.StopPianoPedal = None,
-                tag: abjad.Tag = None,
-                ) -> None:
+def piano_pedal(
+    argument: Union[abjad.Component, abjad.Selection],
+    *,
+    half_pedal: bool = False,
+    until_the_end: bool = False,
+    omit_raise_pedal_glyph: bool = False,
+    selector: abjad.Expression = abjad.select().leaves(),
+    start_piano_pedal: abjad.StartPianoPedal = None,
+    stop_piano_pedal: abjad.StopPianoPedal = None,
+    tag: abjad.Tag = None,
+) -> None:
     r"""Attaches piano pedal indicators. This function extends the capabilities
     of Abjad's built-in |abjad.piano_pedal()|.
 
@@ -341,12 +342,13 @@ def piano_pedal(argument: Union[abjad.Component, abjad.Selection],
             r"\once \override Staff.SustainPedal.stencil = ##f"
         )
         abjad.attach(omit_raise_pedal_glyph_tweak, stop_leaf)
-    piano_pedal_(argument=argument,
-                 selector=selector,
-                 start_piano_pedal=start_piano_pedal,
-                 stop_piano_pedal=stop_piano_pedal,
-                 tag=tag,
-                 )
+    piano_pedal_(
+        argument=argument,
+        selector=selector,
+        start_piano_pedal=start_piano_pedal,
+        stop_piano_pedal=stop_piano_pedal,
+        tag=tag,
+    )
 
 
 ### MONKEY PATCHING ###

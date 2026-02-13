@@ -7,29 +7,30 @@ import auxjad
 
 def test_example_of_usage_05():
     random.seed(77124)
-    container = abjad.Container([
-        auxjad.ArtificialHarmonic(r"<ef' af'>4"),
-        auxjad.ArtificialHarmonic(r"<b e'>8."),
-        auxjad.ArtificialHarmonic(r"<g c'>16", is_parenthesized=True),
-        abjad.Rest(r"r4"),
-        abjad.Chord([-5, 8, 9], (1, 8)),
-        auxjad.ArtificialHarmonic(r"<d' a'>8", is_parenthesized=True),
-    ])
+    container = abjad.Container(
+        [
+            auxjad.ArtificialHarmonic(r"<ef' af'>4"),
+            auxjad.ArtificialHarmonic(r"<b e'>8."),
+            auxjad.ArtificialHarmonic(r"<g c'>16", is_parenthesized=True),
+            abjad.Rest(r"r4"),
+            abjad.Chord([-5, 8, 9], (1, 8)),
+            auxjad.ArtificialHarmonic(r"<d' a'>8", is_parenthesized=True),
+        ]
+    )
     abjad.mutate.respell_augmented_unisons(container[:])
     shuffler = auxjad.Shuffler(container)
     staff = abjad.Staff()
     notes = shuffler.shuffle_n(4)
     staff.append(notes)
     container = abjad.Container(shuffler.current_window)
-    fader = auxjad.Fader(container, mode='out')
+    fader = auxjad.Fader(container, mode="out")
     notes = fader.output_all()
     staff.append(notes)
     abjad.mutate.remove_repeated_time_signatures(staff[:])
     staff.pop(-1)
     score = abjad.Score([staff])
     score.add_final_bar_line()
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -304,5 +305,4 @@ def test_example_of_usage_05():
                 \bar "|."
             }
         >>
-        """
-    )
+        """)

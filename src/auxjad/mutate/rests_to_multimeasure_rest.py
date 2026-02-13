@@ -1,11 +1,12 @@
 import abjad
 
 
-def rests_to_multimeasure_rest(selection: abjad.Selection,
-                               *,
-                               ignore_clefs: bool = False,
-                               ignore_dynamics: bool = False,
-                               ) -> None:
+def rests_to_multimeasure_rest(
+    selection: abjad.Selection,
+    *,
+    ignore_clefs: bool = False,
+    ignore_dynamics: bool = False,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function looks for measures filled with regular rests and converts
     them into an |abjad.MultimeasureRest|.
@@ -435,18 +436,19 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
 
     measures = selection.group_by_measure()
     effective_time_signature = abjad.TimeSignature((4, 4))
-    indicators_tuple = (abjad.BarLine,
-                        abjad.Fermata,
-                        abjad.KeySignature,
-                        abjad.LilyPondLiteral,
-                        abjad.MetronomeMark,
-                        abjad.RehearsalMark,
-                        abjad.Repeat,
-                        abjad.StaffChange,
-                        abjad.StartMarkup,
-                        abjad.StartTextSpan,
-                        abjad.StopTextSpan,
-                        )
+    indicators_tuple = (
+        abjad.BarLine,
+        abjad.Fermata,
+        abjad.KeySignature,
+        abjad.LilyPondLiteral,
+        abjad.MetronomeMark,
+        abjad.RehearsalMark,
+        abjad.Repeat,
+        abjad.StaffChange,
+        abjad.StartMarkup,
+        abjad.StartTextSpan,
+        abjad.StopTextSpan,
+    )
 
     for measure in measures:
         head = abjad.select(measure).leaf(0)
@@ -461,10 +463,14 @@ def rests_to_multimeasure_rest(selection: abjad.Selection,
                         break
             if not ignore_dynamics:
                 for leaf in measure.leaves()[::-1]:
-                    dynamics = abjad.get.indicator(leaf, (abjad.Dynamic,
-                                                          abjad.StartHairpin,
-                                                          abjad.StopHairpin,
-                                                          ))
+                    dynamics = abjad.get.indicator(
+                        leaf,
+                        (
+                            abjad.Dynamic,
+                            abjad.StartHairpin,
+                            abjad.StopHairpin,
+                        ),
+                    )
                     if dynamics is not None:
                         break
             duration = abjad.get.duration(measure)

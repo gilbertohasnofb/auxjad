@@ -309,8 +309,10 @@ def merge_hairpins(selection: abjad.Selection) -> None:
                 abjad.detach(abjad.StartHairpin, leaf)
                 if abjad.get.indicator(leaf, abjad.Dynamic) is not None:
                     abjad.detach(abjad.Dynamic, leaf)
-        if (abjad.get.indicator(leaf, abjad.Dynamic) is not None
-                or abjad.get.indicator(leaf, abjad.StopHairpin) is not None):
+        if (
+            abjad.get.indicator(leaf, abjad.Dynamic) is not None
+            or abjad.get.indicator(leaf, abjad.StopHairpin) is not None
+        ):
             if leaf_hairpin is None:
                 active_hairpin = None
         if leaf_hairpin is not None:

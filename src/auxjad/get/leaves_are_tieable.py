@@ -4,13 +4,15 @@ from typing import Union
 import abjad
 
 
-def leaves_are_tieable(leaves: Union[abjad.Selection,
-                                     Iterable[abjad.Component],
-                                     Iterable[abjad.LogicalTie],
-                                     ],
-                       *,
-                       only_identical_pitches: bool = False,
-                       ) -> bool:
+def leaves_are_tieable(
+    leaves: Union[
+        abjad.Selection,
+        Iterable[abjad.Component],
+        Iterable[abjad.LogicalTie],
+    ],
+    *,
+    only_identical_pitches: bool = False,
+) -> bool:
     r"""Returns a :obj:`bool` representing whether or not two or more input
     leaves have any identical pitch(es) and thus can be tied. Input argument
     can be a single |abjad.Selection| with multiple leaves, or an iterable with
@@ -146,20 +148,24 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
         False
     """
     if not isinstance(leaves, (abjad.Selection, Iterable)):
-        raise TypeError("argument must be 'abjad.Selection' or an iterable of "
-                        "'abjad.Component's or 'abjad.LogicalTie's")
+        raise TypeError(
+            "argument must be 'abjad.Selection' or an iterable of "
+            "'abjad.Component's or 'abjad.LogicalTie's"
+        )
     for leaf in leaves:
         if not isinstance(leaf, (abjad.Component, abjad.LogicalTie)):
-            raise TypeError("argument must be 'abjad.Selection' or an "
-                            "iterable of 'abjad.Component's or "
-                            "'abjad.LogicalTie's")
+            raise TypeError(
+                "argument must be 'abjad.Selection' or an "
+                "iterable of 'abjad.Component's or "
+                "'abjad.LogicalTie's"
+            )
     if not isinstance(only_identical_pitches, bool):
         raise TypeError("'only_identical_pitches' must be 'bool'")
     if len(leaves) < 2:
         raise ValueError("argument must contain two or more leaves")
 
     for index, leaf1 in enumerate(leaves[:-1]):
-        for leaf2 in leaves[index + 1:]:
+        for leaf2 in leaves[index + 1 :]:
             if isinstance(leaf1, abjad.LogicalTie):
                 leaf1 = leaf1[0]
             elif isinstance(leaf2, abjad.LogicalTie):
@@ -168,8 +174,9 @@ def leaves_are_tieable(leaves: Union[abjad.Selection,
                 return False
             elif isinstance(leaf1, abjad.MultimeasureRest):
                 return False
-            elif (isinstance(leaf1, (abjad.Note, abjad.Chord))
-                    and isinstance(leaf2, (abjad.Note, abjad.Chord))):
+            elif isinstance(leaf1, (abjad.Note, abjad.Chord)) and isinstance(
+                leaf2, (abjad.Note, abjad.Chord)
+            ):
                 try:
                     pitches_1 = [leaf1.written_pitch]
                 except AttributeError:

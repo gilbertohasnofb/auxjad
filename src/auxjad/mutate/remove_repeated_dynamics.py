@@ -3,14 +3,13 @@ from typing import Optional, Union
 import abjad
 
 
-def remove_repeated_dynamics(selection: abjad.Selection,
-                             *,
-                             ignore_hairpins: bool = False,
-                             reset_after_rests: bool = False,
-                             reset_after_duration: Optional[
-                                 Union[float, int, str, tuple, abjad.Duration]
-                             ] = None,
-                             ) -> None:
+def remove_repeated_dynamics(
+    selection: abjad.Selection,
+    *,
+    ignore_hairpins: bool = False,
+    reset_after_rests: bool = False,
+    reset_after_duration: Optional[Union[float, int, str, tuple, abjad.Duration]] = None,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated dynamic markings.
 
@@ -403,14 +402,19 @@ def remove_repeated_dynamics(selection: abjad.Selection,
     if not isinstance(reset_after_rests, bool):
         raise TypeError("'reset_after_rests' must be 'bool'")
     if reset_after_duration is not None:
-        if not isinstance(reset_after_duration, (abjad.Duration,
-                                                 str,
-                                                 tuple,
-                                                 int,
-                                                 float,
-                                                 )):
-            raise TypeError("'reset_after_duration' must be 'abjad.Duration', "
-                            "'str', 'tuple', or a number")
+        if not isinstance(
+            reset_after_duration,
+            (
+                abjad.Duration,
+                str,
+                tuple,
+                int,
+                float,
+            ),
+        ):
+            raise TypeError(
+                "'reset_after_duration' must be 'abjad.Duration', 'str', 'tuple', or a number"
+            )
         if not isinstance(reset_after_duration, abjad.Duration):
             reset_after_duration = abjad.Duration(reset_after_duration)
 
@@ -432,13 +436,13 @@ def remove_repeated_dynamics(selection: abjad.Selection,
         else:
             duration_since_last_note = abjad.Duration(0)
             indicators = abjad.get.indicators(leaf)
-            hairpin_present = any([isinstance(indicator, abjad.StartHairpin)
-                                   for indicator in indicators])
+            hairpin_present = any(
+                [isinstance(indicator, abjad.StartHairpin) for indicator in indicators]
+            )
             if hairpin_present and not ignore_hairpins:
                 for indicator in indicators:
                     if isinstance(indicator, abjad.Dynamic):
-                        if (indicator is not None
-                                and indicator == previous_dynamic):
+                        if indicator is not None and indicator == previous_dynamic:
                             abjad.detach(abjad.Dynamic, leaf)
                 current_dynamic = None
             else:

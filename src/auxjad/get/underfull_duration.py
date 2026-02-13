@@ -114,11 +114,12 @@ def underfull_duration(selection: abjad.Selection) -> abjad.Duration:
     # all other leaves
     for leaf in leaves[1:]:
         time_signature = abjad.get.effective(leaf, abjad.TimeSignature)
-        if (time_signature is not None
-                and time_signature != effective_time_signature):
+        if time_signature is not None and time_signature != effective_time_signature:
             if duration % effective_time_signature.duration != 0:
-                raise ValueError("'selection' is malformed, with an underfull "
-                                 "measure preceding a time signature change")
+                raise ValueError(
+                    "'selection' is malformed, with an underfull "
+                    "measure preceding a time signature change"
+                )
             effective_time_signature = time_signature
             duration = abjad.Duration(0)
         duration += abjad.get.duration(leaf)

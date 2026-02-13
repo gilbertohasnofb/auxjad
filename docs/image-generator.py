@@ -8,8 +8,8 @@ sys.path.insert(
     0,
     os.path.join(
         os.path.dirname(os.getcwd()),
-        'src',
-    )
+        "src",
+    ),
 )
 import auxjad  # noqa: E402
 
@@ -51,42 +51,43 @@ ly_header = r"""
 
 """
 
-output_directory = './_images/lilypond-files/'
+output_directory = "./_images/lilypond-files/"
 
-namespaces = [auxjad,
-              # modules
-              auxjad.get,
-              auxjad.mutate,
-              auxjad.select,
-              # core
-              auxjad.CartographySelector,
-              auxjad.CrossFader,
-              auxjad.Echoer,
-              auxjad.Fader,
-              auxjad.GeneticAlgorithm,
-              auxjad.Hocketer,
-              auxjad.LeafLooper,
-              auxjad.ListLooper,
-              auxjad.Phaser,
-              auxjad.PitchRandomiser,
-              auxjad.Repeater,
-              auxjad.Shuffler,
-              auxjad.TenneySelector,
-              auxjad.WindowLooper,
-              # indicators
-              auxjad.TimeSignature,
-              # makers
-              auxjad.GeneticAlgorithmMusicMaker,
-              auxjad.LeafDynMaker,
-              # score
-              auxjad.ArtificialHarmonic,
-              auxjad.HarmonicNote,
-              auxjad.Score,
-              # spanners
-              auxjad.piano_pedal,
-              # utilities
-              auxjad.staff_splitter,
-              ]
+namespaces = [
+    auxjad,
+    # modules
+    auxjad.get,
+    auxjad.mutate,
+    auxjad.select,
+    # core
+    auxjad.CartographySelector,
+    auxjad.CrossFader,
+    auxjad.Echoer,
+    auxjad.Fader,
+    auxjad.GeneticAlgorithm,
+    auxjad.Hocketer,
+    auxjad.LeafLooper,
+    auxjad.ListLooper,
+    auxjad.Phaser,
+    auxjad.PitchRandomiser,
+    auxjad.Repeater,
+    auxjad.Shuffler,
+    auxjad.TenneySelector,
+    auxjad.WindowLooper,
+    # indicators
+    auxjad.TimeSignature,
+    # makers
+    auxjad.GeneticAlgorithmMusicMaker,
+    auxjad.LeafDynMaker,
+    # score
+    auxjad.ArtificialHarmonic,
+    auxjad.HarmonicNote,
+    auxjad.Score,
+    # spanners
+    auxjad.piano_pedal,
+    # utilities
+    auxjad.staff_splitter,
+]
 
 # generating lilypond files from docstrings
 for namespace in namespaces:
@@ -97,44 +98,44 @@ for namespace in namespaces:
             if matches is not None:
                 for match in matches:
                     contents = match[0]
-                    filename = match[1] + '.ly'
-                    with open(output_directory + filename, 'x') as f:
+                    filename = match[1] + ".ly"
+                    with open(output_directory + filename, "x") as f:
                         f.write(ly_header)
                         contents = textwrap.dedent(contents)
-                        if r'\new' in contents:
+                        if r"\new" in contents:
                             f.write(contents)
-                        elif contents[0] == '{' and contents[-1] == '}':
-                            f.write(r'\new Staff' + '\n')
+                        elif contents[0] == "{" and contents[-1] == "}":
+                            f.write(r"\new Staff" + "\n")
                             f.write(contents)
                         else:  # wrap in {} otherwise
-                            contents = textwrap.indent(contents, '    ')
-                            f.write(r'\new Staff' + '\n')
-                            f.write('{\n')
+                            contents = textwrap.indent(contents, "    ")
+                            f.write(r"\new Staff" + "\n")
+                            f.write("{\n")
                             f.write(contents)
-                            f.write('\n}')
+                            f.write("\n}")
 
 # generating lilypond files from example-n.rst files
-for read_file in os.listdir('./examples'):
-    if read_file.startswith('example-'):
-        with open('./examples/' + read_file, 'r') as example_file:
+for read_file in os.listdir("./examples"):
+    if read_file.startswith("example-"):
+        with open("./examples/" + read_file, "r") as example_file:
             example_file_contentss = example_file.read()
             # finding lilypond code
             matches = re.findall(pattern, example_file_contentss)
             if matches:
                 for match in matches:
                     contents = match[0]
-                    filename = match[1] + '.ly'
-                    with open(output_directory + filename, 'w+') as f:
+                    filename = match[1] + ".ly"
+                    with open(output_directory + filename, "w+") as f:
                         f.write(ly_header)
                         contents = textwrap.dedent(contents)
-                        if r'\new' in contents:
+                        if r"\new" in contents:
                             f.write(contents)
-                        elif contents[0] == '{' and contents[-1] == '}':
-                            f.write(r'\new Staff' + '\n')
+                        elif contents[0] == "{" and contents[-1] == "}":
+                            f.write(r"\new Staff" + "\n")
                             f.write(contents)
                         else:  # wrap in {} otherwise
-                            contents = textwrap.indent(contents, '    ')
-                            f.write(r'\new Staff' + '\n')
-                            f.write('{\n')
+                            contents = textwrap.indent(contents, "    ")
+                            f.write(r"\new Staff" + "\n")
+                            f.write("{\n")
                             f.write(contents)
-                            f.write('\n}')
+                            f.write("\n}")

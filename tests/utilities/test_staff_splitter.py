@@ -7,8 +7,7 @@ def test_staff_splitter_01():
     staff = abjad.Staff(r"a4 b4 c'4 d'4")
     staves = auxjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -26,16 +25,14 @@ def test_staff_splitter_01():
                 r2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_02():
     staff = abjad.Staff(r"<g b>4 <a c'>4 <b d' f'>4 <a f c' e' g'>4")
     staves = auxjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -55,19 +52,14 @@ def test_staff_splitter_02():
                 <f a>4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_03():
-    staff = abjad.Staff(
-        r"\time 2/4 c'2 \times 2/3 {<g b d'>2 <e' f'>4}"
-        r"\times 2/3 {a2 <g b>4}"
-    )
+    staff = abjad.Staff(r"\time 2/4 c'2 \times 2/3 {<g b d'>2 <e' f'>4}" r"\times 2/3 {a2 <g b>4}")
     staves = auxjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -99,16 +91,14 @@ def test_staff_splitter_03():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_04():
     staff = abjad.Staff(r"c'4 d'4 e'4 <d' f' a'>4")
     staves = auxjad.staff_splitter(staff, threshold="e'")
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -127,12 +117,10 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """
-    )
-    staves = auxjad.staff_splitter(staff, threshold='E4')
+        """)
+    staves = auxjad.staff_splitter(staff, threshold="E4")
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -151,12 +139,10 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """
-    )
+        """)
     staves = auxjad.staff_splitter(staff, threshold=abjad.NamedPitch("e'"))
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -175,12 +161,10 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """
-    )
+        """)
     staves = auxjad.staff_splitter(staff, threshold=abjad.NumberedPitch(4))
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -199,12 +183,10 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """
-    )
+        """)
     staves = auxjad.staff_splitter(staff, threshold=4)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -223,19 +205,18 @@ def test_staff_splitter_04():
                 d'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_05():
     staff = abjad.Staff(r"c'4 d'4 e'4 <d' f' a'>4")
-    staves = auxjad.staff_splitter(staff,
-                                   threshold="e'",
-                                   lower_clef='treble',
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        threshold="e'",
+        lower_clef="treble",
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -254,19 +235,18 @@ def test_staff_splitter_05():
                 d'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_06():
     staff = abjad.Staff(r"e4 f4 g4 <f a c'>4")
-    staves = auxjad.staff_splitter(staff,
-                                   threshold='g',
-                                   upper_clef='bass',
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        threshold="g",
+        upper_clef="bass",
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -285,19 +265,18 @@ def test_staff_splitter_06():
                 f4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_07():
     staff = abjad.Staff(r"c'4 d'4 e'4 <d' f' a'>4")
-    staves = auxjad.staff_splitter(staff,
-                                   threshold="e'",
-                                   add_clefs=False,
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        threshold="e'",
+        add_clefs=False,
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -314,21 +293,17 @@ def test_staff_splitter_07():
                 d'4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_08():
-    staff = abjad.Staff(
-        r"\time 2/4 c'2 \times 2/3 {<g b d'>2 <e' f'>4}"
-        r"\times 2/3 {a2 <g b>4}"
+    staff = abjad.Staff(r"\time 2/4 c'2 \times 2/3 {<g b d'>2 <e' f'>4}" r"\times 2/3 {a2 <g b>4}")
+    staves = auxjad.staff_splitter(
+        staff,
+        use_multimeasure_rests=False,
     )
-    staves = auxjad.staff_splitter(staff,
-                                   use_multimeasure_rests=False,
-                                   )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -360,19 +335,16 @@ def test_staff_splitter_08():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_09():
     staff = abjad.Staff(
-        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
-        r"\times 2/3 {a2\pp <g b>1\mp}"
+        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}" r"\times 2/3 {a2\pp <g b>1\mp}"
     )
     staves = auxjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -412,18 +384,16 @@ def test_staff_splitter_09():
                 }
             }
         >>
-        """
-    )
+        """)
     staff = abjad.Staff(
-        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
-        r"\times 2/3 {a2\pp <g b>1\mp}"
+        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}" r"\times 2/3 {a2\pp <g b>1\mp}"
     )
-    staves = auxjad.staff_splitter(staff,
-                                   reposition_dynamics=False,
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        reposition_dynamics=False,
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -466,19 +436,16 @@ def test_staff_splitter_09():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_10():
     staff = abjad.Staff(
-        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
-        r"\times 2/3 {a2\pp <g b>1\mp}"
+        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}" r"\times 2/3 {a2\pp <g b>1\mp}"
     )
     staves = auxjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -518,18 +485,16 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """
-    )
+        """)
     staff = abjad.Staff(
-        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
-        r"\times 2/3 {a2\pp <g b>1\mp}"
+        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}" r"\times 2/3 {a2\pp <g b>1\mp}"
     )
-    staves = auxjad.staff_splitter(staff,
-                                   dynamics_only_on_upper_staff=True,
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        dynamics_only_on_upper_staff=True,
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -565,69 +530,17 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """
-    )
+        """)
     staff = abjad.Staff(
-        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
-        r"\times 2/3 {a2\pp <g b>1\mp}"
+        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}" r"\times 2/3 {a2\pp <g b>1\mp}"
     )
-    staves = auxjad.staff_splitter(staff,
-                                   dynamics_only_on_upper_staff=True,
-                                   reposition_dynamics=False,
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        dynamics_only_on_upper_staff=True,
+        reposition_dynamics=False,
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
-        \new Score
-        <<
-            \new Staff
-            {
-                \clef "treble"
-                c'2
-                \p
-                d'2
-                \ff
-                \times 2/3
-                {
-                    d'2
-                    \f
-                    <e' f'>1
-                    \mf
-                }
-                R1
-                \mp
-            }
-            \new Staff
-            {
-                \clef "bass"
-                r2
-                b2
-                \times 2/3
-                {
-                    <g b>2
-                    r1
-                }
-                \times 2/3
-                {
-                    a2
-                    <g b>1
-                }
-            }
-        >>
-        """
-    )
-    staff = abjad.Staff(
-        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}"
-        r"\times 2/3 {a2\pp <g b>1\mp}"
-    )
-    staves = auxjad.staff_splitter(staff,
-                                   dynamics_only_on_upper_staff=True,
-                                   reposition_dynamics=False,
-                                   rewrite_meter=False,
-                                   )
-    score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -664,18 +577,65 @@ def test_staff_splitter_10():
                 }
             }
         >>
-        """
+        """)
+    staff = abjad.Staff(
+        r"c'2\p <b d'>2\ff \times 2/3 {<g b d'>2\f <e' f'>1\mf}" r"\times 2/3 {a2\pp <g b>1\mp}"
     )
+    staves = auxjad.staff_splitter(
+        staff,
+        dynamics_only_on_upper_staff=True,
+        reposition_dynamics=False,
+        rewrite_meter=False,
+    )
+    score = abjad.Score(staves)
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
+        \new Score
+        <<
+            \new Staff
+            {
+                \clef "treble"
+                c'2
+                \p
+                d'2
+                \ff
+                \times 2/3
+                {
+                    d'2
+                    \f
+                    <e' f'>1
+                    \mf
+                }
+                R1
+                \mp
+            }
+            \new Staff
+            {
+                \clef "bass"
+                r2
+                b2
+                \times 2/3
+                {
+                    <g b>2
+                    r1
+                }
+                \times 2/3
+                {
+                    a2
+                    <g b>1
+                }
+            }
+        >>
+        """)
 
 
 def test_staff_splitter_11():
     staff = abjad.Staff(r"a4 b4 c'4 d'4")
-    staves = auxjad.staff_splitter(staff,
-                                   rewrite_meter=False,
-                                   )
+    staves = auxjad.staff_splitter(
+        staff,
+        rewrite_meter=False,
+    )
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -695,8 +655,7 @@ def test_staff_splitter_11():
                 r4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_12():
@@ -706,8 +665,7 @@ def test_staff_splitter_12():
     )
     staves = abjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -750,16 +708,14 @@ def test_staff_splitter_12():
                 <f a bf>4.
             }
         >>
-        """
-    )
+        """)
 
 
 def test_staff_splitter_13():
     staff = abjad.Staff(r"a4 b4 c'4 d'4")
     staves = abjad.staff_splitter(staff)
     score = abjad.Score(staves)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -777,5 +733,4 @@ def test_staff_splitter_13():
                 r2
             }
         >>
-        """
-    )
+        """)

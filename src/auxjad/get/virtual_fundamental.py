@@ -3,9 +3,10 @@ from typing import Optional, Union
 import abjad
 
 
-def _generate_harmonics_from_pitch(fundamental: abjad.Pitch,
-                                   upper_bound: abjad.Pitch,
-                                   ) -> list:
+def _generate_harmonics_from_pitch(
+    fundamental: abjad.Pitch,
+    upper_bound: abjad.Pitch,
+) -> list:
     r"""Private function used by |auxjad.get.virtual_fundamental()|. Generates
     the harmonic series for a given fundamental pitch up to a given upper
     bound.
@@ -24,10 +25,11 @@ def _generate_harmonics_from_pitch(fundamental: abjad.Pitch,
     return harmonics
 
 
-def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
-                        *,
-                        min_fundamental: Optional[abjad.Pitch] = None,
-                        ) -> abjad.NamedPitch:
+def virtual_fundamental(
+    pitches: Union[abjad.PitchSegment, abjad.Chord],
+    *,
+    min_fundamental: Optional[abjad.Pitch] = None,
+) -> abjad.NamedPitch:
     r"""Returns the virtual fundamental (highest common fundamental) for all
     pitches in a |abjad.PitchSegment| or |abjad.Chord|. Return value is of type
     |abjad.NamedPitch|.
@@ -111,12 +113,10 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
         ValueError: No fundamental found above c'
     """
     if not isinstance(pitches, (abjad.PitchSegment, abjad.Chord)):
-        raise TypeError("argument must be 'abjad.PitchSegment' or an "
-                        "'abjad.Chord'")
+        raise TypeError("argument must be 'abjad.PitchSegment' or an 'abjad.Chord'")
     if min_fundamental is not None:
         if not isinstance(min_fundamental, (abjad.Pitch)):
-            raise TypeError("'min_fundamental' must be 'abjad.Pitch' or child "
-                            "class")
+            raise TypeError("'min_fundamental' must be 'abjad.Pitch' or child class")
     if isinstance(pitches, abjad.Chord):
         pitches = pitches.written_pitches
     fundamental = abjad.NumberedPitch(min(pitches))
@@ -128,5 +128,4 @@ def virtual_fundamental(pitches: Union[abjad.PitchSegment, abjad.Chord],
             return abjad.NamedPitch(fundamental)
         fundamental = fundamental - 1
         if min_fundamental is not None and fundamental < min_fundamental:
-            raise ValueError('No fundamental found above '
-                             + format(min_fundamental))
+            raise ValueError("No fundamental found above " + format(min_fundamental))

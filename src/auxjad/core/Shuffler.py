@@ -1048,50 +1048,51 @@ class Shuffler:
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_pitch_only',
-                 '_preserve_rest_position',
-                 '_disable_rewrite_meter',
-                 '_omit_time_signatures',
-                 '_current_window',
-                 '_logical_selections',
-                 '_logical_selections_indeces',
-                 '_pitches',
-                 '_time_signatures',
-                 '_is_first_window',
-                 '_boundary_depth',
-                 '_maximum_dot_count',
-                 '_rewrite_tuplets',
-                 '_process_on_first_call',
-                 '_prettify_rewrite_meter',
-                 '_extract_trivial_tuplets',
-                 '_fuse_across_groups_of_beats',
-                 '_fuse_quadruple_meter',
-                 '_fuse_triple_meter',
-                 '_swap_limit',
-                 )
+    __slots__ = (
+        "_contents",
+        "_pitch_only",
+        "_preserve_rest_position",
+        "_disable_rewrite_meter",
+        "_omit_time_signatures",
+        "_current_window",
+        "_logical_selections",
+        "_logical_selections_indeces",
+        "_pitches",
+        "_time_signatures",
+        "_is_first_window",
+        "_boundary_depth",
+        "_maximum_dot_count",
+        "_rewrite_tuplets",
+        "_process_on_first_call",
+        "_prettify_rewrite_meter",
+        "_extract_trivial_tuplets",
+        "_fuse_across_groups_of_beats",
+        "_fuse_quadruple_meter",
+        "_fuse_triple_meter",
+        "_swap_limit",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 pitch_only: bool = False,
-                 preserve_rest_position: bool = False,
-                 disable_rewrite_meter: bool = False,
-                 omit_time_signatures: bool = False,
-                 boundary_depth: Optional[int] = None,
-                 maximum_dot_count: Optional[int] = None,
-                 rewrite_tuplets: bool = True,
-                 process_on_first_call: bool = True,
-                 prettify_rewrite_meter: bool = True,
-                 extract_trivial_tuplets: bool = True,
-                 fuse_across_groups_of_beats: bool = True,
-                 fuse_quadruple_meter: bool = True,
-                 fuse_triple_meter: bool = True,
-                 swap_limit: Optional[int] = None,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        pitch_only: bool = False,
+        preserve_rest_position: bool = False,
+        disable_rewrite_meter: bool = False,
+        omit_time_signatures: bool = False,
+        boundary_depth: Optional[int] = None,
+        maximum_dot_count: Optional[int] = None,
+        rewrite_tuplets: bool = True,
+        process_on_first_call: bool = True,
+        prettify_rewrite_meter: bool = True,
+        extract_trivial_tuplets: bool = True,
+        fuse_across_groups_of_beats: bool = True,
+        fuse_quadruple_meter: bool = True,
+        fuse_triple_meter: bool = True,
+        swap_limit: Optional[int] = None,
+    ) -> None:
         self.contents = contents
         self.pitch_only = pitch_only
         self.preserve_rest_position = preserve_rest_position
@@ -1150,11 +1151,12 @@ class Shuffler:
             else:
                 return self._shuffle_pitches()
 
-    def rotate(self,
-               *,
-               n_rotations: int = 1,
-               anticlockwise: bool = False,
-               ) -> abjad.Selection:
+    def rotate(
+        self,
+        *,
+        n_rotations: int = 1,
+        anticlockwise: bool = False,
+    ) -> abjad.Selection:
         r"""Rotates logical ties or pitches of :attr:`contents`."""
         if not isinstance(n_rotations, int):
             raise TypeError("'n_rotations' must be 'int'")
@@ -1181,9 +1183,10 @@ class Shuffler:
                     anticlockwise=anticlockwise,
                 )
 
-    def shuffle_n(self,
-                  n: int,
-                  ) -> abjad.Selection:
+    def shuffle_n(
+        self,
+        n: int,
+    ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the shuffling process and outputs
         a single |abjad.Selection|.
         """
@@ -1200,12 +1203,13 @@ class Shuffler:
         dummy_container[:] = []
         return output
 
-    def rotate_n(self,
-                 n: int,
-                 *,
-                 n_rotations: int = 1,
-                 anticlockwise: bool = False,
-                 ) -> abjad.Selection:
+    def rotate_n(
+        self,
+        n: int,
+        *,
+        n_rotations: int = 1,
+        anticlockwise: bool = False,
+    ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the pitch shuffling process and
         outputs a single |abjad.Selection|.
         """
@@ -1215,8 +1219,9 @@ class Shuffler:
             raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):
-            dummy_container.append(self.rotate(n_rotations=n_rotations,
-                                               anticlockwise=anticlockwise))
+            dummy_container.append(
+                self.rotate(n_rotations=n_rotations, anticlockwise=anticlockwise)
+            )
         mutate.remove_repeated_time_signatures(dummy_container[:])
         mutate.remove_repeated_dynamics(dummy_container[:])
         output = dummy_container[:]
@@ -1242,33 +1247,35 @@ class Shuffler:
             elif isinstance(leaf, abjad.Chord):
                 self._pitches.append(leaf.written_pitches)
 
-    def _shuffle_list_preserving_rests(self,
-                                       input_list: list[Any],
-                                       ) -> None:
+    def _shuffle_list_preserving_rests(
+        self,
+        input_list: list[Any],
+    ) -> None:
         r"""Shuffles a :obj:`list` while keeping rest indeces unchanged."""
-        dummy_list = [input_list[i] for i in range(len(input_list))
-                      if self._pitches[i] is not None]
+        dummy_list = [input_list[i] for i in range(len(input_list)) if self._pitches[i] is not None]
         self._random_shuffle(dummy_list)
         self._replace_list_preserving_rests(dummy_list, input_list)
 
-    def _rotate_list_preserving_rests(self,
-                                      input_list: list[Any],
-                                      *,
-                                      n_rotations: int = 1,
-                                      anticlockwise: bool = False,
-                                      ) -> None:
+    def _rotate_list_preserving_rests(
+        self,
+        input_list: list[Any],
+        *,
+        n_rotations: int = 1,
+        anticlockwise: bool = False,
+    ) -> None:
         r"""Rotates a :obj:`list` while keeping rest indeces unchanged."""
-        dummy_list = [input_list[i] for i in range(len(input_list))
-                      if self._pitches[i] is not None]
-        self._rotate_list(dummy_list,
-                          n_rotations=n_rotations,
-                          anticlockwise=anticlockwise,
-                          )
+        dummy_list = [input_list[i] for i in range(len(input_list)) if self._pitches[i] is not None]
+        self._rotate_list(
+            dummy_list,
+            n_rotations=n_rotations,
+            anticlockwise=anticlockwise,
+        )
         self._replace_list_preserving_rests(dummy_list, input_list)
 
-    def _random_shuffle(self,
-                        input_list: list[Any],
-                        ) -> None:
+    def _random_shuffle(
+        self,
+        input_list: list[Any],
+    ) -> None:
         r"""Random shuffles a :obj:`list`."""
         if self._swap_limit is None:
             random.shuffle(input_list)
@@ -1278,10 +1285,11 @@ class Shuffler:
                     i, j = random.sample(range(len(input_list)), 2)
                     input_list[i], input_list[j] = input_list[j], input_list[i]
 
-    def _replace_list_preserving_rests(self,
-                                       input_list: list[Any],
-                                       destination_list: list[Any],
-                                       ) -> None:
+    def _replace_list_preserving_rests(
+        self,
+        input_list: list[Any],
+        destination_list: list[Any],
+    ) -> None:
         r"""Substitutes back an altered :obj:`list` while preserving rests."""
         counter = 0
         for index, pitch in enumerate(self._pitches):
@@ -1292,15 +1300,15 @@ class Shuffler:
     def _shuffle_logical_selections(self) -> abjad.Selection:
         r"""Shuffles the logical ties of :attr:`contents`."""
         if len(abjad.select(self._contents).tuplets()) > 0:
-            raise ValueError("'contents' contain one ore more tuplets; "
-                             "tuplets are currently supported only in "
-                             "pitch-only mode")
+            raise ValueError(
+                "'contents' contain one ore more tuplets; "
+                "tuplets are currently supported only in "
+                "pitch-only mode"
+            )
         if not self._preserve_rest_position:
             self._random_shuffle(self._logical_selections_indeces)
         else:
-            self._shuffle_list_preserving_rests(
-                self._logical_selections_indeces
-            )
+            self._shuffle_list_preserving_rests(self._logical_selections_indeces)
         self._rewrite_logical_selections()
         return self.current_window
 
@@ -1313,21 +1321,25 @@ class Shuffler:
         self._rewrite_pitches()
         return self.current_window
 
-    def _rotate_logical_selections(self,
-                                   *,
-                                   n_rotations: int = 1,
-                                   anticlockwise: bool = False,
-                                   ) -> abjad.Selection:
+    def _rotate_logical_selections(
+        self,
+        *,
+        n_rotations: int = 1,
+        anticlockwise: bool = False,
+    ) -> abjad.Selection:
         r"""Rotates the logical ties of :attr:`contents`."""
         if len(abjad.select(self._contents).tuplets()) > 0:
-            raise ValueError("'contents' contain one ore more tuplets; "
-                             "tuplets are currently supported only in "
-                             "pitch-only mode")
+            raise ValueError(
+                "'contents' contain one ore more tuplets; "
+                "tuplets are currently supported only in "
+                "pitch-only mode"
+            )
         if not self._preserve_rest_position:
-            self._rotate_list(self._logical_selections_indeces,
-                              n_rotations=n_rotations,
-                              anticlockwise=anticlockwise,
-                              )
+            self._rotate_list(
+                self._logical_selections_indeces,
+                n_rotations=n_rotations,
+                anticlockwise=anticlockwise,
+            )
         else:
             self._rotate_list_preserving_rests(
                 self._logical_selections_indeces,
@@ -1337,22 +1349,25 @@ class Shuffler:
         self._rewrite_logical_selections()
         return self.current_window
 
-    def _rotate_pitches(self,
-                        *,
-                        n_rotations: int = 1,
-                        anticlockwise: bool = False,
-                        ) -> abjad.Selection:
+    def _rotate_pitches(
+        self,
+        *,
+        n_rotations: int = 1,
+        anticlockwise: bool = False,
+    ) -> abjad.Selection:
         r"""Rotates the pitches of :attr:`contents`."""
         if not self._preserve_rest_position:
-            self._rotate_list(self._pitches,
-                              n_rotations=n_rotations,
-                              anticlockwise=anticlockwise,
-                              )
+            self._rotate_list(
+                self._pitches,
+                n_rotations=n_rotations,
+                anticlockwise=anticlockwise,
+            )
         else:
-            self._rotate_list_preserving_rests(self._pitches,
-                                               n_rotations=n_rotations,
-                                               anticlockwise=anticlockwise,
-                                               )
+            self._rotate_list_preserving_rests(
+                self._pitches,
+                n_rotations=n_rotations,
+                anticlockwise=anticlockwise,
+            )
         self._rewrite_pitches()
         return self.current_window
 
@@ -1360,18 +1375,17 @@ class Shuffler:
         r"""Rewrites the logical selections of the current window."""
         # writing dummy_container in shuffled order
         dummy_container = abjad.Container()
-        logical_selections = select.logical_selections(
-            abjad.mutate.copy(self._contents)
-        )
+        logical_selections = select.logical_selections(abjad.mutate.copy(self._contents))
         self._force_dynamics(logical_selections)
         for index in self._logical_selections_indeces:
             logical_selection = logical_selections[index]
             dummy_container.append(logical_selection.leaves())
         # splitting leaves at measure line points
-        abjad.mutate.split(dummy_container[:],
-                           [ts.duration for ts in self._time_signatures],
-                           cyclic=True,
-                           )
+        abjad.mutate.split(
+            dummy_container[:],
+            [ts.duration for ts in self._time_signatures],
+            cyclic=True,
+        )
         # attaching time signature structure
         mutate.enforce_time_signature(
             dummy_container,
@@ -1404,26 +1418,32 @@ class Shuffler:
         r"""Rewrites the pitches of the current window."""
         dummy_container = abjad.Container(abjad.mutate.copy(self._contents[:]))
         leaf_counter = 0
-        for pitch, logical_selection in zip(self._pitches,
-                                            self._logical_selections,
-                                            ):
+        for pitch, logical_selection in zip(
+            self._pitches,
+            self._logical_selections,
+        ):
             logical_tie = logical_selection.leaves()
             for leaf in logical_tie:
                 if pitch is None:
                     new_leaf = abjad.Rest(leaf.written_duration)
                 elif isinstance(pitch, abjad.PitchSegment):
                     new_leaf = abjad.Chord(pitch, leaf.written_duration)
-                    if (isinstance(leaf, abjad.Rest) and len(logical_tie) > 1
-                            and leaf is not logical_tie[-1]):
+                    if (
+                        isinstance(leaf, abjad.Rest)
+                        and len(logical_tie) > 1
+                        and leaf is not logical_tie[-1]
+                    ):
                         abjad.attach(abjad.Tie(), new_leaf)
                 else:
                     new_leaf = abjad.Note(pitch, leaf.written_duration)
-                    if (isinstance(leaf, abjad.Rest) and len(logical_tie) > 1
-                            and leaf is not logical_tie[-1]):
+                    if (
+                        isinstance(leaf, abjad.Rest)
+                        and len(logical_tie) > 1
+                        and leaf is not logical_tie[-1]
+                    ):
                         abjad.attach(abjad.Tie(), new_leaf)
                 for indicator in abjad.get.indicators(leaf):
-                    if (isinstance(indicator, (abjad.Tie, abjad.Articulation))
-                            and pitch is None):
+                    if isinstance(indicator, (abjad.Tie, abjad.Articulation)) and pitch is None:
                         continue
                     if isinstance(indicator, abjad.TimeSignature):
                         abjad.attach(indicator, new_leaf)
@@ -1449,16 +1469,18 @@ class Shuffler:
         return self.__repr__()
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
-    def _force_dynamics(container: abjad.Container,
-                        ) -> None:
+    def _force_dynamics(
+        container: abjad.Container,
+    ) -> None:
         r"""Enforces the current dynamic level to every logical tie without a
         dynamic marking.
         """
@@ -1467,20 +1489,22 @@ class Shuffler:
             if abjad.get.indicator(logical_tie[0], abjad.Dynamic) is None:
                 index = logical_ties.index(logical_tie)
                 previous_logical_tie = logical_ties[index - 1]
-                if (abjad.get.indicator(previous_logical_tie[0], abjad.Dynamic)
-                        is not None):
-                    abjad.attach(abjad.get.indicator(previous_logical_tie[0],
-                                                     abjad.Dynamic,
-                                                     ),
-                                 logical_tie[0],
-                                 )
+                if abjad.get.indicator(previous_logical_tie[0], abjad.Dynamic) is not None:
+                    abjad.attach(
+                        abjad.get.indicator(
+                            previous_logical_tie[0],
+                            abjad.Dynamic,
+                        ),
+                        logical_tie[0],
+                    )
 
     @staticmethod
-    def _rotate_list(input_list: list[Any],
-                     *,
-                     n_rotations: int = 1,
-                     anticlockwise: bool = False,
-                     ) -> None:
+    def _rotate_list(
+        input_list: list[Any],
+        *,
+        n_rotations: int = 1,
+        anticlockwise: bool = False,
+    ) -> None:
         r"""Rotates a :obj:`list`."""
         for _ in range(n_rotations):
             if not anticlockwise:
@@ -1498,12 +1522,12 @@ class Shuffler:
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or child "
-                            "class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -1531,9 +1555,10 @@ class Shuffler:
         return self._pitch_only
 
     @pitch_only.setter
-    def pitch_only(self,
-                   pitch_only: bool,
-                   ) -> None:
+    def pitch_only(
+        self,
+        pitch_only: bool,
+    ) -> None:
         if not isinstance(pitch_only, bool):
             raise TypeError("'pitch_only' must be 'bool'")
         self._pitch_only = pitch_only
@@ -1541,9 +1566,7 @@ class Shuffler:
         # to logical selections mode
         self._update_logical_selections()
         self._get_pitch_list()
-        self._contents = abjad.Container(
-            abjad.mutate.copy(self._current_window)
-        )
+        self._contents = abjad.Container(abjad.mutate.copy(self._current_window))
 
     @property
     def preserve_rest_position(self) -> bool:
@@ -1553,9 +1576,10 @@ class Shuffler:
         return self._preserve_rest_position
 
     @preserve_rest_position.setter
-    def preserve_rest_position(self,
-                               preserve_rest_position: bool,
-                               ) -> None:
+    def preserve_rest_position(
+        self,
+        preserve_rest_position: bool,
+    ) -> None:
         if not isinstance(preserve_rest_position, bool):
             raise TypeError("'preserve_rest_position' must be 'bool'")
         self._preserve_rest_position = preserve_rest_position
@@ -1568,9 +1592,10 @@ class Shuffler:
         return self._disable_rewrite_meter
 
     @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ) -> None:
+    def disable_rewrite_meter(
+        self,
+        disable_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1581,9 +1606,10 @@ class Shuffler:
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1596,9 +1622,10 @@ class Shuffler:
         return self._boundary_depth
 
     @boundary_depth.setter
-    def boundary_depth(self,
-                       boundary_depth: Optional[int],
-                       ) -> None:
+    def boundary_depth(
+        self,
+        boundary_depth: Optional[int],
+    ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1612,9 +1639,10 @@ class Shuffler:
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
-    def maximum_dot_count(self,
-                          maximum_dot_count: Optional[int],
-                          ) -> None:
+    def maximum_dot_count(
+        self,
+        maximum_dot_count: Optional[int],
+    ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1628,9 +1656,10 @@ class Shuffler:
         return self._rewrite_tuplets
 
     @rewrite_tuplets.setter
-    def rewrite_tuplets(self,
-                        rewrite_tuplets: bool,
-                        ) -> None:
+    def rewrite_tuplets(
+        self,
+        rewrite_tuplets: bool,
+    ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1643,9 +1672,10 @@ class Shuffler:
         return self._prettify_rewrite_meter
 
     @prettify_rewrite_meter.setter
-    def prettify_rewrite_meter(self,
-                               prettify_rewrite_meter: bool,
-                               ) -> None:
+    def prettify_rewrite_meter(
+        self,
+        prettify_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1658,9 +1688,10 @@ class Shuffler:
         return self._extract_trivial_tuplets
 
     @extract_trivial_tuplets.setter
-    def extract_trivial_tuplets(self,
-                                extract_trivial_tuplets: bool,
-                                ) -> None:
+    def extract_trivial_tuplets(
+        self,
+        extract_trivial_tuplets: bool,
+    ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1673,9 +1704,10 @@ class Shuffler:
         return self._fuse_across_groups_of_beats
 
     @fuse_across_groups_of_beats.setter
-    def fuse_across_groups_of_beats(self,
-                                    fuse_across_groups_of_beats: bool,
-                                    ) -> None:
+    def fuse_across_groups_of_beats(
+        self,
+        fuse_across_groups_of_beats: bool,
+    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1688,9 +1720,10 @@ class Shuffler:
         return self._fuse_quadruple_meter
 
     @fuse_quadruple_meter.setter
-    def fuse_quadruple_meter(self,
-                             fuse_quadruple_meter: bool,
-                             ) -> None:
+    def fuse_quadruple_meter(
+        self,
+        fuse_quadruple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1703,9 +1736,10 @@ class Shuffler:
         return self._fuse_triple_meter
 
     @fuse_triple_meter.setter
-    def fuse_triple_meter(self,
-                          fuse_triple_meter: bool,
-                          ) -> None:
+    def fuse_triple_meter(
+        self,
+        fuse_triple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1718,9 +1752,10 @@ class Shuffler:
         return self._process_on_first_call
 
     @process_on_first_call.setter
-    def process_on_first_call(self,
-                              process_on_first_call: bool,
-                              ) -> None:
+    def process_on_first_call(
+        self,
+        process_on_first_call: bool,
+    ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -1735,15 +1770,15 @@ class Shuffler:
         return self._swap_limit
 
     @swap_limit.setter
-    def swap_limit(self,
-                   swap_limit: Optional[int],
-                   ) -> None:
+    def swap_limit(
+        self,
+        swap_limit: Optional[int],
+    ) -> None:
         if swap_limit is not None:
             if not isinstance(swap_limit, int):
                 raise TypeError("'swap_limit' must be 'int'")
             if swap_limit < 1:
-                raise ValueError("'swap_limit' must be equal to or greater "
-                                 "than 1")
+                raise ValueError("'swap_limit' must be equal to or greater than 1")
         self._swap_limit = swap_limit
 
     @property

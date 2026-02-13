@@ -1255,73 +1255,78 @@ class WindowLooper(_LooperParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_omit_time_signatures',
-                 '_fill_with_rests',
-                 '_contents_length',
-                 '_contents_no_time_signature',
-                 '_disable_rewrite_meter',
-                 '_boundary_depth',
-                 '_maximum_dot_count',
-                 '_rewrite_tuplets',
-                 '_prettify_rewrite_meter',
-                 '_extract_trivial_tuplets',
-                 '_fuse_across_groups_of_beats',
-                 '_fuse_quadruple_meter',
-                 '_fuse_triple_meter',
-                 '_after_rest',
-                 '_after_rest_in_new_measure',
-                 '_use_multimeasure_rests',
-                 )
+    __slots__ = (
+        "_omit_time_signatures",
+        "_fill_with_rests",
+        "_contents_length",
+        "_contents_no_time_signature",
+        "_disable_rewrite_meter",
+        "_boundary_depth",
+        "_maximum_dot_count",
+        "_rewrite_tuplets",
+        "_prettify_rewrite_meter",
+        "_extract_trivial_tuplets",
+        "_fuse_across_groups_of_beats",
+        "_fuse_quadruple_meter",
+        "_fuse_triple_meter",
+        "_after_rest",
+        "_after_rest_in_new_measure",
+        "_use_multimeasure_rests",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 window_size: Union[int,
-                                    float,
-                                    str,
-                                    tuple[int],
-                                    abjad.Duration,
-                                    abjad.Meter,
-                                    ],
-                 step_size: Union[int,
-                                  float,
-                                  str,
-                                  tuple[int],
-                                  abjad.Duration,
-                                  ],
-                 max_steps: int = 1,
-                 repetition_chance: float = 0.0,
-                 forward_bias: float = 1.0,
-                 head_position: Union[int,
-                                      float,
-                                      tuple[int],
-                                      abjad.Duration,
-                                      ] = 0,
-                 omit_time_signatures: bool = False,
-                 process_on_first_call: bool = False,
-                 fill_with_rests: bool = True,
-                 disable_rewrite_meter: bool = False,
-                 boundary_depth: Optional[int] = None,
-                 maximum_dot_count: Optional[int] = None,
-                 rewrite_tuplets: bool = True,
-                 prettify_rewrite_meter: bool = True,
-                 extract_trivial_tuplets: bool = True,
-                 fuse_across_groups_of_beats: bool = True,
-                 fuse_quadruple_meter: bool = True,
-                 fuse_triple_meter: bool = True,
-                 after_rest: Union[int,
-                                   float,
-                                   str,
-                                   tuple[int],
-                                   abjad.Duration,
-                                   abjad.Rest,
-                                   ] = 0,
-                 after_rest_in_new_measure: bool = False,
-                 use_multimeasure_rests: bool = True,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        window_size: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+            abjad.Meter,
+        ],
+        step_size: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+        ],
+        max_steps: int = 1,
+        repetition_chance: float = 0.0,
+        forward_bias: float = 1.0,
+        head_position: Union[
+            int,
+            float,
+            tuple[int],
+            abjad.Duration,
+        ] = 0,
+        omit_time_signatures: bool = False,
+        process_on_first_call: bool = False,
+        fill_with_rests: bool = True,
+        disable_rewrite_meter: bool = False,
+        boundary_depth: Optional[int] = None,
+        maximum_dot_count: Optional[int] = None,
+        rewrite_tuplets: bool = True,
+        prettify_rewrite_meter: bool = True,
+        extract_trivial_tuplets: bool = True,
+        fuse_across_groups_of_beats: bool = True,
+        fuse_quadruple_meter: bool = True,
+        fuse_triple_meter: bool = True,
+        after_rest: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+            abjad.Rest,
+        ] = 0,
+        after_rest_in_new_measure: bool = False,
+        use_multimeasure_rests: bool = True,
+    ) -> None:
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
         self.fill_with_rests = fill_with_rests
@@ -1337,14 +1342,15 @@ class WindowLooper(_LooperParent):
         self.after_rest = after_rest
         self.after_rest_in_new_measure = after_rest_in_new_measure
         self.use_multimeasure_rests = use_multimeasure_rests
-        super().__init__(head_position=head_position,
-                         window_size=window_size,
-                         step_size=step_size,
-                         max_steps=max_steps,
-                         repetition_chance=repetition_chance,
-                         forward_bias=forward_bias,
-                         process_on_first_call=process_on_first_call,
-                         )
+        super().__init__(
+            head_position=head_position,
+            window_size=window_size,
+            step_size=step_size,
+            max_steps=max_steps,
+            repetition_chance=repetition_chance,
+            forward_bias=forward_bias,
+            process_on_first_call=process_on_first_call,
+        )
 
     ### SPECIAL METHODS ###
 
@@ -1381,28 +1387,29 @@ class WindowLooper(_LooperParent):
         dummy_container = abjad.mutate.copy(self._contents_no_time_signature)
         # splitting leaves at both slicing points
         if head > abjad.Duration(0):
-            abjad.mutate.split(dummy_container[:],
-                               [head, window_size.duration],
-                               )
+            abjad.mutate.split(
+                dummy_container[:],
+                [head, window_size.duration],
+            )
         else:
             abjad.mutate.split(dummy_container[:], [window_size.duration])
         # finding start and end indeces for the window
         for start in range(len(dummy_container)):
-            if abjad.get.duration(dummy_container[:start + 1]) > head:
+            if abjad.get.duration(dummy_container[: start + 1]) > head:
                 break
         for end in range(start + 1, len(dummy_container)):
-            if (abjad.get.duration(dummy_container[start : end])
-                    == window_size.duration):
+            if abjad.get.duration(dummy_container[start:end]) == window_size.duration:
                 break
         else:
             end = len(dummy_container)
         self._notate_music(dummy_container, start, end)
 
-    def _notate_music(self,
-                      dummy_container: abjad.Container,
-                      start: int,
-                      end: int,
-                      ) -> None:
+    def _notate_music(
+        self,
+        dummy_container: abjad.Container,
+        start: int,
+        end: int,
+    ) -> None:
         r"""Handles the notation aspects of the looping window."""
         window_size = self._window_size
         # passing on indicators from the head of an initial splitted leaf
@@ -1415,12 +1422,14 @@ class WindowLooper(_LooperParent):
                     for indicator in abjad.get.indicators(
                         dummy_container[index],
                     ):
-                        if (not isinstance(indicator, (abjad.TimeSignature,
-                                                       abjad.Tie))
-                                and abjad.get.indicator(dummy_container[start],
-                                                        type(indicator),
-                                                        )
-                                is None):
+                        if (
+                            not isinstance(indicator, (abjad.TimeSignature, abjad.Tie))
+                            and abjad.get.indicator(
+                                dummy_container[start],
+                                type(indicator),
+                            )
+                            is None
+                        ):
                             abjad.attach(indicator, dummy_container[start])
         # removing ties generated by the split mutation
         abjad.detach(abjad.Tie, dummy_container[start - 1])
@@ -1428,48 +1437,53 @@ class WindowLooper(_LooperParent):
         # handling initial dynamics and slurs
         start_head = abjad.select(dummy_container[start:]).logical_tie(0)[0]
         start_tail = abjad.select(dummy_container[start:]).logical_tie(0)[-1]
-        if (abjad.get.indicator(start_head, abjad.StartSlur) is None
-                and abjad.get.indicator(start_tail, abjad.StopSlur)
-                is None):
-            for leaf in dummy_container[start - 1::-1].leaves():
+        if (
+            abjad.get.indicator(start_head, abjad.StartSlur) is None
+            and abjad.get.indicator(start_tail, abjad.StopSlur) is None
+        ):
+            for leaf in dummy_container[start - 1 :: -1].leaves():
                 if abjad.get.indicator(leaf, abjad.StartSlur) is not None:
                     abjad.attach(abjad.StartSlur(), start_head)
                     break
                 elif abjad.get.indicator(leaf, abjad.StopSlur) is not None:
                     break
-        if (abjad.get.indicator(start_head, abjad.Dynamic) is None
-                and not isinstance(start_head, (abjad.Rest,
-                                                abjad.MultimeasureRest,
-                                                ))):
-            for leaf in dummy_container[start - 1::-1].leaves():
+        if abjad.get.indicator(start_head, abjad.Dynamic) is None and not isinstance(
+            start_head,
+            (
+                abjad.Rest,
+                abjad.MultimeasureRest,
+            ),
+        ):
+            for leaf in dummy_container[start - 1 :: -1].leaves():
                 dynamic = abjad.get.indicator(leaf, abjad.Dynamic)
                 if dynamic is not None:
                     abjad.attach(dynamic, start_head)
                     break
         # appending rests if necessary
-        contents_dur = abjad.get.duration(dummy_container[start : end])
+        contents_dur = abjad.get.duration(dummy_container[start:end])
         if contents_dur < window_size.duration:
             missing_dur = window_size.duration - contents_dur
             rests = abjad.LeafMaker()(None, missing_dur)
             dummy_container.extend(rests)
             end += len(rests)
         # transforming abjad.Selection -> abjad.Container for rewrite_meter
-        dummy_container = abjad.Container(
-            abjad.mutate.copy(dummy_container[start : end])
-        )
+        dummy_container = abjad.Container(abjad.mutate.copy(dummy_container[start:end]))
         # handling after rests and time signatures
         time_signature_duration = window_size.duration
         if self._after_rest > 0:
-            if (self._after_rest_in_new_measure
-                    and self._use_multimeasure_rests
-                    and not self._omit_time_signatures):
+            if (
+                self._after_rest_in_new_measure
+                and self._use_multimeasure_rests
+                and not self._omit_time_signatures
+            ):
                 if self._after_rest == 1:
                     multiplier = None
                 else:
                     multiplier = abjad.Multiplier(self._after_rest)
-                rest = abjad.MultimeasureRest((4, 4),
-                                              multiplier=multiplier,
-                                              )
+                rest = abjad.MultimeasureRest(
+                    (4, 4),
+                    multiplier=multiplier,
+                )
             else:
                 rest = abjad.LeafMaker()([None], [self._after_rest])
             if not self._after_rest_in_new_measure:
@@ -1512,12 +1526,12 @@ class WindowLooper(_LooperParent):
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or "
-                            "child class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -1537,26 +1551,27 @@ class WindowLooper(_LooperParent):
         return self._head_position
 
     @head_position.setter
-    def head_position(self,
-                      head_position: Union[int,
-                                           float,
-                                           str,
-                                           tuple[int],
-                                           abjad.Duration,
-                                           ],
-                      ) -> None:
+    def head_position(
+        self,
+        head_position: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+        ],
+    ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
-        if not isinstance(head_position,
-                          (abjad.Duration, str, tuple, int, float),
-                          ):
-            raise TypeError("'head_position' must be 'abjad.Duration', 'str', "
-                            "'tuple', or a number")
+        if not isinstance(
+            head_position,
+            (abjad.Duration, str, tuple, int, float),
+        ):
+            raise TypeError("'head_position' must be 'abjad.Duration', 'str', 'tuple', or a number")
         if abjad.Duration(head_position) >= self._contents_length:
-            raise ValueError("'head_position' must be smaller than the "
-                             "length of 'contents'")
+            raise ValueError("'head_position' must be smaller than the length of 'contents'")
         self._is_first_window = True
         self._head_position = abjad.Duration(head_position)
 
@@ -1566,31 +1581,38 @@ class WindowLooper(_LooperParent):
         return self._window_size
 
     @window_size.setter
-    def window_size(self,
-                    window_size: Union[int,
-                                       float,
-                                       str,
-                                       tuple[int],
-                                       abjad.Duration,
-                                       abjad.Meter,
-                                       ],
-                    ) -> None:
+    def window_size(
+        self,
+        window_size: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+            abjad.Meter,
+        ],
+    ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Meter|.
         """
-        if not isinstance(window_size, (int,
-                                        float,
-                                        tuple,
-                                        abjad.Duration,
-                                        abjad.Meter,
-                                        )):
-            raise TypeError("'window_size' must be a number, 'tuple', "
-                            "'abjad.Duration', or 'abjad.Meter'")
-        if (abjad.Meter(window_size).duration
-                > self._contents_length - self._head_position):
-            raise ValueError("'window_size' must be smaller than or equal "
-                             "to the length of 'contents'")
+        if not isinstance(
+            window_size,
+            (
+                int,
+                float,
+                tuple,
+                abjad.Duration,
+                abjad.Meter,
+            ),
+        ):
+            raise TypeError(
+                "'window_size' must be a number, 'tuple', 'abjad.Duration', or 'abjad.Meter'"
+            )
+        if abjad.Meter(window_size).duration > self._contents_length - self._head_position:
+            raise ValueError(
+                "'window_size' must be smaller than or equal to the length of 'contents'"
+            )
         self._window_size = abjad.Meter(window_size)
 
     @property
@@ -1599,20 +1621,21 @@ class WindowLooper(_LooperParent):
         return self._step_size
 
     @step_size.setter
-    def step_size(self,
-                  step_size: Union[int,
-                                   float,
-                                   tuple[int],
-                                   abjad.Duration,
-                                   ],
-                  ) -> None:
+    def step_size(
+        self,
+        step_size: Union[
+            int,
+            float,
+            tuple[int],
+            abjad.Duration,
+        ],
+    ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
         if not isinstance(step_size, (abjad.Duration, str, tuple, int, float)):
-            raise TypeError("'step_size' must be 'abjad.Duration', 'str', "
-                            "'tuple', or a number")
+            raise TypeError("'step_size' must be 'abjad.Duration', 'str', 'tuple', or a number")
         self._step_size = abjad.Duration(step_size)
 
     @property
@@ -1621,9 +1644,10 @@ class WindowLooper(_LooperParent):
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1637,9 +1661,10 @@ class WindowLooper(_LooperParent):
         return self._disable_rewrite_meter
 
     @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ) -> None:
+    def disable_rewrite_meter(
+        self,
+        disable_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1650,9 +1675,10 @@ class WindowLooper(_LooperParent):
         return self._fill_with_rests
 
     @fill_with_rests.setter
-    def fill_with_rests(self,
-                        fill_with_rests: bool,
-                        ) -> None:
+    def fill_with_rests(
+        self,
+        fill_with_rests: bool,
+    ) -> None:
         if not isinstance(fill_with_rests, bool):
             raise TypeError("'fill_with_rests' must be 'bool'")
         self._fill_with_rests = fill_with_rests
@@ -1665,9 +1691,10 @@ class WindowLooper(_LooperParent):
         return self._boundary_depth
 
     @boundary_depth.setter
-    def boundary_depth(self,
-                       boundary_depth: Optional[int],
-                       ) -> None:
+    def boundary_depth(
+        self,
+        boundary_depth: Optional[int],
+    ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1681,9 +1708,10 @@ class WindowLooper(_LooperParent):
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
-    def maximum_dot_count(self,
-                          maximum_dot_count: Optional[int],
-                          ) -> None:
+    def maximum_dot_count(
+        self,
+        maximum_dot_count: Optional[int],
+    ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1697,9 +1725,10 @@ class WindowLooper(_LooperParent):
         return self._rewrite_tuplets
 
     @rewrite_tuplets.setter
-    def rewrite_tuplets(self,
-                        rewrite_tuplets: bool,
-                        ) -> None:
+    def rewrite_tuplets(
+        self,
+        rewrite_tuplets: bool,
+    ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1712,9 +1741,10 @@ class WindowLooper(_LooperParent):
         return self._prettify_rewrite_meter
 
     @prettify_rewrite_meter.setter
-    def prettify_rewrite_meter(self,
-                               prettify_rewrite_meter: bool,
-                               ) -> None:
+    def prettify_rewrite_meter(
+        self,
+        prettify_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1727,9 +1757,10 @@ class WindowLooper(_LooperParent):
         return self._extract_trivial_tuplets
 
     @extract_trivial_tuplets.setter
-    def extract_trivial_tuplets(self,
-                                extract_trivial_tuplets: bool,
-                                ) -> None:
+    def extract_trivial_tuplets(
+        self,
+        extract_trivial_tuplets: bool,
+    ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1742,9 +1773,10 @@ class WindowLooper(_LooperParent):
         return self._fuse_across_groups_of_beats
 
     @fuse_across_groups_of_beats.setter
-    def fuse_across_groups_of_beats(self,
-                                    fuse_across_groups_of_beats: bool,
-                                    ) -> None:
+    def fuse_across_groups_of_beats(
+        self,
+        fuse_across_groups_of_beats: bool,
+    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1757,9 +1789,10 @@ class WindowLooper(_LooperParent):
         return self._fuse_quadruple_meter
 
     @fuse_quadruple_meter.setter
-    def fuse_quadruple_meter(self,
-                             fuse_quadruple_meter: bool,
-                             ) -> None:
+    def fuse_quadruple_meter(
+        self,
+        fuse_quadruple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1772,9 +1805,10 @@ class WindowLooper(_LooperParent):
         return self._fuse_triple_meter
 
     @fuse_triple_meter.setter
-    def fuse_triple_meter(self,
-                          fuse_triple_meter: bool,
-                          ) -> None:
+    def fuse_triple_meter(
+        self,
+        fuse_triple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1787,20 +1821,25 @@ class WindowLooper(_LooperParent):
         return self._after_rest
 
     @after_rest.setter
-    def after_rest(self,
-                   after_rest: Union[int,
-                                     float,
-                                     str,
-                                     tuple[int],
-                                     abjad.Duration,
-                                     abjad.Rest,
-                                     ],
-                   ) -> None:
-        if not isinstance(after_rest,
-                          (abjad.Duration, abjad.Rest, str, tuple, int, float),
-                          ):
-            raise TypeError("'after_rest' must be 'abjad.Duration', "
-                            "'abjad.Rest', 'str', 'tuple', or a number")
+    def after_rest(
+        self,
+        after_rest: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+            abjad.Rest,
+        ],
+    ) -> None:
+        if not isinstance(
+            after_rest,
+            (abjad.Duration, abjad.Rest, str, tuple, int, float),
+        ):
+            raise TypeError(
+                "'after_rest' must be 'abjad.Duration', "
+                "'abjad.Rest', 'str', 'tuple', or a number"
+            )
         if isinstance(after_rest, abjad.Rest):
             after_rest = abjad.get.duration(after_rest)
         self._after_rest = abjad.Duration(after_rest)
@@ -1813,9 +1852,10 @@ class WindowLooper(_LooperParent):
         return self._after_rest_in_new_measure
 
     @after_rest_in_new_measure.setter
-    def after_rest_in_new_measure(self,
-                                  after_rest_in_new_measure: bool,
-                                  ) -> None:
+    def after_rest_in_new_measure(
+        self,
+        after_rest_in_new_measure: bool,
+    ) -> None:
         if not isinstance(after_rest_in_new_measure, bool):
             raise TypeError("'after_rest_in_new_measure' must be 'bool'")
         self._after_rest_in_new_measure = after_rest_in_new_measure
@@ -1828,9 +1868,10 @@ class WindowLooper(_LooperParent):
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter
-    def use_multimeasure_rests(self,
-                               use_multimeasure_rests: bool,
-                               ) -> None:
+    def use_multimeasure_rests(
+        self,
+        use_multimeasure_rests: bool,
+    ) -> None:
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1846,8 +1887,9 @@ class WindowLooper(_LooperParent):
         uses the number of indeces of :attr:`contents`.
         """
         if self._fill_with_rests:
-            return (self._head_position >= self._contents_length
-                    or self._head_position < 0)
+            return self._head_position >= self._contents_length or self._head_position < 0
         else:
-            return (self._head_position >= self._contents_length
-                    - self._head_position or self._head_position < 0)
+            return (
+                self._head_position >= self._contents_length - self._head_position
+                or self._head_position < 0
+            )

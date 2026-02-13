@@ -1,6 +1,11 @@
 .PHONY: build clean docs-html docs-release flake8 pydocstyle release-webpage \
 	isort-check isort-reformat pytest reformat release check test
 
+flake_ignore = --ignore=E203,E266,E501,W503
+flake_exclude = --exclude=.venv,./sandbox.py,./docs/conf.py
+
+pydocstyle_select = --select=D101,D102,D103,D105,D300,D301
+
 build:
 	python3 -m build
 
@@ -18,16 +23,17 @@ docs-html:
 docs-release:
 	make -C docs/ release
 
-flake_ignore = --ignore=E203,E266,W503
-flake_exclude = --exclude=.venv,./sandbox.py,./docs/conf.py
+black-check:
+	python3 -m black -l 100 . --check
+
+black-reformat:
+	python3 -m black -l 100 .
 
 flake8:
 	python3 -m flake8 ${flake_ignore} ${flake_exclude}
 
-pydocstyle_select = --select=D101,D102,D103,D105,D107,D300,D301
-
 pydocstyle:
-	python3 -m pydocstyle ${pydocstyle_select}
+	python3 -m pydocstyle ${pydocstyle_select} ./src
 
 release-webpage:
 	rm -Rf auxjad-docs/
@@ -73,6 +79,7 @@ pytest:
 	python3 -m pytest
 
 reformat:
+	make black-reformat
 	make isort-reformat
 
 release:
@@ -85,11 +92,11 @@ release:
 	make release-webpage
 
 check:
+	make black-check
 	make flake8
 	make isort-check
+	make pydocstyle
 
 test:
-	make flake8
-	make pydocstyle
-	make isort-check
+	make check
 	make pytest

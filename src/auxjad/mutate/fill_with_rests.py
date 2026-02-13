@@ -8,19 +8,20 @@ from .prettify_rewrite_meter import (
 )
 
 
-def fill_with_rests(container: abjad.Container,
-                    *,
-                    disable_rewrite_meter: bool = False,
-                    prettify_rewrite_meter: bool = True,
-                    boundary_depth: Optional[int] = None,
-                    maximum_dot_count: Optional[int] = None,
-                    rewrite_tuplets: bool = True,
-                    extract_trivial_tuplets: bool = True,
-                    fuse_across_groups_of_beats: bool = True,
-                    fuse_quadruple_meter: bool = True,
-                    fuse_triple_meter: bool = True,
-                    split_quadruple_meter: bool = True,
-                    ) -> None:
+def fill_with_rests(
+    container: abjad.Container,
+    *,
+    disable_rewrite_meter: bool = False,
+    prettify_rewrite_meter: bool = True,
+    boundary_depth: Optional[int] = None,
+    maximum_dot_count: Optional[int] = None,
+    rewrite_tuplets: bool = True,
+    extract_trivial_tuplets: bool = True,
+    fuse_across_groups_of_beats: bool = True,
+    fuse_quadruple_meter: bool = True,
+    fuse_triple_meter: bool = True,
+    split_quadruple_meter: bool = True,
+) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function fills a container with
     rests in order to make it full.
@@ -308,8 +309,10 @@ def fill_with_rests(container: abjad.Container,
         else:
             return
     except ValueError as err:
-        raise ValueError("'container' is malformed, with an underfull measure "
-                         "preceding a time signature change") from err
+        raise ValueError(
+            "'container' is malformed, with an underfull measure "
+            "preceding a time signature change"
+        ) from err
     if not disable_rewrite_meter:
         time_signatures = get.time_signature_list(
             container,

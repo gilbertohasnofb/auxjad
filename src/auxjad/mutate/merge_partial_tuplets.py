@@ -1,10 +1,11 @@
 import abjad
 
 
-def merge_partial_tuplets(selection: abjad.Selection,
-                          *,
-                          merge_across_barlines: bool = False,
-                          ) -> None:
+def merge_partial_tuplets(
+    selection: abjad.Selection,
+    *,
+    merge_across_barlines: bool = False,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function merges all consecutive partial tuplets with the same ratio
     and which sum up to an assignable duration. Partial tuplets can result from
@@ -353,18 +354,17 @@ def merge_partial_tuplets(selection: abjad.Selection,
     def _process_tuplets(tuplets):
         for index in range(len(tuplets[:-1])):
             for upper_index in range(index, len(tuplets)):
-                if (tuplets[index].multiplier
-                        == tuplets[upper_index].multiplier):
-                    tuplet_group = tuplets[index:upper_index + 1]
+                if tuplets[index].multiplier == tuplets[upper_index].multiplier:
+                    tuplet_group = tuplets[index : upper_index + 1]
                 else:
                     break
                 if tuplet_group.are_contiguous_logical_voice():
-                    durations = [abjad.get.duration(tuplet)
-                                 for tuplet in tuplet_group]
+                    durations = [abjad.get.duration(tuplet) for tuplet in tuplet_group]
                     sum_durations = sum(durations)
-                    if (all(duration.implied_prolation != 1
-                            for duration in durations)
-                            and sum_durations.implied_prolation == 1):
+                    if (
+                        all(duration.implied_prolation != 1 for duration in durations)
+                        and sum_durations.implied_prolation == 1
+                    ):
                         for tuplet in tuplet_group[1:]:
                             tuplet_group[0].extend(tuplet)
                             abjad.mutate.extract(tuplet)

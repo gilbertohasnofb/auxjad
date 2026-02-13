@@ -2,7 +2,7 @@ import random
 from typing import Any, Optional, Union
 
 
-class TenneySelector():
+class TenneySelector:
     r"""An implementation of the Dissonant Counterpoint Algorithm by James
     Tenney. This class can be used to randomly select elements from an input
     :obj:`list`, giving more weight to elements which have not been selected in
@@ -358,35 +358,33 @@ class TenneySelector():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_weights',
-                 '_curvature',
-                 '_counter',
-                 '_previous_index',
-                 '_probabilities',
-                 )
+    __slots__ = (
+        "_contents",
+        "_weights",
+        "_curvature",
+        "_counter",
+        "_previous_index",
+        "_probabilities",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: list[Any],
-                 *,
-                 weights: Optional[list] = None,
-                 curvature: float = 1.0,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        contents: list[Any],
+        *,
+        weights: Optional[list] = None,
+        curvature: float = 1.0,
+    ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
             if not len(contents) == len(weights):
-                raise ValueError("'weights' must have the same length "
-                                 "as 'contents'")
-            if not all(isinstance(weight, (int, float))
-                       for weight in weights):
-                raise TypeError("'weights' elements must be "
-                                "'int' or 'float'")
+                raise ValueError("'weights' must have the same length as 'contents'")
+            if not all(isinstance(weight, (int, float)) for weight in weights):
+                raise TypeError("'weights' elements must be 'int' or 'float'")
         if not isinstance(curvature, float):
             raise TypeError("'curvature' must be 'float'")
         if curvature < 0.0:
@@ -432,18 +430,20 @@ class TenneySelector():
         """
         return self.__call__()
 
-    def __getitem__(self,
-                    key: int,
-                    ) -> Any:
+    def __getitem__(
+        self,
+        key: int,
+    ) -> Any:
         r"""Returns one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         return self._contents[key]
 
-    def __setitem__(self,
-                    key: int,
-                    value: Any,
-                    ) -> None:
+    def __setitem__(
+        self,
+        key: int,
+        value: Any,
+    ) -> None:
         r"""Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
@@ -453,9 +453,10 @@ class TenneySelector():
         if length_before_set != self.__len__():
             self.weights = None
 
-    def __delitem__(self,
-                    key: int,
-                    ) -> None:
+    def __delitem__(
+        self,
+        key: int,
+    ) -> None:
         r"""Deletes one or more elements of :attr:`contents` through indexing
         or slicing.
         """
@@ -485,10 +486,11 @@ class TenneySelector():
             else:
                 self._counter[i] += 1
 
-    def _generate_probabilities(self,
-                                *,
-                                reset: bool = False,
-                                ) -> None:
+    def _generate_probabilities(
+        self,
+        *,
+        reset: bool = False,
+    ) -> None:
         r"""Generates the probabilities given the weights of the elements as
         well as their count numbers (which are fed into the growth function).
         """
@@ -500,11 +502,12 @@ class TenneySelector():
         for weight, count in zip(self._weights, self._counter):
             self._probabilities.append(weight * self._growth_function(count))
 
-    def _growth_function(self,
-                         count: int,
-                         ) -> float:
+    def _growth_function(
+        self,
+        count: int,
+    ) -> float:
         r"""Applies the growth exponent given a number of counts."""
-        return count ** self._curvature
+        return count**self._curvature
 
     ### PUBLIC PROPERTIES ###
 
@@ -514,9 +517,10 @@ class TenneySelector():
         return self._contents
 
     @contents.setter
-    def contents(self,
-                 contents: list[Any],
-                 ) -> None:
+    def contents(
+        self,
+        contents: list[Any],
+    ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
@@ -531,17 +535,18 @@ class TenneySelector():
         return self._weights
 
     @weights.setter
-    def weights(self,
-                weights: Optional[list[Union[float, int]]],
-                ) -> None:
+    def weights(
+        self,
+        weights: Optional[list[Union[float, int]]],
+    ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
             if not self.__len__() == len(weights):
-                raise ValueError("'weights' must have the same length as the "
-                                 "contents of the object")
-            if not all(isinstance(weight, (int, float))
-                       for weight in weights):
+                raise ValueError(
+                    "'weights' must have the same length as the contents of the object"
+                )
+            if not all(isinstance(weight, (int, float)) for weight in weights):
                 raise TypeError("'weights' elements must be 'int' or 'float'")
             self._weights = weights[:]
         else:
@@ -554,9 +559,10 @@ class TenneySelector():
         return self._curvature
 
     @curvature.setter
-    def curvature(self,
-                  curvature: float,
-                  ) -> None:
+    def curvature(
+        self,
+        curvature: float,
+    ) -> None:
         if not isinstance(curvature, float):
             raise TypeError("'curvature' must be 'float'")
         if curvature < 0.0:

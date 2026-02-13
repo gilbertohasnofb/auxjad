@@ -9,8 +9,7 @@ import auxjad
 def test_LeafLooper_01():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     looper = auxjad.LeafLooper(container, window_size=3)
-    assert abjad.lilypond(looper) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(looper) == abjad.String.normalize(r"""
         {
             c'4
             d'2
@@ -20,12 +19,10 @@ def test_LeafLooper_01():
             f'8
             g'4.
         }
-        """
-    )
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 4/4
@@ -33,12 +30,10 @@ def test_LeafLooper_01():
             d'2
             e'4
         }
-        """
-    )
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 11/8
@@ -50,12 +45,10 @@ def test_LeafLooper_01():
             ~
             f'2
         }
-        """
-    )
+        """)
     notes = looper.current_window
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 11/8
@@ -67,26 +60,26 @@ def test_LeafLooper_01():
             ~
             f'2
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_02():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               step_size=1,
-                               max_steps=2,
-                               repetition_chance=0.25,
-                               forward_bias=0.2,
-                               head_position=0,
-                               end_with_max_n_leaves=True,
-                               omit_time_signatures=False,
-                               process_on_first_call=True,
-                               after_rest=(1, 8),
-                               after_rest_in_new_measure=True,
-                               use_multimeasure_rests=False,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        step_size=1,
+        max_steps=2,
+        repetition_chance=0.25,
+        forward_bias=0.2,
+        head_position=0,
+        end_with_max_n_leaves=True,
+        omit_time_signatures=False,
+        process_on_first_call=True,
+        after_rest=(1, 8),
+        after_rest_in_new_measure=True,
+        use_multimeasure_rests=False,
+    )
     assert looper.window_size == 3
     assert looper.step_size == 1
     assert looper.max_steps == 2
@@ -148,8 +141,7 @@ def test_LeafLooper_05():
     looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -162,8 +154,7 @@ def test_LeafLooper_05():
             \time 1/4
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_06():
@@ -171,8 +162,7 @@ def test_LeafLooper_06():
     looper = auxjad.LeafLooper(container, window_size=3)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/8
@@ -182,13 +172,11 @@ def test_LeafLooper_06():
             d'8
             e'8
         }
-        """
-    )
+        """)
     looper.window_size = 4
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 9/8
@@ -197,20 +185,19 @@ def test_LeafLooper_06():
             f'4
             g'2
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_07():
     container = abjad.Container(r"c'4 d'16 e'8 f'2 g'8")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               head_position=2,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        head_position=2,
+    )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -220,8 +207,7 @@ def test_LeafLooper_07():
             f'4.
             g'8
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_08():
@@ -229,8 +215,7 @@ def test_LeafLooper_08():
     looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/8
@@ -258,8 +243,7 @@ def test_LeafLooper_08():
                 g2
             }
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_09():
@@ -267,148 +251,155 @@ def test_LeafLooper_09():
     looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
             c'4
             d'2
         }
-        """
-    )
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/8
             d'2
             e'8
         }
-        """
-    )
+        """)
     notes = looper.__next__()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 1/8
             e'8
         }
-        """
-    )
+        """)
     with pytest.raises(StopIteration):
         notes = looper.__next__()  # noqa: F841
 
 
 def test_LeafLooper_10():
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               omit_time_signatures=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        omit_time_signatures=True,
+    )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
             d'2
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_11():
-    wrong_type_input = 'foo'
+    wrong_type_input = "foo"
     container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(wrong_type_input,  # noqa: F841
-                                   window_size=3,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            wrong_type_input,
+            window_size=3,
+        )
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size='foobar',
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size="foobar",
+        )
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   step_size='foobar',
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            step_size="foobar",
+        )
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   max_steps='foobar',
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            max_steps="foobar",
+        )
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   repetition_chance='foobar',
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            repetition_chance="foobar",
+        )
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   head_position='foobar',
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            head_position="foobar",
+        )
     with pytest.raises(TypeError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   omit_time_signatures='foobar',
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            omit_time_signatures="foobar",
+        )
     with pytest.raises(ValueError):
         looper = auxjad.LeafLooper(container, window_size=100)  # noqa: F841
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   step_size=-1,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            step_size=-1,
+        )
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   step_size=100,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            step_size=100,
+        )
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   max_steps=-1,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            max_steps=-1,
+        )
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   repetition_chance=-0.3,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            repetition_chance=-0.3,
+        )
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   repetition_chance=1.4,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            repetition_chance=1.4,
+        )
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   head_position=-1,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            head_position=-1,
+        )
     with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(container,  # noqa: F841
-                                   window_size=3,
-                                   head_position=100,
-                                   )
+        looper = auxjad.LeafLooper(  # noqa: F841
+            container,
+            window_size=3,
+            head_position=100,
+        )
 
 
 def test_LeafLooper_12():
     container = abjad.Container(r"c'4 d'2 r8 d'4 <e' g'>8 r4 f'2. <e' g'>16")
-    looper = auxjad.LeafLooper(container,
-                               window_size=4,
-                               disable_rewrite_meter=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=4,
+        disable_rewrite_meter=True,
+    )
     notes = looper.output_all(tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 9/8
@@ -448,8 +439,7 @@ def test_LeafLooper_12():
             \time 1/16
             <e' g'>16
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_13():
@@ -457,8 +447,7 @@ def test_LeafLooper_13():
     looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_n(2)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -467,8 +456,7 @@ def test_LeafLooper_13():
             d'4
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_14():
@@ -476,8 +464,7 @@ def test_LeafLooper_14():
     looper = auxjad.LeafLooper(container, window_size=2)
     notes = looper.output_n(2, tie_identical_pitches=True)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -487,8 +474,7 @@ def test_LeafLooper_14():
             d'4
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_15():
@@ -500,15 +486,15 @@ def test_LeafLooper_15():
 
 def test_LeafLooper_16():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               head_position=2,
-                               forward_bias=0.0,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        head_position=2,
+        forward_bias=0.0,
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -519,41 +505,39 @@ def test_LeafLooper_16():
             c'4
             d'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_17():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               head_position=0,
-                               forward_bias=0.0,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        head_position=0,
+        forward_bias=0.0,
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
             c'4
             d'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_18():
     container = abjad.Container(r"c'4 d'8 e'2 f'8 g'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               process_on_first_call=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        process_on_first_call=True,
+    )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -563,19 +547,18 @@ def test_LeafLooper_18():
             e'4.
             f'8
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_19():
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+    )
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -583,12 +566,10 @@ def test_LeafLooper_19():
             d'4
             e'4
         }
-        """
-    )
+        """)
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -596,13 +577,11 @@ def test_LeafLooper_19():
             e'4
             f'4
         }
-        """
-    )
+        """)
     looper.contents = abjad.Container(r"cs'''4 ds'''4 es'''4 fs'''4")
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -610,13 +589,11 @@ def test_LeafLooper_19():
             es'''4
             fs'''4
         }
-        """
-    )
+        """)
     looper.head_position = 0
     notes = looper()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -624,22 +601,21 @@ def test_LeafLooper_19():
             ds'''4
             es'''4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_20():
     random.seed(15231)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               head_position=3,
-                               forward_bias=0.5,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        head_position=3,
+        forward_bias=0.5,
+    )
     notes = looper.output_n(5)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -659,21 +635,20 @@ def test_LeafLooper_20():
             e'4
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_21():
     random.seed(55126)
     container = abjad.Container(r"c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4 d''4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               max_steps=4,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        max_steps=4,
+    )
     notes = looper.output_n(4)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -686,20 +661,19 @@ def test_LeafLooper_21():
             c''4
             d''4
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_22():
     container = abjad.Container(r"c'4 d'2 e'8 f'2")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+    )
     staff = abjad.Staff()
     for window in looper:
         staff.append(window)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -714,11 +688,9 @@ def test_LeafLooper_22():
             \time 2/4
             f'2
         }
-        """
-    )
+        """)
     auxjad.mutate.remove_repeated_time_signatures(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -732,15 +704,14 @@ def test_LeafLooper_22():
             \time 2/4
             f'2
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_23():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LeafLooper(container, window_size=2)
     assert isinstance(looper(), abjad.Selection)
-    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    tuplet = abjad.Tuplet("3:2", r"c'2 d'2 e'2")
     looper = auxjad.LeafLooper(tuplet, window_size=2)
     assert isinstance(looper(), abjad.Selection)
     voice = abjad.Voice(r"c'4 d'4 e'4 f'4")
@@ -776,14 +747,14 @@ def test_LeafLooper_23():
 
 def test_LeafLooper_24():
     container = abjad.Container(r"c'4\p( d'2 e'4\f) f'2( ~ f'8 g'4 a'1\pp)")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               disable_rewrite_meter=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        disable_rewrite_meter=True,
+    )
     notes = looper.output_n(5)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 4/4
@@ -829,19 +800,18 @@ def test_LeafLooper_24():
             \pp
             )
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_25():
     container = abjad.Container(r"c'16 d'4 e'8. f'4 g'16")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+    )
     notes = looper.output_n(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -861,16 +831,15 @@ def test_LeafLooper_25():
             f'8.
             g'16
         }
-        """
+        """)
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        disable_rewrite_meter=True,
     )
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               disable_rewrite_meter=True,
-                               )
     notes = looper.output_n(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -886,8 +855,7 @@ def test_LeafLooper_25():
             f'4
             g'16
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_26():
@@ -895,8 +863,7 @@ def test_LeafLooper_26():
     looper = auxjad.LeafLooper(container, window_size=3)
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 7/8
@@ -913,17 +880,16 @@ def test_LeafLooper_26():
             \time 1/8
             f'8
         }
-        """
-    )
+        """)
     container = abjad.Container(r"c'4 d'4. e'4 f'8")
-    looper = auxjad.LeafLooper(container,
-                               window_size=3,
-                               end_with_max_n_leaves=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=3,
+        end_with_max_n_leaves=True,
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 7/8
@@ -935,20 +901,19 @@ def test_LeafLooper_26():
             e'4
             f'8
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_27():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               after_rest=(1, 8),
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        after_rest=(1, 8),
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/8
@@ -971,21 +936,20 @@ def test_LeafLooper_27():
             f'4
             r8
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_28():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               after_rest=(1, 8),
-                               after_rest_in_new_measure=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        after_rest=(1, 8),
+        after_rest_in_new_measure=True,
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -1008,22 +972,21 @@ def test_LeafLooper_28():
             \time 1/8
             R1 * 1/8
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_29():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               after_rest=(1, 8),
-                               after_rest_in_new_measure=True,
-                               use_multimeasure_rests=False,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        after_rest=(1, 8),
+        after_rest_in_new_measure=True,
+        use_multimeasure_rests=False,
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -1046,23 +1009,22 @@ def test_LeafLooper_29():
             \time 1/8
             r8
         }
-        """
-    )
+        """)
 
 
 def test_LeafLooper_30():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    looper = auxjad.LeafLooper(container,
-                               window_size=2,
-                               after_rest=(1, 8),
-                               after_rest_in_new_measure=True,
-                               use_multimeasure_rests=True,
-                               omit_time_signatures=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=2,
+        after_rest=(1, 8),
+        after_rest_in_new_measure=True,
+        use_multimeasure_rests=True,
+        omit_time_signatures=True,
+    )
     notes = looper.output_all()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -1077,5 +1039,4 @@ def test_LeafLooper_30():
             f'4
             r8
         }
-        """
-    )
+        """)

@@ -24,7 +24,7 @@ If you are using virtual environments, simply use::
 
     ~$ pip install auxjad
 
-Auxjad requires `Python 3.9`_ and `LilyPond 2.24`_ or later, as well as 
+Auxjad requires `Python 3.10`_ and `LilyPond 2.24`_ or later, as well as 
 `Abjad 3.4`_. Please note that Auxjad is **not compatible** with newever
 versions of Abjad.
 
@@ -47,6 +47,6 @@ versions of Abjad.
 .. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
 .. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
 .. _pip: https://pip.pypa.io/en/stable/
-.. _`Python 3.9`: https://www.python.org/
+.. _`Python 3.10`: https://www.python.org/
 .. _`Abjad 3.4`: https://abjad.github.io/
 .. _`LilyPond 2.24`: http://lilypond.org/

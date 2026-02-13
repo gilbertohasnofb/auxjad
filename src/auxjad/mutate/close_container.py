@@ -254,5 +254,7 @@ def close_container(container: abjad.Container) -> None:
                     abjad.attach(final_bar_time_signature, leaf)
                     break
     except ValueError as err:
-        raise ValueError("'container' is malformed, with an underfull measure "
-                         "preceding a time signature change") from err
+        raise ValueError(
+            "'container' is malformed, with an underfull measure "
+            "preceding a time signature change"
+        ) from err

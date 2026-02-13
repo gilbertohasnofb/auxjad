@@ -7,7 +7,7 @@ from .. import get, mutate
 from ..score.ArtificialHarmonic import ArtificialHarmonic
 
 
-class Fader():
+class Fader:
     r"""Takes an |abjad.Container| (or child class) as input and, using it as
     reference, gradually removes or adds notes one by one to an output
     |abjad.Selection|.
@@ -1411,53 +1411,54 @@ class Fader():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_current_window',
-                 '_mode',
-                 '_max_steps',
-                 '_disable_rewrite_meter',
-                 '_mask',
-                 '_is_first_window',
-                 '_time_signatures',
-                 '_omit_time_signatures',
-                 '_use_multimeasure_rests',
-                 '_boundary_depth',
-                 '_maximum_dot_count',
-                 '_rewrite_tuplets',
-                 '_process_on_first_call',
-                 '_include_empty_measures',
-                 '_repetition_chance',
-                 '_prettify_rewrite_meter',
-                 '_extract_trivial_tuplets',
-                 '_fuse_across_groups_of_beats',
-                 '_fuse_quadruple_meter',
-                 '_fuse_triple_meter',
-                 )
+    __slots__ = (
+        "_contents",
+        "_current_window",
+        "_mode",
+        "_max_steps",
+        "_disable_rewrite_meter",
+        "_mask",
+        "_is_first_window",
+        "_time_signatures",
+        "_omit_time_signatures",
+        "_use_multimeasure_rests",
+        "_boundary_depth",
+        "_maximum_dot_count",
+        "_rewrite_tuplets",
+        "_process_on_first_call",
+        "_include_empty_measures",
+        "_repetition_chance",
+        "_prettify_rewrite_meter",
+        "_extract_trivial_tuplets",
+        "_fuse_across_groups_of_beats",
+        "_fuse_quadruple_meter",
+        "_fuse_triple_meter",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 mode: str = 'out',
-                 max_steps: int = 1,
-                 repetition_chance: float = 0.0,
-                 process_on_first_call: bool = False,
-                 disable_rewrite_meter: bool = False,
-                 omit_time_signatures: bool = False,
-                 use_multimeasure_rests: bool = True,
-                 mask: Optional[list] = None,
-                 boundary_depth: Optional[int] = None,
-                 maximum_dot_count: Optional[int] = None,
-                 rewrite_tuplets: bool = True,
-                 include_empty_measures: bool = True,
-                 prettify_rewrite_meter: bool = True,
-                 extract_trivial_tuplets: bool = True,
-                 fuse_across_groups_of_beats: bool = True,
-                 fuse_quadruple_meter: bool = True,
-                 fuse_triple_meter: bool = True,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        mode: str = "out",
+        max_steps: int = 1,
+        repetition_chance: float = 0.0,
+        process_on_first_call: bool = False,
+        disable_rewrite_meter: bool = False,
+        omit_time_signatures: bool = False,
+        use_multimeasure_rests: bool = True,
+        mask: Optional[list] = None,
+        boundary_depth: Optional[int] = None,
+        maximum_dot_count: Optional[int] = None,
+        rewrite_tuplets: bool = True,
+        include_empty_measures: bool = True,
+        prettify_rewrite_meter: bool = True,
+        extract_trivial_tuplets: bool = True,
+        fuse_across_groups_of_beats: bool = True,
+        fuse_quadruple_meter: bool = True,
+        fuse_triple_meter: bool = True,
+    ) -> None:
         self.mode = mode
         self.max_steps = max_steps
         self.contents = contents
@@ -1502,14 +1503,13 @@ class Fader():
         r"""Calls the fading process for one iteration, returning an
         |abjad.Selection|.
         """
-        if (self._repetition_chance == 0.0
-                or random.random() > self._repetition_chance):
+        if self._repetition_chance == 0.0 or random.random() > self._repetition_chance:
             if not self._is_first_window or self._process_on_first_call:
-                if self._mode == 'out':
+                if self._mode == "out":
                     self._remove_element()
                 else:
                     self._add_element()
-            elif not self._include_empty_measures and self._mode == 'in':
+            elif not self._include_empty_measures and self._mode == "in":
                 self._add_element()
         self._mask_to_selection()
         return self.current_window
@@ -1543,17 +1543,17 @@ class Fader():
         dummy_container[:] = []
         return output
 
-    def output_n(self,
-                 n: int,
-                 ) -> abjad.Selection:
+    def output_n(
+        self,
+        n: int,
+    ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the fading process and outputs a
         single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("first positional argument must be a positive "
-                             "'int'")
+            raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
@@ -1568,7 +1568,7 @@ class Fader():
         :attr:`mode`.
         """
         self._is_first_window = True
-        if self._mode == 'out':
+        if self._mode == "out":
             self._mask = [1 for _ in range(self.__len__())]
         else:
             self._mask = [0 for _ in range(self.__len__())]
@@ -1591,10 +1591,11 @@ class Fader():
             if 1 in self._mask:
                 total_count = sum(self._mask)
                 random_count = random.randint(0, total_count - 1)
-                index = self._get_index_of_nth_occurrence(self._mask,
-                                                          element=1,
-                                                          count=random_count,
-                                                          )
+                index = self._get_index_of_nth_occurrence(
+                    self._mask,
+                    element=1,
+                    count=random_count,
+                )
                 self._mask[index] = 0
             elif n == 0:
                 raise RuntimeError("'current_window' is already empty")
@@ -1605,10 +1606,11 @@ class Fader():
             if 0 in self._mask:
                 total_count = self.__len__() - sum(self._mask)
                 random_count = random.randint(0, total_count - 1)
-                index = self._get_index_of_nth_occurrence(self._mask,
-                                                          element=0,
-                                                          count=random_count,
-                                                          )
+                index = self._get_index_of_nth_occurrence(
+                    self._mask,
+                    element=0,
+                    count=random_count,
+                )
                 self._mask[index] = 1
             elif n == 0:
                 raise RuntimeError("'current_window' is already full")
@@ -1619,10 +1621,11 @@ class Fader():
         logical_ties = abjad.select(dummy_container).logical_ties(pitched=True)
         mask_index = 0
         for logical_tie in logical_ties:
-            if (isinstance(logical_tie.head, abjad.Chord)
-                    and not isinstance(logical_tie.head, ArtificialHarmonic)):
+            if isinstance(logical_tie.head, abjad.Chord) and not isinstance(
+                logical_tie.head, ArtificialHarmonic
+            ):
                 chord_len = len(logical_tie.head.written_pitches)
-                if 1 not in self._mask[mask_index:mask_index + chord_len]:
+                if 1 not in self._mask[mask_index : mask_index + chord_len]:
                     self._convert_pitched_logical_tie_to_rest(logical_tie)
                     mask_index += chord_len
                 else:
@@ -1636,9 +1639,10 @@ class Fader():
                             leaf.written_pitches = new_written_pitches
                     else:
                         for leaf in logical_tie:
-                            note = abjad.Note(new_written_pitches[0],
-                                              leaf.written_duration,
-                                              )
+                            note = abjad.Note(
+                                new_written_pitches[0],
+                                leaf.written_duration,
+                            )
                             for indicator in abjad.get.indicators(leaf):
                                 abjad.attach(indicator, note)
                             abjad.mutate.replace(leaf, note)
@@ -1676,31 +1680,33 @@ class Fader():
         return self.__repr__()
 
     @staticmethod
-    def _convert_pitched_logical_tie_to_rest(logical_tie: abjad.LogicalTie,
-                                             ) -> None:
+    def _convert_pitched_logical_tie_to_rest(
+        logical_tie: abjad.LogicalTie,
+    ) -> None:
         r"""Converts all leaves of a pitched logical tie into rests."""
-        indicators_tuple = (abjad.BarLine,
-                            abjad.Clef,
-                            abjad.Dynamic,
-                            abjad.Fermata,
-                            abjad.KeySignature,
-                            abjad.LilyPondLiteral,
-                            abjad.MetronomeMark,
-                            abjad.Ottava,
-                            abjad.RehearsalMark,
-                            abjad.Repeat,
-                            abjad.StaffChange,
-                            abjad.StartHairpin,
-                            abjad.StartMarkup,
-                            abjad.StartPhrasingSlur,
-                            abjad.StartSlur,
-                            abjad.StartTextSpan,
-                            abjad.StopHairpin,
-                            abjad.StopPhrasingSlur,
-                            abjad.StopSlur,
-                            abjad.StopTextSpan,
-                            abjad.TimeSignature,
-                            )
+        indicators_tuple = (
+            abjad.BarLine,
+            abjad.Clef,
+            abjad.Dynamic,
+            abjad.Fermata,
+            abjad.KeySignature,
+            abjad.LilyPondLiteral,
+            abjad.MetronomeMark,
+            abjad.Ottava,
+            abjad.RehearsalMark,
+            abjad.Repeat,
+            abjad.StaffChange,
+            abjad.StartHairpin,
+            abjad.StartMarkup,
+            abjad.StartPhrasingSlur,
+            abjad.StartSlur,
+            abjad.StartTextSpan,
+            abjad.StopHairpin,
+            abjad.StopPhrasingSlur,
+            abjad.StopSlur,
+            abjad.StopTextSpan,
+            abjad.TimeSignature,
+        )
         for leaf in logical_tie:
             rest = abjad.Rest(leaf.written_duration)
             for indicator in abjad.get.indicators(leaf):
@@ -1709,24 +1715,25 @@ class Fader():
             abjad.mutate.replace(leaf, rest)
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
     @staticmethod
-    def _get_index_of_nth_occurrence(input_list: list[Any],
-                                     *,
-                                     element: Any,
-                                     count: int,
-                                     ) -> int:
+    def _get_index_of_nth_occurrence(
+        input_list: list[Any],
+        *,
+        element: Any,
+        count: int,
+    ) -> int:
         r"""Returns the index of the nth occurence of an element in a
         :obj:`list`.
         """
-        return tuple(index for index, item in enumerate(input_list)
-                     if item == element)[count]
+        return tuple(index for index, item in enumerate(input_list) if item == element)[count]
 
     ### PUBLIC PROPERTIES ###
 
@@ -1736,12 +1743,12 @@ class Fader():
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or "
-                            "child class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -1775,12 +1782,13 @@ class Fader():
         return self._mode
 
     @mode.setter
-    def mode(self,
-             mode: str,
-             ) -> None:
+    def mode(
+        self,
+        mode: str,
+    ) -> None:
         if not isinstance(mode, str):
             raise TypeError("'mode' must be 'str'")
-        if mode not in ('in', 'out'):
+        if mode not in ("in", "out"):
             raise ValueError("'mode' must be either 'in' or 'out'")
         self._mode = mode
 
@@ -1790,9 +1798,10 @@ class Fader():
         return self._max_steps
 
     @max_steps.setter
-    def max_steps(self,
-                  max_steps: int,
-                  ) -> None:
+    def max_steps(
+        self,
+        max_steps: int,
+    ) -> None:
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if max_steps < 1:
@@ -1807,16 +1816,18 @@ class Fader():
         return self._mask
 
     @mask.setter
-    def mask(self,
-             mask: list[int],
-             ) -> None:
+    def mask(
+        self,
+        mask: list[int],
+    ) -> None:
         if not isinstance(mask, list):
             raise TypeError("'mask' must be 'list'")
         if any(element not in (0, 1) for element in mask):
             raise ValueError("'mask' must contain only 1's and 0's")
         if len(mask) != self.__len__():
-            raise ValueError("'mask' must have the same length as the number "
-                             "of logical ties in 'contents'")
+            raise ValueError(
+                "'mask' must have the same length as the number of logical ties in 'contents'"
+            )
         self._mask = mask
         self._is_first_window = True
 
@@ -1828,9 +1839,10 @@ class Fader():
         return self._disable_rewrite_meter
 
     @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ) -> None:
+    def disable_rewrite_meter(
+        self,
+        disable_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1843,9 +1855,10 @@ class Fader():
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1858,9 +1871,10 @@ class Fader():
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter
-    def use_multimeasure_rests(self,
-                               use_multimeasure_rests: bool,
-                               ) -> None:
+    def use_multimeasure_rests(
+        self,
+        use_multimeasure_rests: bool,
+    ) -> None:
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1873,9 +1887,10 @@ class Fader():
         return self._boundary_depth
 
     @boundary_depth.setter
-    def boundary_depth(self,
-                       boundary_depth: Optional[int],
-                       ) -> None:
+    def boundary_depth(
+        self,
+        boundary_depth: Optional[int],
+    ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1889,9 +1904,10 @@ class Fader():
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
-    def maximum_dot_count(self,
-                          maximum_dot_count: Optional[int],
-                          ) -> None:
+    def maximum_dot_count(
+        self,
+        maximum_dot_count: Optional[int],
+    ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1905,9 +1921,10 @@ class Fader():
         return self._rewrite_tuplets
 
     @rewrite_tuplets.setter
-    def rewrite_tuplets(self,
-                        rewrite_tuplets: bool,
-                        ) -> None:
+    def rewrite_tuplets(
+        self,
+        rewrite_tuplets: bool,
+    ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1920,9 +1937,10 @@ class Fader():
         return self._prettify_rewrite_meter
 
     @prettify_rewrite_meter.setter
-    def prettify_rewrite_meter(self,
-                               prettify_rewrite_meter: bool,
-                               ) -> None:
+    def prettify_rewrite_meter(
+        self,
+        prettify_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1935,9 +1953,10 @@ class Fader():
         return self._extract_trivial_tuplets
 
     @extract_trivial_tuplets.setter
-    def extract_trivial_tuplets(self,
-                                extract_trivial_tuplets: bool,
-                                ) -> None:
+    def extract_trivial_tuplets(
+        self,
+        extract_trivial_tuplets: bool,
+    ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1950,9 +1969,10 @@ class Fader():
         return self._fuse_across_groups_of_beats
 
     @fuse_across_groups_of_beats.setter
-    def fuse_across_groups_of_beats(self,
-                                    fuse_across_groups_of_beats: bool,
-                                    ) -> None:
+    def fuse_across_groups_of_beats(
+        self,
+        fuse_across_groups_of_beats: bool,
+    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1965,9 +1985,10 @@ class Fader():
         return self._fuse_quadruple_meter
 
     @fuse_quadruple_meter.setter
-    def fuse_quadruple_meter(self,
-                             fuse_quadruple_meter: bool,
-                             ) -> None:
+    def fuse_quadruple_meter(
+        self,
+        fuse_quadruple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1980,9 +2001,10 @@ class Fader():
         return self._fuse_triple_meter
 
     @fuse_triple_meter.setter
-    def fuse_triple_meter(self,
-                          fuse_triple_meter: bool,
-                          ) -> None:
+    def fuse_triple_meter(
+        self,
+        fuse_triple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1995,9 +2017,10 @@ class Fader():
         return self._process_on_first_call
 
     @process_on_first_call.setter
-    def process_on_first_call(self,
-                              process_on_first_call: bool,
-                              ) -> None:
+    def process_on_first_call(
+        self,
+        process_on_first_call: bool,
+    ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -2010,9 +2033,10 @@ class Fader():
         return self._include_empty_measures
 
     @include_empty_measures.setter
-    def include_empty_measures(self,
-                               include_empty_measures: bool,
-                               ) -> None:
+    def include_empty_measures(
+        self,
+        include_empty_measures: bool,
+    ) -> None:
         if not isinstance(include_empty_measures, bool):
             raise TypeError("'include_empty_measures' must be 'bool'")
         self._include_empty_measures = include_empty_measures
@@ -2025,9 +2049,10 @@ class Fader():
         return self._repetition_chance
 
     @repetition_chance.setter
-    def repetition_chance(self,
-                          repetition_chance: float,
-                          ) -> None:
+    def repetition_chance(
+        self,
+        repetition_chance: float,
+    ) -> None:
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
@@ -2043,7 +2068,7 @@ class Fader():
         when the mask is filled with ``0``'s with :attr:`mode` set to
         ``'out'``.
         """
-        if self._mode == 'out':
+        if self._mode == "out":
             if self._include_empty_measures:
                 return 1 not in self._mask
             else:

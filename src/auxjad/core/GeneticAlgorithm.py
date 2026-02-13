@@ -2,7 +2,7 @@ import random
 from typing import Optional, Union
 
 
-class GeneticAlgorithm():
+class GeneticAlgorithm:
     r"""An implementation of a genetic algorithm. Takes a :attr:`target` list
     and a list of :attr:`genes` to prod`uce generations of individuals at each
     :meth:`__call__`. Fittest individual of the current generation can be
@@ -200,47 +200,46 @@ class GeneticAlgorithm():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_target',
-                 '_genes',
-                 '_initial_individual',
-                 '_population_size',
-                 '_select_n_parents',
-                 '_keep_n_parents',
-                 '_mutation_chance',
-                 '_mutation_index',
-                 '_evaluation_index',
-                 '_target_indices',
-                 '_scores',
-                 '_generation_number',
-                 '_population',
-                 )
+    __slots__ = (
+        "_target",
+        "_genes",
+        "_initial_individual",
+        "_population_size",
+        "_select_n_parents",
+        "_keep_n_parents",
+        "_mutation_chance",
+        "_mutation_index",
+        "_evaluation_index",
+        "_target_indices",
+        "_scores",
+        "_generation_number",
+        "_population",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 *,
-                 target: list,
-                 genes: list,
-                 initial_individual: Optional[list] = None,
-                 population_size: int = 100,
-                 select_n_parents: int = 10,
-                 keep_n_parents: int = 0,
-                 mutation_chance: float = 0.2,
-                 mutation_index: float = 0.1,
-                 evaluation_index: float = 0.2,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        *,
+        target: list,
+        genes: list,
+        initial_individual: Optional[list] = None,
+        population_size: int = 100,
+        select_n_parents: int = 10,
+        keep_n_parents: int = 0,
+        mutation_chance: float = 0.2,
+        mutation_index: float = 0.1,
+        evaluation_index: float = 0.2,
+    ) -> None:
         if not isinstance(genes, list):
             raise TypeError("'genes' must be 'list'")
         if not isinstance(target, list):
             raise TypeError("'target' must be 'list'")
         if any(value not in genes for value in target):
-            raise ValueError("'target' must only contain elements present in "
-                             "'genes'")
+            raise ValueError("'target' must only contain elements present in 'genes'")
         self._genes = genes
         self._target = target
-        self._target_indices = [self._genes.index(gene) for gene
-                                in self._target]
+        self._target_indices = [self._genes.index(gene) for gene in self._target]
         self.initial_individual = initial_individual
         self.population_size = population_size
         self.select_n_parents = select_n_parents
@@ -319,15 +318,15 @@ class GeneticAlgorithm():
         self._population = []
         for _ in range(self._population_size):
             if self._initial_individual is None:
-                individual = [random.choice(self._genes) for _
-                              in range(self.__len__())]
+                individual = [random.choice(self._genes) for _ in range(self.__len__())]
             else:
                 individual = self._initial_individual[:]
             self._population.append(individual)
 
-    def _evaluate(self,
-                  individual: list,
-                  ) -> float:
+    def _evaluate(
+        self,
+        individual: list,
+    ) -> float:
         r"""Evaluates all genes of a given individual, returning a
         :obj:`float`. The higher the value, the fitter the individual is, with
         ``1.0`` being a perfect fit. Use :attr:`evaluation_index` to tweak the
@@ -337,7 +336,7 @@ class GeneticAlgorithm():
         individual_indices = [self.genes.index(gene) for gene in individual]
         for gene, target_gene in zip(individual_indices, self._target_indices):
             difference = abs(gene - target_gene)
-            individual_score += self._evaluation_index ** difference
+            individual_score += self._evaluation_index**difference
         individual_score /= self.__len__()
         return individual_score
 
@@ -364,15 +363,16 @@ class GeneticAlgorithm():
 
     def _crossover_population(self) -> None:
         r"""Crossover process used to generate offsprings."""
-        selected_parents = self._population[:self._select_n_parents]
+        selected_parents = self._population[: self._select_n_parents]
         if self._keep_n_parents > 0:
-            new_generation = self._population[:self._keep_n_parents]
+            new_generation = self._population[: self._keep_n_parents]
         else:
             new_generation = []
         for _ in range(self._population_size - self._keep_n_parents):
-            parents = random.sample(range(len(selected_parents)),
-                                    k=2,
-                                    )
+            parents = random.sample(
+                range(len(selected_parents)),
+                k=2,
+            )
             half_index = int(self.__len__() / 2)
             parent_A = selected_parents[parents[0]]
             parent_B = selected_parents[parents[1]]
@@ -400,17 +400,16 @@ class GeneticAlgorithm():
         return self._target
 
     @target.setter
-    def target(self,
-               target: list,
-               ) -> None:
+    def target(
+        self,
+        target: list,
+    ) -> None:
         if not isinstance(target, list):
             raise TypeError("'target' must be 'list'")
         if any(value not in self._genes for value in target):
-            raise ValueError("'target' must only contain elements present in "
-                             "'genes'")
+            raise ValueError("'target' must only contain elements present in 'genes'")
         self._target = target
-        self._target_indices = [self._genes.index(gene) for gene
-                                in self._target]
+        self._target_indices = [self._genes.index(gene) for gene in self._target]
 
     @property
     def genes(self) -> list:
@@ -418,14 +417,14 @@ class GeneticAlgorithm():
         return self._genes
 
     @genes.setter
-    def genes(self,
-              genes: list,
-              ) -> None:
+    def genes(
+        self,
+        genes: list,
+    ) -> None:
         if not isinstance(genes, list):
             raise TypeError("'genes' must be 'list'")
         self._genes = genes
-        self._target_indices = [self._genes.index(gene) for gene
-                                in self._target]
+        self._target_indices = [self._genes.index(gene) for gene in self._target]
 
     @property
     def initial_individual(self) -> Union[list, None]:
@@ -435,19 +434,19 @@ class GeneticAlgorithm():
         return self._initial_individual
 
     @initial_individual.setter
-    def initial_individual(self,
-                           initial_individual: Optional[list],
-                           ) -> None:
+    def initial_individual(
+        self,
+        initial_individual: Optional[list],
+    ) -> None:
         if initial_individual is not None:
             if not isinstance(initial_individual, list):
-                raise TypeError("'initial_individual' must be 'list' or "
-                                "'None'")
+                raise TypeError("'initial_individual' must be 'list' or 'None'")
             if len(initial_individual) != self.__len__():
-                raise ValueError("'initial_individual' must have the same "
-                                 "length as 'target'")
+                raise ValueError("'initial_individual' must have the same length as 'target'")
             if any(value not in self._genes for value in initial_individual):
-                raise ValueError("'initial_individual' must only contain "
-                                 "elements present in 'genes'")
+                raise ValueError(
+                    "'initial_individual' must only contain elements present in 'genes'"
+                )
         self._initial_individual = initial_individual
 
     @property
@@ -456,9 +455,10 @@ class GeneticAlgorithm():
         return self._population_size
 
     @population_size.setter
-    def population_size(self,
-                        population_size: int,
-                        ) -> None:
+    def population_size(
+        self,
+        population_size: int,
+    ) -> None:
         if not isinstance(population_size, int):
             raise TypeError("'population_size' must be 'int'")
         self._population_size = population_size
@@ -471,14 +471,16 @@ class GeneticAlgorithm():
         return self._select_n_parents
 
     @select_n_parents.setter
-    def select_n_parents(self,
-                         select_n_parents: int,
-                         ) -> None:
+    def select_n_parents(
+        self,
+        select_n_parents: int,
+    ) -> None:
         if not isinstance(select_n_parents, int):
             raise TypeError("'select_n_parents' must be 'int'")
         if select_n_parents > self._population_size:
-            raise ValueError("'select_n_parents' must be equal to or smaller "
-                             "than 'population_size'")
+            raise ValueError(
+                "'select_n_parents' must be equal to or smaller than 'population_size'"
+            )
         self._select_n_parents = select_n_parents
 
     @property
@@ -489,14 +491,14 @@ class GeneticAlgorithm():
         return self._keep_n_parents
 
     @keep_n_parents.setter
-    def keep_n_parents(self,
-                       keep_n_parents: int,
-                       ) -> None:
+    def keep_n_parents(
+        self,
+        keep_n_parents: int,
+    ) -> None:
         if not isinstance(keep_n_parents, int):
             raise TypeError("'keep_n_parents' must be 'int'")
         if keep_n_parents > self._population_size:
-            raise ValueError("'keep_n_parents' must be equal to or smaller "
-                             "than 'population_size'")
+            raise ValueError("'keep_n_parents' must be equal to or smaller than 'population_size'")
         self._keep_n_parents = keep_n_parents
 
     @property
@@ -505,9 +507,10 @@ class GeneticAlgorithm():
         return self._mutation_chance
 
     @mutation_chance.setter
-    def mutation_chance(self,
-                        mutation_chance: float,
-                        ) -> None:
+    def mutation_chance(
+        self,
+        mutation_chance: float,
+    ) -> None:
         if not isinstance(mutation_chance, float):
             raise TypeError("'mutation_chance' must be 'float'")
         if mutation_chance < 0.0:
@@ -524,9 +527,10 @@ class GeneticAlgorithm():
         return self._mutation_index
 
     @mutation_index.setter
-    def mutation_index(self,
-                       mutation_index: float,
-                       ) -> None:
+    def mutation_index(
+        self,
+        mutation_index: float,
+    ) -> None:
         if not isinstance(mutation_index, float):
             raise TypeError("'mutation_index' must be 'float'")
         if mutation_index < 0.0:
@@ -566,9 +570,10 @@ class GeneticAlgorithm():
         return self._evaluation_index
 
     @evaluation_index.setter
-    def evaluation_index(self,
-                         evaluation_index: float,
-                         ) -> None:
+    def evaluation_index(
+        self,
+        evaluation_index: float,
+    ) -> None:
         if not isinstance(evaluation_index, float):
             raise TypeError("'evaluation_index' must be 'float'")
         if evaluation_index <= 0.0:

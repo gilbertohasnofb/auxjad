@@ -657,33 +657,35 @@ class PitchRandomiser:
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_pitches',
-                 '_weights',
-                 '_omit_time_signatures',
-                 '_process_on_first_call',
-                 '_use_tenney_selector',
-                 '_tenney_selector',
-                 '_current_window',
-                 '_is_first_window',
-                 )
+    __slots__ = (
+        "_contents",
+        "_pitches",
+        "_weights",
+        "_omit_time_signatures",
+        "_process_on_first_call",
+        "_use_tenney_selector",
+        "_tenney_selector",
+        "_current_window",
+        "_is_first_window",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 pitches: Union[list[Union[int, float, str, abjad.Pitch]],
-                                tuple[Union[int, float, str, abjad.Pitch]],
-                                str,
-                                abjad.PitchSegment,
-                                ],
-                 *,
-                 weights: Optional[list] = None,
-                 omit_time_signatures: bool = False,
-                 process_on_first_call: bool = True,
-                 use_tenney_selector: bool = False,
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        contents: abjad.Container,
+        pitches: Union[
+            list[Union[int, float, str, abjad.Pitch]],
+            tuple[Union[int, float, str, abjad.Pitch]],
+            str,
+            abjad.PitchSegment,
+        ],
+        *,
+        weights: Optional[list] = None,
+        omit_time_signatures: bool = False,
+        process_on_first_call: bool = True,
+        use_tenney_selector: bool = False,
+    ) -> None:
         self.contents = contents
         self._weights = []
         self.pitches = pitches
@@ -720,9 +722,10 @@ class PitchRandomiser:
 
     ### PUBLIC METHODS ###
 
-    def output_n(self,
-                 n: int,
-                 ) -> abjad.Selection:
+    def output_n(
+        self,
+        n: int,
+    ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the pitch randomisation process
         and outputs a single |abjad.Selection|.
         """
@@ -779,15 +782,17 @@ class PitchRandomiser:
         :class:`auxjad.TenneySelector`.
         """
         if not self._use_tenney_selector:
-            return random.choices(self._pitches,
-                                  weights=self._weights,
-                                  )[0]
+            return random.choices(
+                self._pitches,
+                weights=self._weights,
+            )[0]
         else:
             return self._tenney_selector()
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
@@ -801,12 +806,12 @@ class PitchRandomiser:
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or child "
-                            "class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -826,16 +831,17 @@ class PitchRandomiser:
         return self._pitches
 
     @pitches.setter
-    def pitches(self,
-                pitches: Union[list[Union[int, float, str, abjad.Pitch]],
-                               tuple[Union[int, float, str, abjad.Pitch]],
-                               str,
-                               abjad.PitchSegment,
-                               ],
-                ) -> None:
+    def pitches(
+        self,
+        pitches: Union[
+            list[Union[int, float, str, abjad.Pitch]],
+            tuple[Union[int, float, str, abjad.Pitch]],
+            str,
+            abjad.PitchSegment,
+        ],
+    ) -> None:
         if not isinstance(pitches, (list, tuple, str, abjad.PitchSegment)):
-            raise TypeError("'pitches' must be 'list', 'tuple', 'str', or "
-                            "'abjad.PitchSegment'")
+            raise TypeError("'pitches' must be 'list', 'tuple', 'str', or 'abjad.PitchSegment'")
         if isinstance(pitches, (list, tuple, str)):
             self._pitches = abjad.PitchSegment(pitches)
         else:
@@ -852,17 +858,16 @@ class PitchRandomiser:
         return self._weights
 
     @weights.setter
-    def weights(self,
-                weights: Optional[list[Union[float, int]]],
-                ) -> None:
+    def weights(
+        self,
+        weights: Optional[list[Union[float, int]]],
+    ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
             if not self.__len__() == len(weights):
-                raise ValueError("'weights' must have the same length as "
-                                 "'pitches'")
-            if not all(isinstance(weight, (int, float))
-                       for weight in weights):
+                raise ValueError("'weights' must have the same length as 'pitches'")
+            if not all(isinstance(weight, (int, float)) for weight in weights):
                 raise TypeError("'weights' elements must be 'int' or 'float'")
             self._weights = weights[:]
         else:
@@ -875,9 +880,10 @@ class PitchRandomiser:
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -890,9 +896,10 @@ class PitchRandomiser:
         return self._process_on_first_call
 
     @process_on_first_call.setter
-    def process_on_first_call(self,
-                              process_on_first_call: bool,
-                              ) -> None:
+    def process_on_first_call(
+        self,
+        process_on_first_call: bool,
+    ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -906,9 +913,10 @@ class PitchRandomiser:
         return self._use_tenney_selector
 
     @use_tenney_selector.setter
-    def use_tenney_selector(self,
-                            use_tenney_selector: bool,
-                            ) -> None:
+    def use_tenney_selector(
+        self,
+        use_tenney_selector: bool,
+    ) -> None:
         if not isinstance(use_tenney_selector, bool):
             raise TypeError("'use_tenney_selector' must be 'bool'")
         self._use_tenney_selector = use_tenney_selector

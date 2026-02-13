@@ -45,41 +45,40 @@ from .utilities.staff_splitter import staff_splitter
 
 from ._version import __version__
 
-
-__author__ = 'Gilberto Agostinho <gilbertohasnofb@gmail.com>'
+__author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
 __all__ = [
-    '__author__',
-    '__version__',
+    "__author__",
+    "__version__",
     # modules
-    'get',
-    'mutate',
-    'select',
+    "get",
+    "mutate",
+    "select",
     # core
-    'CartographySelector',
-    'CrossFader',
-    'Echoer',
-    'Fader',
-    'GeneticAlgorithm',
-    'Hocketer',
-    'LeafLooper',
-    'ListLooper',
-    'Phaser',
-    'PitchRandomiser',
-    'Repeater',
-    'Shuffler',
-    'TenneySelector',
-    'WindowLooper',
+    "CartographySelector",
+    "CrossFader",
+    "Echoer",
+    "Fader",
+    "GeneticAlgorithm",
+    "Hocketer",
+    "LeafLooper",
+    "ListLooper",
+    "Phaser",
+    "PitchRandomiser",
+    "Repeater",
+    "Shuffler",
+    "TenneySelector",
+    "WindowLooper",
     # indicators
-    'TimeSignature',
+    "TimeSignature",
     # makers
-    'GeneticAlgorithmMusicMaker',
-    'LeafDynMaker',
+    "GeneticAlgorithmMusicMaker",
+    "LeafDynMaker",
     # score
-    'ArtificialHarmonic',
-    'HarmonicNote',
-    'Score',
+    "ArtificialHarmonic",
+    "HarmonicNote",
+    "Score",
     # spanners
-    'piano_pedal',
+    "piano_pedal",
     # utilities
-    'staff_splitter',
+    "staff_splitter",
 ]

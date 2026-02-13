@@ -7,17 +7,23 @@ import auxjad
 
 def test_example_of_usage_02():
     random.seed(18762)
-    pitch_selector = auxjad.TenneySelector(["d'",
-                                            ("c'", "d'", "e'"),
-                                            ("b", "d'", "g'"),
-                                            ("bf", "d'", "a'"),
-                                            ("a", "d'", "b'"),
-                                            ])
-    duration_selector = auxjad.TenneySelector([(1, 16),
-                                               (2, 16),
-                                               (3, 16),
-                                               (4, 16),
-                                               ])
+    pitch_selector = auxjad.TenneySelector(
+        [
+            "d'",
+            ("c'", "d'", "e'"),
+            ("b", "d'", "g'"),
+            ("bf", "d'", "a'"),
+            ("a", "d'", "b'"),
+        ]
+    )
+    duration_selector = auxjad.TenneySelector(
+        [
+            (1, 16),
+            (2, 16),
+            (3, 16),
+            (4, 16),
+        ]
+    )
     pitches = []
     durations = []
     for _ in range(14):
@@ -25,11 +31,12 @@ def test_example_of_usage_02():
         durations.append(duration_selector())
     notes = abjad.LeafMaker()(pitches, durations)
     container = abjad.Container(notes)
-    looper = auxjad.LeafLooper(container,
-                               window_size=4,
-                               after_rest=(1, 2),
-                               after_rest_in_new_measure=True,
-                               )
+    looper = auxjad.LeafLooper(
+        container,
+        window_size=4,
+        after_rest=(1, 2),
+        after_rest_in_new_measure=True,
+    )
     staff = abjad.Staff(looper.output_n(7))
     looper.window_size = 3
     looper.after_rest = (3, 16)
@@ -37,8 +44,7 @@ def test_example_of_usage_02():
     staff.pop(-1)
     score = abjad.Score([staff])
     score.add_final_bar_line()
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -133,5 +139,4 @@ def test_example_of_usage_02():
                 \bar "|."
             }
         >>
-        """
-    )
+        """)

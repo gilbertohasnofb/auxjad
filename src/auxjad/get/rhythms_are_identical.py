@@ -6,10 +6,12 @@ import abjad
 from .. import select
 
 
-def rhythms_are_identical(selections: Union[Iterable[abjad.Component],
-                                            Iterable[abjad.Selection],
-                                            ],
-                          ) -> bool:
+def rhythms_are_identical(
+    selections: Union[
+        Iterable[abjad.Component],
+        Iterable[abjad.Selection],
+    ],
+) -> bool:
     r"""Returns a :obj:`bool` representing whether two or more selections are
     rhytmically identical or not. Input argument must be an iterable made of
     two or more |abjad.Selection|'s.
@@ -143,26 +145,28 @@ def rhythms_are_identical(selections: Union[Iterable[abjad.Component],
         True
     """
     if not isinstance(selections, Iterable):
-        raise TypeError("argument must be an iterable of 'abjad.Selection's "
-                        "or 'abjad.Component's")
+        raise TypeError("argument must be an iterable of 'abjad.Selection's or 'abjad.Component's")
     for selection in selections:
         if not isinstance(selection, (abjad.Component, abjad.Selection)):
-            raise TypeError("argument must be an iterable of "
-                            "'abjad.Selection's or 'abjad.Component's")
+            raise TypeError(
+                "argument must be an iterable of 'abjad.Selection's or 'abjad.Component's"
+            )
 
     for index, selection1 in enumerate(selections[:-1]):
-        for selection2 in selections[index + 1:]:
-            logical_selections1 = [logical_selection for logical_selection
-                                   in select.logical_selections(selection1)]
-            logical_selections2 = [logical_selection for logical_selection
-                                   in select.logical_selections(selection2)]
+        for selection2 in selections[index + 1 :]:
+            logical_selections1 = [
+                logical_selection for logical_selection in select.logical_selections(selection1)
+            ]
+            logical_selections2 = [
+                logical_selection for logical_selection in select.logical_selections(selection2)
+            ]
             if len(logical_selections1) != len(logical_selections2):
                 return False
-            for logical_sel1, logical_sel2 in zip(logical_selections1,
-                                                  logical_selections2,
-                                                  ):
-                if (abjad.get.duration(logical_sel1)
-                        != abjad.get.duration(logical_sel2)):
+            for logical_sel1, logical_sel2 in zip(
+                logical_selections1,
+                logical_selections2,
+            ):
+                if abjad.get.duration(logical_sel1) != abjad.get.duration(logical_sel2):
                     return False
                 leaf1 = logical_sel1.leaf(0)
                 leaf2 = logical_sel2.leaf(0)

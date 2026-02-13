@@ -1,11 +1,12 @@
 import abjad
 
 
-def respell_augmented_unisons(selection: abjad.Selection,
-                              *,
-                              include_multiples: bool = False,
-                              respell_by_pitch_class: bool = False,
-                              ) -> None:
+def respell_augmented_unisons(
+    selection: abjad.Selection,
+    *,
+    include_multiples: bool = False,
+    respell_by_pitch_class: bool = False,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function changes the accidentals of individual pitches of all chords
     in a container in order to avoid augmented unisons.
@@ -299,25 +300,27 @@ def respell_augmented_unisons(selection: abjad.Selection,
                     except IndexError:
                         p3 = None
                         interval23 = None
-                    if (interval12 == abjad.NamedInterval('+A1')
-                            and interval23 != abjad.NamedInterval('+A1')
-                            and interval23 != abjad.NamedInterval('+m2')):
+                    if (
+                        interval12 == abjad.NamedInterval("+A1")
+                        and interval23 != abjad.NamedInterval("+A1")
+                        and interval23 != abjad.NamedInterval("+m2")
+                    ):
                         if not respell_by_pitch_class:
                             # respelling only one single note
-                            if p1.accidental == abjad.Accidental('f'):
-                                accidentals[i] = abjad.Accidental('s')
-                            elif p1.accidental == abjad.Accidental(''):
-                                accidentals[i + 1] = abjad.Accidental('f')
+                            if p1.accidental == abjad.Accidental("f"):
+                                accidentals[i] = abjad.Accidental("s")
+                            elif p1.accidental == abjad.Accidental(""):
+                                accidentals[i + 1] = abjad.Accidental("f")
                         else:
                             # respelling all matching pitch-classes
-                            if p1.accidental == abjad.Accidental('f'):
+                            if p1.accidental == abjad.Accidental("f"):
                                 for j, p in enumerate(leaf.written_pitches):
                                     if p.pitch_class == p1.pitch_class:
-                                        accidentals[j] = abjad.Accidental('s')
-                            elif p1.accidental == abjad.Accidental(''):
+                                        accidentals[j] = abjad.Accidental("s")
+                            elif p1.accidental == abjad.Accidental(""):
                                 for j, p in enumerate(leaf.written_pitches):
                                     if p.pitch_class == p2.pitch_class:
-                                        accidentals[j] = abjad.Accidental('f')
+                                        accidentals[j] = abjad.Accidental("f")
             else:
                 # dealing with augmented unisons as well as augmented 8as,
                 # 15ths, etc.
@@ -328,20 +331,21 @@ def respell_augmented_unisons(selection: abjad.Selection,
                         p1 = leaf.written_pitches[i]
                         p2 = leaf.written_pitches[j]
                         interval = abjad.NamedIntervalClass(p1 - p2)
-                        if (interval in (abjad.NamedIntervalClass('+A1'),
-                                         abjad.NamedIntervalClass('-d1'),
-                                         )):
+                        if interval in (
+                            abjad.NamedIntervalClass("+A1"),
+                            abjad.NamedIntervalClass("-d1"),
+                        ):
                             # no need for respell_by_pitch_class since this
                             # will go through all notes in the chord anyway
-                            if p1.accidental == abjad.Accidental('f'):
-                                accidentals[i] = abjad.Accidental('s')
-                            if p1.accidental == abjad.Accidental('s'):
-                                accidentals[i] = abjad.Accidental('f')
-                            elif p1.accidental == abjad.Accidental(''):
-                                if p2.accidental == abjad.Accidental('s'):
-                                    accidentals[j] = abjad.Accidental('f')
-                                elif p2.accidental == abjad.Accidental('f'):
-                                    accidentals[j] = abjad.Accidental('s')
+                            if p1.accidental == abjad.Accidental("f"):
+                                accidentals[i] = abjad.Accidental("s")
+                            if p1.accidental == abjad.Accidental("s"):
+                                accidentals[i] = abjad.Accidental("f")
+                            elif p1.accidental == abjad.Accidental(""):
+                                if p2.accidental == abjad.Accidental("s"):
+                                    accidentals[j] = abjad.Accidental("f")
+                                elif p2.accidental == abjad.Accidental("f"):
+                                    accidentals[j] = abjad.Accidental("s")
             # rewritting chord with new spelling
             respelt_pitches = []
             for pitch, accidental, original_accidental in zip(
@@ -349,12 +353,10 @@ def respell_augmented_unisons(selection: abjad.Selection,
                 accidentals,
                 original_accidentals,
             ):
-                if (accidental != original_accidental
-                        and accidental == abjad.Accidental('f')):
-                    respelt_pitches.append(pitch._respell(accidental='flats'))
-                elif (accidental != original_accidental
-                        and accidental == abjad.Accidental('s')):
-                    respelt_pitches.append(pitch._respell(accidental='sharps'))
+                if accidental != original_accidental and accidental == abjad.Accidental("f"):
+                    respelt_pitches.append(pitch._respell(accidental="flats"))
+                elif accidental != original_accidental and accidental == abjad.Accidental("s"):
+                    respelt_pitches.append(pitch._respell(accidental="sharps"))
                 else:
                     respelt_pitches.append(pitch)
             leaf.written_pitches = respelt_pitches

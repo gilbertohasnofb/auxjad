@@ -14,22 +14,28 @@ from .prettify_rewrite_meter import (
 )
 
 
-def auto_rewrite_meter(container: abjad.Container,
-                       meter_list: Optional[list[Union[abjad.Meter,
-                                                       abjad.TimeSignature,
-                                                       ]]] = None,
-                       *,
-                       prettify_rewrite_meter: bool = True,
-                       extract_trivial_tuplets: bool = True,
-                       fuse_across_groups_of_beats: bool = True,
-                       fuse_quadruple_meter: bool = True,
-                       fuse_triple_meter: bool = True,
-                       boundary_depth: Optional[int] = None,
-                       maximum_dot_count: Optional[int] = None,
-                       rewrite_tuplets: bool = True,
-                       merge_partial_tuplets: bool = True,
-                       split_quadruple_meter: bool = True,
-                       ) -> None:
+def auto_rewrite_meter(
+    container: abjad.Container,
+    meter_list: Optional[
+        list[
+            Union[
+                abjad.Meter,
+                abjad.TimeSignature,
+            ]
+        ]
+    ] = None,
+    *,
+    prettify_rewrite_meter: bool = True,
+    extract_trivial_tuplets: bool = True,
+    fuse_across_groups_of_beats: bool = True,
+    fuse_quadruple_meter: bool = True,
+    fuse_triple_meter: bool = True,
+    boundary_depth: Optional[int] = None,
+    maximum_dot_count: Optional[int] = None,
+    rewrite_tuplets: bool = True,
+    merge_partial_tuplets: bool = True,
+    split_quadruple_meter: bool = True,
+) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function takes every measure of a
     container, detects its time signature, and apply both
@@ -624,17 +630,18 @@ def auto_rewrite_meter(container: abjad.Container,
         ..  figure:: ../_images/auto_rewrite_meter-mm9xvmaqwfj.png
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("first positional argument must be 'abjad.Container' "
-                        "or child class")
+        raise TypeError("first positional argument must be 'abjad.Container' or child class")
     if meter_list is not None:
         if not isinstance(meter_list, list):
-            raise TypeError("'meter_list' must be a 'list' of 'abjad.Meter' "
-                            "or 'abjad.TimeSignature'")
+            raise TypeError(
+                "'meter_list' must be a 'list' of 'abjad.Meter' or 'abjad.TimeSignature'"
+            )
         else:
             for meter in meter_list:
                 if not isinstance(meter, (abjad.Meter, abjad.TimeSignature)):
-                    raise TypeError("elements of 'meter_list' must be "
-                                    "'abjad.Meter' or 'abjad.TimeSignature'")
+                    raise TypeError(
+                        "elements of 'meter_list' must be 'abjad.Meter' or 'abjad.TimeSignature'"
+                    )
                 if isinstance(meter, abjad.TimeSignature):
                     meter = abjad.Meter(meter.pair)
     if not isinstance(prettify_rewrite_meter, bool):

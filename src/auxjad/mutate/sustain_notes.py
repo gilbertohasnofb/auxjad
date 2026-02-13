@@ -4,11 +4,12 @@ from .. import select
 from .auto_rewrite_meter import auto_rewrite_meter
 
 
-def sustain_notes(container: abjad.Container,
-                  *,
-                  sustain_multimeasure_rests: bool = True,
-                  rewrite_meter: bool = True,
-                  ) -> None:
+def sustain_notes(
+    container: abjad.Container,
+    *,
+    sustain_multimeasure_rests: bool = True,
+    rewrite_meter: bool = True,
+) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function will sustain all pitched
     leaves until the next pitched leaf, thus replacing all rests in between
@@ -507,15 +508,17 @@ def sustain_notes(container: abjad.Container,
                     break
                 duration = abjad.get.duration(leaf)
             else:
-                raise TypeError("Leaves in 'container' must be notes, chords,"
-                                "rests, or multi-measure rests")
+                raise TypeError(
+                    "Leaves in 'container' must be notes, chords, rests, or multi-measure rests"
+                )
             if abjad.get.indicator(last_leaf, abjad.Tie) is None:
                 abjad.attach(abjad.Tie(), last_leaf)
             new_leaves = abjad.LeafMaker()(pitch, duration)
             for indicator in abjad.get.indicators(leaf):
-                abjad.attach(indicator,
-                             abjad.select(new_leaves).leaf(0),
-                             )
+                abjad.attach(
+                    indicator,
+                    abjad.select(new_leaves).leaf(0),
+                )
             abjad.mutate.replace(leaf, new_leaves)
             last_leaf = abjad.select(new_leaves).leaf(-1)
 

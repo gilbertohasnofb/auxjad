@@ -345,30 +345,32 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_style',
-                 '_is_parenthesized',
-                 '_direction',
-                 '_centre_markup',
-                 '_markup',
-                 )
+    __slots__ = (
+        "_style",
+        "_is_parenthesized",
+        "_direction",
+        "_centre_markup",
+        "_markup",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 *arguments,
-                 multiplier: Optional[abjad.typings.DurationTyping] = None,
-                 tag: Optional[abjad.Tag] = None,
-                 style: str = "#'harmonic",
-                 is_parenthesized: bool = False,
-                 markup: Optional[str] = None,
-                 centre_markup: bool = True,
-                 direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
-                 ) -> None:
-        r"""Initialises self."""
+    def __init__(
+        self,
+        *arguments,
+        multiplier: Optional[abjad.typings.DurationTyping] = None,
+        tag: Optional[abjad.Tag] = None,
+        style: str = "#'harmonic",
+        is_parenthesized: bool = False,
+        markup: Optional[str] = None,
+        centre_markup: bool = True,
+        direction: Union[str, abjad.enums.VerticalAlignment] = "up",
+    ) -> None:
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         if len(self.written_pitches) != 2:
-            raise ValueError("'ArtificialHarmonic' requires exactly two "
-                             "'written_pitches' for initialisation")
+            raise ValueError(
+                "'ArtificialHarmonic' requires exactly two 'written_pitches' for initialisation"
+            )
         self.style = style
         self.is_parenthesized = is_parenthesized
         self._direction = direction
@@ -379,27 +381,25 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     def sounding_pitch(self) -> abjad.Pitch:
         r"""Returns the sounding pitch of the harmonic as an |abjad.Pitch|."""
-        interval = abs(self.written_pitches[1]
-                       - self.written_pitches[0]).semitones
-        sounding_pitch_dict = {1: 48,
-                               2: 36,
-                               3: 31,
-                               4: 28,
-                               5: 24,
-                               7: 19,
-                               9: 28,
-                               12: 12,
-                               16: 28,
-                               19: 19,
-                               24: 24,
-                               28: 28,
-                               }
+        interval = abs(self.written_pitches[1] - self.written_pitches[0]).semitones
+        sounding_pitch_dict = {
+            1: 48,
+            2: 36,
+            3: 31,
+            4: 28,
+            5: 24,
+            7: 19,
+            9: 28,
+            12: 12,
+            16: 28,
+            19: 19,
+            24: 24,
+            28: 28,
+        }
         try:
-            sounding_pitch = (self.written_pitches[0]
-                              + sounding_pitch_dict[interval])
+            sounding_pitch = self.written_pitches[0] + sounding_pitch_dict[interval]
         except KeyError as err:
-            raise ValueError('cannot calculate sounding pitch for given '
-                             'interval') from err
+            raise ValueError("cannot calculate sounding pitch for given interval") from err
         return sounding_pitch
 
     def sounding_note(self) -> abjad.Note:
@@ -413,23 +413,15 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     def _attach_centre_markup(self) -> None:
         r"""Attaches the centre markup tweaks."""
-        literal1 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.parent-alignment-X = 0'
-        )
-        literal2 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.self-alignment-X = 0'
-        )
+        literal1 = abjad.LilyPondLiteral(r"\once \override TextScript.parent-alignment-X = 0")
+        literal2 = abjad.LilyPondLiteral(r"\once \override TextScript.self-alignment-X = 0")
         abjad.attach(literal1, self)
         abjad.attach(literal2, self)
 
     def _detach_centre_markup(self) -> None:
         r"""Detaches the centre markup tweaks."""
-        literal1 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.parent-alignment-X = 0'
-        )
-        literal2 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.self-alignment-X = 0'
-        )
+        literal1 = abjad.LilyPondLiteral(r"\once \override TextScript.parent-alignment-X = 0")
+        literal2 = abjad.LilyPondLiteral(r"\once \override TextScript.self-alignment-X = 0")
         if abjad.get.indicator(self, literal1):
             abjad.detach(literal1, self)
         if abjad.get.indicator(self, literal2):
@@ -446,13 +438,13 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         )
 
     @written_pitches.setter
-    def written_pitches(self,
-                        written_pitches,
-                        ) -> None:
+    def written_pitches(
+        self,
+        written_pitches,
+    ) -> None:
         written_pitches_ = abjad.PitchSegment(written_pitches)
         if len(written_pitches_) != 2:
-            raise ValueError("'ArtificialHarmonic' requires exactly two "
-                             "pitches")
+            raise ValueError("'ArtificialHarmonic' requires exactly two pitches")
         for index, pitch in enumerate(written_pitches_):
             self._note_heads[index].written_pitch = pitch
 
@@ -462,9 +454,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         return self._style
 
     @style.setter
-    def style(self,
-              style: str,
-              ) -> None:
+    def style(
+        self,
+        style: str,
+    ) -> None:
         if not isinstance(style, str):
             raise TypeError("'style' must be 'str'")
         self._style = style
@@ -478,9 +471,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         return self._centre_markup
 
     @centre_markup.setter
-    def centre_markup(self,
-                      centre_markup: bool,
-                      ) -> None:
+    def centre_markup(
+        self,
+        centre_markup: bool,
+    ) -> None:
         if not isinstance(centre_markup, bool):
             raise TypeError("'style' must be 'bool'")
         self._centre_markup = centre_markup
@@ -491,9 +485,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         return self._is_parenthesized
 
     @is_parenthesized.setter
-    def is_parenthesized(self,
-                         is_parenthesized: bool,
-                         ) -> None:
+    def is_parenthesized(
+        self,
+        is_parenthesized: bool,
+    ) -> None:
         if not isinstance(is_parenthesized, bool):
             raise TypeError("'is_parenthesized' must be 'bool'")
         self._is_parenthesized = is_parenthesized
@@ -507,16 +502,18 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         return self._markup
 
     @markup.setter
-    def markup(self,
-               markup: str,
-               ) -> None:
+    def markup(
+        self,
+        markup: str,
+    ) -> None:
         if markup is not None:
             if not isinstance(markup, str):
                 raise TypeError("'markup' must be 'str'")
             self._markup = markup
-            markup = abjad.Markup(self._markup,
-                                  direction=self._direction,
-                                  )
+            markup = abjad.Markup(
+                self._markup,
+                direction=self._direction,
+            )
             abjad.attach(markup, self)
             if self._centre_markup:
                 self._attach_centre_markup()

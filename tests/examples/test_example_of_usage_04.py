@@ -9,25 +9,24 @@ def test_example_of_usage_04():
     random.seed(64993)
     container = abjad.Container(r"c'4-- c'8.-- c'16( c'8)-. c'8-. c'8-. r8")
     pitch_list = ["c'", "cs'", "d'", "ef'", "e'"]
-    randomiser = auxjad.PitchRandomiser(container,
-                                        pitches=pitch_list,
-                                        )
+    randomiser = auxjad.PitchRandomiser(
+        container,
+        pitches=pitch_list,
+    )
     notes = randomiser.output_n(2)
     group_1 = abjad.Staff(notes)
     randomiser.pitches = ["a", "b", "bf'", "a''", "b''"]
     notes = randomiser.output_n(2)
     group_2 = abjad.Staff(notes)
     container = abjad.Container(
-        r"\time 3/4 c'4--( ~ "
-        r"\times 4/5 {c'16 c'16-. c'16-. c'16-. c'16-.)} "
-        r"r8 c'8->"
+        r"\time 3/4 c'4--( ~ " r"\times 4/5 {c'16 c'16-. c'16-. c'16-. c'16-.)} " r"r8 c'8->"
     )
     randomiser.contents = container
     randomiser.weights = [6, 3, 2, 1, 1]
     notes = randomiser.output_n(2)
     group_3 = abjad.Staff(notes)
     staff = abjad.Staff()
-    repeater = auxjad.Repeater(group_1, repeat_type='volta')
+    repeater = auxjad.Repeater(group_1, repeat_type="volta")
     notes = repeater(3)
     staff.append(notes)
     repeater.contents = group_2
@@ -36,8 +35,7 @@ def test_example_of_usage_04():
     repeater.contents = group_3
     notes = repeater(4)
     staff.append(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \repeat volta 3
@@ -156,5 +154,4 @@ def test_example_of_usage_04():
                 \mark \markup{\box "4×"}
             }
         }
-        """
-    )
+        """)

@@ -4,10 +4,11 @@ import abjad
 class TimeSignature(abjad.TimeSignature):
     r"""Time signature."""
 
-    def simplify_ratio(self,
-                       *,
-                       min_denominator: int = 4,
-                       ) -> None:
+    def simplify_ratio(
+        self,
+        *,
+        min_denominator: int = 4,
+    ) -> None:
         r"""Simplifies the ratio of an |abjad.TimeSignature| according to a
         minimum denominator value. Mutates the ratio in place and has no return
         value. Note that Auxjad adds this function as an extension method to
@@ -66,8 +67,11 @@ class TimeSignature(abjad.TimeSignature):
             self._numerator *= 2
             self._denominator *= 2
         while True:
-            if (self._numerator % 2 == 0 and self._denominator % 2 == 0
-                    and self._denominator >= 2 * min_denominator):
+            if (
+                self._numerator % 2 == 0
+                and self._denominator % 2 == 0
+                and self._denominator >= 2 * min_denominator
+            ):
                 self._numerator //= 2
                 self._denominator //= 2
             else:

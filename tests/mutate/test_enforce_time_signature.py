@@ -7,8 +7,7 @@ def test_enforce_time_signature_01():
     staff = abjad.Staff(r"c'1 d'1")
     time_signatures = abjad.TimeSignature((2, 4))
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -19,15 +18,13 @@ def test_enforce_time_signature_01():
             ~
             d'2
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_02():
     staff = abjad.Staff(r"c'1 d'1")
     auxjad.mutate.enforce_time_signature(staff, (3, 4))
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -39,8 +36,7 @@ def test_enforce_time_signature_02():
             d'2
             r4
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_03():
@@ -50,8 +46,7 @@ def test_enforce_time_signature_03():
         abjad.TimeSignature((3, 4)),
         close_container=True,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -69,8 +64,7 @@ def test_enforce_time_signature_03():
             \time 1/4
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_04():
@@ -80,8 +74,7 @@ def test_enforce_time_signature_04():
         abjad.TimeSignature((3, 4)),
         fill_with_rests=False,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -98,18 +91,17 @@ def test_enforce_time_signature_04():
             ~
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_05():
     staff = abjad.Staff(r"c'1 d'1")
-    time_signatures = [abjad.TimeSignature((3, 4)),
-                       abjad.TimeSignature((5, 4)),
-                       ]
+    time_signatures = [
+        abjad.TimeSignature((3, 4)),
+        abjad.TimeSignature((5, 4)),
+    ]
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -119,19 +111,18 @@ def test_enforce_time_signature_05():
             c'4
             d'1
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_06():
     staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-    time_signatures = [(2, 4),
-                       (2, 4),
-                       (4, 4),
-                       ]
+    time_signatures = [
+        (2, 4),
+        (2, 4),
+        (4, 4),
+    ]
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -143,22 +134,21 @@ def test_enforce_time_signature_06():
             e'1
             f'1
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_07():
     staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-    time_signatures = [abjad.TimeSignature((3, 8)),
-                       abjad.TimeSignature((2, 8)),
-                       ]
+    time_signatures = [
+        abjad.TimeSignature((3, 8)),
+        abjad.TimeSignature((2, 8)),
+    ]
     auxjad.mutate.enforce_time_signature(
         staff,
         time_signatures,
         cyclic=True,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/8
@@ -202,18 +192,17 @@ def test_enforce_time_signature_07():
             f'4
             r8
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_08():
     staff = abjad.Staff(r"\times 2/3 {c'2 d'2 e'2} f'1")
-    time_signatures = [abjad.TimeSignature((2, 4)),
-                       abjad.TimeSignature((3, 4)),
-                       ]
+    time_signatures = [
+        abjad.TimeSignature((2, 4)),
+        abjad.TimeSignature((3, 4)),
+    ]
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \times 2/3
@@ -233,23 +222,22 @@ def test_enforce_time_signature_08():
             ~
             f'2.
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_09():
     staff = staff = abjad.Staff(r"\time 3/4 c'2. d'2. e'2. f'2.")
-    time_signatures = [abjad.TimeSignature((5, 8)),
-                       abjad.TimeSignature((1, 16)),
-                       abjad.TimeSignature((2, 4)),
-                       ]
+    time_signatures = [
+        abjad.TimeSignature((5, 8)),
+        abjad.TimeSignature((1, 16)),
+        abjad.TimeSignature((2, 4)),
+    ]
     auxjad.mutate.enforce_time_signature(
         staff,
         time_signatures,
         cyclic=True,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/8
@@ -284,22 +272,21 @@ def test_enforce_time_signature_09():
             ~
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_10():
     staff = abjad.Staff(r"c'1 d'1 e'1 f'1")
-    time_signatures = [(2, 4),
-                       None,
-                       None,
-                       (3, 4),
-                       None,
-                       (4, 4),
-                       ]
+    time_signatures = [
+        (2, 4),
+        None,
+        None,
+        (3, 4),
+        None,
+        (4, 4),
+    ]
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 2/4
@@ -316,20 +303,19 @@ def test_enforce_time_signature_10():
             \time 4/4
             f'1
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_11():
     staff = abjad.Staff(r"c'1 d'1 e'2. f'2.")
-    time_signatures = [None,
-                       None,
-                       (3, 4),
-                       None,
-                       ]
+    time_signatures = [
+        None,
+        None,
+        (3, 4),
+        None,
+    ]
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -338,15 +324,13 @@ def test_enforce_time_signature_11():
             e'2.
             f'2.
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_12():
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.mutate.enforce_time_signature(staff, abjad.TimeSignature((3, 4)))
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -361,16 +345,14 @@ def test_enforce_time_signature_12():
             c'8.
             d'16
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.mutate.enforce_time_signature(
         staff,
         abjad.TimeSignature((3, 4)),
         boundary_depth=1,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -387,18 +369,17 @@ def test_enforce_time_signature_12():
             c'8.
             d'16
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_13():
     staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
-    time_signatures = [abjad.TimeSignature((5, 4)),
-                       abjad.TimeSignature((3, 4)),
-                       ]
+    time_signatures = [
+        abjad.TimeSignature((5, 4)),
+        abjad.TimeSignature((3, 4)),
+    ]
     auxjad.mutate.enforce_time_signature(staff, time_signatures)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/4
@@ -410,19 +391,18 @@ def test_enforce_time_signature_13():
             d'4.
             e'4
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1 ~ c'4 r8 d'4. e'4")
-    time_signatures = [abjad.TimeSignature((5, 4)),
-                       abjad.TimeSignature((3, 4)),
-                       ]
+    time_signatures = [
+        abjad.TimeSignature((5, 4)),
+        abjad.TimeSignature((3, 4)),
+    ]
     auxjad.mutate.enforce_time_signature(
         staff,
         time_signatures,
         disable_rewrite_meter=True,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/4
@@ -434,15 +414,13 @@ def test_enforce_time_signature_13():
             d'4.
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_14():
     staff = abjad.Staff(r"c'4. d'8 e'2")
     auxjad.mutate.enforce_time_signature(staff, abjad.TimeSignature((4, 4)))
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 4/4
@@ -450,16 +428,14 @@ def test_enforce_time_signature_14():
             d'8
             e'2
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'4. d'8 e'2")
     auxjad.mutate.enforce_time_signature(
         staff,
         abjad.TimeSignature((4, 4)),
         boundary_depth=1,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 4/4
@@ -469,15 +445,13 @@ def test_enforce_time_signature_14():
             d'8
             e'2
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_15():
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.mutate.enforce_time_signature(staff, abjad.TimeSignature((3, 4)))
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -492,16 +466,14 @@ def test_enforce_time_signature_15():
             c'8.
             d'16
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"\time 3/4 d'8. e'16 ~ e'2 ~ e'4.. c'4 d'16")
     auxjad.mutate.enforce_time_signature(
         staff,
         abjad.TimeSignature((3, 4)),
         maximum_dot_count=1,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -518,8 +490,7 @@ def test_enforce_time_signature_15():
             c'8.
             d'16
         }
-        """
-    )
+        """)
 
 
 def test_enforce_time_signature_16():
@@ -529,8 +500,7 @@ def test_enforce_time_signature_16():
         abjad.TimeSignature((3, 4)),
         boundary_depth=1,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \tweak text #tuplet-number::calc-fraction-text
@@ -555,8 +525,7 @@ def test_enforce_time_signature_16():
                 r16
             }
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"\times 6/7 {c'4. r16} \times 6/7 {d'4. r16}")
     auxjad.mutate.enforce_time_signature(
         staff,
@@ -564,8 +533,7 @@ def test_enforce_time_signature_16():
         boundary_depth=1,
         rewrite_tuplets=False,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \tweak text #tuplet-number::calc-fraction-text
@@ -582,5 +550,4 @@ def test_enforce_time_signature_16():
                 r16
             }
         }
-        """
-    )
+        """)

@@ -6,4 +6,4 @@ pydocstyle>=6.3.0
 pygments>=2.19.2
 pytest>=8.4.0
 setuptools>=80.9.0
-sphinx>=8.2.3
+sphinx>=7.4.0

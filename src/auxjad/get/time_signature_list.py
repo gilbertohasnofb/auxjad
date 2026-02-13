@@ -1,12 +1,13 @@
 import abjad
 
 
-def time_signature_list(container: abjad.Container,
-                        *,
-                        do_not_use_none: bool = False,
-                        implicit_common_time: bool = True,
-                        omit_repeated: bool = False,
-                        ) -> list[abjad.TimeSignature]:
+def time_signature_list(
+    container: abjad.Container,
+    *,
+    do_not_use_none: bool = False,
+    implicit_common_time: bool = True,
+    omit_repeated: bool = False,
+) -> list[abjad.TimeSignature]:
     r"""Returns a :obj:`list` with the |abjad.TimeSignature|'s for all measures
     of an input |abjad.Container|.
 
@@ -124,8 +125,7 @@ def time_signature_list(container: abjad.Container,
         'omit_repeated' set to 'True'
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("first argument must be 'abjad.Container' or "
-                        "child class")
+        raise TypeError("first argument must be 'abjad.Container' or child class")
     if not isinstance(do_not_use_none, bool):
         raise TypeError("'do_not_use_none' must be 'bool'")
     if not isinstance(implicit_common_time, bool):
@@ -133,15 +133,16 @@ def time_signature_list(container: abjad.Container,
     if not isinstance(omit_repeated, bool):
         raise TypeError("'omit_repeated' must be 'bool'")
     if omit_repeated and do_not_use_none:
-        raise ValueError("'omit_repeated' and 'do_not_use_none' cannot be "
-                         "both set to 'True'")
+        raise ValueError("'omit_repeated' and 'do_not_use_none' cannot be both set to 'True'")
     if not implicit_common_time and do_not_use_none:
         head_leaf = abjad.select(container).leaf(0)
         if not abjad.get.indicator(head_leaf, abjad.TimeSignature):
-            raise ValueError("container does not have a time signature "
-                             "attached to its first leaf, with "
-                             "'implicit_common_time' set to 'False' and "
-                             "'omit_repeated' set to 'True'")
+            raise ValueError(
+                "container does not have a time signature "
+                "attached to its first leaf, with "
+                "'implicit_common_time' set to 'False' and "
+                "'omit_repeated' set to 'True'"
+            )
 
     measures = abjad.select(container[:]).group_by_measure()
     time_signatures = []
@@ -159,17 +160,13 @@ def time_signature_list(container: abjad.Container,
             time_signatures[0] = abjad.TimeSignature((4, 4))
         for i in range(1, len(time_signatures)):
             if time_signatures[i] is None:
-                time_signatures[i] = abjad.TimeSignature(
-                    time_signatures[i - 1].pair
-                )
+                time_signatures[i] = abjad.TimeSignature(time_signatures[i - 1].pair)
     elif omit_repeated:
         effective_time_signature = None
         for i in range(len(time_signatures)):
             current_time_signature = time_signatures[i]
             if current_time_signature is not None:
-                current_time_signature = abjad.TimeSignature(
-                    current_time_signature.pair
-                )
+                current_time_signature = abjad.TimeSignature(current_time_signature.pair)
             if current_time_signature == effective_time_signature:
                 time_signatures[i] = None
             else:

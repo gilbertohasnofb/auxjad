@@ -2,7 +2,7 @@ import random
 from typing import Any, Union
 
 
-class CartographySelector():
+class CartographySelector:
     r"""A selector used to store, manipulate, and select objects using a
     weighted function constructed with a fixed decay rate. The decay rate
     represents the ratio of probabilities of any index given the probability of
@@ -286,27 +286,28 @@ class CartographySelector():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_decay_rate',
-                 '_previous_index',
-                 '_weights',
-                 )
+    __slots__ = (
+        "_contents",
+        "_decay_rate",
+        "_previous_index",
+        "_weights",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: list[Any],
-                 *,
-                 decay_rate: float = 0.75,
-                 ) -> None:
+    def __init__(
+        self,
+        contents: list[Any],
+        *,
+        decay_rate: float = 0.75,
+    ) -> None:
         r"""Initialises self."""
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
         if not isinstance(decay_rate, float):
             raise TypeError("'decay_rate' must be 'float'")
         if decay_rate <= 0.0 or decay_rate > 1.0:
-            raise ValueError("'decay_rate' must be larger than 0.0 and "
-                             "less than or equal to 1.0")
+            raise ValueError("'decay_rate' must be larger than 0.0 and less than or equal to 1.0")
         self._contents = contents[:]
         self._previous_index = None
         self._decay_rate = decay_rate
@@ -322,10 +323,11 @@ class CartographySelector():
         r"""Returns the length of :attr:`contents`."""
         return len(self._contents)
 
-    def __call__(self,
-                 *,
-                 no_repeat: bool = False,
-                 ) -> Any:
+    def __call__(
+        self,
+        *,
+        no_repeat: bool = False,
+    ) -> Any:
         r"""Calls the selection process and outputs one element of
         :attr:`contents`.
         """
@@ -352,27 +354,30 @@ class CartographySelector():
         """
         return self.__call__()
 
-    def __getitem__(self,
-                    key: int,
-                    ) -> Any:
+    def __getitem__(
+        self,
+        key: int,
+    ) -> Any:
         r"""Returns one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         return self._contents[key]
 
-    def __setitem__(self,
-                    key: int,
-                    value: Any,
-                    ) -> None:
+    def __setitem__(
+        self,
+        key: int,
+        value: Any,
+    ) -> None:
         r"""Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
         self._contents[key] = value
         self._generate_weights()
 
-    def __delitem__(self,
-                    key: int,
-                    ) -> None:
+    def __delitem__(
+        self,
+        key: int,
+    ) -> None:
         r"""Deletes one or more elements of :attr:`contents` through indexing
         or slicing.
         """
@@ -381,42 +386,44 @@ class CartographySelector():
 
     ### PUBLIC METHODS ###
 
-    def drop_first_and_append(self,
-                              new_element: Any,
-                              ) -> None:
+    def drop_first_and_append(
+        self,
+        new_element: Any,
+    ) -> None:
         r"""A type of content transformation, it drops the first element of
         :attr:`contents`, shifts all others leftwards, and appends the new
         element to the last index.
         """
         self._contents = self._contents[1:] + [new_element]
 
-    def drop_n_and_append(self,
-                          new_element: Any,
-                          *,
-                          n: int,
-                          ) -> None:
+    def drop_n_and_append(
+        self,
+        new_element: Any,
+        *,
+        n: int,
+    ) -> None:
         r"""A type of content transformation similar to
         :meth:`drop_first_and_append`, it drops the element at index ``n`` of
         :attr:`contents`, shifts all the next elements one position lefwards,
         and appends the new element at the last index.
         """
-        self._contents = (self._contents[:n]
-                          + self._contents[n + 1:]
-                          + [new_element])
+        self._contents = self._contents[:n] + self._contents[n + 1 :] + [new_element]
 
-    def drop_last_and_prepend(self,
-                              new_element: Any,
-                              ) -> None:
+    def drop_last_and_prepend(
+        self,
+        new_element: Any,
+    ) -> None:
         r"""A type of content transformation, it drops the last element of
         :attr:`contents`, shifts all others rightwards, and then prepends
         the new element to the first index.
         """
         self._contents = [new_element] + self._contents[:-1]
 
-    def rotate(self,
-               *,
-               anticlockwise=False,
-               ) -> None:
+    def rotate(
+        self,
+        *,
+        anticlockwise=False,
+    ) -> None:
         r"""A type of content transformation, it rotates all elements
         rightwards, moving the last element to the first index. If the optional
         keyword argument ``anticlockwise`` is set to ``True``, the rotation
@@ -427,9 +434,10 @@ class CartographySelector():
         else:
             self._contents = self._contents[-1:] + self._contents[:-1]
 
-    def mirror_swap(self,
-                    index: int,
-                    ) -> None:
+    def mirror_swap(
+        self,
+        index: int,
+    ) -> None:
         r"""A type of content transformation which takes an input index and
         swaps the element at that position with its complementary element.
         Complementary elements are defined as the pair of elements which share
@@ -437,7 +445,8 @@ class CartographySelector():
         number of indeces), and are located at either side of this centre.
         """
         self._contents[index], self._contents[-1 - index] = (
-            self._contents[-1 - index], self._contents[index],
+            self._contents[-1 - index],
+            self._contents[index],
         )
 
     def mirror_random_swap(self) -> None:
@@ -462,7 +471,7 @@ class CartographySelector():
         """
         self._weights = []
         for n in range(self.__len__()):
-            self._weights.append(self._decay_rate ** n)
+            self._weights.append(self._decay_rate**n)
 
     ### PUBLIC PROPERTIES ###
 
@@ -472,9 +481,10 @@ class CartographySelector():
         return self._contents
 
     @contents.setter
-    def contents(self,
-                 contents: list[Any],
-                 ) -> None:
+    def contents(
+        self,
+        contents: list[Any],
+    ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
         self._contents = contents[:]
@@ -493,14 +503,14 @@ class CartographySelector():
         return self._decay_rate
 
     @decay_rate.setter
-    def decay_rate(self,
-                   decay_rate: float,
-                   ) -> None:
+    def decay_rate(
+        self,
+        decay_rate: float,
+    ) -> None:
         if not isinstance(decay_rate, float):
             raise TypeError("'decay_rate' must be float")
         if decay_rate <= 0.0 or decay_rate > 1.0:
-            raise ValueError("'decay_rate' must be larger than 0.0 and less "
-                             "than or equal to 1.0")
+            raise ValueError("'decay_rate' must be larger than 0.0 and less than or equal to 1.0")
         self._decay_rate = decay_rate
         self._generate_weights()
 

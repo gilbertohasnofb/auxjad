@@ -5,51 +5,58 @@ import abjad
 from .. import mutate
 
 
-def _make_rest_from_leaf(leaf: abjad.Leaf,
-                         *,
-                         ignore_dynamics: bool = False,
-                         ) -> abjad.Rest:
+def _make_rest_from_leaf(
+    leaf: abjad.Leaf,
+    *,
+    ignore_dynamics: bool = False,
+) -> abjad.Rest:
     r"""Creates a rest of the same duration as a leaf and passes the
     relevant leaf indicators to the rest (such as time signature or bar
     lines, but not slurs or articulations)
     """
     rest = abjad.Rest(leaf.written_duration)
     for indicator in abjad.get.indicators(leaf):
-        if isinstance(indicator, (abjad.BarLine,
-                                  abjad.Clef,
-                                  abjad.Dynamic,
-                                  abjad.KeySignature,
-                                  abjad.LilyPondLiteral,
-                                  abjad.MetronomeMark,
-                                  abjad.RehearsalMark,
-                                  abjad.Repeat,
-                                  abjad.StaffChange,
-                                  abjad.StartHairpin,
-                                  abjad.StartSlur,
-                                  abjad.StopHairpin,
-                                  abjad.StopSlur,
-                                  abjad.TimeSignature,
-                                  )):
+        if isinstance(
+            indicator,
+            (
+                abjad.BarLine,
+                abjad.Clef,
+                abjad.Dynamic,
+                abjad.KeySignature,
+                abjad.LilyPondLiteral,
+                abjad.MetronomeMark,
+                abjad.RehearsalMark,
+                abjad.Repeat,
+                abjad.StaffChange,
+                abjad.StartHairpin,
+                abjad.StartSlur,
+                abjad.StopHairpin,
+                abjad.StopSlur,
+                abjad.TimeSignature,
+            ),
+        ):
             abjad.attach(indicator, rest)
     return rest
 
 
-def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
-                   *,
-                   threshold: Union[int,
-                                    float,
-                                    str,
-                                    abjad.Pitch,
-                                    ] = abjad.NamedPitch("c'"),
-                   upper_clef: Union[abjad.Clef, str] = abjad.Clef('treble'),
-                   lower_clef: Union[abjad.Clef, str] = abjad.Clef('bass'),
-                   add_clefs: bool = True,
-                   dynamics_only_on_upper_staff: bool = False,
-                   reposition_dynamics: bool = True,
-                   reposition_slurs: bool = True,
-                   use_multimeasure_rests: bool = True,
-                   rewrite_meter: bool = True,
-                   ) -> tuple:
+def staff_splitter(
+    staff: Union[abjad.Staff, abjad.Selection],
+    *,
+    threshold: Union[
+        int,
+        float,
+        str,
+        abjad.Pitch,
+    ] = abjad.NamedPitch("c'"),
+    upper_clef: Union[abjad.Clef, str] = abjad.Clef("treble"),
+    lower_clef: Union[abjad.Clef, str] = abjad.Clef("bass"),
+    add_clefs: bool = True,
+    dynamics_only_on_upper_staff: bool = False,
+    reposition_dynamics: bool = True,
+    reposition_slurs: bool = True,
+    use_multimeasure_rests: bool = True,
+    rewrite_meter: bool = True,
+) -> tuple:
     r"""Takes an |abjad.Staff| or |abjad.Selection| and splits it into two
     staves using a reference pitch as threshold. Returns a tuple of
     |abjad.Staff|'s.
@@ -865,8 +872,9 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
     elif isinstance(threshold, (int, float)):
         threshold = abjad.NumberedPitch(threshold)
     elif not isinstance(threshold, abjad.Pitch):
-        raise TypeError("'threshold' must be 'abjad.Pitch' (or child class), "
-                        "'str', 'int', or 'float'")
+        raise TypeError(
+            "'threshold' must be 'abjad.Pitch' (or child class), 'str', 'int', or 'float'"
+        )
     if isinstance(upper_clef, str):
         upper_clef = abjad.Clef(upper_clef)
     elif not isinstance(upper_clef, abjad.Clef):
@@ -910,9 +918,10 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
                 if len(new_pitches) > 1:
                     leaf.written_pitches = new_pitches
                 else:
-                    new_leaf = abjad.Note(new_pitches[0],
-                                          leaf.written_duration,
-                                          )
+                    new_leaf = abjad.Note(
+                        new_pitches[0],
+                        leaf.written_duration,
+                    )
                     for indicator in abjad.get.indicators(leaf):
                         abjad.attach(indicator, new_leaf)
                     abjad.mutate.replace(leaf, new_leaf)
@@ -934,9 +943,10 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
                 if len(new_pitches) > 1:
                     leaf.written_pitches = new_pitches
                 else:
-                    new_leaf = abjad.Note(new_pitches[0],
-                                          leaf.written_duration,
-                                          )
+                    new_leaf = abjad.Note(
+                        new_pitches[0],
+                        leaf.written_duration,
+                    )
                     for indicator in abjad.get.indicators(leaf):
                         abjad.attach(indicator, new_leaf)
                     abjad.mutate.replace(leaf, new_leaf)
@@ -948,10 +958,14 @@ def staff_splitter(staff: Union[abjad.Staff, abjad.Selection],
     if dynamics_only_on_upper_staff:
         for leaf in abjad.select(lower_staff).leaves():
             for indicator in abjad.get.indicators(leaf):
-                if isinstance(indicator, (abjad.Dynamic,
-                                          abjad.StartHairpin,
-                                          abjad.StopHairpin,
-                                          )):
+                if isinstance(
+                    indicator,
+                    (
+                        abjad.Dynamic,
+                        abjad.StartHairpin,
+                        abjad.StopHairpin,
+                    ),
+                ):
                     abjad.detach(indicator, leaf)
 
     if reposition_dynamics:

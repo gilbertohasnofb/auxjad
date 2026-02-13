@@ -6,7 +6,7 @@ import abjad
 from .. import get, mutate
 
 
-class Echoer():
+class Echoer:
     r"""Takes an |abjad.Container| (or child class) as input and, using it as
     reference, gradually lowers all dynamics, removing notes that are below a
     given threshold, returning the output as an |abjad.Selection|.
@@ -1413,92 +1413,94 @@ class Echoer():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_current_window',
-                 '_min_dynamic',
-                 '_max_steps',
-                 '_disable_rewrite_meter',
-                 '_mask',
-                 '_is_first_window',
-                 '_time_signatures',
-                 '_omit_time_signatures',
-                 '_use_multimeasure_rests',
-                 '_boundary_depth',
-                 '_maximum_dot_count',
-                 '_rewrite_tuplets',
-                 '_process_on_first_call',
-                 '_include_empty_measures',
-                 '_repetition_chance',
-                 '_prettify_rewrite_meter',
-                 '_extract_trivial_tuplets',
-                 '_fuse_across_groups_of_beats',
-                 '_fuse_quadruple_meter',
-                 '_fuse_triple_meter',
-                 )
+    __slots__ = (
+        "_contents",
+        "_current_window",
+        "_min_dynamic",
+        "_max_steps",
+        "_disable_rewrite_meter",
+        "_mask",
+        "_is_first_window",
+        "_time_signatures",
+        "_omit_time_signatures",
+        "_use_multimeasure_rests",
+        "_boundary_depth",
+        "_maximum_dot_count",
+        "_rewrite_tuplets",
+        "_process_on_first_call",
+        "_include_empty_measures",
+        "_repetition_chance",
+        "_prettify_rewrite_meter",
+        "_extract_trivial_tuplets",
+        "_fuse_across_groups_of_beats",
+        "_fuse_quadruple_meter",
+        "_fuse_triple_meter",
+    )
 
     _dynamic_name_to_dynamic_ordinal = {
-        'ppppp': -5,
-        'pppp': -4,
-        'ppp': -3,
-        'pp': -2,
-        'p': -1,
-        'mp': 0,
-        'mf': 1,
-        'f': 2,
-        'ff': 3,
-        'fff': 4,
-        'ffff': 5,
-        'fffff': 6,
-        'fp': -1,
-        'sf': 2,
-        'sff': 3,
-        'sfp': -1,
-        'sfpp': -2,
-        'sffp': -1,
-        'sffpp': -2,
-        'sfz': 2,
-        'sp': -1,
-        'spp': -2,
-        'rfz': 2,
+        "ppppp": -5,
+        "pppp": -4,
+        "ppp": -3,
+        "pp": -2,
+        "p": -1,
+        "mp": 0,
+        "mf": 1,
+        "f": 2,
+        "ff": 3,
+        "fff": 4,
+        "ffff": 5,
+        "fffff": 6,
+        "fp": -1,
+        "sf": 2,
+        "sff": 3,
+        "sfp": -1,
+        "sfpp": -2,
+        "sffp": -1,
+        "sffpp": -2,
+        "sfz": 2,
+        "sp": -1,
+        "spp": -2,
+        "rfz": 2,
     }
 
     _dynamic_ordinal_to_dynamic_name = {
-        -5 : 'ppppp',
-        -4 : 'pppp',
-        -3 : 'ppp',
-        -2 : 'pp',
-        -1 : 'p',
-        0 : 'mp',
-        1 : 'mf',
-        2 : 'f',
-        3 : 'ff',
-        4 : 'fff',
-        5 : 'ffff',
-        6 : 'fffff',
+        -5: "ppppp",
+        -4: "pppp",
+        -3: "ppp",
+        -2: "pp",
+        -1: "p",
+        0: "mp",
+        1: "mf",
+        2: "f",
+        3: "ff",
+        4: "fff",
+        5: "ffff",
+        6: "fffff",
     }
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 min_dynamic: Union[abjad.Dynamic, str] = 'ppp',
-                 max_steps: int = 1,
-                 repetition_chance: float = 0.0,
-                 process_on_first_call: bool = False,
-                 disable_rewrite_meter: bool = False,
-                 omit_time_signatures: bool = False,
-                 use_multimeasure_rests: bool = True,
-                 boundary_depth: Optional[int] = None,
-                 maximum_dot_count: Optional[int] = None,
-                 rewrite_tuplets: bool = True,
-                 include_empty_measures: bool = True,
-                 prettify_rewrite_meter: bool = True,
-                 extract_trivial_tuplets: bool = True,
-                 fuse_across_groups_of_beats: bool = True,
-                 fuse_quadruple_meter: bool = True,
-                 fuse_triple_meter: bool = True,
-                 ) -> None:
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        min_dynamic: Union[abjad.Dynamic, str] = "ppp",
+        max_steps: int = 1,
+        repetition_chance: float = 0.0,
+        process_on_first_call: bool = False,
+        disable_rewrite_meter: bool = False,
+        omit_time_signatures: bool = False,
+        use_multimeasure_rests: bool = True,
+        boundary_depth: Optional[int] = None,
+        maximum_dot_count: Optional[int] = None,
+        rewrite_tuplets: bool = True,
+        include_empty_measures: bool = True,
+        prettify_rewrite_meter: bool = True,
+        extract_trivial_tuplets: bool = True,
+        fuse_across_groups_of_beats: bool = True,
+        fuse_quadruple_meter: bool = True,
+        fuse_triple_meter: bool = True,
+    ) -> None:
         r"""Initialises self."""
         self.min_dynamic = min_dynamic
         self.max_steps = max_steps
@@ -1534,8 +1536,7 @@ class Echoer():
         r"""Calls the echo process for one iteration, returning an
         |abjad.Selection|.
         """
-        if (self._repetition_chance == 0.0
-                or random.random() > self._repetition_chance):
+        if self._repetition_chance == 0.0 or random.random() > self._repetition_chance:
             if not self._is_first_window or self._process_on_first_call:
                 self._soften_mask()
         self._mask_to_selection()
@@ -1570,17 +1571,17 @@ class Echoer():
         dummy_container[:] = []
         return output
 
-    def output_n(self,
-                 n: int,
-                 ) -> abjad.Selection:
+    def output_n(
+        self,
+        n: int,
+    ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the echoing process and outputs a
         single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("first positional argument must be a positive "
-                             "'int'")
+            raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
@@ -1607,9 +1608,10 @@ class Echoer():
             dyn_list = self._mask_to_dyn_list()
             previous_dyn = None
             for logical_tie, new_dyn in zip(logical_ties, dyn_list):
-                current_dyn = abjad.get.indicator(logical_tie.head,
-                                                  abjad.Dynamic,
-                                                  )
+                current_dyn = abjad.get.indicator(
+                    logical_tie.head,
+                    abjad.Dynamic,
+                )
                 if current_dyn is not None:
                     abjad.detach(current_dyn, logical_tie.head)
                 if new_dyn is not None:
@@ -1657,8 +1659,7 @@ class Echoer():
                 try:
                     dyn = self._dynamic_name_to_dynamic_ordinal[dyn.name]
                 except KeyError as exc:
-                    raise ValueError(f"the dynamic marking '{dyn.name}' is "
-                                     "not supported") from exc
+                    raise ValueError(f"the dynamic marking '{dyn.name}' is not supported") from exc
             else:
                 dyn = previous_dyn
             self._mask.append(dyn)
@@ -1681,17 +1682,21 @@ class Echoer():
         r"""Lowers the dynamics of the mask by one level."""
         for n in range(random.randint(1, self._max_steps)):
             if any(item is not None for item in self._mask):
-                self._mask = [self._soften_dynamic(item,
-                                                   self._min_dynamic_number,
-                                                   )
-                              for item in self._mask]
+                self._mask = [
+                    self._soften_dynamic(
+                        item,
+                        self._min_dynamic_number,
+                    )
+                    for item in self._mask
+                ]
             elif n == 0:
                 raise RuntimeError("'current_window' is already empty")
 
     @staticmethod
-    def _soften_dynamic(item: Union[int, None],
-                        min_dyn_number: int,
-                        ) -> Union[int, None]:
+    def _soften_dynamic(
+        item: Union[int, None],
+        min_dyn_number: int,
+    ) -> Union[int, None]:
         r"""Lowers a numerical dynamic level by one, setting it to ``None`` if
         dynamic below a given threshold.
         """
@@ -1703,31 +1708,33 @@ class Echoer():
         return item
 
     @staticmethod
-    def _convert_pitched_logical_tie_to_rest(logical_tie: abjad.LogicalTie,
-                                             ) -> None:
+    def _convert_pitched_logical_tie_to_rest(
+        logical_tie: abjad.LogicalTie,
+    ) -> None:
         r"""Converts all leaves of a pitched logical tie into rests."""
-        indicators_tuple = (abjad.BarLine,
-                            abjad.Clef,
-                            abjad.Dynamic,
-                            abjad.Fermata,
-                            abjad.KeySignature,
-                            abjad.LilyPondLiteral,
-                            abjad.MetronomeMark,
-                            abjad.Ottava,
-                            abjad.RehearsalMark,
-                            abjad.Repeat,
-                            abjad.StaffChange,
-                            abjad.StartHairpin,
-                            abjad.StartMarkup,
-                            abjad.StartPhrasingSlur,
-                            abjad.StartSlur,
-                            abjad.StartTextSpan,
-                            abjad.StopHairpin,
-                            abjad.StopPhrasingSlur,
-                            abjad.StopSlur,
-                            abjad.StopTextSpan,
-                            abjad.TimeSignature,
-                            )
+        indicators_tuple = (
+            abjad.BarLine,
+            abjad.Clef,
+            abjad.Dynamic,
+            abjad.Fermata,
+            abjad.KeySignature,
+            abjad.LilyPondLiteral,
+            abjad.MetronomeMark,
+            abjad.Ottava,
+            abjad.RehearsalMark,
+            abjad.Repeat,
+            abjad.StaffChange,
+            abjad.StartHairpin,
+            abjad.StartMarkup,
+            abjad.StartPhrasingSlur,
+            abjad.StartSlur,
+            abjad.StartTextSpan,
+            abjad.StopHairpin,
+            abjad.StopPhrasingSlur,
+            abjad.StopSlur,
+            abjad.StopTextSpan,
+            abjad.TimeSignature,
+        )
         for leaf in logical_tie:
             rest = abjad.Rest(leaf.written_duration)
             for indicator in abjad.get.indicators(leaf):
@@ -1736,8 +1743,9 @@ class Echoer():
             abjad.mutate.replace(leaf, rest)
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
@@ -1751,12 +1759,12 @@ class Echoer():
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or "
-                            "child class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -1790,9 +1798,10 @@ class Echoer():
         return self._min_dynamic
 
     @min_dynamic.setter
-    def min_dynamic(self,
-                    min_dynamic: Union[abjad.Dynamic, str],
-                    ) -> None:
+    def min_dynamic(
+        self,
+        min_dynamic: Union[abjad.Dynamic, str],
+    ) -> None:
         if not isinstance(min_dynamic, (abjad.Dynamic, str)):
             raise TypeError("'min_dynamic' must be 'abjad.Dynamic' or 'str'")
         if isinstance(min_dynamic, abjad.Dynamic):
@@ -1806,9 +1815,10 @@ class Echoer():
         return self._max_steps
 
     @max_steps.setter
-    def max_steps(self,
-                  max_steps: int,
-                  ) -> None:
+    def max_steps(
+        self,
+        max_steps: int,
+    ) -> None:
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if max_steps < 1:
@@ -1823,9 +1833,10 @@ class Echoer():
         return self._disable_rewrite_meter
 
     @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ) -> None:
+    def disable_rewrite_meter(
+        self,
+        disable_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1838,9 +1849,10 @@ class Echoer():
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1853,9 +1865,10 @@ class Echoer():
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter
-    def use_multimeasure_rests(self,
-                               use_multimeasure_rests: bool,
-                               ) -> None:
+    def use_multimeasure_rests(
+        self,
+        use_multimeasure_rests: bool,
+    ) -> None:
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1868,9 +1881,10 @@ class Echoer():
         return self._boundary_depth
 
     @boundary_depth.setter
-    def boundary_depth(self,
-                       boundary_depth: Optional[int],
-                       ) -> None:
+    def boundary_depth(
+        self,
+        boundary_depth: Optional[int],
+    ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1884,9 +1898,10 @@ class Echoer():
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
-    def maximum_dot_count(self,
-                          maximum_dot_count: Optional[int],
-                          ) -> None:
+    def maximum_dot_count(
+        self,
+        maximum_dot_count: Optional[int],
+    ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1900,9 +1915,10 @@ class Echoer():
         return self._rewrite_tuplets
 
     @rewrite_tuplets.setter
-    def rewrite_tuplets(self,
-                        rewrite_tuplets: bool,
-                        ) -> None:
+    def rewrite_tuplets(
+        self,
+        rewrite_tuplets: bool,
+    ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1915,9 +1931,10 @@ class Echoer():
         return self._prettify_rewrite_meter
 
     @prettify_rewrite_meter.setter
-    def prettify_rewrite_meter(self,
-                               prettify_rewrite_meter: bool,
-                               ) -> None:
+    def prettify_rewrite_meter(
+        self,
+        prettify_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1930,9 +1947,10 @@ class Echoer():
         return self._extract_trivial_tuplets
 
     @extract_trivial_tuplets.setter
-    def extract_trivial_tuplets(self,
-                                extract_trivial_tuplets: bool,
-                                ) -> None:
+    def extract_trivial_tuplets(
+        self,
+        extract_trivial_tuplets: bool,
+    ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1945,9 +1963,10 @@ class Echoer():
         return self._fuse_across_groups_of_beats
 
     @fuse_across_groups_of_beats.setter
-    def fuse_across_groups_of_beats(self,
-                                    fuse_across_groups_of_beats: bool,
-                                    ) -> None:
+    def fuse_across_groups_of_beats(
+        self,
+        fuse_across_groups_of_beats: bool,
+    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1960,9 +1979,10 @@ class Echoer():
         return self._fuse_quadruple_meter
 
     @fuse_quadruple_meter.setter
-    def fuse_quadruple_meter(self,
-                             fuse_quadruple_meter: bool,
-                             ) -> None:
+    def fuse_quadruple_meter(
+        self,
+        fuse_quadruple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1975,9 +1995,10 @@ class Echoer():
         return self._fuse_triple_meter
 
     @fuse_triple_meter.setter
-    def fuse_triple_meter(self,
-                          fuse_triple_meter: bool,
-                          ) -> None:
+    def fuse_triple_meter(
+        self,
+        fuse_triple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1990,9 +2011,10 @@ class Echoer():
         return self._process_on_first_call
 
     @process_on_first_call.setter
-    def process_on_first_call(self,
-                              process_on_first_call: bool,
-                              ) -> None:
+    def process_on_first_call(
+        self,
+        process_on_first_call: bool,
+    ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -2005,9 +2027,10 @@ class Echoer():
         return self._include_empty_measures
 
     @include_empty_measures.setter
-    def include_empty_measures(self,
-                               include_empty_measures: bool,
-                               ) -> None:
+    def include_empty_measures(
+        self,
+        include_empty_measures: bool,
+    ) -> None:
         if not isinstance(include_empty_measures, bool):
             raise TypeError("'include_empty_measures' must be 'bool'")
         self._include_empty_measures = include_empty_measures
@@ -2020,9 +2043,10 @@ class Echoer():
         return self._repetition_chance
 
     @repetition_chance.setter
-    def repetition_chance(self,
-                          repetition_chance: float,
-                          ) -> None:
+    def repetition_chance(
+        self,
+        repetition_chance: float,
+    ) -> None:
         if not isinstance(repetition_chance, float):
             raise TypeError("'repetition_chance' must be 'float'")
         if repetition_chance < 0.0 or repetition_chance > 1.0:
@@ -2039,8 +2063,7 @@ class Echoer():
         if self._include_empty_measures:
             return all(item is None for item in self._mask)
         else:
-            return all(item in (None, self._min_dynamic_number)
-                       for item in self._mask)
+            return all(item in (None, self._min_dynamic_number) for item in self._mask)
 
     @property
     def _min_dynamic_number(self) -> int:

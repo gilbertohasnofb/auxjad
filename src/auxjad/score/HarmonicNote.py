@@ -231,23 +231,20 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_style',
-                 '_direction',
-                 '_markup',
-                 '_centre_markup'
-                 )
+    __slots__ = ("_style", "_direction", "_markup", "_centre_markup")
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 *arguments,
-                 multiplier: Optional[abjad.typings.DurationTyping] = None,
-                 tag: Optional[abjad.Tag] = None,
-                 style: str = "#'harmonic",
-                 markup: Optional[str] = None,
-                 centre_markup: bool = True,
-                 direction: Union[str, abjad.enums.VerticalAlignment] = 'up',
-                 ) -> None:
+    def __init__(
+        self,
+        *arguments,
+        multiplier: Optional[abjad.typings.DurationTyping] = None,
+        tag: Optional[abjad.Tag] = None,
+        style: str = "#'harmonic",
+        markup: Optional[str] = None,
+        centre_markup: bool = True,
+        direction: Union[str, abjad.enums.VerticalAlignment] = "up",
+    ) -> None:
         r"""Initialises self."""
         super().__init__(*arguments, multiplier=multiplier, tag=tag)
         self.style = style
@@ -259,23 +256,15 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     def _attach_centre_markup(self) -> None:
         r"""Attaches the centre markup tweaks."""
-        literal1 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.parent-alignment-X = 0'
-        )
-        literal2 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.self-alignment-X = 0'
-        )
+        literal1 = abjad.LilyPondLiteral(r"\once \override TextScript.parent-alignment-X = 0")
+        literal2 = abjad.LilyPondLiteral(r"\once \override TextScript.self-alignment-X = 0")
         abjad.attach(literal1, self)
         abjad.attach(literal2, self)
 
     def _detach_centre_markup(self) -> None:
         r"""Detaches the centre markup tweaks."""
-        literal1 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.parent-alignment-X = 0'
-        )
-        literal2 = abjad.LilyPondLiteral(
-            r'\once \override TextScript.self-alignment-X = 0'
-        )
+        literal1 = abjad.LilyPondLiteral(r"\once \override TextScript.parent-alignment-X = 0")
+        literal2 = abjad.LilyPondLiteral(r"\once \override TextScript.self-alignment-X = 0")
         if abjad.get.indicator(self, literal1):
             abjad.detach(literal1, self)
         if abjad.get.indicator(self, literal2):
@@ -289,18 +278,20 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         return self._style
 
     @style.setter
-    def style(self,
-              style: str,
-              ) -> None:
+    def style(
+        self,
+        style: str,
+    ) -> None:
         if not isinstance(style, str):
             raise TypeError("'style' must be 'str'")
         self._style = style
-        if not self._style.endswith('flageolet'):
+        if not self._style.endswith("flageolet"):
             abjad.tweak(self._note_head).style = self._style
         else:
-            flageolet = abjad.LilyPondLiteral(r'\flageolet',
-                                              format_slot='after',
-                                              )
+            flageolet = abjad.LilyPondLiteral(
+                r"\flageolet",
+                format_slot="after",
+            )
             abjad.attach(flageolet, self)
 
     @property
@@ -311,9 +302,10 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         return self._centre_markup
 
     @centre_markup.setter
-    def centre_markup(self,
-                      centre_markup: bool,
-                      ) -> None:
+    def centre_markup(
+        self,
+        centre_markup: bool,
+    ) -> None:
         if not isinstance(centre_markup, bool):
             raise TypeError("'style' must be 'bool'")
         self._centre_markup = centre_markup
@@ -324,16 +316,18 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         return self._markup
 
     @markup.setter
-    def markup(self,
-               markup: str,
-               ) -> None:
+    def markup(
+        self,
+        markup: str,
+    ) -> None:
         if markup is not None:
             if not isinstance(markup, str):
                 raise TypeError("'markup' must be 'str'")
             self._markup = markup
-            markup = abjad.Markup(self._markup,
-                                  direction=self._direction,
-                                  )
+            markup = abjad.Markup(
+                self._markup,
+                direction=self._direction,
+            )
             abjad.attach(markup, self)
             if self._centre_markup:
                 self._attach_centre_markup()

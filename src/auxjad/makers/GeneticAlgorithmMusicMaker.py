@@ -6,7 +6,7 @@ from .. import mutate
 from ..core.GeneticAlgorithm import GeneticAlgorithm
 
 
-class GeneticAlgorithmMusicMaker():
+class GeneticAlgorithmMusicMaker:
     r"""Uses two :class:`auxjad.GeneticAlgorithm`'s, one for pitch and another
     for attack points, in order to create musical cells. At each call of
     :meth:`__call__`, it iterates the genetic algorithms by one generation, and
@@ -889,62 +889,63 @@ class GeneticAlgorithmMusicMaker():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_pitch_target',
-                 '_pitch_genes',
-                 '_pitch_initial_individual',
-                 '_attack_point_target',
-                 '_attack_point_genes',
-                 '_attack_point_initial_individual',
-                 '_population_size',
-                 '_select_n_parents',
-                 '_mutation_chance',
-                 '_mutation_index',
-                 '_evaluation_index',
-                 '_duration_unit',
-                 '_units_per_window',
-                 '_omit_time_signature',
-                 '_time_signatures',
-                 '_attack_points_mode',
-                 '_pitch_score_bias',
-                 '_pitch_ga',
-                 '_attack_point_ga',
-                 '_fittest_measure',
-                 '_fittest_pitch_individual',
-                 '_fittest_attack_point_individual',
-                 '_pitch_population',
-                 '_attack_point_population',
-                 '_scores',
-                 '_target_music',
-                 '_total_duration',
-                 )
+    __slots__ = (
+        "_pitch_target",
+        "_pitch_genes",
+        "_pitch_initial_individual",
+        "_attack_point_target",
+        "_attack_point_genes",
+        "_attack_point_initial_individual",
+        "_population_size",
+        "_select_n_parents",
+        "_mutation_chance",
+        "_mutation_index",
+        "_evaluation_index",
+        "_duration_unit",
+        "_units_per_window",
+        "_omit_time_signature",
+        "_time_signatures",
+        "_attack_points_mode",
+        "_pitch_score_bias",
+        "_pitch_ga",
+        "_attack_point_ga",
+        "_fittest_measure",
+        "_fittest_pitch_individual",
+        "_fittest_attack_point_individual",
+        "_pitch_population",
+        "_attack_point_population",
+        "_scores",
+        "_target_music",
+        "_total_duration",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 *,
-                 pitch_target: list,
-                 pitch_genes: list,
-                 attack_point_target: list,
-                 attack_point_genes: list,
-                 duration_unit: abjad.Duration = abjad.Duration((1, 16)),
-                 units_per_window: int = 16,
-                 pitch_initial_individual: Optional[list] = None,
-                 attack_point_initial_individual: Optional[list] = None,
-                 population_size: int = 100,
-                 select_n_parents: int = 10,
-                 keep_n_parents: int = 0,
-                 mutation_chance: float = 0.2,
-                 mutation_index: float = 0.1,
-                 evaluation_index: float = 0.2,
-                 omit_time_signature: bool = False,
-                 time_signatures: Optional[list] = None,
-                 attack_points_mode: bool = False,
-                 pitch_score_bias: float = 0.5,
-                 ) -> None:
+    def __init__(
+        self,
+        *,
+        pitch_target: list,
+        pitch_genes: list,
+        attack_point_target: list,
+        attack_point_genes: list,
+        duration_unit: abjad.Duration = abjad.Duration((1, 16)),
+        units_per_window: int = 16,
+        pitch_initial_individual: Optional[list] = None,
+        attack_point_initial_individual: Optional[list] = None,
+        population_size: int = 100,
+        select_n_parents: int = 10,
+        keep_n_parents: int = 0,
+        mutation_chance: float = 0.2,
+        mutation_index: float = 0.1,
+        evaluation_index: float = 0.2,
+        omit_time_signature: bool = False,
+        time_signatures: Optional[list] = None,
+        attack_points_mode: bool = False,
+        pitch_score_bias: float = 0.5,
+    ) -> None:
         r"""Initialises self."""
         if len(pitch_target) != len(attack_point_target):
-            raise ValueError("'pitch_target' and 'attack_point_target' must "
-                             "have the same length")
+            raise ValueError("'pitch_target' and 'attack_point_target' must have the same length")
         self._pitch_ga = GeneticAlgorithm(
             target=pitch_target,
             genes=pitch_genes,
@@ -972,8 +973,9 @@ class GeneticAlgorithmMusicMaker():
         if not isinstance(units_per_window, int):
             raise TypeError("'units_per_window' must be 'int'")
         if units_per_window < max(self._attack_point_ga.genes):
-            raise TypeError("'units_per_window' must be larger than the max "
-                            "value in 'attack_point_genes'")
+            raise TypeError(
+                "'units_per_window' must be larger than the max value in 'attack_point_genes'"
+            )
         self._duration_unit = duration_unit
         self._units_per_window = units_per_window
         self._total_duration = self._units_per_window * self._duration_unit
@@ -990,10 +992,10 @@ class GeneticAlgorithmMusicMaker():
         instances of the genetic algorithm (pitches and attack points).
         """
         strings = (
-            f'pitches: {repr(self._pitch_ga._target)}',
-            f'attack_points: {repr(self._attack_point_ga._target)}',
+            f"pitches: {repr(self._pitch_ga._target)}",
+            f"attack_points: {repr(self._attack_point_ga._target)}",
         )
-        return '\n'.join(strings)
+        return "\n".join(strings)
 
     def __len__(self) -> int:
         r"""Returns the number of genes in each individual."""
@@ -1040,17 +1042,14 @@ class GeneticAlgorithmMusicMaker():
         self._attack_point_population = None
         self._scores = None
 
-    def output_n(self,
-                 n: int
-                 ) -> abjad.Selection:
+    def output_n(self, n: int) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the genetic algorithm process and
         outputs a single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("first positional argument must be a positive "
-                             "'int'")
+            raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):
             dummy_container.append(self.__call__())
@@ -1066,25 +1065,26 @@ class GeneticAlgorithmMusicMaker():
         of its individuals.
         """
         self._scores = []
-        for pitch_score, attack_score in zip(self._pitch_ga._scores,
-                                             self._attack_point_ga._scores):
+        for pitch_score, attack_score in zip(self._pitch_ga._scores, self._attack_point_ga._scores):
             combined_score = pitch_score * self._pitch_score_bias
             combined_score += attack_score * (1.0 - self._pitch_score_bias)
             combined_score /= 2
             self._scores.append(combined_score)
-        zipped_lists = list(zip(self._scores,
-                                self._pitch_ga._population,
-                                self._attack_point_ga._population,
-                                ))
+        zipped_lists = list(
+            zip(
+                self._scores,
+                self._pitch_ga._population,
+                self._attack_point_ga._population,
+            )
+        )
         zipped_lists.sort(
             key=lambda tuple_triple: tuple_triple[0],
             reverse=True,
         )
-        self._pitch_population = [pitch_gene for _, pitch_gene, _
-                                  in zipped_lists]
-        self._attack_point_population = [attack_point_gene
-                                         for _, _, attack_point_gene
-                                         in zipped_lists]
+        self._pitch_population = [pitch_gene for _, pitch_gene, _ in zipped_lists]
+        self._attack_point_population = [
+            attack_point_gene for _, _, attack_point_gene in zipped_lists
+        ]
         self._scores = [score for score, _, _ in zipped_lists]
         self._pitch_ga._population = self._pitch_population[:]
         self._attack_point_ga._population = self._attack_point_population[:]
@@ -1108,9 +1108,10 @@ class GeneticAlgorithmMusicMaker():
         )
 
     @staticmethod
-    def _sort_by_attack_point(attack_points: list,
-                              pitches: list,
-                              ) -> tuple:
+    def _sort_by_attack_point(
+        attack_points: list,
+        pitches: list,
+    ) -> tuple:
         r"""Sorts pitches and attack points."""
         zipped_lists = []
         # zipping while removing simultaneous attacks
@@ -1124,10 +1125,11 @@ class GeneticAlgorithmMusicMaker():
         pitches = [pitch for _, pitch in zipped_lists]
         return attack_points, pitches
 
-    def _convert_attack_points_to_durations(self,
-                                            attack_points: list,
-                                            pitches: list,
-                                            ) -> tuple:
+    def _convert_attack_points_to_durations(
+        self,
+        attack_points: list,
+        pitches: list,
+    ) -> tuple:
         r"""Converts attack points to effective durations. Adds an initial rest
         if first attack point is not at the 0-th position.
         """
@@ -1142,10 +1144,11 @@ class GeneticAlgorithmMusicMaker():
             durations.append(duration)
         return durations, pitches
 
-    def _make_measure(self,
-                      attack_points,
-                      pitches,
-                      ) -> None:
+    def _make_measure(
+        self,
+        attack_points,
+        pitches,
+    ) -> None:
         r"""Converts a list of pitch and attack point individuals into a
         measure of music.
         """
@@ -1182,9 +1185,10 @@ class GeneticAlgorithmMusicMaker():
             if self._time_signatures is None:
                 time_signature = abjad.TimeSignature((self._total_duration))
                 time_signature.simplify_ratio()
-                abjad.attach(time_signature,
-                             dummy_container[0],
-                             )
+                abjad.attach(
+                    time_signature,
+                    dummy_container[0],
+                )
                 mutate.auto_rewrite_meter(dummy_container)
             else:
                 mutate.enforce_time_signature(
@@ -1201,9 +1205,10 @@ class GeneticAlgorithmMusicMaker():
         return self._duration_unit
 
     @duration_unit.setter
-    def duration_unit(self,
-                      duration_unit: abjad.Duration,
-                      ) -> None:
+    def duration_unit(
+        self,
+        duration_unit: abjad.Duration,
+    ) -> None:
         if not isinstance(duration_unit, abjad.Duration):
             raise TypeError("'duration_unit' must be 'abjad.Duration'")
         self._duration_unit = duration_unit
@@ -1215,14 +1220,16 @@ class GeneticAlgorithmMusicMaker():
         return self._units_per_window
 
     @units_per_window.setter
-    def units_per_window(self,
-                         units_per_window: int,
-                         ) -> None:
+    def units_per_window(
+        self,
+        units_per_window: int,
+    ) -> None:
         if not isinstance(units_per_window, int):
             raise TypeError("'units_per_window' must be 'int'")
         if units_per_window < max(self._attack_point_ga.genes):
-            raise TypeError("'units_per_window' must be larger than the max "
-                            "value in 'attack_point_genes'")
+            raise TypeError(
+                "'units_per_window' must be larger than the max value in 'attack_point_genes'"
+            )
         self._units_per_window = units_per_window
         self._total_duration = self._units_per_window * self._duration_unit
 
@@ -1234,9 +1241,10 @@ class GeneticAlgorithmMusicMaker():
         return self._omit_time_signature
 
     @omit_time_signature.setter
-    def omit_time_signature(self,
-                            omit_time_signature: bool,
-                            ) -> None:
+    def omit_time_signature(
+        self,
+        omit_time_signature: bool,
+    ) -> None:
         if not isinstance(omit_time_signature, bool):
             raise TypeError("'omit_time_signature' must be 'bool'")
         self._omit_time_signature = omit_time_signature
@@ -1250,19 +1258,21 @@ class GeneticAlgorithmMusicMaker():
         return self._time_signatures
 
     @time_signatures.setter
-    def time_signatures(self,
-                        time_signatures: Optional[list],
-                        ) -> None:
+    def time_signatures(
+        self,
+        time_signatures: Optional[list],
+    ) -> None:
         if time_signatures is not None:
             if isinstance(time_signatures, abjad.TimeSignature):
                 time_signatures = [time_signatures]
             elif not isinstance(time_signatures, list):
-                raise TypeError("'time_signatures' must be a 'list' of "
-                                "'abjad.TimeSignature' or 'None'")
-            if not all(isinstance(ts, abjad.TimeSignature) for ts
-                       in time_signatures):
-                raise TypeError("'time_signatures' must be a 'list' of "
-                                "'abjad.TimeSignature' or 'None'")
+                raise TypeError(
+                    "'time_signatures' must be a 'list' of 'abjad.TimeSignature' or 'None'"
+                )
+            if not all(isinstance(ts, abjad.TimeSignature) for ts in time_signatures):
+                raise TypeError(
+                    "'time_signatures' must be a 'list' of 'abjad.TimeSignature' or 'None'"
+                )
         self._time_signatures = time_signatures
 
     @property
@@ -1273,9 +1283,10 @@ class GeneticAlgorithmMusicMaker():
         return self._attack_points_mode
 
     @attack_points_mode.setter
-    def attack_points_mode(self,
-                           attack_points_mode: bool,
-                           ) -> None:
+    def attack_points_mode(
+        self,
+        attack_points_mode: bool,
+    ) -> None:
         if not isinstance(attack_points_mode, bool):
             raise TypeError("'attack_points_mode' must be 'bool'")
         self._attack_points_mode = attack_points_mode
@@ -1286,12 +1297,12 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.target
 
     @pitch_target.setter
-    def pitch_target(self,
-                     pitch_target: list,
-                     ) -> None:
+    def pitch_target(
+        self,
+        pitch_target: list,
+    ) -> None:
         if len(pitch_target) != len(self._attack_point_ga.target):
-            raise ValueError("'pitch_target' must be the same length as "
-                             "'attack_point_target'")
+            raise ValueError("'pitch_target' must be the same length as 'attack_point_target'")
         self._pitch_ga.target = pitch_target
         self._target_individual_to_measure()
 
@@ -1301,9 +1312,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.genes
 
     @pitch_genes.setter
-    def pitch_genes(self,
-                    pitch_genes: list,
-                    ) -> None:
+    def pitch_genes(
+        self,
+        pitch_genes: list,
+    ) -> None:
         self._pitch_ga.genes = pitch_genes
 
     @property
@@ -1312,9 +1324,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.initial_individual
 
     @pitch_initial_individual.setter
-    def pitch_initial_individual(self,
-                                 pitch_initial_individual: Optional[list],
-                                 ) -> None:
+    def pitch_initial_individual(
+        self,
+        pitch_initial_individual: Optional[list],
+    ) -> None:
         self._pitch_ga.initial_individual = pitch_initial_individual
 
     @property
@@ -1323,12 +1336,12 @@ class GeneticAlgorithmMusicMaker():
         return self._attack_point_ga.target
 
     @attack_point_target.setter
-    def attack_point_target(self,
-                            attack_point_target: list,
-                            ) -> None:
+    def attack_point_target(
+        self,
+        attack_point_target: list,
+    ) -> None:
         if len(attack_point_target) != len(self._pitch_ga.target):
-            raise ValueError("'attack_point_target' must be the same length "
-                             "as 'pitch_target'")
+            raise ValueError("'attack_point_target' must be the same length as 'pitch_target'")
         self._attack_point_ga.target = attack_point_target
         self._target_individual_to_measure()
 
@@ -1340,9 +1353,10 @@ class GeneticAlgorithmMusicMaker():
         return self._attack_point_ga.genes
 
     @attack_point_genes.setter
-    def attack_point_genes(self,
-                           attack_point_genes: list,
-                           ) -> None:
+    def attack_point_genes(
+        self,
+        attack_point_genes: list,
+    ) -> None:
         self._attack_point_ga.genes = attack_point_genes
 
     @property
@@ -1355,9 +1369,7 @@ class GeneticAlgorithmMusicMaker():
         self,
         attack_point_initial_individual: Optional[list],
     ) -> None:
-        self._attack_point_ga.initial_individual = (
-            attack_point_initial_individual
-        )
+        self._attack_point_ga.initial_individual = attack_point_initial_individual
 
     @property
     def population_size(self) -> int:
@@ -1365,9 +1377,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.population_size
 
     @population_size.setter
-    def population_size(self,
-                        population_size: int,
-                        ) -> None:
+    def population_size(
+        self,
+        population_size: int,
+    ) -> None:
         self._pitch_ga.population_size = population_size
         self._attack_point_ga.population_size = population_size
 
@@ -1379,9 +1392,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.select_n_parents
 
     @select_n_parents.setter
-    def select_n_parents(self,
-                         select_n_parents: int,
-                         ) -> None:
+    def select_n_parents(
+        self,
+        select_n_parents: int,
+    ) -> None:
         self._pitch_ga.select_n_parents = select_n_parents
         self._attack_point_ga.select_n_parents = select_n_parents
 
@@ -1393,9 +1407,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.keep_n_parents
 
     @keep_n_parents.setter
-    def keep_n_parents(self,
-                       keep_n_parents: int,
-                       ) -> None:
+    def keep_n_parents(
+        self,
+        keep_n_parents: int,
+    ) -> None:
         self._pitch_ga.keep_n_parents = keep_n_parents
         self._attack_point_ga.keep_n_parents = keep_n_parents
 
@@ -1405,9 +1420,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.mutation_chance
 
     @mutation_chance.setter
-    def mutation_chance(self,
-                        mutation_chance: float,
-                        ) -> None:
+    def mutation_chance(
+        self,
+        mutation_chance: float,
+    ) -> None:
         self._pitch_ga.mutation_chance = mutation_chance
         self._attack_point_ga.mutation_chance = mutation_chance
 
@@ -1419,9 +1435,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.mutation_index
 
     @mutation_index.setter
-    def mutation_index(self,
-                       mutation_index: float,
-                       ) -> None:
+    def mutation_index(
+        self,
+        mutation_index: float,
+    ) -> None:
         self._pitch_ga.mutation_index = mutation_index
         self._attack_point_ga.mutation_index = mutation_index
 
@@ -1456,9 +1473,10 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_ga.evaluation_index
 
     @evaluation_index.setter
-    def evaluation_index(self,
-                         evaluation_index: float,
-                         ) -> None:
+    def evaluation_index(
+        self,
+        evaluation_index: float,
+    ) -> None:
         self._pitch_ga.evaluation_index = evaluation_index
         self._attack_point_ga.evaluation_index = evaluation_index
 
@@ -1472,14 +1490,14 @@ class GeneticAlgorithmMusicMaker():
         return self._pitch_score_bias
 
     @pitch_score_bias.setter
-    def pitch_score_bias(self,
-                         pitch_score_bias: float,
-                         ) -> None:
+    def pitch_score_bias(
+        self,
+        pitch_score_bias: float,
+    ) -> None:
         if not isinstance(pitch_score_bias, float):
             raise TypeError("'pitch_score_bias' must be 'float'")
         if pitch_score_bias < 0.0 or pitch_score_bias > 1.0:
-            raise ValueError("'pitch_score_bias' must be between 0.0 and "
-                             "1.0")
+            raise ValueError("'pitch_score_bias' must be between 0.0 and 1.0")
         self._pitch_score_bias = pitch_score_bias
 
     @property

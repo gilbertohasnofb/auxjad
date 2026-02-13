@@ -8,9 +8,13 @@ def _groupped_logical_ties(container) -> list:
     groupped_logical_ties = []
     selection = abjad.Selection()
     for logical_tie in abjad.select(container).logical_ties():
-        if not isinstance(logical_tie.head, (abjad.Rest,
-                                             abjad.MultimeasureRest,
-                                             )):
+        if not isinstance(
+            logical_tie.head,
+            (
+                abjad.Rest,
+                abjad.MultimeasureRest,
+            ),
+        ):
             if len(selection) > 0:
                 groupped_logical_ties.append(selection)
             selection = abjad.Selection(logical_tie)
@@ -21,14 +25,15 @@ def _groupped_logical_ties(container) -> list:
     return groupped_logical_ties
 
 
-def extend_notes(container: abjad.Container,
-                 max_note_duration: abjad.Duration,
-                 *,
-                 gap: abjad.Duration = abjad.Duration((0, 1)),
-                 gap_before_end: bool = False,
-                 use_multimeasure_rests: bool = True,
-                 rewrite_meter: bool = True,
-                 ) -> None:
+def extend_notes(
+    container: abjad.Container,
+    max_note_duration: abjad.Duration,
+    *,
+    gap: abjad.Duration = abjad.Duration((0, 1)),
+    gap_before_end: bool = False,
+    use_multimeasure_rests: bool = True,
+    rewrite_meter: bool = True,
+) -> None:
     r"""Mutates an input |abjad.Container| (or child class) in place and has no
     return value; this function extends all logical ties (notes and chords) up
     to a given maximum note duration.
@@ -596,22 +601,24 @@ def extend_notes(container: abjad.Container,
         which are not currently supported
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("first positional argument must be 'abjad.Container' "
-                        "or child class")
+        raise TypeError("first positional argument must be 'abjad.Container' or child class")
     if len(abjad.select(container).tuplets()) > 0:
-        raise ValueError("first positional argument contains one ore more "
-                         "tuplets, which are not currently supported")
-    if not isinstance(max_note_duration,
-                      (abjad.Duration, str, tuple, int, float),
-                      ):
-        raise TypeError("second positional argument must be 'abjad.Duration', "
-                        "'str', 'tuple', or a number")
+        raise ValueError(
+            "first positional argument contains one ore more "
+            "tuplets, which are not currently supported"
+        )
+    if not isinstance(
+        max_note_duration,
+        (abjad.Duration, str, tuple, int, float),
+    ):
+        raise TypeError(
+            "second positional argument must be 'abjad.Duration', 'str', 'tuple', or a number"
+        )
     if not isinstance(max_note_duration, abjad.Duration):
         max_note_duration = abjad.Duration(max_note_duration)
     if gap is not None:
         if not isinstance(gap, (abjad.Duration, str, tuple, int, float)):
-            raise TypeError("'gap' must be 'abjad.Duration', 'str', 'tuple', "
-                            "or a number")
+            raise TypeError("'gap' must be 'abjad.Duration', 'str', 'tuple', or a number")
         if not isinstance(gap, abjad.Duration):
             gap = abjad.Duration(gap)
     if not isinstance(gap_before_end, bool):
@@ -621,9 +628,10 @@ def extend_notes(container: abjad.Container,
     if not isinstance(rewrite_meter, bool):
         raise TypeError("'rewrite_meter' must be 'bool'")
 
-    time_signatures = get.time_signature_list(container,
-                                              implicit_common_time=False,
-                                              )
+    time_signatures = get.time_signature_list(
+        container,
+        implicit_common_time=False,
+    )
     groups = _groupped_logical_ties(container)
     for group_index, group in enumerate(groups):
         if not gap_before_end and group_index == len(groups) - 1:
@@ -652,23 +660,24 @@ def extend_notes(container: abjad.Container,
         if isinstance(group[first_rest_index - 1], abjad.Note):
             pitches = group[first_rest_index - 1].written_pitch
         elif isinstance(group[first_rest_index - 1], abjad.Chord):
-            pitches = [pitch for pitch
-                       in group[first_rest_index - 1].written_pitches]
+            pitches = [pitch for pitch in group[first_rest_index - 1].written_pitches]
         if new_rest_duration > abjad.Duration((0, 1)):
             replacement_items = abjad.LeafMaker()(
                 [pitches, None],
                 [extended_duration, new_rest_duration],
             )
         else:
-            replacement_items = abjad.LeafMaker()([pitches],
-                                                  [extended_duration],
-                                                  )
+            replacement_items = abjad.LeafMaker()(
+                [pitches],
+                [extended_duration],
+            )
         abjad.mutate.replace(group[first_rest_index:], replacement_items)
         abjad.attach(abjad.Tie(), group[first_rest_index - 1])
-    mutate.enforce_time_signature(container,
-                                  time_signatures,
-                                  disable_rewrite_meter=True,
-                                  )
+    mutate.enforce_time_signature(
+        container,
+        time_signatures,
+        disable_rewrite_meter=True,
+    )
     if rewrite_meter:
         mutate.auto_rewrite_meter(container)
     if use_multimeasure_rests:

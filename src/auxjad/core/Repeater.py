@@ -3,7 +3,7 @@ import abjad
 from .. import get, mutate
 
 
-class Repeater():
+class Repeater:
     r"""Takes an |abjad.Container| (or child class) as input and outputs an
     |abjad.Selection| with ``n`` repetitions. It can be of type unfold or
     volta.
@@ -695,30 +695,32 @@ class Repeater():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_current_window',
-                 '_omit_time_signatures',
-                 '_force_identical_time_signatures',
-                 '_reposition_clefs',
-                 '_reposition_dynamics',
-                 '_reposition_slurs',
-                 '_repeat_type',
-                 '_include_2x_volta_text',
-                 )
+    __slots__ = (
+        "_contents",
+        "_current_window",
+        "_omit_time_signatures",
+        "_force_identical_time_signatures",
+        "_reposition_clefs",
+        "_reposition_dynamics",
+        "_reposition_slurs",
+        "_repeat_type",
+        "_include_2x_volta_text",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 omit_time_signatures: bool = False,
-                 force_identical_time_signatures: bool = False,
-                 reposition_clefs: bool = True,
-                 reposition_dynamics: bool = True,
-                 reposition_slurs: bool = True,
-                 repeat_type: str = 'unfold',
-                 include_2x_volta_text: bool = True,
-                 ) -> None:
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        omit_time_signatures: bool = False,
+        force_identical_time_signatures: bool = False,
+        reposition_clefs: bool = True,
+        reposition_dynamics: bool = True,
+        reposition_slurs: bool = True,
+        repeat_type: str = "unfold",
+        include_2x_volta_text: bool = True,
+    ) -> None:
         r"""Initialises self."""
         self.contents = contents
         self.omit_time_signatures = omit_time_signatures
@@ -735,24 +737,23 @@ class Repeater():
         r"""Returns interpreter representation of  :attr:`contents`."""
         return abjad.lilypond(self._contents)
 
-    def __call__(self,
-                 n: int = 1,
-                 ) -> abjad.Selection:
+    def __call__(
+        self,
+        n: int = 1,
+    ) -> abjad.Selection:
         r"""Calls the repeater process for ``n`` iterations, returning an
         |abjad.Selection|. Default ``n`` is ``1``.
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("first positional argument must be a positive "
-                             "'int'")
-        if self._repeat_type == 'unfold':
+            raise ValueError("first positional argument must be a positive 'int'")
+        if self._repeat_type == "unfold":
             self._repeat_unfold(n)
-        elif self._repeat_type == 'volta':
+        elif self._repeat_type == "volta":
             self._repeat_volta(n)
         else:
-            raise ValueError("'repeat_type' must be either 'unfold' or "
-                             "'volta'")
+            raise ValueError("'repeat_type' must be either 'unfold' or 'volta'")
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
@@ -767,9 +768,10 @@ class Repeater():
 
     ### PUBLIC METHODS ###
 
-    def output_n(self,
-                 n: int = 1,
-                 ) -> abjad.Selection:
+    def output_n(
+        self,
+        n: int = 1,
+    ) -> abjad.Selection:
         r"""Calls the repeater process for ``n`` iterations, returning an
         |abjad.Selection|. Default ``n`` is ``1``.
         """
@@ -777,9 +779,10 @@ class Repeater():
 
     ### PRIVATE METHODS ###
 
-    def _repeat_unfold(self,
-                       n: int,
-                       ) -> None:
+    def _repeat_unfold(
+        self,
+        n: int,
+    ) -> None:
         r"""Repeats a container ``n`` times."""
         dummy_container = abjad.mutate.copy(self._contents)
         for _ in range(n - 1):
@@ -795,9 +798,10 @@ class Repeater():
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
-    def _repeat_volta(self,
-                      n: int,
-                      ) -> None:
+    def _repeat_volta(
+        self,
+        n: int,
+    ) -> None:
         r"""Adds repetition bars and ``n`` times written indication."""
         dummy_contents = abjad.mutate.copy(self._contents)
         if n == 1:
@@ -807,14 +811,14 @@ class Repeater():
         repeat = abjad.Repeat(repeat_count=n)
         abjad.attach(repeat, dummy_contents)
         strings = [
-            r'\tweak RehearsalMark.self-alignment-X #RIGHT',
-            r'\tweak RehearsalMark.break-visibility #begin-of-line-invisible',
+            r"\tweak RehearsalMark.self-alignment-X #RIGHT",
+            r"\tweak RehearsalMark.break-visibility #begin-of-line-invisible",
             r'\mark \markup{\box "' + str(n) + '×"}',
         ]
         if n > 2 or (n == 2 and self._include_2x_volta_text):
             for string in strings:
                 abjad.attach(
-                    abjad.LilyPondLiteral(string, format_slot='after'),
+                    abjad.LilyPondLiteral(string, format_slot="after"),
                     abjad.select(dummy_contents).leaf(-1),
                 )
         dummy_container = abjad.Container([abjad.mutate.copy(dummy_contents)])
@@ -827,8 +831,9 @@ class Repeater():
         return self.__repr__()
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
@@ -842,12 +847,12 @@ class Repeater():
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or child "
-                            "class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -868,9 +873,10 @@ class Repeater():
                 mutate.close_container(self._contents)
                 mutate.close_container(dummy_container)
         except ValueError as err:
-            raise ValueError("'contents' is malformed, with an underfull "
-                             "measure preceding a time signature change"
-                             ) from err
+            raise ValueError(
+                "'contents' is malformed, with an underfull "
+                "measure preceding a time signature change"
+            ) from err
         self._current_window = dummy_container[:]
         dummy_container[:] = []
 
@@ -890,9 +896,10 @@ class Repeater():
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -919,9 +926,10 @@ class Repeater():
         return self._reposition_clefs
 
     @reposition_clefs.setter
-    def reposition_clefs(self,
-                         reposition_clefs: bool,
-                         ) -> None:
+    def reposition_clefs(
+        self,
+        reposition_clefs: bool,
+    ) -> None:
         if not isinstance(reposition_clefs, bool):
             raise TypeError("'reposition_clefs' must be 'bool'")
         self._reposition_clefs = reposition_clefs
@@ -932,9 +940,10 @@ class Repeater():
         return self._reposition_dynamics
 
     @reposition_dynamics.setter
-    def reposition_dynamics(self,
-                            reposition_dynamics: bool,
-                            ) -> None:
+    def reposition_dynamics(
+        self,
+        reposition_dynamics: bool,
+    ) -> None:
         if not isinstance(reposition_dynamics, bool):
             raise TypeError("'reposition_dynamics' must be 'bool'")
         self._reposition_dynamics = reposition_dynamics
@@ -945,9 +954,10 @@ class Repeater():
         return self._reposition_slurs
 
     @reposition_slurs.setter
-    def reposition_slurs(self,
-                         reposition_slurs: bool,
-                         ) -> None:
+    def reposition_slurs(
+        self,
+        reposition_slurs: bool,
+    ) -> None:
         if not isinstance(reposition_slurs, bool):
             raise TypeError("'reposition_slurs' must be 'bool'")
         self._reposition_slurs = reposition_slurs
@@ -958,15 +968,15 @@ class Repeater():
         return self._repeat_type
 
     @repeat_type.setter
-    def repeat_type(self,
-                    repeat_type: str,
-                    ) -> None:
+    def repeat_type(
+        self,
+        repeat_type: str,
+    ) -> None:
         if not isinstance(repeat_type, str):
             raise TypeError("'repeat_type' must be 'str'")
         repeat_type = repeat_type.lower()
-        if repeat_type not in ('unfold', 'volta'):
-            raise ValueError("'repeat_type' must be either 'unfold' or "
-                             "'volta'")
+        if repeat_type not in ("unfold", "volta"):
+            raise ValueError("'repeat_type' must be either 'unfold' or 'volta'")
         self._repeat_type = repeat_type
 
     @property
@@ -978,9 +988,10 @@ class Repeater():
         return self._include_2x_volta_text
 
     @include_2x_volta_text.setter
-    def include_2x_volta_text(self,
-                              include_2x_volta_text: bool,
-                              ) -> None:
+    def include_2x_volta_text(
+        self,
+        include_2x_volta_text: bool,
+    ) -> None:
         if not isinstance(include_2x_volta_text, bool):
             raise TypeError("'include_2x_volta_text' must be 'bool'")
         self._include_2x_volta_text = include_2x_volta_text

@@ -328,10 +328,11 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_omit_repeated_dynamics',
-                 '_cyclic_dynamics',
-                 '_cyclic_articulations',
-                 )
+    __slots__ = (
+        "_omit_repeated_dynamics",
+        "_cyclic_dynamics",
+        "_cyclic_articulations",
+    )
 
     ### INITIALISER ###
 
@@ -341,16 +342,17 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ### SPECIAL METHODS ###
 
-    def __call__(self,
-                 pitches,
-                 durations,
-                 dynamics=None,
-                 articulations=None,
-                 *,
-                 omit_repeated_dynamics: bool = False,
-                 cyclic_dynamics: bool = False,
-                 cyclic_articulations: bool = False,
-                 ) -> abjad.Selection:
+    def __call__(
+        self,
+        pitches,
+        durations,
+        dynamics=None,
+        articulations=None,
+        *,
+        omit_repeated_dynamics: bool = False,
+        cyclic_dynamics: bool = False,
+        cyclic_articulations: bool = False,
+    ) -> abjad.Selection:
         r"""Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
         and ``articulations``, returning an |abjad.Selection|.
         """
@@ -358,14 +360,12 @@ class LeafDynMaker(abjad.LeafMaker):
             for dynamic in dynamics:
                 if dynamic is not None:
                     if not isinstance(dynamic, (str, abjad.Dynamic)):
-                        raise TypeError("dynamics must be 'str' or "
-                                        "'abjad.Dynamic'")
+                        raise TypeError("dynamics must be 'str' or 'abjad.Dynamic'")
         if articulations is not None:
             for articulation in articulations:
                 if articulation is not None:
                     if not isinstance(articulation, (str, abjad.Articulation)):
-                        raise TypeError("articulations must be 'str' or "
-                                        "'abjad.Articulation'")
+                        raise TypeError("articulations must be 'str' or 'abjad.Articulation'")
         if not isinstance(omit_repeated_dynamics, bool):
             raise TypeError("'omit_repeated_dynamics' must be 'bool")
         if not isinstance(cyclic_dynamics, bool):
@@ -383,20 +383,23 @@ class LeafDynMaker(abjad.LeafMaker):
         articulations_ = self._listify(articulations)
 
         greatest_len = max(len(pitches_), len(durations_))
-        self._fill_list(dynamics_,
-                        greatest_len,
-                        cyclic=cyclic_dynamics,
-                        )
-        self._fill_list(articulations_,
-                        greatest_len,
-                        cyclic=cyclic_articulations,
-                        )
+        self._fill_list(
+            dynamics_,
+            greatest_len,
+            cyclic=cyclic_dynamics,
+        )
+        self._fill_list(
+            articulations_,
+            greatest_len,
+            cyclic=cyclic_articulations,
+        )
 
-        self._add_dynamics_and_articulations(logical_ties,
-                                             dynamics_,
-                                             articulations_,
-                                             omit_repeated_dynamics,
-                                             )
+        self._add_dynamics_and_articulations(
+            logical_ties,
+            dynamics_,
+            articulations_,
+            omit_repeated_dynamics,
+        )
 
         output = dummy_container[:]
         dummy_container[:] = []
@@ -404,38 +407,46 @@ class LeafDynMaker(abjad.LeafMaker):
 
     ### PRIVATE METHODS ###
 
-    def _add_dynamics_and_articulations(self,
-                                        logical_ties: list[abjad.LogicalTie],
-                                        dynamics_: list[Union[str,
-                                                              abjad.Dynamic,
-                                                              ]],
-                                        articulations_: list[Union[
-                                            str,
-                                            abjad.Articulation,
-                                        ]],
-                                        omit_repeated_dynamics: bool,
-                                        ) -> None:
+    def _add_dynamics_and_articulations(
+        self,
+        logical_ties: list[abjad.LogicalTie],
+        dynamics_: list[
+            Union[
+                str,
+                abjad.Dynamic,
+            ]
+        ],
+        articulations_: list[
+            Union[
+                str,
+                abjad.Articulation,
+            ]
+        ],
+        omit_repeated_dynamics: bool,
+    ) -> None:
         r"""Adds dynamics and articulations to logical ties."""
         previous_dynamic = None
-        for logical_tie, dynamic, articulation in zip(logical_ties,
-                                                      dynamics_,
-                                                      articulations_,
-                                                      ):
-            if (dynamic is not None and (not omit_repeated_dynamics
-                                         or dynamic != previous_dynamic)):
+        for logical_tie, dynamic, articulation in zip(
+            logical_ties,
+            dynamics_,
+            articulations_,
+        ):
+            if dynamic is not None and (not omit_repeated_dynamics or dynamic != previous_dynamic):
                 abjad.attach(abjad.Dynamic(dynamic), logical_tie.head)
                 previous_dynamic = dynamic
             if articulation is not None:
                 if isinstance(articulation, str):
-                    abjad.attach(abjad.Articulation(articulation),
-                                 logical_tie.head,
-                                 )
+                    abjad.attach(
+                        abjad.Articulation(articulation),
+                        logical_tie.head,
+                    )
                 else:
                     abjad.attach(articulation, logical_tie.head)
 
     @staticmethod
-    def _listify(argument: Any,
-                 ) -> list[Any]:
+    def _listify(
+        argument: Any,
+    ) -> list[Any]:
         r"""Returns a :obj:`list` if argument is not a :obj:`list`."""
         if argument:
             if isinstance(argument, list):
@@ -446,12 +457,13 @@ class LeafDynMaker(abjad.LeafMaker):
             return []
 
     @staticmethod
-    def _fill_list(input_list: list[Any],
-                   length: int,
-                   *,
-                   cyclic: bool = False,
-                   default: Any = None,
-                   ) -> None:
+    def _fill_list(
+        input_list: list[Any],
+        length: int,
+        *,
+        cyclic: bool = False,
+        default: Any = None,
+    ) -> None:
         r"""Extends a :obj:`list` to a certain length, filling it with a
         default value. If ``cyclic`` is ``True``, then it fills the :obj:`list`
         by cycling the original ``input_list``.

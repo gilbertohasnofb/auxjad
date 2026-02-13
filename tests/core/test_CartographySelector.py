@@ -9,7 +9,7 @@ def test_CartographySelector__init__():
     r"""Confirm correct initialisation of attributes."""
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
     assert selector.contents == [0, 1, 2, 3, 4]
-    assert format(selector) == '[0, 1, 2, 3, 4]'
+    assert format(selector) == "[0, 1, 2, 3, 4]"
     assert selector.weights == pytest.approx(
         [1.0, 0.75, 0.5625, 0.421875, 0.31640625],
     )
@@ -21,10 +21,10 @@ def test_CartographySelector__call__():
     r"""Confirm correct behaviour when calling instance."""
     random.seed(41298)
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    result = ''
+    result = ""
     for _ in range(30):
         result += str(selector())
-    assert result == '203001402200011111101400310140'
+    assert result == "203001402200011111101400310140"
     assert selector.previous_index == 0
     assert selector.previous_result == 0
 
@@ -41,8 +41,7 @@ def test_CartographySelector_previous_index_and_previous_result_read_only():
 
 
 def test_CartographySelector_decay_rate():
-    r"""Confirm decay_rate argument in __init__ correctly initialises weights.
-    """
+    r"""Confirm decay_rate argument in __init__ correctly initialises weights."""
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4], decay_rate=0.5)
     assert selector.weights == [1.0, 0.5, 0.25, 0.125, 0.0625]
 
@@ -114,14 +113,15 @@ def test_CartographySelector_weights_after_change_of_contents():
     selector.contents = [10, 7, 14, 31, 98, 47, 32]
     assert len(selector) == 7
     assert selector.contents == [10, 7, 14, 31, 98, 47, 32]
-    assert selector.weights == [1.0,
-                                0.5,
-                                0.25,
-                                0.125,
-                                0.0625,
-                                0.03125,
-                                0.015625,
-                                ]
+    assert selector.weights == [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+    ]
 
 
 def test_CartographySelector_change_decay_rate():
@@ -132,15 +132,14 @@ def test_CartographySelector_change_decay_rate():
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
     selector.decay_rate = 0.2
     assert selector.weights == pytest.approx([1.0, 0.2, 0.04, 0.008, 0.0016])
-    result = ''
+    result = ""
     for _ in range(30):
         result += str(selector())
-    assert result == '000001002100000201001030000100'
+    assert result == "000001002100000201001030000100"
 
 
 def test_CartographySelector__getitem__():
-    r"""Confirm __getitem__ returns elements from a given index or index range.
-    """
+    r"""Confirm __getitem__ returns elements from a given index or index range."""
     selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
     assert selector[1] == 7
     assert selector[1:4] == [7, 14, 31]
@@ -148,8 +147,7 @@ def test_CartographySelector__getitem__():
 
 
 def test_CartographySelector__delitem__():
-    r"""Confirm __delitem__ deletes elements from a given index or index range.
-    """
+    r"""Confirm __delitem__ deletes elements from a given index or index range."""
     selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
     del selector[0]
     assert selector.contents == [7, 14, 31, 98]
@@ -158,8 +156,7 @@ def test_CartographySelector__delitem__():
 
 
 def test_CartographySelector__setitem__():
-    r"""Confirm __setitem__ can set items in specific index or index ranges.
-    """
+    r"""Confirm __setitem__ can set items in specific index or index ranges."""
     selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
     selector[2] = 207
     assert selector.contents == [10, 7, 207, 31, 98]
@@ -201,14 +198,14 @@ def test_CartographySelector_no_repeat():
     """
     random.seed(98743)
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-    result = ''
+    result = ""
     for _ in range(30):
         result += str(selector())
-    assert result == '210431340000344203001220034203'
-    result = ''
+    assert result == "210431340000344203001220034203"
+    result = ""
     for _ in range(30):
         result += str(selector(no_repeat=True))
-    assert result == '210421021020304024230120241202'
+    assert result == "210421021020304024230120241202"
 
 
 def test_CartographySelector_mirror_swap_odd_elements():
@@ -258,12 +255,12 @@ def test_CartographySelector_mirror_random_swap():
 def test_CartographySelector__next__():
     r"""Confirm __next__ behaves identical to __call__."""
     random.seed(12387)
-    selector = auxjad.CartographySelector(['A', 'B', 'C', 'D', 'E', 'F'])
-    result = ''
+    selector = auxjad.CartographySelector(["A", "B", "C", "D", "E", "F"])
+    result = ""
     result += selector.__next__()
     result += selector.__next__()
     result += selector.__next__()
     result += next(selector)
     result += next(selector)
     result += next(selector)
-    assert result == 'CBBEAE'
+    assert result == "CBBEAE"

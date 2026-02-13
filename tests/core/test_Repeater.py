@@ -8,20 +8,17 @@ def test_Repeater__init__():
     r"""Confirm correct initialisation of attributes."""
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     repeater = auxjad.Repeater(container)
-    assert abjad.lilypond(repeater) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(repeater) == abjad.String.normalize(r"""
         {
             c'4
             d'4
             e'4
             f'4
         }
-        """
-    )
+        """)
     notes = repeater()
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -29,14 +26,12 @@ def test_Repeater__init__():
             e'4
             f'4
         }
-        """
-    )
+        """)
     notes = repeater.current_window
     with pytest.raises(AttributeError):
         repeater.current_window = abjad.Container(r"c''2 e''2")
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -44,8 +39,7 @@ def test_Repeater__init__():
             e'4
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater__call__():
@@ -54,8 +48,7 @@ def test_Repeater__call__():
     repeater = auxjad.Repeater(container)
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -67,8 +60,7 @@ def test_Repeater__call__():
             e'4
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_time_signature():
@@ -77,8 +69,7 @@ def test_Repeater_time_signature():
     repeater = auxjad.Repeater(container)
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -97,8 +88,7 @@ def test_Repeater_time_signature():
             r2
             g'2
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_underfull_containers():
@@ -107,8 +97,7 @@ def test_Repeater_underfull_containers():
     repeater = auxjad.Repeater(container)
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -122,8 +111,7 @@ def test_Repeater_underfull_containers():
             d'4
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_underfull_containers_after_more_than_one_bar():
@@ -134,8 +122,7 @@ def test_Repeater_underfull_containers_after_more_than_one_bar():
     repeater = auxjad.Repeater(container)
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -151,8 +138,7 @@ def test_Repeater_underfull_containers_after_more_than_one_bar():
             \time 2/4
             f'2
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_omit_time_signatures():
@@ -160,13 +146,13 @@ def test_Repeater_omit_time_signatures():
     signature from being attached.
     """
     container = abjad.Container(r"c'4 d'4 e'4")
-    repeater = auxjad.Repeater(container,
-                               omit_time_signatures=True,
-                               )
+    repeater = auxjad.Repeater(
+        container,
+        omit_time_signatures=True,
+    )
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -179,8 +165,7 @@ def test_Repeater_omit_time_signatures():
             d'4
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_force_identical_time_signatures():
@@ -188,13 +173,13 @@ def test_Repeater_force_identical_time_signatures():
     every repetition point.
     """
     container = abjad.Container(r"\time 5/4 c'2. d'4 e'4")
-    repeater = auxjad.Repeater(container,
-                               force_identical_time_signatures=True,
-                               )
+    repeater = auxjad.Repeater(
+        container,
+        force_identical_time_signatures=True,
+    )
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 5/4
@@ -210,8 +195,7 @@ def test_Repeater_force_identical_time_signatures():
             d'4
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_malformed_container():
@@ -227,8 +211,7 @@ def test_Repeater_indicators():
     repeater = auxjad.Repeater(container)
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -250,8 +233,7 @@ def test_Repeater_indicators():
             )
             d4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_disabling_reposition_of_indicators():
@@ -259,15 +241,15 @@ def test_Repeater_disabling_reposition_of_indicators():
     arguments.
     """
     container = abjad.Container(r"\clef bass f4\pp( e4) d4(")
-    repeater = auxjad.Repeater(container,
-                               reposition_clefs=False,
-                               reposition_dynamics=False,
-                               reposition_slurs=False,
-                               )
+    repeater = auxjad.Repeater(
+        container,
+        reposition_clefs=False,
+        reposition_dynamics=False,
+        reposition_slurs=False,
+    )
     notes = repeater(3)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -296,8 +278,7 @@ def test_Repeater_disabling_reposition_of_indicators():
             d4
             (
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_initialising_then_changing_attributes():
@@ -305,30 +286,31 @@ def test_Repeater_initialising_then_changing_attributes():
     modifiable.
     """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
-    repeater = auxjad.Repeater(container,
-                               repeat_type='volta',
-                               include_2x_volta_text=False,
-                               omit_time_signatures=False,
-                               force_identical_time_signatures=False,
-                               reposition_clefs=True,
-                               reposition_dynamics=True,
-                               reposition_slurs=True,
-                               )
-    assert repeater.repeat_type == 'volta'
+    repeater = auxjad.Repeater(
+        container,
+        repeat_type="volta",
+        include_2x_volta_text=False,
+        omit_time_signatures=False,
+        force_identical_time_signatures=False,
+        reposition_clefs=True,
+        reposition_dynamics=True,
+        reposition_slurs=True,
+    )
+    assert repeater.repeat_type == "volta"
     assert not repeater.include_2x_volta_text
     assert not repeater.omit_time_signatures
     assert not repeater.force_identical_time_signatures
     assert repeater.reposition_clefs
     assert repeater.reposition_dynamics
     assert repeater.reposition_slurs
-    repeater.repeat_type = 'unfold'
+    repeater.repeat_type = "unfold"
     repeater.include_2x_volta_text = True
     repeater.omit_time_signatures = True
     repeater.force_identical_time_signatures = True
     repeater.reposition_clefs = False
     repeater.reposition_dynamics = False
     repeater.reposition_slurs = False
-    assert repeater.repeat_type == 'unfold'
+    assert repeater.repeat_type == "unfold"
     assert repeater.include_2x_volta_text
     assert repeater.omit_time_signatures
     assert repeater.force_identical_time_signatures
@@ -346,8 +328,7 @@ def test_Repeater_as_iterator():
         staff.append(window)
         if abjad.get.duration(staff) == abjad.Duration((9, 4)):
             break
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -363,11 +344,9 @@ def test_Repeater_as_iterator():
             d'4
             e'4
         }
-        """
-    )
+        """)
     auxjad.mutate.remove_repeated_time_signatures(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 3/4
@@ -381,8 +360,7 @@ def test_Repeater_as_iterator():
             d'4
             e'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_change_of_contents_after_initialisation():
@@ -391,8 +369,7 @@ def test_Repeater_change_of_contents_after_initialisation():
     repeater = auxjad.Repeater(container)
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -404,13 +381,11 @@ def test_Repeater_change_of_contents_after_initialisation():
             e'4
             f'4
         }
-        """
-    )
+        """)
     repeater.contents = abjad.Container(r"c'16 d'16 e'16 f'16 g'2.")
     notes = repeater(2)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'16
@@ -424,8 +399,7 @@ def test_Repeater_change_of_contents_after_initialisation():
             f'16
             g'2.
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_output_n():
@@ -434,8 +408,7 @@ def test_Repeater_output_n():
     repeater = auxjad.Repeater(container)
     notes = repeater.output_n(2)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'4
@@ -447,8 +420,7 @@ def test_Repeater_output_n():
             e'4
             f'4
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_testing_different_container_types():
@@ -459,7 +431,7 @@ def test_Repeater_testing_different_container_types():
     repeater = auxjad.Repeater(container)
     assert isinstance(repeater(), abjad.Selection)
 
-    tuplet = abjad.Tuplet('3:2', r"c'2 d'2 e'2")
+    tuplet = abjad.Tuplet("3:2", r"c'2 d'2 e'2")
     repeater = auxjad.Repeater(tuplet)
     assert isinstance(repeater(), abjad.Selection)
 
@@ -508,13 +480,10 @@ def test_Repeater_repeat_type():
     repeat.
     """
     container = abjad.Container(r"c'2 d'2")
-    repeater = auxjad.Repeater(container,
-                               repeat_type='unfold'
-                               )
+    repeater = auxjad.Repeater(container, repeat_type="unfold")
     notes = repeater(5)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'2
@@ -528,16 +497,12 @@ def test_Repeater_repeat_type():
             c'2
             d'2
         }
-        """
-    )
+        """)
     container = abjad.Container(r"c'2 d'2")
-    repeater = auxjad.Repeater(container,
-                               repeat_type='volta'
-                               )
+    repeater = auxjad.Repeater(container, repeat_type="volta")
     notes = repeater(5)
     staff = abjad.Staff(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \repeat volta 5
@@ -549,8 +514,7 @@ def test_Repeater_repeat_type():
                 \mark \markup{\box "5×"}
             }
         }
-        """
-    )
+        """)
 
 
 def test_Repeater_complex_example_with_volta_repeat():
@@ -558,9 +522,10 @@ def test_Repeater_complex_example_with_volta_repeat():
     markups with "Nx" above repeat bars.
     """
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    repeater = auxjad.Repeater(container,
-                               repeat_type='volta',
-                               )
+    repeater = auxjad.Repeater(
+        container,
+        repeat_type="volta",
+    )
     notes = repeater(3)
     staff = abjad.Staff(notes)
     repeater.contents = abjad.Container(r"g'2 a'2")
@@ -569,8 +534,7 @@ def test_Repeater_complex_example_with_volta_repeat():
     repeater.contents = abjad.Container(r"b'16 c''16 d''16 e''16 r2.")
     notes = repeater(5)
     staff.append(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \repeat volta 3
@@ -604,8 +568,7 @@ def test_Repeater_complex_example_with_volta_repeat():
             }
         }
 
-        """
-    )
+        """)
 
 
 def test_Repeater_disabling_2x_volta_text():
@@ -613,10 +576,11 @@ def test_Repeater_disabling_2x_volta_text():
     showing "Nx" only for N > 2.
     """
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
-    repeater = auxjad.Repeater(container,
-                               repeat_type='volta',
-                               include_2x_volta_text=False,
-                               )
+    repeater = auxjad.Repeater(
+        container,
+        repeat_type="volta",
+        include_2x_volta_text=False,
+    )
     notes = repeater(3)
     staff = abjad.Staff(notes)
     repeater.contents = abjad.Container(r"g'2 a'2")
@@ -625,8 +589,7 @@ def test_Repeater_disabling_2x_volta_text():
     repeater.contents = abjad.Container(r"b'16 c''16 d''16 e''16 r2.")
     notes = repeater(5)
     staff.append(notes)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             \repeat volta 3
@@ -656,5 +619,4 @@ def test_Repeater_disabling_2x_volta_text():
                 \mark \markup{\box "5×"}
             }
         }
-        """
-    )
+        """)

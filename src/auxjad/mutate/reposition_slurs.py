@@ -1,11 +1,12 @@
 import abjad
 
 
-def reposition_slurs(selection: abjad.Selection,
-                     *,
-                     allow_slurs_under_rests: bool = False,
-                     close_unterminated_final_slur: bool = True,
-                     ) -> None:
+def reposition_slurs(
+    selection: abjad.Selection,
+    *,
+    allow_slurs_under_rests: bool = False,
+    close_unterminated_final_slur: bool = True,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function repositions all slurs that starts or ends on rests.
 
@@ -324,7 +325,7 @@ def reposition_slurs(selection: abjad.Selection,
             if abjad.get.indicator(leaf, abjad.StartSlur) is not None:
                 if leaf is leaves[-1]:
                     abjad.detach(abjad.StartSlur, leaf)
-                elif (abjad.get.indicator(leaves[-1], abjad.StopSlur) is None):
+                elif abjad.get.indicator(leaves[-1], abjad.StopSlur) is None:
                     abjad.attach(abjad.StopSlur(), leaves[-1])
             if abjad.get.indicator(leaf, abjad.StopSlur) is not None:
                 break
@@ -378,31 +379,35 @@ def reposition_slurs(selection: abjad.Selection,
                 if not active_slur:
                     abjad.detach(abjad.StopSlur, leaf)
                 active_slur = False
-            if (isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest))
-                    and active_slur):
+            if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)) and active_slur:
                 previous_leaf = abjad.select(leaf).with_previous_leaf()[0]
-                if (abjad.get.indicator(previous_leaf, abjad.StopSlur)
-                        is None):
+                if abjad.get.indicator(previous_leaf, abjad.StopSlur) is None:
                     abjad.attach(abjad.StopSlur(), previous_leaf)
                     active_slur = False
-                for next_leaf in leaves[index + 1:]:
-                    if not isinstance(next_leaf, (abjad.Rest,
-                                                  abjad.MultimeasureRest,
-                                                  )):
-                        if (abjad.get.indicator(next_leaf, abjad.StartSlur)
-                                is None):
+                for next_leaf in leaves[index + 1 :]:
+                    if not isinstance(
+                        next_leaf,
+                        (
+                            abjad.Rest,
+                            abjad.MultimeasureRest,
+                        ),
+                    ):
+                        if abjad.get.indicator(next_leaf, abjad.StartSlur) is None:
                             abjad.attach(abjad.StartSlur(), next_leaf)
                         break
         for leaf in leaves:
-            if (abjad.get.indicator(leaf, abjad.StartSlur) is not None
-                    and abjad.get.indicator(leaf, abjad.StopSlur) is not None):
+            if (
+                abjad.get.indicator(leaf, abjad.StartSlur) is not None
+                and abjad.get.indicator(leaf, abjad.StopSlur) is not None
+            ):
                 abjad.detach(abjad.StartSlur, leaf)
                 abjad.detach(abjad.StopSlur, leaf)
 
     # removing slurs spanning a single logical tie
     for logical_tie in selection.logical_ties():
-        if (abjad.get.indicator(logical_tie[0], abjad.StartSlur) is not None
-                and abjad.get.indicator(logical_tie[-1], abjad.StopSlur)
-                is not None):
+        if (
+            abjad.get.indicator(logical_tie[0], abjad.StartSlur) is not None
+            and abjad.get.indicator(logical_tie[-1], abjad.StopSlur) is not None
+        ):
             abjad.detach(abjad.StartSlur, logical_tie[0])
             abjad.detach(abjad.StopSlur, logical_tie[-1])

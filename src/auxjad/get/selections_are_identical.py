@@ -4,12 +4,14 @@ from typing import Union
 import abjad
 
 
-def selections_are_identical(selections: Union[Iterable[abjad.Component],
-                                               Iterable[abjad.Selection],
-                                               ],
-                             *,
-                             include_indicators: bool = True,
-                             ) -> bool:
+def selections_are_identical(
+    selections: Union[
+        Iterable[abjad.Component],
+        Iterable[abjad.Selection],
+    ],
+    *,
+    include_indicators: bool = True,
+) -> bool:
     r"""Returns a :obj:`bool` representing whether two or more selections are
     identical or not. Input argument must be an iterable made of two or more
     |abjad.Selection|'s.
@@ -155,17 +157,17 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
         True
     """
     if not isinstance(selections, Iterable):
-        raise TypeError("argument must be an iterable of 'abjad.Selection's "
-                        "or 'abjad.Component's")
+        raise TypeError("argument must be an iterable of 'abjad.Selection's or 'abjad.Component's")
     for selection in selections:
         if not isinstance(selection, (abjad.Component, abjad.Selection)):
-            raise TypeError("argument must be an iterable of "
-                            "'abjad.Selection's or 'abjad.Component's")
+            raise TypeError(
+                "argument must be an iterable of 'abjad.Selection's or 'abjad.Component's"
+            )
     if not isinstance(include_indicators, bool):
         raise TypeError("'include_indicators' must be 'bool'")
 
     for index, selection1 in enumerate(selections[:-1]):
-        for selection2 in selections[index + 1:]:
+        for selection2 in selections[index + 1 :]:
             leaves1 = [leaf for leaf in selection1.leaves()]
             leaves2 = [leaf for leaf in selection2.leaves()]
             if len(leaves1) != len(leaves2):
@@ -175,25 +177,22 @@ def selections_are_identical(selections: Union[Iterable[abjad.Component],
                     return False
                 if abjad.get.duration(leaf1) != abjad.get.duration(leaf2):
                     return False
-                if (isinstance(leaf1, abjad.Note)
-                        and leaf1.written_pitch != leaf2.written_pitch):
+                if isinstance(leaf1, abjad.Note) and leaf1.written_pitch != leaf2.written_pitch:
                     return False
-                if (isinstance(leaf1, abjad.Chord)
-                        and leaf1.written_pitches != leaf2.written_pitches):
+                if (
+                    isinstance(leaf1, abjad.Chord)
+                    and leaf1.written_pitches != leaf2.written_pitches
+                ):
                     return False
                 leaf1_graces = abjad.get.before_grace_container(leaf1)
                 leaf2_graces = abjad.get.before_grace_container(leaf2)
                 if not isinstance(leaf1_graces, type(leaf2_graces)):
                     return False
                 if include_indicators:
-                    indicators1 = [format(indicator) for indicator
-                                   in abjad.get.indicators(leaf1)]
-                    indicators2 = [format(indicator) for indicator
-                                   in abjad.get.indicators(leaf2)]
-                    if not all(indicator1 in indicators2
-                               for indicator1 in indicators1):
+                    indicators1 = [format(indicator) for indicator in abjad.get.indicators(leaf1)]
+                    indicators2 = [format(indicator) for indicator in abjad.get.indicators(leaf2)]
+                    if not all(indicator1 in indicators2 for indicator1 in indicators1):
                         return False
-                    if not all(indicator2 in indicators1
-                               for indicator2 in indicators2):
+                    if not all(indicator2 in indicators1 for indicator2 in indicators2):
                         return False
     return True

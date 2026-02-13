@@ -7,15 +7,18 @@ import auxjad
 
 def test_example_of_usage_03():
     random.seed(12432)
-    pitch_selector = auxjad.TenneySelector(["c'",
-                                            ("fs'", "g'"),
-                                            "ef''",
-                                            "a''",
-                                            ("b", "bf''"),
-                                            ])
+    pitch_selector = auxjad.TenneySelector(
+        [
+            "c'",
+            ("fs'", "g'"),
+            "ef''",
+            "a''",
+            ("b", "bf''"),
+        ]
+    )
     duration_selector = auxjad.CartographySelector([(2, 8), (3, 8), (5, 8)])
-    dynamic_selector = auxjad.CartographySelector(['p', 'mp', 'mf', 'f'])
-    articulation_selector = auxjad.CartographySelector([None, '-', '>'])
+    dynamic_selector = auxjad.CartographySelector(["p", "mp", "mf", "f"])
+    articulation_selector = auxjad.CartographySelector([None, "-", ">"])
     pitches = [pitch_selector() for _ in range(8)]
     durations = [duration_selector() for _ in range(8)]
     dynamics = [dynamic_selector() for _ in range(8)]
@@ -23,12 +26,13 @@ def test_example_of_usage_03():
     leaf_dyn_maker = auxjad.LeafDynMaker()
     notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
     container = abjad.Container(notes)
-    looper = auxjad.WindowLooper(container,
-                                 window_size=(4, 4),
-                                 step_size=(1, 16),
-                                 after_rest=(1, 4),
-                                 after_rest_in_new_measure=True,
-                                 )
+    looper = auxjad.WindowLooper(
+        container,
+        window_size=(4, 4),
+        step_size=(1, 16),
+        after_rest=(1, 4),
+        after_rest_in_new_measure=True,
+    )
     staff = abjad.Staff()
     notes = looper.output_n(4)
     staff.append(notes)
@@ -42,8 +46,7 @@ def test_example_of_usage_03():
     staff.append(notes)
     score = abjad.Score([staff])
     score.add_final_bar_line()
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -227,5 +230,4 @@ def test_example_of_usage_03():
                 \bar "|."
             }
         >>
-        """
-    )
+        """)

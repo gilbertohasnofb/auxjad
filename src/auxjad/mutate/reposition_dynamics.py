@@ -5,13 +5,14 @@ from .remove_repeated_dynamics import (
 )
 
 
-def reposition_dynamics(selection: abjad.Selection,
-                        *,
-                        allow_hairpins_under_rests: bool = False,
-                        check_hairpin_trends: bool = True,
-                        remove_repeated_dynamics: bool = True,
-                        allow_hairpin_to_rest_with_dynamic: bool = True,
-                        ) -> None:
+def reposition_dynamics(
+    selection: abjad.Selection,
+    *,
+    allow_hairpins_under_rests: bool = False,
+    check_hairpin_trends: bool = True,
+    remove_repeated_dynamics: bool = True,
+    allow_hairpin_to_rest_with_dynamic: bool = True,
+) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
     this function shifts all dynamics from rests to the next pitched leaves. It
     will also adjust hairpins if necessary.
@@ -485,12 +486,14 @@ def reposition_dynamics(selection: abjad.Selection,
         if isinstance(leaf, (abjad.Rest, abjad.MultimeasureRest)):
             if abjad.get.indicator(leaf, abjad.Dynamic) is not None:
                 previous_leaf = abjad.select(leaf).with_previous_leaf()[0]
-                if (allow_hairpin_to_rest_with_dynamic
-                        and active_hairpin is not None
-                        and not isinstance(
-                            previous_leaf,
-                            (abjad.Rest, abjad.MultimeasureRest),
-                        )):
+                if (
+                    allow_hairpin_to_rest_with_dynamic
+                    and active_hairpin is not None
+                    and not isinstance(
+                        previous_leaf,
+                        (abjad.Rest, abjad.MultimeasureRest),
+                    )
+                ):
                     active_hairpin = None
                 else:
                     shifted_dynamic = abjad.get.indicator(leaf, abjad.Dynamic)
@@ -502,8 +505,7 @@ def reposition_dynamics(selection: abjad.Selection,
             if abjad.get.indicator(leaf, abjad.Dynamic) is None:
                 if shifted_dynamic is not None:
                     abjad.attach(shifted_dynamic, leaf)
-                    if (abjad.get.indicator(leaf, abjad.StopHairpin)
-                            is not None):
+                    if abjad.get.indicator(leaf, abjad.StopHairpin) is not None:
                         abjad.detach(abjad.StopHairpin, leaf)
                 if shifted_hairpin is not None:
                     abjad.attach(shifted_hairpin, leaf)
@@ -542,26 +544,27 @@ def reposition_dynamics(selection: abjad.Selection,
             effective_dynamic = abjad.get.indicator(leaf, abjad.Dynamic)
         start_hairpin = abjad.get.indicator(leaf, abjad.StartHairpin)
         if start_hairpin is not None and check_hairpin_trends:
-            for next_leaf in leaves[index + 1:]:
+            for next_leaf in leaves[index + 1 :]:
                 next_dynamic = abjad.get.indicator(next_leaf, abjad.Dynamic)
                 if next_dynamic is not None and effective_dynamic is not None:
-                    if '<' in start_hairpin.shape:
+                    if "<" in start_hairpin.shape:
                         if next_dynamic.ordinal <= effective_dynamic.ordinal:
                             abjad.detach(abjad.StartHairpin, leaf)
-                    elif '>' in start_hairpin.shape:
+                    elif ">" in start_hairpin.shape:
                         if next_dynamic.ordinal >= effective_dynamic.ordinal:
                             abjad.detach(abjad.StartHairpin, leaf)
                     break
-                elif (abjad.get.indicator(next_leaf, abjad.StopHairpin)
-                        is not None):
+                elif abjad.get.indicator(next_leaf, abjad.StopHairpin) is not None:
                     break
     if abjad.get.indicator(leaves[-1], abjad.StartHairpin) is not None:
         abjad.detach(abjad.StartHairpin, leaves[-1])
 
     # removing unecessary StopHairpin's
     for leaf in leaves:
-        if (abjad.get.indicator(leaf, abjad.StopHairpin) is not None
-                and abjad.get.indicator(leaf, abjad.Dynamic) is not None):
+        if (
+            abjad.get.indicator(leaf, abjad.StopHairpin) is not None
+            and abjad.get.indicator(leaf, abjad.Dynamic) is not None
+        ):
             abjad.detach(abjad.StopHairpin, leaf)
     target_leaf = None
     for leaf in leaves[::-1]:
@@ -569,8 +572,10 @@ def reposition_dynamics(selection: abjad.Selection,
             if target_leaf is not None:
                 abjad.detach(abjad.StopHairpin, target_leaf)
             target_leaf = leaf
-        elif (abjad.get.indicator(leaf, abjad.StartHairpin) is not None
-                or abjad.get.indicator(leaf, abjad.Dynamic)) is not None:
+        elif (
+            abjad.get.indicator(leaf, abjad.StartHairpin) is not None
+            or abjad.get.indicator(leaf, abjad.Dynamic)
+        ) is not None:
             target_leaf = None
 
     # removing repeated dynamics if required

@@ -6,7 +6,7 @@ import abjad
 from .. import get, mutate
 
 
-class Phaser():
+class Phaser:
     r"""Takes an |abjad.Container| (or child class) as input and outputs an
     |abjad.Selection| with leaves shifted by a fixed amount. Subsequent calls
     apply further shifts.
@@ -1241,52 +1241,55 @@ class Phaser():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_pivot_point',
-                 '_step_size',
-                 '_max_steps',
-                 '_forward_bias',
-                 '_remove_unterminated_ties',
-                 '_current_window',
-                 '_is_first_window',
-                 '_contents_length',
-                 '_omit_time_signatures',
-                 '_boundary_depth',
-                 '_maximum_dot_count',
-                 '_rewrite_tuplets',
-                 '_process_on_first_call',
-                 '_prettify_rewrite_meter',
-                 '_extract_trivial_tuplets',
-                 '_fuse_across_groups_of_beats',
-                 '_fuse_quadruple_meter',
-                 '_fuse_triple_meter',
-                 )
+    __slots__ = (
+        "_contents",
+        "_pivot_point",
+        "_step_size",
+        "_max_steps",
+        "_forward_bias",
+        "_remove_unterminated_ties",
+        "_current_window",
+        "_is_first_window",
+        "_contents_length",
+        "_omit_time_signatures",
+        "_boundary_depth",
+        "_maximum_dot_count",
+        "_rewrite_tuplets",
+        "_process_on_first_call",
+        "_prettify_rewrite_meter",
+        "_extract_trivial_tuplets",
+        "_fuse_across_groups_of_beats",
+        "_fuse_quadruple_meter",
+        "_fuse_triple_meter",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 step_size: Union[int,
-                                  float,
-                                  str,
-                                  tuple[int],
-                                  abjad.Duration,
-                                  ],
-                 max_steps: int = 1,
-                 forward_bias: float = 1.0,
-                 process_on_first_call: bool = False,
-                 remove_unterminated_ties: bool = True,
-                 omit_time_signatures: bool = False,
-                 boundary_depth: Optional[int] = None,
-                 maximum_dot_count: Optional[int] = None,
-                 rewrite_tuplets: bool = True,
-                 prettify_rewrite_meter: bool = True,
-                 extract_trivial_tuplets: bool = True,
-                 fuse_across_groups_of_beats: bool = True,
-                 fuse_quadruple_meter: bool = True,
-                 fuse_triple_meter: bool = True,
-                 ) -> None:
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        step_size: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+        ],
+        max_steps: int = 1,
+        forward_bias: float = 1.0,
+        process_on_first_call: bool = False,
+        remove_unterminated_ties: bool = True,
+        omit_time_signatures: bool = False,
+        boundary_depth: Optional[int] = None,
+        maximum_dot_count: Optional[int] = None,
+        rewrite_tuplets: bool = True,
+        prettify_rewrite_meter: bool = True,
+        extract_trivial_tuplets: bool = True,
+        fuse_across_groups_of_beats: bool = True,
+        fuse_quadruple_meter: bool = True,
+        fuse_triple_meter: bool = True,
+    ) -> None:
         r"""Initialises self."""
         self.contents = contents
         self._pivot_point = abjad.Duration(0)
@@ -1347,11 +1350,12 @@ class Phaser():
 
     ### PUBLIC METHODS ###
 
-    def output_all(self,
-                   *,
-                   cycle_back_to_first: bool = True,
-                   tie_identical_pitches: bool = False,
-                   ) -> abjad.Selection:
+    def output_all(
+        self,
+        *,
+        cycle_back_to_first: bool = True,
+        tie_identical_pitches: bool = False,
+    ) -> abjad.Selection:
         r"""Goes through the whole phasing process and outputs a single
         |abjad.Selection|.
         """
@@ -1379,19 +1383,19 @@ class Phaser():
         dummy_container[:] = []
         return output
 
-    def output_n(self,
-                 n: int,
-                 *,
-                 tie_identical_pitches: bool = False,
-                 ) -> abjad.Selection:
+    def output_n(
+        self,
+        n: int,
+        *,
+        tie_identical_pitches: bool = False,
+    ) -> abjad.Selection:
         r"""Goes through ``n`` iterations of the phasing process and outputs a
         single |abjad.Selection|.
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
         if n < 1:
-            raise ValueError("first positional argument must be a positive "
-                             "'int'")
+            raise ValueError("first positional argument must be a positive 'int'")
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")
         dummy_container = abjad.Container()
@@ -1453,42 +1457,38 @@ class Phaser():
             abjad.mutate.split(dummy_container[:], [pivot])
             # finding start and end indeces for the window
             for start in range(len(dummy_container)):
-                if (abjad.get.duration(dummy_container[:start + 1]) > pivot):
+                if abjad.get.duration(dummy_container[: start + 1]) > pivot:
                     break
             last_leaf = dummy_container[:start].leaf(-1)
             # copying indicators to both leaves
-            indicators_tuple = (abjad.Articulation,
-                                abjad.Clef,
-                                abjad.Dynamic,
-                                abjad.Fermata,
-                                abjad.KeySignature,
-                                abjad.LilyPondLiteral,
-                                abjad.MetronomeMark,
-                                abjad.Ottava,
-                                abjad.StaffChange,
-                                abjad.StartHairpin,
-                                abjad.StartPhrasingSlur,
-                                abjad.StartSlur,
-                                abjad.StopHairpin,
-                                abjad.StopPhrasingSlur,
-                                abjad.StopSlur,
-                                )
+            indicators_tuple = (
+                abjad.Articulation,
+                abjad.Clef,
+                abjad.Dynamic,
+                abjad.Fermata,
+                abjad.KeySignature,
+                abjad.LilyPondLiteral,
+                abjad.MetronomeMark,
+                abjad.Ottava,
+                abjad.StaffChange,
+                abjad.StartHairpin,
+                abjad.StartPhrasingSlur,
+                abjad.StartSlur,
+                abjad.StopHairpin,
+                abjad.StopPhrasingSlur,
+                abjad.StopSlur,
+            )
             if abjad.get.indicator(last_leaf, abjad.Tie):  # i.e. split
                 for indicator in abjad.get.indicators(last_leaf):
                     if isinstance(indicator, indicators_tuple):
                         first_leaf = dummy_container[start:].leaf(0)
                         abjad.attach(indicator, first_leaf)
             # removing ties of splitted logical tie if necessary
-            if (self._remove_unterminated_ties
-                    and abjad.get.indicator(last_leaf, abjad.Tie)):
+            if self._remove_unterminated_ties and abjad.get.indicator(last_leaf, abjad.Tie):
                 abjad.detach(abjad.Tie, last_leaf)
             # joining two subcontainers
-            dummy_end_container = abjad.Container(
-                abjad.mutate.copy(dummy_container[:start])
-            )
-            dummy_container = abjad.Container(
-                abjad.mutate.copy(dummy_container[start:])
-            )
+            dummy_end_container = abjad.Container(abjad.mutate.copy(dummy_container[:start]))
+            dummy_container = abjad.Container(abjad.mutate.copy(dummy_container[start:]))
             dummy_container.extend(dummy_end_container)
             dummy_end_container[:] = []
         return dummy_container
@@ -1498,28 +1498,32 @@ class Phaser():
         return self.__repr__()
 
     @staticmethod
-    def _tie_identical_pitches(currrent_selection: abjad.Selection,
-                               previous_container: abjad.Container,
-                               ) -> None:
+    def _tie_identical_pitches(
+        currrent_selection: abjad.Selection,
+        previous_container: abjad.Container,
+    ) -> None:
         r"""Ties identical pitches when joining windows."""
         if len(previous_container) == 0:
             return
         first_leaf = currrent_selection.leaf(0)
         last_leaf = abjad.select(previous_container).leaf(-1)
-        if (get.leaves_are_tieable((first_leaf, last_leaf)) and not
-                abjad.get.indicator(last_leaf, abjad.Tie)):
+        if get.leaves_are_tieable((first_leaf, last_leaf)) and not abjad.get.indicator(
+            last_leaf, abjad.Tie
+        ):
             abjad.attach(abjad.Tie(), last_leaf)
 
     @staticmethod
-    def _biased_choice(forward_bias: float,
-                       ) -> None:
+    def _biased_choice(
+        forward_bias: float,
+    ) -> None:
         r"""Returns either +1 or -1 according to a forward bias value."""
         weights = [forward_bias, 1.0 - forward_bias]
         return random.choices([1, -1], weights=weights)[0]
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
@@ -1533,12 +1537,12 @@ class Phaser():
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or "
-                            "child class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -1573,17 +1577,18 @@ class Phaser():
         return self._step_size
 
     @step_size.setter
-    def step_size(self,
-                  step_size: Union[int,
-                                   float,
-                                   str,
-                                   tuple[int],
-                                   abjad.Duration,
-                                   ],
-                  ) -> None:
+    def step_size(
+        self,
+        step_size: Union[
+            int,
+            float,
+            str,
+            tuple[int],
+            abjad.Duration,
+        ],
+    ) -> None:
         if not isinstance(step_size, (abjad.Duration, str, tuple, int, float)):
-            raise TypeError("'step_size' must be 'abjad.Duration', 'str', "
-                            "'tuple', or a number")
+            raise TypeError("'step_size' must be 'abjad.Duration', 'str', 'tuple', or a number")
         self._step_size = abjad.Duration(step_size)
 
     @property
@@ -1592,9 +1597,10 @@ class Phaser():
         return self._max_steps
 
     @max_steps.setter
-    def max_steps(self,
-                  max_steps: int,
-                  ) -> None:
+    def max_steps(
+        self,
+        max_steps: int,
+    ) -> None:
         if not isinstance(max_steps, int):
             raise TypeError("'max_steps' must be 'int'")
         if max_steps < 1:
@@ -1611,9 +1617,10 @@ class Phaser():
         return self._forward_bias
 
     @forward_bias.setter
-    def forward_bias(self,
-                     forward_bias: float,
-                     ) -> None:
+    def forward_bias(
+        self,
+        forward_bias: float,
+    ) -> None:
         if not isinstance(forward_bias, float):
             raise TypeError("'forward_bias' must be 'float'")
         if forward_bias < 0.0 or forward_bias > 1.0:
@@ -1628,9 +1635,10 @@ class Phaser():
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1644,9 +1652,10 @@ class Phaser():
         return self._remove_unterminated_ties
 
     @remove_unterminated_ties.setter
-    def remove_unterminated_ties(self,
-                                 remove_unterminated_ties: bool,
-                                 ) -> None:
+    def remove_unterminated_ties(
+        self,
+        remove_unterminated_ties: bool,
+    ) -> None:
         if not isinstance(remove_unterminated_ties, bool):
             raise TypeError("'remove_unterminated_ties' must be 'bool'")
         self._remove_unterminated_ties = remove_unterminated_ties
@@ -1659,9 +1668,10 @@ class Phaser():
         return self._boundary_depth
 
     @boundary_depth.setter
-    def boundary_depth(self,
-                       boundary_depth: Optional[int],
-                       ) -> None:
+    def boundary_depth(
+        self,
+        boundary_depth: Optional[int],
+    ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1675,9 +1685,10 @@ class Phaser():
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
-    def maximum_dot_count(self,
-                          maximum_dot_count: Optional[int],
-                          ) -> None:
+    def maximum_dot_count(
+        self,
+        maximum_dot_count: Optional[int],
+    ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1691,9 +1702,10 @@ class Phaser():
         return self._rewrite_tuplets
 
     @rewrite_tuplets.setter
-    def rewrite_tuplets(self,
-                        rewrite_tuplets: bool,
-                        ) -> None:
+    def rewrite_tuplets(
+        self,
+        rewrite_tuplets: bool,
+    ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1706,9 +1718,10 @@ class Phaser():
         return self._prettify_rewrite_meter
 
     @prettify_rewrite_meter.setter
-    def prettify_rewrite_meter(self,
-                               prettify_rewrite_meter: bool,
-                               ) -> None:
+    def prettify_rewrite_meter(
+        self,
+        prettify_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1721,9 +1734,10 @@ class Phaser():
         return self._extract_trivial_tuplets
 
     @extract_trivial_tuplets.setter
-    def extract_trivial_tuplets(self,
-                                extract_trivial_tuplets: bool,
-                                ) -> None:
+    def extract_trivial_tuplets(
+        self,
+        extract_trivial_tuplets: bool,
+    ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1736,9 +1750,10 @@ class Phaser():
         return self._fuse_across_groups_of_beats
 
     @fuse_across_groups_of_beats.setter
-    def fuse_across_groups_of_beats(self,
-                                    fuse_across_groups_of_beats: bool,
-                                    ) -> None:
+    def fuse_across_groups_of_beats(
+        self,
+        fuse_across_groups_of_beats: bool,
+    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1751,9 +1766,10 @@ class Phaser():
         return self._fuse_quadruple_meter
 
     @fuse_quadruple_meter.setter
-    def fuse_quadruple_meter(self,
-                             fuse_quadruple_meter: bool,
-                             ) -> None:
+    def fuse_quadruple_meter(
+        self,
+        fuse_quadruple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1766,9 +1782,10 @@ class Phaser():
         return self._fuse_triple_meter
 
     @fuse_triple_meter.setter
-    def fuse_triple_meter(self,
-                          fuse_triple_meter: bool,
-                          ) -> None:
+    def fuse_triple_meter(
+        self,
+        fuse_triple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter
@@ -1781,9 +1798,10 @@ class Phaser():
         return self._process_on_first_call
 
     @process_on_first_call.setter
-    def process_on_first_call(self,
-                              process_on_first_call: bool,
-                              ) -> None:
+    def process_on_first_call(
+        self,
+        process_on_first_call: bool,
+    ) -> None:
         if not isinstance(process_on_first_call, bool):
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
@@ -1799,5 +1817,7 @@ class Phaser():
         relation to the duration of :attr:`contents`, allowing for infinitely
         many calls.
         """
-        return (self._pivot_point >= self._contents_length
-                or self._pivot_point <= -self._contents_length)
+        return (
+            self._pivot_point >= self._contents_length
+            or self._pivot_point <= -self._contents_length
+        )

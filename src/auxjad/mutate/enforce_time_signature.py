@@ -7,26 +7,28 @@ from .close_container import close_container as close_container_function
 from .fill_with_rests import fill_with_rests as fill_with_rests_function
 
 
-def enforce_time_signature(container: abjad.Container,
-                           time_signatures: Union[abjad.TimeSignature,
-                                                  tuple,
-                                                  list,
-                                                  ],
-                           *,
-                           cyclic: bool = False,
-                           fill_with_rests: bool = True,
-                           close_container: bool = False,
-                           disable_rewrite_meter: bool = False,
-                           prettify_rewrite_meter: bool = True,
-                           boundary_depth: Optional[int] = None,
-                           maximum_dot_count: Optional[int] = None,
-                           rewrite_tuplets: bool = True,
-                           extract_trivial_tuplets: bool = True,
-                           fuse_across_groups_of_beats: bool = True,
-                           fuse_quadruple_meter: bool = True,
-                           fuse_triple_meter: bool = True,
-                           split_quadruple_meter: bool = True,
-                           ) -> None:
+def enforce_time_signature(
+    container: abjad.Container,
+    time_signatures: Union[
+        abjad.TimeSignature,
+        tuple,
+        list,
+    ],
+    *,
+    cyclic: bool = False,
+    fill_with_rests: bool = True,
+    close_container: bool = False,
+    disable_rewrite_meter: bool = False,
+    prettify_rewrite_meter: bool = True,
+    boundary_depth: Optional[int] = None,
+    maximum_dot_count: Optional[int] = None,
+    rewrite_tuplets: bool = True,
+    extract_trivial_tuplets: bool = True,
+    fuse_across_groups_of_beats: bool = True,
+    fuse_quadruple_meter: bool = True,
+    fuse_triple_meter: bool = True,
+    split_quadruple_meter: bool = True,
+) -> None:
     r"""Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function applies a time signature
     (or a :obj:`list` of time signatures) to the input container.
@@ -733,8 +735,7 @@ def enforce_time_signature(container: abjad.Container,
         subcontainers, applying this function to them individually.
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("first argument must be 'abjad.Container' or "
-                        "child class")
+        raise TypeError("first argument must be 'abjad.Container' or child class")
     if not abjad.select(container).leaves().are_contiguous_logical_voice():
         raise ValueError("first argument must be contiguous logical voice")
     if isinstance(time_signatures, list):
@@ -755,9 +756,7 @@ def enforce_time_signature(container: abjad.Container,
     partial_time_signature = None
     if time_signatures_[0].partial is not None:
         partial_time_signature = time_signatures_[0]
-        time_signatures_[0] = abjad.TimeSignature(
-            partial_time_signature.duration
-        )
+        time_signatures_[0] = abjad.TimeSignature(partial_time_signature.duration)
         partial_element = abjad.TimeSignature(partial_time_signature.partial)
         time_signatures_.insert(0, partial_element)
     if not isinstance(cyclic, bool):
@@ -783,8 +782,7 @@ def enforce_time_signature(container: abjad.Container,
         if abjad.get.indicator(leaf, abjad.TimeSignature):
             abjad.detach(abjad.TimeSignature, leaf)
     # slice container at the places where time signatures change
-    durations = [time_signature.duration for time_signature
-                 in time_signatures_]
+    durations = [time_signature.duration for time_signature in time_signatures_]
     if not cyclic:
         while sum(durations) < abjad.get.duration(container):
             durations.append(durations[-1])

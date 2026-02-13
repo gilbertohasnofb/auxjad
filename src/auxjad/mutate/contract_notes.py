@@ -3,13 +3,14 @@ import abjad
 from .. import get, mutate
 
 
-def contract_notes(container: abjad.Container,
-                   max_contraction_duration: abjad.Duration,
-                   *,
-                   minimum_duration: abjad.Duration = abjad.Duration((0, 1)),
-                   use_multimeasure_rests: bool = True,
-                   rewrite_meter: bool = True,
-                   ) -> None:
+def contract_notes(
+    container: abjad.Container,
+    max_contraction_duration: abjad.Duration,
+    *,
+    minimum_duration: abjad.Duration = abjad.Duration((0, 1)),
+    use_multimeasure_rests: bool = True,
+    rewrite_meter: bool = True,
+) -> None:
     r"""Mutates an input |abjad.Container| (or child class) in place and has no
     return value; this function contracts all logical ties (notes and chords)
     by a maximum contraction duration.
@@ -436,27 +437,35 @@ def contract_notes(container: abjad.Container,
         which are not currently supported
     """
     if not isinstance(container, abjad.Container):
-        raise TypeError("first positional argument must be 'abjad.Container' "
-                        "or child class")
+        raise TypeError("first positional argument must be 'abjad.Container' or child class")
     if len(abjad.select(container).tuplets()) > 0:
-        raise ValueError("first positional argument contains one ore more "
-                         "tuplets, which are not currently supported")
-    if not isinstance(max_contraction_duration,
-                      (abjad.Duration, str, tuple, int, float),
-                      ):
-        raise TypeError("second positional argument must be 'abjad.Duration', "
-                        "'str', 'tuple', or a number")
+        raise ValueError(
+            "first positional argument contains one ore more "
+            "tuplets, which are not currently supported"
+        )
+    if not isinstance(
+        max_contraction_duration,
+        (abjad.Duration, str, tuple, int, float),
+    ):
+        raise TypeError(
+            "second positional argument must be 'abjad.Duration', 'str', 'tuple', or a number"
+        )
     if not isinstance(max_contraction_duration, abjad.Duration):
         max_contraction_duration = abjad.Duration(max_contraction_duration)
     if minimum_duration is not None:
-        if not isinstance(minimum_duration, (abjad.Duration,
-                                             str,
-                                             tuple,
-                                             int,
-                                             float,
-                                             )):
-            raise TypeError("'minimum_duration' must be 'abjad.Duration', "
-                            "'str', 'tuple', or a number")
+        if not isinstance(
+            minimum_duration,
+            (
+                abjad.Duration,
+                str,
+                tuple,
+                int,
+                float,
+            ),
+        ):
+            raise TypeError(
+                "'minimum_duration' must be 'abjad.Duration', 'str', 'tuple', or a number"
+            )
         if not isinstance(minimum_duration, abjad.Duration):
             minimum_duration = abjad.Duration(minimum_duration)
     if not isinstance(use_multimeasure_rests, bool):
@@ -464,18 +473,17 @@ def contract_notes(container: abjad.Container,
     if not isinstance(rewrite_meter, bool):
         raise TypeError("'rewrite_meter' must be 'bool'")
 
-    time_signatures = get.time_signature_list(container,
-                                              implicit_common_time=False,
-                                              )
+    time_signatures = get.time_signature_list(
+        container,
+        implicit_common_time=False,
+    )
     for logical_tie in abjad.select(container).logical_ties():
         if isinstance(logical_tie.head, (abjad.Rest, abjad.MultimeasureRest)):
             continue
         total_duration = abjad.get.duration(logical_tie)
         if total_duration <= minimum_duration:
             continue
-        rest_duration = min(max_contraction_duration,
-                            total_duration - minimum_duration
-                            )
+        rest_duration = min(max_contraction_duration, total_duration - minimum_duration)
         if rest_duration == abjad.Duration((0, 1)):
             continue
         pitched_duration = total_duration - rest_duration
@@ -498,10 +506,11 @@ def contract_notes(container: abjad.Container,
         else:
             replacement_items = abjad.LeafMaker()([None], [rest_duration])
         abjad.mutate.replace(logical_tie, replacement_items)
-    mutate.enforce_time_signature(container,
-                                  time_signatures,
-                                  disable_rewrite_meter=True,
-                                  )
+    mutate.enforce_time_signature(
+        container,
+        time_signatures,
+        disable_rewrite_meter=True,
+    )
     if rewrite_meter:
         mutate.auto_rewrite_meter(container)
     if use_multimeasure_rests:

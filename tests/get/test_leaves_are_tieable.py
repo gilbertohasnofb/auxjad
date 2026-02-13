@@ -90,13 +90,15 @@ def test_leaves_are_tieable_12():
     leaf2 = abjad.Chord(r"<c' e'>4")
     leaf3 = abjad.Note(r"c'2")
     assert auxjad.get.leaves_are_tieable([leaf1, leaf2])
-    assert not auxjad.get.leaves_are_tieable([leaf1, leaf2],
-                                             only_identical_pitches=True,
-                                             )
+    assert not auxjad.get.leaves_are_tieable(
+        [leaf1, leaf2],
+        only_identical_pitches=True,
+    )
     assert auxjad.get.leaves_are_tieable([leaf2, leaf3])
-    assert not auxjad.get.leaves_are_tieable([leaf2, leaf3],
-                                             only_identical_pitches=True,
-                                             )
+    assert not auxjad.get.leaves_are_tieable(
+        [leaf2, leaf3],
+        only_identical_pitches=True,
+    )
 
 
 def test_leaves_are_tieable_13():
@@ -104,18 +106,21 @@ def test_leaves_are_tieable_13():
     chord2 = abjad.Chord(r"<c' e' g' bf'>4")
     chord3 = abjad.Chord(r"<c' e' fs'>4")
     assert auxjad.get.leaves_are_tieable([chord1, chord2])
-    assert not auxjad.get.leaves_are_tieable([chord1, chord2],
-                                             only_identical_pitches=True,
-                                             )
+    assert not auxjad.get.leaves_are_tieable(
+        [chord1, chord2],
+        only_identical_pitches=True,
+    )
     assert auxjad.get.leaves_are_tieable([chord2, chord3])
-    assert not auxjad.get.leaves_are_tieable([chord2, chord3],
-                                             only_identical_pitches=True,
-                                             )
+    assert not auxjad.get.leaves_are_tieable(
+        [chord2, chord3],
+        only_identical_pitches=True,
+    )
 
 
 def test_leaves_are_tieable_14():
     staff = abjad.Staff(r"c'2 c'4. <c' e'>8")
     assert auxjad.get.leaves_are_tieable(staff[:])
-    assert not auxjad.get.leaves_are_tieable(staff[:],
-                                             only_identical_pitches=True,
-                                             )
+    assert not auxjad.get.leaves_are_tieable(
+        staff[:],
+        only_identical_pitches=True,
+    )

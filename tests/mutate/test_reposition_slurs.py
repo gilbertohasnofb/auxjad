@@ -6,8 +6,7 @@ import auxjad
 def test_reposition_slurs_01():
     staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -18,15 +17,13 @@ def test_reposition_slurs_01():
             r1
             e'1
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_02():
     staff = abjad.Staff(r"c'1 r2( d'2 e'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -36,15 +33,13 @@ def test_reposition_slurs_02():
             e'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_03():
     staff = abjad.Staff(r"c'1( d'2 r2 r1) e'1")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -55,15 +50,13 @@ def test_reposition_slurs_03():
             r1
             e'1
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_04():
     staff = abjad.Staff(r"c'1 r2( r1 d'2 e'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -74,15 +67,13 @@ def test_reposition_slurs_04():
             e'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_05():
     staff = abjad.Staff(r"c'1( d'2 e'2 f'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -92,15 +83,13 @@ def test_reposition_slurs_05():
             f'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_06():
     staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -113,15 +102,13 @@ def test_reposition_slurs_06():
             f'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_07():
     staff = abjad.Staff(r"c'1( d'2 r2 e'1 f'1)")
     auxjad.mutate.reposition_slurs(staff[:], allow_slurs_under_rests=True)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -132,15 +119,13 @@ def test_reposition_slurs_07():
             f'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_08():
     staff = abjad.Staff(r"r1( c'1 d'2 r2 e'1 f'1)")
     auxjad.mutate.reposition_slurs(staff[:], allow_slurs_under_rests=True)
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             r1
@@ -152,15 +137,13 @@ def test_reposition_slurs_08():
             f'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_09():
     staff = abjad.Staff(r"c'1( r2 d'2 e'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -170,15 +153,13 @@ def test_reposition_slurs_09():
             e'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_10():
     staff = abjad.Staff(r"c'1( d'2 r2 e'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -188,15 +169,13 @@ def test_reposition_slurs_10():
             r2
             e'1
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_11():
     staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -213,15 +192,13 @@ def test_reposition_slurs_11():
             a'1
             )
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( a'1")
     auxjad.mutate.reposition_slurs(
         staff[:],
         close_unterminated_final_slur=False,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -237,12 +214,10 @@ def test_reposition_slurs_11():
             (
             a'1
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1( r1")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -257,12 +232,10 @@ def test_reposition_slurs_11():
             g'1
             r1
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'2 r2 e'2 f'2) g'1(")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -276,15 +249,13 @@ def test_reposition_slurs_11():
             )
             g'1
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_12():
     staff = abjad.Staff(r"c'1( d'2) e'2) f'2( g'2( a'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -298,15 +269,13 @@ def test_reposition_slurs_12():
             a'1
             )
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_13():
     staff = abjad.Staff(r"c'1( d'2 r2) r1 e'1")
     abjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -317,15 +286,13 @@ def test_reposition_slurs_13():
             r1
             e'1
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_14():
     staff = abjad.Staff(r"c'1( d'1 e'1 f'1")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -335,12 +302,10 @@ def test_reposition_slurs_14():
             f'1
             )
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'1( e'1 f'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -350,12 +315,10 @@ def test_reposition_slurs_14():
             f'1
             )
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'1 e'1) f'1")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -365,12 +328,10 @@ def test_reposition_slurs_14():
             )
             f'1
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'1 e'1) f'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -380,15 +341,13 @@ def test_reposition_slurs_14():
             )
             f'1
         }
-        """
-    )
+        """)
 
 
 def test_reposition_slurs_15():
     staff = abjad.Staff(r"c'1( d'1 r1 r1 r1 e'1 f'1)")
     auxjad.mutate.reposition_slurs(staff[:])
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -403,14 +362,13 @@ def test_reposition_slurs_15():
             f'1
             )
         }
-        """
-    )
+        """)
     staff = abjad.Staff(r"c'1( d'1 r1 r1 r1 e'1 f'1)")
-    auxjad.mutate.reposition_slurs(staff[:],
-                                   allow_slurs_under_rests=True,
-                                   )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    auxjad.mutate.reposition_slurs(
+        staff[:],
+        allow_slurs_under_rests=True,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
             c'1
@@ -423,5 +381,4 @@ def test_reposition_slurs_15():
             f'1
             )
         }
-        """
-    )
+        """)

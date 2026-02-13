@@ -6,7 +6,7 @@ import abjad
 from .. import get, mutate
 
 
-class Hocketer():
+class Hocketer:
     r"""A hocket generator that takes an |abjad.Container| (or child class) as
     input and randomly distributes its logical ties among different staves.
 
@@ -1340,51 +1340,53 @@ class Hocketer():
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents',
-                 '_n_voices',
-                 '_weights',
-                 '_k',
-                 '_pitch_ranges',
-                 '_force_k_voices',
-                 '_explode_chords',
-                 '_disable_rewrite_meter',
-                 '_use_multimeasure_rests',
-                 '_voices',
-                 '_time_signatures',
-                 '_boundary_depth',
-                 '_maximum_dot_count',
-                 '_rewrite_tuplets',
-                 '_omit_time_signatures',
-                 '_prettify_rewrite_meter',
-                 '_extract_trivial_tuplets',
-                 '_fuse_across_groups_of_beats',
-                 '_fuse_quadruple_meter',
-                 '_fuse_triple_meter',
-                 )
+    __slots__ = (
+        "_contents",
+        "_n_voices",
+        "_weights",
+        "_k",
+        "_pitch_ranges",
+        "_force_k_voices",
+        "_explode_chords",
+        "_disable_rewrite_meter",
+        "_use_multimeasure_rests",
+        "_voices",
+        "_time_signatures",
+        "_boundary_depth",
+        "_maximum_dot_count",
+        "_rewrite_tuplets",
+        "_omit_time_signatures",
+        "_prettify_rewrite_meter",
+        "_extract_trivial_tuplets",
+        "_fuse_across_groups_of_beats",
+        "_fuse_quadruple_meter",
+        "_fuse_triple_meter",
+    )
 
     ### INITIALISER ###
 
-    def __init__(self,
-                 contents: abjad.Container,
-                 *,
-                 n_voices: int = 2,
-                 pitch_ranges: Optional[list] = None,
-                 weights: Optional[list] = None,
-                 k: int = 1,
-                 force_k_voices: bool = False,
-                 explode_chords: bool = False,
-                 disable_rewrite_meter: bool = False,
-                 use_multimeasure_rests: bool = True,
-                 omit_time_signatures: bool = False,
-                 boundary_depth: Optional[int] = None,
-                 maximum_dot_count: Optional[int] = None,
-                 rewrite_tuplets: bool = True,
-                 prettify_rewrite_meter: bool = True,
-                 extract_trivial_tuplets: bool = True,
-                 fuse_across_groups_of_beats: bool = True,
-                 fuse_quadruple_meter: bool = True,
-                 fuse_triple_meter: bool = True,
-                 ) -> None:
+    def __init__(
+        self,
+        contents: abjad.Container,
+        *,
+        n_voices: int = 2,
+        pitch_ranges: Optional[list] = None,
+        weights: Optional[list] = None,
+        k: int = 1,
+        force_k_voices: bool = False,
+        explode_chords: bool = False,
+        disable_rewrite_meter: bool = False,
+        use_multimeasure_rests: bool = True,
+        omit_time_signatures: bool = False,
+        boundary_depth: Optional[int] = None,
+        maximum_dot_count: Optional[int] = None,
+        rewrite_tuplets: bool = True,
+        prettify_rewrite_meter: bool = True,
+        extract_trivial_tuplets: bool = True,
+        fuse_across_groups_of_beats: bool = True,
+        fuse_quadruple_meter: bool = True,
+        fuse_triple_meter: bool = True,
+    ) -> None:
         r"""Initialises self."""
         self.contents = contents
         self._voices = None
@@ -1470,9 +1472,7 @@ class Hocketer():
                     rewrite_tuplets=self._rewrite_tuplets,
                     prettify_rewrite_meter=self._prettify_rewrite_meter,
                     extract_trivial_tuplets=self._extract_trivial_tuplets,
-                    fuse_across_groups_of_beats=(
-                        self.fuse_across_groups_of_beats
-                    ),
+                    fuse_across_groups_of_beats=(self.fuse_across_groups_of_beats),
                     fuse_quadruple_meter=self._fuse_quadruple_meter,
                     fuse_triple_meter=self._fuse_triple_meter,
                 )
@@ -1490,36 +1490,37 @@ class Hocketer():
         r"""Replaces notes and chords for silences if voice not in the selected
         :obj:`list` for a given logical tie.
         """
-        indicators_tuple = (abjad.BarLine,
-                            abjad.Clef,
-                            abjad.Dynamic,
-                            abjad.Fermata,
-                            abjad.KeySignature,
-                            abjad.LilyPondLiteral,
-                            abjad.MetronomeMark,
-                            abjad.Ottava,
-                            abjad.RehearsalMark,
-                            abjad.Repeat,
-                            abjad.StaffChange,
-                            abjad.StartHairpin,
-                            abjad.StartMarkup,
-                            abjad.StartPhrasingSlur,
-                            abjad.StartSlur,
-                            abjad.StartTextSpan,
-                            abjad.StopHairpin,
-                            abjad.StopPhrasingSlur,
-                            abjad.StopSlur,
-                            abjad.StopTextSpan,
-                            abjad.TimeSignature,
-                            )
-        dummy_voices = [abjad.mutate.copy(self._contents)
-                        for _ in range(self._n_voices)]
+        indicators_tuple = (
+            abjad.BarLine,
+            abjad.Clef,
+            abjad.Dynamic,
+            abjad.Fermata,
+            abjad.KeySignature,
+            abjad.LilyPondLiteral,
+            abjad.MetronomeMark,
+            abjad.Ottava,
+            abjad.RehearsalMark,
+            abjad.Repeat,
+            abjad.StaffChange,
+            abjad.StartHairpin,
+            abjad.StartMarkup,
+            abjad.StartPhrasingSlur,
+            abjad.StartSlur,
+            abjad.StartTextSpan,
+            abjad.StopHairpin,
+            abjad.StopPhrasingSlur,
+            abjad.StopSlur,
+            abjad.StopTextSpan,
+            abjad.TimeSignature,
+        )
+        dummy_voices = [abjad.mutate.copy(self._contents) for _ in range(self._n_voices)]
         selected_voices = self._select_voices()
         for voice_index, voice in enumerate(dummy_voices):
             logical_ties = abjad.select(voice).logical_ties()
-            for logical_tie, selected_indeces in zip(logical_ties,
-                                                     selected_voices,
-                                                     ):
+            for logical_tie, selected_indeces in zip(
+                logical_ties,
+                selected_voices,
+            ):
                 if voice_index not in selected_indeces:
                     for leaf in logical_tie:
                         rest = abjad.Rest(leaf.written_duration)
@@ -1527,8 +1528,7 @@ class Hocketer():
                             if isinstance(indicator, indicators_tuple):
                                 abjad.attach(indicator, rest)
                         abjad.mutate.replace(leaf, rest)
-                elif (isinstance(logical_tie.head, abjad.Chord)
-                        and self._explode_chords):
+                elif isinstance(logical_tie.head, abjad.Chord) and self._explode_chords:
                     pitch_number = selected_indeces.index(voice_index)
                     pitch = logical_tie.head.written_pitches[pitch_number]
                     for leaf in logical_tie:
@@ -1544,8 +1544,7 @@ class Hocketer():
         if not self._force_k_voices:
             for logical_tie in abjad.select(self._contents).logical_ties():
                 # 1st case: exploding chords and ignoring k
-                if (isinstance(logical_tie.head, abjad.Chord)
-                        and self._explode_chords):
+                if isinstance(logical_tie.head, abjad.Chord) and self._explode_chords:
                     pitches = logical_tie.head.written_pitches
                     counter = 0
                     while True:
@@ -1553,17 +1552,22 @@ class Hocketer():
                             sample_k = self._n_voices
                         else:
                             sample_k = len(pitches)
-                        voices = random.sample(list(range(self._n_voices)),
-                                               k=sample_k,
-                                               )
+                        voices = random.sample(
+                            list(range(self._n_voices)),
+                            k=sample_k,
+                        )
                         counter += 1
-                        if all(self._pitch_in_range(pitch, voice)
-                                for voice, pitch in zip(voices, pitches)):
+                        if all(
+                            self._pitch_in_range(pitch, voice)
+                            for voice, pitch in zip(voices, pitches)
+                        ):
                             break
                         elif counter >= 1000:
-                            raise RuntimeError('No good distribution of chord '
-                                               'found, please check the pitch '
-                                               'ranges or try another seed.')
+                            raise RuntimeError(
+                                "No good distribution of chord "
+                                "found, please check the pitch "
+                                "ranges or try another seed."
+                            )
                     selected_voices.append(voices)
                 # 2nd case: distributing leaves into up to k voices, though
                 # not enforcing k voices
@@ -1571,18 +1575,20 @@ class Hocketer():
                     pitch = self._get_pitch_from_logical_tie(logical_tie)
                     counter = 0
                     while True:
-                        voices = random.choices(list(range(self._n_voices)),
-                                                weights=self._weights,
-                                                k=self._k,
-                                                )
+                        voices = random.choices(
+                            list(range(self._n_voices)),
+                            weights=self._weights,
+                            k=self._k,
+                        )
                         counter += 1
-                        if all(self._pitch_in_range(pitch, voice)
-                               for voice in voices):
+                        if all(self._pitch_in_range(pitch, voice) for voice in voices):
                             break
                         if counter >= 1000:
-                            raise RuntimeError('No good distribution of notes '
-                                               'found, please check pitch '
-                                               'ranges or try another seed.')
+                            raise RuntimeError(
+                                "No good distribution of notes "
+                                "found, please check pitch "
+                                "ranges or try another seed."
+                            )
                     selected_voices.append(voices)
         # 3rd case: distributing leaves into exactly k voices
         else:
@@ -1591,31 +1597,34 @@ class Hocketer():
                 counter = 0
                 voices = []
                 while len(voices) < self._k:
-                    voice = random.choices(list(range(self._n_voices)),
-                                           weights=self._weights,
-                                           )[0]
+                    voice = random.choices(
+                        list(range(self._n_voices)),
+                        weights=self._weights,
+                    )[0]
                     counter += 1
                     if voice in voices:
                         continue
                     if self._pitch_in_range(pitch, voice):
                         voices.append(voice)
                     if counter >= 1000:
-                        raise RuntimeError('No good distribution of notes '
-                                           'found, please check pitch '
-                                           'ranges or try another seed.')
+                        raise RuntimeError(
+                            "No good distribution of notes "
+                            "found, please check pitch "
+                            "ranges or try another seed."
+                        )
                 selected_voices.append(voices)
         return selected_voices
 
-    def _pitch_in_range(self,
-                        pitch: Union[abjad.Pitch, abjad.PitchSegment, None],
-                        voice: int,
-                        ) -> bool:
+    def _pitch_in_range(
+        self,
+        pitch: Union[abjad.Pitch, abjad.PitchSegment, None],
+        voice: int,
+    ) -> bool:
         r"""Checks if a pitch is playable by a specific voice."""
         if self._pitch_ranges is None or pitch is None:
             return True
         elif isinstance(pitch, abjad.PitchSegment):
-            if (min(pitch) in self._pitch_ranges[voice]
-                    and max(pitch) in self._pitch_ranges[voice]):
+            if min(pitch) in self._pitch_ranges[voice] and max(pitch) in self._pitch_ranges[voice]:
                 return True
         if pitch in self._pitch_ranges[voice]:
             return True
@@ -1626,11 +1635,13 @@ class Hocketer():
         return self.__repr__()
 
     @staticmethod
-    def _get_pitch_from_logical_tie(logical_tie: abjad.LogicalTie,
-                                    ) -> Union[abjad.Pitch,
-                                               abjad.PitchSegment,
-                                               None,
-                                               ]:
+    def _get_pitch_from_logical_tie(
+        logical_tie: abjad.LogicalTie,
+    ) -> Union[
+        abjad.Pitch,
+        abjad.PitchSegment,
+        None,
+    ]:
         r"""Gets the pitch of the first leaf of a logical tie."""
         if isinstance(logical_tie.head, abjad.Note):
             return logical_tie.head.written_pitch
@@ -1640,8 +1651,9 @@ class Hocketer():
             return None
 
     @staticmethod
-    def _remove_all_time_signatures(container: abjad.Container,
-                                    ) -> None:
+    def _remove_all_time_signatures(
+        container: abjad.Container,
+    ) -> None:
         r"""Removes all time signatures of an |abjad.Container|."""
         for leaf in abjad.select(container).leaves():
             if abjad.get.effective(leaf, abjad.TimeSignature):
@@ -1655,12 +1667,12 @@ class Hocketer():
         return abjad.mutate.copy(self._contents)
 
     @contents.setter
-    def contents(self,
-                 contents: abjad.Container,
-                 ) -> None:
+    def contents(
+        self,
+        contents: abjad.Container,
+    ) -> None:
         if not isinstance(contents, abjad.Container):
-            raise TypeError("'contents' must be 'abjad.Container' or child "
-                            "class")
+            raise TypeError("'contents' must be 'abjad.Container' or child class")
         if not abjad.select(contents).leaves().are_contiguous_logical_voice():
             raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
@@ -1680,16 +1692,18 @@ class Hocketer():
         return self._n_voices
 
     @n_voices.setter
-    def n_voices(self,
-                 n_voices: int,
-                 ) -> None:
+    def n_voices(
+        self,
+        n_voices: int,
+    ) -> None:
         if not isinstance(n_voices, int):
             raise TypeError("'n_voices' must be 'int'")
         if n_voices < 1:
             raise ValueError("'n_voices' must be greater than zero")
         if self._force_k_voices and self._k > n_voices:
-            raise ValueError("'n_voices' cannot be smaller than 'k' when "
-                             "'force_k_voices' is set to True")
+            raise ValueError(
+                "'n_voices' cannot be smaller than 'k' when 'force_k_voices' is set to True"
+            )
         self._n_voices = n_voices
         self._pitch_ranges = None
 
@@ -1699,17 +1713,16 @@ class Hocketer():
         return self._weights
 
     @weights.setter
-    def weights(self,
-                weights: Optional[list[Union[float, int]]],
-                ) -> None:
+    def weights(
+        self,
+        weights: Optional[list[Union[float, int]]],
+    ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
                 raise TypeError("'weights' must be 'list'")
             if not self.__len__() == len(weights):
-                raise ValueError("'weights' must have the same length as "
-                                 "'n_voices'")
-            if not all(isinstance(weight, (int, float))
-                       for weight in weights):
+                raise ValueError("'weights' must have the same length as 'n_voices'")
+            if not all(isinstance(weight, (int, float)) for weight in weights):
                 raise TypeError("'weights' elements must be 'int' or 'float'")
             self._weights = weights[:]
         else:
@@ -1721,16 +1734,18 @@ class Hocketer():
         return self._k
 
     @k.setter
-    def k(self,
-          k: int,
-          ) -> None:
+    def k(
+        self,
+        k: int,
+    ) -> None:
         if not isinstance(k, int):
             raise TypeError("'k' must be 'int'")
         if k < 1:
             raise ValueError("'k' must be greater than zero")
         if self._force_k_voices and k > self._n_voices:
-            raise ValueError("'k' cannot be greater than 'n_voices' when "
-                             "'force_k_voices' is set to True")
+            raise ValueError(
+                "'k' cannot be greater than 'n_voices' when 'force_k_voices' is set to True"
+            )
         self._k = k
 
     @property
@@ -1745,9 +1760,10 @@ class Hocketer():
         return self._pitch_ranges
 
     @pitch_ranges.setter
-    def pitch_ranges(self,
-                     pitch_ranges: Optional[list],
-                     ) -> None:
+    def pitch_ranges(
+        self,
+        pitch_ranges: Optional[list],
+    ) -> None:
         if pitch_ranges is not None:
             if not isinstance(pitch_ranges, list):
                 raise TypeError("'pitch_ranges' must be 'list'")
@@ -1755,8 +1771,7 @@ class Hocketer():
                 raise ValueError("'pitch_ranges' must have length 'n_voices'")
             for voice_range in pitch_ranges:
                 if not isinstance(voice_range, abjad.PitchRange):
-                    raise TypeError("elements of 'pitch_ranges' must be "
-                                    "'abjad.PitchRange'")
+                    raise TypeError("elements of 'pitch_ranges' must be 'abjad.PitchRange'")
         self._pitch_ranges = pitch_ranges
 
     @property
@@ -1767,9 +1782,10 @@ class Hocketer():
         return self._explode_chords
 
     @explode_chords.setter
-    def explode_chords(self,
-                       explode_chords: bool,
-                       ) -> None:
+    def explode_chords(
+        self,
+        explode_chords: bool,
+    ) -> None:
         if not isinstance(explode_chords, bool):
             raise TypeError("'explode_chords' must be 'bool'")
         self._explode_chords = explode_chords
@@ -1782,14 +1798,16 @@ class Hocketer():
         return self._force_k_voices
 
     @force_k_voices.setter
-    def force_k_voices(self,
-                       force_k_voices: bool,
-                       ) -> None:
+    def force_k_voices(
+        self,
+        force_k_voices: bool,
+    ) -> None:
         if not isinstance(force_k_voices, bool):
             raise TypeError("'force_k_voices' must be 'bool'")
         if force_k_voices and self._k > self._n_voices:
-            raise ValueError("'force_k_voices' cannot be set to True if 'k' > "
-                             "'n_voices', change 'k' first")
+            raise ValueError(
+                "'force_k_voices' cannot be set to True if 'k' > 'n_voices', change 'k' first"
+            )
         self._force_k_voices = force_k_voices
 
     @property
@@ -1800,9 +1818,10 @@ class Hocketer():
         return self._omit_time_signatures
 
     @omit_time_signatures.setter
-    def omit_time_signatures(self,
-                             omit_time_signatures: bool,
-                             ) -> None:
+    def omit_time_signatures(
+        self,
+        omit_time_signatures: bool,
+    ) -> None:
         if not isinstance(omit_time_signatures, bool):
             raise TypeError("'omit_time_signatures' must be 'bool'")
         self._omit_time_signatures = omit_time_signatures
@@ -1816,9 +1835,10 @@ class Hocketer():
         return self._disable_rewrite_meter
 
     @disable_rewrite_meter.setter
-    def disable_rewrite_meter(self,
-                              disable_rewrite_meter: bool,
-                              ) -> None:
+    def disable_rewrite_meter(
+        self,
+        disable_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(disable_rewrite_meter, bool):
             raise TypeError("'disable_rewrite_meter' must be 'bool'")
         self._disable_rewrite_meter = disable_rewrite_meter
@@ -1831,9 +1851,10 @@ class Hocketer():
         return self._use_multimeasure_rests
 
     @use_multimeasure_rests.setter
-    def use_multimeasure_rests(self,
-                               use_multimeasure_rests: bool,
-                               ) -> None:
+    def use_multimeasure_rests(
+        self,
+        use_multimeasure_rests: bool,
+    ) -> None:
         if not isinstance(use_multimeasure_rests, bool):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
@@ -1846,9 +1867,10 @@ class Hocketer():
         return self._boundary_depth
 
     @boundary_depth.setter
-    def boundary_depth(self,
-                       boundary_depth: Optional[int],
-                       ) -> None:
+    def boundary_depth(
+        self,
+        boundary_depth: Optional[int],
+    ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
                 raise TypeError("'boundary_depth' must be 'int'")
@@ -1862,9 +1884,10 @@ class Hocketer():
         return self._maximum_dot_count
 
     @maximum_dot_count.setter
-    def maximum_dot_count(self,
-                          maximum_dot_count: Optional[int],
-                          ) -> None:
+    def maximum_dot_count(
+        self,
+        maximum_dot_count: Optional[int],
+    ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
                 raise TypeError("'maximum_dot_count' must be 'int'")
@@ -1878,9 +1901,10 @@ class Hocketer():
         return self._rewrite_tuplets
 
     @rewrite_tuplets.setter
-    def rewrite_tuplets(self,
-                        rewrite_tuplets: bool,
-                        ) -> None:
+    def rewrite_tuplets(
+        self,
+        rewrite_tuplets: bool,
+    ) -> None:
         if not isinstance(rewrite_tuplets, bool):
             raise TypeError("'rewrite_tuplets' must be 'bool'")
         self._rewrite_tuplets = rewrite_tuplets
@@ -1893,9 +1917,10 @@ class Hocketer():
         return self._prettify_rewrite_meter
 
     @prettify_rewrite_meter.setter
-    def prettify_rewrite_meter(self,
-                               prettify_rewrite_meter: bool,
-                               ) -> None:
+    def prettify_rewrite_meter(
+        self,
+        prettify_rewrite_meter: bool,
+    ) -> None:
         if not isinstance(prettify_rewrite_meter, bool):
             raise TypeError("'prettify_rewrite_meter' must be 'bool'")
         self._prettify_rewrite_meter = prettify_rewrite_meter
@@ -1908,9 +1933,10 @@ class Hocketer():
         return self._extract_trivial_tuplets
 
     @extract_trivial_tuplets.setter
-    def extract_trivial_tuplets(self,
-                                extract_trivial_tuplets: bool,
-                                ) -> None:
+    def extract_trivial_tuplets(
+        self,
+        extract_trivial_tuplets: bool,
+    ) -> None:
         if not isinstance(extract_trivial_tuplets, bool):
             raise TypeError("'extract_trivial_tuplets' must be 'bool'")
         self._extract_trivial_tuplets = extract_trivial_tuplets
@@ -1923,9 +1949,10 @@ class Hocketer():
         return self._fuse_across_groups_of_beats
 
     @fuse_across_groups_of_beats.setter
-    def fuse_across_groups_of_beats(self,
-                                    fuse_across_groups_of_beats: bool,
-                                    ) -> None:
+    def fuse_across_groups_of_beats(
+        self,
+        fuse_across_groups_of_beats: bool,
+    ) -> None:
         if not isinstance(fuse_across_groups_of_beats, bool):
             raise TypeError("'fuse_across_groups_of_beats' must be 'bool'")
         self._fuse_across_groups_of_beats = fuse_across_groups_of_beats
@@ -1938,9 +1965,10 @@ class Hocketer():
         return self._fuse_quadruple_meter
 
     @fuse_quadruple_meter.setter
-    def fuse_quadruple_meter(self,
-                             fuse_quadruple_meter: bool,
-                             ) -> None:
+    def fuse_quadruple_meter(
+        self,
+        fuse_quadruple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_quadruple_meter, bool):
             raise TypeError("'fuse_quadruple_meter' must be 'bool'")
         self._fuse_quadruple_meter = fuse_quadruple_meter
@@ -1953,9 +1981,10 @@ class Hocketer():
         return self._fuse_triple_meter
 
     @fuse_triple_meter.setter
-    def fuse_triple_meter(self,
-                          fuse_triple_meter: bool,
-                          ) -> None:
+    def fuse_triple_meter(
+        self,
+        fuse_triple_meter: bool,
+    ) -> None:
         if not isinstance(fuse_triple_meter, bool):
             raise TypeError("'fuse_triple_meter' must be 'bool'")
         self._fuse_triple_meter = fuse_triple_meter

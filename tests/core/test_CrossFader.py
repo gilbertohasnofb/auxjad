@@ -10,8 +10,7 @@ def test_CrossFader_01():
     fade_out_container = abjad.Staff(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Staff(r"\times 4/5 {cs''4 d''1}")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
-    assert abjad.lilypond(fader) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(fader) == abjad.String.normalize(r"""
         \new Staff
         {
             \time 4/4
@@ -28,15 +27,15 @@ def test_CrossFader_01():
                 d''1
             }
         }
-        """
-    )
+        """)
     selection_a, selection_b = fader()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -52,15 +51,15 @@ def test_CrossFader_01():
                 R1
             }
         >>
-        """
-    )
+        """)
     selection_a, selection_b = fader()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -80,15 +79,15 @@ def test_CrossFader_01():
                 }
             }
         >>
-        """
-    )
+        """)
     selection_a, selection_b = fader.current_window
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -108,8 +107,7 @@ def test_CrossFader_01():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_02():
@@ -143,8 +141,7 @@ def test_CrossFader_03():
     selection_a, selection_b = fader()
     staff_a.extend(selection_a)
     staff_b.extend(selection_b)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -186,8 +183,7 @@ def test_CrossFader_03():
                 R1
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_04():
@@ -196,12 +192,13 @@ def test_CrossFader_04():
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d'1}")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -254,8 +251,7 @@ def test_CrossFader_04():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_05():
@@ -264,12 +260,13 @@ def test_CrossFader_05():
     fade_in_container = abjad.Container(r"c''2 ~ c''8 d''4.")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     selection_a, selection_b = fader.output_n(3)
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -298,8 +295,7 @@ def test_CrossFader_05():
                 r4.
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_06():
@@ -313,8 +309,7 @@ def test_CrossFader_06():
     for selection_a, selection_b in fader:
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -362,8 +357,7 @@ def test_CrossFader_06():
                 d''4.
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_07():
@@ -378,8 +372,7 @@ def test_CrossFader_07():
         selection_a, selection_b = next(fader)
         staff_a.extend(selection_a)
         staff_b.extend(selection_b)
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -408,8 +401,7 @@ def test_CrossFader_07():
                 r4.
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_08():
@@ -418,12 +410,13 @@ def test_CrossFader_08():
     fade_in_container = abjad.Container(r"\time 3/4 a''4 g''2")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -452,20 +445,21 @@ def test_CrossFader_08():
                 g''2
             }
         >>
-        """
-    )
+        """)
     random.seed(62190)
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              fade_out_last=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        fade_out_last=True,
+    )
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -495,21 +489,22 @@ def test_CrossFader_08():
                 g''2
             }
         >>
-        """
-    )
+        """)
     random.seed(62190)
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              fade_in_first=True,
-                              fade_out_last=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        fade_in_first=True,
+        fade_out_last=True,
+    )
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -542,24 +537,22 @@ def test_CrossFader_08():
                 g''2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_09():
     random.seed(50137)
     fade_out_container = abjad.Container(r"e'2 c'2")
-    fade_in_container = abjad.Container(
-        r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8"
-    )
+    fade_in_container = abjad.Container(r"c''8 d''8 e''8 f''8 g''8 a''8 b''8 c'''8")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -648,20 +641,21 @@ def test_CrossFader_09():
                 c'''8
             }
         >>
-        """
-    )
+        """)
     random.seed(50137)
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              weighted_duration=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        weighted_duration=True,
+    )
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -758,8 +752,7 @@ def test_CrossFader_09():
                 c'''8
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_10():
@@ -767,8 +760,7 @@ def test_CrossFader_10():
     fade_in_container = abjad.Container(r"\time 3/4 c'8 d' e' f' g' a'")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     fader.fade_out_contents = abjad.Container(r"\time 3/4 a4. bf4.")
-    assert abjad.lilypond(fader) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(fader) == abjad.String.normalize(r"""
         {
             %%% \time 3/4 %%%
             a4.
@@ -783,26 +775,27 @@ def test_CrossFader_10():
             g'8
             a'8
         }
-        """
-    )
+        """)
 
 
 def test_CrossFader_11():
     random.seed(41379)
     fade_out_container = abjad.Container(r"a'4 bf'2 r4")
     fade_in_container = abjad.Container(r"c''2 d''2")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              initial_repetitions=2,
-                              final_repetitions=3,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        initial_repetitions=2,
+        final_repetitions=3,
+    )
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -845,25 +838,26 @@ def test_CrossFader_11():
                 d''2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_12():
     random.seed(91766)
     fade_out_container = abjad.Container(r"a'4 bf'2 r4")
     fade_in_container = abjad.Container(r"c''2 d''2")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              repetition_chance=0.8,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        repetition_chance=0.8,
+    )
     selection_a, selection_b = fader.output_n(4)
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -894,26 +888,22 @@ def test_CrossFader_12():
                 d''2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_13():
     random.seed(81943)
-    fade_out_container = abjad.Container(
-        r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4"
-    )
-    fade_in_container = abjad.Container(
-        r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2"
-    )
+    fade_out_container = abjad.Container(r"\time 3/4 a'4 bf'2 ~ \time 2/4 bf'4 f'4")
+    fade_in_container = abjad.Container(r"\time 3/4 r16 cs''4.. e''4 \time 2/4 d''2")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     selection_a, selection_b = fader.output_n(3)
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -960,25 +950,26 @@ def test_CrossFader_13():
                 R1 * 1/2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_14():
     random.seed(75991)
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              omit_time_signatures=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        omit_time_signatures=True,
+    )
     selection_a, selection_b = fader.output_n(3)
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1004,25 +995,26 @@ def test_CrossFader_14():
                 }
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_15():
     random.seed(33163)
     fade_out_container = abjad.Container(r"c'8 d'4 e'8 ~ e'2")
     fade_in_container = abjad.Container(r"c'2 d'2")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              disable_rewrite_meter=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        disable_rewrite_meter=True,
+    )
     selection_a, selection_b = fader.output_n(3)
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1053,27 +1045,26 @@ def test_CrossFader_15():
                 d'2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_16():
     random.seed(81662)
     fade_out_container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
     fade_in_container = abjad.Container(r"\time 4/4 g'2 a'2")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              fade_in_first=True,
-                              fade_out_last=True,
-                              weighted_duration=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        fade_in_first=True,
+        fade_out_last=True,
+        weighted_duration=True,
+    )
     selection_a, selection_b = fader.output_all()
     staff_a = abjad.Staff(selection_a)
     staff_b = abjad.Staff(selection_b)
     auxjad.mutate.sync_containers([staff_a, staff_b])
     score = abjad.Score([staff_a, staff_b])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1112,28 +1103,28 @@ def test_CrossFader_16():
                 a'2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_17():
     fade_out_container = abjad.Container(r"fs'4 g'2 bf'4")
     fade_in_container = abjad.Container(r"\times 4/5 {cs''4 d''1}")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              fade_in_first=True,
-                              fade_out_last=True,
-                              initial_repetitions=3,
-                              final_repetitions=3,
-                              repetition_chance=0.7,
-                              weighted_duration=True,
-                              disable_rewrite_meter=True,
-                              omit_time_signatures=True,
-                              use_multimeasure_rests=True,
-                              boundary_depth=True,
-                              maximum_dot_count=True,
-                              rewrite_tuplets=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        fade_in_first=True,
+        fade_out_last=True,
+        initial_repetitions=3,
+        final_repetitions=3,
+        repetition_chance=0.7,
+        weighted_duration=True,
+        disable_rewrite_meter=True,
+        omit_time_signatures=True,
+        use_multimeasure_rests=True,
+        boundary_depth=True,
+        maximum_dot_count=True,
+        rewrite_tuplets=True,
+    )
     assert fader.fade_in_first
     assert fader.fade_out_last
     assert fader.initial_repetitions == 3
@@ -1175,21 +1166,21 @@ def test_CrossFader_17():
 def test_CrossFader_18():
     random.seed(97142)
     fade_out_container = abjad.Container(r"c'4.\p e'8--\f ~ e'2")
-    fade_in_container = abjad.Container(
-        r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2"
+    fade_in_container = abjad.Container(r"\times 2/3 {f'4-.\pp r4 d'4->\f ~ } d'2")
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        fade_in_first=True,
+        fade_out_last=True,
     )
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              fade_in_first=True,
-                              fade_out_last=True,
-                              )
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1265,26 +1256,27 @@ def test_CrossFader_18():
                 d'2
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_19():
     random.seed(25519)
     fade_out_container = abjad.Container(r"\times 2/3 {<c' e'>2 g'1}")
     fade_in_container = abjad.Container(r"<d' ef'>2. <bf a'>4")
-    fader = auxjad.CrossFader(fade_out_container,
-                              fade_in_container,
-                              fade_in_first=True,
-                              fade_out_last=True,
-                              )
+    fader = auxjad.CrossFader(
+        fade_out_container,
+        fade_in_container,
+        fade_in_first=True,
+        fade_out_last=True,
+    )
     selection_a, selection_b = fader.output_all()
-    score = abjad.Score([
-        abjad.Staff(selection_a),
-        abjad.Staff(selection_b),
-    ])
-    assert abjad.lilypond(score) == abjad.String.normalize(
-        r"""
+    score = abjad.Score(
+        [
+            abjad.Staff(selection_a),
+            abjad.Staff(selection_b),
+        ]
+    )
+    assert abjad.lilypond(score) == abjad.String.normalize(r"""
         \new Score
         <<
             \new Staff
@@ -1347,8 +1339,7 @@ def test_CrossFader_19():
                 <bf a'>4
             }
         >>
-        """
-    )
+        """)
 
 
 def test_CrossFader_20():
@@ -1357,16 +1348,15 @@ def test_CrossFader_20():
     fade_in_container = abjad.Container(r"\times 2/3 {e'2 d'2 c'2}")
     fader = auxjad.CrossFader(fade_out_container, fade_in_container)
     selection_a, selection_b = fader.output_all()
-    literal_voice_one = abjad.LilyPondLiteral(r'\voiceOne')
-    literal_voice_two = abjad.LilyPondLiteral(r'\voiceTwo')
+    literal_voice_one = abjad.LilyPondLiteral(r"\voiceOne")
+    literal_voice_two = abjad.LilyPondLiteral(r"\voiceTwo")
     abjad.attach(literal_voice_one, selection_a[0])
     abjad.attach(literal_voice_two, selection_b[0])
     staff = abjad.Staff(
         [abjad.Voice(selection_a), abjad.Voice(selection_b)],
         simultaneous=True,
     )
-    assert abjad.lilypond(staff) == abjad.String.normalize(
-        r"""
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         <<
             \new Voice
@@ -1443,5 +1433,4 @@ def test_CrossFader_20():
                 }
             }
         >>
-        """
-    )
+        """)

@@ -4,10 +4,11 @@ from typing import Union
 import abjad
 
 
-def _group_consecutive_rests(logical_tie: abjad.LogicalTie,
-                             *,
-                             include_multimeasure_rests: bool = True,
-                             ) -> Union[abjad.Leaf, bool]:
+def _group_consecutive_rests(
+    logical_tie: abjad.LogicalTie,
+    *,
+    include_multimeasure_rests: bool = True,
+) -> Union[abjad.Leaf, bool]:
     r"""Private function used by |auxjad.select.logical_selections()| in order
     to group consecutive ties together. If a logical tie is made out of a rest,
     this function returns the value ``True``, otherwise it returns the logical
@@ -19,17 +20,17 @@ def _group_consecutive_rests(logical_tie: abjad.LogicalTie,
     """
     if isinstance(logical_tie.head, abjad.Rest):
         return True
-    elif (isinstance(logical_tie.head, abjad.MultimeasureRest)
-            and include_multimeasure_rests):
+    elif isinstance(logical_tie.head, abjad.MultimeasureRest) and include_multimeasure_rests:
         return True
     else:
         return logical_tie.head
 
 
-def logical_selections(container: Union[abjad.Container, abjad.Selection],
-                       *,
-                       include_multimeasure_rests: bool = True,
-                       ) -> abjad.Selection:
+def logical_selections(
+    container: Union[abjad.Container, abjad.Selection],
+    *,
+    include_multimeasure_rests: bool = True,
+) -> abjad.Selection:
     r"""Takes an |abjad.Container| (or child class).
     Returns the logical selections of a container, that is the logical
     ties but with consecutive rests grouped together. Return value is in the
@@ -95,15 +96,15 @@ def logical_selections(container: Union[abjad.Container, abjad.Selection],
         Selection([Note("d'16"), Note("d'2.")])
     """
     if not isinstance(container, (abjad.Container, abjad.Selection)):
-        raise TypeError("Argument must be 'abjad.Container', 'abjad.Selection'"
-                        ", or child classes")
+        raise TypeError("Argument must be 'abjad.Container', 'abjad.Selection', or child classes")
     if isinstance(container, abjad.Container):
         if not abjad.select(container).leaves().are_contiguous_logical_voice():
             raise ValueError("Argument must be contiguous logical voice")
 
     logical_ties = abjad.select(container).logical_ties()
     return logical_ties.group_by(
-        partial(_group_consecutive_rests,
-                include_multimeasure_rests=include_multimeasure_rests,
-                )
+        partial(
+            _group_consecutive_rests,
+            include_multimeasure_rests=include_multimeasure_rests,
+        )
     )

@@ -8,13 +8,15 @@ from .close_container import close_container
 from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 
 
-def sync_containers(containers: Union[Iterable[abjad.Container],
-                                      abjad.Score,
-                                      ],
-                    *,
-                    use_multimeasure_rests: bool = True,
-                    adjust_last_time_signature: bool = True,
-                    ) -> None:
+def sync_containers(
+    containers: Union[
+        Iterable[abjad.Container],
+        abjad.Score,
+    ],
+    *,
+    use_multimeasure_rests: bool = True,
+    adjust_last_time_signature: bool = True,
+) -> None:
     r"""Mutates two or more input containers in place and has no return value;
     this function finds the longest container among the inputs and adds rests
     to all the shorter ones, making them the same length. Input argument can
@@ -804,29 +806,28 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
         measure preceding a time signature change
     """
     if not isinstance(containers, (Iterable, abjad.Score)):
-        raise TypeError("argument must be 'abjad.Score' or iterable of "
-                        "'abjad.Container's")
+        raise TypeError("argument must be 'abjad.Score' or iterable of 'abjad.Container's")
     if isinstance(containers, abjad.Score):
         containers = containers[:]
     for container in containers:
         if not isinstance(container, abjad.Container):
-            raise TypeError("argument must be 'abjad.Score' or iterable of "
-                            "'abjad.Container's")
+            raise TypeError("argument must be 'abjad.Score' or iterable of 'abjad.Container's")
         if not abjad.select(container).leaves().are_contiguous_logical_voice():
             raise ValueError("argument must each be contiguous logical voice")
         try:
             get.selection_is_full(container[:])
         except ValueError as err:
-            raise ValueError("at least one 'container' is malformed, with an "
-                             "underfull measure preceding a time signature "
-                             "change") from err
+            raise ValueError(
+                "at least one 'container' is malformed, with an "
+                "underfull measure preceding a time signature "
+                "change"
+            ) from err
     if not isinstance(use_multimeasure_rests, bool):
         raise TypeError("'use_multimeasure_rests' must be 'bool'")
     if not isinstance(adjust_last_time_signature, bool):
         raise TypeError("'adjust_last_time_signature' must be 'bool'")
 
-    durations = [abjad.get.duration(container[:]) for container
-                 in containers]
+    durations = [abjad.get.duration(container[:]) for container in containers]
     max_duration = max(durations)
     for container, duration in zip(containers, durations):
         duration_difference = max_duration - duration
@@ -834,16 +835,17 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
             # handling duration left in the last measure, if any
             if not get.selection_is_full(container[:]):
                 duration_left = get.underfull_duration(container[:])
-                underfull_rests_duration = min(duration_difference,
-                                               duration_left,
-                                               )
-                underfull_rests = abjad.LeafMaker()(None,
-                                                    underfull_rests_duration,
-                                                    )
+                underfull_rests_duration = min(
+                    duration_difference,
+                    duration_left,
+                )
+                underfull_rests = abjad.LeafMaker()(
+                    None,
+                    underfull_rests_duration,
+                )
                 duration_difference -= underfull_rests_duration
                 container.extend(underfull_rests)
-                if (duration_difference == abjad.Duration(0)
-                        and adjust_last_time_signature):
+                if duration_difference == abjad.Duration(0) and adjust_last_time_signature:
                     close_container(container)
                 if duration_difference == abjad.Duration(0):
                     continue
@@ -877,6 +879,5 @@ def sync_containers(containers: Union[Iterable[abjad.Container],
                 rests_to_multimeasure_rest(container[:])
         else:
             # closing longest container if necessary
-            if (adjust_last_time_signature
-                    and not get.selection_is_full(container[:])):
+            if adjust_last_time_signature and not get.selection_is_full(container[:]):
                 close_container(container)

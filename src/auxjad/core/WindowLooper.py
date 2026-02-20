@@ -1890,6 +1890,6 @@ class WindowLooper(_LooperParent):
             return self._head_position >= self._contents_length or self._head_position < 0
         else:
             return (
-                self._head_position >= self._contents_length - self._head_position
+                self._head_position > self._contents_length - self._window_size.duration
                 or self._head_position < 0
             )

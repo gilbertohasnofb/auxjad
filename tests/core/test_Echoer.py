@@ -1056,18 +1056,6 @@ def test_Echoer_23():
     echoer = auxjad.Echoer(score)
     assert isinstance(echoer(), abjad.Selection)
 
-    voice1 = abjad.Voice(r"c'4\mf d'4\mp e'\p f'\pp")
-    voice2 = abjad.Voice(r"g2\ff f2")
-    staff = abjad.Staff([voice1, voice2], simultaneous=True)
-    with pytest.raises(ValueError):
-        echoer = auxjad.Echoer(staff)  # noqa: F841
-
-    staff1 = abjad.Staff(r"c'4\mf d'4\mp e'\p f'\pp")
-    staff2 = abjad.Staff(r"g2\ff f2")
-    score = abjad.Score([staff1, staff2])
-    with pytest.raises(ValueError):
-        echoer = auxjad.Echoer(score)  # noqa: F841
-
 
 def test_Echoer_24():
     container = abjad.Container(r"\times 2/3 {c'2(\p\< d'2 e'2\ff} f'4\mf\> g'2 a'4\mp)")

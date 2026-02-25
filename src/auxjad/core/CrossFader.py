@@ -1869,9 +1869,6 @@ class CrossFader:
     ) -> None:
         if not isinstance(fade_out_contents, abjad.Container):
             raise TypeError("'fade_out_contents' must be 'abjad.Container' or child class")
-        leaves = abjad.select(fade_out_contents).leaves()
-        if not leaves.are_contiguous_logical_voice():
-            raise ValueError("'fade_out_contents' must be contiguous logical voice")
         self._fade_out_contents = abjad.mutate.copy(fade_out_contents)
         self._fader_out.contents = self._fade_out_contents
         self.reset()
@@ -1888,9 +1885,6 @@ class CrossFader:
     ) -> None:
         if not isinstance(fade_in_contents, abjad.Container):
             raise TypeError("'fade_in_contents' must be 'abjad.Container' or child class")
-        leaves = abjad.select(fade_in_contents).leaves()
-        if not leaves.are_contiguous_logical_voice():
-            raise ValueError("'fade_in_contents' must be contiguous logical voice")
         self._fade_in_contents = abjad.mutate.copy(fade_in_contents)
         self._fader_in.contents = self._fade_in_contents
         self.reset()

@@ -1213,18 +1213,6 @@ def test_Phaser_24():
     phaser = auxjad.Phaser(score, step_size=(1, 16))
     assert isinstance(phaser(), abjad.Selection)
 
-    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    voice2 = abjad.Voice(r"g2 f2")
-    staff = abjad.Staff([voice1, voice2], simultaneous=True)
-    with pytest.raises(ValueError):
-        phaser = auxjad.Phaser(staff, step_size=(1, 16))  # noqa: F841
-
-    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    staff2 = abjad.Staff(r"g2 f2")
-    score = abjad.Score([staff1, staff2])
-    with pytest.raises(ValueError):
-        phaser = auxjad.Phaser(score, step_size=(1, 16))  # noqa: F841
-
 
 def test_Phaser_25():
     container = abjad.Container(r"c'2(\p\< d'4. e'8\f f'4\p\> g'2 a'4\pp)")

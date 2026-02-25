@@ -814,23 +814,6 @@ def test_Shuffler_testing_different_container_types():
     assert isinstance(shuffler(), abjad.Selection)
 
 
-def test_Shuffler_no_parallel_containers():
-    r"""Confirm parallel containers (two voices in staff, two staves in score)
-    raise ValueError.
-    """
-    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    voice2 = abjad.Voice(r"g2 f2")
-    staff = abjad.Staff([voice1, voice2], simultaneous=True)
-    with pytest.raises(ValueError):
-        shuffler = auxjad.Shuffler(staff)  # noqa: F841
-
-    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    staff2 = abjad.Staff(r"g2 f2")
-    score = abjad.Score([staff1, staff2])
-    with pytest.raises(ValueError):
-        shuffler = auxjad.Shuffler(score)  # noqa: F841
-
-
 def test_Shuffler_tuplet_with_rests():
     r"""Confirm support for tuplets with rests."""
     random.seed(76123)

@@ -337,10 +337,9 @@ def merge_partial_tuplets(
 
     ..  warning::
 
-        The input selection must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containing
-        multiple staves), the best approach is to cycle through these
-        subcontainers, applying this function to them individually.
+        When dealing with a container with multiple subcontainers (e.g. a score containing multiple
+        staves), the best approach is to cycle through these subcontainers, applying this function
+        to them individually.
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("argument must be 'abjad.Selection'")

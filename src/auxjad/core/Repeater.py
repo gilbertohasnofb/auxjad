@@ -852,8 +852,6 @@ class Repeater:
     ) -> None:
         if not isinstance(contents, abjad.Container):
             raise TypeError("'contents' must be 'abjad.Container' or child class")
-        if not abjad.select(contents).leaves().are_contiguous_logical_voice():
-            raise ValueError("'contents' must be contiguous logical voice")
         if isinstance(contents, abjad.Score):
             self._contents = abjad.Container()
             for component in contents[0].components:

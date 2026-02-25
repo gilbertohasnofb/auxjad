@@ -1060,18 +1060,6 @@ def test_Fader_25():
     fader = auxjad.Fader(score)
     assert isinstance(fader(), abjad.Selection)
 
-    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    voice2 = abjad.Voice(r"g2 f2")
-    staff = abjad.Staff([voice1, voice2], simultaneous=True)
-    with pytest.raises(ValueError):
-        fader = auxjad.Fader(staff)  # noqa: F841
-
-    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    staff2 = abjad.Staff(r"g2 f2")
-    score = abjad.Score([staff1, staff2])
-    with pytest.raises(ValueError):
-        fader = auxjad.Fader(score)  # noqa: F841
-
 
 def test_Fader_26():
     random.seed(41888)

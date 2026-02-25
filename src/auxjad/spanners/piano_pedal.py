@@ -2,7 +2,6 @@ from textwrap import dedent
 from typing import Union
 
 import abjad
-from abjad import piano_pedal as piano_pedal_
 
 
 def piano_pedal(
@@ -11,6 +10,7 @@ def piano_pedal(
     half_pedal: bool = False,
     until_the_end: bool = False,
     omit_raise_pedal_glyph: bool = False,
+    disable_sustain_off: bool = False,
     selector: abjad.Expression = abjad.select().leaves(),
     start_piano_pedal: abjad.StartPianoPedal = None,
     stop_piano_pedal: abjad.StopPianoPedal = None,
@@ -149,6 +149,28 @@ def piano_pedal(
 
         ..  figure:: ../_images/piano_pedal-Fb5rE6QB1f.png
 
+    ``disable_sustain_off``:
+
+        If ``disable_sustain_off`` is set to ``True``, the final ``\sustainOff`` command will be
+        omited.
+
+        >>> staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+        >>> abjad.piano_pedal(staff[:], disable_sustain_off=True)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'4
+                \sustainOn
+                d'4
+                e'4
+                f'4
+            }
+
+        ..  figure:: ../_images/piano_pedal-lXm7901TC9.png
+
     ``half_pedal``:
 
         Call the function with ``half_pedal`` set to ``True`` to use the half
@@ -285,7 +307,7 @@ def piano_pedal(
 
         ..  figure:: ../_images/piano_pedal-cYyRwFvnFH.png
     """
-    assert isinstance(selector, abjad.Expression)
+    assert callable(selector)
     argument = selector(argument)
     leaves = abjad.Selection(argument).leaves()
     start_leaf = leaves[0]
@@ -337,18 +359,18 @@ def piano_pedal(
         string = dedent(string).strip()
         pedal_tweak = abjad.LilyPondLiteral(string)
         abjad.attach(pedal_tweak, start_leaf)
-    if omit_raise_pedal_glyph:
-        omit_raise_pedal_glyph_tweak = abjad.LilyPondLiteral(
-            r"\once \override Staff.SustainPedal.stencil = ##f"
-        )
-        abjad.attach(omit_raise_pedal_glyph_tweak, stop_leaf)
-    piano_pedal_(
-        argument=argument,
-        selector=selector,
-        start_piano_pedal=start_piano_pedal,
-        stop_piano_pedal=stop_piano_pedal,
-        tag=tag,
-    )
+
+    start_piano_pedal = start_piano_pedal or abjad.StartPianoPedal()
+    stop_piano_pedal = stop_piano_pedal or abjad.StopPianoPedal()
+
+    abjad.attach(start_piano_pedal, start_leaf, tag=tag)
+    if not disable_sustain_off:
+        abjad.attach(stop_piano_pedal, stop_leaf, tag=tag)
+        if omit_raise_pedal_glyph:
+            omit_raise_pedal_glyph_tweak = abjad.LilyPondLiteral(
+                r"\once \override Staff.SustainPedal.stencil = ##f"
+            )
+            abjad.attach(omit_raise_pedal_glyph_tweak, stop_leaf)
 
 
 ### MONKEY PATCHING ###

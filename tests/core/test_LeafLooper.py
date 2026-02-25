@@ -732,18 +732,6 @@ def test_LeafLooper_23():
     looper = auxjad.LeafLooper(score, window_size=2)
     assert isinstance(looper(), abjad.Selection)
 
-    voice1 = abjad.Voice(r"c'4 d'4 e'4 f'4")
-    voice2 = abjad.Voice(r"g2 f2")
-    staff = abjad.Staff([voice1, voice2], simultaneous=True)
-    with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(staff, window_size=2)  # noqa: F841
-
-    staff1 = abjad.Staff(r"c'4 d'4 e'4 f'4")
-    staff2 = abjad.Staff(r"g2 f2")
-    score = abjad.Score([staff1, staff2])
-    with pytest.raises(ValueError):
-        looper = auxjad.LeafLooper(score, window_size=2)  # noqa: F841
-
 
 def test_LeafLooper_24():
     container = abjad.Container(r"c'4\p( d'2 e'4\f) f'2( ~ f'8 g'4 a'1\pp)")

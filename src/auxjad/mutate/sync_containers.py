@@ -812,8 +812,6 @@ def sync_containers(
     for container in containers:
         if not isinstance(container, abjad.Container):
             raise TypeError("argument must be 'abjad.Score' or iterable of 'abjad.Container's")
-        if not abjad.select(container).leaves().are_contiguous_logical_voice():
-            raise ValueError("argument must each be contiguous logical voice")
         try:
             get.selection_is_full(container[:])
         except ValueError as err:

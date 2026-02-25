@@ -472,15 +472,12 @@ def reposition_clefs(
 
     ..  warning::
 
-        The input selection must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containing
-        multiple staves), the best approach is to cycle through these
-        subcontainers, applying this function to them individually.
+        When dealing with a container with multiple subcontainers (e.g. a score containing multiple
+        staves), the best approach is to cycle through these subcontainers, applying this function
+        to them individually.
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("argument must be 'abjad.Selection'")
-    if not selection.leaves().are_contiguous_logical_voice():
-        raise ValueError("argument must be contiguous logical voice")
     if not isinstance(shift_clef_to_notes, bool):
         raise TypeError("'shift_clef_to_notes' must be 'bool'")
     if not isinstance(implicit_clef, abjad.Clef):

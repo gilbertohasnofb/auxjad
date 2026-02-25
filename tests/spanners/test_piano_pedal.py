@@ -437,3 +437,18 @@ def test_piano_pedal_15():
             \sustainOff
         }
         """)
+
+
+def test_piano_pedal_16():
+    staff = abjad.Staff(r"c'4 d'4 e'4 f'4")
+    abjad.piano_pedal(staff[:], disable_sustain_off=True)
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            c'4
+            \sustainOn
+            d'4
+            e'4
+            f'4
+        }
+        """)

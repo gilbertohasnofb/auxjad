@@ -2,8 +2,10 @@ from typing import Union
 
 import abjad
 
+from .Context import Context
 
-class Score(abjad.Score):
+
+class Score(Context, abjad.Score):
     r"""Score."""
 
     def add_final_bar_line(
@@ -768,7 +770,4 @@ class Score(abjad.Score):
 
 ### EXTENSION METHODS ###
 
-abjad.Score.add_final_bar_line = Score.add_final_bar_line
-abjad.Score.add_double_bar_lines_before_time_signatures = (
-    Score.add_double_bar_lines_before_time_signatures
-)
+abjad.Score = Score

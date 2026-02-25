@@ -60,6 +60,8 @@
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
+.. |abjad.Context.with_settings()| replace:: :meth:`abjad.Context.with_settings() <auxjad.score.Context.with_settings>`
+    
 .. |abjad.Score.add_double_bar_lines_before_time_signatures()| replace:: :meth:`abjad.Score.add_double_bar_lines_before_time_signatures() <auxjad.score.Score.add_double_bar_lines_before_time_signatures>`
 .. |abjad.Score.add_final_bar_line()| replace:: :meth:`abjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`
 

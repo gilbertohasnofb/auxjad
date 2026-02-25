@@ -81,6 +81,7 @@ namespaces = [
     auxjad.LeafDynMaker,
     # score
     auxjad.ArtificialHarmonic,
+    auxjad.Context,
     auxjad.HarmonicNote,
     auxjad.Score,
     # spanners

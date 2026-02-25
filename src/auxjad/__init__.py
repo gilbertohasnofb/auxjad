@@ -36,6 +36,10 @@ from .makers.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
 from .makers.LeafDynMaker import LeafDynMaker
 
 from .score.ArtificialHarmonic import ArtificialHarmonic
+from .score.Context import Context
+from .score.Context import Staff
+from .score.Context import StaffGroup
+from .score.Context import Voice
 from .score.HarmonicNote import HarmonicNote
 from .score.Score import Score
 
@@ -75,8 +79,12 @@ __all__ = [
     "LeafDynMaker",
     # score
     "ArtificialHarmonic",
+    "Context",
     "HarmonicNote",
     "Score",
+    "Staff",
+    "StaffGroup",
+    "Voice",
     # spanners
     "piano_pedal",
     # utilities

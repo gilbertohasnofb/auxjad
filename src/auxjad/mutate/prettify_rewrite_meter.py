@@ -862,15 +862,12 @@ def prettify_rewrite_meter(
 
     ..  warning::
 
-        The input selection must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containing
-        multiple staves), the best approach is to cycle through these
-        subcontainers, applying this function to them individually.
+        When dealing with a container with multiple subcontainers (e.g. a score containing multiple
+        staves), the best approach is to cycle through these subcontainers, applying this function
+        to them individually.
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("first argument must be 'abjad.Selection'")
-    if not selection.leaves().are_contiguous_logical_voice():
-        raise ValueError("first argument must be contiguous logical voice")
     if not isinstance(meter, (abjad.Meter, abjad.TimeSignature)):
         raise TypeError("argument must be 'abjad.Meter' or 'abjad.TimeSignature'")
     if not isinstance(fuse_across_groups_of_beats, bool):

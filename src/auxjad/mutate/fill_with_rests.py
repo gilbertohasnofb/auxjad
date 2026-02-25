@@ -290,15 +290,12 @@ def fill_with_rests(
 
     ..  warning::
 
-        The input container must be a contiguous logical voice. When dealing
-        with a container with multiple subcontainers (e.g. a score containing
-        multiple staves), the best approach is to cycle through these
-        subcontainers, applying this function to them individually.
+        When dealing with a container with multiple subcontainers (e.g. a score containing multiple
+        staves), the best approach is to cycle through these subcontainers, applying this function
+        to them individually.
     """
     if not isinstance(container, abjad.Container):
         raise TypeError("argument must be 'abjad.Container' or child class")
-    if not abjad.select(container).leaves().are_contiguous_logical_voice():
-        raise ValueError("argument must be contiguous logical voice")
     try:
         if not get.selection_is_full(container[:]):
             underfull_rests = abjad.LeafMaker()(

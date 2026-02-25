@@ -97,9 +97,6 @@ def logical_selections(
     """
     if not isinstance(container, (abjad.Container, abjad.Selection)):
         raise TypeError("Argument must be 'abjad.Container', 'abjad.Selection', or child classes")
-    if isinstance(container, abjad.Container):
-        if not abjad.select(container).leaves().are_contiguous_logical_voice():
-            raise ValueError("Argument must be contiguous logical voice")
 
     logical_ties = abjad.select(container).logical_ties()
     return logical_ties.group_by(

@@ -128,7 +128,7 @@ class PandaStyle(Style):
     styles = {
         Comment: "italic #676b79",
         Error: "#dee2e2",
-        Generic: "#676b79",
+        Generic: "#8c90a1",
         Generic.Prompt: "#ff75b5",
         Generic.Error: "bold #ff4f4f",
         Literal: "#dee2e2",
@@ -184,8 +184,6 @@ html_theme = "sphinx_rtd_theme"
 html_theme_options = {
     "canonical_url": "https://gilbertohasnofb.github.io/auxjad-docs/",
     "logo_only": False,
-    # 'display_version': True,  # deprecated
-    # 'style_nav_header_background': '#4cb3ec',
 }
 
 # Theme options are theme-specific and customize the look and feel of a theme

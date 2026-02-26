@@ -171,6 +171,11 @@ def piano_pedal(
 
         ..  figure:: ../_images/piano_pedal-lXm7901TC9.png
 
+        ..  note::
+
+            If ``disable_sustain_off`` is set to ``True``, then ``omit_raise_pedal_glyph`` will have
+            no effect and the raise pedal glyph will be omitted.
+
     ``half_pedal``:
 
         Call the function with ``half_pedal`` set to ``True`` to use the half

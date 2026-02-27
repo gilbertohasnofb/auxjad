@@ -11,7 +11,7 @@ class Context(abjad.Context):
         "_consists_commands",
         "_dependent_wrappers",
         "_remove_commands",
-        "_with_settings",
+        "_context_commands",
     )
 
     ### INITIALIZER ###
@@ -22,7 +22,7 @@ class Context(abjad.Context):
         *args,
         **kwargs,
     ) -> None:
-        self._with_settings: list[str] = []
+        self._context_commands: list[str] = []
         super().__init__(*args, **kwargs)
 
     ### SPECIAL METHODS ###
@@ -38,7 +38,7 @@ class Context(abjad.Context):
         Returns new component.
         """
         new_context = super().__copy__(*args)
-        new_context._with_settings = copy.copy(self.with_settings)
+        new_context._context_commands = copy.copy(self.context_commands)
         return new_context
 
     ### PRIVATE METHODS ###
@@ -59,10 +59,10 @@ class Context(abjad.Context):
         brackets_open = [open_bracket]
         remove_commands = self._format_remove_commands()
         consists_commands = self._format_consists_commands()
-        with_settings = self._with_settings
+        context_commands = self._context_commands
         overrides = bundle.grob_overrides
         settings = bundle.context_settings
-        if remove_commands or consists_commands or with_settings or overrides or settings:
+        if remove_commands or consists_commands or context_commands or overrides or settings:
             contributions = [self._format_invocation(), r"\with", "{"]
             contributions = self._tag_strings(contributions)
             contributions = tuple(contributions)
@@ -78,10 +78,10 @@ class Context(abjad.Context):
             contributions = tuple(contributions)
             identifier_pair = ("engraver consists", "consists_commands")
             result.append((identifier_pair, contributions))
-            contributions = [indent + _ for _ in with_settings]
+            contributions = [indent + _ for _ in context_commands]
             contributions = self._tag_strings(contributions)
             contributions = tuple(contributions)
-            identifier_pair = ("engraver consists", "with_settings")
+            identifier_pair = ("engraver consists", "context_commands")
             result.append((identifier_pair, contributions))
             contributions = [indent + _ for _ in overrides]
             contributions = self._tag_strings(contributions)
@@ -113,7 +113,7 @@ class Context(abjad.Context):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def with_settings(self):
+    def context_commands(self):
         r"""
         Unordered set of LilyPond settings to be included in the context.
 
@@ -121,7 +121,7 @@ class Context(abjad.Context):
             Manage with add, update, other standard set commands:
 
             >>> staff = abjad.Staff([])
-            >>> staff.with_settings.append(r"\RemoveEmptyStaves")
+            >>> staff.context_commands.append(r"\RemoveEmptyStaves")
             >>> string = abjad.lilypond(staff)
             >>> print(string)
             \new Staff
@@ -133,7 +133,7 @@ class Context(abjad.Context):
             }
 
             >>> voice = abjad.Voice([])
-            >>> voice.with_settings.append(r"\voiceOne")
+            >>> voice.context_commands.append(r"\voiceOne")
             >>> string = abjad.lilypond(voice)
             >>> print(string)
             \new Voice
@@ -145,30 +145,30 @@ class Context(abjad.Context):
             }
 
             >>> staff_group = abjad.StaffGroup([])
-            >>> staff_group.with_settings.append(r"\acceptsStaffGroup")
+            >>> staff_group.context_commands.append(r"\RemoveEmptyStaves")
             >>> string = abjad.lilypond(staff_group)
             >>> print(string)
             \new StaffGroup
             \with
             {
-                \acceptsStaffGroup
+                \RemoveEmptyStaves
             }
             <<
             >>
 
             >>> score = abjad.Score([])
-            >>> score.with_settings.append(r"\EnableGregorianDivisiones")
+            >>> score.context_commands.append(r"\RemoveEmptyStaves")
             >>> string = abjad.lilypond(score)
             >>> print(string)
             \new Score
             \with
             {
-                \EnableGregorianDivisiones
+                \RemoveEmptyStaves
             }
             <<
             >>
         """
-        return self._with_settings
+        return self._context_commands
 
 
 class Staff(Context, abjad.Staff):  # noqa: D101
@@ -185,7 +185,7 @@ class Voice(Context, abjad.Voice):  # noqa: D101
 
 ### EXTENSION METHODS ###
 
-abjad.Context.with_settings = Context.with_settings
+abjad.Context.context_commands = Context.context_commands
 abjad.Staff = Staff
 abjad.StaffGroup = StaffGroup
 abjad.Voice = Voice

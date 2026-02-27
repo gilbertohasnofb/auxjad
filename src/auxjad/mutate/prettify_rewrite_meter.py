@@ -8,20 +8,21 @@ from .extract_trivial_tuplets import (
 from .. import select
 
 
-def _merge_indicators_then_fuse(logical_tie: abjad.LogicalTie) -> None:
-    r"""Mutates a logical tie by fusing the durations of its leaves and mergings its indicators.
+def _merge_indicators_then_fuse(logical_selection: abjad.Selection) -> None:
+    r"""Mutates a logical selection (a selection of a logical tie which includes runs of rests) by
+    fusing the durations of its leaves and mergings its indicators.
 
     Args:
-        logical_tie: ``abjad.LogicalTie`` to be mutated.
+        logical_selection: ``abjad.Selection`` to be mutated.
     
     Returns:
         None
     """
-    logical_tie = logical_tie.leaves()
+    logical_tie = logical_selection.leaves()
     if len(logical_tie) == 1:
         return
-    last_indicators = abjad.get.indicators(logical_tie[-1])
-    initial_indicators = abjad.get.indicators(logical_tie[0])
+    last_indicators = abjad.get.indicators(logical_tie.leaf(-1))
+    initial_indicators = abjad.get.indicators(logical_tie.leaf(0))
     initial_indicators_types = tuple(type(indicator) for indicator in initial_indicators)
     abjad.mutate.fuse(logical_tie)
     for indicator in last_indicators:
@@ -39,7 +40,7 @@ def _merge_indicators_then_fuse(logical_tie: abjad.LogicalTie) -> None:
             ),
         ):
             if not isinstance(indicator, initial_indicators_types):
-                abjad.attach(indicator, logical_tie[0])
+                abjad.attach(indicator, logical_tie.leaf(0))
 
 
 def prettify_rewrite_meter(
@@ -49,6 +50,9 @@ def prettify_rewrite_meter(
     fuse_across_groups_of_beats: bool = True,
     fuse_quadruple_meter: bool = True,
     fuse_triple_meter: bool = True,
+    fuse_rests_across_groups_of_beats: bool = True,
+    fuse_rests_quadruple_meter: bool = True,
+    fuse_rests_triple_meter: bool = True,
     extract_trivial_tuplets: bool = True,
     split_quadruple_meter: bool = True,
 ) -> None:
@@ -954,6 +958,12 @@ def prettify_rewrite_meter(
         raise TypeError("'fuse_quadruple_meter' must be 'bool'")
     if not isinstance(fuse_triple_meter, bool):
         raise TypeError("'fuse_triple_meter' must be 'bool'")
+    if not isinstance(fuse_rests_across_groups_of_beats, bool):
+        raise TypeError("'fuse_rests_across_groups_of_beats' must be 'bool'")
+    if not isinstance(fuse_rests_quadruple_meter, bool):
+        raise TypeError("'fuse_rests_quadruple_meter' must be 'bool'")
+    if not isinstance(fuse_rests_triple_meter, bool):
+        raise TypeError("'fuse_rests_triple_meter' must be 'bool'")
     if not isinstance(extract_trivial_tuplets, bool):
         raise TypeError("'extract_trivial_tuplets' must be 'bool'")
     if not isinstance(split_quadruple_meter, bool):
@@ -979,6 +989,8 @@ def prettify_rewrite_meter(
 
     if fuse_across_groups_of_beats:
         for logical_tie in logical_ties.filter_duration("==", base):
+            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_across_groups_of_beats:
+                continue
             offset = abjad.get.timespan(logical_tie).start_offset
             offset -= initial_offset
             offset %= meter.duration
@@ -989,6 +1001,8 @@ def prettify_rewrite_meter(
 
     if fuse_quadruple_meter and meter.numerator == 4:
         for logical_tie in logical_ties.filter_duration("==", base):
+            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_quadruple_meter:
+                continue
             offset = abjad.get.timespan(logical_tie).start_offset
             offset -= initial_offset
             offset %= meter.duration
@@ -1003,6 +1017,8 @@ def prettify_rewrite_meter(
 
     if fuse_triple_meter and meter.numerator == 3:
         for logical_tie in logical_ties.filter_duration("==", base):
+            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_triple_meter:
+                continue
             offset = abjad.get.timespan(logical_tie).start_offset
             offset -= initial_offset
             offset %= meter.duration

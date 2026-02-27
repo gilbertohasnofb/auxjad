@@ -124,6 +124,49 @@ def prettify_rewrite_meter(
         >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
 
     Other examples:
+        This function will also handle rests in the same manner as notes.
+
+        >>> staff = abjad.Staff(r"\time 3/4 c'16 r16 r16 e'16 f'16 r16 r8 b'8 r16 r16")
+        >>> meter = abjad.Meter((3, 4))
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'16
+                r16
+                r16
+                e'16
+                f'16
+                r8.
+                b'8
+                r8
+            }
+        
+        ..  figure:: ../_images/prettify_rewrite_meter-MyPRVHXvpq.png
+
+        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \time 3/4
+                c'16
+                r8
+                e'16
+                f'16
+                r8.
+                b'8
+                r8
+            }
+        
+        ..  figure:: ../_images/prettify_rewrite_meter-bwkmhHA1ZK.png
+    
         The rhythm of the leaves just before and after the two leaves to be
         fused can be different than ``denominator / 4``, as the function
         searches for logical ties of specific length and offset, and its

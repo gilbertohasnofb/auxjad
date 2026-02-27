@@ -638,8 +638,7 @@ def test_GeneticAlgorithmMusicMaker_09():
             e'16
             r8.
             c'16
-            r16
-            r16
+            r8
             g'16
             r4
             f'16
@@ -654,8 +653,7 @@ def test_GeneticAlgorithmMusicMaker_09():
             c'16
             r8.
             d'16
-            r16
-            r16
+            r8
             e'16
             r4
             f'16

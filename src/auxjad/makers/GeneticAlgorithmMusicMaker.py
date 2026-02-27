@@ -806,8 +806,7 @@ class GeneticAlgorithmMusicMaker:
                 e'16
                 r8.
                 c'16
-                r16
-                r16
+                r8
                 g'16
                 r4
                 f'16
@@ -822,8 +821,7 @@ class GeneticAlgorithmMusicMaker:
                 c'16
                 r8.
                 d'16
-                r16
-                r16
+                r8
                 e'16
                 r4
                 f'16

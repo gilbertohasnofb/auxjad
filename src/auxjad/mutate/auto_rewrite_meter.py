@@ -30,6 +30,9 @@ def auto_rewrite_meter(
     fuse_across_groups_of_beats: bool = True,
     fuse_quadruple_meter: bool = True,
     fuse_triple_meter: bool = True,
+    fuse_rests_across_groups_of_beats: bool = True,
+    fuse_rests_in_quadruple_meter: bool = True,
+    fuse_rests_in_triple_meter: bool = True,
     boundary_depth: Optional[int] = None,
     maximum_dot_count: Optional[int] = None,
     rewrite_tuplets: bool = True,
@@ -541,14 +544,14 @@ def auto_rewrite_meter(
 
     ..  note::
 
-        This function also accepts the arguments ``boundary_depth``,
-        ``maximum_dot_count``, and ``rewrite_tuplets``, which are passed on to
-        |abjad.Meter.rewrite_meter()|, and ``fuse_across_groups_of_beats``,
-        ``fuse_quadruple_meter``, ``fuse_triple_meter``, and
-        ``split_quadruple_meter``, which are passed on to
-        |auxjad.mutate.prettify_rewrite_meter()|. ``merge_partial_tuplets``
-        is used to invoke |auxjad.mutate.merge_partial_tuplets()| See the
-        documentation of these functions for more details on these arguments.
+        This function also accepts the arguments ``boundary_depth``, ``maximum_dot_count``, and
+        ``rewrite_tuplets``, which are passed on to |abjad.Meter.rewrite_meter()|, and
+        ``fuse_across_groups_of_beats``, ``fuse_quadruple_meter``, ``fuse_triple_meter``,
+        ``fuse_rests_across_groups_of_beats``, ``fuse_rests_in_quadruple_meter``,
+        ``fuse_rests_in_triple_meterand``, and ``split_quadruple_meter``, which are passed on to
+        |auxjad.mutate.prettify_rewrite_meter()|. ``merge_partial_tuplets`` is used to invoke
+        |auxjad.mutate.merge_partial_tuplets()| See the documentation of these functions for more
+        details on these arguments.
 
     ..  warning::
 
@@ -565,7 +568,7 @@ def auto_rewrite_meter(
         >>> staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate.rewrite_meter(measure, meter, boundary_depth=1)
+        ...     abjad.Meter.rewrite_meter(measure, meter, boundary_depth=1)
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
         >>> abjad.show(staff)
@@ -652,6 +655,12 @@ def auto_rewrite_meter(
         raise TypeError("'fuse_quadruple_meter' must be 'bool'")
     if not isinstance(fuse_triple_meter, bool):
         raise TypeError("'fuse_triple_meter' must be 'bool'")
+    if not isinstance(fuse_rests_across_groups_of_beats, bool):
+        raise TypeError("'fuse_rests_across_groups_of_beats' must be 'bool'")
+    if not isinstance(fuse_rests_in_quadruple_meter, bool):
+        raise TypeError("'fuse_rests_in_quadruple_meter' must be 'bool'")
+    if not isinstance(fuse_rests_in_triple_meter, bool):
+        raise TypeError("'fuse_rests_in_triple_meter' must be 'bool'")
     if boundary_depth is not None:
         if not isinstance(boundary_depth, int):
             raise TypeError("'boundary_depth' must be 'int'")
@@ -697,6 +706,9 @@ def auto_rewrite_meter(
                     fuse_across_groups_of_beats=fuse_across_groups_of_beats,
                     fuse_quadruple_meter=fuse_quadruple_meter,
                     fuse_triple_meter=fuse_triple_meter,
+                    fuse_rests_across_groups_of_beats=fuse_rests_across_groups_of_beats,
+                    fuse_rests_in_quadruple_meter=fuse_rests_in_quadruple_meter,
+                    fuse_rests_in_triple_meter=fuse_rests_in_triple_meter,
                     extract_trivial_tuplets=False,
                     split_quadruple_meter=split_quadruple_meter,
                 )
@@ -707,6 +719,9 @@ def auto_rewrite_meter(
                     fuse_across_groups_of_beats=False,
                     fuse_quadruple_meter=False,
                     fuse_triple_meter=False,
+                    fuse_rests_across_groups_of_beats=False,
+                    fuse_rests_in_quadruple_meter=False,
+                    fuse_rests_in_triple_meter=False,
                     extract_trivial_tuplets=False,
                     split_quadruple_meter=False,
                 )

@@ -5,6 +5,7 @@ import abjad
 from .extract_trivial_tuplets import (
     extract_trivial_tuplets as extract_trivial_tuplets_function,
 )
+from .. import select
 
 
 def _merge_indicators_then_fuse(logical_tie: abjad.LogicalTie) -> None:
@@ -16,6 +17,7 @@ def _merge_indicators_then_fuse(logical_tie: abjad.LogicalTie) -> None:
     Returns:
         None
     """
+    logical_tie = logical_tie.leaves()
     if len(logical_tie) == 1:
         return
     last_indicators = abjad.get.indicators(logical_tie[-1])
@@ -917,7 +919,7 @@ def prettify_rewrite_meter(
     if isinstance(meter, abjad.TimeSignature):
         meter = abjad.Meter(meter.pair)
 
-    logical_ties = selection.logical_ties(pitched=True)
+    logical_ties = select.logical_selections(selection)
     if len(logical_ties) == 0:
         return
 

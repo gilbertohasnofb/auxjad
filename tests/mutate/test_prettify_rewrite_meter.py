@@ -775,3 +775,37 @@ def test_prettify_rewrite_meter_16():
             d''16
         }
         """)
+
+
+def test_prettify_rewrite_meter_17():
+    staff = abjad.Staff(r"\time 3/4 c'16 r16 r16 e'16 f'16 r16 r8 b'8 r16 r16")
+    meter = abjad.Meter((3, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 3/4
+            c'16
+            r16
+            r16
+            e'16
+            f'16
+            r8.
+            b'8
+            r8
+        }
+        """)
+    auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 3/4
+            c'16
+            r8
+            e'16
+            f'16
+            r8.
+            b'8
+            r8
+        }
+        """)

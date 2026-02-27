@@ -808,7 +808,7 @@ def prettify_rewrite_meter(
                     g'8
                 }
 
-            ..  figure:: ../_images/prettify_rewrite_meter-juipg9nzna.png
+            ..  figure:: ../_images/prettify_rewrite_meter-HYfrsrxBCV.png
 
         ``fuse_triple_meter``:
             In the case of triple meters, it will fuse leaves across any beat as

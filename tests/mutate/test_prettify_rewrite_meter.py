@@ -809,3 +809,140 @@ def test_prettify_rewrite_meter_17():
             r8
         }
         """)
+
+
+def test_prettify_rewrite_meter_18():
+    staff = abjad.Staff(r"\time 6/4 c'8 r4 e'4 r4 g'4 a'4 b'8")
+    meter = abjad.Meter((6, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    auxjad.mutate.prettify_rewrite_meter(
+        staff[:],
+        meter,
+        fuse_across_groups_of_beats=True,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            r4
+            e'4
+            r8
+            r8
+            g'4
+            a'4
+            b'8
+        }
+        """)
+    staff = abjad.Staff(r"\time 6/4 c'8 r4 e'4 r4 g'4 a'4 b'8")
+    meter = abjad.Meter((6, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    auxjad.mutate.prettify_rewrite_meter(
+        staff[:],
+        meter,
+        fuse_across_groups_of_beats=True,
+        fuse_rests_across_groups_of_beats=False,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 6/4
+            c'8
+            r8
+            r8
+            e'4
+            r8
+            r8
+            g'4
+            a'4
+            b'8
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_19():
+    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 r4 g'8")
+    meter = abjad.Meter((4, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    auxjad.mutate.prettify_rewrite_meter(
+        staff[:],
+        meter,
+        fuse_quadruple_meter=True,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'4
+            e'8
+            ~
+            e'8
+            r4
+            g'8
+        }
+        """)
+    staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 r4 g'8")
+    meter = abjad.Meter((4, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    auxjad.mutate.prettify_rewrite_meter(
+        staff[:],
+        meter,
+        fuse_quadruple_meter=True,
+        fuse_rests_in_quadruple_meter=False,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 4/4
+            c'8
+            d'4
+            e'8
+            ~
+            e'8
+            r8
+            r8
+            g'8
+        }
+        """)
+
+
+def test_prettify_rewrite_meter_20():
+    staff = abjad.Staff(r"\time 3/4 c'8 d'4 r4 g'8")
+    meter = abjad.Meter((3, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    auxjad.mutate.prettify_rewrite_meter(
+        staff[:],
+        meter,
+        fuse_triple_meter=True,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'4
+            r4
+            g'8
+        }
+        """)
+    staff = abjad.Staff(r"\time 3/4 c'8 d'4 r4 g'8")
+    meter = abjad.Meter((3, 4))
+    abjad.Meter.rewrite_meter(staff[:], meter)
+    auxjad.mutate.prettify_rewrite_meter(
+        staff[:],
+        meter,
+        fuse_triple_meter=True,
+        fuse_rests_in_triple_meter=False,
+    )
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \time 3/4
+            c'8
+            d'4
+            r8
+            r8
+            g'8
+        }
+        """)

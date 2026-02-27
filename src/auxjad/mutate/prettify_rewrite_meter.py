@@ -14,7 +14,7 @@ def _merge_indicators_then_fuse(logical_selection: abjad.Selection) -> None:
 
     Args:
         logical_selection: ``abjad.Selection`` to be mutated.
-    
+
     Returns:
         None
     """
@@ -51,902 +51,1075 @@ def prettify_rewrite_meter(
     fuse_quadruple_meter: bool = True,
     fuse_triple_meter: bool = True,
     fuse_rests_across_groups_of_beats: bool = True,
-    fuse_rests_quadruple_meter: bool = True,
-    fuse_rests_triple_meter: bool = True,
+    fuse_rests_in_quadruple_meter: bool = True,
+    fuse_rests_in_triple_meter: bool = True,
     extract_trivial_tuplets: bool = True,
     split_quadruple_meter: bool = True,
 ) -> None:
     r"""Mutates an input |abjad.Selection| in place and has no return value;
-    this function fuses pitched leaves according to the rules shown below,
-    improving the default output of |abjad.Meter.rewrite_meter()|.
+        this function fuses pitched leaves according to the rules shown below,
+        improving the default output of |abjad.Meter.rewrite_meter()|.
 
-    Basic usage:
-        Meters whose denominators are a crotchet or longer get tied notes
-        within a beat after |abjad.Meter.rewrite_meter()| when they are at
-        an offset ``denominator / 4``, so a rhythm such as  ``denominator / 4``
-        ``denominator / 2`` ``denominator / 4`` becomes ``denominator / 4``
-        ``denominator / 4`` ``~`` ``denominator / 4`` ``denominator / 4``. This
-        function looks for those specific cases and fuses them, generating an
-        output which is often more readable.
+        Basic usage:
+            Meters whose denominators are a crotchet or longer get tied notes
+            within a beat after |abjad.Meter.rewrite_meter()| when they are at
+            an offset ``denominator / 4``, so a rhythm such as  ``denominator / 4``
+            ``denominator / 2`` ``denominator / 4`` becomes ``denominator / 4``
+            ``denominator / 4`` ``~`` ``denominator / 4`` ``denominator / 4``. This
+            function looks for those specific cases and fuses them, generating an
+            output which is often more readable.
 
-        >>> staff = abjad.Staff(
-        ...     r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
-        ... )
-        >>> meter = abjad.Meter((3, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
+            >>> staff = abjad.Staff(
+            ...     r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
+            ... )
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        ..  docs::
+            ..  docs::
 
-            \new Staff
-            {
-                \time 3/4
-                c'16
-                d'16
-                ~
-                d'16
-                e'16
-                f'16
-                g'16
-                a'8
-                b'8
-                c''16
-                d''16
-            }
+                \new Staff
+                {
+                    \time 3/4
+                    c'16
+                    d'16
+                    ~
+                    d'16
+                    e'16
+                    f'16
+                    g'16
+                    a'8
+                    b'8
+                    c''16
+                    d''16
+                }
 
-        ..  figure:: ../_images/prettify_rewrite_meter-vlnd7l5fb7s.png
+            ..  figure:: ../_images/prettify_rewrite_meter-vlnd7l5fb7s.png
 
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        ..  docs::
+            ..  docs::
 
-            \new Staff
-            {
-                \time 3/4
-                c'16
-                d'8
-                e'16
-                f'16
-                g'16
-                a'8
-                b'8
-                c''16
-                d''16
-            }
+                \new Staff
+                {
+                    \time 3/4
+                    c'16
+                    d'8
+                    e'16
+                    f'16
+                    g'16
+                    a'8
+                    b'8
+                    c''16
+                    d''16
+                }
 
-        ..  figure:: ../_images/prettify_rewrite_meter-e7vfnese0ut.png
+            ..  figure:: ../_images/prettify_rewrite_meter-e7vfnese0ut.png
 
     ..  note::
 
-        Auxjad automatically adds this function as an extension function to
-        |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
-        |abjad.mutate| namespaces. Therefore, the two lines below are
-        equivalent:
+            Auxjad automatically adds this function as an extension function to
+            |abjad.mutate|. It can thus be used from either |auxjad.mutate|_ or
+            |abjad.mutate| namespaces. Therefore, the two lines below are
+            equivalent:
 
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
 
-    Other examples:
-        This function will also handle rests in the same manner as notes.
+        Other examples:
+            This function will also handle rests in the same manner as notes.
 
-        >>> staff = abjad.Staff(r"\time 3/4 c'16 r16 r16 e'16 f'16 r16 r8 b'8 r16 r16")
-        >>> meter = abjad.Meter((3, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
+            >>> staff = abjad.Staff(r"\time 3/4 c'16 r16 r16 e'16 f'16 r16 r8 b'8 r16 r16")
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        ..  docs::
+            ..  docs::
 
-            \new Staff
-            {
-                \time 3/4
-                c'16
-                r16
-                r16
-                e'16
-                f'16
-                r8.
-                b'8
-                r8
-            }
-        
-        ..  figure:: ../_images/prettify_rewrite_meter-MyPRVHXvpq.png
-
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 3/4
-                c'16
-                r8
-                e'16
-                f'16
-                r8.
-                b'8
-                r8
-            }
-        
-        ..  figure:: ../_images/prettify_rewrite_meter-bwkmhHA1ZK.png
-    
-        The rhythm of the leaves just before and after the two leaves to be
-        fused can be different than ``denominator / 4``, as the function
-        searches for logical ties of specific length and offset, and its
-        surroundings do not matter.
-
-        >>> staff = abjad.Staff(
-        ...     r"\time 3/4 c'32 d'32 e'8 f'16 "
-        ...     r"\times 2/3 {g'32 a'32 b'32} c''8 "
-        ...     r"r16 r32. d''64 e''8 f''32 g''32"
-        ... )
-        >>> meter = abjad.Meter((3, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 3/4
-                c'32
-                d'32
-                e'16
-                ~
-                e'16
-                f'16
-                \times 2/3
+                \new Staff
                 {
-                    g'32
-                    a'32
-                    b'32
+                    \time 3/4
+                    c'16
+                    r16
+                    r16
+                    e'16
+                    f'16
+                    r8.
+                    b'8
+                    r8
                 }
-                c''16
-                ~
-                c''16
-                r16
-                r32.
-                d''64
-                e''16
-                ~
-                e''16
-                f''32
-                g''32
-            }
 
-        ..  figure:: ../_images/prettify_rewrite_meter-kw09gse2zxj.png
+            ..  figure:: ../_images/prettify_rewrite_meter-MyPRVHXvpq.png
 
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        ..  docs::
+            ..  docs::
 
-            \new Staff
-            {
-                \time 3/4
-                c'32
-                d'32
-                e'8
-                f'16
-                \times 2/3
+                \new Staff
                 {
-                    g'32
-                    a'32
-                    b'32
+                    \time 3/4
+                    c'16
+                    r8
+                    e'16
+                    f'16
+                    r8.
+                    b'8
+                    r8
                 }
-                c''8
-                r16
-                r32.
-                d''64
-                e''8
-                f''32
-                g''32
-            }
 
-        ..  figure:: ../_images/prettify_rewrite_meter-u5gmtdippsa.png
+            ..  figure:: ../_images/prettify_rewrite_meter-bwkmhHA1ZK.png
 
-    ``fuse_across_groups_of_beats``:
-        By default, this function also fuses rhythms of type
-        ``denominator / 2`` ``denominator / 2`` ``~`` ``denominator / 2``
-        ``denominator / 2``, becoming ``denominator / 2`` ``denominator``
-        ``denominator / 2``. This is only applied when the meter's structure
-        has a depth of 2, which is the case for meters with numerators equal to
-        or larger than ``5``.
+            The rhythm of the leaves just before and after the two leaves to be
+            fused can be different than ``denominator / 4``, as the function
+            searches for logical ties of specific length and offset, and its
+            surroundings do not matter.
 
-        >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
-        >>> meter = abjad.Meter((6, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
+            >>> staff = abjad.Staff(
+            ...     r"\time 3/4 c'32 d'32 e'8 f'16 "
+            ...     r"\times 2/3 {g'32 a'32 b'32} c''8 "
+            ...     r"r16 r32. d''64 e''8 f''32 g''32"
+            ... )
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        ..  docs::
+            ..  docs::
 
-            \new Staff
-            {
-                \time 6/4
-                c'8
-                d'8
-                ~
-                d'8
-                e'8
-                ~
-                e'8
-                f'8
-                ~
-                f'8
-                g'8
-                ~
-                g'8
-                a'8
-                ~
-                a'8
-                b'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-tqi4p0u8qog.png
-
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 6/4
-                c'8
-                d'4
-                e'4
-                f'8
-                ~
-                f'8
-                g'4
-                a'4
-                b'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-riif1glyqpo.png
-
-        to disable this behaviour, set the optional keyword argument
-        ``fuse_across_groups_of_beats`` to ``False``.
-
-        >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
-        >>> meter = abjad.Meter((6, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(
-        ...     staff[:],
-        ...     meter,
-        ...     fuse_across_groups_of_beats=False,
-        ... )
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 6/4
-                c'8
-                d'8
-                ~
-                d'8
-                e'8
-                ~
-                e'8
-                f'8
-                ~
-                f'8
-                g'8
-                ~
-                g'8
-                a'8
-                ~
-                a'8
-                b'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-ki5xbiteij.png
-
-    |abjad.Meter| with ``increase_monotonic=True``:
-        The fused notes will respect the beat structures of such meters, even
-        when ``increase_monotonic`` is set to the non-default value ``True``.
-        Compare the outputs below.
-
-        >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
-        >>> meter = abjad.Meter((7, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 7/4
-                c'8
-                d'4
-                e'4
-                f'8
-                ~
-                f'8
-                g'4
-                a'8
-                ~
-                a'8
-                b'4
-                c''8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-bud0jhkvvl.png
-
-        >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
-        >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 7/4
-                c'8
-                d'4
-                e'8
-                ~
-                e'8
-                f'4
-                g'8
-                ~
-                g'8
-                a'4
-                b'4
-                c''8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-47y86pbwwv5.png
-
-    Multiple measures at once:
-        This function can take handle multiple measures at once, as long as
-        they share the same meter.
-
-        >>> staff = abjad.Staff(
-        ...     r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
-        ...     r"a'16 b'8 c''8 d''8 e''8 f''16"
-        ... )
-        >>> meter = abjad.Meter((5, 8))
-        >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 5/8
-                c'16
-                d'16
-                ~
-                d'16
-                e'16
-                ~
-                e'16
-                f'16
-                ~
-                f'16
-                g'16
-                ~
-                g'16
-                a'16
-                ~
-                a'16
-                b'16
-                ~
-                b'16
-                c''16
-                ~
-                c''16
-                d''16
-                ~
-                d''16
-                e''16
-                ~
-                e''16
-                f''16
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-8jdzmvf9yl.png
-
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 5/8
-                c'16
-                d'8
-                e'8
-                f'16
-                ~
-                f'16
-                g'8
-                a'16
-                ~
-                a'16
-                b'8
-                c''8
-                d''16
-                ~
-                d''16
-                e''8
-                f''16
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-pcn8x9hr6bb.png
-
-    Multiple measures:
-        Similarly to |abjad.Meter.rewrite_meter()|, this function accepts
-        selections of multiple measures:
-
-        >>> staff = abjad.Staff(
-        ...     r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
-        ...     r"a'8 b'4 c''8 d''16 e''4 f''8."
-        ... )
-        >>> meter = abjad.Meter((4, 4))
-        >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.Meter.rewrite_meter(measure, meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 4/4
-                c'8
-                d'8
-                ~
-                d'8
-                e'8
-                ~
-                e'8
-                f'8
-                ~
-                f'8
-                g'8
-                a'8
-                b'8
-                ~
-                b'8
-                c''8
-                d''16
-                e''8.
-                ~
-                e''16
-                f''8.
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-s8fg7a2k0tr.png
-
-        >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 4/4
-                c'8
-                d'4
-                e'8
-                ~
-                e'8
-                f'4
-                g'8
-                a'8
-                b'4
-                c''8
-                d''16
-                e''8.
-                ~
-                e''16
-                f''8.
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-rgd7ok7fkq.png
-
-    Multiple measures with different meters:
-        If the measures have different meters, they can be passed on
-        individually using :func:`zip()` as shown below.
-
-        >>> staff = abjad.Staff(
-        ...     r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
-        ...     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8."
-        ... )
-        >>> meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
-        >>> for meter, measure in zip(
-        ...     meters,
-        ...     abjad.select(staff[:]).group_by_measure(),
-        ... ):
-        ...     abjad.Meter.rewrite_meter(measure, meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 3/4
-                c'8
-                d'8
-                ~
-                d'8
-                e'8
-                ~
-                e'8
-                f'16
-                g'16
-                \time 4/4
-                a'8
-                b'8
-                ~
-                b'8
-                c''8
-                d''16
-                e''8.
-                ~
-                e''16
-                f''8.
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-o2izz0m7s9k.png
-
-        >>> for meter, measure in zip(
-        ...     meters,
-        ...     abjad.select(staff[:]).group_by_measure(),
-        ... ):
-        ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 3/4
-                c'8
-                d'4
-                e'4
-                f'16
-                g'16
-                \time 4/4
-                a'8
-                b'4
-                c''8
-                d''16
-                e''8.
-                ~
-                e''16
-                f''8.
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-zh89kk66zon.png
-
-    ``fuse_quadruple_meter``:
-        This function also takes care of two special cases, namely quadruple
-        and triple meters. By default, it will fuse leaves in quadruple meters
-        across beats 1 and 2, and across beats 3 and 4 (as long as they fulfil
-        the other requirements of duration and offset).
-
-        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
-        >>> meter = abjad.Meter((4, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 4/4
-                c'8
-                d'4
-                e'8
-                ~
-                e'8
-                f'4
-                g'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-nap4bbf7mxe.png
-
-        Set ``fuse_quadruple_meter`` to ``False`` to disable this behaviour.
-
-        >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
-        >>> meter = abjad.Meter((4, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(
-        ...     staff[:],
-        ...     meter,
-        ...     fuse_quadruple_meter=False,
-        ... )
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 4/4
-                c'8
-                d'8
-                ~
-                d'8
-                e'8
-                ~
-                e'8
-                f'8
-                ~
-                f'8
-                g'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-juipg9nzna.png
-
-    ``fuse_triple_meter``:
-        In the case of triple meters, it will fuse leaves across any beat as
-        long as the previously mentioned conditions of offset and duration are
-        met.
-
-        >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
-        >>> meter = abjad.Meter((3, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 3/4
-                c'8
-                d'4
-                e'4
-                f'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-4wg3grpb94p.png
-
-        Similarly to the example before, set ``fuse_triple_meter`` to ``False``
-        to disable this behaviour.
-
-        >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
-        >>> meter = abjad.Meter((3, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> auxjad.mutate.prettify_rewrite_meter(
-        ...     staff[:],
-        ...     meter,
-        ...     fuse_triple_meter=False,
-        ... )
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \time 3/4
-                c'8
-                d'8
-                ~
-                d'8
-                e'8
-                ~
-                e'8
-                f'8
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-l16ostzscta.png
-
-    ``extract_trivial_tuplets``:
-        By default, this function extracts the contents of tuples that consist
-        solely of rests, or solely of tied notes and chords.
-
-        >>> staff = abjad.Staff(
-        ...     r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
-        ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
-        ... )
-        >>> meter = abjad.Meter((4, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                c'4
-                \times 2/3
+                \new Staff
                 {
+                    \time 3/4
+                    c'32
+                    d'32
+                    e'16
+                    ~
+                    e'16
+                    f'16
+                    \times 2/3
+                    {
+                        g'32
+                        a'32
+                        b'32
+                    }
+                    c''16
+                    ~
+                    c''16
+                    r16
+                    r32.
+                    d''64
+                    e''16
+                    ~
+                    e''16
+                    f''32
+                    g''32
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-kw09gse2zxj.png
+
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'32
+                    d'32
+                    e'8
+                    f'16
+                    \times 2/3
+                    {
+                        g'32
+                        a'32
+                        b'32
+                    }
+                    c''8
+                    r16
+                    r32.
+                    d''64
+                    e''8
+                    f''32
+                    g''32
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-u5gmtdippsa.png
+
+        ``fuse_across_groups_of_beats``:
+            By default, this function also fuses rhythms of type
+            ``denominator / 2`` ``denominator / 2`` ``~`` ``denominator / 2``
+            ``denominator / 2``, becoming ``denominator / 2`` ``denominator``
+            ``denominator / 2``. This is only applied when the meter's structure
+            has a depth of 2, which is the case for meters with numerators equal to
+            or larger than ``5``.
+
+            >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
+            >>> meter = abjad.Meter((6, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 6/4
+                    c'8
                     d'8
-                    r4
-                }
-                r4
-                <e' g'>4
-            }
-
-        ..  figure:: ../_images/prettify_rewrite_meter-a72jx4fc1xd.png
-
-        Set ``extract_trivial_tuplets`` to ``False`` to disable this behaviour.
-
-        >>> staff = abjad.Staff(
-        ...     r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
-        ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
-        ... )
-        >>> meter = abjad.Meter((4, 4))
-        >>> abjad.Meter.rewrite_meter(staff[:], meter)
-        >>> abjad.mutate.prettify_rewrite_meter(
-        ...     staff[:]
-        ...     meter,
-        ...     extract_trivial_tuplets=False,
-        ... )
-        >>> abjad.show(staff)
-
-        ..  docs::
-
-            \new Staff
-            {
-                \times 2/3
-                {
-                    c'4.
-                }
-                \times 2/3
-                {
+                    ~
                     d'8
+                    e'8
+                    ~
+                    e'8
+                    f'8
+                    ~
+                    f'8
+                    g'8
+                    ~
+                    g'8
+                    a'8
+                    ~
+                    a'8
+                    b'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-tqi4p0u8qog.png
+
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 6/4
+                    c'8
+                    d'4
+                    e'4
+                    f'8
+                    ~
+                    f'8
+                    g'4
+                    a'4
+                    b'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-riif1glyqpo.png
+
+            to disable this behaviour, set the optional keyword argument
+            ``fuse_across_groups_of_beats`` to ``False``.
+
+            >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
+            >>> meter = abjad.Meter((6, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_across_groups_of_beats=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 6/4
+                    c'8
+                    d'8
+                    ~
+                    d'8
+                    e'8
+                    ~
+                    e'8
+                    f'8
+                    ~
+                    f'8
+                    g'8
+                    ~
+                    g'8
+                    a'8
+                    ~
+                    a'8
+                    b'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-ki5xbiteij.png
+
+        ``fuse_rests_across_groups_of_beats``:
+            By default, the behaviour of ``fuse_across_groups_of_beats`` is applied to both pitched
+            leaves and rests alike. To enable it only for pitched leaves, set it to ``True`` while
+            setting ``fuse_rests_across_groups_of_beats`` to ``False``.
+
+            >>> staff = abjad.Staff(r"\time 6/4 c'8 r4 e'4 r4 g'4 a'4 b'8")
+            >>> meter = abjad.Meter((6, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_across_groups_of_beats=True,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
                     r4
+                    e'4
+                    r8
+                    r8
+                    g'4
+                    a'4
+                    b'8
                 }
-                \times 2/3
+
+            ..  figure:: ../_images/prettify_rewrite_meter-AKNe47OPcD.png
+                
+            >>> staff = abjad.Staff(r"\time 6/4 c'8 r4 e'4 r4 g'4 a'4 b'8")
+            >>> meter = abjad.Meter((6, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_across_groups_of_beats=True,
+            ...     fuse_rests_across_groups_of_beats=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
                 {
-                    r4.
+                    \time 6/4
+                    c'8
+                    r8
+                    r8
+                    e'4
+                    r8
+                    r8
+                    g'4
+                    a'4
+                    b'8
                 }
-                \times 2/3
+
+            ..  figure:: ../_images/prettify_rewrite_meter-9DzgHwwfvo.png
+
+        |abjad.Meter| with ``increase_monotonic=True``:
+            The fused notes will respect the beat structures of such meters, even
+            when ``increase_monotonic`` is set to the non-default value ``True``.
+            Compare the outputs below.
+
+            >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
+            >>> meter = abjad.Meter((7, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
                 {
-                    <e' g'>4.
+                    \time 7/4
+                    c'8
+                    d'4
+                    e'4
+                    f'8
+                    ~
+                    f'8
+                    g'4
+                    a'8
+                    ~
+                    a'8
+                    b'4
+                    c''8
                 }
-            }
 
-        ..  figure:: ../_images/prettify_rewrite_meter-v9q0ka94qcd.png
+            ..  figure:: ../_images/prettify_rewrite_meter-bud0jhkvvl.png
 
-    ``split_quadruple_meter``
-        When applying |abjad.Meter.rewrite_meter()| to a selection with
-        quadruple meter and without using a deeper ``boundary_depth`` than the
-        default, the resulting notation will often have leaves crossing the
-        third beat of the measure, as shown below.
+            >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
+            >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        >>> staff = abjad.Staff(
-        ...     r"c'4 d'2 r4"
-        ...     r"e'4. f'2 g'8"
-        ...     r"a'4. b'4. c''4"
-        ...     r"d''16 e''8. f''4. g''4 a''8"
-        ... )
-        >>> meter = abjad.Meter((4, 4))
-        >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.Meter.rewrite_meter(measure, meter)
-        >>> abjad.show(staff)
+            ..  docs::
 
-        ..  docs::
+                \new Staff
+                {
+                    \time 7/4
+                    c'8
+                    d'4
+                    e'8
+                    ~
+                    e'8
+                    f'4
+                    g'8
+                    ~
+                    g'8
+                    a'4
+                    b'4
+                    c''8
+                }
 
-            \new Staff
-            {
-                c'4
-                d'2
-                r4
-                e'4.
-                f'8
-                ~
-                f'4.
-                g'8
-                a'4.
-                b'4.
-                c''4
-                d''16
-                e''8.
-                f''4.
-                g''8
-                ~
-                g''8
-                a''8
-            }
+            ..  figure:: ../_images/prettify_rewrite_meter-47y86pbwwv5.png
 
-        ..  figure:: ../_images/prettify_rewrite_meter-1wvhrjife1i.png
+        Multiple measures at once:
+            This function can take handle multiple measures at once, as long as
+            they share the same meter.
 
-        This function tests those leaves against a series of rules, splitting
-        them when the tests fails. In the case shown above, the first two bars
-        are very easy to read rhythmically, but the third and fourth are less
-        so. This is due to the dotted crotchet, which starts off a beat,
-        crossing the third beat of the measure. This function will split these
-        sort of leaves as shown below.
+            >>> staff = abjad.Staff(
+            ...     r"\time 5/8 c'16 d'8 e'8 f'8 g'8 a'16 ~ "
+            ...     r"a'16 b'8 c''8 d''8 e''8 f''16"
+            ... )
+            >>> meter = abjad.Meter((5, 8))
+            >>> for measure in abjad.select(staff[:]).group_by_measure():
+            ...     abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
-        >>> abjad.show(staff)
+            ..  docs::
 
-        ..  docs::
+                \new Staff
+                {
+                    \time 5/8
+                    c'16
+                    d'16
+                    ~
+                    d'16
+                    e'16
+                    ~
+                    e'16
+                    f'16
+                    ~
+                    f'16
+                    g'16
+                    ~
+                    g'16
+                    a'16
+                    ~
+                    a'16
+                    b'16
+                    ~
+                    b'16
+                    c''16
+                    ~
+                    c''16
+                    d''16
+                    ~
+                    d''16
+                    e''16
+                    ~
+                    e''16
+                    f''16
+                }
 
-            \new Staff
-            {
-                c'4
-                d'2
-                r4
-                e'4.
-                f'8
-                ~
-                f'4.
-                g'8
-                a'4.
-                b'8
-                ~
-                b'4
-                c''4
-                d''16
-                e''8.
-                f''4
-                ~
-                f''8
-                g''4
-                a''8
-            }
-        ..  figure:: ../_images/prettify_rewrite_meter-56dy04wjzg.png
+            ..  figure:: ../_images/prettify_rewrite_meter-8jdzmvf9yl.png
 
-        Set ``split_quadruple_meter`` to ``False`` to disable this behaviour.
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
 
-        >>> staff = abjad.Staff(
-        ...     r"c'4 d'2 r4"
-        ...     r"e'4. f'2 g'8"
-        ...     r"a'4. b'4. c''4"
-        ...     r"d''16 e''8. f''4. g''4 a''8"
-        ... )
-        >>> meter = abjad.Meter((4, 4))
-        >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.Meter.rewrite_meter(measure, meter)
-        >>> abjad.mutate.prettify_rewrite_meter(
-        ...     staff[:]
-        ...     meter,
-        ...     split_quadruple_meter=False,
-        ... )
-        >>> abjad.show(staff)
+            ..  docs::
 
-        ..  docs::
+                \new Staff
+                {
+                    \time 5/8
+                    c'16
+                    d'8
+                    e'8
+                    f'16
+                    ~
+                    f'16
+                    g'8
+                    a'16
+                    ~
+                    a'16
+                    b'8
+                    c''8
+                    d''16
+                    ~
+                    d''16
+                    e''8
+                    f''16
+                }
 
-            \new Staff
-            {
-                c'4
-                d'2
-                r4
-                e'4.
-                f'8
-                ~
-                f'4.
-                g'8
-                a'4.
-                b'4.
-                c''4
-                d''16
-                e''8.
-                f''4.
-                g''4
-                a''8
-            }
+            ..  figure:: ../_images/prettify_rewrite_meter-pcn8x9hr6bb.png
 
-        ..  figure:: ../_images/prettify_rewrite_meter-ww1x0zsxlnd.png
+        Multiple measures:
+            Similarly to |abjad.Meter.rewrite_meter()|, this function accepts
+            selections of multiple measures:
 
-    ..  tip::
+            >>> staff = abjad.Staff(
+            ...     r"\time 4/4 c'8 d'4 e'4 f'4 g'8 | "
+            ...     r"a'8 b'4 c''8 d''16 e''4 f''8."
+            ... )
+            >>> meter = abjad.Meter((4, 4))
+            >>> for measure in abjad.select(staff[:]).group_by_measure():
+            ...     abjad.Meter.rewrite_meter(measure, meter)
+            >>> abjad.show(staff)
 
-        Use :func:`auxjad.auto_rewrite_meter()` to automatically apply
-        |abjad.Meter.rewrite_meter()| and
-        |auxjad.mutate.prettify_rewrite_meter()| to a container with multiple
-        time signatures.
+            ..  docs::
 
-    ..  warning::
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'8
+                    ~
+                    d'8
+                    e'8
+                    ~
+                    e'8
+                    f'8
+                    ~
+                    f'8
+                    g'8
+                    a'8
+                    b'8
+                    ~
+                    b'8
+                    c''8
+                    d''16
+                    e''8.
+                    ~
+                    e''16
+                    f''8.
+                }
 
-        When dealing with a container with multiple subcontainers (e.g. a score containing multiple
-        staves), the best approach is to cycle through these subcontainers, applying this function
-        to them individually.
+            ..  figure:: ../_images/prettify_rewrite_meter-s8fg7a2k0tr.png
+
+            >>> for measure in abjad.select(staff[:]).group_by_measure():
+            ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'4
+                    e'8
+                    ~
+                    e'8
+                    f'4
+                    g'8
+                    a'8
+                    b'4
+                    c''8
+                    d''16
+                    e''8.
+                    ~
+                    e''16
+                    f''8.
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-rgd7ok7fkq.png
+
+        Multiple measures with different meters:
+            If the measures have different meters, they can be passed on
+            individually using :func:`zip()` as shown below.
+
+            >>> staff = abjad.Staff(
+            ...     r"\time 3/4 c'8 d'4 e'4 f'16 g'16 | "
+            ...     r"\time 4/4 a'8 b'4 c''8 d''16 e''4 f''8."
+            ... )
+            >>> meters = [abjad.Meter((3, 4)), abjad.Meter((4, 4))]
+            >>> for meter, measure in zip(
+            ...     meters,
+            ...     abjad.select(staff[:]).group_by_measure(),
+            ... ):
+            ...     abjad.Meter.rewrite_meter(measure, meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
+                    d'8
+                    ~
+                    d'8
+                    e'8
+                    ~
+                    e'8
+                    f'16
+                    g'16
+                    \time 4/4
+                    a'8
+                    b'8
+                    ~
+                    b'8
+                    c''8
+                    d''16
+                    e''8.
+                    ~
+                    e''16
+                    f''8.
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-o2izz0m7s9k.png
+
+            >>> for meter, measure in zip(
+            ...     meters,
+            ...     abjad.select(staff[:]).group_by_measure(),
+            ... ):
+            ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
+                    d'4
+                    e'4
+                    f'16
+                    g'16
+                    \time 4/4
+                    a'8
+                    b'4
+                    c''8
+                    d''16
+                    e''8.
+                    ~
+                    e''16
+                    f''8.
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-zh89kk66zon.png
+
+        ``fuse_quadruple_meter``:
+            This function also takes care of two special cases, namely quadruple
+            and triple meters. By default, it will fuse leaves in quadruple meters
+            across beats 1 and 2, and across beats 3 and 4 (as long as they fulfil
+            the other requirements of duration and offset).
+
+            >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
+            >>> meter = abjad.Meter((4, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'4
+                    e'8
+                    ~
+                    e'8
+                    f'4
+                    g'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-nap4bbf7mxe.png
+
+            Set ``fuse_quadruple_meter`` to ``False`` to disable this behaviour.
+
+            >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
+            >>> meter = abjad.Meter((4, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_quadruple_meter=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'8
+                    ~
+                    d'8
+                    e'8
+                    ~
+                    e'8
+                    f'8
+                    ~
+                    f'8
+                    g'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-juipg9nzna.png
+
+        ``fuse_rests_in_quadruple_meter``:
+            By default, the behaviour of ``fuse_quadruple_meter`` is applied to both pitched leaves
+            and rests alike. To enable it only for pitched leaves, set it to ``True`` while setting
+            ``fuse_rests_in_quadruple_meter`` to ``False``.
+
+            >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 r4 g'8")
+            >>> meter = abjad.Meter((4, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_quadruple_meter=True,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'4
+                    e'8
+                    ~
+                    e'8
+                    r4
+                    g'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-uOwVYEam8M.png
+
+            >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 r4 g'8")
+            >>> meter = abjad.Meter((4, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_quadruple_meter=True,
+            ...     fuse_rests_in_quadruple_meter=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 4/4
+                    c'8
+                    d'4
+                    e'8
+                    ~
+                    e'8
+                    r8
+                    r8
+                    g'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-juipg9nzna.png
+
+        ``fuse_triple_meter``:
+            In the case of triple meters, it will fuse leaves across any beat as
+            long as the previously mentioned conditions of offset and duration are
+            met.
+
+            >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
+                    d'4
+                    e'4
+                    f'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-4wg3grpb94p.png
+
+            Similarly to the example before, set ``fuse_triple_meter`` to ``False``
+            to disable this behaviour.
+
+            >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_triple_meter=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
+                    d'8
+                    ~
+                    d'8
+                    e'8
+                    ~
+                    e'8
+                    f'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-l16ostzscta.png
+
+        ``fuse_rests_in_triple_meter``:
+            By default, the behaviour of ``fuse_triple_meter`` is applied to both pitched leaves and
+            rests alike. To enable it only for pitched leaves, set it to ``True`` while setting
+            ``fuse_rests_in_triple_meter`` to ``False``.
+
+            >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 r4 g'8")
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_triple_meter=True,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
+                    d'4
+                    r4
+                    g'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-3YIscLM6Nu.png
+
+            >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 r4 g'8")
+            >>> meter = abjad.Meter((3, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> auxjad.mutate.prettify_rewrite_meter(
+            ...     staff[:],
+            ...     meter,
+            ...     fuse_triple_meter=True,
+            ...     fuse_rests_in_triple_meter=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \time 3/4
+                    c'8
+                    d'4
+                    r8
+                    r8
+                    g'8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-hcnKsXRdau.png
+
+        ``extract_trivial_tuplets``:
+            By default, this function extracts the contents of tuples that consist
+            solely of rests, or solely of tied notes and chords.
+
+            >>> staff = abjad.Staff(
+            ...     r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
+            ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
+            ... )
+            >>> meter = abjad.Meter((4, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    c'4
+                    \times 2/3
+                    {
+                        d'8
+                        r4
+                    }
+                    r4
+                    <e' g'>4
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-a72jx4fc1xd.png
+
+            Set ``extract_trivial_tuplets`` to ``False`` to disable this behaviour.
+
+            >>> staff = abjad.Staff(
+            ...     r"\times 2/3 {c'4 ~ c'8} \times 2/3 {d'8 r4} "
+            ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
+            ... )
+            >>> meter = abjad.Meter((4, 4))
+            >>> abjad.Meter.rewrite_meter(staff[:], meter)
+            >>> abjad.mutate.prettify_rewrite_meter(
+            ...     staff[:]
+            ...     meter,
+            ...     extract_trivial_tuplets=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    \times 2/3
+                    {
+                        c'4.
+                    }
+                    \times 2/3
+                    {
+                        d'8
+                        r4
+                    }
+                    \times 2/3
+                    {
+                        r4.
+                    }
+                    \times 2/3
+                    {
+                        <e' g'>4.
+                    }
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-v9q0ka94qcd.png
+
+        ``split_quadruple_meter``
+            When applying |abjad.Meter.rewrite_meter()| to a selection with
+            quadruple meter and without using a deeper ``boundary_depth`` than the
+            default, the resulting notation will often have leaves crossing the
+            third beat of the measure, as shown below.
+
+            >>> staff = abjad.Staff(
+            ...     r"c'4 d'2 r4"
+            ...     r"e'4. f'2 g'8"
+            ...     r"a'4. b'4. c''4"
+            ...     r"d''16 e''8. f''4. g''4 a''8"
+            ... )
+            >>> meter = abjad.Meter((4, 4))
+            >>> for measure in abjad.select(staff[:]).group_by_measure():
+            ...     abjad.Meter.rewrite_meter(measure, meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    c'4
+                    d'2
+                    r4
+                    e'4.
+                    f'8
+                    ~
+                    f'4.
+                    g'8
+                    a'4.
+                    b'4.
+                    c''4
+                    d''16
+                    e''8.
+                    f''4.
+                    g''8
+                    ~
+                    g''8
+                    a''8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-1wvhrjife1i.png
+
+            This function tests those leaves against a series of rules, splitting
+            them when the tests fails. In the case shown above, the first two bars
+            are very easy to read rhythmically, but the third and fourth are less
+            so. This is due to the dotted crotchet, which starts off a beat,
+            crossing the third beat of the measure. This function will split these
+            sort of leaves as shown below.
+
+            >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    c'4
+                    d'2
+                    r4
+                    e'4.
+                    f'8
+                    ~
+                    f'4.
+                    g'8
+                    a'4.
+                    b'8
+                    ~
+                    b'4
+                    c''4
+                    d''16
+                    e''8.
+                    f''4
+                    ~
+                    f''8
+                    g''4
+                    a''8
+                }
+            ..  figure:: ../_images/prettify_rewrite_meter-56dy04wjzg.png
+
+            Set ``split_quadruple_meter`` to ``False`` to disable this behaviour.
+
+            >>> staff = abjad.Staff(
+            ...     r"c'4 d'2 r4"
+            ...     r"e'4. f'2 g'8"
+            ...     r"a'4. b'4. c''4"
+            ...     r"d''16 e''8. f''4. g''4 a''8"
+            ... )
+            >>> meter = abjad.Meter((4, 4))
+            >>> for measure in abjad.select(staff[:]).group_by_measure():
+            ...     abjad.Meter.rewrite_meter(measure, meter)
+            >>> abjad.mutate.prettify_rewrite_meter(
+            ...     staff[:]
+            ...     meter,
+            ...     split_quadruple_meter=False,
+            ... )
+            >>> abjad.show(staff)
+
+            ..  docs::
+
+                \new Staff
+                {
+                    c'4
+                    d'2
+                    r4
+                    e'4.
+                    f'8
+                    ~
+                    f'4.
+                    g'8
+                    a'4.
+                    b'4.
+                    c''4
+                    d''16
+                    e''8.
+                    f''4.
+                    g''4
+                    a''8
+                }
+
+            ..  figure:: ../_images/prettify_rewrite_meter-ww1x0zsxlnd.png
+
+        ..  tip::
+
+            Use :func:`auxjad.auto_rewrite_meter()` to automatically apply
+            |abjad.Meter.rewrite_meter()| and
+            |auxjad.mutate.prettify_rewrite_meter()| to a container with multiple
+            time signatures.
+
+        ..  warning::
+
+            When dealing with a container with multiple subcontainers (e.g. a score containing multiple
+            staves), the best approach is to cycle through these subcontainers, applying this function
+            to them individually.
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("first argument must be 'abjad.Selection'")
@@ -960,10 +1133,10 @@ def prettify_rewrite_meter(
         raise TypeError("'fuse_triple_meter' must be 'bool'")
     if not isinstance(fuse_rests_across_groups_of_beats, bool):
         raise TypeError("'fuse_rests_across_groups_of_beats' must be 'bool'")
-    if not isinstance(fuse_rests_quadruple_meter, bool):
-        raise TypeError("'fuse_rests_quadruple_meter' must be 'bool'")
-    if not isinstance(fuse_rests_triple_meter, bool):
-        raise TypeError("'fuse_rests_triple_meter' must be 'bool'")
+    if not isinstance(fuse_rests_in_quadruple_meter, bool):
+        raise TypeError("'fuse_rests_in_quadruple_meter' must be 'bool'")
+    if not isinstance(fuse_rests_in_triple_meter, bool):
+        raise TypeError("'fuse_rests_in_triple_meter' must be 'bool'")
     if not isinstance(extract_trivial_tuplets, bool):
         raise TypeError("'extract_trivial_tuplets' must be 'bool'")
     if not isinstance(split_quadruple_meter, bool):
@@ -989,7 +1162,10 @@ def prettify_rewrite_meter(
 
     if fuse_across_groups_of_beats:
         for logical_tie in logical_ties.filter_duration("==", base):
-            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_across_groups_of_beats:
+            if (
+                isinstance(logical_tie.leaf(0), abjad.Rest)
+                and not fuse_rests_across_groups_of_beats
+            ):
                 continue
             offset = abjad.get.timespan(logical_tie).start_offset
             offset -= initial_offset
@@ -1001,7 +1177,7 @@ def prettify_rewrite_meter(
 
     if fuse_quadruple_meter and meter.numerator == 4:
         for logical_tie in logical_ties.filter_duration("==", base):
-            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_quadruple_meter:
+            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_in_quadruple_meter:
                 continue
             offset = abjad.get.timespan(logical_tie).start_offset
             offset -= initial_offset
@@ -1017,7 +1193,7 @@ def prettify_rewrite_meter(
 
     if fuse_triple_meter and meter.numerator == 3:
         for logical_tie in logical_ties.filter_duration("==", base):
-            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_triple_meter:
+            if isinstance(logical_tie.leaf(0), abjad.Rest) and not fuse_rests_in_triple_meter:
                 continue
             offset = abjad.get.timespan(logical_tie).start_offset
             offset -= initial_offset

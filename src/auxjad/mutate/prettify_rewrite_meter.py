@@ -376,7 +376,7 @@ def prettify_rewrite_meter(
                 }
 
             ..  figure:: ../_images/prettify_rewrite_meter-AKNe47OPcD.png
-                
+
             >>> staff = abjad.Staff(r"\time 6/4 c'8 r4 e'4 r4 g'4 a'4 b'8")
             >>> meter = abjad.Meter((6, 4))
             >>> abjad.Meter.rewrite_meter(staff[:], meter)

@@ -546,8 +546,8 @@ def auto_rewrite_meter(
 
         This function also accepts the arguments ``boundary_depth``, ``maximum_dot_count``, and
         ``rewrite_tuplets``, which are passed on to |abjad.Meter.rewrite_meter()|, and
-        ``fuse_across_groups_of_beats``, ``fuse_quadruple_meter``, ``fuse_triple_meter``, 
-        ``fuse_rests_across_groups_of_beats``, ``fuse_rests_in_quadruple_meter``, 
+        ``fuse_across_groups_of_beats``, ``fuse_quadruple_meter``, ``fuse_triple_meter``,
+        ``fuse_rests_across_groups_of_beats``, ``fuse_rests_in_quadruple_meter``,
         ``fuse_rests_in_triple_meterand``, and ``split_quadruple_meter``, which are passed on to
         |auxjad.mutate.prettify_rewrite_meter()|. ``merge_partial_tuplets`` is used to invoke
         |auxjad.mutate.merge_partial_tuplets()| See the documentation of these functions for more

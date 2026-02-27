@@ -565,7 +565,7 @@ def auto_rewrite_meter(
         >>> staff = abjad.Staff(r"\time 4/4 c'4. d'4. e'4 f'8 g'4 a'4 b'4.")
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate.rewrite_meter(measure, meter, boundary_depth=1)
+        ...     abjad.Meter.rewrite_meter(measure, meter, boundary_depth=1)
         >>> for measure in abjad.select(staff[:]).group_by_measure():
         ...     auxjad.mutate.prettify_rewrite_meter(measure, meter)
         >>> abjad.show(staff)

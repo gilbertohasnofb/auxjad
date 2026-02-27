@@ -73,7 +73,7 @@ def prettify_rewrite_meter(
         ...     r"\time 3/4 c'16 d'8 e'16 f'16 g'16 a'8 b'8 c''16 d''16"
         ... )
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -182,7 +182,7 @@ def prettify_rewrite_meter(
         ...     r"r16 r32. d''64 e''8 f''32 g''32"
         ... )
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -256,7 +256,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
         >>> meter = abjad.Meter((6, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -311,7 +311,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 6/4 c'8 d'4 e'4 f'4 g'4 a'4 b'8")
         >>> meter = abjad.Meter((6, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(
         ...     staff[:],
         ...     meter,
@@ -352,7 +352,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
@@ -379,7 +379,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 7/4 c'8 d'4 e'4 f'4 g'4 a'4 b'4 c''8")
         >>> meter = abjad.Meter((7, 4), increase_monotonic=True)
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
@@ -414,7 +414,7 @@ def prettify_rewrite_meter(
         ... )
         >>> meter = abjad.Meter((5, 8))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate.rewrite_meter(staff[:], meter)
+        ...     abjad.Meter.rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -494,7 +494,7 @@ def prettify_rewrite_meter(
         ... )
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate.rewrite_meter(measure, meter)
+        ...     abjad.Meter.rewrite_meter(measure, meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -568,7 +568,7 @@ def prettify_rewrite_meter(
         ...     meters,
         ...     abjad.select(staff[:]).group_by_measure(),
         ... ):
-        ...     abjad.mutate.rewrite_meter(measure, meter)
+        ...     abjad.Meter.rewrite_meter(measure, meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -638,7 +638,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
         >>> meter = abjad.Meter((4, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
@@ -662,7 +662,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 4/4 c'8 d'4 e'4 f'4 g'8")
         >>> meter = abjad.Meter((4, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(
         ...     staff[:],
         ...     meter,
@@ -697,7 +697,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
@@ -719,7 +719,7 @@ def prettify_rewrite_meter(
 
         >>> staff = abjad.Staff(r"\time 3/4 c'8 d'4 e'4 f'8")
         >>> meter = abjad.Meter((3, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> auxjad.mutate.prettify_rewrite_meter(
         ...     staff[:],
         ...     meter,
@@ -753,7 +753,7 @@ def prettify_rewrite_meter(
         ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
         ... )
         >>> meter = abjad.Meter((4, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> abjad.mutate.prettify_rewrite_meter(staff[:], meter)
         >>> abjad.show(staff)
 
@@ -780,7 +780,7 @@ def prettify_rewrite_meter(
         ...     r"\times 2/3 {r8 r8 r8} \times 2/3 {<e' g'>8 ~ <e' g'>4}"
         ... )
         >>> meter = abjad.Meter((4, 4))
-        >>> abjad.mutate.rewrite_meter(staff[:], meter)
+        >>> abjad.Meter.rewrite_meter(staff[:], meter)
         >>> abjad.mutate.prettify_rewrite_meter(
         ...     staff[:]
         ...     meter,
@@ -827,7 +827,7 @@ def prettify_rewrite_meter(
         ... )
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate.rewrite_meter(measure, meter)
+        ...     abjad.Meter.rewrite_meter(measure, meter)
         >>> abjad.show(staff)
 
         ..  docs::
@@ -903,7 +903,7 @@ def prettify_rewrite_meter(
         ... )
         >>> meter = abjad.Meter((4, 4))
         >>> for measure in abjad.select(staff[:]).group_by_measure():
-        ...     abjad.mutate.rewrite_meter(measure, meter)
+        ...     abjad.Meter.rewrite_meter(measure, meter)
         >>> abjad.mutate.prettify_rewrite_meter(
         ...     staff[:]
         ...     meter,

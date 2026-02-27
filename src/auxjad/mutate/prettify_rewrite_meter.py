@@ -7,6 +7,39 @@ from .extract_trivial_tuplets import (
 )
 
 
+def _merge_indicators_then_fuse(logical_tie: abjad.LogicalTie) -> None:
+    r"""Mutates a logical tie by fusing the durations of its leaves and mergings its indicators.
+
+    Args:
+        logical_tie: ``abjad.LogicalTie`` to be mutated.
+    
+    Returns:
+        None
+    """
+    if len(logical_tie) == 1:
+        return
+    last_indicators = abjad.get.indicators(logical_tie[-1])
+    initial_indicators = abjad.get.indicators(logical_tie[0])
+    initial_indicators_types = tuple(type(indicator) for indicator in initial_indicators)
+    abjad.mutate.fuse(logical_tie)
+    for indicator in last_indicators:
+        if isinstance(
+            indicator,
+            (
+                abjad.Dynamic,
+                abjad.StopSlur,
+                abjad.StopGroup,
+                abjad.StopHairpin,
+                abjad.StopTextSpan,
+                abjad.StopTrillSpan,
+                abjad.StopPianoPedal,
+                abjad.StopPhrasingSlur,
+            ),
+        ):
+            if not isinstance(indicator, initial_indicators_types):
+                abjad.attach(indicator, logical_tie[0])
+
+
 def prettify_rewrite_meter(
     selection: abjad.Selection,
     meter: Union[abjad.Meter, abjad.TimeSignature],
@@ -891,28 +924,6 @@ def prettify_rewrite_meter(
     first_leaf = selection.leaf(0)
     initial_offset = abjad.get.timespan(first_leaf).start_offset
     base = 1 / meter.denominator
-
-    def _merge_indicators_then_fuse(logical_tie):
-        last_indicators = abjad.get.indicators(logical_tie[-1])
-        initial_indicators = abjad.get.indicators(logical_tie[0])
-        initial_indicators_types = tuple(type(indicator) for indicator in initial_indicators)
-        abjad.mutate.fuse(logical_tie)
-        for indicator in last_indicators:
-            if isinstance(
-                indicator,
-                (
-                    abjad.Dynamic,
-                    abjad.StopSlur,
-                    abjad.StopGroup,
-                    abjad.StopHairpin,
-                    abjad.StopTextSpan,
-                    abjad.StopTrillSpan,
-                    abjad.StopPianoPedal,
-                    abjad.StopPhrasingSlur,
-                ),
-            ):
-                if not isinstance(indicator, initial_indicators_types):
-                    abjad.attach(indicator, logical_tie[0])
 
     for logical_tie in logical_ties.filter_duration("==", base / 2):
         offset = abjad.get.timespan(logical_tie).start_offset

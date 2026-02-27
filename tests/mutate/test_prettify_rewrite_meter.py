@@ -823,7 +823,7 @@ def test_prettify_rewrite_meter_18():
     assert abjad.lilypond(staff) == abjad.String.normalize(r"""
         \new Staff
         {
-            \time 3/4
+            \time 6/4
             c'8
             r4
             e'4

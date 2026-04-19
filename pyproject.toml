@@ -58,3 +58,20 @@ package-dir = { "" = "src" }
 [tool.setuptools.dynamic]
 version = {attr = "auxjad.__version__"}
 dependencies = {file = ["requirements.txt"]}
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+case_sensitive = true
+line_length = 100
+multi_line_output = 3
+known_first_party = ["auxjad"]
+skip = ["src/auxjad/__init__.py", "sandbox.py"]
+skip_gitignore = true
+include_trailing_comma = false
+use_parentheses = true
+
+[tool.pydocstyle]
+match_dir = "src"
+select = ["D101", "D102", "D103", "D105", "D300", "D301"]

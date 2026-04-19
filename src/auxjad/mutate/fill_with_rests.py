@@ -3,9 +3,7 @@ from typing import Optional
 import abjad
 
 from .. import get
-from .prettify_rewrite_meter import (
-    prettify_rewrite_meter as prettify_rewrite_meter_function,
-)
+from .prettify_rewrite_meter import prettify_rewrite_meter as prettify_rewrite_meter_function
 
 
 def fill_with_rests(

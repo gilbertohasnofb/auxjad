@@ -1,10 +1,12 @@
-name: Python package
+name: Auxjad package
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,24 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Checks (black, flake8, isort, pydocstyle)
-        run: |
-          python3 -m black -l 100 . --check
-          python3 -m flake8 --ignore=E203,E266,E501,W503 --exclude=./docs/conf.py
-          python3 -m isort \
-          --case-sensitive \
-          --check-only \
-          --diff \
-          --line-width=79 \
-          --multi-line=3 \
-          --project=auxjad \
-          --skip=src/auxjad/__init__.py \
-          --skip=sandbox.py \
-          --skip-gitignore \
-          --trailing-comma \
-          --use-parentheses \
-          .
-          python3 -m pydocstyle --select=D101,D102,D103,D105,D300,D301 ./src
+        run: make check
       - name: Test with pytest
-        run: |
-          pip install pytest pytest-cov
-          python -m pytest -v
+        run: make pytest

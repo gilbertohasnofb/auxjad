@@ -3,9 +3,7 @@ from typing import Union
 import abjad
 
 from .. import select
-from .extract_trivial_tuplets import (
-    extract_trivial_tuplets as extract_trivial_tuplets_function,
-)
+from .extract_trivial_tuplets import extract_trivial_tuplets as extract_trivial_tuplets_function
 
 
 def _merge_indicators_then_fuse(logical_selection: abjad.Selection) -> None:

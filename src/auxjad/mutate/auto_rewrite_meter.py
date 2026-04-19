@@ -3,15 +3,9 @@ from typing import Optional, Union
 import abjad
 
 from .. import get
-from .extract_trivial_tuplets import (
-    extract_trivial_tuplets as extract_trivial_tuplets_function,
-)
-from .merge_partial_tuplets import (
-    merge_partial_tuplets as merge_partial_tuplets_function,
-)
-from .prettify_rewrite_meter import (
-    prettify_rewrite_meter as prettify_rewrite_meter_function,
-)
+from .extract_trivial_tuplets import extract_trivial_tuplets as extract_trivial_tuplets_function
+from .merge_partial_tuplets import merge_partial_tuplets as merge_partial_tuplets_function
+from .prettify_rewrite_meter import prettify_rewrite_meter as prettify_rewrite_meter_function
 
 
 def auto_rewrite_meter(

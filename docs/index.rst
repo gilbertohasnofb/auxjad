@@ -18,7 +18,7 @@ This library is published under the `MIT License`_.
 .. _`Abjad 3.4`: https://abjad.github.io/
 .. _`Auxjad Repository`: https://github.com/gilbertohasnofb/auxjad
 .. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
-.. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
+.. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/main/LICENSE
 
 
 Installation
@@ -67,7 +67,7 @@ simple examples showing some of the capabilities of this library.
 .. _`Python 3.10`: https://www.python.org/
 .. _`LilyPond 2.24`: http://lilypond.org/
 
-.. |Auxjad banner| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/auxjad-banner.png
+.. |Auxjad banner| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad
 .. |PyPI| image:: https://img.shields.io/pypi/v/auxjad.svg?style=for-the-badge
    :target: https://pypi.python.org/pypi/auxjad
@@ -76,6 +76,6 @@ simple examples showing some of the capabilities of this library.
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/auxjad.svg?style=for-the-badge
    :target: https://www.python.org/downloads/release/python-3100/
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue?style=for-the-badge
-   :target: https://github.com/gilbertohasnofb/auxjad/blob/master/LICENSE
+   :target: https://github.com/gilbertohasnofb/auxjad/blob/main/LICENSE
 .. |Bug report| image:: https://img.shields.io/badge/bug-report-red.svg?style=for-the-badge
   :target: https://github.com/gilbertohasnofb/auxjad/issues

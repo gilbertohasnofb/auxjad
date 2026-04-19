@@ -97,23 +97,23 @@ In this page you will find some scores of my recent compositions written using A
 
 
 
-.. |score follow the well-worn path in the grass| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-follow-the-well-worn-path-in-the-grass.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-follow-the-well-worn-path-in-the-grass.pdf
+.. |score follow the well-worn path in the grass| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-follow-the-well-worn-path-in-the-grass.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-follow-the-well-worn-path-in-the-grass.pdf
 
-.. |score what holds them together| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-what-holds-them-together.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-what-holds-them-together.pdf
+.. |score what holds them together| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-what-holds-them-together.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-what-holds-them-together.pdf
 
-.. |score adrift| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-adrift.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-adrift.pdf
+.. |score adrift| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-adrift.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-adrift.pdf
 
-.. |score and thereafter they shape us| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-and-thereafter-they-shape-us.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-and-thereafter-they-shape-us.pdf
+.. |score and thereafter they shape us| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-and-thereafter-they-shape-us.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-and-thereafter-they-shape-us.pdf
 
-.. |score Cartography 11| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-11.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-11.pdf
+.. |score Cartography 11| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-cartography-11.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-cartography-11.pdf
 
-.. |score Cartography 9| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-9.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-9.pdf
+.. |score Cartography 9| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-cartography-9.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-cartography-9.pdf
 
-.. |score Cartography 8| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-8.png
-   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/master/assets/score-cartography-8.pdf
+.. |score Cartography 8| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-cartography-8.png
+   :target: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/score-cartography-8.pdf

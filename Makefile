@@ -33,6 +33,8 @@ test:
 # Building documentation
 docs-html:
 	$(MAKE) -C docs/ html
+open-html:
+	$(MAKE) -C docs/ open-html
 docs-release:
 	$(MAKE) -C docs/ release
 release-webpage:
@@ -43,7 +45,7 @@ release-webpage:
 	touch .nojekyll && \
 	git add -A && \
 	git commit -m "Update docs" && \
-	git push -u origin master
+	git push -u origin main
 	rm -Rf auxjad-docs/
 
 # Building library

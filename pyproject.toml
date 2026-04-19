@@ -64,12 +64,12 @@ line-length = 100
 
 [tool.isort]
 case_sensitive = true
-line_length = 79
+line_length = 100
 multi_line_output = 3
 known_first_party = ["auxjad"]
 skip = ["src/auxjad/__init__.py", "sandbox.py"]
 skip_gitignore = true
-force_trailing_comma = true
+include_trailing_comma = false
 use_parentheses = true
 
 [tool.pydocstyle]

@@ -1,9 +1,11 @@
-SPHINXOPTS  =
-SPHINXBUILD = python3 -m sphinx
-SOURCEDIR   = .
-BUILDDIR	= _build
+PYTHON      ?= ../.venv/bin/python
+SPHINXOPTS   =
+SPHINXBUILD  = $(PYTHON) -m sphinx
+SOURCEDIR    = .
+BUILDDIR     = _build
+OPEN         := $(shell command -v xdg-open || command -v open)
 
-.PHONY: help clean images html open-html latex release
+.PHONY: clean help html images latex open-html release
 
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -11,14 +13,13 @@ help:
 clean:
 	rm -Rif $(BUILDDIR)/*
 	rm -Rif $(SOURCEDIR)/_logs
+	rm -Rif $(SOURCEDIR)/_api_members
 
 images:
 	rm -Rif "$(SOURCEDIR)"/_images/
-	rm -Rif "$(SOURCEDIR)"/_api_members/
-	mkdir "$(SOURCEDIR)"/_images/
 	mkdir "$(SOURCEDIR)"/_images/lilypond-files/
 	mkdir "$(SOURCEDIR)"/_logs/
-	python3 ./image-generator.py
+	$(PYTHON) ./image-generator.py
 	for f in `ls $(SOURCEDIR)/_images/lilypond-files/*.ly`; \
 		do \
 			echo "Compiling: $$(basename $${f%})"; \
@@ -42,18 +43,14 @@ images:
 	find $(SOURCEDIR)/_logs/ -type f -empty -delete
 
 html:
-	rm -Rif "$(SOURCEDIR)"/_api_members
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 open-html:
-	firefox --new-tab ./_build/html/index.html
+	$(OPEN) ./_build/html/index.html
 
 latex:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	$(MAKE) -C "$(BUILDDIR)"/latex/
 	mv "$(BUILDDIR)"/latex/*.pdf "$(SOURCEDIR)"
 
-release:
-	$(MAKE) clean
-	$(MAKE) images
-	$(MAKE) html
+release: clean images html

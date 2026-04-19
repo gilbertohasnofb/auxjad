@@ -1,34 +1,27 @@
-.PHONY: build black-check black-reformat clean docs-html docs-release flake8 pydocstyle \
-	release-webpage isort-check isort-reformat pytest reformat release check test
+PYTHON := .venv/bin/python
+
+.PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
+		isort-reformat open-html pydocstyle pytest reformat release release-webpage setup test
 
 # Formatting and linting
-black-check:
-	python3 -m black . --check
-black-reformat:
-	python3 -m black .
-flake8:
-	python3 -m flake8
-isort-check:
-	python3 -m isort --check-only --diff .
-isort-reformat:
-	python3 -m isort .
-pydocstyle:
-	python3 -m pydocstyle
-check:
-	$(MAKE) black-check
-	$(MAKE) flake8
-	$(MAKE) isort-check
-	$(MAKE) pydocstyle
-reformat:
-	$(MAKE) black-reformat
-	$(MAKE) isort-reformat
+black-check: setup
+	$(PYTHON) -m black . --check
+black-reformat: setup
+	$(PYTHON) -m black .
+flake8: setup
+	$(PYTHON) -m flake8
+isort-check: setup
+	$(PYTHON) -m isort --check-only --diff .
+isort-reformat: setup
+	$(PYTHON) -m isort .
+pydocstyle: setup
+	$(PYTHON) -m pydocstyle
+check: black-check flake8 isort-check pydocstyle
+reformat: black-reformat isort-reformat
 
 # Testing
-pytest:
-	python3 -m pytest
-test:
-	$(MAKE) check
-	$(MAKE) pytest
+pytest: setup
+	$(PYTHON) -m pytest
 
 # Building documentation
 docs-html:
@@ -37,7 +30,7 @@ open-html:
 	$(MAKE) -C docs/ open-html
 docs-release:
 	$(MAKE) -C docs/ release
-release-webpage:
+release-webpage: docs-html
 	rm -Rf auxjad-docs/
 	git clone https://github.com/gilbertohasnofb/auxjad-docs auxjad-docs
 	rsync -rtv --delete --exclude=.git --exclude=README.rst docs/_build/html/ auxjad-docs/ && \
@@ -51,20 +44,20 @@ release-webpage:
 # Building library
 clean:
 	find . -name '*.pyc' -delete
+	find . -name '__pycache__' -type d -exec rm -rf {} +
 	rm -Rif *.egg-info/
 	rm -Rif .cache
-	rm -Rif __pycache__
 	rm -Rif build
 	rm -Rif dist
-build:
-	python3 -m build
+.venv/.installed: requirements.txt
+	python3 -m venv .venv
+	.venv/bin/pip install --upgrade pip
+	.venv/bin/pip install -r requirements.txt
+	touch .venv/.installed
+setup: .venv/.installed
+build: setup
+	$(PYTHON) -m build
 
 # Releasing
-release:
-	$(MAKE) test
-	$(MAKE) docs-release
-	$(MAKE) clean
-	$(MAKE) build
-	pip install -U twine
-	python3 -m twine upload dist/*.tar.gz
-	$(MAKE) release-webpage
+release: check pytest docs-release clean build release-webpage
+	$(PYTHON) -m twine upload dist/*.tar.gz

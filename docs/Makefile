@@ -1,9 +1,9 @@
-SPHINXOPTS    =
-SPHINXBUILD   = python3 -m sphinx  # sphinx-build
-SOURCEDIR     = .
-BUILDDIR      = _build
+SPHINXOPTS  =
+SPHINXBUILD = python3 -m sphinx
+SOURCEDIR   = .
+BUILDDIR	= _build
 
-.PHONY: help clean images html latex release
+.PHONY: help clean images html open-html latex release
 
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -24,34 +24,36 @@ images:
 			echo "Compiling: $$(basename $${f%})"; \
 			lilypond -o "$(SOURCEDIR)/_images/" \
 			-ddelete-intermediate-files \
-			$$include --png \
+			--png \
 			-dbackend=eps \
 			-dresolution=150 \
 			-danti-alias-factor=1 \
 			-dlog-file="$(SOURCEDIR)/_logs/$$(basename $${f%.*})" \
 			--loglevel=WARN \
 			$${f%}; \
-	    done;
+		done;
 	find $(SOURCEDIR)/_images/ \
-	-name '*.eps' \
-	-o -name '*.count' \
-	-o -name '*.pdf' \
-	-o -name '*.tex' \
-	-o -name '*.texi' | \
-	xargs rm
+		\( -name '*.eps' \
+		-o -name '*.count' \
+		-o -name '*.pdf' \
+		-o -name '*.tex' \
+		-o -name '*.texi' \) \
+		-delete
 	find $(SOURCEDIR)/_logs/ -type f -empty -delete
 
 html:
 	rm -Rif "$(SOURCEDIR)"/_api_members
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
+open-html:
 	firefox --new-tab ./_build/html/index.html
 
 latex:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	make -C "$(BUILDDIR)"/latex/
+	$(MAKE) -C "$(BUILDDIR)"/latex/
 	mv "$(BUILDDIR)"/latex/*.pdf "$(SOURCEDIR)"
 
 release:
-	make clean
-	make images
-	make html
+	$(MAKE) clean
+	$(MAKE) images
+	$(MAKE) html

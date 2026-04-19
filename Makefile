@@ -3,6 +3,14 @@ PYTHON := .venv/bin/python
 .PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
 		isort-reformat open-html pydocstyle pytest reformat release release-webpage setup test
 
+# Setup
+.venv/.installed: requirements.txt
+	python3 -m venv .venv
+	.venv/bin/pip install --upgrade pip
+	.venv/bin/pip install -r requirements.txt
+	touch .venv/.installed
+setup: .venv/.installed
+
 # Formatting and linting
 black-check: setup
 	$(PYTHON) -m black . --check
@@ -49,12 +57,6 @@ clean:
 	rm -Rif .cache
 	rm -Rif build
 	rm -Rif dist
-.venv/.installed: requirements.txt
-	python3 -m venv .venv
-	.venv/bin/pip install --upgrade pip
-	.venv/bin/pip install -r requirements.txt
-	touch .venv/.installed
-setup: .venv/.installed
 build: setup
 	$(PYTHON) -m build
 

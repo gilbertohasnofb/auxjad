@@ -4,31 +4,33 @@ PYTHON := .venv/bin/python
 		isort-reformat open-html pydocstyle pytest reformat release release-webpage setup test
 
 # Setup
-.venv/.installed: requirements.txt
+.venv/.installed: requirements.txt requirements-dev.txt requirements-test.txt
 	python3 -m venv .venv
 	.venv/bin/pip install --upgrade pip
 	.venv/bin/pip install -r requirements.txt
+	.venv/bin/pip install -r requirements-dev.txt
+	.venv/bin/pip install -r requirements-test.txt
 	touch .venv/.installed
 setup: .venv/.installed
 
 # Formatting and linting
-black-check: setup
+black-check:
 	$(PYTHON) -m black . --check
-black-reformat: setup
+black-reformat:
 	$(PYTHON) -m black .
-flake8: setup
+flake8:
 	$(PYTHON) -m flake8
-isort-check: setup
+isort-check:
 	$(PYTHON) -m isort --check-only --diff .
-isort-reformat: setup
+isort-reformat:
 	$(PYTHON) -m isort .
-pydocstyle: setup
+pydocstyle:
 	$(PYTHON) -m pydocstyle
 check: black-check flake8 isort-check pydocstyle
 reformat: black-reformat isort-reformat
 
 # Testing
-pytest: setup
+pytest:
 	$(PYTHON) -m pytest
 
 # Building documentation
@@ -51,8 +53,8 @@ release-webpage: docs-html
 
 # Building library
 clean:
-	find . -name '*.pyc' -delete
-	find . -name '__pycache__' -type d -exec rm -rf {} +
+	find . -type f -name "*.pyc" -delete
+	find . -type d -name "__pycache__" -delete
 	rm -Rif *.egg-info/
 	rm -Rif .cache
 	rm -Rif build

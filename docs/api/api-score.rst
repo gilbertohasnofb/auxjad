@@ -22,7 +22,7 @@ documentation.
     :toctree: ../_api_members
 
     ArtificialHarmonic
-    Context.with_settings
+    Context.context_commands
     HarmonicNote
     Score.add_double_bar_lines_before_time_signatures
     Score.add_final_bar_line

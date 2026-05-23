@@ -35,9 +35,9 @@ test:
 
 # Building documentation
 docs-html:
-	$(MAKE) -C docs/ html
+	$(MAKE) -C docs/ docs-html
 docs-release:
-	$(MAKE) -C docs/ release
+	$(MAKE) -C docs/ docs-release
 release-webpage: docs-html
 	rm -Rf auxjad-docs/
 	git clone https://github.com/gilbertohasnofb/auxjad-docs auxjad-docs

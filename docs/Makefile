@@ -5,17 +5,17 @@ SOURCEDIR    = .
 BUILDDIR     = _build
 OPEN         := $(shell command -v xdg-open || command -v open)
 
-.PHONY: clean help html images latex release
+.PHONY: docs-clean docs-help docs-html docs-images docs-latex docs-release
 
-help:
+docs-help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-clean:
+docs-clean:
 	rm -Rif $(BUILDDIR)/*
 	rm -Rif $(SOURCEDIR)/_logs
 	rm -Rif $(SOURCEDIR)/_api_members
 
-images:
+docs-images:
 	rm -Rif $(SOURCEDIR)/_images/
 	mkdir -p $(SOURCEDIR)/_images/lilypond-files/
 	mkdir $(SOURCEDIR)/_logs/
@@ -42,13 +42,13 @@ images:
 		-delete
 	find $(SOURCEDIR)/_logs/ -type f -empty -delete
 
-html:
+docs-html:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	$(OPEN) ./_build/html/index.html
 
-latex:
+docs-latex:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	$(MAKE) -C "$(BUILDDIR)"/latex/
 	mv "$(BUILDDIR)"/latex/*.pdf "$(SOURCEDIR)"
 
-release: clean images html
+docs-release: docs-clean docs-images docs-html

@@ -44,7 +44,7 @@ def logical_selections(
         >>> for logical_selection in logical_selections:
         ...     print(logical_selection.leaves())
         Selection([Note("c'4"), Note("c'16")])
-        Selection([Rest('r8.'), Rest('r4..')])
+        Selection([Rest("r8."), Rest("r4..")])
         Selection([Note("d'16"), Note("d'4")])
 
     ..  note::
@@ -58,12 +58,12 @@ def logical_selections(
         >>> for logical_sel in auxjad.select.logical_selections(container):
         ...     print(logical_sel.leaves())
         Selection([Note("c'4"), Note("c'16")])
-        Selection([Rest('r8.'), Rest('r4..')])
+        Selection([Rest("r8."), Rest("r4..")])
         Selection([Note("d'16"), Note("d'4")])
         >>> for logical_sel in abjad.select.logical_selections(container):
         ...     print(logical_sel.leaves())
         Selection([Note("c'4"), Note("c'16")])
-        Selection([Rest('r8.'), Rest('r4..')])
+        Selection([Rest("r8."), Rest("r4..")])
         Selection([Note("d'16"), Note("d'4")])
 
     ``include_multimeasure_rests``:
@@ -75,7 +75,7 @@ def logical_selections(
         >>> for logical_selection in logical_selections:
         ...     print(logical_selection.leaves())
         Selection([Note("c'2."), Note("c'16")])
-        Selection([Rest('r8.'), MultimeasureRest('R1'), Rest('r4..')])
+        Selection([Rest("r8."), MultimeasureRest("R1"), Rest("r4..")])
         Selection([Note("d'16"), Note("d'2.")])
 
         To treat multi-measure rests as their own logical selections, set
@@ -90,9 +90,9 @@ def logical_selections(
         >>> for logical_selection in logical_selections:
         ...     print(logical_selection.leaves())
         Selection([Note("c'2."), Note("c'16")])
-        Selection([Rest('r8.')])
-        Selection([MultimeasureRest('R1')])
-        Selection([Rest('r4..')])
+        Selection([Rest("r8.")])
+        Selection([MultimeasureRest("R1")])
+        Selection([Rest("r4..")])
         Selection([Note("d'16"), Note("d'2.")])
     """
     if not isinstance(container, (abjad.Container, abjad.Selection)):

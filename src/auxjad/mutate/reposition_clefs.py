@@ -15,8 +15,8 @@ def reposition_clefs(
         When consecutive clefs are the same, the second one is removed:
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[0])
-        >>> abjad.attach(abjad.Clef('treble'), staff[1])
+        >>> abjad.attach(abjad.Clef("treble"), staff[0])
+        >>> abjad.attach(abjad.Clef("treble"), staff[1])
         >>> string = abjad.lilypond(staff)
         >>> print(string)
         \new Staff
@@ -69,7 +69,7 @@ def reposition_clefs(
         although it won't then remove a subsequent repeated treble clef:
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[1])
+        >>> abjad.attach(abjad.Clef("treble"), staff[1])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -114,7 +114,7 @@ def reposition_clefs(
         number of leaves without clefs:
 
         >>> staff = abjad.Staff(r"c'1 | d'2 e'4 r4 | f'1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[4])
+        >>> abjad.attach(abjad.Clef("treble"), staff[4])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -152,8 +152,8 @@ def reposition_clefs(
         already optimal.
 
         >>> staff = abjad.Staff(r"c'1 | a,2 bf,4 r4 | f'1")
-        >>> abjad.attach(abjad.Clef('bass'), staff[1])
-        >>> abjad.attach(abjad.Clef('treble'), staff[4])
+        >>> abjad.attach(abjad.Clef("bass"), staff[1])
+        >>> abjad.attach(abjad.Clef("treble"), staff[4])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -193,8 +193,8 @@ def reposition_clefs(
         The function handles rests and multi-measure rests.
 
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | R1 | e'1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[0])
-        >>> abjad.attach(abjad.Clef('treble'), staff[4])
+        >>> abjad.attach(abjad.Clef("treble"), staff[0])
+        >>> abjad.attach(abjad.Clef("treble"), staff[4])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -232,8 +232,8 @@ def reposition_clefs(
         leaf.
 
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[0])
-        >>> abjad.attach(abjad.Clef('bass'), staff[2])
+        >>> abjad.attach(abjad.Clef("treble"), staff[0])
+        >>> abjad.attach(abjad.Clef("bass"), staff[2])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -270,8 +270,8 @@ def reposition_clefs(
         Set ``shift_clef_to_notes`` to ``False`` to disable this behaviour.
 
         >>> staff = abjad.Staff(r"c'1 | d'2 r2 | fs1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[0])
-        >>> abjad.attach(abjad.Clef('bass'), staff[2])
+        >>> abjad.attach(abjad.Clef("treble"), staff[0])
+        >>> abjad.attach(abjad.Clef("bass"), staff[2])
         >>> auxjad.mutate.reposition_clefs(staff[:], shift_clef_to_notes=False)
         >>> abjad.show(staff)
 
@@ -294,8 +294,8 @@ def reposition_clefs(
         rests.
 
         >>> staff = abjad.Staff(r"\time 3/4 c'2. | d'4 r2 | R1 * 3/4 | e'2.")
-        >>> abjad.attach(abjad.Clef('treble'), staff[0])
-        >>> abjad.attach(abjad.Clef('bass'), staff[2])
+        >>> abjad.attach(abjad.Clef("treble"), staff[0])
+        >>> abjad.attach(abjad.Clef("bass"), staff[2])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -342,7 +342,7 @@ def reposition_clefs(
         ...                      abjad.Chord("<d' f'>2"),
         ...                      abjad.Tuplet((2, 3), "g'2 a'2 b'2"),
         ...                      ])
-        >>> abjad.attach(abjad.Clef('treble'), staff[2][1])
+        >>> abjad.attach(abjad.Clef("treble"), staff[2][1])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -387,7 +387,7 @@ def reposition_clefs(
         fallback clef in LilyPond).
 
         >>> staff = abjad.Staff(r"c'1 | d'1")
-        >>> abjad.attach(abjad.Clef('treble'), staff[1])
+        >>> abjad.attach(abjad.Clef("treble"), staff[1])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -418,7 +418,7 @@ def reposition_clefs(
         change the implicit clef.
 
         >>> staff = abjad.Staff(r"c1 | d1")
-        >>> abjad.attach(abjad.Clef('bass'), staff[1])
+        >>> abjad.attach(abjad.Clef("bass"), staff[1])
         >>> abjad.show(staff)
 
         ..  docs::
@@ -434,7 +434,7 @@ def reposition_clefs(
 
         >>> auxjad.mutate.reposition_clefs(
         ...     staff[:],
-        ...     implicit_clef=abjad.Clef('bass'),
+        ...     implicit_clef=abjad.Clef("bass"),
         ... )
         >>> abjad.show(staff)
 

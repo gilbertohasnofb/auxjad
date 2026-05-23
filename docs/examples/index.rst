@@ -1,11 +1,10 @@
 Examples of usage
 =================
 
-In this page you will find some practical examples showcasing the types of
-algorithmic manipulation that |auxjad|_ can accomplish. These examples do not
-make use of all classes and functions, nor do they show all the features of the
-ones that are used. Please refer to |auxjad|_'s API in the left pane for the
-documentation of specific classes and functions.
+In this page you will find some practical examples showcasing the types of algorithmic manipulation
+that |auxjad|_ can accomplish. These examples do not make use of all classes and functions, nor do
+they show all the features of the ones that are used. Please refer to |auxjad|_'s API in the left
+pane for the documentation of specific classes and functions.
 
 .. toctree::
     :maxdepth: 2

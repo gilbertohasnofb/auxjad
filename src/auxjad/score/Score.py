@@ -130,8 +130,8 @@ class Score(Context, abjad.Score):
                 >>> voice_1 = abjad.Voice(r"c''1 d''1 e''1 f''1")
                 >>> voice_2 = abjad.Voice(r"c'2 d'2 e'2 f'2 g'2 a'2 b'2 c''2")
                 >>> staff = abjad.Staff([voice_1, voice_2], simultaneous=True)
-                >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceOne'), voice_1)
-                >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceTwo'), voice_2)
+                >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), voice_1)
+                >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), voice_2)
                 >>> score = auxjad.Score([staff])
                 >>> score.add_final_bar_line()
                 >>> abjad.show(score)
@@ -209,8 +209,8 @@ class Score(Context, abjad.Score):
                 >>> voice_1 = abjad.Voice(r"c''1 d''1 e''1 f''1")
                 >>> voice_2 = abjad.Voice(r"c'2 d'2 e'2 f'2 g'2 a'2 b'2 c''2")
                 >>> staff = abjad.Staff([voice_1, voice_2], simultaneous=True)
-                >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceOne'), voice_1)
-                >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceTwo'), voice_2)
+                >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), voice_1)
+                >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), voice_2)
                 >>> score = auxjad.Score([staff])
                 >>> score.add_final_bar_line(to_each_voice=True)
                 >>> abjad.show(voice_1)
@@ -257,8 +257,8 @@ class Score(Context, abjad.Score):
                 >>> voice_1 = abjad.Voice(r"c''1 d''1 e''1 f''1")
                 >>> voice_2 = abjad.Voice(r"c'1 d'1 e'1")
                 >>> staff = abjad.Staff([voice_1, voice_2], simultaneous=True)
-                >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceOne'), voice_1)
-                >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceTwo'), voice_2)
+                >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), voice_1)
+                >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), voice_2)
                 >>> score = auxjad.Score([staff])
                 >>> score.add_final_bar_line(to_each_voice=True)
                 >>> abjad.show(score)
@@ -292,7 +292,7 @@ class Score(Context, abjad.Score):
                 ..  figure:: ../_images/Score-duPkS4pJGc.png
 
         argument:
-            The default bar line is of type ``'|.'``. To change this behaviour,
+            The default bar line is of type ``"|."``. To change this behaviour,
             call this method with an argument of type :obj:`str` or |abjad.BarLine|
             with the desired bar line type:
 
@@ -509,8 +509,8 @@ class Score(Context, abjad.Score):
             ...     r"\time 3/4 c'2. \time 4/4 d'1 e'1 \time 6/4 f'2. g'2."
             ... )
             >>> staff = abjad.Staff([voice_1, voice_2], simultaneous=True)
-            >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceOne'), voice_1)
-            >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceTwo'), voice_2)
+            >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), voice_1)
+            >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), voice_2)
             >>> score = auxjad.Score([staff])
             >>> score.add_double_bar_lines_before_time_signatures()
             >>> abjad.show(score)
@@ -603,8 +603,8 @@ class Score(Context, abjad.Score):
             ...     r"\time 3/4 c'2. \time 4/4 d'1 e'1 \time 6/4 f'2. g'2."
             ... )
             >>> staff = abjad.Staff([voice_1, voice_2], simultaneous=True)
-            >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceOne'), voice_1)
-            >>> abjad.attach(abjad.LilyPondLiteral(r'\voiceTwo'), voice_2)
+            >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceOne"), voice_1)
+            >>> abjad.attach(abjad.LilyPondLiteral(r"\voiceTwo"), voice_2)
             >>> score = auxjad.Score([staff])
             >>> score.add_double_bar_lines_before_time_signatures(
             ...     to_each_voice=True,
@@ -699,10 +699,10 @@ class Score(Context, abjad.Score):
             ...     r"\time 6/4 f'2. g'2. "
             ...     r"\time 2/4 a'2"
             ... )
-            >>> abjad.attach(abjad.BarLine('.|:'), staff[0])
-            >>> abjad.attach(abjad.BarLine(':|.'), staff[1])
-            >>> abjad.attach(abjad.BarLine('|'), staff[3])
-            >>> abjad.attach(abjad.BarLine('!'), staff[5])
+            >>> abjad.attach(abjad.BarLine(".|:"), staff[0])
+            >>> abjad.attach(abjad.BarLine(":|."), staff[1])
+            >>> abjad.attach(abjad.BarLine("|"), staff[3])
+            >>> abjad.attach(abjad.BarLine("!"), staff[5])
             >>> score = abjad.Score([staff])
             >>> score.add_double_bar_lines_before_time_signatures()
             >>> abjad.show(score)

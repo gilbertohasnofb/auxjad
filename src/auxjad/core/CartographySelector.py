@@ -47,7 +47,7 @@ class CartographySelector:
         taken into consideration when selecting an element. This means that
         repeated elements can appear, as shown below.
 
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += str(selector())
         >>> result
@@ -77,7 +77,7 @@ class CartographySelector:
         calls.
 
         >>> selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += str(selector(no_repeat=True))
         >>> result
@@ -101,7 +101,7 @@ class CartographySelector:
         >>> selector.weights
         [1.0, 0.2, 0.04000000000000001, 0.008000000000000002,
         0.0016000000000000003]
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += str(selector())
         >>> result

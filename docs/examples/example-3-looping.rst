@@ -1,26 +1,22 @@
 Looping with :class:`auxjad.WindowLooper`
 =========================================
 
-In this next example, we will use some of |auxjad|_'s classes to generate
-a container of randomly selected material, and then use this material as input
-for the looping and shuffling classes.
+In this next example, we will use some of |auxjad|_'s classes to generate a container of randomly
+selected material, and then use this material as input for the looping and shuffling classes.
 
 First, we start by importing both :mod:`abjad` and |auxjad|_.
 
     >>> import abjad
     >>> import auxjad
 
-Let's start by deciding what random selectors will be responsible for
-generating each parameter of our basic material. Let's use
-:class:`auxjad.TenneySelector` for pitches, which is an implementation of
-Tenney's Dissonant Counterpoint Algorithm; at each call, this algorithm
-prioritises elements that haven't been select for the longest time. For the
-durations, dynamics, and articulations, the example will use
-:class:`auxjad.CartographySelector`. Each element input into this type of
-selector has a probability of being selected which is dependent on its index.
-By default, the probability of consecutive elements decay with a rate of
-``0.75``. For more information on both of these classes, check |auxjad|_'s API
-page (link in the left panel).
+Let's start by deciding what random selectors will be responsible for generating each parameter of
+our basic material. Let's use :class:`auxjad.TenneySelector` for pitches, which is an implementation
+of Tenney's Dissonant Counterpoint Algorithm; at each call, this algorithm prioritises elements that
+haven't been select for the longest time. For the durations, dynamics, and articulations, the
+example will use :class:`auxjad.CartographySelector`. Each element input into this type of selector
+has a probability of being selected which is dependent on its index. By default, the probability of
+consecutive elements decay with a rate of ``0.75``. For more information on both of these classes,
+check |auxjad|_'s API page (link in the left panel).
 
     >>> pitch_selector = auxjad.TenneySelector(["c'",
     ...                                         ("fs'", "g'"),
@@ -32,24 +28,22 @@ page (link in the left panel).
     ...                                                 (3, 8),
     ...                                                 (5, 8),
     ...                                                 ])
-    >>> dynamic_selector = auxjad.CartographySelector(['p', 'mp', 'mf', 'f'])
-    >>> articulation_selector = auxjad.CartographySelector([None, '-', '>'])
+    >>> dynamic_selector = auxjad.CartographySelector(["p", "mp", "mf", "f"])
+    >>> articulation_selector = auxjad.CartographySelector([None, "-", ">"])
 
-Let's now create eight random notes, each with four parameters randomly
-selected by the classes above.
+Let's now create eight random notes, each with four parameters randomly selected by the classes
+above.
 
     >>> pitches = [pitch_selector() for _ in range(8)]
     >>> durations = [duration_selector() for _ in range(8)]
     >>> dynamics = [dynamic_selector() for _ in range(8)]
     >>> articulations = [articulation_selector() for _ in range(8)]
 
-With these :obj:`list`'s' of pitches, durations, dynamics, and articulations,
-we can now use :class:`auxjad.LeafDynMaker` to create the individual abjad
-leaves for us. It's important to note that there is no time signature being
-imposed at this point, so LilyPond will fallback to a four by four when
-displaying the container below. This is not a problem since this will be used
-as the basic material for the looper, which will then automatically take care
-of time signatures.
+With these :obj:`list`'s' of pitches, durations, dynamics, and articulations, we can now use
+:class:`auxjad.LeafDynMaker` to create the individual abjad leaves for us. It's important to note
+that there is no time signature being imposed at this point, so LilyPond will fallback to a four by
+four when displaying the container below. This is not a problem since this will be used as the basic
+material for the looper, which will then automatically take care of time signatures.
 
     >>> leaf_dyn_maker = auxjad.LeafDynMaker()
     >>> notes = leaf_dyn_maker(pitches, durations, dynamics, articulations)
@@ -85,13 +79,11 @@ of time signatures.
 
 ..  figure:: ../_images/example-3-looping-wcsvsyfmwm.png
 
-Let's now use :class:`auxjad.WindowLooper` to output loops of windows of the
-material. Let's initiate this class with a window size of a 4/4 measure, and a
-step forward of a semiquaver. Setting
-:attr:`~auxjad.LeafLooper.after_rest` to the duration ``(1, 4)`` will add
-crotchet rests in between consecutive outputs of this looper. Setting
-:attr:`~auxjad.LeafLooper.after_rest_in_new_measure` to ``True`` ensure that
-these rests (which work as separators of consecutive windows) are in a new
+Let's now use :class:`auxjad.WindowLooper` to output loops of windows of the material. Let's
+initiate this class with a window size of a 4/4 measure, and a step forward of a semiquaver. Setting
+:attr:`~auxjad.LeafLooper.after_rest` to the duration ``(1, 4)`` will add crotchet rests in between
+consecutive outputs of this looper. Setting :attr:`~auxjad.LeafLooper.after_rest_in_new_measure` to
+``True`` ensure that these rests (which work as separators of consecutive windows) are in a new
 measure by themselves.
 
     >>> looper = auxjad.WindowLooper(container,
@@ -101,9 +93,8 @@ measure by themselves.
     ...                              after_rest_in_new_measure=True,
     ...                              )
 
-We can now use the :meth:`~auxjad.WindowLooper.output_n` to output several
-measures of the looping process for us. In this case, let's output four
-measures.
+We can now use the :meth:`~auxjad.WindowLooper.output_n` to output several measures of the looping
+process for us. In this case, let's output four measures.
 
     >>> staff = abjad.Staff()
     >>> notes = looper.output_n(4)
@@ -172,8 +163,8 @@ measures.
 
 ..  figure:: ../_images/example-3-looping-002erek662ml6.png
 
-Let's now change the values of :attr:`~auxjad.WindowLooper.step_size` from a
-semiquaver into a crotchet and output four more measures.
+Let's now change the values of :attr:`~auxjad.WindowLooper.step_size` from a semiquaver into a
+crotchet and output four more measures.
 
     >>> looper.step_size = (1, 4)
     >>> notes = looper.output_n(4)
@@ -312,8 +303,8 @@ semiquaver into a crotchet and output four more measures.
 ..  figure:: ../_images/example-3-looping-qodelstkbvo.png
 
 Let's now change both :attr:`~auxjad.WindowLooper.window_size` and
-:attr:`~auxjad.WindowLooper.step_size` as well as remove the after rests, and
-then output six more measures.
+:attr:`~auxjad.WindowLooper.step_size` as well as remove the after rests, and then output six more
+measures.
 
     >>> looper.window_size = (7, 8)
     >>> looper.step_size = (1, 16)

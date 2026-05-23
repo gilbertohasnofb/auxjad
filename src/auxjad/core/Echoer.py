@@ -160,7 +160,7 @@ class Echoer:
 
         >>> container = abjad.Container(r"c'4\f d'4 e'4 f'4")
         >>> echoer = auxjad.Echoer(container,
-        ...                        min_dynamic='mp',
+        ...                        min_dynamic="mp",
         ...                        )
         >>> notes = echoer()
         >>> staff = abjad.Staff(notes)
@@ -285,7 +285,7 @@ class Echoer:
 
         ..  figure:: ../_images/Echoer-aqq1docvezb.png
 
-        >>> echoer.min_dynamic = 'pp'
+        >>> echoer.min_dynamic = "pp"
         >>> notes = echoer()
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
@@ -436,7 +436,7 @@ class Echoer:
 
         >>> container = abjad.Container(r"c'4\mf d'4\mp e'\p f'\pp")
         >>> echoer = auxjad.Echoer(container,
-        ...                        min_dynamic='p',
+        ...                        min_dynamic="p",
         ...                        max_steps=2,
         ...                        repetition_chance=0.7,
         ...                        disable_rewrite_meter=True,
@@ -449,7 +449,7 @@ class Echoer:
         ...                        include_empty_measures=False,
         ...                        )
         >>> echoer.min_dynamic
-        'p'
+        "p"
         >>> echoer.max_steps
         2
         >>> echoer.repetition_chance
@@ -473,7 +473,7 @@ class Echoer:
 
         Use the properties below to change these values after initialisation.
 
-        >>> echoer.min_dynamic = 'mp'
+        >>> echoer.min_dynamic = "mp"
         >>> echoer.max_steps = 1
         >>> echoer.repetition_chance = 0.23
         >>> echoer.disable_rewrite_meter = False
@@ -485,7 +485,7 @@ class Echoer:
         >>> echoer.process_on_first_call = False
         >>> echoer.include_empty_measures = True
         >>> echoer.min_dynamic
-        'mp'
+        "mp"
         >>> echoer.max_steps
         1
         >>> echoer.repetition_chance

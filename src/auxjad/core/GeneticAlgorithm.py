@@ -22,8 +22,8 @@ class GeneticAlgorithm:
         :attr:`population_size`.
 
         >>> ga = auxjad.GeneticAlgorithm(
-        ...     target=['A', 'B', 'C', 'D', 'E'],
-        ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+        ...     target=["A", "B", "C", "D", "E"],
+        ...     genes=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
         ...     population_size=4,
         ...     select_n_parents=2,
         ... )
@@ -35,10 +35,10 @@ class GeneticAlgorithm:
 
         >>> ga()
         >>> ga.population
-        [['A', 'J', 'J', 'B', 'H'],
-         ['D', 'A', 'E', 'A', 'F'],
-         ['F', 'F', 'A', 'F', 'F'],
-         ['F', 'F', 'E', 'J', 'C'],
+        [["A", "J", "J", "B", "H"],
+         ["D", "A", "E", "A", "F"],
+         ["F", "F", "A", "F", "F"],
+         ["F", "F", "E", "J", "C"],
          ]
         >>> ga.scores
         [0.209603072,
@@ -55,14 +55,14 @@ class GeneticAlgorithm:
         accessed using the property :attr:`fittest_individual`:
 
         >>> ga = auxjad.GeneticAlgorithm(
-        ...     target=['A', 'B', 'C', 'D', 'E'],
-        ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+        ...     target=["A", "B", "C", "D", "E"],
+        ...     genes=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
         ...     population_size=4,
         ...     select_n_parents=2,
         ... )
         >>> ga()
         >>> ga.fittest_individual
-        ['A', 'J', 'J', 'B', 'H']
+        ["A", "J", "J", "B", "H"]
 
         Its score is also directly accessible using
         :attr:`fittest_individual_score`:
@@ -77,23 +77,23 @@ class GeneticAlgorithm:
         :attr:`population_size` to  ``50``:
 
         >>> ga = auxjad.GeneticAlgorithm(
-        ...     target=['A', 'B', 'C', 'D', 'E'],
-        ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+        ...     target=["A", "B", "C", "D", "E"],
+        ...     genes=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
         ...     population_size=50,
         ... )
         >>> for _ in range(10):
         ...     ga()
         ...     print(ga.fittest_individual, ga.fittest_individual_score)
-        ['A', 'J', 'B', 'E', 'E'] 0.480000512
-        ['A', 'H', 'C', 'D', 'J'] 0.6000768
-        ['A', 'C', 'D', 'D', 'E'] 0.6799999999999999
-        ['A', 'C', 'D', 'D', 'E'] 0.6799999999999999
-        ['A', 'C', 'D', 'D', 'E'] 0.6799999999999999
-        ['A', 'C', 'C', 'D', 'E'] 0.8400000000000001
-        ['A', 'C', 'C', 'D', 'E'] 0.8400000000000001
-        ['A', 'C', 'C', 'D', 'E'] 0.8400000000000001
-        ['A', 'C', 'C', 'D', 'E'] 0.8400000000000001
-        ['A', 'C', 'C', 'D', 'E'] 0.8400000000000001
+        ["A", "J", "B", "E", "E"] 0.480000512
+        ["A", "H", "C", "D", "J"] 0.6000768
+        ["A", "C", "D", "D", "E"] 0.6799999999999999
+        ["A", "C", "D", "D", "E"] 0.6799999999999999
+        ["A", "C", "D", "D", "E"] 0.6799999999999999
+        ["A", "C", "C", "D", "E"] 0.8400000000000001
+        ["A", "C", "C", "D", "E"] 0.8400000000000001
+        ["A", "C", "C", "D", "E"] 0.8400000000000001
+        ["A", "C", "C", "D", "E"] 0.8400000000000001
+        ["A", "C", "C", "D", "E"] 0.8400000000000001
 
     Evaluation function and :attr:`evaluation_index`:
         The evaluation function gives out a score between ``0.0`` to ``1.0`` to
@@ -103,12 +103,12 @@ class GeneticAlgorithm:
         being used as genes (as opposed to numbers only), this comparison uses
         the distance between the current individual and target genes using the
         :attr:`genes` property. Consider the following example, where the
-        available genes are ``['A', 'B', 'C', 'D', 'E', 'F']`` and the target
-        is ``['B', 'A', 'A', 'C']``. Suppose an individual has the genes
-        ``['D', 'D', 'A', 'B']``.
+        available genes are ``["A", "B", "C", "D", "E", "F"]`` and the target
+        is ``["B", "A", "A", "C"]``. Suppose an individual has the genes
+        ``["D", "D", "A", "B"]``.
 
         To evaluate this individual, first the algorithm finds the indices of
-        both the target's genes (in this case, ``[1, 0, 0, 2]``) and also of
+        both the target"s genes (in this case, ``[1, 0, 0, 2]``) and also of
         the individual to be evaluated (in this case, ``[3, 3, 0, 1]``). It
         then scores each element of this individual against the target using:
 
@@ -155,31 +155,31 @@ class GeneticAlgorithm:
         fit one according to the target.
 
         >>> ga = auxjad.GeneticAlgorithm(
-        ...     target=['A', 'B', 'C', 'D', 'E'],
-        ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-        ...     initial_individual=['F', 'G', 'H', 'I', 'J'],
+        ...     target=["A", "B", "C", "D", "E"],
+        ...     genes=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
+        ...     initial_individual=["F", "G", "H", "I", "J"],
         ... )
         >>> for _ in range(10):
         ...     ga()
         ...     ga.fittest_individual
-        ['F', 'G', 'H', 'I', 'J']
-        ['F', 'B', 'H', 'I', 'J']
-        ['F', 'B', 'H', 'I', 'E']
-        ['F', 'B', 'H', 'I', 'E']
-        ['A', 'B', 'H', 'I', 'E']
-        ['A', 'B', 'E', 'I', 'E']
-        ['A', 'B', 'E', 'D', 'E']
-        ['A', 'B', 'E', 'D', 'E']
-        ['A', 'B', 'E', 'D', 'E']
-        ['A', 'B', 'D', 'D', 'E']
+        ["F", "G", "H", "I", "J"]
+        ["F", "B", "H", "I", "J"]
+        ["F", "B", "H", "I", "E"]
+        ["F", "B", "H", "I", "E"]
+        ["A", "B", "H", "I", "E"]
+        ["A", "B", "E", "I", "E"]
+        ["A", "B", "E", "D", "E"]
+        ["A", "B", "E", "D", "E"]
+        ["A", "B", "E", "D", "E"]
+        ["A", "B", "D", "D", "E"]
 
     :meth:`reset`:
         Use the :meth:`reset` method to reset the genetic algorithm at any
         point:
 
         >>> ga = auxjad.GeneticAlgorithm(
-        ...     target=['A', 'B', 'C', 'D', 'E'],
-        ...     genes=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+        ...     target=["A", "B", "C", "D", "E"],
+        ...     genes=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
         ... )
         >>> ga.generation_number
         None
@@ -190,7 +190,7 @@ class GeneticAlgorithm:
         >>> ga.generation_number
         9
         >>> ga.fittest_individual
-        ['C', 'B', 'C', 'D', 'E']
+        ["C", "B", "C", "D", "E"]
         >>> ga.reset()
         >>> ga.generation_number
         None
@@ -544,9 +544,9 @@ class GeneticAlgorithm:
         r"""The index used in the evaluation function. This index will be
         raised by the difference between indices of the target value and the
         current value. Consider the following example, where the available
-        genes are ``['A', 'B', 'C', 'D', 'E', 'F']`` and the target is
-        ``['B', 'A', 'A', 'C']``. Suppose an individual has the genes
-        ``['D', 'D', 'A', 'B']``.
+        genes are ``["A", "B", "C", "D", "E", "F"]`` and the target is
+        ``["B", "A", "A", "C"]``. Suppose an individual has the genes
+        ``["D", "D", "A", "B"]``.
 
         To evaluate this individual, first the algorithm finds the indices of
         both the target's genes (in this case, ``[1, 0, 0, 2]``) and also of

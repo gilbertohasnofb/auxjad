@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=80.9.0", "twine>=6.2.0", "wheel"]
+requires = ["setuptools>=80.9.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,9 +7,9 @@ name = "auxjad"
 description = "Auxiliary classes and functions for Abjad."
 authors = [{name = "Gilberto Agostinho", email = "gilbertohasnofb@gmail.com"}]
 readme = "README.rst"
-license = { text = "MIT" }
+license = {file = "LICENSE"}
 requires-python = ">=3.10"
-dynamic = ["version", "dependencies"]
+dynamic = ["version", "dependencies", "optional-dependencies"]
 keywords = [
     "auxjad",
     "algorithmic composition",
@@ -40,21 +40,22 @@ pythonpath = "src"
 testpaths = "tests"
 
 [tool.setuptools]
-include-package-data = true
 packages = ["auxjad"]
-package-dir = { "" = "src" }
+package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
 "*" = ["LICENSE", "README.rst"]
 "auxjad" = ["**/*"]
 
 [tool.setuptools.dynamic]
-version = {attr = "auxjad.__version__"}
+version = {attr = "auxjad._version.__version__"}
 dependencies = {file = ["requirements.txt"]}
+optional-dependencies.dev = {file = ["requirements-dev.txt"]}
+optional-dependencies.test = {file = ["requirements-test.txt"]}
 
 [tool.black]
 line-length = 100
-target-version = ["py310"]
+target-version = ["py310", "py311", "py312", "py313"]
 
 [tool.isort]
 case_sensitive = true

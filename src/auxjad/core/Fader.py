@@ -141,15 +141,15 @@ class Fader:
 
     :attr:`mode`:
         This class has two modes, set by the keyword argument :attr:`mode`. The
-        default mode is ``'out'`` (i.e. 'fade out mode'), in which the fader
+        default mode is ``"out"`` (i.e. 'fade out mode'), in which the fader
         will gradually remove notes one by one (see examples above). When set
-        to ``'in'`` (i.e. 'fade in mode'), the fader will start with an empty
+        to ``"in"`` (i.e. 'fade in mode'), the fader will start with an empty
         container with the same length and time signature  structure as the
         input music and will gradually add the original notes one by one.
 
         >>> container = abjad.Container(r"c'4 ~ c'16 d'8. e'8 f'4.")
         >>> fader = auxjad.Fader(container,
-        ...                      mode='in',
+        ...                      mode="in",
         ...                      )
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
@@ -256,7 +256,7 @@ class Fader:
 
         ..  figure:: ../_images/Fader-aqq1docvezb.png
 
-        >>> fader.mode = 'in'
+        >>> fader.mode = "in"
         >>> notes = fader()
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
@@ -292,15 +292,15 @@ class Fader:
         ..  figure:: ../_images/Fader-2i22so5t5pf.png
 
     :attr:`include_empty_measures`:
-        When :attr:`mode` is set to ``'out'``, the process will end on an empty
-        measure and when it is set to ``'in'``, it will start on an empty
+        When :attr:`mode` is set to ``"out"``, the process will end on an empty
+        measure and when it is set to ``"in"``, it will start on an empty
         measure. Set :attr:`include_empty_measures` to ``False`` to exclude the
         empty measures (default is ``True``). This can be used in conjunction
         with  :attr:`process_on_first_call`.
 
         >>> container = abjad.Container(r"c'4 d'4 e'2")
         >>> fader = auxjad.Fader(container,
-        ...                      mode='in',
+        ...                      mode="in",
         ...                      include_empty_measures=False,
         ...                      )
         >>> staff = abjad.Staff(fader.output_all())
@@ -325,7 +325,7 @@ class Fader:
 
         >>> container = abjad.Container(r"c'4 d'4 e'2")
         >>> fader = auxjad.Fader(container,
-        ...                      mode='out',
+        ...                      mode="out",
         ...                      include_empty_measures=False,
         ...                      )
         >>> staff = abjad.Staff(fader.output_all())
@@ -408,8 +408,8 @@ class Fader:
         to disable this behaviour. It is possible to set an initial mask for
         the notes using :attr:`mask`, which should be a :obj:`list` of the same
         length as the number of notes in the input container. When :attr:`mode`
-        is set to ``'out'``, the mask is initialised with ``1``'s, and when it
-        is set to ``'in'``, it is initialised with ``0``'s. Change it to a mix
+        is set to ``"out"``, the mask is initialised with ``1``'s, and when it
+        is set to ``"in"``, it is initialised with ``0``'s. Change it to a mix
         of ``1``'s and ``0``'s to start the process with some specific notes
         already hidden or present. The properties :attr:`boundary_depth`,
         :attr:`maximum_dot_count`, and :attr:`rewrite_tuplets` are passed as
@@ -418,7 +418,7 @@ class Fader:
 
         >>> container = abjad.Container(r"c'4 d'2 e'4 f'2 ~ f'8 g'4.")
         >>> fader = auxjad.Fader(container,
-        ...                      mode='in',
+        ...                      mode="in",
         ...                      max_steps=2,
         ...                      repetition_chance=0.7,
         ...                      disable_rewrite_meter=True,
@@ -432,7 +432,7 @@ class Fader:
         ...                      include_empty_measures=False,
         ...                      )
         >>> fader.mode
-        'in'
+        "in"
         >>> fader.max_steps
         2
         >>> fader.repetition_chance
@@ -458,7 +458,7 @@ class Fader:
 
         Use the properties below to change these values after initialisation.
 
-        >>> fader.mode = 'out'
+        >>> fader.mode = "out"
         >>> fader.max_steps = 1
         >>> fader.repetition_chance = 0.23
         >>> fader.disable_rewrite_meter = False
@@ -471,7 +471,7 @@ class Fader:
         >>> fader.process_on_first_call = False
         >>> fader.include_empty_measures = True
         >>> fader.mode
-        'out'
+        "out"
         >>> fader.max_steps
         1
         >>> fader.repetition_chance
@@ -828,8 +828,8 @@ class Fader:
         The property :attr:`mask` is used to represent whether each note is
         hidden or present. It is a :obj:`list` of the same length as the number
         of notes in the input container (use the :func:`len()` function to read
-        that value). When :attr:`mode` is set to ``'out'``, the mask is
-        initialised with ``1``'s, and when it is set to ``'in'``, it is
+        that value). When :attr:`mode` is set to ``"out"``, the mask is
+        initialised with ``1``'s, and when it is set to ``"in"``, it is
         initialised with ``0``'s. Change it to a mix of ``1``'s and ``0``'s to
         start the process with some notes already hidden or present. Use the
         method :meth:`reset` to reset it back to its default value (depending
@@ -840,7 +840,7 @@ class Fader:
         >>> fader.mask
         [1, 1, 1, 1, 1]
         >>> fader = auxjad.Fader(container,
-        ...                      mode='in',
+        ...                      mode="in",
         ...                      )
         >>> fader.mask
         [0, 0, 0, 0, 0]
@@ -1371,7 +1371,7 @@ class Fader:
         This class can handle time signature changes.
 
         >>> container = abjad.Container(r"\time 4/4 c'2( d'2 \time 3/4 e'2.)")
-        >>> fader = auxjad.Fader(container, mode='in')
+        >>> fader = auxjad.Fader(container, mode="in")
         >>> notes = fader.output_all()
         >>> staff = abjad.Staff(notes)
         >>> abjad.show(staff)
@@ -1776,7 +1776,7 @@ class Fader:
 
     @property
     def mode(self) -> str:
-        r"""Mode of fading, must be either ``'in'`` or ``'out'``."""
+        r"""Mode of fading, must be either ``"in"`` or ``"out"``."""
         return self._mode
 
     @mode.setter
@@ -2062,9 +2062,9 @@ class Fader:
     @property
     def _done(self) -> bool:
         r""":obj:`bool` indicating whether the process is done, which is when
-        the mask is filled with ``1``'s with :attr:`mode` set to ``'in'`` or
+        the mask is filled with ``1``'s with :attr:`mode` set to ``"in"`` or
         when the mask is filled with ``0``'s with :attr:`mode` set to
-        ``'out'``.
+        ``"out"``.
         """
         if self._mode == "out":
             if self._include_empty_measures:

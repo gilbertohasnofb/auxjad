@@ -1,5 +1,5 @@
 """
-utilities
+utils
 =========
 
 Auxjad's utility functions.

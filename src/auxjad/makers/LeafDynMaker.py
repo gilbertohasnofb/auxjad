@@ -14,8 +14,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = [(1, 32), (2, 32), (3, 32), (4, 32), (5, 32), (6, 32)]
-        >>> dynamics = ['pp', 'p', 'mp', 'mf', 'f', 'ff']
-        >>> articulations = ['.', '>', '-', '_', '^', '+']
+        >>> dynamics = ["pp", "p", "mp", "mf", "f", "ff"]
+        >>> articulations = [".", ">", "-", "_", "^", "+"]
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
@@ -55,8 +55,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [5, None, (0, 2, 7)]
         >>> durations = [(1, 4), (1, 8), (1, 16)]
-        >>> dynamics = ['p', None, 'f']
-        >>> articulations = ['staccato', None, 'tenuto']
+        >>> dynamics = ["p", None, "f"]
+        >>> articulations = ["staccato", None, "tenuto"]
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
@@ -83,7 +83,7 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0, 2, 4, 5, 7, 9]
         >>> durations = [(1, 32), (2, 32), (3, 32), (4, 32), (5, 32), (6, 32)]
-        >>> dynamics = ['pp', 'pp', 'mp', 'f', 'f', 'p']
+        >>> dynamics = ["pp", "pp", "mp", "f", "f", "p"]
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches,
         ...               durations,
@@ -119,8 +119,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
-        >>> dynamics = ['p', 'f', 'ff']
-        >>> articulations = ['.', '>']
+        >>> dynamics = ["p", "f", "ff"]
+        >>> articulations = [".", ">"]
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
@@ -155,8 +155,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
-        >>> dynamics = ['p', 'f', 'ff']
-        >>> articulations = ['.', '>']
+        >>> dynamics = ["p", "f", "ff"]
+        >>> articulations = [".", ">"]
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches,
         ...               durations,
@@ -206,8 +206,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
-        >>> dynamics = 'p'
-        >>> articulations = '.'
+        >>> dynamics = "p"
+        >>> articulations = "."
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches, durations, dynamics, articulations)
         >>> staff = abjad.Staff(notes)
@@ -237,8 +237,8 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0, 2, 4, 5, 7, 9, 11, 12]
         >>> durations = (1, 4)
-        >>> dynamics = 'p'
-        >>> articulations = '.'
+        >>> dynamics = "p"
+        >>> articulations = "."
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches,
         ...               durations,
@@ -280,24 +280,24 @@ class LeafDynMaker(abjad.LeafMaker):
 
         >>> pitches = [0,
         ...            "d'",
-        ...            'E4',
+        ...            "E4",
         ...            abjad.NumberedPitch(5),
         ...            abjad.NamedPitch("g'"),
-        ...            abjad.NamedPitch('A4'),
+        ...            abjad.NamedPitch("A4"),
         ...            ]
         >>> durations = [(1, 32),
-        ...              '2/32',
-        ...              abjad.Duration('3/32'),
+        ...              "2/32",
+        ...              abjad.Duration("3/32"),
         ...              abjad.Duration(0.125),
         ...              abjad.Duration(5, 32),
         ...              abjad.Duration(6 / 32),
         ...              ]
-        >>> dynamics = ['p',
-        ...             abjad.Dynamic('f'),
+        >>> dynamics = ["p",
+        ...             abjad.Dynamic("f"),
         ...             ]
-        >>> articulations = ['>',
-        ...                  abjad.Articulation('-'),
-        ...                  abjad.Articulation('.'),
+        >>> articulations = [">",
+        ...                  abjad.Articulation("-"),
+        ...                  abjad.Articulation("."),
         ...                  ]
         >>> maker = auxjad.LeafDynMaker()
         >>> notes = maker(pitches, durations, dynamics, articulations)

@@ -1,102 +1,65 @@
-.PHONY: build clean docs-html docs-release flake8 pydocstyle release-webpage \
-	isort-check isort-reformat pytest reformat release check test
+PYTHON := .venv/bin/python
 
-flake_ignore = --ignore=E203,E266,E501,W503
-flake_exclude = --exclude=.venv,./sandbox.py,./docs/conf.py
+.PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
+		sort-reformat pydocstyle reformat release release-website setup test
 
-pydocstyle_select = --select=D101,D102,D103,D105,D300,D301
+# Setup
+.venv/.installed: requirements.txt requirements-dev.txt requirements-test.txt
+	python3 -m venv .venv
+	.venv/bin/pip install --upgrade pip
+	.venv/bin/pip install -r requirements.txt
+	.venv/bin/pip install -r requirements-dev.txt
+	.venv/bin/pip install -r requirements-test.txt
+	touch .venv/.installed
+setup: .venv/.installed
 
-build:
-	python3 -m build
-
-clean:
-	find . -name '*.pyc' | xargs rm
-	rm -Rif *.egg-info/
-	rm -Rif .cache
-	rm -Rif __pycache__
-	rm -Rif build
-	rm -Rif dist
-
-docs-html:
-	make -C docs/ html
-
-docs-release:
-	make -C docs/ release
-
+# Formatting and linting
 black-check:
-	python3 -m black -l 100 . --check
-
+	@$(PYTHON) -m black . --check
 black-reformat:
-	python3 -m black -l 100 .
-
+	@$(PYTHON) -m black .
 flake8:
-	python3 -m flake8 ${flake_ignore} ${flake_exclude}
-
+	@$(PYTHON) -m flake8
+isort-check:
+	@$(PYTHON) -m isort --check-only --diff .
+isort-reformat:
+	@$(PYTHON) -m isort .
 pydocstyle:
-	python3 -m pydocstyle ${pydocstyle_select} ./src
+	@$(PYTHON) -m pydocstyle
+check: black-check flake8 isort-check pydocstyle
+reformat: black-reformat isort-reformat
 
-release-webpage:
+# Unit testing
+test:
+	@$(PYTHON) -m pytest
+
+# Building documentation
+docs-html:
+	$(MAKE) -C docs/ docs-html
+docs-release:
+	$(MAKE) -C docs/ docs-release
+release-website: docs-html
 	rm -Rf auxjad-docs/
 	git clone https://github.com/gilbertohasnofb/auxjad-docs auxjad-docs
-	rsync -rtv --del --exclude=.git --exclude=README.rst \
-	docs/_build/html/ auxjad-docs/
+	rsync -rtv --delete --exclude=.git --exclude=README.rst docs/_build/html/ auxjad-docs/ && \
 	cd auxjad-docs && \
-		touch .nojekyll && \
-		git add -A && \
-		git commit -m "Update docs" && \
-		git push -u origin master
+	touch .nojekyll && \
+	git add -A && \
+	git commit -m "Update docs" && \
+	git push -u origin main
 	rm -Rf auxjad-docs/
 
-isort-check:
-	python3 -m isort \
-	--case-sensitive \
-	--check-only \
-	--diff \
-	--line-width=79 \
-	--multi-line=3 \
-	--project=auxjad \
-	--skip=src/auxjad/__init__.py \
-	--skip=sandbox.py \
-	--skip-gitignore \
-	--trailing-comma \
-	--use-parentheses \
-	.
+# Building library
+clean:
+	find . -type f -name "*.pyc" -delete
+	find . -type d -name "__pycache__" -delete
+	rm -Rif *.egg-info/
+	rm -Rif .cache
+	rm -Rif build
+	rm -Rif dist
+build: setup
+	@$(PYTHON) -m build
 
-isort-reformat:
-	python3 -m isort \
-	--case-sensitive \
-	--line-width=79 \
-	--multi-line=3 \
-	--project=auxjad \
-	--skip=src/auxjad/__init__.py \
-	--skip=sandbox.py \
-	--skip-gitignore \
-	--trailing-comma \
-	--use-parentheses \
-	.
-
-pytest:
-	python3 -m pytest
-
-reformat:
-	make black-reformat
-	make isort-reformat
-
-release:
-	make test
-	make docs-release
-	make clean
-	make build
-	pip install -U twine
-	twine upload dist/*.tar.gz
-	make release-webpage
-
-check:
-	make black-check
-	make flake8
-	make isort-check
-	make pydocstyle
-
-test:
-	make check
-	make pytest
+# Releasing
+release: check test docs-release clean build release-website
+	@$(PYTHON) -m twine upload dist/*.tar.gz

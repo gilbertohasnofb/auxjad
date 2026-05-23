@@ -74,15 +74,15 @@ class Repeater:
 
     :attr:`repeat_type`:
         Use the :attr:`repeat_type` property to set the type of the repeater.
-        It takes a single string, which should be either ``'unfold'`` or
-        ``'volta'``. Unfold is the default mode i.e. the repeater outputs a
+        It takes a single string, which should be either ``"unfold"`` or
+        ``"volta"``. Unfold is the default mode i.e. the repeater outputs a
         selection of ``n`` identical consecutive measures. In volta mode,
         repeat bars are added as well as a written indication of the number of
         repeats. Compare:
 
         >>> container = abjad.Container(r"c'2 d'2")
         >>> repeater = auxjad.Repeater(container,
-        ...                            repeat_type='unfold',
+        ...                            repeat_type="unfold",
         ...                            )
         >>> notes = repeater(5)
         >>> staff = abjad.Staff(notes)
@@ -108,7 +108,7 @@ class Repeater:
 
         >>> container = abjad.Container(r"c'2 d'2")
         >>> repeater = auxjad.Repeater(container,
-        ...                            repeat_type='volta',
+        ...                            repeat_type="volta",
         ...                            )
         >>> notes = repeater(5)
         >>> staff = abjad.Staff(notes)
@@ -137,7 +137,7 @@ class Repeater:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> repeater = auxjad.Repeater(container,
-        ...                            repeat_type='volta',
+        ...                            repeat_type="volta",
         ...                            )
         >>> notes = repeater(3)
         >>> staff = abjad.Staff(notes)
@@ -196,7 +196,7 @@ class Repeater:
 
         >>> container = abjad.Container(r"c'4 d'4 e'4 f'4")
         >>> repeater = auxjad.Repeater(container,
-        ...                            repeat_type='volta',
+        ...                            repeat_type="volta",
         ...                            include_2x_volta_text=False,
         ...                            )
         >>> notes = repeater(3)
@@ -387,7 +387,7 @@ class Repeater:
 
         >>> container = abjad.Container(r"\time 3/4 c'4 d'4 e'4")
         >>> repeater = auxjad.Repeater(container,
-        ...                            repeat_type='volta',
+        ...                            repeat_type="volta",
         ...                            include_2x_volta_text=False,
         ...                            omit_time_signatures=False,
         ...                            force_identical_time_signatures=False,
@@ -396,7 +396,7 @@ class Repeater:
         ...                            reposition_slurs=True,
         ...                            )
         >>> repeater.repeat_type
-        'volta'
+        "volta"
         >>> repeater.include_2x_volta_text
         False
         >>> repeater.omit_time_signatures
@@ -412,7 +412,7 @@ class Repeater:
 
         Use the properties below to change these values after initialisation.
 
-        >>> repeater.repeat_type = 'unfold'
+        >>> repeater.repeat_type = "unfold"
         >>> repeater.include_2x_volta_text = True
         >>> repeater.omit_time_signatures = True
         >>> repeater.force_identical_time_signatures = True
@@ -420,7 +420,7 @@ class Repeater:
         >>> repeater.reposition_dynamics = False
         >>> repeater.reposition_slurs = False
         >>> repeater.repeat_type
-        'unfold'
+        "unfold"
         >>> repeater.include_2x_volta_text
         True
         >>> repeater.omit_time_signatures
@@ -961,7 +961,7 @@ class Repeater:
 
     @property
     def repeat_type(self) -> bool:
-        r"""Defines the type of repeat, either ``'unfold'`` or ``'volta'``."""
+        r"""Defines the type of repeat, either ``"unfold"`` or ``"volta"``."""
         return self._repeat_type
 
     @repeat_type.setter

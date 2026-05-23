@@ -55,7 +55,7 @@ def respell_augmented_unisons(
         >>> maker = abjad.LeafMaker()
         >>> chords = maker(pitches, durations)
         >>> staff = abjad.Staff(chords)
-        >>> literal = abjad.LilyPondLiteral(r'\accidentalStyle dodecaphonic')
+        >>> literal = abjad.LilyPondLiteral(r"\accidentalStyle dodecaphonic")
         >>> abjad.attach(literal, staff)
         >>> abjad.show(staff)
 
@@ -105,7 +105,7 @@ def respell_augmented_unisons(
         >>> staff = abjad.Staff()
         >>> for pitch in range(12):
         ...     staff.append(abjad.Chord([pitch, pitch + 1], (1, 16)))
-        >>> literal = abjad.LilyPondLiteral(r'\accidentalStyle dodecaphonic')
+        >>> literal = abjad.LilyPondLiteral(r"\accidentalStyle dodecaphonic")
         >>> abjad.attach(literal, staff)
         >>> abjad.show(staff)
 

@@ -233,10 +233,10 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
         >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1")
         >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
-        ...                                   markup='I.',
+        ...                                   markup="I.",
         ...                                   )
         >>> harm3 = auxjad.ArtificialHarmonic(r"<a d'>1",
-        ...                                   markup='I.',
+        ...                                   markup="I.",
         ...                                   direction=abjad.Down)
         >>> staff = abjad.Staff([harm1, harm2, harm3])
         >>> abjad.show(staff)
@@ -274,7 +274,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         note.
 
         >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1",
-        ...                                  markup='I.',
+        ...                                  markup="I.",
         ...                                  )
         >>> harm.markup = None
         >>> abjad.show(harm)
@@ -297,7 +297,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         to ``False``. Compare:
 
         >>> harm1 = auxjad.ArtificialHarmonic(r"<a d'>1",
-        ...                                   markup='III.',
+        ...                                   markup="III.",
         ...                                   )
         >>> abjad.show(harm1)
 
@@ -315,7 +315,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         ..  figure:: ../_images/ArtificialHarmonic-cFjQuNmS3p.png
 
         >>> harm2 = auxjad.ArtificialHarmonic(r"<a d'>1",
-        ...                                   markup='III.',
+        ...                                   markup="III.",
         ...                                   centre_markup=False,
         ...                                   )
         >>> abjad.show(harm2)
@@ -337,8 +337,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         :attr:`markup` property to ``None`` will raise an :exc:`Exception`:
 
         >>> harm = auxjad.ArtificialHarmonic(r"<a d'>1")
-        >>> abjad.attach(abjad.Markup('test'), harm)
-        >>> harm.markup = 'I.'
+        >>> abjad.attach(abjad.Markup("test"), harm)
+        >>> harm.markup = "I."
         >>> harm.markup = None
         Exception: multiple indicators attached to client.
     """

@@ -32,18 +32,18 @@ class ListLooper(_LooperParent):
         process. Each call of the object will move the window forwards and
         output the result.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper()
-        ['A', 'B', 'C']
+        ["A", "B", "C"]
         >>> looper()
-        ['B', 'C', 'D']
+        ["B", "C", "D"]
 
         The property :attr:`current_window` can be used to access the current
         window without moving the head forwards.
 
         >>> looper.current_window
-        ['B', 'C', 'D']
+        ["B", "C", "D"]
 
     :attr:`process_on_first_call`:
         The very first call will output the input :obj:`list` without
@@ -51,30 +51,30 @@ class ListLooper(_LooperParent):
         move on the very first call, initialise the class with the keyword
         argument :attr:`process_on_first_call` set to ``True``.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            process_on_first_call=True,
         ...                            )
         >>> looper()
-        ['B', 'C', 'D']
+        ["B", "C", "D"]
 
     Using as iterator:
         The instances of this class can also be used as an iterator, which can
         then be used in a for loop to exhaust all windows.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            )
         >>> for window in looper:
         ...     print(window)
-        ['A', 'B', 'C']
-        ['B', 'C', 'D']
-        ['C', 'D', 'E']
-        ['D', 'E', 'F']
-        ['E', 'F']
-        ['F']
+        ["A", "B", "C"]
+        ["B", "C", "D"]
+        ["C", "D", "E"]
+        ["D", "E", "F"]
+        ["E", "F"]
+        ["F"]
 
     Arguments and properties:
         This class can take many optional keyword arguments during its
@@ -98,7 +98,7 @@ class ListLooper(_LooperParent):
         set :attr:`end_with_max_n_elements` to ``True`` to end the process when
         the final window has the maximum number of elements.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            step_size=1,
@@ -160,14 +160,14 @@ class ListLooper(_LooperParent):
         in the very first call (since it will not be able to move backwards
         from that position).
 
-        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> input_list = ["A", "B", "C", "D"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=2,
         ...                            head_position=2,
         ...                            forward_bias=0.0,
         ...                            )
         >>> looper.output_all()
-        ['C', 'D', 'B', 'C', 'A', 'B']
+        ["C", "D", "B", "C", "A", "B"]
 
     :attr:`forward_bias` between ``0.0`` and ``1.0``:
         Setingt :attr:`forward_bias` to a value in between ``0.0`` and ``1.0``
@@ -177,34 +177,34 @@ class ListLooper(_LooperParent):
         looper attempts to move backwards after reaching the head position
         ``0``.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        >>> input_list = ["A", "B", "C", "D", "E", "F", "G", "H"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=2,
         ...                            head_position=4,
         ...                            forward_bias=0.5,
         ...                            )
         >>> looper.output_n(4)
-        ['E', 'F', 'D', 'E', 'C', 'D', 'B', 'C']
+        ["E", "F", "D", "E", "C", "D", "B", "C"]
 
     :attr:`max_steps`:
         Setting the keyword argument :attr:`max_steps` to a value larger than
         ``1`` will result in a random number of steps (between ``1`` and
         :attr:`max_steps`) being applied at each call.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        >>> input_list = ["A", "B", "C", "D", "E", "F", "G", "H"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=2,
         ...                            head_position=2,
         ...                            max_steps=4,
         ...                            )
         >>> looper.output_n(4)
-        ['C', 'D', 'D', 'E', 'E', 'F', 'H']
+        ["C", "D", "D", "E", "E", "F", "H"]
 
     :func:`len()`:
         The function :func:`len()` can be used to get the total number of
         elements in the container.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> len(looper)
         6
@@ -214,20 +214,20 @@ class ListLooper(_LooperParent):
         from the initial head position until the process outputs the single
         last element, use the method :meth:`output_all`.
 
-        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> input_list = ["A", "B", "C", "D"]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_all()
-        ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
+        ["A", "B", "C", "B", "C", "D", "C", "D", "D"]
 
     :meth:`output_n`:
         To run through just part of the process and output it as a single
         :obj:`list`, starting from the initial head position, use the method
         :meth:`output_n` and pass the number of iterations as argument.
 
-        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> input_list = ["A", "B", "C", "D"]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_n(2)
-        ['A', 'B', 'C', 'B', 'C', 'D']
+        ["A", "B", "C", "B", "C", "D"]
 
     :attr:`end_with_max_n_elements`:
         When ``True``, the last bar in the output will contain the maximum
@@ -244,17 +244,17 @@ class ListLooper(_LooperParent):
 
         Compare the two examples below:
 
-        >>> input_list = ['A', 'B', 'C', 'D']
+        >>> input_list = ["A", "B", "C", "D"]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper.output_all()
-        ['A', 'B', 'C', 'B', 'C', 'D', 'C', 'D', 'D']
-        >>> input_list = ['A', 'B', 'C', 'D']
+        ["A", "B", "C", "B", "C", "D", "C", "D", "D"]
+        >>> input_list = ["A", "B", "C", "D"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            end_with_max_n_elements=True,
         ...                            )
         >>> looper.output_all()
-        ['A', 'B', 'C', 'B', 'C', 'D']
+        ["A", "B", "C", "B", "C", "D"]
 
     :attr:`window_size`:
         To change the size of the looping window after instantiation, use the
@@ -265,13 +265,13 @@ class ListLooper(_LooperParent):
         the element in the next position, thus outputting the second, third,
         fourth, and fifth elements.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper()
-        ['A', 'B', 'C']
+        ["A", "B", "C"]
         >>> looper.window_size = 4
         >>> looper()
-        ['B', 'C', 'D', 'E']
+        ["B", "C", "D", "E"]
 
     :attr:`contents`:
         Use the :attr:`contents` property to read as well as overwrite the
@@ -279,16 +279,16 @@ class ListLooper(_LooperParent):
         remain on its previous value and must be reset to ``0`` if that's
         required.
 
-        >>> input_list = ['A', 'B', 'C', 'D', 'E', 'F']
+        >>> input_list = ["A", "B", "C", "D", "E", "F"]
         >>> looper = auxjad.ListLooper(input_list,
         ...                            window_size=3,
         ...                            )
         >>> looper.contents
-        ['A', 'B', 'C', 'D', 'E', 'F']
+        ["A", "B", "C", "D", "E", "F"]
         >>> looper()
-        ['A', 'B', 'C']
+        ["A", "B", "C"]
         >>> looper()
-        ['B', 'C', 'D']
+        ["B", "C", "D"]
         >>> looper.contents = [0, 1, 2, 3, 4]
         >>> looper.contents
         [0, 1, 2, 3, 4]
@@ -301,10 +301,10 @@ class ListLooper(_LooperParent):
     Types in the input list:
         The input :obj:`list` can contain any types of elements:
 
-        >>> input_list = [123, 'foo', (3, 4), 3.14]
+        >>> input_list = [123, "foo", (3, 4), 3.14]
         >>> looper = auxjad.ListLooper(input_list, window_size=3)
         >>> looper()
-        [123, 'foo', (3, 4)]
+        [123, "foo", (3, 4)]
 
         This also include Abjad's types. Abjad's exclusive membership
         requirement is respected since each call returns a

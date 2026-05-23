@@ -1454,8 +1454,8 @@ class CrossFader:
         >>> fade_in_container = abjad.Container(r"\times 2/3 {e'2 d'2 c'2}")
         >>> fader = auxjad.CrossFader(fade_out_container, fade_in_container)
         >>> selection_a, selection_b = fader.output_all()
-        >>> literal_voice_one = abjad.LilyPondLiteral(r'\voiceOne')
-        >>> literal_voice_two = abjad.LilyPondLiteral(r'\voiceTwo')
+        >>> literal_voice_one = abjad.LilyPondLiteral(r"\voiceOne")
+        >>> literal_voice_two = abjad.LilyPondLiteral(r"\voiceTwo")
         >>> abjad.attach(literal_voice_one, selection_a[0])
         >>> abjad.attach(literal_voice_two, selection_b[0])
         >>> staff = abjad.Staff(
@@ -1570,12 +1570,12 @@ class CrossFader:
         >>> abjad.mutate.sync_containers([staff_a, staff_b])
         >>> score = abjad.Score([staff_a, staff_b])
         >>> lilypond_file = abjad.LilyPondFile.new()
-        >>> score_block = abjad.Block(name='score')
-        >>> layout_block = abjad.Block(name='layout')
+        >>> score_block = abjad.Block(name="score")
+        >>> layout_block = abjad.Block(name="layout")
         >>> score_block.items.append(score)
         >>> score_block.items.append(layout_block)
         >>> lilypond_file.items.append(score_block)
-        >>> layout_block.items.append(r'\enablePolymeter')
+        >>> layout_block.items.append(r"\enablePolymeter")
         >>> abjad.show(score)
 
         ..  docs::

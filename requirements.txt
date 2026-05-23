@@ -1,10 +1,1 @@
 abjad==3.4
-black>=25.1.0
-flake8>=7.2.0
-isort>=6.0.1
-pydocstyle>=6.3.0
-pygments>=2.19.2
-pytest>=8.4.0
-setuptools>=80.9.0
-sphinx>=7.4.0
-sphinx_rtd_theme>=3.1.0

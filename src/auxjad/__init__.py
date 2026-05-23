@@ -45,7 +45,7 @@ from .score.Score import Score
 
 from .spanners.piano_pedal import piano_pedal
 
-from .utilities.staff_splitter import staff_splitter
+from .utils.staff_splitter import staff_splitter
 
 from ._version import __version__
 
@@ -87,6 +87,6 @@ __all__ = [
     "Voice",
     # spanners
     "piano_pedal",
-    # utilities
+    # utils
     "staff_splitter",
 ]

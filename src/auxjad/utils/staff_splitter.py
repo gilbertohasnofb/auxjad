@@ -228,7 +228,7 @@ def staff_splitter(
 
         >>> staves = auxjad.staff_splitter(staff,
         ...                                threshold="e'",
-        ...                                lower_clef='treble',
+        ...                                lower_clef="treble",
         ...                                )
         >>> score = abjad.Score(staves)
         >>> abjad.show(score)
@@ -272,8 +272,8 @@ def staff_splitter(
         ..  figure:: ../_images/staff_splitter-Nu9dNMM9gy.png
 
         >>> staves = auxjad.staff_splitter(staff,
-        ...                                threshold='g',
-        ...                                upper_clef='bass',
+        ...                                threshold="g",
+        ...                                upper_clef="bass",
         ...                                )
         >>> score = abjad.Score(staves)
         >>> abjad.show(score)

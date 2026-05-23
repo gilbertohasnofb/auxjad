@@ -117,9 +117,9 @@ def remove_repeated_dynamics(
         ...                      abjad.Chord("<d' f'>2"),
         ...                      abjad.Tuplet((2, 3), "g2 a2 b2"),
         ...                      ])
-        >>> abjad.attach(abjad.Dynamic('ppp'), staff[0])
-        >>> abjad.attach(abjad.Dynamic('ppp'), staff[1])
-        >>> abjad.attach(abjad.Dynamic('ppp'), staff[2][0])
+        >>> abjad.attach(abjad.Dynamic("ppp"), staff[0])
+        >>> abjad.attach(abjad.Dynamic("ppp"), staff[1])
+        >>> abjad.attach(abjad.Dynamic("ppp"), staff[2][0])
         >>> abjad.show(staff)
 
         ..  docs::

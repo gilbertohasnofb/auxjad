@@ -1444,9 +1444,9 @@ class GeneticAlgorithmMusicMaker:
         r"""The index used in the evaluation function. This index will be
         raised by the difference between indices of the target value and the
         current value. Consider the following example, where the available
-        genes are ``['A', 'B', 'C', 'D', 'E', 'F']`` and the target is
-        ``['B', 'A', 'A', 'C']``. Suppose an individual has the genes
-        ``['D', 'D', 'A', 'B']``.
+        genes are ``["A", "B", "C", "D", "E", "F"]`` and the target is
+        ``["B", "A", "A", "C"]``. Suppose an individual has the genes
+        ``["D", "D", "A", "B"]``.
 
         To evaluate this individual, first the algorithm finds the indices of
         both the target's genes (in this case, ``[1, 0, 0, 2]``) and also of

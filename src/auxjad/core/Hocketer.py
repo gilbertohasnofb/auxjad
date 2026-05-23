@@ -304,8 +304,7 @@ class Hocketer:
         >>> hocketer.explode_chords
         True
         >>> hocketer.pitch_ranges
-        [PitchRange('[C4, D6]'), PitchRange('[C2, A4]'),
-        PitchRange('[C1, E3]')]
+        [PitchRange("[C4, D6]"), PitchRange("[C2, A4]"), PitchRange("[C1, E3]")]
         >>> hocketer.disable_rewrite_meter
         True
         >>> not hocketer.use_multimeasure_rests
@@ -431,7 +430,7 @@ class Hocketer:
         >>> score = abjad.Score()
         >>> for selection in music:
         ...     score.append(abjad.Staff(selection))
-        >>> abjad.attach(abjad.Clef('bass'), abjad.select(score[2]).leaf(0))
+        >>> abjad.attach(abjad.Clef("bass"), abjad.select(score[2]).leaf(0))
         >>> abjad.show(score)
 
         ..  docs::

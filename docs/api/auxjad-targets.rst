@@ -16,8 +16,8 @@
 .. _select: api-select.html
 .. |spanners| replace:: :mod:`spanners <auxjad.spanners>`
 .. _spanners: api-spanners.html
-.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
-.. _utilities: api-utilities.html
+.. |utils| replace:: :mod:`utils <auxjad.utils>`
+.. _utils: api-utils.html
 
 .. |auxjad.get| replace:: :mod:`auxjad.get <auxjad.get>`
 .. _auxjad.get: ../api/api-get.html
@@ -60,7 +60,7 @@
 
 .. |abjad.TimeSignature.simplify_ratio()| replace:: :meth:`abjad.TimeSignature.simplify_ratio() <auxjad.indicators.TimeSignature.simplify_ratio>`
 
-.. |abjad.Context.with_settings()| replace:: :meth:`abjad.Context.with_settings() <auxjad.score.Context.with_settings>`
+.. |abjad.Context.context_commands()| replace:: :meth:`abjad.Context.context_commands() <auxjad.score.Context.context_commands>`
     
 .. |abjad.Score.add_double_bar_lines_before_time_signatures()| replace:: :meth:`abjad.Score.add_double_bar_lines_before_time_signatures() <auxjad.score.Score.add_double_bar_lines_before_time_signatures>`
 .. |abjad.Score.add_final_bar_line()| replace:: :meth:`abjad.Score.add_final_bar_line() <auxjad.score.Score.add_final_bar_line>`

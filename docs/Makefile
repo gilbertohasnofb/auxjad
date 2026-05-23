@@ -43,11 +43,11 @@ docs-images:
 	find $(SOURCEDIR)/_logs/ -type f -empty -delete
 
 docs-html:
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	$(OPEN) ./_build/html/index.html
 
 docs-latex:
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	$(MAKE) -C "$(BUILDDIR)"/latex/
 	mv "$(BUILDDIR)"/latex/*.pdf "$(SOURCEDIR)"
 

@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 
 .PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
-		isort-reformat open-html pydocstyle pytest reformat release release-webpage setup test
+		isort-reformat open-html pydocstyle reformat release release-webpage setup test
 
 # Setup
 .venv/.installed: requirements.txt requirements-dev.txt requirements-test.txt
@@ -15,23 +15,23 @@ setup: .venv/.installed
 
 # Formatting and linting
 black-check:
-	$(PYTHON) -m black . --check
+	@$(PYTHON) -m black . --check
 black-reformat:
-	$(PYTHON) -m black .
+	@$(PYTHON) -m black .
 flake8:
-	$(PYTHON) -m flake8
+	@$(PYTHON) -m flake8
 isort-check:
-	$(PYTHON) -m isort --check-only --diff .
+	@$(PYTHON) -m isort --check-only --diff .
 isort-reformat:
-	$(PYTHON) -m isort .
+	@$(PYTHON) -m isort .
 pydocstyle:
-	$(PYTHON) -m pydocstyle
+	@$(PYTHON) -m pydocstyle
 check: black-check flake8 isort-check pydocstyle
 reformat: black-reformat isort-reformat
 
-# Testing
-pytest:
-	$(PYTHON) -m pytest
+# Unit testing
+test:
+	@$(PYTHON) -m pytest
 
 # Building documentation
 docs-html:
@@ -60,8 +60,8 @@ clean:
 	rm -Rif build
 	rm -Rif dist
 build: setup
-	$(PYTHON) -m build
+	@$(PYTHON) -m build
 
 # Releasing
-release: check pytest docs-release clean build release-webpage
-	$(PYTHON) -m twine upload dist/*.tar.gz
+release: check test docs-release clean build release-webpage
+	@$(PYTHON) -m twine upload dist/*.tar.gz

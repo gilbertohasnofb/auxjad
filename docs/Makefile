@@ -16,9 +16,9 @@ clean:
 	rm -Rif $(SOURCEDIR)/_api_members
 
 images:
-	rm -Rif "$(SOURCEDIR)"/_images/
-	mkdir "$(SOURCEDIR)"/_images/lilypond-files/
-	mkdir "$(SOURCEDIR)"/_logs/
+	rm -Rif $(SOURCEDIR)/_images/
+	mkdir -p $(SOURCEDIR)/_images/lilypond-files/
+	mkdir $(SOURCEDIR)/_logs/
 	$(PYTHON) ./image-generator.py
 	for f in `ls $(SOURCEDIR)/_images/lilypond-files/*.ly`; \
 		do \

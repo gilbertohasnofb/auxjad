@@ -5,7 +5,7 @@ SOURCEDIR    = .
 BUILDDIR     = _build
 OPEN         := $(shell command -v xdg-open || command -v open)
 
-.PHONY: clean help html images latex open-html release
+.PHONY: clean help html images latex release
 
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -44,8 +44,6 @@ images:
 
 html:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-
-open-html:
 	$(OPEN) ./_build/html/index.html
 
 latex:

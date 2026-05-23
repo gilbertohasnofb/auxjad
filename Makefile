@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 
 .PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
-		isort-reformat open-html pydocstyle reformat release release-webpage setup test
+		sort-reformat pydocstyle reformat release release-webpage setup test
 
 # Setup
 .venv/.installed: requirements.txt requirements-dev.txt requirements-test.txt
@@ -36,8 +36,6 @@ test:
 # Building documentation
 docs-html:
 	$(MAKE) -C docs/ html
-open-html:
-	$(MAKE) -C docs/ open-html
 docs-release:
 	$(MAKE) -C docs/ release
 release-webpage: docs-html

@@ -1,7 +1,7 @@
-utilities
+utils
 =========
 
-The |utilities|_ subpackage contains utility functions that are neither
+The |utils|_ subpackage contains utility functions that are neither
 mutations nor inspections.
 
 ..  note::
@@ -13,7 +13,7 @@ mutations nor inspections.
     >>> import auxjad
     >>> abjad.staff_splitter(staff)
 
-Below is the full list of functions included in |utilities|_. Click on their
+Below is the full list of functions included in |utils|_. Click on their
 names for their individual documentation.
 
 .. currentmodule:: auxjad

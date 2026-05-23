@@ -16,8 +16,8 @@
 .. _select: api-select.html
 .. |spanners| replace:: :mod:`spanners <auxjad.spanners>`
 .. _spanners: api-spanners.html
-.. |utilities| replace:: :mod:`utilities <auxjad.utilities>`
-.. _utilities: api-utilities.html
+.. |utils| replace:: :mod:`utils <auxjad.utils>`
+.. _utils: api-utils.html
 
 .. |auxjad.get| replace:: :mod:`auxjad.get <auxjad.get>`
 .. _auxjad.get: ../api/api-get.html

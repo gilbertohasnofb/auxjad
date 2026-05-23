@@ -5,20 +5,14 @@ Welcome to Auxjad's documentation
 
 |PyPI| |Build| |Python versions| |License| |Bug report|
 
-Auxjad is a library of auxiliary classes and functions for `Abjad 3.4`_ aimed
-at composers of algorithmic music. All classes and functions have a |doc|_
-attribute with usage instructions.
+Auxjad is a library of auxiliary classes and functions for `Abjad 3.4`_ aimed at composers of
+algorithmic music. All classes and functions have a |doc|_ attribute with usage instructions.
 
 This library's code is available at the `Auxjad Repository`_ at GitHub.
 
 Bugs can be reported through the project's `Issue Tracker`_.
 
 This library is published under the `MIT License`_.
-
-.. _`Abjad 3.4`: https://abjad.github.io/
-.. _`Auxjad Repository`: https://github.com/gilbertohasnofb/auxjad
-.. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
-.. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/main/LICENSE
 
 
 Installation
@@ -45,11 +39,6 @@ page. In the `Score gallery`_ page, you will find examples of my own
 compositions created with these tools. The `Examples of usage`_ page contains
 simple examples showing some of the capabilities of this library.
 
-.. _`Auxjad API`: https://gilbertohasnofb.github.io/auxjad-docs/api/index.html
-.. _`Score gallery`: https://gilbertohasnofb.github.io/auxjad-docs/score_gallery/index.html
-.. _`Examples of usage`: https://gilbertohasnofb.github.io/auxjad-docs/examples/index.html
-
-
 .. toctree::
     :hidden:
     :maxdepth: 2
@@ -60,12 +49,19 @@ simple examples showing some of the capabilities of this library.
     score_gallery/index
     api/index
 
+.. _`Auxjad API`: https://gilbertohasnofb.github.io/auxjad-docs/api/index.html
+.. _`Auxjad Repository`: https://github.com/gilbertohasnofb/auxjad
+.. _`Examples of usage`: https://gilbertohasnofb.github.io/auxjad-docs/examples/index.html
+.. _`Issue Tracker`: https://github.com/gilbertohasnofb/auxjad/issues
+.. _`MIT License`: https://github.com/gilbertohasnofb/auxjad/blob/main/LICENSE
+.. _`Score gallery`: https://gilbertohasnofb.github.io/auxjad-docs/score_gallery/index.html
 
 .. |doc| replace:: :attr:`__doc__`
 .. _doc: https://docs.python.org/3/tutorial/controlflow.html#tut-docstrings
 .. _pip: https://pip.pypa.io/en/stable/
-.. _`Python 3.10`: https://www.python.org/
+.. _`Abjad 3.4`: https://abjad.github.io/
 .. _`LilyPond 2.24`: http://lilypond.org/
+.. _`Python 3.10`: https://www.python.org/
 
 .. |Auxjad banner| image:: https://raw.githubusercontent.com/gilbertohasnofb/auxjad/main/assets/auxjad-banner.png
    :target: https://github.com/gilbertohasnofb/auxjad

@@ -110,15 +110,15 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         >>> harm.style
         "#'harmonic-mixed"
 
-    Setting :attr:`style` to ``'flageolet'``:
+    Setting :attr:`style` to ``"flageolet"``:
         To create a harmonic note with a regular note head and with a flageolet
-        circle above it, use the style ``'flageolet'``:
+        circle above it, use the style ``"flageolet"``:
 
         >>> harm = auxjad.HarmonicNote(r"c''1",
-        ...                            style='flageolet',
+        ...                            style="flageolet",
         ...                            )
         >>> harm.style
-        'flageolet'
+        "flageolet"
         >>> abjad.show(harm)
 
         ..  docs::
@@ -137,10 +137,10 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
         >>> harm1 = auxjad.HarmonicNote(r"d''1")
         >>> harm2 = auxjad.HarmonicNote(r"d''1",
-        ...                             markup='III.',
+        ...                             markup="III.",
         ...                             )
         >>> harm3 = auxjad.HarmonicNote(r"d''1",
-        ...                             markup='III.',
+        ...                             markup="III.",
         ...                             direction=abjad.Down)
         >>> staff = abjad.Staff([harm1, harm2, harm3])
         >>> abjad.show(staff)
@@ -169,7 +169,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         note.
 
         >>> harm = auxjad.HarmonicNote(r"d''1",
-        ...                            markup='III.',
+        ...                            markup="III.",
         ...                            )
         >>> harm.markup = None
         >>> abjad.show(harm)
@@ -189,7 +189,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         to ``False``. Compare:
 
         >>> harm1 = auxjad.HarmonicNote(r"d''1",
-        ...                            markup='III.',
+        ...                            markup="III.",
         ...                            )
         >>> abjad.show(harm1)
 
@@ -204,7 +204,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         ..  figure:: ../_images/HarmonicNote-Vb1lf8wt7O.png
 
         >>> harm2 = auxjad.HarmonicNote(r"d''1",
-        ...                            markup='III.',
+        ...                            markup="III.",
         ...                            centre_markup=False,
         ...                            )
         >>> abjad.show(harm2)
@@ -223,8 +223,8 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         :attr:`markup` to ``None`` will raise an :exc:`Exception`:
 
         >>> harm = auxjad.HarmonicNote(r"d''1")
-        >>> abjad.attach(abjad.Markup('test'), harm)
-        >>> harm.markup = 'III.'
+        >>> abjad.attach(abjad.Markup("test"), harm)
+        >>> harm.markup = "III."
         >>> harm.markup = None
         Exception: multiple indicators attached to client.
     """

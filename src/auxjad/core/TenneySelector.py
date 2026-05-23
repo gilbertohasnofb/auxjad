@@ -18,9 +18,9 @@ class TenneySelector:
         The selector should be initialised with a :obj:`list`. The elements of
         this :obj:`list` can be of any type.
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
         >>> selector.contents
-        ['A', 'B', 'C', 'D', 'E', 'F']
+        ["A", "B", "C", "D", "E", "F"]
 
         Applying the :func:`len()` function to the selector will return the
         length of the input :obj:`list`.
@@ -52,11 +52,11 @@ class TenneySelector:
         D
 
         After each call, the object updates all probability values, setting the
-        previously selected element's probability at ``0.0`` and raising all
+        previously selected element"s probability at ``0.0`` and raising all
         other probabilities according to a growth function (more on this
         below).
 
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += selector()
         >>> result
@@ -78,7 +78,7 @@ class TenneySelector:
         :attr:`previous_index` to output the previous result and its index.
         Default values for both is ``None``.
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
         >>> selector.previous_index
         None
         >>> selector.previous_result
@@ -116,7 +116,7 @@ class TenneySelector:
 
         With linear curvature (default value of ``1.0``):
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
         >>> selector.curvature
         1.0
         >>> selector.weights
@@ -124,7 +124,7 @@ class TenneySelector:
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
         >>> selector()
-        'B'
+        "B"
         >>> selector.curvature
         1.0
         >>> selector.weights
@@ -136,7 +136,7 @@ class TenneySelector:
         Using a convex :attr:`curvature` (i.e. greater than ``0.0`` and less
         than ``1.0``):
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"],
         ...                                  curvature=0.2,
         ...                                  )
         >>> selector.curvature
@@ -146,7 +146,7 @@ class TenneySelector:
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
         >>> selector()
-        'C'
+        "C"
         >>> selector.curvature
         0.2
         >>> selector.weights
@@ -162,9 +162,9 @@ class TenneySelector:
         results in sequences which have more chances of a same element being
         near each other. In the sequence below, note how there are many cases
         of a same element being separated only by a single other one, such as
-        ``'ACA'`` in index ``6``.
+        ``"ABC"`` in index ``6``.
 
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += selector()
         >>> result
@@ -183,7 +183,7 @@ class TenneySelector:
     Concave :attr:`curvature`:
         Using a concave :attr:`curvature` (i.e. greater than ``1.0``):
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'],
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"],
         ...                                  curvature=15.2,
         ...                                  )
         >>> selector.curvature
@@ -193,7 +193,7 @@ class TenneySelector:
         >>> selector.probabilities
         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
         >>> selector()
-        'C'
+        "C"
         >>> selector.curvature
         0.2
         >>> selector.weights
@@ -209,9 +209,9 @@ class TenneySelector:
         sequences which have less chances of a same element being near each
         other. In the sequence below, with a curvature of ``15.2``, note how
         the elements are as far apart from each other, resulting in a repeating
-        string of ``'DFAECB'``.
+        string of ``"DFAECB"``.
 
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += selector()
         >>> result
@@ -231,7 +231,7 @@ class TenneySelector:
         To change the curvature value at any point, simply set the property
         :attr:`curvature` to a different value.
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
         >>> selector.curvature
         1.0
         >>> selector.curvature = 0.25
@@ -244,14 +244,14 @@ class TenneySelector:
         linear curvature.
 
         >>> selector = auxjad.TenneySelector(
-        ...     ['A', 'B', 'C', 'D', 'E', 'F'],
+        ...     ["A", "B", "C", "D", "E", "F"],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
         ... )
         >>> selector.weights
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
         >>> selector.probabilities
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
-        >>> result = ''
+        >>> result = ""
         >>> for _ in range(30):
         ...     result += selector()
         >>> result
@@ -264,7 +264,7 @@ class TenneySelector:
         Set :attr:`weights` to ``None`` to reset it to a uniform distribution.
 
         >>> selector = auxjad.TenneySelector(
-        ...     ['A', 'B', 'C', 'D', 'E', 'F'],
+        ...     ["A", "B", "C", "D", "E", "F"],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
         ... )
         >>> selector.weights
@@ -278,7 +278,7 @@ class TenneySelector:
         value (an uniform distribution), use the method
         :meth:`reset_probabilities`.
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
         >>> for _ in range(30):
         ...     selector()
         >>> selector.probabilities
@@ -295,35 +295,35 @@ class TenneySelector:
         ones it replaced. Deleting element will delete the probability of that
         index.
 
-        >>> selector = auxjad.TenneySelector(['A', 'B', 'C', 'D', 'E', 'F'])
+        >>> selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
         >>> for _ in range(30):
         ...     selector()
         >>> selector.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
         >>> selector[2]
-        'C'
+        "C"
         >>> selector[1:4]
-        ['B', 'C', 'D']
-        >>> selector[2] = 'X'
+        ["B", "C", "D"]
+        >>> selector[2] = "X"
         >>> selector.contents
-        ['A', 'B', 'X', 'D', 'E', 'F']
-        >>> selector[:] = ['A', 'B', 'X', 'D', 'foo', 'bar']
+        ["A", "B", "X", "D", "E", "F"]
+        >>> selector[:] = ["A", "B", "X", "D", "foo", "bar"]
         >>> selector.contents
-        ['A', 'B', 'X', 'D', 'foo', 'bar']
+        ["A", "B", "X", "D", "foo", "bar"]
         >>> selector.probabilities
         [3.0, 2.0, 1.0, 7.0, 5.0, 0.0]
         >>> del selector[0:2]
         >>> selector.contents
-        ['X', 'D', 'foo', 'bar']
+        ["X", "D", "foo", "bar"]
         >>> selector.probabilities
         [1.0, 7.0, 5.0, 0.0]
 
         You can also check if the instance contains a specific element. In the
         case of the selector above, we have:
 
-        >>> 'X' in selector
+        >>> "X" in selector
         True
-        >>> 'A' in selector
+        >>> "A" in selector
         False
 
     Changing :attr:`contents` resets :attr:`probabilities` and :attr:`weights`:
@@ -332,7 +332,7 @@ class TenneySelector:
         :attr:`probabilities` and :attr:`weights` will be reset at that point.
 
         >>> selector = auxjad.TenneySelector(
-        ...     ['A', 'B', 'C', 'D', 'E', 'F'],
+        ...     ["A", "B", "C", "D", "E", "F"],
         ...     weights=[1.0, 1.0, 5.0, 5.0, 10.0, 20.0],
         ... )
         >>> for _ in range(30):
@@ -340,7 +340,7 @@ class TenneySelector:
         >>> len(selector)
         6
         >>> selector.contents
-        ['A', 'B', 'C', 'D', 'E', 'F']
+        ["A", "B", "C", "D", "E", "F"]
         >>> selector.weights
         [1.0, 1.0, 5.0, 5.0, 10.0, 20.0]
         >>> selector.probabilities

@@ -1,7 +1,8 @@
 Score gallery
 =============
 
-In this page you will find some scores of my recent compositions written using Auxjad and Abjad. Clicking on the score images will open the full scores as pdf files.
+In this page you will find some scores of my recent compositions written using Auxjad and Abjad.
+Clicking on the score images will open the full scores as pdf files.
 
 
 *follow the well-worn path in the grass* (2021)

@@ -356,10 +356,10 @@ def reposition_dynamics(
         dynamics.
 
         >>> staff = abjad.Staff(r"c'1 d'1 e'1 r1\mf r1\ff f'1 r1 g'1")
-        >>> abjad.attach(abjad.Dynamic('niente', hide=True), staff[0])
-        >>> abjad.attach(abjad.Dynamic('niente', hide=True), staff[7])
-        >>> abjad.attach(abjad.StartHairpin('o<'), staff[0])
-        >>> abjad.attach(abjad.StartHairpin('>o'), staff[4])
+        >>> abjad.attach(abjad.Dynamic("niente", hide=True), staff[0])
+        >>> abjad.attach(abjad.Dynamic("niente", hide=True), staff[7])
+        >>> abjad.attach(abjad.StartHairpin("o<"), staff[0])
+        >>> abjad.attach(abjad.StartHairpin(">o"), staff[4])
         >>> abjad.attach(abjad.StopHairpin(), staff[7])
         >>> auxjad.mutate.reposition_dynamics(staff[:])
         >>> abjad.show(staff)
@@ -390,7 +390,7 @@ def reposition_dynamics(
         >>> staff = abjad.Staff(
         ...     r"c'1\p d'1\f\> e'1\ff\< r1\fff f'1\p\> g'1\ppp"
         ... )
-        >>> abjad.attach(abjad.StartHairpin('--'), staff[0])
+        >>> abjad.attach(abjad.StartHairpin("--"), staff[0])
         >>> auxjad.mutate.reposition_dynamics(staff[:])
         >>> abjad.show(staff)
 

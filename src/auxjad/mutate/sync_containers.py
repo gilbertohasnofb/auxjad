@@ -731,12 +731,12 @@ def sync_containers(
         ...           ]
         >>> score = abjad.Score(staves)
         >>> lilypond_file = abjad.LilyPondFile.new()
-        >>> score_block = abjad.Block(name='score')
-        >>> layout_block = abjad.Block(name='layout')
+        >>> score_block = abjad.Block(name="score")
+        >>> layout_block = abjad.Block(name="layout")
         >>> score_block.items.append(score)
         >>> score_block.items.append(layout_block)
         >>> lilypond_file.items.append(score_block)
-        >>> layout_block.items.append(r'\enablePolymeter')
+        >>> layout_block.items.append(r"\enablePolymeter")
         >>> abjad.show(lilypond_file)
 
         ..  docs::

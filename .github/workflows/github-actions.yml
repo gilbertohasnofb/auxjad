@@ -28,5 +28,5 @@ jobs:
       - name: Checks (black, flake8, isort, pydocstyle)
         run: make check
         
-      - name: Test with pytest
-        run: make pytest
+      - name: Unit tests
+        run: make test

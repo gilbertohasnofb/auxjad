@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 
 .PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
-		sort-reformat pydocstyle reformat release release-webpage setup test
+		sort-reformat pydocstyle reformat release release-website setup test
 
 # Setup
 .venv/.installed: requirements.txt requirements-dev.txt requirements-test.txt
@@ -38,7 +38,7 @@ docs-html:
 	$(MAKE) -C docs/ docs-html
 docs-release:
 	$(MAKE) -C docs/ docs-release
-release-webpage: docs-html
+release-website: docs-html
 	rm -Rf auxjad-docs/
 	git clone https://github.com/gilbertohasnofb/auxjad-docs auxjad-docs
 	rsync -rtv --delete --exclude=.git --exclude=README.rst docs/_build/html/ auxjad-docs/ && \
@@ -61,5 +61,5 @@ build: setup
 	@$(PYTHON) -m build
 
 # Releasing
-release: check test docs-release clean build release-webpage
+release: check test docs-release clean build release-website
 	@$(PYTHON) -m twine upload dist/*.tar.gz

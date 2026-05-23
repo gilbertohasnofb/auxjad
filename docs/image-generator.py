@@ -86,7 +86,7 @@ namespaces = [
     auxjad.Score,
     # spanners
     auxjad.piano_pedal,
-    # utilities
+    # utils
     auxjad.staff_splitter,
 ]
 

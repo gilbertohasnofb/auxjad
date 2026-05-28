@@ -15,7 +15,7 @@ setup: .venv/.installed
 
 # Formatting and linting
 black-check:
-	@$(PYTHON) -m black . --check
+	@$(PYTHON) -m black --check --diff .
 black-reformat:
 	@$(PYTHON) -m black .
 flake8:

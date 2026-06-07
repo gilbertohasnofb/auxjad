@@ -1,5 +1,5 @@
 import random
-from typing import Any, Optional, Union
+from typing import Any, Iterator, Optional, Union
 
 import abjad
 
@@ -904,7 +904,7 @@ class Fader:
 
         ..  figure:: ../_images/Fader-xq3g5bd8djr.png
 
-    .. note::
+    ..  note::
 
         When a container has chords, each of their notes will be represented by
         an index in the mask, from the lowest pitched one to the highest
@@ -1522,7 +1522,7 @@ class Fader:
             raise StopIteration
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
@@ -1552,7 +1552,7 @@ class Fader:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):
@@ -1598,7 +1598,7 @@ class Fader:
                 )
                 self._mask[index] = 0
             elif n == 0:
-                raise RuntimeError("'current_window' is already empty")
+                raise StopIteration("'current_window' is already empty")
 
     def _add_element(self) -> None:
         r"""Sets a random element of the mask to ``1``."""
@@ -1613,7 +1613,7 @@ class Fader:
                 )
                 self._mask[index] = 1
             elif n == 0:
-                raise RuntimeError("'current_window' is already full")
+                raise StopIteration("'current_window' is already full")
 
     def _mask_to_selection(self) -> None:
         r"""Applies the mask to :attr:`contents`."""

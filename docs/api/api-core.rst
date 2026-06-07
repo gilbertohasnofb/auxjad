@@ -23,6 +23,7 @@ documentation.
 
     CartographySelector
     CrossFader
+    DeBruijnGenerator
     Echoer
     Fader
     GeneticAlgorithm

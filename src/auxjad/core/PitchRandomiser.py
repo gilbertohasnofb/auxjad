@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -716,7 +716,7 @@ class PitchRandomiser:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
@@ -731,7 +731,7 @@ class PitchRandomiser:
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):

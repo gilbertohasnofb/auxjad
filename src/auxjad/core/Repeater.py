@@ -1,3 +1,5 @@
+from typing import Iterator
+
 import abjad
 
 from .. import get, mutate
@@ -745,7 +747,7 @@ class Repeater:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         if self._repeat_type == "unfold":
             self._repeat_unfold(n)
@@ -761,7 +763,7 @@ class Repeater:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

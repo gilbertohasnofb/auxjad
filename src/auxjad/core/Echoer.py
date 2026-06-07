@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -1549,7 +1549,7 @@ class Echoer:
             raise StopIteration
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
@@ -1579,7 +1579,7 @@ class Echoer:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):
@@ -1664,7 +1664,7 @@ class Echoer:
             self._mask.append(dyn)
             previous_dyn = dyn
         if self._mask[0] is None:
-            raise RuntimeError("first note of 'contents' must have a dynamic")
+            raise StopIteration("first note of 'contents' must have a dynamic")
 
     def _mask_to_dyn_list(self) -> list[str]:
         r"""Converts the numerical mask into a list of dynamic strings."""
@@ -1689,7 +1689,7 @@ class Echoer:
                     for item in self._mask
                 ]
             elif n == 0:
-                raise RuntimeError("'current_window' is already empty")
+                raise StopIteration("'current_window' is already empty")
 
     @staticmethod
     def _soften_dynamic(

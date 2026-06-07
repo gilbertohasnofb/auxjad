@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -1343,7 +1343,7 @@ class Phaser:
         self._is_first_window = False
         return self.current_window
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
@@ -1393,7 +1393,7 @@ class Phaser:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")

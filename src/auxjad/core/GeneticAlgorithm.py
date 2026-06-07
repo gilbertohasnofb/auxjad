@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 
 class GeneticAlgorithm:
@@ -277,12 +277,9 @@ class GeneticAlgorithm:
         mutation processes and scores each individual using the evaluation
         function. Sorts the population according to their scores.
         """
-        try:
-            return self.__call__()
-        except RuntimeError:
-            raise StopIteration
+        return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

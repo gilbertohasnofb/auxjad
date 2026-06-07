@@ -306,7 +306,7 @@ class ListLooper(_LooperParent):
         >>> looper()
         [123, "foo", (3, 4)]
 
-        This also include Abjad's types. Abjad's exclusive membership
+        This also includes Abjad's types. Abjad's exclusive membership
         requirement is respected since each call returns a
         :func:`copy.deepcopy` of the window. The same is true to the
         :meth:`output_all` method.
@@ -425,7 +425,7 @@ class ListLooper(_LooperParent):
         while True:
             try:
                 dummy_container.extend(self.__call__())
-            except RuntimeError:
+            except StopIteration:
                 break
         return dummy_container[:]
 
@@ -435,9 +435,9 @@ class ListLooper(_LooperParent):
         parent's method outputs an |abjad.Selection|.
         """
         if not isinstance(n, int):
-            raise TypeError("argument must be 'int'")
-        if n < 0:
-            raise ValueError("argument must be a positive 'int'")
+            raise TypeError("first positional argument must be 'int'")
+        if n <= 0:
+            raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = []
         for _ in range(n):
             dummy_container.extend(self.__call__())

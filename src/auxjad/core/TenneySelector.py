@@ -11,8 +11,8 @@ class TenneySelector:
 
     This implementation is based on the paper: Polansky, L., A. Barnett, and
     M. Winter (2011). 'A Few More Words About James Tenney: Dissonant
-    Counterpoint and Statistical Feedback'. In: Journal of Mathematics and
-    Music 5(2). pp. 63--82.
+    Counterpoint and Statistical Feedback'. In: *Journal of Mathematics and
+    Music* **5**\(2). pp. 63--82.
 
     Basic usage:
         The selector should be initialised with a :obj:`list`. The elements of
@@ -390,8 +390,8 @@ class TenneySelector:
         if curvature < 0.0:
             raise ValueError("'curvature' must be larger than 0.0")
         # initialising using attributes, not properties, due to cyclic
-        # dependencies, as self._generate_probabilities() is called on all the
-        # relevant properties that could be used
+        # dependencies, as self._generate_probabilities() is called when setting
+        # each of the attributes below
         self._contents = contents[:]
         if weights is not None:
             self._weights = weights[:]
@@ -449,7 +449,6 @@ class TenneySelector:
         """
         length_before_set = self.__len__()
         self._contents[key] = value
-        print(length_before_set, self.__len__())
         if length_before_set != self.__len__():
             self.weights = None
 

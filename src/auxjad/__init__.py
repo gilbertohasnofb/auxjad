@@ -17,6 +17,7 @@ from . import get, mutate, select
 
 from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
+from .core.DeBruijnGenerator import DeBruijnGenerator
 from .core.Echoer import Echoer
 from .core.Fader import Fader
 from .core.GeneticAlgorithm import GeneticAlgorithm
@@ -60,6 +61,7 @@ __all__ = [
     # core
     "CartographySelector",
     "CrossFader",
+    "DeBruijnGenerator",
     "Echoer",
     "Fader",
     "GeneticAlgorithm",

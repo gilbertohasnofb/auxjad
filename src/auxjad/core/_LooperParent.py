@@ -1,5 +1,5 @@
 import random
-from typing import Any, Union
+from typing import Any, Iterator, Union
 
 import abjad
 
@@ -60,7 +60,7 @@ class _LooperParent:
         """
         self._move_head()
         if self._done:
-            raise RuntimeError("'contents' has been exhausted")
+            raise StopIteration("'contents' has been exhausted")
         self._slice_contents()
         return self.current_window
 
@@ -74,7 +74,7 @@ class _LooperParent:
         self._slice_contents()
         return self.current_window
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
@@ -102,7 +102,7 @@ class _LooperParent:
                     if get.leaves_are_tieable((leaf1, leaf2)):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container[:])
         mutate.reposition_dynamics(dummy_container[:])
@@ -121,7 +121,7 @@ class _LooperParent:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")

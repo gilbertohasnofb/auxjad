@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -1020,12 +1020,9 @@ class GeneticAlgorithmMusicMaker:
         mutation processes and scores each individual using the evaluation
         function.
         """
-        try:
-            return self.__call__()
-        except RuntimeError:
-            raise StopIteration
+        return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
@@ -1045,7 +1042,7 @@ class GeneticAlgorithmMusicMaker:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):

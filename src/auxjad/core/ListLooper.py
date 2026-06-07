@@ -425,7 +425,7 @@ class ListLooper(_LooperParent):
         while True:
             try:
                 dummy_container.extend(self.__call__())
-            except RuntimeError:
+            except StopIteration:
                 break
         return dummy_container[:]
 

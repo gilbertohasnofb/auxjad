@@ -102,7 +102,7 @@ class _LooperParent:
                     if get.leaves_are_tieable((leaf1, leaf2)):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container[:])
         mutate.reposition_dynamics(dummy_container[:])

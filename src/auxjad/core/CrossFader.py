@@ -1732,10 +1732,7 @@ class CrossFader:
         r"""Calls the cross fading process for one iteration, returning a
         :obj:`tuple` of |abjad.Selection| objects.
         """
-        try:
-            return self.__call__()
-        except RuntimeError:
-            raise StopIteration
+        return self.__call__()
 
     def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""
@@ -1755,7 +1752,7 @@ class CrossFader:
                 result_a, result_b = self.__call__()
                 dummy_container_a.extend(result_a)
                 dummy_container_b.extend(result_b)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container_a[:])
         mutate.remove_repeated_time_signatures(dummy_container_b[:])
@@ -1785,7 +1782,7 @@ class CrossFader:
                 result_a, result_b = self.__call__()
                 dummy_container_a.extend(result_a)
                 dummy_container_b.extend(result_b)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container_a[:])
         mutate.remove_repeated_time_signatures(dummy_container_b[:])
@@ -1843,7 +1840,7 @@ class CrossFader:
                             weights=self._weights,
                         )[0]
                         random_fader()
-                    except RuntimeError:
+                    except StopIteration:
                         other_fader = self._faders[0]
                         if other_fader is random_fader:
                             other_fader = self._faders[1]

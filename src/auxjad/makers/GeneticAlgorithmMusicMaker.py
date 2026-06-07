@@ -1020,10 +1020,7 @@ class GeneticAlgorithmMusicMaker:
         mutation processes and scores each individual using the evaluation
         function.
         """
-        try:
-            return self.__call__()
-        except RuntimeError:
-            raise StopIteration
+        return self.__call__()
 
     def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""

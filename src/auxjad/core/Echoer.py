@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Optional, Self, Union
 
 import abjad
 
@@ -1549,7 +1549,7 @@ class Echoer:
             raise StopIteration
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

@@ -1,5 +1,5 @@
 import random
-from typing import Any, Optional, Union
+from typing import Any, Optional, Self, Union
 
 import abjad
 
@@ -1130,7 +1130,7 @@ class Shuffler:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

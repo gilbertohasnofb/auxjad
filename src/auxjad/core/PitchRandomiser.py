@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Optional, Self, Union
 
 import abjad
 
@@ -716,7 +716,7 @@ class PitchRandomiser:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

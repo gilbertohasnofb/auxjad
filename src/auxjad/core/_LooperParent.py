@@ -1,5 +1,5 @@
 import random
-from typing import Any, Union
+from typing import Any, Self, Union
 
 import abjad
 
@@ -74,7 +74,7 @@ class _LooperParent:
         self._slice_contents()
         return self.current_window
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

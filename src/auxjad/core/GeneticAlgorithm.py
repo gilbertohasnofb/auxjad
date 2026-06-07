@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Self, Union
+from typing import Iterator, Optional, Union
 
 
 class GeneticAlgorithm:
@@ -279,7 +279,7 @@ class GeneticAlgorithm:
         """
         return self.__call__()
 
-    def __iter__(self) -> Self:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

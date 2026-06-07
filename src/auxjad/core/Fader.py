@@ -1,5 +1,5 @@
 import random
-from typing import Any, Optional, Self, Union
+from typing import Any, Iterator, Optional, Union
 
 import abjad
 
@@ -1522,7 +1522,7 @@ class Fader:
             raise StopIteration
         return self.__call__()
 
-    def __iter__(self) -> Self:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

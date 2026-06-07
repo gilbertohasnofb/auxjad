@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Self, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -1343,7 +1343,7 @@ class Phaser:
         self._is_first_window = False
         return self.current_window
 
-    def __iter__(self) -> Self:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

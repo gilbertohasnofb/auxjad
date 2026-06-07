@@ -1,5 +1,5 @@
 import copy
-from typing import Any, Self
+from typing import Any, Iterator
 
 
 class DeBruijnGenerator:
@@ -423,7 +423,7 @@ class DeBruijnGenerator:
         r"""Calls the selection process and outputs one element of :attr:`contents`."""
         return self.__call__()
 
-    def __iter__(self) -> Self:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

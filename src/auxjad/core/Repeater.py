@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Iterator
 
 import abjad
 
@@ -763,7 +763,7 @@ class Repeater:
         """
         return self.__call__()
 
-    def __iter__(self) -> Self:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

@@ -747,7 +747,7 @@ class Repeater:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         if self._repeat_type == "unfold":
             self._repeat_unfold(n)

@@ -731,7 +731,7 @@ class PitchRandomiser:
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):

@@ -100,7 +100,7 @@ class DeBruijnGenerator:
         if self._done:
             raise StopIteration("sequence has been exhausted")
         self._previous_element = self._sequence[self._sequence_last_selected_index]
-        return copy.deepcopy(self._previous_element)
+        return self.previous_element
 
     def __next__(self) -> Any:
         r"""Calls the selection process and outputs one element of :attr:`contents`."""
@@ -148,7 +148,7 @@ class DeBruijnGenerator:
         while True:
             try:
                 output_list.append(self.__call__())
-            except RuntimeError:
+            except StopIteration:
                 break
         return output_list
 
@@ -179,7 +179,7 @@ class DeBruijnGenerator:
         Both PCR1 and PCR2 algorithms start with a window of length :attr:`order` filled with 0s,
         e.g. for ``order = 4`` the window is ``[0, 0, 0, 0]``. Both algorithms work by dropping the
         first item, shifting all others to the left, and appending the generated next item (where
-        the difference between PCR1 and PCR2 lies). E.g. for a window ``[a, b, c, d]``, the next 
+        the difference between PCR1 and PCR2 lies). E.g. for a window ``[a, b, c, d]``, the next
         window would be ``[b, c, d, e]``. The algorithm generates one of these next windows at every
         loop, and fetches only the first element for the output list. When the list has looped back
         to its initial value (in the example above, ``[0, 0, 0, 0]``), the loop is stopped. Because
@@ -190,16 +190,14 @@ class DeBruijnGenerator:
         generator_name = "_" + self._algorithm + "_generator"
         successor_generator = getattr(self, generator_name)
         window = [0] * self._order
-        index_sequence = []
+        self._sequence = []
 
         while True:
-            index_sequence.append(window[0])
+            self._sequence.append(window[0])
             next_symbol = successor_generator(window, self._order, self._alphabet_size)
             window = window[1:] + [next_symbol]
             if all(symbol == 0 for symbol in window):
                 break
-
-        self._sequence = [copy.deepcopy(self._contents[index]) for index in index_sequence]
 
     @staticmethod
     def _pcr1_generator(window: list[int], order: int, alphabet_size: int) -> int:
@@ -224,8 +222,7 @@ class DeBruijnGenerator:
 
     @staticmethod
     def _pcr1_get_next_symbol(window: list[int], order: int, alphabet_size: int) -> int | None:
-        r"""
-        Compute the smallest valid next symbol for the PCR1 rule (aka GrandDaddy).
+        r"""Compute the smallest valid next symbol for the PCR1 rule (aka GrandDaddy).
 
         Finds the tail of the window (all elements after the leading run of max symbols, starting at
         index 1), then inlines necklace period detection to determine the smallest symbol that keeps
@@ -288,7 +285,9 @@ class DeBruijnGenerator:
             int: The next symbol in the sequence.
         """
         largest_candidate_symbol = DeBruijnGenerator._get_pcr2_largest_candidate_symbol(
-            window, order, alphabet_size,
+            window,
+            order,
+            alphabet_size,
         )
 
         if largest_candidate_symbol != 0 and window[0] == largest_candidate_symbol:
@@ -303,8 +302,7 @@ class DeBruijnGenerator:
         order: int,
         alphabet_size: int,
     ) -> int:
-        r"""
-        Compute the largest valid candidate symbol for the PCR2 rule (aka GrandMama).
+        r"""Compute the largest valid candidate symbol for the PCR2 rule (aka GrandMama).
 
         Scans backward from the end of the window, skipping trailing min-symbols (zeros), to find
         the length ``last_non_min_index`` (:math:`j` in the original C implementation) of the
@@ -345,9 +343,8 @@ class DeBruijnGenerator:
 
     @staticmethod
     def _is_necklace(sequence: list[int]) -> bool:
-        r"""
-        Return ``True`` if and only if ``sequence`` is a necklace (its own lexicographically minimal
-        rotation).
+        r"""Return ``True`` if and only if ``sequence`` is a necklace (its own lexicographically
+        minimal rotation).
 
         Pads with a leading zero so that period arithmetic uses 1-based positions, keeping ``i``
         and ``period_candidate`` (:math:`p` in the original C implementation) directly comparable.
@@ -391,8 +388,7 @@ class DeBruijnGenerator:
 
     @property
     def algorithm(self) -> str:
-        r"""The :obj:`str` with the name of the algorithm. Options include ``"pcr1"`` or ``"pcr2"``.
-        """
+        r"""The :obj:`str` with the name of the algorithm. Options include ``"pcr1"`` or ``"pcr2"``."""
         return self._algorithm
 
     @algorithm.setter
@@ -411,12 +407,14 @@ class DeBruijnGenerator:
 
     @property
     def previous_element(self) -> Any:
-        r"""Returns the last element output by the object."""
-        return self._previous_element
+        r"""Returns the last element output by the object mapped to :attr:`contents`."""
+        if self._previous_element is None:
+            return self._previous_element
+        return copy.deepcopy(self._contents[self._previous_element])
 
     @property
     def sequence(self) -> int:
-        r"""Returns the de Bruijn sequence using ."""
+        r"""Returns the de Bruijn sequence mapped to :attr:`contents`."""
         return [copy.deepcopy(self._contents[index]) for index in self._sequence]
 
     @property
@@ -435,4 +433,6 @@ class DeBruijnGenerator:
         r""":obj:`bool` indicating whether the process is done (i.e. whether the index position has
         overtaken the :attr:`contents`'s length).
         """
-        return self._sequence_last_selected_index == len(self._sequence) - 1
+        if self._sequence_last_selected_index is None:
+            return False
+        return self._sequence_last_selected_index > len(self._sequence) - 1

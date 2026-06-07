@@ -1598,7 +1598,7 @@ class Fader:
                 )
                 self._mask[index] = 0
             elif n == 0:
-                raise RuntimeError("'current_window' is already empty")
+                raise StopIteration("'current_window' is already empty")
 
     def _add_element(self) -> None:
         r"""Sets a random element of the mask to ``1``."""
@@ -1613,7 +1613,7 @@ class Fader:
                 )
                 self._mask[index] = 1
             elif n == 0:
-                raise RuntimeError("'current_window' is already full")
+                raise StopIteration("'current_window' is already full")
 
     def _mask_to_selection(self) -> None:
         r"""Applies the mask to :attr:`contents`."""

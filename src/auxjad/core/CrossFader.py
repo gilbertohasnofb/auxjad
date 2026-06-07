@@ -1820,7 +1820,7 @@ class CrossFader:
             if self._final_repetitions_counter < self._final_repetitions - 1:
                 self._final_repetitions_counter += 1
             else:
-                raise RuntimeError("both faders have been exhausted")
+                raise StopIteration("both faders have been exhausted")
         else:
             if (
                 self._is_first_process

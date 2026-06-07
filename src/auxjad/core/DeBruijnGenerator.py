@@ -98,7 +98,7 @@ class DeBruijnGenerator:
         else:
             self._sequence_last_selected_index += 1
         if self._done:
-            raise RuntimeError("sequence has been exhausted")
+            raise StopIteration("sequence has been exhausted")
         self._previous_element = self._sequence[self._sequence_last_selected_index]
         return copy.deepcopy(self._previous_element)
 

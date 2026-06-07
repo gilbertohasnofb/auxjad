@@ -1561,7 +1561,7 @@ class Hocketer:
                         ):
                             break
                         elif counter >= 1000:
-                            raise RuntimeError(
+                            raise StopIteration(
                                 "No good distribution of chord "
                                 "found, please check the pitch "
                                 "ranges or try another seed."
@@ -1582,7 +1582,7 @@ class Hocketer:
                         if all(self._pitch_in_range(pitch, voice) for voice in voices):
                             break
                         if counter >= 1000:
-                            raise RuntimeError(
+                            raise StopIteration(
                                 "No good distribution of notes "
                                 "found, please check pitch "
                                 "ranges or try another seed."
@@ -1605,7 +1605,7 @@ class Hocketer:
                     if self._pitch_in_range(pitch, voice):
                         voices.append(voice)
                     if counter >= 1000:
-                        raise RuntimeError(
+                        raise StopIteration(
                             "No good distribution of notes "
                             "found, please check pitch "
                             "ranges or try another seed."

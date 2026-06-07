@@ -1664,7 +1664,7 @@ class Echoer:
             self._mask.append(dyn)
             previous_dyn = dyn
         if self._mask[0] is None:
-            raise RuntimeError("first note of 'contents' must have a dynamic")
+            raise StopIteration("first note of 'contents' must have a dynamic")
 
     def _mask_to_dyn_list(self) -> list[str]:
         r"""Converts the numerical mask into a list of dynamic strings."""
@@ -1689,7 +1689,7 @@ class Echoer:
                     for item in self._mask
                 ]
             elif n == 0:
-                raise RuntimeError("'current_window' is already empty")
+                raise StopIteration("'current_window' is already empty")
 
     @staticmethod
     def _soften_dynamic(

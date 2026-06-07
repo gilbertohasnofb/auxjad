@@ -60,7 +60,7 @@ class _LooperParent:
         """
         self._move_head()
         if self._done:
-            raise RuntimeError("'contents' has been exhausted")
+            raise StopIteration("'contents' has been exhausted")
         self._slice_contents()
         return self.current_window
 

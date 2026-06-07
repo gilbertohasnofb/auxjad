@@ -11,28 +11,329 @@ class DeBruijnGenerator:
 
     E.g. for :math:`n=2` and :math:`k=3`, a possible construction of this sequence is:
 
-    .. code-block::
+    .. math::
 
-        001021122
+        0010211220
 
     The sequence above contains every combination of 2 elements of the alphabet exactly once:
 
-    .. code-block::
+    .. math::
 
-        00
-         01
-          10
-           02
-            21
-             11
-              12
-               22
+        00 \rightarrow 01 \rightarrow 10 \rightarrow 02 \rightarrow 21 \rightarrow 11 \rightarrow 12
+        \rightarrow 22 \rightarrow 20
 
     This implementation is based on the code by Joseph Sawada, who generously shares it in his
     website https://debruijnsequence.org as well as granted permission for it to be used  as the
     basis for this Python implementation.
 
-    Basic usage:  # TODO
+    Basic usage:
+        The generator should be initialised with a :obj:`list` of objects and the attribute
+        :attr:`order`. The elements of this :obj:`list` can be of any type.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.contents
+        [0, 1, 2]
+        >>> db_generator.order
+        2
+        >>> db_generator.algorithm
+        "pcr1"
+        >>> db_generator.cyclic
+        False
+        >>> db_generator.sequence_length
+        10
+        >>> db_generator.previous_element
+        None
+
+        Calling the generator will output the next element of the de Bruijn sequence.
+
+        >>> db_generator()
+        0
+        >>> db_generator()
+        0
+        >>> db_generator()
+        1
+        >>> db_generator.previous_element
+        1
+        >>> db_generator.last_selected_index_of_sequence
+        2
+
+    :func:`len()` function:
+        Applying the :func:`len()` function to the generator returns the length of :attr:`contents`.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> len(db_generator)
+        3
+
+    :meth:`output_all`:
+        Use :meth:`output_all` to output the full de Bruijn sequence as a :obj:`list` in a single
+        call. By default, the sequence is linear (i.e. :attr:`cyclic` is ``False``).
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+    ..  note::
+
+        If :attr:`cyclic`: is set to ``False``, the generator must be reset using :meth:`reset` if
+        the sequence is finished.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=False)
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+        >>> db_generator.output_all()
+        StopIteration: sequence has been exhausted
+        >>> db_generator.reset()
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+        However, if :attr:`cyclic`: is set to ``True``, multiple calls will cycle through the
+        sequence.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+    :meth:`output_n`:
+        Use :meth:`output_n` to output the next ``n`` elements of the de Bruijn sequence as a
+        :obj:`list`.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.output_n(3)
+        [0, 0, 1]
+        >>> db_generator.output_n(3)
+        [0, 2, 1]
+
+    ..  note::
+
+        If the generator has output some subgroups before via direct call or the :meth:`output_n`
+        method, then :meth:`output_all` will output all *remaining* elements, not from the
+        beginning.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.output_n(3)
+        [0, 0, 1]
+        >>> db_generator.output_all()
+        [0, 2, 1, 1, 2, 2, 0]
+
+        If you want to output the full sequence after previous calls have been made, simply reset
+        the object.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.output_n(3)
+        [0, 0, 1]
+        >>> db_generator.reset()
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+    ..  note::
+
+        If :attr:`cyclic` is set to ``True``, :meth:`output_n` is allowed to wrap around outputting
+        more elements than there are in the sequence.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=False)
+        >>> db_generator.output_n(20)
+        StopIteration: sequence has been exhausted
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.output_n(20)
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0, 0, 1, 0, 2, 1, 1, 2, 2, 0, 0]
+
+    :meth:`reset`:
+        Use the :meth:`reset` method to reset the generator to its initial state. This can be used
+        to restart the process at any time.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=False)
+        >>> db_generator.output_n(4)
+        [0, 0, 1, 0]
+        >>> db_generator.output_n(4)
+        [2, 1, 1, 2]
+        >>> db_generator.reset()
+        >>> db_generator.output_n(4)
+        [0, 0, 1, 0]
+
+    :attr:`cyclic`:
+        By default, :attr:`cyclic` is ``False``, meaning the output sequence is linear and contains
+        all :math:`k^n` subgroups as explicit consecutive substrings. Setting :attr:`cyclic` to
+        ``True`` produces a shorter cyclic sequence where the final subgroups are implicit via
+        wraparound.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2]
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=False)
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+    Using as iterator:
+        The instances of this class can also be used as an iterator, which can then be used in a for
+        loop to exhaust the sequence.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=False)
+        >>> for element in db_generator:
+        ...     element
+        0
+        0
+        1
+        0
+        2
+        1
+        1
+        2
+        2
+        0
+
+    ..  warning::
+
+        Please note that using an iterator in a loop with :attr:`cyclic`: set to ``True`` will
+        result in an infinite generation of elements. It will then be necessary to manually exit the
+        loop.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1], order=2, cyclic=False)
+        >>> for element in db_generator:
+        ...     element
+        0
+        0
+        1
+        1
+        0
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1], order=2, cyclic=True)
+        >>> for i, element in enumerate(db_generator):
+        ...     if i == 10:
+        ...         break
+        ...     element
+        0
+        0
+        1
+        1
+        0
+        0
+        1
+        1
+        0
+        0
+
+    :attr:`algorithm`:
+        Thee are multiple algorithms which can generate de Bruijn sequences, which can be selected
+        using :attr:`algorithm`. Currently, options include ``"pcr1"`` or ``"pcr2"``. Both produce
+        valid de Bruijn sequences but differ for most combinations of order and alphabet size.
+        :attr:`algorithm` defaults to ``"pcr1"``.
+
+        >>> db_generator = auxjad.DeBruijnGenerator(
+        ...     [0, 1, 2],
+        ...     order=2,
+        ...     algorithm="pcr2",
+        ...     cyclic=True,
+        ... )
+        >>> db_generator.output_all()
+        [0, 0, 1, 1, 0, 2, 1, 2, 2]
+
+    :attr:`order`:
+        The :attr:`order` can be changed after initialisation. This regenerates the sequence.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.sequence_length
+        9
+        >>> db_generator.order = 3
+        >>> db_generator.sequence_length
+        27
+
+    :attr:`contents`:
+        The :attr:`contents` can be altered after initialisation.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.output_all()
+        [0, 0, 1, 0, 2, 1, 1, 2, 2]
+        >>> db_generator.contents = [10, 20, 30]
+        >>> db_generator.output_all()
+        [10, 10, 20, 10, 30, 20, 20, 30, 30]
+
+    .. tip::
+
+        Changing :attr:`contents` with a list of identical size will not reset the sequence.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.output_n(4)
+        [0, 0, 1, 0]
+        >>> db_generator.contents = ["A", "B", "C"]
+        >>> db_generator.output_all()
+        ["C", "B", "B", "C", "C"]
+
+    Slicing and indexing:
+        Instances of this class can be indexed and sliced, allowing reading, assigning, or deleting
+        values from :attr:`contents`. If These changes regenerate the sequence.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([10, 20, 30], order=2)
+        >>> db_generator[1]
+        20
+        >>> db_generator[0:2]
+        [10, 20]
+        >>> db_generator[1] = 99
+        >>> db_generator.contents
+        [10, 99, 30]
+        >>> del db_generator[2]
+        >>> db_generator.contents
+        [10, 99]
+
+    Read-only properties:
+        This class has a number of ready-only properties. :attr:`previous_element` returns the last
+        selected element of :attr:`contents`, and :attr:`previous_element_index` returns its index
+        within :attr:`contents`; :attr:`last_selected_index_of_sequence` returns the index of the
+        last selected element in the de Bruijn sequence. :attr:`sequence` returns the full de Bruijn
+        sequence mapped to :attr:`contents` as a :obj:`list` without any of the call functions (i.e.
+        it does not exhaust the generator); finally, :attr:`sequence_length` returns the length of
+        the de Bruijn sequence (remembering that :func:`len()` returns the length of
+        :attr:`contents`, not the output sequence).
+
+        >>> db_generator = auxjad.DeBruijnGenerator(["A", "B", "C"], order=2)
+        >>> db_generator.output_n(3)
+        ["A", "A", "B"]
+        >>> db_generator.previous_element
+        "B"
+        >>> db_generator.previous_element_index
+        1
+        >>> db_generator.last_selected_index_of_sequence
+        2
+        >>> db_generator.sequence
+        ["A", "A", "B", "A", "C", "B", "B", "C", "C", "A"]
+        >>> db_generator.sequence_length
+        10
+
+    ..  tip::
+
+        This class is agnostic towards the data types of the elements of :attr:`contents`. This also
+        includes Abjad's types. Abjad's exclusive membership requirement is respected since
+        :func:`copy.deepcopy` is applied to any element being output.
+
+        >>> db_generator = auxjad.DeBruijnGenerator(
+        ...     [abjad.Note("c'8"), abjad.Note("d'8"), abjad.Note("e'8")],
+        ...     order=2,
+        ...     cyclic=True,
+        ... )
+        >>> notes = db_generator.output_all()
+        >>> notes
+        [abjad.Note("c'8"), abjad.Note("c'8"), abjad.Note("d'8"), abjad.Note("c'8"),
+        abjad.Note("e'8"), abjad.Note("d'8"), abjad.Note("d'8"), abjad.Note("e'8"),
+        abjad.Note("e'8")]
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                c'8
+                c'8
+                d'8
+                c'8
+                e'8
+                d'8
+                d'8
+                e'8
+                e'8
+            }
+
+        ..  figure:: ../_images/DeBruijnGenerator-gPsjYD6RZm.png
     """
 
     ### CLASS VARIABLES ###
@@ -40,12 +341,13 @@ class DeBruijnGenerator:
     __slots__ = (
         "_contents",
         "_order",
-        "_alphabet_size",
         "_algorithm",
+        "_cyclic",
         "_sequence",
         "_sequence_length",
-        "_sequence_last_selected_index",
+        "_last_selected_index_of_sequence",
         "_previous_element",
+        "_previous_element_index",
     )
 
     _DE_BRUIJN_ALGORITHMS = ["pcr1", "pcr2"]
@@ -58,6 +360,7 @@ class DeBruijnGenerator:
         *,
         order: int,
         algorithm: str = "pcr1",
+        cyclic: bool = False,
     ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
@@ -73,12 +376,18 @@ class DeBruijnGenerator:
             raise ValueError(
                 f"Invalid algorithm '{algorithm}', must be one of {self._DE_BRUIJN_ALGORITHMS}"
             )
-        # initialising using attributes, not properties, due to cyclic dependencies, as
-        # self._generate_sequence() is called when setting each of the attributes below
+        if not isinstance(cyclic, bool):
+            raise TypeError("'cyclic' must be 'bool'")
+        # initialising using attributes, not properties, due to ordering constraints. This is
+        # because self._generate_sequence() is called when setting any of the attributes below, and
+        # this function requires the other attributes to have valid values.
         self._contents = contents[:]
         self._algorithm = algorithm
+        self._cyclic = cyclic
         self._order = order
         self._previous_element = None
+        self._previous_element_index = None
+        self._last_selected_index_of_sequence = None
         self.reset()
 
     ### SPECIAL METHODS ###
@@ -88,18 +397,26 @@ class DeBruijnGenerator:
         return str(self._contents)
 
     def __len__(self) -> int:
-        r"""Returns the length of :attr:`contents`."""
+        r"""Returns the length of :attr:`contents`. This is the equivalent of the alphabet size of
+        the de Bruijn sequence, often notated as :math:`k`.
+        """
         return len(self._contents)
 
     def __call__(self) -> Any:
         r"""Calls the selection process and outputs one element of :attr:`contents`."""
-        if self._sequence_last_selected_index is None:
-            self._sequence_last_selected_index = 0
+        if self._last_selected_index_of_sequence is None:
+            next_index = 0
+        elif self.cyclic and self._done:
+            next_index = 0
         else:
-            self._sequence_last_selected_index += 1
-        if self._done:
-            raise StopIteration("sequence has been exhausted")
-        self._previous_element = self._sequence[self._sequence_last_selected_index]
+            next_index = self._last_selected_index_of_sequence + 1
+            if next_index >= len(self._sequence):
+                raise StopIteration("sequence has been exhausted")
+        self._last_selected_index_of_sequence = next_index
+
+        self._previous_element_index = self._sequence[self._last_selected_index_of_sequence]
+        self._previous_element = self._contents[self._previous_element_index]
+
         return self.previous_element
 
     def __next__(self) -> Any:
@@ -143,32 +460,55 @@ class DeBruijnGenerator:
     ### PUBLIC METHODS ###
 
     def output_all(self) -> list[Any]:
-        r"""Outputs the full de Bruijn sequence as a single :obj:`list`."""
-        output_list = []
-        while True:
-            try:
-                output_list.append(self.__call__())
-            except StopIteration:
-                break
-        return output_list
+        r"""Outputs remaining elements of the de Bruijn sequence as a single :obj:`list`.
+
+        If the generator has not been called before, returns the full sequence. If some elements
+        have already been output via :meth:`__call__` or :meth:`output_n`, returns only the
+        remaining elements from the current position to the end. Call :meth:`reset` first to always
+        obtain the full sequence.
+
+        Raises :exc:`StopIteration` if the sequence has been exhausted and :attr:`cyclic` is
+        ``False``. If :attr:`cyclic` is ``True``, resets and returns the full sequence instead.
+        """
+        if self._done and not self._cyclic:
+            raise StopIteration("sequence has been exhausted")
+        if self._cyclic and self._last_selected_index_of_sequence == self.sequence_length - 1:
+            self.reset()
+        if self._last_selected_index_of_sequence is None:
+            self._last_selected_index_of_sequence = self.sequence_length - 1
+            return self.sequence
+        output_sequence = self.sequence[self._last_selected_index_of_sequence + 1 :]
+        self._last_selected_index_of_sequence = self.sequence_length - 1
+        return output_sequence
 
     def output_n(self, n: int) -> list[Any]:
         r"""Outputs the next ``n`` elements of the de Bruijn sequence as a :obj:`list`."""
         if not isinstance(n, int):
-            raise TypeError("argument must be 'int'")
-        if n < 0:
-            raise ValueError("argument must be a positive 'int'")
+            raise TypeError("first positional argument must be 'int'")
+        if n <= 0:
+            raise ValueError("first positional argument must be a positive 'int'")
         output_list = []
         for _ in range(n):
-            output_list.append(self.__call__())
+            try:
+                output_list.append(self.__call__())
+            except StopIteration:
+                raise StopIteration(
+                    f"sequence has been exhausted after {len(output_list)} of {n} elements"
+                )
         return output_list
 
     def reset(self) -> None:
-        r"""Resets the process, regenerating the sequence."""
-        self._alphabet_size = len(self._contents)
-        self._sequence_last_selected_index = None
+        r"""Resets the generator to its initial state and regenerates the sequence.
+
+        Resets :attr:`last_selected_index_of_sequence` to ``None`` and clears
+        :attr:`previous_element` and :attr:`previous_element_index`. Regenerates :attr:`sequence` by
+        calling :meth:`_generate_sequence`. This method is called automatically whenever
+        :attr:`contents`, :attr:`order`, :attr:`algorithm`, or :attr:`cyclic` are changed.
+        """
+        self._last_selected_index_of_sequence = None
+        self._previous_element = None
+        self._previous_element_index = None
         self._generate_sequence()
-        self._sequence_length = len(self._sequence)
 
     ### PRIVATE METHODS ###
 
@@ -180,12 +520,20 @@ class DeBruijnGenerator:
         e.g. for ``order = 4`` the window is ``[0, 0, 0, 0]``. Both algorithms work by dropping the
         first item, shifting all others to the left, and appending the generated next item (where
         the difference between PCR1 and PCR2 lies). E.g. for a window ``[a, b, c, d]``, the next
-        window would be ``[b, c, d, e]``. The algorithm generates one of these next windows at every
-        loop, and fetches only the first element for the output list. When the list has looped back
-        to its initial value (in the example above, ``[0, 0, 0, 0]``), the loop is stopped. Because
-        we only fetch the first element of a window at every loop, the final two loops will have
-        values ``[x, 0, 0, 0]`` :math:`\rightarrow` ``[0, 0, 0, 0]``, which is why the sequence will
-        end with a series of ``x``'s.
+        window would be ``[b, c, d, e]``. The algorithm works by fetching the first element of the
+        current window (initialised with zeroes only), then generating a valid next window. When the
+        newly generated window has looped back to its initial value (in the example above,
+        ``[0, 0, 0, 0]``), the loop is stops. Because we first fetch the first element of a window
+        at every loop before generating it, the final loop will look like this:
+
+        - current window: ``[x, 0, 0, 0]``
+        - fetches ``x`` and appends to output sequence
+        - window moves ``[x, 0, 0, 0]`` :math:`\rightarrow` ``[0, 0, 0, 0]``
+        - loop is terminated since we arrived at a window filled with zeroes
+
+        At this point, if :attr:`cyclic` is set to ``True``,  the algorithm is complete and the
+        output sequence thus ends with a series of ``x``'s. However,  :attr:`cyclic` is set to
+        ``False``, the algorithm append order - 1 zeroes at the end of the sequence.
         """
         generator_name = "_" + self._algorithm + "_generator"
         successor_generator = getattr(self, generator_name)
@@ -194,10 +542,20 @@ class DeBruijnGenerator:
 
         while True:
             self._sequence.append(window[0])
-            next_symbol = successor_generator(window, self._order, self._alphabet_size)
+            next_symbol = successor_generator(
+                window,
+                self._order,
+                self.__len__(),  # length of contents = alphabet size
+            )
             window = window[1:] + [next_symbol]
             if all(symbol == 0 for symbol in window):
                 break
+
+        # If not cyclic, we must get order - 1 zeroes to append at the end of both PCR1 and PCR2.
+        # Since window now contains order times zeroes, we simply extend the sequence by this window
+        # minus one element.
+        if not self._cyclic:
+            self._sequence.extend(window[:-1])
 
     @staticmethod
     def _pcr1_generator(window: list[int], order: int, alphabet_size: int) -> int:
@@ -246,10 +604,11 @@ class DeBruijnGenerator:
         if first_non_max == order:
             return 0
 
-        # Pad with a leading zero so that period arithmetic (tail[i - period]) uses 1-based
-        # positions, keeping i and period directly comparable with original C implementation.
+        # Pad with a leading zero so that 1-based index arithmetic (tail[i - period]) stays
+        # consistent with the original C implementation. A trailing placeholder zero is also
+        # appended; it is overwritten on the very next line to hold the computed next symbol.
         tail_length = order - first_non_max
-        tail = [0] + window[first_non_max:] + [0]
+        tail = [0] + window[first_non_max:] + [0]  # [sentinel, window tail, next_symbol_slot]
 
         period = 1
         for i in range(2, tail_length + 1):
@@ -372,7 +731,7 @@ class DeBruijnGenerator:
     @property
     def contents(self) -> list[Any]:
         r"""The :obj:`list` used by the generator, mapped to the de Bruijn sequence for the output
-        sequence.
+        sequence. This is the ordered alphabet used by the de Bruijn generator.
         """
         return self._contents
 
@@ -383,12 +742,16 @@ class DeBruijnGenerator:
     ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list")
+        different_length = self.__len__() != len(contents)
         self._contents = contents[:]
-        self.reset()
+        if different_length:
+            self.reset()
 
     @property
     def algorithm(self) -> str:
-        r"""The :obj:`str` with the name of the algorithm. Options include ``"pcr1"`` or ``"pcr2"``."""
+        r"""Thee are multiple algorithms which can generate de Bruijn sequences. Current options
+        include ``"pcr1"`` or ``"pcr2"``.
+        """
         return self._algorithm
 
     @algorithm.setter
@@ -406,33 +769,111 @@ class DeBruijnGenerator:
         self.reset()
 
     @property
-    def previous_element(self) -> Any:
-        r"""Returns the last element output by the object mapped to :attr:`contents`."""
-        if self._previous_element is None:
-            return self._previous_element
-        return copy.deepcopy(self._contents[self._previous_element])
+    def order(self) -> int:
+        r"""The order of a de Bruijn sequence is the size of each of its subgroups, often notated
+        as :math:`n`.
+        """
+        return self._order
+
+    @order.setter
+    def order(
+        self,
+        order: int,
+    ) -> None:
+        if not isinstance(order, int):
+            raise TypeError("'order' must be 'int'")
+        if order < 1:
+            raise ValueError("'order' must be 1 or greater")
+        self._order = order
+        self.reset()
 
     @property
-    def sequence(self) -> int:
-        r"""Returns the de Bruijn sequence mapped to :attr:`contents`."""
+    def cyclic(self) -> bool:
+        r""":obj:`bool` representing whether a sequence is cycle joined or not, defaulting to
+        ``False``. E.g. consider a de Bruijn sequence of order 2 and alphabet size 3, generated by
+        PCR1 using a cyclic output:
+
+        .. math::
+
+            001021122
+
+        Notice that the substring :math:`20` is not present in the output, but is implicit in the
+        result via the cyclic joining of the end of the sequence with its own beginning. For an
+        explicit sequence with all combinations (i.e. not cyclical), the output would become:
+
+        .. math::
+
+            0010211220
+
+        Which truly has all combinations of order 2 (:math:`n`) for an alphabet of size 3
+        (:math:`k`):
+
+        .. math::
+
+            00 \rightarrow 01 \rightarrow 10 \rightarrow 02 \rightarrow 21 \rightarrow 11
+            \rightarrow 12 \rightarrow 22 \rightarrow 20
+
+        It's worth noticing that for cyclical sequences:
+
+        - The length of the output sequence is :math:`k^n`
+
+        - The total number of subgroups is :math:`k^n - (n - 1)`
+
+        While for non-cyclical sequences:
+
+        - The length of the output sequence is :math:`k^n + (n - 1)`
+
+        - The total number of subgroups is :math:`k^n`
+        """
+        return self._cyclic
+
+    @cyclic.setter
+    def cyclic(
+        self,
+        cyclic: bool,
+    ) -> None:
+        if not isinstance(cyclic, bool):
+            raise TypeError("'cyclic' must be 'bool'")
+        self._cyclic = cyclic
+        self.reset()
+
+    @property
+    def previous_element_index(self) -> int | None:
+        r"""Read-only property, returns the index in :attr:`contents` of the previously output
+        element of the sequence.
+        """
+        return self._previous_element_index
+
+    @property
+    def previous_element(self) -> Any | None:
+        r"""Read-only property, returns the last element output by the object mapped to
+        :attr:`contents`.
+        """
+        if self._previous_element is None:
+            return self._previous_element
+        return copy.deepcopy(self._previous_element)
+
+    @property
+    def last_selected_index_of_sequence(self) -> int | None:
+        r"""Read-only property, returns the index of the last element output by the object in the de
+        Bruijn sequence (not :attr:`contents`)."""
+        return self._last_selected_index_of_sequence
+
+    @property
+    def sequence(self) -> list[Any]:
+        r"""Read-only property, returns the de Bruijn sequence mapped to :attr:`contents`."""
         return [copy.deepcopy(self._contents[index]) for index in self._sequence]
 
     @property
     def sequence_length(self) -> int:
-        r"""Returns the length of the de Bruijn sequence."""
-        return self._sequence_length
-
-    @property
-    def sequence_last_selected_index(self) -> int:
-        r"""Returns the index of the last element output by the object in the de Bruijn sequence
-        (not :attr:`contents`)."""
-        return self._sequence_last_selected_index
+        r"""Read-only property, returns the length of the de Bruijn sequence."""
+        return len(self._sequence)
 
     @property
     def _done(self) -> bool:
         r""":obj:`bool` indicating whether the process is done (i.e. whether the index position has
         overtaken the :attr:`contents`'s length).
         """
-        if self._sequence_last_selected_index is None:
+        if self._last_selected_index_of_sequence is None:
             return False
-        return self._sequence_last_selected_index > len(self._sequence) - 1
+        return self._last_selected_index_of_sequence >= len(self._sequence) - 1

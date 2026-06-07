@@ -904,7 +904,7 @@ class Fader:
 
         ..  figure:: ../_images/Fader-xq3g5bd8djr.png
 
-    .. note::
+    ..  note::
 
         When a container has chords, each of their notes will be represented by
         an index in the mask, from the lowest pitched one to the highest

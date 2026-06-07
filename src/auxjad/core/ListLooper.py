@@ -306,7 +306,7 @@ class ListLooper(_LooperParent):
         >>> looper()
         [123, "foo", (3, 4)]
 
-        This also include Abjad's types. Abjad's exclusive membership
+        This also includes Abjad's types. Abjad's exclusive membership
         requirement is respected since each call returns a
         :func:`copy.deepcopy` of the window. The same is true to the
         :meth:`output_all` method.

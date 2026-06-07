@@ -4,7 +4,7 @@ import auxjad
 
 
 def is_valid_de_bruijn_cyclic(sequence, order, alphabet_size):
-    if len(sequence) != alphabet_size ** order:
+    if len(sequence) != alphabet_size**order:
         return False
     sequence_length = len(sequence)
     subgroups = set()
@@ -12,18 +12,18 @@ def is_valid_de_bruijn_cyclic(sequence, order, alphabet_size):
         # converting subgroups to tuples as lists are not hashable and thus not allowed in sets
         subgroup = tuple(sequence[(i + j) % sequence_length] for j in range(order))
         subgroups.add(tuple(subgroup))
-    return len(subgroups) == alphabet_size ** order
+    return len(subgroups) == alphabet_size**order
 
 
 def is_valid_de_bruijn_linear(sequence, order, alphabet_size):
-    if len(sequence) != alphabet_size ** order + (order - 1):
+    if len(sequence) != alphabet_size**order + (order - 1):
         return False
     subgroups = set()
     for i in range(len(sequence) - order + 1):
         # converting subgroups to tuples as lists are not hashable and thus not allowed in sets
         subgroup = tuple(sequence[i : i + order])
         subgroups.add(subgroup)
-    return len(subgroups) == alphabet_size ** order
+    return len(subgroups) == alphabet_size**order
 
 
 class TestInit:
@@ -177,7 +177,7 @@ class TestDeBruijnCorrectness:
     )
     def test_cyclic_length_is_k_to_the_n(self, order, k):
         db_generator = auxjad.DeBruijnGenerator(list(range(k)), order=order, cyclic=True)
-        assert db_generator.sequence_length == k ** order
+        assert db_generator.sequence_length == k**order
 
     @pytest.mark.parametrize(
         "order, k",
@@ -191,7 +191,7 @@ class TestDeBruijnCorrectness:
     )
     def test_linear_length_is_k_to_the_n_plus_order_minus_1(self, order, k):
         db_generator = auxjad.DeBruijnGenerator(list(range(k)), order=order, cyclic=False)
-        assert db_generator.sequence_length == k ** order + (order - 1)
+        assert db_generator.sequence_length == k**order + (order - 1)
 
     @pytest.mark.parametrize(
         "algorithm, alphabet, order, expected",
@@ -228,12 +228,8 @@ class TestDeBruijnCorrectness:
         assert db_generator.output_all() == expected
 
     def test_pcr1_and_pcr2_differ_for_order_4_binary(self):
-        db_generator_pcr1 = auxjad.DeBruijnGenerator(
-            [0, 1], order=4, algorithm="pcr1", cyclic=True
-        )
-        db_generator_pcr2 = auxjad.DeBruijnGenerator(
-            [0, 1], order=4, algorithm="pcr2", cyclic=True
-        )
+        db_generator_pcr1 = auxjad.DeBruijnGenerator([0, 1], order=4, algorithm="pcr1", cyclic=True)
+        db_generator_pcr2 = auxjad.DeBruijnGenerator([0, 1], order=4, algorithm="pcr2", cyclic=True)
         assert db_generator_pcr1.output_all() != db_generator_pcr2.output_all()
 
     def test_cyclic_sequence_starts_with_order_zeros(self):
@@ -491,11 +487,11 @@ class TestProperties:
 
     def test_sequence_length_cyclic(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1], order=3, cyclic=True)
-        assert db_generator.sequence_length == 2 ** 3
+        assert db_generator.sequence_length == 2**3
 
     def test_sequence_length_linear(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1], order=3, cyclic=False)
-        assert db_generator.sequence_length == 2 ** 3 + 2
+        assert db_generator.sequence_length == 2**3 + 2
 
     def test_sequence_property_returns_correct_elements(self):
         db_generator = auxjad.DeBruijnGenerator(
@@ -530,7 +526,7 @@ class TestContentsSetter:
         db_generator()
         db_generator.contents = [0, 1]
         assert db_generator.last_selected_index_of_sequence is None
-        assert db_generator.sequence_length == 2 ** 2
+        assert db_generator.sequence_length == 2**2
 
     def test_contents_setter_not_list_raises(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1], order=2)
@@ -577,7 +573,7 @@ class TestOrderSetter:
     def test_order_setter_updates_sequence_length(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
         db_generator.order = 3
-        assert db_generator.sequence_length == 3 ** 3
+        assert db_generator.sequence_length == 3**3
 
     def test_order_setter_triggers_reset(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
@@ -661,7 +657,7 @@ class TestIndexingAndSlicing:
     def test_delitem_updates_sequence_length(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
         del db_generator[2]
-        assert db_generator.sequence_length == 2 ** 2
+        assert db_generator.sequence_length == 2**2
 
 
 class TestEdgeCases:
@@ -675,4 +671,4 @@ class TestEdgeCases:
 
     def test_large_order_sequence_length_is_correct(self):
         db_generator = auxjad.DeBruijnGenerator([0, 1], order=8, cyclic=True)
-        assert db_generator.sequence_length == 2 ** 8
+        assert db_generator.sequence_length == 2**8

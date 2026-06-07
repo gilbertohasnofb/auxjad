@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Optional, Self, Union
 
 import abjad
 
@@ -1025,7 +1025,7 @@ class GeneticAlgorithmMusicMaker:
         except RuntimeError:
             raise StopIteration
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Self:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 

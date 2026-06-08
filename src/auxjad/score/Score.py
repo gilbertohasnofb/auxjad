@@ -768,6 +768,6 @@ class Score(Context, abjad.Score):
                     )
 
 
-### EXTENSION METHODS ###
+# ---------- EXTENSION METHODS ----------
 
 abjad.Score = Score

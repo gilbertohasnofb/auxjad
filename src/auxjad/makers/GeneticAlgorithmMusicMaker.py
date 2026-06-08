@@ -885,7 +885,7 @@ class GeneticAlgorithmMusicMaker:
         None
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_pitch_target",
@@ -917,7 +917,7 @@ class GeneticAlgorithmMusicMaker:
         "_total_duration",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -982,7 +982,7 @@ class GeneticAlgorithmMusicMaker:
         self.pitch_score_bias = pitch_score_bias
         self._target_individual_to_measure()
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`target`'s of both
@@ -1026,7 +1026,7 @@ class GeneticAlgorithmMusicMaker:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def reset(self) -> None:
         r"""Resets that genetic algorithm."""
@@ -1052,7 +1052,7 @@ class GeneticAlgorithmMusicMaker:
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _sort_population_by_evaluation(self) -> None:
         r"""Sorts the population (and their scores) according to the evaluation
@@ -1191,7 +1191,7 @@ class GeneticAlgorithmMusicMaker:
                 )
         return dummy_container[:]
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def duration_unit(self) -> abjad.Duration:

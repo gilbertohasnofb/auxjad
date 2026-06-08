@@ -336,7 +336,7 @@ class DeBruijnGenerator:
         ..  figure:: ../_images/DeBruijnGenerator-gPsjYD6RZm.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -352,7 +352,7 @@ class DeBruijnGenerator:
 
     _DE_BRUIJN_ALGORITHMS = ["pcr1", "pcr2"]
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -390,7 +390,7 @@ class DeBruijnGenerator:
         self._last_selected_index_of_sequence = None
         self.reset()
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -457,7 +457,7 @@ class DeBruijnGenerator:
         del self._contents[key]
         self.reset()
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> list[Any]:
         r"""Outputs remaining elements of the de Bruijn sequence as a single :obj:`list`.
@@ -510,7 +510,7 @@ class DeBruijnGenerator:
         self._previous_element_index = None
         self._generate_sequence()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _generate_sequence(self) -> None:
         r"""Generates the full de Bruijn sequence. Uses a specified :attr:`algorithm` for selecting
@@ -726,7 +726,7 @@ class DeBruijnGenerator:
                 period_candidate = i
         return n % period_candidate == 0
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> list[Any]:

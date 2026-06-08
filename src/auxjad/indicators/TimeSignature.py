@@ -78,6 +78,6 @@ class TimeSignature(abjad.TimeSignature):
                 return
 
 
-### EXTENSION METHODS ###
+# ---------- EXTENSION METHODS ----------
 
 abjad.TimeSignature.simplify_ratio = TimeSignature.simplify_ratio

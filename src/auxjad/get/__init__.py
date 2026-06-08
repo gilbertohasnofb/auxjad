@@ -18,7 +18,7 @@ from .time_signature_list import time_signature_list
 from .underfull_duration import underfull_duration
 from .virtual_fundamental import virtual_fundamental
 
-### EXTENSION FUNCTIONS ###
+# ---------- EXTENSION FUNCTIONS ----------
 
 abjad.get.leaves_are_tieable = leaves_are_tieable
 abjad.get.rhythms_are_identical = rhythms_are_identical

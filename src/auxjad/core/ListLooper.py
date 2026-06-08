@@ -373,11 +373,11 @@ class ListLooper(_LooperParent):
         ..  figure:: ../_images/ListLooper-kvxaoz53y5f.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = "_end_with_max_n_elements"
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -404,7 +404,7 @@ class ListLooper(_LooperParent):
             process_on_first_call=process_on_first_call,
         )
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -414,7 +414,7 @@ class ListLooper(_LooperParent):
         r"""Returns a length of :attr:`contents`."""
         return len(self._contents)
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> list[Any]:
         r"""Goes through the whole looping process and outputs a single
@@ -443,7 +443,7 @@ class ListLooper(_LooperParent):
             dummy_container.extend(self.__call__())
         return dummy_container[:]
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _slice_contents(self) -> None:
         r"""This method takes a slice with :attr:`window_size` number of
@@ -454,7 +454,7 @@ class ListLooper(_LooperParent):
         end = self._head_position + self._window_size
         self._current_window = self._contents[start:end]
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> list[Any]:
@@ -505,7 +505,7 @@ class ListLooper(_LooperParent):
             raise TypeError("'end_with_max_n_elements' must be 'bool'")
         self._end_with_max_n_elements = end_with_max_n_elements
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

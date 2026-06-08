@@ -30,7 +30,7 @@ from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 from .sustain_notes import sustain_notes
 from .sync_containers import sync_containers
 
-### EXTENSION FUNCTIONS ###
+# ---------- EXTENSION FUNCTIONS ----------
 
 abjad.mutate.auto_rewrite_meter = auto_rewrite_meter
 abjad.mutate.close_container = close_container

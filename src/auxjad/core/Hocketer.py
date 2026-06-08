@@ -1337,7 +1337,7 @@ class Hocketer:
         better to attach those to the music after the fading process has ended.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -1362,7 +1362,7 @@ class Hocketer:
         "_fuse_triple_meter",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1409,7 +1409,7 @@ class Hocketer:
         self.fuse_quadruple_meter = fuse_quadruple_meter
         self.fuse_triple_meter = fuse_triple_meter
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -1436,7 +1436,7 @@ class Hocketer:
             output.append(voice_)
         return tuple(output)
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def reset_weights(self) -> None:
         r"""Resets the weight vector of all voices to an uniform
@@ -1444,7 +1444,7 @@ class Hocketer:
         """
         self._weights = [1.0 for _ in range(self.__len__())]
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _make_music(self) -> None:
         r"""Runs the hocket process, returning a :obj:`tuple` of
@@ -1657,7 +1657,7 @@ class Hocketer:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:

@@ -1,25 +1,28 @@
+from itertools import cycle, islice
+
 import pytest
 
 import auxjad
 
 
 def is_valid_de_bruijn_cyclic(sequence, order, alphabet_size):
-    if len(sequence) != alphabet_size**order:
-        return False
     sequence_length = len(sequence)
+    if sequence_length != alphabet_size**order:
+        return False
     subgroups = set()
     for i in range(sequence_length):
         # converting subgroups to tuples as lists are not hashable and thus not allowed in sets
-        subgroup = tuple(sequence[(i + j) % sequence_length] for j in range(order))
+        subgroup = tuple(islice(cycle(sequence), i, i + order))
         subgroups.add(tuple(subgroup))
     return len(subgroups) == alphabet_size**order
 
 
 def is_valid_de_bruijn_linear(sequence, order, alphabet_size):
-    if len(sequence) != alphabet_size**order + (order - 1):
+    sequence_length = len(sequence)
+    if sequence_length != alphabet_size**order + (order - 1):
         return False
     subgroups = set()
-    for i in range(len(sequence) - order + 1):
+    for i in range(sequence_length - order + 1):
         # converting subgroups to tuples as lists are not hashable and thus not allowed in sets
         subgroup = tuple(sequence[i : i + order])
         subgroups.add(subgroup)

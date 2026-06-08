@@ -1092,7 +1092,7 @@ class LeafLooper(_LooperParent):
         better to attach those to the music after the fading process has ended.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_end_with_max_n_leaves",
@@ -1112,7 +1112,7 @@ class LeafLooper(_LooperParent):
         "_use_multimeasure_rests",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1172,7 +1172,7 @@ class LeafLooper(_LooperParent):
             process_on_first_call=process_on_first_call,
         )
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -1182,7 +1182,7 @@ class LeafLooper(_LooperParent):
         r"""Returns the number of logical ties of :attr:`contents`."""
         return len(self._contents_logical_ties)
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _slice_contents(self) -> None:
         r"""This method takes a slice with :attr:`window_size` number of
@@ -1283,7 +1283,7 @@ class LeafLooper(_LooperParent):
         r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:
@@ -1559,7 +1559,7 @@ class LeafLooper(_LooperParent):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

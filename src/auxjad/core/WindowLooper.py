@@ -1253,7 +1253,7 @@ class WindowLooper(_LooperParent):
         ..  figure:: ../_images/WindowLooper-cevvf9c9a9.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_omit_time_signatures",
@@ -1274,7 +1274,7 @@ class WindowLooper(_LooperParent):
         "_use_multimeasure_rests",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1352,7 +1352,7 @@ class WindowLooper(_LooperParent):
             process_on_first_call=process_on_first_call,
         )
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of  :attr:`contents`."""
@@ -1376,7 +1376,7 @@ class WindowLooper(_LooperParent):
         """
         return super().__next__()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _slice_contents(self) -> None:
         r"""This method takes a slice of size :attr:`window_size` out of
@@ -1518,7 +1518,7 @@ class WindowLooper(_LooperParent):
         r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:
@@ -1874,7 +1874,7 @@ class WindowLooper(_LooperParent):
             raise TypeError("'use_multimeasure_rests' must be 'bool'")
         self._use_multimeasure_rests = use_multimeasure_rests
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

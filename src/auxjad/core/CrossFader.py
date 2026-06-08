@@ -1634,7 +1634,7 @@ class CrossFader:
         ..  figure:: ../_images/CrossFader-5qvaan79w8p.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_fade_out_contents",
@@ -1661,7 +1661,7 @@ class CrossFader:
         "_fade_out_last",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1707,7 +1707,7 @@ class CrossFader:
         self.repetition_chance = repetition_chance
         self.weighted_duration = weighted_duration
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of both contents."""
@@ -1738,7 +1738,7 @@ class CrossFader:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> tuple[abjad.Selection]:
         r"""Goes through the whole fading process and outputs a tuple of two
@@ -1802,7 +1802,7 @@ class CrossFader:
         self._fader_in.reset()
         self._fader_out.reset()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _cross_fade_process(self) -> None:
         r"""Processes both faders according to the cross fade process."""
@@ -1852,7 +1852,7 @@ class CrossFader:
         r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def fade_out_contents(self) -> abjad.Container:
@@ -2129,7 +2129,7 @@ class CrossFader:
         self._fader_in.rewrite_tuplets = rewrite_tuplets
         self._fader_out.rewrite_tuplets = rewrite_tuplets
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

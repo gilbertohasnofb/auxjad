@@ -1409,7 +1409,7 @@ class Fader:
         ..  figure:: ../_images/Fader-lkhKFVuUgx.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -1435,7 +1435,7 @@ class Fader:
         "_fuse_triple_meter",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1480,7 +1480,7 @@ class Fader:
         self.repetition_chance = repetition_chance
         self._is_first_window = True
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of  :attr:`contents`."""
@@ -1526,7 +1526,7 @@ class Fader:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> abjad.Selection:
         r"""Goes through the whole fading process and outputs a single
@@ -1583,7 +1583,7 @@ class Fader:
         self._is_first_window = True
         random.shuffle(self._mask)
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _remove_element(self) -> None:
         r"""Sets a random element of the mask to ``0``."""
@@ -1735,7 +1735,7 @@ class Fader:
         """
         return tuple(index for index, item in enumerate(input_list) if item == element)[count]
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:
@@ -2057,7 +2057,7 @@ class Fader:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         self._repetition_chance = repetition_chance
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

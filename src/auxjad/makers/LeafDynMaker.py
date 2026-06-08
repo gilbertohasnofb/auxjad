@@ -326,7 +326,7 @@ class LeafDynMaker(abjad.LeafMaker):
         ..  figure:: ../_images/LeafDynMaker-79n2uz1n8j3.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_omit_repeated_dynamics",
@@ -334,12 +334,12 @@ class LeafDynMaker(abjad.LeafMaker):
         "_cyclic_articulations",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(self) -> None:
         super().__init__()
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __call__(
         self,
@@ -404,7 +404,7 @@ class LeafDynMaker(abjad.LeafMaker):
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _add_dynamics_and_articulations(
         self,

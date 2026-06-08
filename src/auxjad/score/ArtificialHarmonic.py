@@ -343,7 +343,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         Exception: multiple indicators attached to client.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_style",
@@ -353,7 +353,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         "_markup",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -377,7 +377,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         self.centre_markup = centre_markup
         self.markup = markup
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def sounding_pitch(self) -> abjad.Pitch:
         r"""Returns the sounding pitch of the harmonic as an |abjad.Pitch|."""
@@ -409,7 +409,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
             abjad.attach(indicator, note)
         return note
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _attach_centre_markup(self) -> None:
         r"""Attaches the centre markup tweaks."""
@@ -427,7 +427,7 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
         if abjad.get.indicator(self, literal2):
             abjad.detach(literal2, self)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def written_pitches(self) -> abjad.pitch.segments.PitchSegment:

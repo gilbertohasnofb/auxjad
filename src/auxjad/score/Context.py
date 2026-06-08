@@ -14,7 +14,7 @@ class Context(abjad.Context):
         "_context_commands",
     )
 
-    ### INITIALIZER ###
+    # ---------- INITIALIZER ----------
 
     # TODO: make keywords mandatory
     def __init__(
@@ -25,7 +25,7 @@ class Context(abjad.Context):
         self._context_commands: list[str] = []
         super().__init__(*args, **kwargs)
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __copy__(self, *args):
         """
@@ -41,7 +41,7 @@ class Context(abjad.Context):
         new_context._context_commands = copy.copy(self.context_commands)
         return new_context
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _format_open_brackets_slot(self, bundle):
         indent = abjad.LilyPondFormatBundle.indent
@@ -110,7 +110,7 @@ class Context(abjad.Context):
             result.append((identifier_pair, contributions))
         return tuple(result)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def context_commands(self):
@@ -182,7 +182,7 @@ class Voice(Context, abjad.Voice):  # noqa: D101
     pass
 
 
-### EXTENSION METHODS ###
+# ---------- EXTENSION METHODS ----------
 
 abjad.Context.context_commands = Context.context_commands
 abjad.Staff = Staff

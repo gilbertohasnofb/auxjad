@@ -356,7 +356,7 @@ class TenneySelector:
         [1.0, 1.0, 1.0, 1.0]
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -367,7 +367,7 @@ class TenneySelector:
         "_probabilities",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -402,7 +402,7 @@ class TenneySelector:
         self._generate_probabilities()
         self._previous_index = None
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -464,7 +464,7 @@ class TenneySelector:
         del self._probabilities[key]
         del self._counter[key]
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def reset_probabilities(self) -> None:
         r"""Resets the probability distribution of all elements to an uniform
@@ -473,7 +473,7 @@ class TenneySelector:
         self._counter = [1 for _ in range(self.__len__())]
         self._generate_probabilities()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _regenerate_counts(self) -> None:
         r"""Increases the count of all elements except for the previously
@@ -508,7 +508,7 @@ class TenneySelector:
         r"""Applies the growth exponent given a number of counts."""
         return count**self._curvature
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> list[Any]:

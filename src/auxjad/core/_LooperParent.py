@@ -12,7 +12,7 @@ class _LooperParent:
     methods.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -27,7 +27,7 @@ class _LooperParent:
         "_process_on_first_call",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -52,7 +52,7 @@ class _LooperParent:
         self._is_first_window = True
         self._current_window = None
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __call__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
@@ -78,7 +78,7 @@ class _LooperParent:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(
         self,
@@ -142,7 +142,7 @@ class _LooperParent:
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _move_head(self) -> None:
         r"""Moves the head by a certain number of steps of fixed size, either
@@ -178,7 +178,7 @@ class _LooperParent:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> None:
@@ -329,7 +329,7 @@ class _LooperParent:
             self._remove_all_time_signatures(current_window)
         return current_window
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

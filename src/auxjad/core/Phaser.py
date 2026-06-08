@@ -1239,7 +1239,7 @@ class Phaser:
         ..  figure:: ../_images/Phaser-lqvc5p5i25b.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -1263,7 +1263,7 @@ class Phaser:
         "_fuse_triple_meter",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1308,7 +1308,7 @@ class Phaser:
         self.process_on_first_call = process_on_first_call
         self._is_first_window = True
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of  :attr:`contents`."""
@@ -1347,7 +1347,7 @@ class Phaser:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(
         self,
@@ -1410,7 +1410,7 @@ class Phaser:
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _move_pivot_point(self) -> None:
         r"""Moves the pivot point by a certain number of steps of fixed size,
@@ -1528,7 +1528,7 @@ class Phaser:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:
@@ -1803,7 +1803,7 @@ class Phaser:
             raise TypeError("'process_on_first_call' must be 'bool'")
         self._process_on_first_call = process_on_first_call
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

@@ -12,6 +12,6 @@ import abjad
 
 from .logical_selections import logical_selections
 
-### EXTENSION FUNCTIONS ###
+# ---------- EXTENSION FUNCTIONS ----------
 
 abjad.select.logical_selections = logical_selections

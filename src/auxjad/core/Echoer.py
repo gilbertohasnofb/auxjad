@@ -1411,7 +1411,7 @@ class Echoer:
         ..  figure:: ../_images/Echoer-lkhKFVuUgx.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -1478,7 +1478,7 @@ class Echoer:
         6: "fffff",
     }
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1520,7 +1520,7 @@ class Echoer:
         self.repetition_chance = repetition_chance
         self._is_first_window = True
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of  :attr:`contents`."""
@@ -1553,7 +1553,7 @@ class Echoer:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> abjad.Selection:
         r"""Goes through the whole echoing process and outputs a single
@@ -1595,7 +1595,7 @@ class Echoer:
         self._is_first_window = True
         self._get_mask()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _mask_to_selection(self) -> None:
         r"""Applies the mask to :attr:`contents`."""
@@ -1750,7 +1750,7 @@ class Echoer:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:
@@ -2050,7 +2050,7 @@ class Echoer:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         self._repetition_chance = repetition_chance
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

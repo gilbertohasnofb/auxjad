@@ -988,6 +988,6 @@ def staff_splitter(
     return upper_staff, lower_staff
 
 
-### EXTENSION FUNCTIONS ###
+# ---------- EXTENSION FUNCTIONS ----------
 
 abjad.staff_splitter = staff_splitter

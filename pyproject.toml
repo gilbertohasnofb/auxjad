@@ -63,7 +63,6 @@ line_length = 100
 case_sensitive = true
 skip_gitignore = true
 known_first_party = ["auxjad"]
-skip = ["sandbox.py"]
 
 [tool.pydocstyle]
 match_dir = "src"

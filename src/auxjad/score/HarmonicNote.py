@@ -229,11 +229,11 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         Exception: multiple indicators attached to client.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = ("_style", "_direction", "_markup", "_centre_markup")
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -251,7 +251,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         self.centre_markup = centre_markup
         self.markup = markup
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _attach_centre_markup(self) -> None:
         r"""Attaches the centre markup tweaks."""
@@ -269,7 +269,7 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
         if abjad.get.indicator(self, literal2):
             abjad.detach(literal2, self)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def style(self) -> str:

@@ -1,5 +1,5 @@
 import random
-from typing import Any, Union
+from typing import Any, Iterator, Union
 
 import abjad
 
@@ -12,7 +12,7 @@ class _LooperParent:
     methods.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -27,7 +27,7 @@ class _LooperParent:
         "_process_on_first_call",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -52,7 +52,7 @@ class _LooperParent:
         self._is_first_window = True
         self._current_window = None
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __call__(self) -> abjad.Selection:
         r"""Calls the looping process for one iteration, returning an
@@ -60,7 +60,7 @@ class _LooperParent:
         """
         self._move_head()
         if self._done:
-            raise RuntimeError("'contents' has been exhausted")
+            raise StopIteration("'contents' has been exhausted")
         self._slice_contents()
         return self.current_window
 
@@ -74,11 +74,11 @@ class _LooperParent:
         self._slice_contents()
         return self.current_window
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(
         self,
@@ -102,7 +102,7 @@ class _LooperParent:
                     if get.leaves_are_tieable((leaf1, leaf2)):
                         abjad.attach(abjad.Tie(), dummy_container[-1])
                     dummy_container.append(new_window)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container[:])
         mutate.reposition_dynamics(dummy_container[:])
@@ -121,7 +121,7 @@ class _LooperParent:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         if not isinstance(tie_identical_pitches, bool):
             raise TypeError("'tie_identical_pitches' must be 'bool'")
@@ -142,7 +142,7 @@ class _LooperParent:
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _move_head(self) -> None:
         r"""Moves the head by a certain number of steps of fixed size, either
@@ -178,7 +178,7 @@ class _LooperParent:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> None:
@@ -329,7 +329,7 @@ class _LooperParent:
             self._remove_all_time_signatures(current_window)
         return current_window
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

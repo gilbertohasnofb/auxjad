@@ -62,6 +62,7 @@ namespaces = [
     # core
     auxjad.CartographySelector,
     auxjad.CrossFader,
+    auxjad.DeBruijnGenerator,
     auxjad.Echoer,
     auxjad.Fader,
     auxjad.GeneticAlgorithm,

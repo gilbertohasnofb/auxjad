@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -1411,7 +1411,7 @@ class Echoer:
         ..  figure:: ../_images/Echoer-lkhKFVuUgx.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -1478,7 +1478,7 @@ class Echoer:
         6: "fffff",
     }
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1520,7 +1520,7 @@ class Echoer:
         self.repetition_chance = repetition_chance
         self._is_first_window = True
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of  :attr:`contents`."""
@@ -1549,11 +1549,11 @@ class Echoer:
             raise StopIteration
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> abjad.Selection:
         r"""Goes through the whole echoing process and outputs a single
@@ -1579,7 +1579,7 @@ class Echoer:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = abjad.Container()
         for _ in range(n):
@@ -1595,7 +1595,7 @@ class Echoer:
         self._is_first_window = True
         self._get_mask()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _mask_to_selection(self) -> None:
         r"""Applies the mask to :attr:`contents`."""
@@ -1664,7 +1664,7 @@ class Echoer:
             self._mask.append(dyn)
             previous_dyn = dyn
         if self._mask[0] is None:
-            raise RuntimeError("first note of 'contents' must have a dynamic")
+            raise StopIteration("first note of 'contents' must have a dynamic")
 
     def _mask_to_dyn_list(self) -> list[str]:
         r"""Converts the numerical mask into a list of dynamic strings."""
@@ -1689,7 +1689,7 @@ class Echoer:
                     for item in self._mask
                 ]
             elif n == 0:
-                raise RuntimeError("'current_window' is already empty")
+                raise StopIteration("'current_window' is already empty")
 
     @staticmethod
     def _soften_dynamic(
@@ -1750,7 +1750,7 @@ class Echoer:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:
@@ -2050,7 +2050,7 @@ class Echoer:
             raise ValueError("'repetition_chance' must be between 0.0 and 1.0")
         self._repetition_chance = repetition_chance
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

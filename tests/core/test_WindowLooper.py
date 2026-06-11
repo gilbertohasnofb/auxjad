@@ -677,7 +677,7 @@ def test_WindowLooper_14():
         window_size=(3, 4),
         step_size=(1, 4),
     )
-    with pytest.raises(RuntimeError):
+    with pytest.raises(StopIteration):
         notes = looper.output_n(100)  # noqa: F841
 
 

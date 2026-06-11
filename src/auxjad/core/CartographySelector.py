@@ -8,10 +8,10 @@ class CartographySelector:
     represents the ratio of probabilities of any index given the probability of
     the preceding one. For instance, if the decay rate is set to ``0.75``
     (which is its default value), the probability of the element in index ``1``
-    of the input :obj:`list` being selected is :math:`75\%`` the probability of
+    of the input :obj:`list` being selected is :math:`75\%` the probability of
     the element in index ``0``, and the probability of the element in index
-    ``2`` is :math:`56.25\%`` (i.e. :math:`0.75^2`) the probability of the
-    element in index ``0``. The probability :math:`P(n)`` of the :math:`n`-th
+    ``2`` is :math:`56.25\%` (i.e. :math:`0.75^2`) the probability of the
+    element in index ``0``. The probability :math:`P(n)` of the :math:`n`-th
     element can thus be expressed as a relation to the probability of another
     element :math:`k` indexes apart using:
 
@@ -284,7 +284,7 @@ class CartographySelector:
         [10, 7, 98]
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -293,7 +293,7 @@ class CartographySelector:
         "_weights",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -312,7 +312,7 @@ class CartographySelector:
         self._decay_rate = decay_rate
         self._generate_weights()
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -383,7 +383,7 @@ class CartographySelector:
         del self._contents[key]
         self._generate_weights()
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def drop_first_and_append(
         self,
@@ -462,7 +462,7 @@ class CartographySelector:
         r"""Shuffles the position of the elements of :attr:`contents`."""
         random.shuffle(self._contents)
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _generate_weights(self) -> None:
         r"""Given a decay rate, this method generates the :attr:`weights` of
@@ -472,7 +472,7 @@ class CartographySelector:
         for n in range(self.__len__()):
             self._weights.append(self._decay_rate**n)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> list[Any]:

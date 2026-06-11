@@ -378,7 +378,7 @@ def piano_pedal(
             abjad.attach(omit_raise_pedal_glyph_tweak, stop_leaf)
 
 
-### MONKEY PATCHING ###
+# ---------- MONKEY PATCHING ----------
 
 abjad.spanners.piano_pedal = piano_pedal
 abjad.piano_pedal = piano_pedal

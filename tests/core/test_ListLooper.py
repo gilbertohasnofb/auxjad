@@ -249,7 +249,7 @@ def test_ListLooper_11():
 def test_ListLooper_12():
     input_list = ["A", "B", "C", "D"]
     looper = auxjad.ListLooper(input_list, window_size=3)
-    with pytest.raises(RuntimeError):
+    with pytest.raises(StopIteration):
         notes = looper.output_n(100)  # noqa: F841
 
 

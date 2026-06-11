@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -1634,7 +1634,7 @@ class CrossFader:
         ..  figure:: ../_images/CrossFader-5qvaan79w8p.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_fade_out_contents",
@@ -1661,7 +1661,7 @@ class CrossFader:
         "_fade_out_last",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1707,7 +1707,7 @@ class CrossFader:
         self.repetition_chance = repetition_chance
         self.weighted_duration = weighted_duration
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of both contents."""
@@ -1732,16 +1732,13 @@ class CrossFader:
         r"""Calls the cross fading process for one iteration, returning a
         :obj:`tuple` of |abjad.Selection| objects.
         """
-        try:
-            return self.__call__()
-        except RuntimeError:
-            raise StopIteration
+        return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> tuple[abjad.Selection]:
         r"""Goes through the whole fading process and outputs a tuple of two
@@ -1755,7 +1752,7 @@ class CrossFader:
                 result_a, result_b = self.__call__()
                 dummy_container_a.extend(result_a)
                 dummy_container_b.extend(result_b)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container_a[:])
         mutate.remove_repeated_time_signatures(dummy_container_b[:])
@@ -1775,7 +1772,7 @@ class CrossFader:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         self.reset()
         dummy_container_a = abjad.Container()
@@ -1785,7 +1782,7 @@ class CrossFader:
                 result_a, result_b = self.__call__()
                 dummy_container_a.extend(result_a)
                 dummy_container_b.extend(result_b)
-            except RuntimeError:
+            except StopIteration:
                 break
         mutate.remove_repeated_time_signatures(dummy_container_a[:])
         mutate.remove_repeated_time_signatures(dummy_container_b[:])
@@ -1805,7 +1802,7 @@ class CrossFader:
         self._fader_in.reset()
         self._fader_out.reset()
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _cross_fade_process(self) -> None:
         r"""Processes both faders according to the cross fade process."""
@@ -1820,7 +1817,7 @@ class CrossFader:
             if self._final_repetitions_counter < self._final_repetitions - 1:
                 self._final_repetitions_counter += 1
             else:
-                raise RuntimeError("both faders have been exhausted")
+                raise StopIteration("both faders have been exhausted")
         else:
             if (
                 self._is_first_process
@@ -1843,7 +1840,7 @@ class CrossFader:
                             weights=self._weights,
                         )[0]
                         random_fader()
-                    except RuntimeError:
+                    except StopIteration:
                         other_fader = self._faders[0]
                         if other_fader is random_fader:
                             other_fader = self._faders[1]
@@ -1855,7 +1852,7 @@ class CrossFader:
         r"""Returns interpreter representation of  :attr:`contents`."""
         return self.__repr__()
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def fade_out_contents(self) -> abjad.Container:
@@ -2132,7 +2129,7 @@ class CrossFader:
         self._fader_in.rewrite_tuplets = rewrite_tuplets
         self._fader_out.rewrite_tuplets = rewrite_tuplets
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

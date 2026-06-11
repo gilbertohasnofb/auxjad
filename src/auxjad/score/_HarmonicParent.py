@@ -9,14 +9,14 @@ class _HarmonicParent:
     ``@property`` and ``@setter`` decorators.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     # due to subclasses using multiple inheritance, '_markup' and '_direction'
     # are added to their __slots__ since you cannot inherit from multiple
     # classes with non-empty __slots__
     __slots__ = ()
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def direction(self) -> Union[str, abjad.enums.VerticalAlignment]:

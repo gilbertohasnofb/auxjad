@@ -1,3 +1,5 @@
+from typing import Iterator
+
 import abjad
 
 from .. import get, mutate
@@ -693,7 +695,7 @@ class Repeater:
         preceding a time signature change
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -707,7 +709,7 @@ class Repeater:
         "_include_2x_volta_text",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -730,7 +732,7 @@ class Repeater:
         self.repeat_type = repeat_type
         self.include_2x_volta_text = include_2x_volta_text
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of  :attr:`contents`."""
@@ -745,7 +747,7 @@ class Repeater:
         """
         if not isinstance(n, int):
             raise TypeError("first positional argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("first positional argument must be a positive 'int'")
         if self._repeat_type == "unfold":
             self._repeat_unfold(n)
@@ -761,11 +763,11 @@ class Repeater:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_n(
         self,
@@ -776,7 +778,7 @@ class Repeater:
         """
         return self.__call__(n)
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _repeat_unfold(
         self,
@@ -838,7 +840,7 @@ class Repeater:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:

@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 
 class GeneticAlgorithm:
@@ -198,7 +198,7 @@ class GeneticAlgorithm:
         None
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_target",
@@ -216,7 +216,7 @@ class GeneticAlgorithm:
         "_population",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -251,7 +251,7 @@ class GeneticAlgorithm:
         self._population = None
         self._scores = None
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`target`."""
@@ -277,16 +277,13 @@ class GeneticAlgorithm:
         mutation processes and scores each individual using the evaluation
         function. Sorts the population according to their scores.
         """
-        try:
-            return self.__call__()
-        except RuntimeError:
-            raise StopIteration
+        return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def reset(self) -> None:
         r"""Resets that genetic algorithm."""
@@ -294,7 +291,7 @@ class GeneticAlgorithm:
         self._population = None
         self._scores = None
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _generate_population(self) -> None:
         r"""Calls the genetic algorithm process for one iteration. Creates a
@@ -392,7 +389,7 @@ class GeneticAlgorithm:
                         mutated_individual[i] = random.choice(self._genes)
                 self._population[index] = mutated_individual
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def target(self) -> list:

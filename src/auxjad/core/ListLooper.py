@@ -306,7 +306,7 @@ class ListLooper(_LooperParent):
         >>> looper()
         [123, "foo", (3, 4)]
 
-        This also include Abjad's types. Abjad's exclusive membership
+        This also includes Abjad's types. Abjad's exclusive membership
         requirement is respected since each call returns a
         :func:`copy.deepcopy` of the window. The same is true to the
         :meth:`output_all` method.
@@ -373,11 +373,11 @@ class ListLooper(_LooperParent):
         ..  figure:: ../_images/ListLooper-kvxaoz53y5f.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = "_end_with_max_n_elements"
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -404,7 +404,7 @@ class ListLooper(_LooperParent):
             process_on_first_call=process_on_first_call,
         )
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -414,7 +414,7 @@ class ListLooper(_LooperParent):
         r"""Returns a length of :attr:`contents`."""
         return len(self._contents)
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> list[Any]:
         r"""Goes through the whole looping process and outputs a single
@@ -425,7 +425,7 @@ class ListLooper(_LooperParent):
         while True:
             try:
                 dummy_container.extend(self.__call__())
-            except RuntimeError:
+            except StopIteration:
                 break
         return dummy_container[:]
 
@@ -435,15 +435,15 @@ class ListLooper(_LooperParent):
         parent's method outputs an |abjad.Selection|.
         """
         if not isinstance(n, int):
-            raise TypeError("argument must be 'int'")
-        if n < 0:
-            raise ValueError("argument must be a positive 'int'")
+            raise TypeError("first positional argument must be 'int'")
+        if n <= 0:
+            raise ValueError("first positional argument must be a positive 'int'")
         dummy_container = []
         for _ in range(n):
             dummy_container.extend(self.__call__())
         return dummy_container[:]
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _slice_contents(self) -> None:
         r"""This method takes a slice with :attr:`window_size` number of
@@ -454,7 +454,7 @@ class ListLooper(_LooperParent):
         end = self._head_position + self._window_size
         self._current_window = self._contents[start:end]
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> list[Any]:
@@ -505,7 +505,7 @@ class ListLooper(_LooperParent):
             raise TypeError("'end_with_max_n_elements' must be 'bool'")
         self._end_with_max_n_elements = end_with_max_n_elements
 
-    ### PRIVATE PROPERTIES ###
+    # ---------- PRIVATE PROPERTIES ----------
 
     @property
     def _done(self) -> bool:

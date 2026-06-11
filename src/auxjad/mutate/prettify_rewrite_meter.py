@@ -1115,9 +1115,9 @@ def prettify_rewrite_meter(
 
         ..  warning::
 
-            When dealing with a container with multiple subcontainers (e.g. a score containing multiple
-            staves), the best approach is to cycle through these subcontainers, applying this function
-            to them individually.
+            When dealing with a container with multiple subcontainers (e.g. a score containing
+            multiple staves), the best approach is to cycle through these subcontainers, applying
+            this function to them individually.
     """
     if not isinstance(selection, abjad.Selection):
         raise TypeError("first argument must be 'abjad.Selection'")

@@ -1,5 +1,5 @@
 import random
-from typing import Any, Optional, Union
+from typing import Any, Iterator, Optional, Union
 
 import abjad
 
@@ -1046,7 +1046,7 @@ class Shuffler:
         ..  figure:: ../_images/Shuffler-3gyz7atvemx.png
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -1072,7 +1072,7 @@ class Shuffler:
         "_swap_limit",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -1110,7 +1110,7 @@ class Shuffler:
         self.swap_limit = swap_limit
         self._is_first_window = True
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`contents`."""
@@ -1130,11 +1130,11 @@ class Shuffler:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def shuffle(self) -> abjad.Selection:
         r"""Shuffles logical ties or pitches of :attr:`contents`."""
@@ -1228,7 +1228,7 @@ class Shuffler:
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _update_logical_selections(self) -> None:
         r"""Updates the selection of logical ties of :attr:`contents`."""
@@ -1514,7 +1514,7 @@ class Shuffler:
                 element = input_list.pop(-1)
                 input_list.insert(0, element)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:

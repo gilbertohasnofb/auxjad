@@ -480,7 +480,7 @@ def test_LeafLooper_14():
 def test_LeafLooper_15():
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
     looper = auxjad.LeafLooper(container, window_size=2)
-    with pytest.raises(RuntimeError):
+    with pytest.raises(StopIteration):
         notes = looper.output_n(100)  # noqa: F841
 
 

@@ -131,7 +131,7 @@ def test_Fader_02():
             R1
         }
         """)
-    with pytest.raises(RuntimeError):
+    with pytest.raises(StopIteration):
         notes = fader()  # noqa: F841
 
 

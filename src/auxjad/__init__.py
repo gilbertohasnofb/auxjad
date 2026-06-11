@@ -14,9 +14,10 @@ This library is published under the MIT License.
 """
 
 from . import get, mutate, select
-
+from ._version import __version__
 from .core.CartographySelector import CartographySelector
 from .core.CrossFader import CrossFader
+from .core.DeBruijnGenerator import DeBruijnGenerator
 from .core.Echoer import Echoer
 from .core.Fader import Fader
 from .core.GeneticAlgorithm import GeneticAlgorithm
@@ -29,37 +30,26 @@ from .core.Repeater import Repeater
 from .core.Shuffler import Shuffler
 from .core.TenneySelector import TenneySelector
 from .core.WindowLooper import WindowLooper
-
 from .indicators.TimeSignature import TimeSignature
-
 from .makers.GeneticAlgorithmMusicMaker import GeneticAlgorithmMusicMaker
 from .makers.LeafDynMaker import LeafDynMaker
-
 from .score.ArtificialHarmonic import ArtificialHarmonic
-from .score.Context import Context
-from .score.Context import Staff
-from .score.Context import StaffGroup
-from .score.Context import Voice
+from .score.Context import Context, Staff, StaffGroup, Voice
 from .score.HarmonicNote import HarmonicNote
 from .score.Score import Score
-
 from .spanners.piano_pedal import piano_pedal
-
 from .utils.staff_splitter import staff_splitter
-
-from ._version import __version__
 
 __author__ = "Gilberto Agostinho <gilbertohasnofb@gmail.com>"
 __all__ = [
     "__author__",
     "__version__",
-    # modules
     "get",
     "mutate",
     "select",
-    # core
     "CartographySelector",
     "CrossFader",
+    "DeBruijnGenerator",
     "Echoer",
     "Fader",
     "GeneticAlgorithm",
@@ -72,12 +62,9 @@ __all__ = [
     "Shuffler",
     "TenneySelector",
     "WindowLooper",
-    # indicators
     "TimeSignature",
-    # makers
     "GeneticAlgorithmMusicMaker",
     "LeafDynMaker",
-    # score
     "ArtificialHarmonic",
     "Context",
     "HarmonicNote",
@@ -85,8 +72,6 @@ __all__ = [
     "Staff",
     "StaffGroup",
     "Voice",
-    # spanners
     "piano_pedal",
-    # utils
     "staff_splitter",
 ]

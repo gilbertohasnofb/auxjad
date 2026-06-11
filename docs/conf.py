@@ -10,7 +10,6 @@
 Sphinx configuration file
 =========================
 
-isort:skip_file
 """
 
 # -- Path setup --------------------------------------------------------------
@@ -22,6 +21,26 @@ isort:skip_file
 import os
 import re
 import sys
+import typing
+
+import pygments.styles
+from docutils.parsers.rst import Directive, directives
+from pygments.style import Style
+from pygments.styles import STYLE_MAP
+from pygments.token import (
+    Comment,
+    Error,
+    Generic,
+    Keyword,
+    Literal,
+    Name,
+    Number,
+    Operator,
+    Other,
+    Punctuation,
+    String,
+    Text,
+)
 
 # appending ../src/auxjad to path
 sys.path.insert(
@@ -98,22 +117,6 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # -- Custom syntax highlighting syle ------------------------------------------
 
-from pygments.style import Style
-from pygments.token import (
-    Comment,
-    Error,
-    Generic,
-    Literal,
-    Name,
-    Number,
-    Operator,
-    Other,
-    Punctuation,
-    String,
-    Text,
-    Keyword,
-)
-
 
 class PandaStyle(Style):
     r"""Panda Syntax Theme.
@@ -159,16 +162,11 @@ class PandaStyle(Style):
 
 def pygments_monkeypatch_style(mod_name, cls):
     r"""Monkeypatch custom theme."""
-    import sys
-    import pygments.styles
-
     cls_name = cls.__name__
     mod = type(__import__("os"))(mod_name)
     setattr(mod, cls_name, cls)
     setattr(pygments.styles, mod_name, mod)
     sys.modules["pygments.styles." + mod_name] = mod
-    from pygments.styles import STYLE_MAP
-
     STYLE_MAP[mod_name] = mod_name + "::" + cls_name
 
 
@@ -288,16 +286,11 @@ epub_exclude_files = ["search.html"]
 
 # -- Adding Abjad's custom 'docs' directive ----------------------------------
 
-import typing
-from docutils.parsers.rst import Directive, directives
-
 
 class HiddenDoctestDirective(Directive):
     r"""An hidden doctest directive.
     Contributes no formatting to documents built by Sphinx.
     """
-
-    ### CLASS VARIABLES ###
 
     __documentation_ignore_inherited__ = True
 
@@ -306,8 +299,6 @@ class HiddenDoctestDirective(Directive):
     optional_arguments = 0
     final_argument_whitespace = True
     option_spec: typing.Dict[str, str] = {}
-
-    ### PUBLIC METHODS ###
 
     def run(self):
         r"""Execute the directive."""

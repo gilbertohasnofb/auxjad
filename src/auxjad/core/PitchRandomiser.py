@@ -1,5 +1,5 @@
 import random
-from typing import Optional, Union
+from typing import Iterator, Optional, Union
 
 import abjad
 
@@ -655,7 +655,7 @@ class PitchRandomiser:
         and remove repeated dynamics and unnecessary clef changes.
     """
 
-    ### CLASS VARIABLES ###
+    # ---------- CLASS VARIABLES ----------
 
     __slots__ = (
         "_contents",
@@ -669,7 +669,7 @@ class PitchRandomiser:
         "_is_first_window",
     )
 
-    ### INITIALISER ###
+    # ---------- INITIALISER ----------
 
     def __init__(
         self,
@@ -695,7 +695,7 @@ class PitchRandomiser:
         self.use_tenney_selector = use_tenney_selector
         self._is_first_window = True
 
-    ### SPECIAL METHODS ###
+    # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
         r"""Returns interpreter representation of :attr:`pitches`."""
@@ -716,11 +716,11 @@ class PitchRandomiser:
         """
         return self.__call__()
 
-    def __iter__(self) -> None:
+    def __iter__(self) -> Iterator:
         r"""Returns an iterator, allowing instances to be used as iterators."""
         return self
 
-    ### PUBLIC METHODS ###
+    # ---------- PUBLIC METHODS ----------
 
     def output_n(
         self,
@@ -731,7 +731,7 @@ class PitchRandomiser:
         """
         if not isinstance(n, int):
             raise TypeError("argument must be 'int'")
-        if n < 1:
+        if n <= 0:
             raise ValueError("argument must be greater than zero")
         dummy_container = abjad.Container()
         for _ in range(n):
@@ -742,7 +742,7 @@ class PitchRandomiser:
         dummy_container[:] = []
         return output
 
-    ### PRIVATE METHODS ###
+    # ---------- PRIVATE METHODS ----------
 
     def _randomise(self) -> abjad.Selection:
         r"""Randomises pitches of :attr:`contents`."""
@@ -798,7 +798,7 @@ class PitchRandomiser:
             if abjad.get.effective(leaf, abjad.TimeSignature):
                 abjad.detach(abjad.TimeSignature, leaf)
 
-    ### PUBLIC PROPERTIES ###
+    # ---------- PUBLIC PROPERTIES ----------
 
     @property
     def contents(self) -> abjad.Container:

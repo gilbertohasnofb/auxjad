@@ -1,5 +1,4 @@
 from collections.abc import Iterable
-from typing import Union
 
 import abjad
 
@@ -9,10 +8,7 @@ from .rests_to_multimeasure_rest import rests_to_multimeasure_rest
 
 
 def sync_containers(
-    containers: Union[
-        Iterable[abjad.Container],
-        abjad.Score,
-    ],
+    containers: Iterable[abjad.Container] | abjad.Score,
     *,
     use_multimeasure_rests: bool = True,
     adjust_last_time_signature: bool = True,

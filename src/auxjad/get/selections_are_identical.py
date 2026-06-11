@@ -1,14 +1,10 @@
 from collections.abc import Iterable
-from typing import Union
 
 import abjad
 
 
 def selections_are_identical(
-    selections: Union[
-        Iterable[abjad.Component],
-        Iterable[abjad.Selection],
-    ],
+    selections: Iterable[abjad.Component] | Iterable[abjad.Selection],
     *,
     include_indicators: bool = True,
 ) -> bool:

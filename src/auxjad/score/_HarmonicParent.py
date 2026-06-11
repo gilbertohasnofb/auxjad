@@ -1,5 +1,3 @@
-from typing import Union
-
 import abjad
 
 
@@ -19,14 +17,14 @@ class _HarmonicParent:
     # ---------- PUBLIC PROPERTIES ----------
 
     @property
-    def direction(self) -> Union[str, abjad.enums.VerticalAlignment]:
+    def direction(self) -> str | abjad.enums.VerticalAlignment:
         r"""The direction of the harmonic note head."""
         return self._direction
 
     @direction.setter
     def direction(
         self,
-        direction: Union[str, abjad.enums.VerticalAlignment],
+        direction: str | abjad.enums.VerticalAlignment,
     ) -> None:
         if direction is not None:
             if not isinstance(direction, (str, abjad.enums.VerticalAlignment)):

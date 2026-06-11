@@ -1,5 +1,4 @@
 from functools import partial
-from typing import Union
 
 import abjad
 
@@ -8,7 +7,7 @@ def _group_consecutive_rests(
     logical_tie: abjad.LogicalTie,
     *,
     include_multimeasure_rests: bool = True,
-) -> Union[abjad.Leaf, bool]:
+) -> abjad.Leaf | bool:
     r"""Private function used by |auxjad.select.logical_selections()| in order
     to group consecutive ties together. If a logical tie is made out of a rest,
     this function returns the value ``True``, otherwise it returns the logical
@@ -27,7 +26,7 @@ def _group_consecutive_rests(
 
 
 def logical_selections(
-    container: Union[abjad.Container, abjad.Selection],
+    container: abjad.Container | abjad.Selection,
     *,
     include_multimeasure_rests: bool = True,
 ) -> abjad.Selection:

@@ -1,5 +1,5 @@
 import copy
-from typing import Any, Union
+from typing import Any
 
 from ._LooperParent import _LooperParent
 
@@ -472,7 +472,7 @@ class ListLooper(_LooperParent):
         self._is_first_window = True
 
     @property
-    def current_window(self) -> Union[list[Any], None]:
+    def current_window(self) -> list[Any] | None:
         r"""Read-only property, returns the window at the current head
         position.
         """

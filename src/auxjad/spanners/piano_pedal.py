@@ -1,11 +1,10 @@
 from textwrap import dedent
-from typing import Union
 
 import abjad
 
 
 def piano_pedal(
-    argument: Union[abjad.Component, abjad.Selection],
+    argument: abjad.Component | abjad.Selection,
     *,
     half_pedal: bool = False,
     until_the_end: bool = False,

@@ -1,5 +1,5 @@
 import random
-from typing import Iterator, Optional, Union
+from typing import Iterator
 
 import abjad
 
@@ -1484,15 +1484,15 @@ class Echoer:
         self,
         contents: abjad.Container,
         *,
-        min_dynamic: Union[abjad.Dynamic, str] = "ppp",
+        min_dynamic: abjad.Dynamic | str = "ppp",
         max_steps: int = 1,
         repetition_chance: float = 0.0,
         process_on_first_call: bool = False,
         disable_rewrite_meter: bool = False,
         omit_time_signatures: bool = False,
         use_multimeasure_rests: bool = True,
-        boundary_depth: Optional[int] = None,
-        maximum_dot_count: Optional[int] = None,
+        boundary_depth: int | None = None,
+        maximum_dot_count: int | None = None,
         rewrite_tuplets: bool = True,
         include_empty_measures: bool = True,
         prettify_rewrite_meter: bool = True,
@@ -1677,7 +1677,7 @@ class Echoer:
                 dyn_list.append(None)
         return dyn_list
 
-    def _soften_mask(self) -> list[Union[int, None]]:
+    def _soften_mask(self) -> list[int | None]:
         r"""Lowers the dynamics of the mask by one level."""
         for n in range(random.randint(1, self._max_steps)):
             if any(item is not None for item in self._mask):
@@ -1693,9 +1693,9 @@ class Echoer:
 
     @staticmethod
     def _soften_dynamic(
-        item: Union[int, None],
+        item: int | None,
         min_dyn_number: int,
-    ) -> Union[int, None]:
+    ) -> int | None:
         r"""Lowers a numerical dynamic level by one, setting it to ``None`` if
         dynamic below a given threshold.
         """
@@ -1797,7 +1797,7 @@ class Echoer:
     @min_dynamic.setter
     def min_dynamic(
         self,
-        min_dynamic: Union[abjad.Dynamic, str],
+        min_dynamic: abjad.Dynamic | str,
     ) -> None:
         if not isinstance(min_dynamic, (abjad.Dynamic, str)):
             raise TypeError("'min_dynamic' must be 'abjad.Dynamic' or 'str'")
@@ -1871,7 +1871,7 @@ class Echoer:
         self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def boundary_depth(self) -> Union[int, None]:
+    def boundary_depth(self) -> int | None:
         r"""Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1880,7 +1880,7 @@ class Echoer:
     @boundary_depth.setter
     def boundary_depth(
         self,
-        boundary_depth: Optional[int],
+        boundary_depth: int,
     ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1888,7 +1888,7 @@ class Echoer:
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> Union[int, None]:
+    def maximum_dot_count(self) -> int | None:
         r"""Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1897,7 +1897,7 @@ class Echoer:
     @maximum_dot_count.setter
     def maximum_dot_count(
         self,
-        maximum_dot_count: Optional[int],
+        maximum_dot_count: int,
     ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):

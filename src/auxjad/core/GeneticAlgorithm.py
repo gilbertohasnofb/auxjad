@@ -1,5 +1,5 @@
 import random
-from typing import Iterator, Optional, Union
+from typing import Iterator
 
 
 class GeneticAlgorithm:
@@ -223,7 +223,7 @@ class GeneticAlgorithm:
         *,
         target: list,
         genes: list,
-        initial_individual: Optional[list] = None,
+        initial_individual: list | None = None,
         population_size: int = 100,
         select_n_parents: int = 10,
         keep_n_parents: int = 0,
@@ -424,7 +424,7 @@ class GeneticAlgorithm:
         self._target_indices = [self._genes.index(gene) for gene in self._target]
 
     @property
-    def initial_individual(self) -> Union[list, None]:
+    def initial_individual(self) -> list | None:
         r"""Optional initial individual (instead of random initial
         population).
         """
@@ -433,7 +433,7 @@ class GeneticAlgorithm:
     @initial_individual.setter
     def initial_individual(
         self,
-        initial_individual: Optional[list],
+        initial_individual: list | None,
     ) -> None:
         if initial_individual is not None:
             if not isinstance(initial_individual, list):
@@ -580,14 +580,14 @@ class GeneticAlgorithm:
         self._evaluation_index = evaluation_index
 
     @property
-    def generation_number(self) -> Union[int, None]:
+    def generation_number(self) -> int | None:
         r"""Read-only property, returns the number of the current generation
         (initial generation is ``0``).
         """
         return self._generation_number
 
     @property
-    def population(self) -> Union[list, None]:
+    def population(self) -> list | None:
         r"""Read-only property, returns a list with all the population of the
         current generation.
         """
@@ -601,7 +601,7 @@ class GeneticAlgorithm:
         return self._scores
 
     @property
-    def fittest_individual(self) -> Union[list, None]:
+    def fittest_individual(self) -> list | None:
         r"""Read-only property, returns the fittest individual of the current
         population.
         """
@@ -611,7 +611,7 @@ class GeneticAlgorithm:
             return None
 
     @property
-    def fittest_individual_score(self) -> Union[list, float]:
+    def fittest_individual_score(self) -> list | float:
         r"""Read-only property, returns the score of the fittest individual of
         the current population.
         """

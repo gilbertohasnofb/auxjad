@@ -1,4 +1,4 @@
-from typing import Iterator, Optional, Union
+from typing import Iterator
 
 import abjad
 
@@ -928,8 +928,8 @@ class GeneticAlgorithmMusicMaker:
         attack_point_genes: list,
         duration_unit: abjad.Duration = abjad.Duration((1, 16)),
         units_per_window: int = 16,
-        pitch_initial_individual: Optional[list] = None,
-        attack_point_initial_individual: Optional[list] = None,
+        pitch_initial_individual: list | None = None,
+        attack_point_initial_individual: list | None = None,
         population_size: int = 100,
         select_n_parents: int = 10,
         keep_n_parents: int = 0,
@@ -937,7 +937,7 @@ class GeneticAlgorithmMusicMaker:
         mutation_index: float = 0.1,
         evaluation_index: float = 0.2,
         omit_time_signature: bool = False,
-        time_signatures: Optional[list] = None,
+        time_signatures: list | None = None,
         attack_points_mode: bool = False,
         pitch_score_bias: float = 0.5,
     ) -> None:
@@ -1254,7 +1254,7 @@ class GeneticAlgorithmMusicMaker:
     @time_signatures.setter
     def time_signatures(
         self,
-        time_signatures: Optional[list],
+        time_signatures: list | None,
     ) -> None:
         if time_signatures is not None:
             if isinstance(time_signatures, abjad.TimeSignature):
@@ -1313,14 +1313,14 @@ class GeneticAlgorithmMusicMaker:
         self._pitch_ga.genes = pitch_genes
 
     @property
-    def pitch_initial_individual(self) -> Union[list, None]:
+    def pitch_initial_individual(self) -> list | None:
         r"""Optional initial pitch individual."""
         return self._pitch_ga.initial_individual
 
     @pitch_initial_individual.setter
     def pitch_initial_individual(
         self,
-        pitch_initial_individual: Optional[list],
+        pitch_initial_individual: list | None,
     ) -> None:
         self._pitch_ga.initial_individual = pitch_initial_individual
 
@@ -1354,14 +1354,14 @@ class GeneticAlgorithmMusicMaker:
         self._attack_point_ga.genes = attack_point_genes
 
     @property
-    def attack_point_initial_individual(self) -> Union[list, None]:
+    def attack_point_initial_individual(self) -> list | None:
         r"""Optional initial attack point individual."""
         return self._attack_point_ga.initial_individual
 
     @attack_point_initial_individual.setter
     def attack_point_initial_individual(
         self,
-        attack_point_initial_individual: Optional[list],
+        attack_point_initial_individual: list | None,
     ) -> None:
         self._attack_point_ga.initial_individual = attack_point_initial_individual
 
@@ -1495,7 +1495,7 @@ class GeneticAlgorithmMusicMaker:
         self._pitch_score_bias = pitch_score_bias
 
     @property
-    def fittest_measure(self) -> Union[abjad.Selection, None]:
+    def fittest_measure(self) -> abjad.Selection | None:
         r"""Read-only property, returns the fittest individual of the current
         population as an |abjad.Selection|.
         """
@@ -1519,14 +1519,14 @@ class GeneticAlgorithmMusicMaker:
         return self._pitch_ga._generation_number
 
     @property
-    def pitch_population(self) -> Union[list, None]:
+    def pitch_population(self) -> list | None:
         r"""Read-only property, returns a list with all the population of the
         current generation.
         """
         return self._pitch_population
 
     @property
-    def attack_point_population(self) -> Union[list, None]:
+    def attack_point_population(self) -> list | None:
         r"""Read-only property, returns a list with all the population of the
         current generation.
         """
@@ -1540,7 +1540,7 @@ class GeneticAlgorithmMusicMaker:
         return self._scores
 
     @property
-    def fittest_pitch_individual(self) -> Union[list, None]:
+    def fittest_pitch_individual(self) -> list | None:
         r"""Read-only property, returns the fittest individual of the current
         population.
         """
@@ -1552,7 +1552,7 @@ class GeneticAlgorithmMusicMaker:
             return None
 
     @property
-    def fittest_attack_point_individual(self) -> Union[list, None]:
+    def fittest_attack_point_individual(self) -> list | None:
         r"""Read-only property, returns the fittest individual of the current
         population.
         """
@@ -1564,7 +1564,7 @@ class GeneticAlgorithmMusicMaker:
             return None
 
     @property
-    def fittest_individual_score(self) -> Union[list, float]:
+    def fittest_individual_score(self) -> list | float:
         r"""Read-only property, returns the score of the fittest individual of
         the current population.
         """

@@ -1,5 +1,5 @@
 import random
-from typing import Iterator, Optional, Union
+from typing import Iterator
 
 import abjad
 
@@ -1677,8 +1677,8 @@ class CrossFader:
         disable_rewrite_meter: bool = False,
         omit_time_signatures: bool = False,
         use_multimeasure_rests: bool = True,
-        boundary_depth: Optional[int] = None,
-        maximum_dot_count: Optional[int] = None,
+        boundary_depth: int | None = None,
+        maximum_dot_count: int | None = None,
         rewrite_tuplets: bool = True,
     ) -> None:
         if not isinstance(fade_out_contents, abjad.Container):
@@ -2074,7 +2074,7 @@ class CrossFader:
         self._fader_out.use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def boundary_depth(self) -> Union[int, None]:
+    def boundary_depth(self) -> int | None:
         r"""Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -2083,7 +2083,7 @@ class CrossFader:
     @boundary_depth.setter
     def boundary_depth(
         self,
-        boundary_depth: Optional[int],
+        boundary_depth: int | None,
     ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -2093,7 +2093,7 @@ class CrossFader:
         self._fader_out.boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> Union[int, None]:
+    def maximum_dot_count(self) -> int | None:
         r"""Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -2102,7 +2102,7 @@ class CrossFader:
     @maximum_dot_count.setter
     def maximum_dot_count(
         self,
-        maximum_dot_count: Optional[int],
+        maximum_dot_count: int | None,
     ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):

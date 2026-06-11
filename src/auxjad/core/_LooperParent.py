@@ -1,5 +1,5 @@
 import random
-from typing import Any, Iterator, Union
+from typing import Any, Iterator
 
 import abjad
 
@@ -318,7 +318,7 @@ class _LooperParent:
         self._process_on_first_call = process_on_first_call
 
     @property
-    def current_window(self) -> Union[abjad.Selection, None]:
+    def current_window(self) -> abjad.Selection | None:
         r"""Read-only property, returns the window at the current head
         position.
         """

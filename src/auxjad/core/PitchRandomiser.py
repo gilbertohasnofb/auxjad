@@ -1,5 +1,5 @@
 import random
-from typing import Iterator, Optional, Union
+from typing import Iterator
 
 import abjad
 
@@ -674,14 +674,14 @@ class PitchRandomiser:
     def __init__(
         self,
         contents: abjad.Container,
-        pitches: Union[
-            list[Union[int, float, str, abjad.Pitch]],
-            tuple[Union[int, float, str, abjad.Pitch]],
-            str,
-            abjad.PitchSegment,
-        ],
+        pitches: (
+            list[int | float | str | abjad.Pitch]
+            | tuple[int | float | str | abjad.Pitch]
+            | str
+            | abjad.PitchSegment
+        ),
         *,
-        weights: Optional[list] = None,
+        weights: list | None = None,
         omit_time_signatures: bool = False,
         process_on_first_call: bool = True,
         use_tenney_selector: bool = False,
@@ -831,12 +831,12 @@ class PitchRandomiser:
     @pitches.setter
     def pitches(
         self,
-        pitches: Union[
-            list[Union[int, float, str, abjad.Pitch]],
-            tuple[Union[int, float, str, abjad.Pitch]],
-            str,
-            abjad.PitchSegment,
-        ],
+        pitches: (
+            list[int | float | str | abjad.Pitch]
+            | tuple[int | float | str | abjad.Pitch]
+            | str
+            | abjad.PitchSegment
+        ),
     ) -> None:
         if not isinstance(pitches, (list, tuple, str, abjad.PitchSegment)):
             raise TypeError("'pitches' must be 'list', 'tuple', 'str', or 'abjad.PitchSegment'")
@@ -851,14 +851,14 @@ class PitchRandomiser:
                 self.weights = None
 
     @property
-    def weights(self) -> list[Union[float, int]]:
+    def weights(self) -> list[float | int]:
         r"""The :obj:`list` with weights for each element of :attr:`pitches`"""
         return self._weights
 
     @weights.setter
     def weights(
         self,
-        weights: Optional[list[Union[float, int]]],
+        weights: list[float | int] | None,
     ) -> None:
         if weights is not None:
             if not isinstance(weights, list):

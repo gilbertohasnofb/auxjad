@@ -1,5 +1,3 @@
-from typing import Union
-
 import abjad
 
 from .Context import Context
@@ -10,7 +8,7 @@ class Score(Context, abjad.Score):
 
     def add_final_bar_line(
         self,
-        bar_line: Union[str, abjad.BarLine] = "|.",
+        bar_line: str | abjad.BarLine = "|.",
         *,
         to_each_voice: bool = False,
     ) -> None:

@@ -1,5 +1,5 @@
 import random
-from typing import Any, Optional, Union
+from typing import Any
 
 
 class TenneySelector:
@@ -373,7 +373,7 @@ class TenneySelector:
         self,
         contents: list[Any],
         *,
-        weights: Optional[list] = None,
+        weights: list | None = None,
         curvature: float = 1.0,
     ) -> None:
         if not isinstance(contents, list):
@@ -527,7 +527,7 @@ class TenneySelector:
         self._generate_probabilities(reset=True)
 
     @property
-    def weights(self) -> list[Union[float, int]]:
+    def weights(self) -> list[float | int]:
         r"""The :obj:`list` with weights for each element of
         :attr:`contents`.
         """
@@ -536,7 +536,7 @@ class TenneySelector:
     @weights.setter
     def weights(
         self,
-        weights: Optional[list[Union[float, int]]],
+        weights: list[float | int] | None,
     ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
@@ -570,7 +570,7 @@ class TenneySelector:
         self._generate_probabilities()
 
     @property
-    def previous_index(self) -> Union[int, None]:
+    def previous_index(self) -> int | None:
         r"""Read-only property, returns the index of the previously output
         element.
         """
@@ -590,7 +590,7 @@ class TenneySelector:
         return self._probabilities
 
     @property
-    def counter(self) -> Union[list[int], None]:
+    def counter(self) -> list[int] | None:
         r"""Read-only property, returns the list with the counts of how many
         iterations has it been since a given element hasn't been selected. It
         is initialised to a list of 1's. A 0 is assigned to the index of the

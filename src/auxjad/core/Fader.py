@@ -1,5 +1,5 @@
 import random
-from typing import Any, Iterator, Optional, Union
+from typing import Any, Iterator
 
 import abjad
 
@@ -1448,9 +1448,9 @@ class Fader:
         disable_rewrite_meter: bool = False,
         omit_time_signatures: bool = False,
         use_multimeasure_rests: bool = True,
-        mask: Optional[list] = None,
-        boundary_depth: Optional[int] = None,
-        maximum_dot_count: Optional[int] = None,
+        mask: list | None = None,
+        boundary_depth: int | None = None,
+        maximum_dot_count: int | None = None,
         rewrite_tuplets: bool = True,
         include_empty_measures: bool = True,
         prettify_rewrite_meter: bool = True,
@@ -1878,7 +1878,7 @@ class Fader:
         self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def boundary_depth(self) -> Union[int, None]:
+    def boundary_depth(self) -> int | None:
         r"""Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1887,7 +1887,7 @@ class Fader:
     @boundary_depth.setter
     def boundary_depth(
         self,
-        boundary_depth: Optional[int],
+        boundary_depth: int | None,
     ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1895,7 +1895,7 @@ class Fader:
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> Union[int, None]:
+    def maximum_dot_count(self) -> int | None:
         r"""Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1904,7 +1904,7 @@ class Fader:
     @maximum_dot_count.setter
     def maximum_dot_count(
         self,
-        maximum_dot_count: Optional[int],
+        maximum_dot_count: int | None,
     ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):

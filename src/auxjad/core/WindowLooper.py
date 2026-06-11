@@ -1,5 +1,4 @@
 from math import ceil
-from typing import Optional, Union
 
 import abjad
 
@@ -1280,50 +1279,25 @@ class WindowLooper(_LooperParent):
         self,
         contents: abjad.Container,
         *,
-        window_size: Union[
-            int,
-            float,
-            str,
-            tuple[int],
-            abjad.Duration,
-            abjad.Meter,
-        ],
-        step_size: Union[
-            int,
-            float,
-            str,
-            tuple[int],
-            abjad.Duration,
-        ],
+        window_size: int | float | str | tuple[int] | abjad.Duration | abjad.Meter,
+        step_size: int | float | str | tuple[int] | abjad.Duration,
         max_steps: int = 1,
         repetition_chance: float = 0.0,
         forward_bias: float = 1.0,
-        head_position: Union[
-            int,
-            float,
-            tuple[int],
-            abjad.Duration,
-        ] = 0,
+        head_position: int | float | tuple[int] | abjad.Duration = 0,
         omit_time_signatures: bool = False,
         process_on_first_call: bool = False,
         fill_with_rests: bool = True,
         disable_rewrite_meter: bool = False,
-        boundary_depth: Optional[int] = None,
-        maximum_dot_count: Optional[int] = None,
+        boundary_depth: int | None = None,
+        maximum_dot_count: int | None = None,
         rewrite_tuplets: bool = True,
         prettify_rewrite_meter: bool = True,
         extract_trivial_tuplets: bool = True,
         fuse_across_groups_of_beats: bool = True,
         fuse_quadruple_meter: bool = True,
         fuse_triple_meter: bool = True,
-        after_rest: Union[
-            int,
-            float,
-            str,
-            tuple[int],
-            abjad.Duration,
-            abjad.Rest,
-        ] = 0,
+        after_rest: int | float | str | tuple[int] | abjad.Duration | abjad.Rest = 0,
         after_rest_in_new_measure: bool = False,
         use_multimeasure_rests: bool = True,
     ) -> None:
@@ -1551,13 +1525,7 @@ class WindowLooper(_LooperParent):
     @head_position.setter
     def head_position(
         self,
-        head_position: Union[
-            int,
-            float,
-            str,
-            tuple[int],
-            abjad.Duration,
-        ],
+        head_position: int | float | str | tuple[int] | abjad.Duration,
     ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
@@ -1581,14 +1549,7 @@ class WindowLooper(_LooperParent):
     @window_size.setter
     def window_size(
         self,
-        window_size: Union[
-            int,
-            float,
-            str,
-            tuple[int],
-            abjad.Duration,
-            abjad.Meter,
-        ],
+        window_size: int | float | str | tuple[int] | abjad.Duration | abjad.Meter,
     ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
@@ -1621,12 +1582,7 @@ class WindowLooper(_LooperParent):
     @step_size.setter
     def step_size(
         self,
-        step_size: Union[
-            int,
-            float,
-            tuple[int],
-            abjad.Duration,
-        ],
+        step_size: int | float | tuple[int] | abjad.Duration,
     ) -> None:
         r"""This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
@@ -1682,7 +1638,7 @@ class WindowLooper(_LooperParent):
         self._fill_with_rests = fill_with_rests
 
     @property
-    def boundary_depth(self) -> Union[int, None]:
+    def boundary_depth(self) -> int | None:
         r"""Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1691,7 +1647,7 @@ class WindowLooper(_LooperParent):
     @boundary_depth.setter
     def boundary_depth(
         self,
-        boundary_depth: Optional[int],
+        boundary_depth: int | None,
     ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1699,7 +1655,7 @@ class WindowLooper(_LooperParent):
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> Union[int, None]:
+    def maximum_dot_count(self) -> int | None:
         r"""Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1708,7 +1664,7 @@ class WindowLooper(_LooperParent):
     @maximum_dot_count.setter
     def maximum_dot_count(
         self,
-        maximum_dot_count: Optional[int],
+        maximum_dot_count: int | None,
     ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
@@ -1821,14 +1777,7 @@ class WindowLooper(_LooperParent):
     @after_rest.setter
     def after_rest(
         self,
-        after_rest: Union[
-            int,
-            float,
-            str,
-            tuple[int],
-            abjad.Duration,
-            abjad.Rest,
-        ],
+        after_rest: int | float | str | tuple[int] | abjad.Duration | abjad.Rest,
     ) -> None:
         if not isinstance(
             after_rest,

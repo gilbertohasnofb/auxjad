@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any
 
 import abjad
 
@@ -409,18 +409,8 @@ class LeafDynMaker(abjad.LeafMaker):
     def _add_dynamics_and_articulations(
         self,
         logical_ties: list[abjad.LogicalTie],
-        dynamics_: list[
-            Union[
-                str,
-                abjad.Dynamic,
-            ]
-        ],
-        articulations_: list[
-            Union[
-                str,
-                abjad.Articulation,
-            ]
-        ],
+        dynamics_: list[str | abjad.Dynamic],
+        articulations_: list[str | abjad.Articulation],
         omit_repeated_dynamics: bool,
     ) -> None:
         r"""Adds dynamics and articulations to logical ties."""

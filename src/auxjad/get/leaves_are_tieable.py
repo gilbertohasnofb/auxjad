@@ -1,15 +1,10 @@
 from collections.abc import Iterable
-from typing import Union
 
 import abjad
 
 
 def leaves_are_tieable(
-    leaves: Union[
-        abjad.Selection,
-        Iterable[abjad.Component],
-        Iterable[abjad.LogicalTie],
-    ],
+    leaves: abjad.Selection | Iterable[abjad.Component] | Iterable[abjad.LogicalTie],
     *,
     only_identical_pitches: bool = False,
 ) -> bool:

@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 import abjad
 
 from .. import get
@@ -10,14 +8,7 @@ from .prettify_rewrite_meter import prettify_rewrite_meter as prettify_rewrite_m
 
 def auto_rewrite_meter(
     container: abjad.Container,
-    meter_list: Optional[
-        list[
-            Union[
-                abjad.Meter,
-                abjad.TimeSignature,
-            ]
-        ]
-    ] = None,
+    meter_list: list[abjad.Meter | abjad.TimeSignature] | None = None,
     *,
     prettify_rewrite_meter: bool = True,
     extract_trivial_tuplets: bool = True,
@@ -27,8 +18,8 @@ def auto_rewrite_meter(
     fuse_rests_across_groups_of_beats: bool = True,
     fuse_rests_in_quadruple_meter: bool = True,
     fuse_rests_in_triple_meter: bool = True,
-    boundary_depth: Optional[int] = None,
-    maximum_dot_count: Optional[int] = None,
+    boundary_depth: int | None = None,
+    maximum_dot_count: int | None = None,
     rewrite_tuplets: bool = True,
     merge_partial_tuplets: bool = True,
     split_quadruple_meter: bool = True,

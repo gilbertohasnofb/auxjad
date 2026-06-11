@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 import abjad
 
 from .auto_rewrite_meter import auto_rewrite_meter
@@ -9,19 +7,15 @@ from .fill_with_rests import fill_with_rests as fill_with_rests_function
 
 def enforce_time_signature(
     container: abjad.Container,
-    time_signatures: Union[
-        abjad.TimeSignature,
-        tuple,
-        list,
-    ],
+    time_signatures: abjad.TimeSignature | tuple | list,
     *,
     cyclic: bool = False,
     fill_with_rests: bool = True,
     close_container: bool = False,
     disable_rewrite_meter: bool = False,
     prettify_rewrite_meter: bool = True,
-    boundary_depth: Optional[int] = None,
-    maximum_dot_count: Optional[int] = None,
+    boundary_depth: int | None = None,
+    maximum_dot_count: int | None = None,
     rewrite_tuplets: bool = True,
     extract_trivial_tuplets: bool = True,
     fuse_across_groups_of_beats: bool = True,

@@ -1,5 +1,4 @@
 import random
-from typing import Optional, Union
 
 import abjad
 
@@ -1369,16 +1368,16 @@ class Hocketer:
         contents: abjad.Container,
         *,
         n_voices: int = 2,
-        pitch_ranges: Optional[list] = None,
-        weights: Optional[list] = None,
+        pitch_ranges: list | None = None,
+        weights: list | None = None,
         k: int = 1,
         force_k_voices: bool = False,
         explode_chords: bool = False,
         disable_rewrite_meter: bool = False,
         use_multimeasure_rests: bool = True,
         omit_time_signatures: bool = False,
-        boundary_depth: Optional[int] = None,
-        maximum_dot_count: Optional[int] = None,
+        boundary_depth: int | None = None,
+        maximum_dot_count: int | None = None,
         rewrite_tuplets: bool = True,
         prettify_rewrite_meter: bool = True,
         extract_trivial_tuplets: bool = True,
@@ -1615,7 +1614,7 @@ class Hocketer:
 
     def _pitch_in_range(
         self,
-        pitch: Union[abjad.Pitch, abjad.PitchSegment, None],
+        pitch: abjad.Pitch | abjad.PitchSegment | None,
         voice: int,
     ) -> bool:
         r"""Checks if a pitch is playable by a specific voice."""
@@ -1635,11 +1634,7 @@ class Hocketer:
     @staticmethod
     def _get_pitch_from_logical_tie(
         logical_tie: abjad.LogicalTie,
-    ) -> Union[
-        abjad.Pitch,
-        abjad.PitchSegment,
-        None,
-    ]:
+    ) -> abjad.Pitch | abjad.PitchSegment | None:
         r"""Gets the pitch of the first leaf of a logical tie."""
         if isinstance(logical_tie.head, abjad.Note):
             return logical_tie.head.written_pitch
@@ -1704,14 +1699,14 @@ class Hocketer:
         self._pitch_ranges = None
 
     @property
-    def weights(self) -> list[Union[float, int]]:
+    def weights(self) -> list[float | int]:
         r"""The :obj:`list` with weights for each voice."""
         return self._weights
 
     @weights.setter
     def weights(
         self,
-        weights: Optional[list[Union[float, int]]],
+        weights: list[float | int] | None,
     ) -> None:
         if weights is not None:
             if not isinstance(weights, list):
@@ -1758,7 +1753,7 @@ class Hocketer:
     @pitch_ranges.setter
     def pitch_ranges(
         self,
-        pitch_ranges: Optional[list],
+        pitch_ranges: list | None,
     ) -> None:
         if pitch_ranges is not None:
             if not isinstance(pitch_ranges, list):
@@ -1856,7 +1851,7 @@ class Hocketer:
         self._use_multimeasure_rests = use_multimeasure_rests
 
     @property
-    def boundary_depth(self) -> Union[int, None]:
+    def boundary_depth(self) -> int | None:
         r"""Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1865,7 +1860,7 @@ class Hocketer:
     @boundary_depth.setter
     def boundary_depth(
         self,
-        boundary_depth: Optional[int],
+        boundary_depth: int | None,
     ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1873,7 +1868,7 @@ class Hocketer:
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> Union[int, None]:
+    def maximum_dot_count(self) -> int | None:
         r"""Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1882,7 +1877,7 @@ class Hocketer:
     @maximum_dot_count.setter
     def maximum_dot_count(
         self,
-        maximum_dot_count: Optional[int],
+        maximum_dot_count: int | None,
     ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
@@ -1986,7 +1981,7 @@ class Hocketer:
         self._fuse_triple_meter = fuse_triple_meter
 
     @property
-    def current_window(self) -> Union[tuple, None]:
+    def current_window(self) -> tuple | None:
         r"""Read-only property, returns the result of the last operation as a
         :obj:`tuple` of |abjad.Selection|..
         """

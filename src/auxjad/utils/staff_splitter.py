@@ -1,5 +1,3 @@
-from typing import Union
-
 import abjad
 
 from .. import mutate
@@ -40,16 +38,11 @@ def _make_rest_from_leaf(
 
 
 def staff_splitter(
-    staff: Union[abjad.Staff, abjad.Selection],
+    staff: abjad.Staff | abjad.Selection,
     *,
-    threshold: Union[
-        int,
-        float,
-        str,
-        abjad.Pitch,
-    ] = abjad.NamedPitch("c'"),
-    upper_clef: Union[abjad.Clef, str] = abjad.Clef("treble"),
-    lower_clef: Union[abjad.Clef, str] = abjad.Clef("bass"),
+    threshold: int | float | str | abjad.Pitch = abjad.NamedPitch("c'"),
+    upper_clef: abjad.Clef | str = abjad.Clef("treble"),
+    lower_clef: abjad.Clef | str = abjad.Clef("bass"),
     add_clefs: bool = True,
     dynamics_only_on_upper_staff: bool = False,
     reposition_dynamics: bool = True,

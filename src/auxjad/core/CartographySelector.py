@@ -1,5 +1,5 @@
 import random
-from typing import Any, Union
+from typing import Any
 
 
 class CartographySelector:
@@ -514,7 +514,7 @@ class CartographySelector:
         self._generate_weights()
 
     @property
-    def previous_index(self) -> Union[int, None]:
+    def previous_index(self) -> int | None:
         r"""Read-only property, returns the index of the previously output
         element.
         """

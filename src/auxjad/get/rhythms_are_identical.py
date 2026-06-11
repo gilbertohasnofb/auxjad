@@ -1,5 +1,4 @@
 from collections.abc import Iterable
-from typing import Union
 
 import abjad
 
@@ -7,10 +6,7 @@ from .. import select
 
 
 def rhythms_are_identical(
-    selections: Union[
-        Iterable[abjad.Component],
-        Iterable[abjad.Selection],
-    ],
+    selections: Iterable[abjad.Component] | Iterable[abjad.Selection],
 ) -> bool:
     r"""Returns a :obj:`bool` representing whether two or more selections are
     rhytmically identical or not. Input argument must be an iterable made of

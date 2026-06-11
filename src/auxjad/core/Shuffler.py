@@ -1,5 +1,5 @@
 import random
-from typing import Any, Iterator, Optional, Union
+from typing import Any, Iterator
 
 import abjad
 
@@ -1082,8 +1082,8 @@ class Shuffler:
         preserve_rest_position: bool = False,
         disable_rewrite_meter: bool = False,
         omit_time_signatures: bool = False,
-        boundary_depth: Optional[int] = None,
-        maximum_dot_count: Optional[int] = None,
+        boundary_depth: int | None = None,
+        maximum_dot_count: int | None = None,
         rewrite_tuplets: bool = True,
         process_on_first_call: bool = True,
         prettify_rewrite_meter: bool = True,
@@ -1091,7 +1091,7 @@ class Shuffler:
         fuse_across_groups_of_beats: bool = True,
         fuse_quadruple_meter: bool = True,
         fuse_triple_meter: bool = True,
-        swap_limit: Optional[int] = None,
+        swap_limit: int | None = None,
     ) -> None:
         self.contents = contents
         self.pitch_only = pitch_only
@@ -1613,7 +1613,7 @@ class Shuffler:
         self._omit_time_signatures = omit_time_signatures
 
     @property
-    def boundary_depth(self) -> Union[int, None]:
+    def boundary_depth(self) -> int | None:
         r"""Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1622,7 +1622,7 @@ class Shuffler:
     @boundary_depth.setter
     def boundary_depth(
         self,
-        boundary_depth: Optional[int],
+        boundary_depth: int | None,
     ) -> None:
         if boundary_depth is not None:
             if not isinstance(boundary_depth, int):
@@ -1630,7 +1630,7 @@ class Shuffler:
         self._boundary_depth = boundary_depth
 
     @property
-    def maximum_dot_count(self) -> Union[int, None]:
+    def maximum_dot_count(self) -> int | None:
         r"""Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
@@ -1639,7 +1639,7 @@ class Shuffler:
     @maximum_dot_count.setter
     def maximum_dot_count(
         self,
-        maximum_dot_count: Optional[int],
+        maximum_dot_count: int | None,
     ) -> None:
         if maximum_dot_count is not None:
             if not isinstance(maximum_dot_count, int):
@@ -1770,7 +1770,7 @@ class Shuffler:
     @swap_limit.setter
     def swap_limit(
         self,
-        swap_limit: Optional[int],
+        swap_limit: int | None,
     ) -> None:
         if swap_limit is not None:
             if not isinstance(swap_limit, int):

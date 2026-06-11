@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 import abjad
 
 
@@ -26,9 +24,9 @@ def _generate_harmonics_from_pitch(
 
 
 def virtual_fundamental(
-    pitches: Union[abjad.PitchSegment, abjad.Chord],
+    pitches: abjad.PitchSegment | abjad.Chord,
     *,
-    min_fundamental: Optional[abjad.Pitch] = None,
+    min_fundamental: abjad.Pitch | None = None,
 ) -> abjad.NamedPitch:
     r"""Returns the virtual fundamental (highest common fundamental) for all
     pitches in a |abjad.PitchSegment| or |abjad.Chord|. Return value is of type

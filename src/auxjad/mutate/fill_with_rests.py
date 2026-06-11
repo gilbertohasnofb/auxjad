@@ -1,5 +1,3 @@
-from typing import Optional
-
 import abjad
 
 from .. import get
@@ -11,8 +9,8 @@ def fill_with_rests(
     *,
     disable_rewrite_meter: bool = False,
     prettify_rewrite_meter: bool = True,
-    boundary_depth: Optional[int] = None,
-    maximum_dot_count: Optional[int] = None,
+    boundary_depth: int | None = None,
+    maximum_dot_count: int | None = None,
     rewrite_tuplets: bool = True,
     extract_trivial_tuplets: bool = True,
     fuse_across_groups_of_beats: bool = True,

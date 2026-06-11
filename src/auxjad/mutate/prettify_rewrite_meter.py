@@ -1,5 +1,3 @@
-from typing import Union
-
 import abjad
 
 from .. import select
@@ -43,7 +41,7 @@ def _merge_indicators_then_fuse(logical_selection: abjad.Selection) -> None:
 
 def prettify_rewrite_meter(
     selection: abjad.Selection,
-    meter: Union[abjad.Meter, abjad.TimeSignature],
+    meter: abjad.Meter | abjad.TimeSignature,
     *,
     fuse_across_groups_of_beats: bool = True,
     fuse_quadruple_meter: bool = True,

@@ -542,11 +542,7 @@ class DeBruijnGenerator:
 
         while True:
             self._sequence.append(window[0])
-            next_symbol = successor_generator(
-                window,
-                self._order,
-                self.__len__(),  # length of contents = alphabet size
-            )
+            next_symbol = successor_generator(window)
             window = window[1:] + [next_symbol]
             if all(symbol == 0 for symbol in window):
                 break
@@ -557,20 +553,18 @@ class DeBruijnGenerator:
         if not self._cyclic:
             self._sequence.extend(window[:-1])
 
-    @staticmethod
-    def _pcr1_generator(window: list[int], order: int, alphabet_size: int) -> int:
+    def _pcr1_generator(self, window: list[int]) -> int:
         r"""Generator of the next symbol using PCR1 (GrandDaddy) rule.
 
         Args:
             window (list[int]): Current sliding window of length ``order``.
-            order (int): Order of the de Bruijn sequence.
-            alphabet_size (int): Number of distinct symbols in alphabet.
 
         Returns:
             int: The next symbol in the sequence.
         """
+        alphabet_size = self.__len__()
         max_symbol = alphabet_size - 1
-        next_symbol = DeBruijnGenerator._pcr1_get_next_symbol(window, order, alphabet_size)
+        next_symbol = self._pcr1_get_next_symbol(window)
 
         if next_symbol is not None and window[0] == max_symbol:
             return next_symbol
@@ -578,8 +572,7 @@ class DeBruijnGenerator:
             return window[0] + 1
         return window[0]
 
-    @staticmethod
-    def _pcr1_get_next_symbol(window: list[int], order: int, alphabet_size: int) -> int | None:
+    def _pcr1_get_next_symbol(self, window: list[int]) -> int | None:
         r"""Compute the smallest valid next symbol for the PCR1 rule (aka GrandDaddy).
 
         Finds the tail of the window (all elements after the leading run of max symbols, starting at
@@ -588,66 +581,55 @@ class DeBruijnGenerator:
 
         Args:
             window (list[int]): Current sliding window of length ``order``.
-            order (int): Order of the de Bruijn sequence.
-            alphabet_size (int): Number of distinct symbols in alphabet.
 
         Returns:
             int | None: The smallest valid next symbol, or None if no valid symbol exists (the
                 caller function will then keep the current symbol).
         """
+        alphabet_size = self.__len__()
         max_symbol = alphabet_size - 1
 
-        first_non_max = 1
-        while first_non_max < order and window[first_non_max] == max_symbol:
-            first_non_max += 1
+        first_non_max_index = 1
+        while first_non_max_index < self._order and window[first_non_max_index] == max_symbol:
+            first_non_max_index += 1
 
-        if first_non_max == order:
+        if first_non_max_index == self._order:
             return 0
 
-        # Pad with a leading zero so that 1-based index arithmetic (tail[i - period]) stays
-        # consistent with the original C implementation. A trailing placeholder zero is also
-        # appended; it is overwritten on the very next line to hold the computed next symbol.
-        tail_length = order - first_non_max
-        tail = [0] + window[first_non_max:] + [0]  # [sentinel, window tail, next_symbol_slot]
+        tail_length = self._order - first_non_max_index
+        tail = window[first_non_max_index:] + [0] * (self._order - tail_length)
 
-        period = 1
-        for i in range(2, tail_length + 1):
-            if tail[i - period] > tail[i]:
+        period_candidate = 0
+        for i in range(1, tail_length):
+            if tail[i - period_candidate - 1] > tail[i]:
                 return None
-            if tail[i - period] < tail[i]:
-                period = i
+            if tail[i - period_candidate - 1] < tail[i]:
+                period_candidate = i
 
-        tail[tail_length + 1] = tail[(tail_length + 1) - period]
-        next_symbol = tail[tail_length + 1]
+        tail[tail_length] = tail[tail_length - period_candidate - 1]
+        next_symbol = tail[tail_length]
 
-        for i in range(tail_length + 2, order + 1):
-            if tail[i - period] < max_symbol:
+        for i in range(tail_length + 1, self._order):
+            if tail[i - period_candidate - 1] < max_symbol:
                 return next_symbol
 
-        if order % period == 0:
+        if self._order % (period_candidate + 1) == 0:
             return next_symbol
         if next_symbol < max_symbol:
             return next_symbol + 1
 
         return None
 
-    @staticmethod
-    def _pcr2_generator(window: list[int], order: int, alphabet_size: int) -> int:
+    def _pcr2_generator(self, window: list[int]) -> int:
         r"""Generator of the next symbol using PCR2 (GrandMama) rule.
 
         Args:
             window (list[int]): Current sliding window of length ``order``.
-            order (int): Order of the de Bruijn sequence.
-            alphabet_size (int): Number of distinct symbols in alphabet.
 
         Returns:
             int: The next symbol in the sequence.
         """
-        largest_candidate_symbol = DeBruijnGenerator._get_pcr2_largest_candidate_symbol(
-            window,
-            order,
-            alphabet_size,
-        )
+        largest_candidate_symbol = self._get_pcr2_largest_candidate_symbol(window)
 
         if largest_candidate_symbol != 0 and window[0] == largest_candidate_symbol:
             return 0
@@ -655,76 +637,55 @@ class DeBruijnGenerator:
             return window[0] + 1
         return window[0]
 
-    @staticmethod
-    def _get_pcr2_largest_candidate_symbol(
-        window: list[int],
-        order: int,
-        alphabet_size: int,
-    ) -> int:
+    def _get_pcr2_largest_candidate_symbol(self, window: list[int]) -> int:
         r"""Compute the largest valid candidate symbol for the PCR2 rule (aka GrandMama).
 
         Scans backward from the end of the window, skipping trailing min-symbols (zeros), to find
-        the length ``last_non_min_index`` (:math:`j` in the original C implementation) of the
-        meaningful suffix.  Builds the rotated candidate string of length ``order`` with
-        ``(order - last_non_min_index)`` number of leading zeros followed by
-        ``window[:last_non_min_index]``, then returns the largest ``element`` (:math:`x` in the
-        original C implementation) in ``{1, ..., alphabet_size - 1}`` such that substituting
-        ``element`` at position ``order - last_non_min_index`` produces a necklace.
+        the index ``last_non_min_index`` (:math:`j - 1` in the original C implementation, as it uses
+        base 1 for indexing) of the last non-zero symbol. Builds the rotated candidate string of
+        length ``order`` with ``(order - last_non_min_index - 1)`` number of leading zeros followed
+        by ``window[:last_non_min_index + 1]``, then returns the largest ``element`` (:math:`x` in
+        the original C implementation) in ``{1, ..., alphabet_size - 1}`` such that substituting
+        ``element`` at position ``order - last_non_min_index - 1`` produces a necklace.
 
         Args:
             window (list[int]): Current sliding window of length ``order``.
-            order (int): Order of the de Bruijn sequence.
-            alphabet_size (int): Number of distinct symbols.
 
         Returns:
             int: The largest valid ``element``, or ``0`` if no such value exists.
         """
-        # Scan from the end of the window backward while symbols equal 0 (the min symbol). The
-        # variable last_non_min_index is a 1-based count of the meaningful prefix length, and
-        # window[last_non_min_index - 1] is the last non-zero symbol (or last_non_min_index stays at
-        # 1 if the entire window is zero).
-        last_non_min_index = order
-        while last_non_min_index > 1 and window[last_non_min_index - 1] == 0:
+        alphabet_size = self.__len__()
+
+        last_non_min_index = self._order - 1
+        while last_non_min_index > 0 and window[last_non_min_index] == 0:
             last_non_min_index -= 1
 
-        # Build the rotated candidate of length order:
-        # (order - last_non_min_index) leading zeros, then window[:last_non_min_index]
-        candidate = [0] * (order - last_non_min_index) + window[:last_non_min_index]
+        candidate = [0] * (self._order - last_non_min_index - 1) + window[: last_non_min_index + 1]
 
-        # Try element from the largest possible symbol down to 1; return the first that yields a
-        # necklace. candidate[order - last_non_min_index] is the insertion point (the position of
-        # element in the rotated candidate.
         for element in range(alphabet_size - 1, 0, -1):
-            candidate[order - last_non_min_index] = element
-            if DeBruijnGenerator._is_necklace(candidate):
+            candidate[self._order - last_non_min_index - 1] = element
+            if self._is_necklace(candidate):
                 return element
         return 0
 
-    @staticmethod
-    def _is_necklace(sequence: list[int]) -> bool:
+    def _is_necklace(self, sequence: list[int]) -> bool:
         r"""Return ``True`` if and only if ``sequence`` is a necklace (its own lexicographically
         minimal rotation).
 
-        Pads with a leading zero so that period arithmetic uses 1-based positions, keeping ``i``
-        and ``period_candidate`` (:math:`p` in the original C implementation) directly comparable.
-
         Args:
-            sequence (list[int]): The sequence to test (0-based values).
+            sequence (list[int]): The sequence to test.
 
         Returns:
             bool: ``True`` if ``sequence`` is a necklace, ``False`` otherwise.
         """
-        n = len(sequence)
-        # Pad with a leading zero so that period arithmetic in the loop below uses 1-based
-        # positions, keeping i and period_candidate directly comparable
-        padded_sequence = [0] + sequence
-        period_candidate = 1
-        for i in range(2, n + 1):
-            if padded_sequence[i - period_candidate] > padded_sequence[i]:
+        sequence_length = len(sequence)
+        period_candidate = 0
+        for i in range(1, sequence_length):
+            if sequence[i - period_candidate - 1] > sequence[i]:
                 return False
-            if padded_sequence[i - period_candidate] < padded_sequence[i]:
+            if sequence[i - period_candidate - 1] < sequence[i]:
                 period_candidate = i
-        return n % period_candidate == 0
+        return sequence_length % (period_candidate + 1) == 0
 
     # ---------- PUBLIC PROPERTIES ----------
 

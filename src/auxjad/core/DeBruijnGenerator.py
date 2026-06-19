@@ -213,6 +213,40 @@ class DeBruijnGenerator:
         0
         0
 
+    :attr:`offset`:
+        Rotates the output de Bruijn sequence by a number of indeces.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.sequence
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=3)
+        >>> db_generator.sequence
+        [0, 2, 1, 1, 2, 2, 0, 0, 1, 0]
+
+        Offset also works with cyclic sequences:
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True)
+        >>> db_generator.sequence
+        [0, 0, 1, 0, 2, 1, 1, 2, 2]
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=3)
+        >>> db_generator.sequence
+        [0, 2, 1, 1, 2, 2, 0, 0, 1]
+
+        If offset is larger than the sequence length or below zero, it wraps around.
+
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        >>> db_generator.sequence
+        [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=3)
+        >>> db_generator.sequence
+        [0, 2, 1, 1, 2, 2, 0, 0, 1, 0]
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=15)
+        >>> db_generator.sequence
+        [1, 2, 2, 0, 0, 1, 0, 2, 1, 1]
+        >>> db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=-7)
+        >>> db_generator.sequence
+        [1, 0, 2, 1, 1, 2, 2, 0, 0, 1]
+
     :attr:`algorithm`:
         Thee are multiple algorithms which can generate de Bruijn sequences, which can be selected
         using :attr:`algorithm`. Currently, options include ``"pcr1"`` or ``"pcr2"``. Both produce
@@ -343,6 +377,7 @@ class DeBruijnGenerator:
         "_order",
         "_algorithm",
         "_cyclic",
+        "_offset",
         "_sequence",
         "_sequence_length",
         "_last_selected_index_of_sequence",
@@ -361,6 +396,7 @@ class DeBruijnGenerator:
         order: int,
         algorithm: str = "pcr1",
         cyclic: bool = False,
+        offset: int = 0,
     ) -> None:
         if not isinstance(contents, list):
             raise TypeError("'contents' must be 'list'")
@@ -378,6 +414,8 @@ class DeBruijnGenerator:
             )
         if not isinstance(cyclic, bool):
             raise TypeError("'cyclic' must be 'bool'")
+        if not isinstance(offset, int):
+            raise TypeError("'offset' must be 'int'")
         # initialising using attributes, not properties, due to ordering constraints. This is
         # because self._generate_sequence() is called when setting any of the attributes below, and
         # this function requires the other attributes to have valid values.
@@ -385,6 +423,7 @@ class DeBruijnGenerator:
         self._algorithm = algorithm
         self._cyclic = cyclic
         self._order = order
+        self._offset = offset
         self._previous_element = None
         self._previous_element_index = None
         self._last_selected_index_of_sequence = None
@@ -509,6 +548,11 @@ class DeBruijnGenerator:
         self._previous_element = None
         self._previous_element_index = None
         self._generate_sequence()
+        self._offset_sequence()
+        # If not cyclic, we must get the initial order - 1 elements to append at the end of the
+        # sequence for both PCR1 and PCR2 algorithms.
+        if not self._cyclic:
+            self._sequence.extend(self._sequence[: self._order - 1])
 
     # ---------- PRIVATE METHODS ----------
 
@@ -546,12 +590,6 @@ class DeBruijnGenerator:
             window = window[1:] + [next_symbol]
             if all(symbol == 0 for symbol in window):
                 break
-
-        # If not cyclic, we must get order - 1 zeroes to append at the end of both PCR1 and PCR2.
-        # Since window now contains order times zeroes, we simply extend the sequence by this window
-        # minus one element.
-        if not self._cyclic:
-            self._sequence.extend(window[:-1])
 
     def _pcr1_generator(self, window: list[int]) -> int:
         r"""Generator of the next symbol using PCR1 (GrandDaddy) rule.
@@ -687,6 +725,11 @@ class DeBruijnGenerator:
                 period_candidate = i
         return sequence_length % (period_candidate + 1) == 0
 
+    def _offset_sequence(self) -> None:
+        r"""Offsets the output sequence by the value given by ``offset``."""
+        normalised_offset = self._offset % self.sequence_length
+        self._sequence = self._sequence[normalised_offset:] + self._sequence[:normalised_offset]
+
     # ---------- PUBLIC PROPERTIES ----------
 
     @property
@@ -796,6 +839,21 @@ class DeBruijnGenerator:
         if not isinstance(cyclic, bool):
             raise TypeError("'cyclic' must be 'bool'")
         self._cyclic = cyclic
+        self.reset()
+
+    @property
+    def offset(self) -> int:
+        r"""The offset of a de Bruijn sequence rotates the output list by its value."""
+        return self._offset
+
+    @offset.setter
+    def offset(
+        self,
+        offset: int,
+    ) -> None:
+        if not isinstance(offset, int):
+            raise TypeError("'offset' must be 'int'")
+        self._offset = offset
         self.reset()
 
     @property

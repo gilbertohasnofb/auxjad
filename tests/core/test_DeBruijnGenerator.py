@@ -619,6 +619,96 @@ class TestCyclicSetter:
             db_generator.cyclic = 1
 
 
+class TestOffset:
+    def test_offset_default_is_zero(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        assert db_generator.offset == 0
+
+    def test_offset_zero_matches_unrotated_sequence(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        assert db_generator.sequence == [0, 0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+    def test_offset_within_bounds_rotates_left(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=3)
+        assert db_generator.sequence == [0, 2, 1, 1, 2, 2, 0, 0, 1, 0]
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=3)
+        assert db_generator.sequence == [0, 2, 1, 1, 2, 2, 0, 0, 1]
+
+    def test_offset_larger_than_sequence_length_wraps_cyclically(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=10)
+        assert db_generator.sequence == [0, 1, 0, 2, 1, 1, 2, 2, 0, 0]
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=10)
+        assert db_generator.sequence == [0, 1, 0, 2, 1, 1, 2, 2, 0]
+
+    def test_negative_offset_rotates_right(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=-1)
+        assert db_generator.sequence == [2, 0, 0, 1, 0, 2, 1, 1, 2, 2]
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=-1)
+        assert db_generator.sequence == [2, 0, 0, 1, 0, 2, 1, 1, 2]
+
+    def test_positive_and_negative_offsets_can_be_equivalent(self):
+        db_generator_positive = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=8)
+        db_generator_negative = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=-1)
+        assert db_generator_positive.sequence == db_generator_negative.sequence
+        db_generator_positive = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=8)
+        db_generator_negative = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=-1)
+        assert db_generator_positive.sequence == db_generator_negative.sequence
+
+    def test_offset_preserves_de_bruijn_validity(self):
+        for offset in (0, 1, 4, -1, -3, 20):
+            db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=offset)
+            assert is_valid_de_bruijn_linear(db_generator.sequence, order=2, alphabet_size=3)
+        for offset in (0, 1, 4, -1, -3, 20):
+            db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=offset)
+            assert is_valid_de_bruijn_cyclic(db_generator.sequence, order=2, alphabet_size=3)
+
+    def test_offset_does_not_change_sequence_length(self):
+        db_generator_offset = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=4)
+        db_generator_no_offset = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=0)
+        assert db_generator_offset.sequence_length == db_generator_no_offset.sequence_length
+        db_generator_offset = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=4)
+        db_generator_no_offset = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=0)
+        assert db_generator_offset.sequence_length == db_generator_no_offset.sequence_length
+
+    def test_offset_rotates_non_numeric_alphabet(self):
+        db_generator = auxjad.DeBruijnGenerator(["A", "B", "C"], order=2, offset=2)
+        assert db_generator.sequence == ["B", "A", "C", "B", "B", "C", "C", "A", "A", "B"]
+        db_generator = auxjad.DeBruijnGenerator(["A", "B", "C"], order=2, cyclic=True, offset=2)
+        assert db_generator.sequence == ["B", "A", "C", "B", "B", "C", "C", "A", "A"]
+
+    def test_offset_setter_updates_value(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        db_generator.offset = 2
+        assert db_generator.offset == 2
+
+    def test_offset_setter_triggers_reset(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        db_generator()
+        db_generator.offset = 2
+        assert db_generator.last_selected_index_of_sequence is None
+
+    def test_offset_setter_not_int_raises(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2)
+        with pytest.raises(TypeError):
+            db_generator.offset = 2.0
+
+    def test_offset_affects_call_output(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=3)
+        assert db_generator() == 0
+        assert db_generator() == 2
+        assert db_generator() == 1
+
+    def test_offset_affects_output_all(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=3)
+        assert db_generator.output_all() == [0, 2, 1, 1, 2, 2, 0, 0, 1, 0]
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, cyclic=True, offset=3)
+        assert db_generator.output_all() == [0, 2, 1, 1, 2, 2, 0, 0, 1]
+
+    def test_offset_affects_output_n(self):
+        db_generator = auxjad.DeBruijnGenerator([0, 1, 2], order=2, offset=3)
+        assert db_generator.output_n(4) == [0, 2, 1, 1]
+
+
 class TestIndexingAndSlicing:
     def test_getitem_returns_correct_element(self):
         db_generator = auxjad.DeBruijnGenerator([10, 20, 30], order=2)

@@ -551,3 +551,27 @@ def test_enforce_time_signature_16():
             }
         }
         """)
+
+
+def test_enforce_time_signature_17():
+    staff = abjad.Staff(r"\grace{c'8} d'2 e'2 \grace{f'8} g'2 a'2 b'2")
+    time_signatures = [abjad.TimeSignature((4, 4)), abjad.TimeSignature((3, 2))]
+    auxjad.mutate.enforce_time_signature(staff, time_signatures)
+    assert abjad.lilypond(staff) == abjad.String.normalize(r"""
+        \new Staff
+        {
+            \grace {
+                \time 4/4
+                c'8
+            }
+            d'2
+            e'2
+            \grace {
+                \time 3/2
+                f'8
+            }
+            g'2
+            a'2
+            b'2
+        }
+        """)

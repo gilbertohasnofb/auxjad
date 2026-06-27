@@ -557,6 +557,36 @@ def enforce_time_signature(
 
         ..  figure:: ../_images/enforce_time_signature-5jdoukq2rkd.png
 
+    Grace notes:
+        This function handles grace notes and correctly attaches time signatures to them if their
+        parent leaf is the start of a measure:
+
+        >>> staff = abjad.Staff(r"\grace{c'8} d'2 e'2 \grace{f'8} g'2 a'2 b'2")
+        >>> time_signatures = [abjad.TimeSignature((4, 4)), abjad.TimeSignature((3, 2))]
+        >>> auxjad.mutate.enforce_time_signature(staff, time_signatures)
+        >>> abjad.show(staff)
+
+        ..  docs::
+
+            \new Staff
+            {
+                \grace {
+                    \time 4/4
+                    c'8
+                }
+                d'2
+                e'2
+                \grace {
+                    \time 3/2
+                    f'8
+                }
+                g'2
+                a'2
+                b'2
+            }
+
+        ..  figure:: ../_images/enforce_time_signature-phtjj3xb2py.png
+
     Time signatures in the input container:
         Note that any time signatures in the input container will be ignored.
 
@@ -783,7 +813,7 @@ def enforce_time_signature(
     index = 0
     duration = abjad.Duration(0)
     previous_ts_duration = abjad.Duration(0)
-    for leaf in abjad.select(container).leaves():
+    for leaf in abjad.select(container).leaves(grace=False):
         if duration == previous_ts_duration:
             duration = abjad.Duration(0)
             previous_ts_duration = durations[index]
@@ -792,7 +822,11 @@ def enforce_time_signature(
             else:
                 ts = time_signatures_[index]
             if ts != previous_ts:
-                abjad.attach(ts, leaf)
+                grace_notes = abjad.get.before_grace_container(leaf)
+                if not grace_notes:
+                    abjad.attach(ts, leaf)
+                else:
+                    abjad.attach(ts, abjad.select(grace_notes).leaf(0))
             previous_ts = ts
             index += 1
             if index == len(time_signatures_):

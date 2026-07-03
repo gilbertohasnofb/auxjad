@@ -1,8 +1,11 @@
 # Sandbox file
-/sandbox*.py
+sandbox*.py
 
 # VSCode folder
-/.vscode
+.vscode/
+
+# Ruff folder
+.ruff_cache/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

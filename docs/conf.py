@@ -119,7 +119,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 class PandaStyle(Style):
-    r"""Panda Syntax Theme.
+    r"""
+    Panda Syntax Theme.
 
     Custom ``pygments_style`` theme based on:
     https://github.com/tinkertrain/panda-syntax-vscode
@@ -288,7 +289,8 @@ epub_exclude_files = ["search.html"]
 
 
 class HiddenDoctestDirective(Directive):
-    r"""An hidden doctest directive.
+    r"""
+    An hidden doctest directive.
     Contributes no formatting to documents built by Sphinx.
     """
 

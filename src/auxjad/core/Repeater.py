@@ -6,7 +6,8 @@ from .. import get, mutate
 
 
 class Repeater:
-    r"""Takes an |abjad.Container| (or child class) as input and outputs an
+    r"""
+    Takes an |abjad.Container| (or child class) as input and outputs an
     |abjad.Selection| with ``n`` repetitions. It can be of type unfold or
     volta.
 
@@ -742,7 +743,8 @@ class Repeater:
         self,
         n: int = 1,
     ) -> abjad.Selection:
-        r"""Calls the repeater process for ``n`` iterations, returning an
+        r"""
+        Calls the repeater process for ``n`` iterations, returning an
         |abjad.Selection|. Default ``n`` is ``1``.
         """
         if not isinstance(n, int):
@@ -758,7 +760,8 @@ class Repeater:
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the shuffling process for one iteration, returning an
+        r"""
+        Calls the shuffling process for one iteration, returning an
         |abjad.Selection|.
         """
         return self.__call__()
@@ -773,7 +776,8 @@ class Repeater:
         self,
         n: int = 1,
     ) -> abjad.Selection:
-        r"""Calls the repeater process for ``n`` iterations, returning an
+        r"""
+        Calls the repeater process for ``n`` iterations, returning an
         |abjad.Selection|. Default ``n`` is ``1``.
         """
         return self.__call__(n)
@@ -889,7 +893,8 @@ class Repeater:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r"""When ``True``, all time signatures will be omitted from the
+        r"""
+        When ``True``, all time signatures will be omitted from the
         output.
         """
         return self._omit_time_signatures
@@ -905,7 +910,8 @@ class Repeater:
 
     @property
     def force_identical_time_signatures(self) -> bool:
-        r"""When ``True``, all time signatures will be printed in the output,
+        r"""
+        When ``True``, all time signatures will be printed in the output,
         including repeated ones .
         """
         return self._force_identical_time_signatures
@@ -980,7 +986,8 @@ class Repeater:
 
     @property
     def include_2x_volta_text(self) -> bool:
-        r"""When ``True``, a written indication for the number of repeats will
+        r"""
+        When ``True``, a written indication for the number of repeats will
         be included for ``n=2``. Otherwise, it is included only when repeated
         more than two times.
         """

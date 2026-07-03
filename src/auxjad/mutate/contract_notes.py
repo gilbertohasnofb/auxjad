@@ -11,7 +11,8 @@ def contract_notes(
     use_multimeasure_rests: bool = True,
     rewrite_meter: bool = True,
 ) -> None:
-    r"""Mutates an input |abjad.Container| (or child class) in place and has no
+    r"""
+    Mutates an input |abjad.Container| (or child class) in place and has no
     return value; this function contracts all logical ties (notes and chords)
     by a maximum contraction duration.
 

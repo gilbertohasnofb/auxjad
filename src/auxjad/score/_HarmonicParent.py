@@ -2,7 +2,8 @@ import abjad
 
 
 class _HarmonicParent:
-    r"""This is the parent class of :class:`auxjad.ArtificialHarmonic` and
+    r"""
+    This is the parent class of :class:`auxjad.ArtificialHarmonic` and
     :class:`auxjad.HarmonicNote`. It implements two common properties with
     ``@property`` and ``@setter`` decorators.
     """

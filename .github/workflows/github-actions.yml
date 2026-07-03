@@ -24,9 +24,15 @@ jobs:
 
       - name: Install dependencies
         run: make setup
-
-      - name: Checks (black, flake8, isort, pydocstyle)
-        run: make check
         
+      - name: Black checks
+        run: make black-check
+      
+      - name: isort checks
+        run: make isort-check
+
+      - name: Ruff checks
+        run: make ruff
+
       - name: Unit tests
         run: make test

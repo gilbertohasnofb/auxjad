@@ -3,7 +3,8 @@ from typing import Iterator
 
 
 class GeneticAlgorithm:
-    r"""An implementation of a genetic algorithm. Takes a :attr:`target` list
+    r"""
+    An implementation of a genetic algorithm. Takes a :attr:`target` list
     and a list of :attr:`genes` to prod`uce generations of individuals at each
     :meth:`__call__`. Fittest individual of the current generation can be
     accessed directly using the property :attr:`fittest_individual`.
@@ -262,7 +263,8 @@ class GeneticAlgorithm:
         return len(self._target)
 
     def __call__(self) -> None:
-        r"""Calls the genetic algorithm process for one iteration. Creates a
+        r"""
+        Calls the genetic algorithm process for one iteration. Creates a
         new generation of length :attr:`population_size` via reproduction and
         mutation processes and scores each individual using the evaluation
         function. Sorts the population according to their scores.
@@ -272,7 +274,8 @@ class GeneticAlgorithm:
         self._sort_population_by_evaluation()
 
     def __next__(self) -> None:
-        r"""Calls the genetic algorithm process for one iteration. Creates a
+        r"""
+        Calls the genetic algorithm process for one iteration. Creates a
         new generation of length :attr:`population_size` via reproduction and
         mutation processes and scores each individual using the evaluation
         function. Sorts the population according to their scores.
@@ -294,7 +297,8 @@ class GeneticAlgorithm:
     # ---------- PRIVATE METHODS ----------
 
     def _generate_population(self) -> None:
-        r"""Calls the genetic algorithm process for one iteration. Creates a
+        r"""
+        Calls the genetic algorithm process for one iteration. Creates a
         new generation of length :attr:`population_size` via reproduction and
         mutation processes and scores each individual using the evaluation
         function.
@@ -308,7 +312,8 @@ class GeneticAlgorithm:
             self._mutate_population()
 
     def _generate_initial_individual(self) -> None:
-        r"""Generates a random initial population of size
+        r"""
+        Generates a random initial population of size
         :attr:`population_size` and whose genes are randomly chosen from
         :attr:`genes`.
         """
@@ -324,7 +329,8 @@ class GeneticAlgorithm:
         self,
         individual: list,
     ) -> float:
-        r"""Evaluates all genes of a given individual, returning a
+        r"""
+        Evaluates all genes of a given individual, returning a
         :obj:`float`. The higher the value, the fitter the individual is, with
         ``1.0`` being a perfect fit. Use :attr:`evaluation_index` to tweak the
         behaviour of this function.
@@ -338,7 +344,8 @@ class GeneticAlgorithm:
         return individual_score
 
     def _sort_population_by_evaluation(self) -> None:
-        r"""Sorts the population (and their scores) according to the evaluation
+        r"""
+        Sorts the population (and their scores) according to the evaluation
         of its individuals.
         """
         zipped_lists = list(zip(self._scores, self._population))
@@ -350,7 +357,8 @@ class GeneticAlgorithm:
         self._scores = [score for score, _ in zipped_lists]
 
     def _score_population(self) -> None:
-        r"""Generates the list of score for each individual of the current
+        r"""
+        Generates the list of score for each individual of the current
         generation.
         """
         self._scores = []
@@ -378,7 +386,8 @@ class GeneticAlgorithm:
         self._population = new_generation[:]
 
     def _mutate_population(self) -> None:
-        r"""Mutates some individuals of the current generation according to
+        r"""
+        Mutates some individuals of the current generation according to
         :attr:`mutation_chance` and :attr:`mutation_index`.
         """
         for index, individual in enumerate(self._population):
@@ -425,7 +434,8 @@ class GeneticAlgorithm:
 
     @property
     def initial_individual(self) -> list | None:
-        r"""Optional initial individual (instead of random initial
+        r"""
+        Optional initial individual (instead of random initial
         population).
         """
         return self._initial_individual
@@ -462,7 +472,8 @@ class GeneticAlgorithm:
 
     @property
     def select_n_parents(self) -> int:
-        r"""Number of the best-fit individuals that are selected to be the
+        r"""
+        Number of the best-fit individuals that are selected to be the
         parents for the next generation.
         """
         return self._select_n_parents
@@ -482,7 +493,8 @@ class GeneticAlgorithm:
 
     @property
     def keep_n_parents(self) -> int:
-        r"""Number of the best-fit individuals that survive into the next
+        r"""
+        Number of the best-fit individuals that survive into the next
         generation. Default is ``0``.
         """
         return self._keep_n_parents
@@ -518,7 +530,8 @@ class GeneticAlgorithm:
 
     @property
     def mutation_index(self) -> float:
-        r"""Given an individual selected to undergo mutation, this index gives
+        r"""
+        Given an individual selected to undergo mutation, this index gives
         the percentage of genes of that individual which will be mutated.
         """
         return self._mutation_index
@@ -538,7 +551,8 @@ class GeneticAlgorithm:
 
     @property
     def evaluation_index(self) -> float:
-        r"""The index used in the evaluation function. This index will be
+        r"""
+        The index used in the evaluation function. This index will be
         raised by the difference between indices of the target value and the
         current value. Consider the following example, where the available
         genes are ``["A", "B", "C", "D", "E", "F"]`` and the target is
@@ -581,28 +595,32 @@ class GeneticAlgorithm:
 
     @property
     def generation_number(self) -> int | None:
-        r"""Read-only property, returns the number of the current generation
+        r"""
+        Read-only property, returns the number of the current generation
         (initial generation is ``0``).
         """
         return self._generation_number
 
     @property
     def population(self) -> list | None:
-        r"""Read-only property, returns a list with all the population of the
+        r"""
+        Read-only property, returns a list with all the population of the
         current generation.
         """
         return self._population
 
     @property
     def scores(self) -> list:
-        r"""Read-only property, returns the list of individual scores of the
+        r"""
+        Read-only property, returns the list of individual scores of the
         current population. Scores are normalised.
         """
         return self._scores
 
     @property
     def fittest_individual(self) -> list | None:
-        r"""Read-only property, returns the fittest individual of the current
+        r"""
+        Read-only property, returns the fittest individual of the current
         population.
         """
         try:
@@ -612,7 +630,8 @@ class GeneticAlgorithm:
 
     @property
     def fittest_individual_score(self) -> list | float:
-        r"""Read-only property, returns the score of the fittest individual of
+        r"""
+        Read-only property, returns the score of the fittest individual of
         the current population.
         """
         try:

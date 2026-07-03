@@ -4,7 +4,8 @@ from ._HarmonicParent import _HarmonicParent
 
 
 class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
-    r"""Creates a chord with a tweaked top note head for notating artificial
+    r"""
+    Creates a chord with a tweaked top note head for notating artificial
     harmonics. This is a child class of |abjad.Chord|.
 
     Basic usage:
@@ -463,7 +464,8 @@ class ArtificialHarmonic(abjad.Chord, _HarmonicParent):
 
     @property
     def centre_markup(self) -> bool:
-        r"""Tweaks the markup of the harmonic note head to be centred or not
+        r"""
+        Tweaks the markup of the harmonic note head to be centred or not
         as LilyPond doesn't centralises markups above note heads by default.
         """
         return self._centre_markup

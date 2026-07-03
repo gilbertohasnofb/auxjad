@@ -7,7 +7,8 @@ from .. import get, mutate
 
 
 class Echoer:
-    r"""Takes an |abjad.Container| (or child class) as input and, using it as
+    r"""
+    Takes an |abjad.Container| (or child class) as input and, using it as
     reference, gradually lowers all dynamics, removing notes that are below a
     given threshold, returning the output as an |abjad.Selection|.
 
@@ -1532,7 +1533,8 @@ class Echoer:
         return len(logical_ties)
 
     def __call__(self) -> abjad.Selection:
-        r"""Calls the echo process for one iteration, returning an
+        r"""
+        Calls the echo process for one iteration, returning an
         |abjad.Selection|.
         """
         if self._repetition_chance == 0.0 or random.random() > self._repetition_chance:
@@ -1542,7 +1544,8 @@ class Echoer:
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the echoing process for one iteration, returning an
+        r"""
+        Calls the echoing process for one iteration, returning an
         |abjad.Selection|.
         """
         if self._done:
@@ -1556,7 +1559,8 @@ class Echoer:
     # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> abjad.Selection:
-        r"""Goes through the whole echoing process and outputs a single
+        r"""
+        Goes through the whole echoing process and outputs a single
         |abjad.Selection|.
         """
         dummy_container = abjad.Container()
@@ -1574,7 +1578,8 @@ class Echoer:
         self,
         n: int,
     ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the echoing process and outputs a
+        r"""
+        Goes through ``n`` iterations of the echoing process and outputs a
         single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -1696,7 +1701,8 @@ class Echoer:
         item: int | None,
         min_dyn_number: int,
     ) -> int | None:
-        r"""Lowers a numerical dynamic level by one, setting it to ``None`` if
+        r"""
+        Lowers a numerical dynamic level by one, setting it to ``None`` if
         dynamic below a given threshold.
         """
         if item is None:
@@ -1824,7 +1830,8 @@ class Echoer:
 
     @property
     def disable_rewrite_meter(self) -> bool:
-        r"""When ``True``, the durations of the notes in the output will not be
+        r"""
+        When ``True``, the durations of the notes in the output will not be
         rewritten by the |abjad.Meter.rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
@@ -1840,7 +1847,8 @@ class Echoer:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r"""When ``True``, all time signatures will be omitted from the
+        r"""
+        When ``True``, all time signatures will be omitted from the
         output.
         """
         return self._omit_time_signatures
@@ -1856,7 +1864,8 @@ class Echoer:
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r"""When ``True``, multi-measure rests will be used for silent
+        r"""
+        When ``True``, multi-measure rests will be used for silent
         measures.
         """
         return self._use_multimeasure_rests
@@ -1872,7 +1881,8 @@ class Echoer:
 
     @property
     def boundary_depth(self) -> int | None:
-        r"""Sets the argument ``boundary_depth`` of
+        r"""
+        Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
@@ -1889,7 +1899,8 @@ class Echoer:
 
     @property
     def maximum_dot_count(self) -> int | None:
-        r"""Sets the argument ``maximum_dot_count`` of
+        r"""
+        Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
@@ -1906,7 +1917,8 @@ class Echoer:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of
+        r"""
+        Sets the argument ``rewrite_tuplets`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
@@ -1922,7 +1934,8 @@ class Echoer:
 
     @property
     def prettify_rewrite_meter(self) -> bool:
-        r"""Used to enable or disable the mutation
+        r"""
+        Used to enable or disable the mutation
         |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
@@ -1938,7 +1951,8 @@ class Echoer:
 
     @property
     def extract_trivial_tuplets(self) -> bool:
-        r"""Sets the argument ``extract_trivial_tuplets`` of
+        r"""
+        Sets the argument ``extract_trivial_tuplets`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
@@ -1954,7 +1968,8 @@ class Echoer:
 
     @property
     def fuse_across_groups_of_beats(self) -> bool:
-        r"""Sets the argument ``fuse_across_groups_of_beats`` of
+        r"""
+        Sets the argument ``fuse_across_groups_of_beats`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
@@ -1970,7 +1985,8 @@ class Echoer:
 
     @property
     def fuse_quadruple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_quadruple_meter`` of
+        r"""
+        Sets the argument ``fuse_quadruple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
@@ -1986,7 +2002,8 @@ class Echoer:
 
     @property
     def fuse_triple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_triple_meter`` of
+        r"""
+        Sets the argument ``fuse_triple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
@@ -2002,7 +2019,8 @@ class Echoer:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then :attr:`contents` will be processed in the very
+        r"""
+        If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -2018,7 +2036,8 @@ class Echoer:
 
     @property
     def include_empty_measures(self) -> bool:
-        r"""If ``True`` then an initial or final empty measures will be used,
+        r"""
+        If ``True`` then an initial or final empty measures will be used,
         otherwise the process starts/ends with a single logical tie.
         """
         return self._include_empty_measures
@@ -2034,7 +2053,8 @@ class Echoer:
 
     @property
     def repetition_chance(self) -> float:
-        r"""The chance of not processing :attr:`contents` on a call, thus
+        r"""
+        The chance of not processing :attr:`contents` on a call, thus
         repeating the previous output.
         """
         return self._repetition_chance
@@ -2054,7 +2074,8 @@ class Echoer:
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done, which is when
+        r"""
+        :obj:`bool` indicating whether the process is done, which is when
         the mask is filled with ``None``'s.
         """
         if self._include_empty_measures:

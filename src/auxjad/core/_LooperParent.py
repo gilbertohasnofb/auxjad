@@ -7,7 +7,8 @@ from .. import get, mutate
 
 
 class _LooperParent:
-    r"""This is the parent class of all Looper classes. It implements all
+    r"""
+    This is the parent class of all Looper classes. It implements all
     common methods and properties, and initialises those using their @setter
     methods.
     """
@@ -55,7 +56,8 @@ class _LooperParent:
     # ---------- SPECIAL METHODS ----------
 
     def __call__(self) -> abjad.Selection:
-        r"""Calls the looping process for one iteration, returning an
+        r"""
+        Calls the looping process for one iteration, returning an
         |abjad.Selection|.
         """
         self._move_head()
@@ -65,7 +67,8 @@ class _LooperParent:
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the looping process for one iteration, returning an
+        r"""
+        Calls the looping process for one iteration, returning an
         |abjad.Selection|.
         """
         self._move_head()
@@ -85,7 +88,8 @@ class _LooperParent:
         *,
         tie_identical_pitches: bool = False,
     ) -> abjad.Selection:
-        r"""Goes through the whole looping process and outputs a single
+        r"""
+        Goes through the whole looping process and outputs a single
         |abjad.Selection|.
         """
         if not isinstance(tie_identical_pitches, bool):
@@ -116,7 +120,8 @@ class _LooperParent:
         *,
         tie_identical_pitches: bool = False,
     ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the looping process and outputs a
+        r"""
+        Goes through ``n`` iterations of the looping process and outputs a
         single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -145,7 +150,8 @@ class _LooperParent:
     # ---------- PRIVATE METHODS ----------
 
     def _move_head(self) -> None:
-        r"""Moves the head by a certain number of steps of fixed size, either
+        r"""
+        Moves the head by a certain number of steps of fixed size, either
         forwards or backwards according to the forward bias.
         """
         if not self._is_first_window or self._process_on_first_call:
@@ -156,7 +162,8 @@ class _LooperParent:
         self._is_first_window = False
 
     def _slice_contents(self) -> None:
-        r"""Slices :attr:`contents`, will be defined for each individual child
+        r"""
+        Slices :attr:`contents`, will be defined for each individual child
         class.
         """
         pass
@@ -182,7 +189,8 @@ class _LooperParent:
 
     @property
     def contents(self) -> None:
-        r""":attr:`contents` property will be defined for each individual child
+        r"""
+        :attr:`contents` property will be defined for each individual child
         class.
         """
         pass
@@ -282,7 +290,8 @@ class _LooperParent:
 
     @property
     def forward_bias(self) -> float:
-        r"""The chance of the window moving forward instead of backwards. It
+        r"""
+        The chance of the window moving forward instead of backwards. It
         should range from ``0.0`` to ``1.0`` (default ``1.0``, which means the
         window can only move forwards. A value of ``0.5`` gives :math:`50\%`
         chance of moving forwards while a value of ``0.0`` will move the window
@@ -303,7 +312,8 @@ class _LooperParent:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then :attr:`contents` will be processed in the very
+        r"""
+        If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -319,7 +329,8 @@ class _LooperParent:
 
     @property
     def current_window(self) -> abjad.Selection | None:
-        r"""Read-only property, returns the window at the current head
+        r"""
+        Read-only property, returns the window at the current head
         position.
         """
         if self._current_window is None:
@@ -333,7 +344,8 @@ class _LooperParent:
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        r"""
+        :obj:`bool` indicating whether the process is done (i.e. whether
         the head position has overtaken the :attr:`contents`'s length).
         """
         return self._head_position >= self.__len__() or self._head_position < 0

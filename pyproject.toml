@@ -64,6 +64,19 @@ case_sensitive = true
 skip_gitignore = true
 known_first_party = ["auxjad"]
 
-[tool.pydocstyle]
-match_dir = "src"
-select = ["D101", "D102", "D103", "D105", "D300", "D301"]
+[tool.ruff]
+line-length = 100
+builtins = ["spark", "dbutils", "display"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "D101", "D102", "D103", "D104", "D105", "D201", "D202", "D204", "D207", "D208",
+    "D213", "D214", "D215", "D300", "D301", "D403", "D405", "D410", "D411", "D414",
+]
+ignore = ["E203"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D101", "D102", "D103"]

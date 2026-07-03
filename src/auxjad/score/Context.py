@@ -114,7 +114,8 @@ class Context(abjad.Context):
 
     @property
     def context_commands(self):
-        r"""Unordered set of LilyPond settings to be included in the context.
+        r"""
+        Unordered set of LilyPond settings to be included in the context.
 
         Usage:
             Manage with add, update, other standard set commands:

@@ -7,7 +7,8 @@ from .. import get, mutate, select
 
 
 class Shuffler:
-    r"""Takes an |abjad.Container| (or child class) and shuffles or rotates its
+    r"""
+    Takes an |abjad.Container| (or child class) and shuffles or rotates its
     logical ties or pitches. When shuffling or rotating pitches only, tuplets
     are supported, otherwise tuplets are not supported.
 
@@ -1125,7 +1126,8 @@ class Shuffler:
         return self.shuffle()
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the shuffling process for one iteration, returning an
+        r"""
+        Calls the shuffling process for one iteration, returning an
         |abjad.Selection|.
         """
         return self.__call__()
@@ -1187,7 +1189,8 @@ class Shuffler:
         self,
         n: int,
     ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the shuffling process and outputs
+        r"""
+        Goes through ``n`` iterations of the shuffling process and outputs
         a single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -1210,7 +1213,8 @@ class Shuffler:
         n_rotations: int = 1,
         anticlockwise: bool = False,
     ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the pitch shuffling process and
+        r"""
+        Goes through ``n`` iterations of the pitch shuffling process and
         outputs a single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -1481,7 +1485,8 @@ class Shuffler:
     def _force_dynamics(
         container: abjad.Container,
     ) -> None:
-        r"""Enforces the current dynamic level to every logical tie without a
+        r"""
+        Enforces the current dynamic level to every logical tie without a
         dynamic marking.
         """
         logical_ties = abjad.select(container).logical_ties()
@@ -1547,7 +1552,8 @@ class Shuffler:
 
     @property
     def pitch_only(self) -> bool:
-        r"""When ``True``, only the pitches will be shuffled or rotated while
+        r"""
+        When ``True``, only the pitches will be shuffled or rotated while
         the durations remain the same.
         """
         return self._pitch_only
@@ -1568,7 +1574,8 @@ class Shuffler:
 
     @property
     def preserve_rest_position(self) -> bool:
-        r"""When ``True``, shuffle operations will preserve rest positions and
+        r"""
+        When ``True``, shuffle operations will preserve rest positions and
         durations.
         """
         return self._preserve_rest_position
@@ -1584,7 +1591,8 @@ class Shuffler:
 
     @property
     def disable_rewrite_meter(self) -> bool:
-        r"""When ``True``, the durations of the notes in the output will not be
+        r"""
+        When ``True``, the durations of the notes in the output will not be
         rewritten by the |abjad.Meter.rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
@@ -1614,7 +1622,8 @@ class Shuffler:
 
     @property
     def boundary_depth(self) -> int | None:
-        r"""Sets the argument ``boundary_depth`` of
+        r"""
+        Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
@@ -1631,7 +1640,8 @@ class Shuffler:
 
     @property
     def maximum_dot_count(self) -> int | None:
-        r"""Sets the argument ``maximum_dot_count`` of
+        r"""
+        Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
@@ -1648,7 +1658,8 @@ class Shuffler:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of
+        r"""
+        Sets the argument ``rewrite_tuplets`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
@@ -1664,7 +1675,8 @@ class Shuffler:
 
     @property
     def prettify_rewrite_meter(self) -> bool:
-        r"""Used to enable or disable the mutation
+        r"""
+        Used to enable or disable the mutation
         |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
@@ -1680,7 +1692,8 @@ class Shuffler:
 
     @property
     def extract_trivial_tuplets(self) -> bool:
-        r"""Sets the argument ``extract_trivial_tuplets`` of
+        r"""
+        Sets the argument ``extract_trivial_tuplets`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
@@ -1696,7 +1709,8 @@ class Shuffler:
 
     @property
     def fuse_across_groups_of_beats(self) -> bool:
-        r"""Sets the argument ``fuse_across_groups_of_beats`` of
+        r"""
+        Sets the argument ``fuse_across_groups_of_beats`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
@@ -1712,7 +1726,8 @@ class Shuffler:
 
     @property
     def fuse_quadruple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_quadruple_meter`` of
+        r"""
+        Sets the argument ``fuse_quadruple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
@@ -1728,7 +1743,8 @@ class Shuffler:
 
     @property
     def fuse_triple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_triple_meter`` of
+        r"""
+        Sets the argument ``fuse_triple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
@@ -1744,7 +1760,8 @@ class Shuffler:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then :attr:`contents` will be processed in the very
+        r"""
+        If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -1760,7 +1777,8 @@ class Shuffler:
 
     @property
     def swap_limit(self) -> int:
-        r"""If :obj:`int` then it dictates how instances of random swapping of
+        r"""
+        If :obj:`int` then it dictates how instances of random swapping of
         pairs of elements are applied to :attr:`contents` in each iteration. If
         ``None`` then :attr:`contents` is completely shuffled at each
         iteration.

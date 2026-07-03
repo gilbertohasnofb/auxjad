@@ -2,7 +2,8 @@ import abjad
 
 
 def extract_trivial_tuplets(selection: abjad.Selection) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
     this function looks for tuplets filled with rests or with tied notes or
     chords and replaces them with a single leaf.
 

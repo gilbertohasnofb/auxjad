@@ -7,7 +7,8 @@ def rests_to_multimeasure_rest(
     ignore_clefs: bool = False,
     ignore_dynamics: bool = False,
 ) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
     this function looks for measures filled with regular rests and converts
     them into an |abjad.MultimeasureRest|.
 

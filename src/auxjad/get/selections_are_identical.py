@@ -8,7 +8,8 @@ def selections_are_identical(
     *,
     include_indicators: bool = True,
 ) -> bool:
-    r"""Returns a :obj:`bool` representing whether two or more selections are
+    r"""
+    Returns a :obj:`bool` representing whether two or more selections are
     identical or not. Input argument must be an iterable made of two or more
     |abjad.Selection|'s.
 

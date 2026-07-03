@@ -30,7 +30,8 @@ def test_CartographySelector__call__():
 
 
 def test_CartographySelector_previous_index_and_previous_result_read_only():
-    r"""Confirm attributes previous_index and previous_result are both read
+    r"""
+    Confirm attributes previous_index and previous_result are both read
     only.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
@@ -47,7 +48,8 @@ def test_CartographySelector_decay_rate():
 
 
 def test_CartographySelector_drop_first_and_append():
-    r"""Confirm drop_first_and_append() appends input to list and drops first
+    r"""
+    Confirm drop_first_and_append() appends input to list and drops first
     element.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
@@ -58,7 +60,8 @@ def test_CartographySelector_drop_first_and_append():
 
 
 def test_CartographySelector_drop_n_and_append():
-    r"""Confirm drop_n_and_append() drops n-th element and appends new element
+    r"""
+    Confirm drop_n_and_append() drops n-th element and appends new element
     at the end of the list.
     """
     selector = auxjad.CartographySelector([10, 7, 14, 31, 98])
@@ -67,7 +70,8 @@ def test_CartographySelector_drop_n_and_append():
 
 
 def test_CartographySelector_drop_last_and_prepend():
-    r"""Confirm drop_last_and_prepend() drops last element and prepends input
+    r"""
+    Confirm drop_last_and_prepend() drops last element and prepends input
     at index 0.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
@@ -78,7 +82,8 @@ def test_CartographySelector_drop_last_and_prepend():
 
 
 def test_CartographySelector_rotate():
-    r"""Confirm rotate() moves all elements from index n to index n + 1, with
+    r"""
+    Confirm rotate() moves all elements from index n to index n + 1, with
     the last element moving into index 0.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
@@ -106,7 +111,8 @@ def test_CartographySelector__len__():
 
 
 def test_CartographySelector_weights_after_change_of_contents():
-    r"""Confirm weights have the same length of contents if contents change
+    r"""
+    Confirm weights have the same length of contents if contents change
     after instantiation with a new length.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4], decay_rate=0.5)
@@ -125,7 +131,8 @@ def test_CartographySelector_weights_after_change_of_contents():
 
 
 def test_CartographySelector_change_decay_rate():
-    r"""Confirm decay_rate change after instantiation results in the correct
+    r"""
+    Confirm decay_rate change after instantiation results in the correct
     weights attribute.
     """
     random.seed(83552)
@@ -176,7 +183,8 @@ def test_CartographySelector__delitem__regenerates_weights():
 
 
 def test_CartographySelector__setitem__regenerates_weights():
-    r"""Confirm __setitem__ can set items regenerates weights when contents
+    r"""
+    Confirm __setitem__ can set items regenerates weights when contents
     changes size.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
@@ -193,7 +201,8 @@ def test_CartographySelector__setitem__regenerates_weights():
 
 
 def test_CartographySelector_no_repeat():
-    r"""Confirm the argument no_repeat in __call__ returns values without
+    r"""
+    Confirm the argument no_repeat in __call__ returns values without
     consecutive repeats.
     """
     random.seed(98743)
@@ -209,7 +218,8 @@ def test_CartographySelector_no_repeat():
 
 
 def test_CartographySelector_mirror_swap_odd_elements():
-    r"""Confirm mirror_swap() swaps the element at a given index with its
+    r"""
+    Confirm mirror_swap() swaps the element at a given index with its
     complementary element. Testing with odd number of elements in contents.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4])
@@ -224,7 +234,8 @@ def test_CartographySelector_mirror_swap_odd_elements():
 
 
 def test_CartographySelector_mirror_swap_even_elements():
-    r"""Confirm mirror_swap() swaps the element at a given index with its
+    r"""
+    Confirm mirror_swap() swaps the element at a given index with its
     complementary element. Testing with even number of elements in contents.
     """
     selector = auxjad.CartographySelector([0, 1, 2, 3, 4, 5])
@@ -239,7 +250,8 @@ def test_CartographySelector_mirror_swap_even_elements():
 
 
 def test_CartographySelector_mirror_random_swap():
-    r"""Confirm mirror_random_swap() swaps a randomly selected element at a
+    r"""
+    Confirm mirror_random_swap() swaps a randomly selected element at a
     given index with its complementary element.
     """
     random.seed(90129)

@@ -10,7 +10,8 @@ def sustain_notes(
     sustain_multimeasure_rests: bool = True,
     rewrite_meter: bool = True,
 ) -> None:
-    r"""Mutates an input container (of type |abjad.Container| or child class)
+    r"""
+    Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function will sustain all pitched
     leaves until the next pitched leaf, thus replacing all rests in between
     them.

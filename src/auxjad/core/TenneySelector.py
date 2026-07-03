@@ -3,7 +3,8 @@ from typing import Any
 
 
 class TenneySelector:
-    r"""An implementation of the Dissonant Counterpoint Algorithm by James
+    r"""
+    An implementation of the Dissonant Counterpoint Algorithm by James
     Tenney. This class can be used to randomly select elements from an input
     :obj:`list`, giving more weight to elements which have not been selected in
     recent iterations. In other words, Tenney's algorithm uses feedback in
@@ -413,7 +414,8 @@ class TenneySelector:
         return len(self._contents)
 
     def __call__(self) -> Any:
-        r"""Calls the selection process and outputs one element of
+        r"""
+        Calls the selection process and outputs one element of
         :attr:`contents`.
         """
         self._previous_index = random.choices(
@@ -425,7 +427,8 @@ class TenneySelector:
         return self._contents[self._previous_index]
 
     def __next__(self) -> Any:
-        r"""Calls the selection process and outputs one element of
+        r"""
+        Calls the selection process and outputs one element of
         :attr:`contents`.
         """
         return self.__call__()
@@ -434,7 +437,8 @@ class TenneySelector:
         self,
         key: int,
     ) -> Any:
-        r"""Returns one or more elements of :attr:`contents` through indexing
+        r"""
+        Returns one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         return self._contents[key]
@@ -444,7 +448,8 @@ class TenneySelector:
         key: int,
         value: Any,
     ) -> None:
-        r"""Assigns values to one or more elements of :attr:`contents` through
+        r"""
+        Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
         length_before_set = self.__len__()
@@ -456,7 +461,8 @@ class TenneySelector:
         self,
         key: int,
     ) -> None:
-        r"""Deletes one or more elements of :attr:`contents` through indexing
+        r"""
+        Deletes one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         del self._contents[key]
@@ -467,7 +473,8 @@ class TenneySelector:
     # ---------- PUBLIC METHODS ----------
 
     def reset_probabilities(self) -> None:
-        r"""Resets the probability distribution of all elements to an uniform
+        r"""
+        Resets the probability distribution of all elements to an uniform
         distribution.
         """
         self._counter = [1 for _ in range(self.__len__())]
@@ -476,7 +483,8 @@ class TenneySelector:
     # ---------- PRIVATE METHODS ----------
 
     def _regenerate_counts(self) -> None:
-        r"""Increases the count of all elements except for the previously
+        r"""
+        Increases the count of all elements except for the previously
         selected one, whose count is reset to zero.
         """
         for i in range(self.__len__()):
@@ -490,7 +498,8 @@ class TenneySelector:
         *,
         reset: bool = False,
     ) -> None:
-        r"""Generates the probabilities given the weights of the elements as
+        r"""
+        Generates the probabilities given the weights of the elements as
         well as their count numbers (which are fed into the growth function).
         """
         if not isinstance(reset, bool):
@@ -528,7 +537,8 @@ class TenneySelector:
 
     @property
     def weights(self) -> list[float | int]:
-        r"""The :obj:`list` with weights for each element of
+        r"""
+        The :obj:`list` with weights for each element of
         :attr:`contents`.
         """
         return self._weights
@@ -571,7 +581,8 @@ class TenneySelector:
 
     @property
     def previous_index(self) -> int | None:
-        r"""Read-only property, returns the index of the previously output
+        r"""
+        Read-only property, returns the index of the previously output
         element.
         """
         return self._previous_index
@@ -591,7 +602,8 @@ class TenneySelector:
 
     @property
     def counter(self) -> list[int] | None:
-        r"""Read-only property, returns the list with the counts of how many
+        r"""
+        Read-only property, returns the list with the counts of how many
         iterations has it been since a given element hasn't been selected. It
         is initialised to a list of 1's. A 0 is assigned to the index of the
         selected element while all others are increased by 1.

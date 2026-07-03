@@ -3,7 +3,8 @@ from typing import Any, Iterator
 
 
 class DeBruijnGenerator:
-    r"""An implementation of the De Bruijn Sequence and Universal Cycle Constructions generators,
+    r"""
+    An implementation of the De Bruijn Sequence and Universal Cycle Constructions generators,
     based on research by Joseph Sawada, Dennis Wong, Aaron Williams, Daniel Gabric. Original C
     implementation of algorithms PCR1 (GrandDaddy) and PCR2 (GrandMama) by Joseph Sawada, 2015-2018.
     This class can be used to generate sequences of elements from an input :obj:`list` in which
@@ -436,7 +437,8 @@ class DeBruijnGenerator:
         return str(self._contents)
 
     def __len__(self) -> int:
-        r"""Returns the length of :attr:`contents`. This is the equivalent of the alphabet size of
+        r"""
+        Returns the length of :attr:`contents`. This is the equivalent of the alphabet size of
         the de Bruijn sequence, often notated as :math:`k`.
         """
         return len(self._contents)
@@ -470,7 +472,8 @@ class DeBruijnGenerator:
         self,
         key: int,
     ) -> Any:
-        r"""Returns one or more elements of :attr:`contents` through indexing
+        r"""
+        Returns one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         return self._contents[key]
@@ -480,7 +483,8 @@ class DeBruijnGenerator:
         key: int,
         value: Any,
     ) -> None:
-        r"""Assigns values to one or more elements of :attr:`contents` through
+        r"""
+        Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
         length_before_set = self.__len__()
@@ -499,7 +503,8 @@ class DeBruijnGenerator:
     # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> list[Any]:
-        r"""Outputs remaining elements of the de Bruijn sequence as a single :obj:`list`.
+        r"""
+        Outputs remaining elements of the de Bruijn sequence as a single :obj:`list`.
 
         If the generator has not been called before, returns the full sequence. If some elements
         have already been output via :meth:`__call__` or :meth:`output_n`, returns only the
@@ -537,7 +542,8 @@ class DeBruijnGenerator:
         return output_list
 
     def reset(self) -> None:
-        r"""Resets the generator to its initial state and regenerates the sequence.
+        r"""
+        Resets the generator to its initial state and regenerates the sequence.
 
         Resets :attr:`last_selected_index_of_sequence` to ``None`` and clears
         :attr:`previous_element` and :attr:`previous_element_index`. Regenerates :attr:`sequence` by
@@ -557,7 +563,8 @@ class DeBruijnGenerator:
     # ---------- PRIVATE METHODS ----------
 
     def _generate_sequence(self) -> None:
-        r"""Generates the full de Bruijn sequence. Uses a specified :attr:`algorithm` for selecting
+        r"""
+        Generates the full de Bruijn sequence. Uses a specified :attr:`algorithm` for selecting
         the next symbol in the sequence, and maps it to the correct element of :attr:`contents`.
 
         Both PCR1 and PCR2 algorithms start with a window of length :attr:`order` filled with 0s,
@@ -592,7 +599,8 @@ class DeBruijnGenerator:
                 break
 
     def _pcr1_generator(self, window: list[int]) -> int:
-        r"""Generator of the next symbol using PCR1 (GrandDaddy) rule.
+        r"""
+        Generator of the next symbol using PCR1 (GrandDaddy) rule.
 
         Args:
             window (list[int]): Current sliding window of length ``order``.
@@ -611,7 +619,8 @@ class DeBruijnGenerator:
         return window[0]
 
     def _pcr1_get_next_symbol(self, window: list[int]) -> int | None:
-        r"""Compute the smallest valid next symbol for the PCR1 rule (aka GrandDaddy).
+        r"""
+        Compute the smallest valid next symbol for the PCR1 rule (aka GrandDaddy).
 
         Finds the tail of the window (all elements after the leading run of max symbols, starting at
         index 1), then inlines necklace period detection to determine the smallest symbol that keeps
@@ -659,7 +668,8 @@ class DeBruijnGenerator:
         return None
 
     def _pcr2_generator(self, window: list[int]) -> int:
-        r"""Generator of the next symbol using PCR2 (GrandMama) rule.
+        r"""
+        Generator of the next symbol using PCR2 (GrandMama) rule.
 
         Args:
             window (list[int]): Current sliding window of length ``order``.
@@ -676,7 +686,8 @@ class DeBruijnGenerator:
         return window[0]
 
     def _get_pcr2_largest_candidate_symbol(self, window: list[int]) -> int:
-        r"""Compute the largest valid candidate symbol for the PCR2 rule (aka GrandMama).
+        r"""
+        Compute the largest valid candidate symbol for the PCR2 rule (aka GrandMama).
 
         Scans backward from the end of the window, skipping trailing min-symbols (zeros), to find
         the index ``last_non_min_index`` (:math:`j - 1` in the original C implementation, as it uses
@@ -707,7 +718,8 @@ class DeBruijnGenerator:
         return 0
 
     def _is_necklace(self, sequence: list[int]) -> bool:
-        r"""Return ``True`` if and only if ``sequence`` is a necklace (its own lexicographically
+        r"""
+        Return ``True`` if and only if ``sequence`` is a necklace (its own lexicographically
         minimal rotation).
 
         Args:
@@ -734,7 +746,8 @@ class DeBruijnGenerator:
 
     @property
     def contents(self) -> list[Any]:
-        r"""The :obj:`list` used by the generator, mapped to the de Bruijn sequence for the output
+        r"""
+        The :obj:`list` used by the generator, mapped to the de Bruijn sequence for the output
         sequence. This is the ordered alphabet used by the de Bruijn generator.
         """
         return self._contents
@@ -753,7 +766,8 @@ class DeBruijnGenerator:
 
     @property
     def algorithm(self) -> str:
-        r"""Thee are multiple algorithms which can generate de Bruijn sequences. Current options
+        r"""
+        Thee are multiple algorithms which can generate de Bruijn sequences. Current options
         include ``"pcr1"`` or ``"pcr2"``.
         """
         return self._algorithm
@@ -774,7 +788,8 @@ class DeBruijnGenerator:
 
     @property
     def order(self) -> int:
-        r"""The order of a de Bruijn sequence is the size of each of its subgroups, often notated
+        r"""
+        The order of a de Bruijn sequence is the size of each of its subgroups, often notated
         as :math:`n`.
         """
         return self._order
@@ -793,7 +808,8 @@ class DeBruijnGenerator:
 
     @property
     def cyclic(self) -> bool:
-        r""":obj:`bool` representing whether a sequence is cycle joined or not, defaulting to
+        r"""
+        :obj:`bool` representing whether a sequence is cycle joined or not, defaulting to
         ``False``. E.g. consider a de Bruijn sequence of order 2 and alphabet size 3, generated by
         PCR1 using a cyclic output:
 
@@ -858,14 +874,16 @@ class DeBruijnGenerator:
 
     @property
     def previous_element_index(self) -> int | None:
-        r"""Read-only property, returns the index in :attr:`contents` of the previously output
+        r"""
+        Read-only property, returns the index in :attr:`contents` of the previously output
         element of the sequence.
         """
         return self._previous_element_index
 
     @property
     def previous_element(self) -> Any | None:
-        r"""Read-only property, returns the last element output by the object mapped to
+        r"""
+        Read-only property, returns the last element output by the object mapped to
         :attr:`contents`.
         """
         if self._previous_element is None:
@@ -874,7 +892,8 @@ class DeBruijnGenerator:
 
     @property
     def last_selected_index_of_sequence(self) -> int | None:
-        r"""Read-only property, returns the index of the last element output by the object in the de
+        r"""
+        Read-only property, returns the index of the last element output by the object in the de
         Bruijn sequence (not :attr:`contents`)."""
         return self._last_selected_index_of_sequence
 
@@ -890,7 +909,8 @@ class DeBruijnGenerator:
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done (i.e. whether the index position has
+        r"""
+        :obj:`bool` indicating whether the process is done (i.e. whether the index position has
         overtaken the :attr:`contents`'s length).
         """
         if self._last_selected_index_of_sequence is None:

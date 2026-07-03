@@ -5,7 +5,8 @@ from ._LooperParent import _LooperParent
 
 
 class ListLooper(_LooperParent):
-    r"""Outputs slices of a :obj:`list` using the metaphor of a looping window
+    r"""
+    Outputs slices of a :obj:`list` using the metaphor of a looping window
     of a constant number of elements. This number is given by the argument
     :attr:`window_size`, which is an :obj:`int` representing how many elements
     are to be included in each slice.
@@ -417,7 +418,8 @@ class ListLooper(_LooperParent):
     # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> list[Any]:
-        r"""Goes through the whole looping process and outputs a single
+        r"""
+        Goes through the whole looping process and outputs a single
         :obj:`list`. This method replaces the parent's one since the parent's
         method outputs an |abjad.Selection|.
         """
@@ -430,7 +432,8 @@ class ListLooper(_LooperParent):
         return dummy_container[:]
 
     def output_n(self, n: int) -> list[Any]:
-        r"""Goes through ``n`` iterations of the looping process and outputs a
+        r"""
+        Goes through ``n`` iterations of the looping process and outputs a
         single :obj:`list`. This method replaces the parent's one since the
         parent's method outputs an |abjad.Selection|.
         """
@@ -446,7 +449,8 @@ class ListLooper(_LooperParent):
     # ---------- PRIVATE METHODS ----------
 
     def _slice_contents(self) -> None:
-        r"""This method takes a slice with :attr:`window_size` number of
+        r"""
+        This method takes a slice with :attr:`window_size` number of
         elements out of :attr:`contents` starting at the current
         :attr:`head_position`.
         """
@@ -473,7 +477,8 @@ class ListLooper(_LooperParent):
 
     @property
     def current_window(self) -> list[Any] | None:
-        r"""Read-only property, returns the window at the current head
+        r"""
+        Read-only property, returns the window at the current head
         position.
         """
         if self._current_window is None:
@@ -482,7 +487,8 @@ class ListLooper(_LooperParent):
 
     @property
     def end_with_max_n_elements(self) -> bool:
-        r"""When ``True``, the last bar in the output will contain the maximum
+        r"""
+        When ``True``, the last bar in the output will contain the maximum
         number of elements given by :attr:`window_size`. E.g. consider the
         elements ``[A, B, C, D]`` and the looping window was size ``3``;
         setting :attr:`end_with_max_n_elements` to ``True`` will output:
@@ -509,7 +515,8 @@ class ListLooper(_LooperParent):
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        r"""
+        :obj:`bool` indicating whether the process is done (i.e. whether
         the head position has overtaken the :attr:`contents`'s length).
         """
         if self._end_with_max_n_elements:

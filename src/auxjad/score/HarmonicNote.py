@@ -4,7 +4,8 @@ from ._HarmonicParent import _HarmonicParent
 
 
 class HarmonicNote(abjad.Note, _HarmonicParent):
-    r"""Creates a note with tweaked note head for harmonics. This is a child
+    r"""
+    Creates a note with tweaked note head for harmonics. This is a child
     class of |abjad.Note|.
 
     Basic usage:
@@ -293,7 +294,8 @@ class HarmonicNote(abjad.Note, _HarmonicParent):
 
     @property
     def centre_markup(self) -> bool:
-        r"""Tweaks the markup of the harmonic note head to be centred or not
+        r"""
+        Tweaks the markup of the harmonic note head to be centred or not
         as LilyPond doesn't centralises markups above note heads by default.
         """
         return self._centre_markup

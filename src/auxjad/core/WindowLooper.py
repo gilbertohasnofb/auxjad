@@ -7,7 +7,8 @@ from ._LooperParent import _LooperParent
 
 
 class WindowLooper(_LooperParent):
-    r"""Outputs slices of an |abjad.Container| (or child class) using the
+    r"""
+    Outputs slices of an |abjad.Container| (or child class) using the
     metaphor of a looping window of a constant size (given by an
     |abjad.Duration|).
 
@@ -1333,19 +1334,22 @@ class WindowLooper(_LooperParent):
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r"""Returns the length of :attr:`contents` in terms of
+        r"""
+        Returns the length of :attr:`contents` in terms of
         :attr:`step_size`.
         """
         return ceil(self._contents_length / self._step_size)
 
     def __call__(self) -> abjad.Selection:
-        r"""Calls the looping process for one iteration, returning an
+        r"""
+        Calls the looping process for one iteration, returning an
         |abjad.Selection|.
         """
         return super().__call__()
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the looping process for one iteration, returning an
+        r"""
+        Calls the looping process for one iteration, returning an
         |abjad.Selection|.
         """
         return super().__next__()
@@ -1353,7 +1357,8 @@ class WindowLooper(_LooperParent):
     # ---------- PRIVATE METHODS ----------
 
     def _slice_contents(self) -> None:
-        r"""This method takes a slice of size :attr:`window_size` out of
+        r"""
+        This method takes a slice of size :attr:`window_size` out of
         :attr:`contents` starting at the current :attr:`head_position`.
         """
         head = self._head_position
@@ -1527,7 +1532,8 @@ class WindowLooper(_LooperParent):
         self,
         head_position: int | float | str | tuple[int] | abjad.Duration,
     ) -> None:
-        r"""This setter method replaces the parent's one since the parent's
+        r"""
+        This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
@@ -1551,7 +1557,8 @@ class WindowLooper(_LooperParent):
         self,
         window_size: int | float | str | tuple[int] | abjad.Duration | abjad.Meter,
     ) -> None:
-        r"""This setter method replaces the parent's one since the parent's
+        r"""
+        This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Meter|.
         """
@@ -1584,7 +1591,8 @@ class WindowLooper(_LooperParent):
         self,
         step_size: int | float | tuple[int] | abjad.Duration,
     ) -> None:
-        r"""This setter method replaces the parent's one since the parent's
+        r"""
+        This setter method replaces the parent's one since the parent's
         method uses :obj:`int` as input intead of number, :obj:`tuple`, or
         |abjad.Duration|.
         """
@@ -1608,7 +1616,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def disable_rewrite_meter(self) -> bool:
-        r"""When ``True``, the durations of the notes in the output will not be
+        r"""
+        When ``True``, the durations of the notes in the output will not be
         rewritten by the |abjad.Meter.rewrite_meter()| mutation. Rests will
         have the same duration as the logical ties they replaced.
         """
@@ -1639,7 +1648,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def boundary_depth(self) -> int | None:
-        r"""Sets the argument ``boundary_depth`` of
+        r"""
+        Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
@@ -1656,7 +1666,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def maximum_dot_count(self) -> int | None:
-        r"""Sets the argument ``maximum_dot_count`` of
+        r"""
+        Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
@@ -1673,7 +1684,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of
+        r"""
+        Sets the argument ``rewrite_tuplets`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
@@ -1689,7 +1701,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def prettify_rewrite_meter(self) -> bool:
-        r"""Used to enable or disable the mutation
+        r"""
+        Used to enable or disable the mutation
         |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
@@ -1705,7 +1718,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def extract_trivial_tuplets(self) -> bool:
-        r"""Sets the argument ``extract_trivial_tuplets`` of
+        r"""
+        Sets the argument ``extract_trivial_tuplets`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
@@ -1721,7 +1735,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def fuse_across_groups_of_beats(self) -> bool:
-        r"""Sets the argument ``fuse_across_groups_of_beats`` of
+        r"""
+        Sets the argument ``fuse_across_groups_of_beats`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
@@ -1737,7 +1752,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def fuse_quadruple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_quadruple_meter`` of
+        r"""
+        Sets the argument ``fuse_quadruple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
@@ -1753,7 +1769,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def fuse_triple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_triple_meter`` of
+        r"""
+        Sets the argument ``fuse_triple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
@@ -1769,7 +1786,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def after_rest(self) -> abjad.Duration:
-        r"""Sets the length of the rest appended at the end of the window
+        r"""
+        Sets the length of the rest appended at the end of the window
         (default is ``0``).
         """
         return self._after_rest
@@ -1793,7 +1811,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def after_rest_in_new_measure(self) -> bool:
-        r"""If ``True``, then after rests will be added to their own measure
+        r"""
+        If ``True``, then after rests will be added to their own measure
         (default is ``False``).
         """
         return self._after_rest_in_new_measure
@@ -1809,7 +1828,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r"""If ``True``, then multi-measure rests will be used for after rests
+        r"""
+        If ``True``, then multi-measure rests will be used for after rests
         when added to their own measure (default is ``True``).
         """
         return self._use_multimeasure_rests
@@ -1827,7 +1847,8 @@ class WindowLooper(_LooperParent):
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        r"""
+        :obj:`bool` indicating whether the process is done (i.e. whether
         the head position has overtaken the :attr:`contents`'s length).
 
         This property replaces the parent's one since the parent's property

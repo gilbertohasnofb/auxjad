@@ -5,7 +5,8 @@ def _generate_harmonics_from_pitch(
     fundamental: abjad.Pitch,
     upper_bound: abjad.Pitch,
 ) -> list:
-    r"""Private function used by |auxjad.get.virtual_fundamental()|. Generates
+    r"""
+    Private function used by |auxjad.get.virtual_fundamental()|. Generates
     the harmonic series for a given fundamental pitch up to a given upper
     bound.
     """
@@ -28,7 +29,8 @@ def virtual_fundamental(
     *,
     min_fundamental: abjad.Pitch | None = None,
 ) -> abjad.NamedPitch:
-    r"""Returns the virtual fundamental (highest common fundamental) for all
+    r"""
+    Returns the virtual fundamental (highest common fundamental) for all
     pitches in a |abjad.PitchSegment| or |abjad.Chord|. Return value is of type
     |abjad.NamedPitch|.
 

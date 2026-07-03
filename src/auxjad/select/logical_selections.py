@@ -8,7 +8,8 @@ def _group_consecutive_rests(
     *,
     include_multimeasure_rests: bool = True,
 ) -> abjad.Leaf | bool:
-    r"""Private function used by |auxjad.select.logical_selections()| in order
+    r"""
+    Private function used by |auxjad.select.logical_selections()| in order
     to group consecutive ties together. If a logical tie is made out of a rest,
     this function returns the value ``True``, otherwise it returns the logical
     tie's head object itself. When this output is used with
@@ -30,7 +31,8 @@ def logical_selections(
     *,
     include_multimeasure_rests: bool = True,
 ) -> abjad.Selection:
-    r"""Takes an |abjad.Container| (or child class).
+    r"""
+    Takes an |abjad.Container| (or child class).
     Returns the logical selections of a container, that is the logical
     ties but with consecutive rests grouped together. Return value is in the
     form of a |abjad.Selection| of |abjad.Selection|'s.

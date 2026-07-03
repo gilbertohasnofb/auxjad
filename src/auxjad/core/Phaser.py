@@ -7,7 +7,8 @@ from .. import get, mutate
 
 
 class Phaser:
-    r"""Takes an |abjad.Container| (or child class) as input and outputs an
+    r"""
+    Takes an |abjad.Container| (or child class) as input and outputs an
     |abjad.Selection| with leaves shifted by a fixed amount. Subsequent calls
     apply further shifts.
 
@@ -1309,14 +1310,16 @@ class Phaser:
         return abjad.lilypond(self._contents)
 
     def __len__(self) -> int:
-        r"""Returns the length of :attr:`contents` in terms of
+        r"""
+        Returns the length of :attr:`contents` in terms of
         :attr:`step_size`.
         """
         proportion = self._contents_length / self._step_size
         return int(proportion * proportion.denominator)
 
     def __call__(self) -> abjad.Selection:
-        r"""Calls the phaser process for one iteration, returning an
+        r"""
+        Calls the phaser process for one iteration, returning an
         |abjad.Selection|.
         """
         if not self._is_first_window or self._process_on_first_call:
@@ -1326,7 +1329,8 @@ class Phaser:
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the phaser process for one iteration, returning an
+        r"""
+        Calls the phaser process for one iteration, returning an
         |abjad.Selection|.
         """
         if not self._is_first_window or self._process_on_first_call:
@@ -1349,7 +1353,8 @@ class Phaser:
         cycle_back_to_first: bool = True,
         tie_identical_pitches: bool = False,
     ) -> abjad.Selection:
-        r"""Goes through the whole phasing process and outputs a single
+        r"""
+        Goes through the whole phasing process and outputs a single
         |abjad.Selection|.
         """
         if not isinstance(cycle_back_to_first, bool):
@@ -1382,7 +1387,8 @@ class Phaser:
         *,
         tie_identical_pitches: bool = False,
     ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the phasing process and outputs a
+        r"""
+        Goes through ``n`` iterations of the phasing process and outputs a
         single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -1407,7 +1413,8 @@ class Phaser:
     # ---------- PRIVATE METHODS ----------
 
     def _move_pivot_point(self) -> None:
-        r"""Moves the pivot point by a certain number of steps of fixed size,
+        r"""
+        Moves the pivot point by a certain number of steps of fixed size,
         either forwards or backwards according to the forward bias.
         """
         step = self._step_size * random.randint(1, self._max_steps)
@@ -1440,7 +1447,8 @@ class Phaser:
         dummy_container[:] = []
 
     def _phase_contents(self) -> abjad.Container:
-        r"""This method phases :attr:`contents` using ``_pivot_point`` as the
+        r"""
+        This method phases :attr:`contents` using ``_pivot_point`` as the
         pivot point.
         """
         dummy_container = abjad.mutate.copy(self._contents)
@@ -1594,7 +1602,8 @@ class Phaser:
 
     @property
     def forward_bias(self) -> float:
-        r"""The chance of the window moving forward instead of backwards. It
+        r"""
+        The chance of the window moving forward instead of backwards. It
         should range from 0.0 to 1.0 (default 1.0, which means the window can
         only move forwards. A value of 0.5 gives 50% chance of moving forwards
         while a value of 0.0 will move the window only backwards).
@@ -1614,7 +1623,8 @@ class Phaser:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r"""When ``True``, all time signatures will be omitted from the
+        r"""
+        When ``True``, all time signatures will be omitted from the
         output.
         """
         return self._omit_time_signatures
@@ -1630,7 +1640,8 @@ class Phaser:
 
     @property
     def remove_unterminated_ties(self) -> bool:
-        r"""When ``True``, the last element of the |abjad.Selection| returned
+        r"""
+        When ``True``, the last element of the |abjad.Selection| returned
         by a call will have any ties removed. This means that splitted logical
         ties will not tie accross multiple calls.
         """
@@ -1647,7 +1658,8 @@ class Phaser:
 
     @property
     def boundary_depth(self) -> int | None:
-        r"""Sets the argument ``boundary_depth`` of
+        r"""
+        Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
@@ -1664,7 +1676,8 @@ class Phaser:
 
     @property
     def maximum_dot_count(self) -> int | None:
-        r"""Sets the argument ``maximum_dot_count`` of
+        r"""
+        Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
@@ -1681,7 +1694,8 @@ class Phaser:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of
+        r"""
+        Sets the argument ``rewrite_tuplets`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
@@ -1697,7 +1711,8 @@ class Phaser:
 
     @property
     def prettify_rewrite_meter(self) -> bool:
-        r"""Used to enable or disable the mutation
+        r"""
+        Used to enable or disable the mutation
         |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
@@ -1713,7 +1728,8 @@ class Phaser:
 
     @property
     def extract_trivial_tuplets(self) -> bool:
-        r"""Sets the argument ``extract_trivial_tuplets`` of
+        r"""
+        Sets the argument ``extract_trivial_tuplets`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
@@ -1729,7 +1745,8 @@ class Phaser:
 
     @property
     def fuse_across_groups_of_beats(self) -> bool:
-        r"""Sets the argument ``fuse_across_groups_of_beats`` of
+        r"""
+        Sets the argument ``fuse_across_groups_of_beats`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
@@ -1745,7 +1762,8 @@ class Phaser:
 
     @property
     def fuse_quadruple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_quadruple_meter`` of
+        r"""
+        Sets the argument ``fuse_quadruple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
@@ -1761,7 +1779,8 @@ class Phaser:
 
     @property
     def fuse_triple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_triple_meter`` of
+        r"""
+        Sets the argument ``fuse_triple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
@@ -1777,7 +1796,8 @@ class Phaser:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then :attr:`contents` will be processed in the very
+        r"""
+        If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -1795,7 +1815,8 @@ class Phaser:
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done (i.e. whether
+        r"""
+        :obj:`bool` indicating whether the process is done (i.e. whether
         the pivot point has overtaken the :attr:`contents`'s length). Only
         :meth:`__next__` and :meth:`output_all` make use of it, since regular
         calls make use of the module of the position of the pivot point in

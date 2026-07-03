@@ -1,7 +1,7 @@
 PYTHON := .venv/bin/python
 
-.PHONY: build black-check black-reformat check clean docs-html docs-release flake8 isort-check \
-		sort-reformat pydocstyle reformat release release-website setup test
+.PHONY: build black-check black-reformat check clean docs-html docs-release isort-check \
+		sort-reformat reformat release release-website ruff setup test
 
 # Setup
 .venv/.installed: requirements.txt requirements-dev.txt requirements-test.txt
@@ -18,15 +18,13 @@ black-check:
 	@$(PYTHON) -m black --check --diff .
 black-reformat:
 	@$(PYTHON) -m black .
-flake8:
-	@$(PYTHON) -m flake8
 isort-check:
 	@$(PYTHON) -m isort --check-only --diff .
 isort-reformat:
 	@$(PYTHON) -m isort .
-pydocstyle:
-	@$(PYTHON) -m pydocstyle
-check: black-check flake8 isort-check pydocstyle
+ruff:
+	@$(PYTHON) -m ruff check .
+check: black-check isort-check ruff
 reformat: black-reformat isort-reformat
 
 # Unit testing

@@ -8,7 +8,8 @@ def remove_repeated_dynamics(
     reset_after_rests: bool = False,
     reset_after_duration: float | int | str | tuple | abjad.Duration | None = None,
 ) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated dynamic markings.
 
     Basic usage:

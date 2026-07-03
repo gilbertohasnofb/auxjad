@@ -5,7 +5,8 @@ from .extract_trivial_tuplets import extract_trivial_tuplets as extract_trivial_
 
 
 def _merge_indicators_then_fuse(logical_selection: abjad.Selection) -> None:
-    r"""Mutates a logical selection (a selection of a logical tie which includes runs of rests) by
+    r"""
+    Mutates a logical selection (a selection of a logical tie which includes runs of rests) by
     fusing the durations of its leaves and mergings its indicators.
 
     Args:
@@ -52,7 +53,8 @@ def prettify_rewrite_meter(
     extract_trivial_tuplets: bool = True,
     split_quadruple_meter: bool = True,
 ) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
         this function fuses pitched leaves according to the rules shown below,
         improving the default output of |abjad.Meter.rewrite_meter()|.
 
@@ -1168,7 +1170,7 @@ def prettify_rewrite_meter(
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if not offset + base / 2 in meter.depthwise_offset_inventory[1]:
+                if offset + base / 2 not in meter.depthwise_offset_inventory[1]:
                     _merge_indicators_then_fuse(logical_tie)
 
     if fuse_quadruple_meter and meter.numerator == 4:
@@ -1180,7 +1182,7 @@ def prettify_rewrite_meter(
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if not offset + base / 2 in (
+                if offset + base / 2 not in (
                     abjad.Offset(0, 1),
                     abjad.Offset(2 * base),
                     abjad.Offset(4 * base),
@@ -1196,7 +1198,7 @@ def prettify_rewrite_meter(
             offset %= meter.duration
             offset_mod = offset % base
             if offset_mod == base / 2:
-                if not offset + base / 2 in (
+                if offset + base / 2 not in (
                     abjad.Offset(0, 1),
                     abjad.Offset(3 * base),
                 ):

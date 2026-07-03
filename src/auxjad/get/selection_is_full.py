@@ -4,7 +4,8 @@ from .underfull_duration import underfull_duration
 
 
 def selection_is_full(selection: abjad.Selection) -> bool:
-    r"""Returns a :obj:`bool` representing whether the last measure of an input
+    r"""
+    Returns a :obj:`bool` representing whether the last measure of an input
     |abjad.Selection| is fully filled in or not.
 
     Basic usage:

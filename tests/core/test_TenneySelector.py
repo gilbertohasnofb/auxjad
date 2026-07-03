@@ -33,7 +33,8 @@ def test_TenneySelector__call__():
 
 
 def test_TenneySelector_previous_index_and_previous_result_read_only():
-    r"""Confirm attributes previous_index and previous_result are both read
+    r"""
+    Confirm attributes previous_index and previous_result are both read
     only.
     """
     selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
@@ -76,7 +77,8 @@ def test_TenneySelector_convex_curvature():
 
 
 def test_TenneySelector_non_default_weights():
-    r"""Confirm values of weights and probabilities after a number of calls for
+    r"""
+    Confirm values of weights and probabilities after a number of calls for
     non-default initial weights.
     """
     random.seed(14625)
@@ -103,7 +105,8 @@ def test_TenneySelector__len__():
 
 
 def test_TenneySelector_weights_after_change_of_contents():
-    r"""Confirm weights have the same length of contents if contents change
+    r"""
+    Confirm weights have the same length of contents if contents change
     after instantiation with a new length.
     """
     selector = auxjad.TenneySelector(["A", "B", "C", "D", "E", "F"])
@@ -141,7 +144,8 @@ def test_TenneySelector__setitem__():
 
 
 def test_TenneySelector__delitem__handles_weights_probabilities_and_counter():
-    r"""Confirm __delitem__ correctly handles weights, probabilities, and
+    r"""
+    Confirm __delitem__ correctly handles weights, probabilities, and
     counter lists due to change in length.
     """
     selector = auxjad.TenneySelector(
@@ -208,7 +212,8 @@ def test_TenneySelector_slicing_example_from_docs():
 
 
 def test_TenneySelector_weights_after_change_of_contents_after__call__():
-    r"""Confirm weights, probabilities, and counter behave as expected when
+    r"""
+    Confirm weights, probabilities, and counter behave as expected when
     there's a change of contents after __call__ has been invoked (i.e.
     probabilities and counter won't be default).
     """

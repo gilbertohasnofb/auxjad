@@ -3,7 +3,8 @@ from typing import Any
 
 
 class CartographySelector:
-    r"""A selector used to store, manipulate, and select objects using a
+    r"""
+    A selector used to store, manipulate, and select objects using a
     weighted function constructed with a fixed decay rate. The decay rate
     represents the ratio of probabilities of any index given the probability of
     the preceding one. For instance, if the decay rate is set to ``0.75``
@@ -327,7 +328,8 @@ class CartographySelector:
         *,
         no_repeat: bool = False,
     ) -> Any:
-        r"""Calls the selection process and outputs one element of
+        r"""
+        Calls the selection process and outputs one element of
         :attr:`contents`.
         """
         if not isinstance(no_repeat, bool):
@@ -348,7 +350,8 @@ class CartographySelector:
         return self._contents[self._previous_index]
 
     def __next__(self) -> Any:
-        r"""Calls the selection process and outputs one element of
+        r"""
+        Calls the selection process and outputs one element of
         :attr:`contents`.
         """
         return self.__call__()
@@ -357,7 +360,8 @@ class CartographySelector:
         self,
         key: int,
     ) -> Any:
-        r"""Returns one or more elements of :attr:`contents` through indexing
+        r"""
+        Returns one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         return self._contents[key]
@@ -367,7 +371,8 @@ class CartographySelector:
         key: int,
         value: Any,
     ) -> None:
-        r"""Assigns values to one or more elements of :attr:`contents` through
+        r"""
+        Assigns values to one or more elements of :attr:`contents` through
         indexing or slicing.
         """
         self._contents[key] = value
@@ -377,7 +382,8 @@ class CartographySelector:
         self,
         key: int,
     ) -> None:
-        r"""Deletes one or more elements of :attr:`contents` through indexing
+        r"""
+        Deletes one or more elements of :attr:`contents` through indexing
         or slicing.
         """
         del self._contents[key]
@@ -389,7 +395,8 @@ class CartographySelector:
         self,
         new_element: Any,
     ) -> None:
-        r"""A type of content transformation, it drops the first element of
+        r"""
+        A type of content transformation, it drops the first element of
         :attr:`contents`, shifts all others leftwards, and appends the new
         element to the last index.
         """
@@ -401,7 +408,8 @@ class CartographySelector:
         *,
         n: int,
     ) -> None:
-        r"""A type of content transformation similar to
+        r"""
+        A type of content transformation similar to
         :meth:`drop_first_and_append`, it drops the element at index ``n`` of
         :attr:`contents`, shifts all the next elements one position lefwards,
         and appends the new element at the last index.
@@ -412,7 +420,8 @@ class CartographySelector:
         self,
         new_element: Any,
     ) -> None:
-        r"""A type of content transformation, it drops the last element of
+        r"""
+        A type of content transformation, it drops the last element of
         :attr:`contents`, shifts all others rightwards, and then prepends
         the new element to the first index.
         """
@@ -423,7 +432,8 @@ class CartographySelector:
         *,
         anticlockwise=False,
     ) -> None:
-        r"""A type of content transformation, it rotates all elements
+        r"""
+        A type of content transformation, it rotates all elements
         rightwards, moving the last element to the first index. If the optional
         keyword argument ``anticlockwise`` is set to ``True``, the rotation
         will be in the opposite direction.
@@ -437,7 +447,8 @@ class CartographySelector:
         self,
         index: int,
     ) -> None:
-        r"""A type of content transformation which takes an input index and
+        r"""
+        A type of content transformation which takes an input index and
         swaps the element at that position with its complementary element.
         Complementary elements are defined as the pair of elements which share
         the same distance from the centre of the :attr:`contents` (in terms of
@@ -449,7 +460,8 @@ class CartographySelector:
         )
 
     def mirror_random_swap(self) -> None:
-        r"""A type of content transformation which will apply
+        r"""
+        A type of content transformation which will apply
         :meth:`mirror_swap` to a random pair of complementary elements. In case
         of a selector with an odd number of elements, this method will never
         pick the element at the central index since that is the pivot point of
@@ -465,7 +477,8 @@ class CartographySelector:
     # ---------- PRIVATE METHODS ----------
 
     def _generate_weights(self) -> None:
-        r"""Given a decay rate, this method generates the :attr:`weights` of
+        r"""
+        Given a decay rate, this method generates the :attr:`weights` of
         individual indeces.
         """
         self._weights = []
@@ -491,7 +504,8 @@ class CartographySelector:
 
     @property
     def decay_rate(self) -> float:
-        r"""The decay rate represents the ratio of probabilities of any index
+        r"""
+        The decay rate represents the ratio of probabilities of any index
         given the probability of the preceding one. For instance, if the decay
         rate is set to ``0.75`` (which is its default value), the probability
         of the element in index ``1`` of the input :obj:`list` being selected
@@ -515,7 +529,8 @@ class CartographySelector:
 
     @property
     def previous_index(self) -> int | None:
-        r"""Read-only property, returns the index of the previously output
+        r"""
+        Read-only property, returns the index of the previously output
         element.
         """
         return self._previous_index

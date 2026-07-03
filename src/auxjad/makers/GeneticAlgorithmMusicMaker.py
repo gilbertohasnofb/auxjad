@@ -7,7 +7,8 @@ from ..core.GeneticAlgorithm import GeneticAlgorithm
 
 
 class GeneticAlgorithmMusicMaker:
-    r"""Uses two :class:`auxjad.GeneticAlgorithm`'s, one for pitch and another
+    r"""
+    Uses two :class:`auxjad.GeneticAlgorithm`'s, one for pitch and another
     for attack points, in order to create musical cells. At each call of
     :meth:`__call__`, it iterates the genetic algorithms by one generation, and
     returns an |abjad.Selection| created with the fittest pitch and attack
@@ -985,7 +986,8 @@ class GeneticAlgorithmMusicMaker:
     # ---------- SPECIAL METHODS ----------
 
     def __repr__(self) -> str:
-        r"""Returns interpreter representation of :attr:`target`'s of both
+        r"""
+        Returns interpreter representation of :attr:`target`'s of both
         instances of the genetic algorithm (pitches and attack points).
         """
         strings = (
@@ -999,7 +1001,8 @@ class GeneticAlgorithmMusicMaker:
         return len(self._pitch_ga._target)
 
     def __call__(self) -> abjad.Selection:
-        r"""Calls the genetic algorithm process for one iteration, returning an
+        r"""
+        Calls the genetic algorithm process for one iteration, returning an
         |abjad.Selection|. Generates a new generation of length
         :attr:`population_size` via reproduction and mutation processes and
         scores each individual using the evaluation function.
@@ -1015,7 +1018,8 @@ class GeneticAlgorithmMusicMaker:
         return self.fittest_measure
 
     def __next__(self) -> None:
-        r"""Calls the genetic algorithm process for one iteration. Generates a
+        r"""
+        Calls the genetic algorithm process for one iteration. Generates a
         new generation of length :attr:`population_size` via reproduction and
         mutation processes and scores each individual using the evaluation
         function.
@@ -1037,7 +1041,8 @@ class GeneticAlgorithmMusicMaker:
         self._scores = None
 
     def output_n(self, n: int) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the genetic algorithm process and
+        r"""
+        Goes through ``n`` iterations of the genetic algorithm process and
         outputs a single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -1055,7 +1060,8 @@ class GeneticAlgorithmMusicMaker:
     # ---------- PRIVATE METHODS ----------
 
     def _sort_population_by_evaluation(self) -> None:
-        r"""Sorts the population (and their scores) according to the evaluation
+        r"""
+        Sorts the population (and their scores) according to the evaluation
         of its individuals.
         """
         self._scores = []
@@ -1084,7 +1090,8 @@ class GeneticAlgorithmMusicMaker:
         self._attack_point_ga._population = self._attack_point_population[:]
 
     def _fittest_individual_to_measure(self) -> None:
-        r"""Converts the fittest pitch and attack point individuals to a
+        r"""
+        Converts the fittest pitch and attack point individuals to a
         measure of music.
         """
         self._fittest_measure = self._make_measure(
@@ -1093,7 +1100,8 @@ class GeneticAlgorithmMusicMaker:
         )
 
     def _target_individual_to_measure(self) -> None:
-        r"""Converts the target pitch and attack point individuals to a
+        r"""
+        Converts the target pitch and attack point individuals to a
         measure of music.
         """
         self._target_music = self._make_measure(
@@ -1124,7 +1132,8 @@ class GeneticAlgorithmMusicMaker:
         attack_points: list,
         pitches: list,
     ) -> tuple:
-        r"""Converts attack points to effective durations. Adds an initial rest
+        r"""
+        Converts attack points to effective durations. Adds an initial rest
         if first attack point is not at the 0-th position.
         """
         if attack_points[0] != 0:
@@ -1143,7 +1152,8 @@ class GeneticAlgorithmMusicMaker:
         attack_points,
         pitches,
     ) -> None:
-        r"""Converts a list of pitch and attack point individuals into a
+        r"""
+        Converts a list of pitch and attack point individuals into a
         measure of music.
         """
         dummy_container = abjad.Container()
@@ -1229,7 +1239,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def omit_time_signature(self) -> bool:
-        r"""When ``True``, a time signature won't be added to the first leaf of
+        r"""
+        When ``True``, a time signature won't be added to the first leaf of
         the output.
         """
         return self._omit_time_signature
@@ -1245,7 +1256,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def time_signatures(self) -> list:
-        r"""List of time signatures to be enforced on output. It is important
+        r"""
+        List of time signatures to be enforced on output. It is important
         to note that :attr:`omit_time_signature` must be ``True`` for it to
         take effect.
         """
@@ -1271,7 +1283,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def attack_points_mode(self) -> bool:
-        r"""When ``True``, each note will last only for the duration of the
+        r"""
+        When ``True``, each note will last only for the duration of the
         unit, instead of extending it to the next attack point.
         """
         return self._attack_points_mode
@@ -1341,7 +1354,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def attack_point_genes(self) -> list:
-        r"""List of possible genes that make up all attack point
+        r"""
+        List of possible genes that make up all attack point
         individuals.
         """
         return self._attack_point_ga.genes
@@ -1380,7 +1394,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def select_n_parents(self) -> int:
-        r"""Number of the best-fit individuals that are selected to be parents
+        r"""
+        Number of the best-fit individuals that are selected to be parents
         of the next generation. They also survive into the next generation.
         """
         return self._pitch_ga.select_n_parents
@@ -1395,7 +1410,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def keep_n_parents(self) -> int:
-        r"""Number of the best-fit individuals that survive into the next
+        r"""
+        Number of the best-fit individuals that survive into the next
         generation. Default is ``0``.
         """
         return self._pitch_ga.keep_n_parents
@@ -1423,7 +1439,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def mutation_index(self) -> float:
-        r"""Given an individual selected to undergo mutation, this index gives
+        r"""
+        Given an individual selected to undergo mutation, this index gives
         the percentage of genes of that individual which will be mutated.
         """
         return self._pitch_ga.mutation_index
@@ -1438,7 +1455,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def evaluation_index(self) -> float:
-        r"""The index used in the evaluation function. This index will be
+        r"""
+        The index used in the evaluation function. This index will be
         raised by the difference between indices of the target value and the
         current value. Consider the following example, where the available
         genes are ``["A", "B", "C", "D", "E", "F"]`` and the target is
@@ -1476,7 +1494,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def pitch_score_bias(self) -> float:
-        r"""By default, the score of each measure gives equal weight to pitches
+        r"""
+        By default, the score of each measure gives equal weight to pitches
         as it gives to attack points. Changing this to a different value will
         make the pitch score contribute more or less to the total score of a
         measure.
@@ -1496,7 +1515,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def fittest_measure(self) -> abjad.Selection | None:
-        r"""Read-only property, returns the fittest individual of the current
+        r"""
+        Read-only property, returns the fittest individual of the current
         population as an |abjad.Selection|.
         """
         return abjad.mutate.copy(self._fittest_measure)
@@ -1513,35 +1533,40 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def generation_number(self) -> list:
-        r"""Read-only property, returns the number of the current generation
+        r"""
+        Read-only property, returns the number of the current generation
         (initial generation is ``0``).
         """
         return self._pitch_ga._generation_number
 
     @property
     def pitch_population(self) -> list | None:
-        r"""Read-only property, returns a list with all the population of the
+        r"""
+        Read-only property, returns a list with all the population of the
         current generation.
         """
         return self._pitch_population
 
     @property
     def attack_point_population(self) -> list | None:
-        r"""Read-only property, returns a list with all the population of the
+        r"""
+        Read-only property, returns a list with all the population of the
         current generation.
         """
         return self._attack_point_population
 
     @property
     def scores(self) -> list:
-        r"""Read-only property, returns the list of individual scores of the
+        r"""
+        Read-only property, returns the list of individual scores of the
         current population. Scores are normalised.
         """
         return self._scores
 
     @property
     def fittest_pitch_individual(self) -> list | None:
-        r"""Read-only property, returns the fittest individual of the current
+        r"""
+        Read-only property, returns the fittest individual of the current
         population.
         """
         try:
@@ -1553,7 +1578,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def fittest_attack_point_individual(self) -> list | None:
-        r"""Read-only property, returns the fittest individual of the current
+        r"""
+        Read-only property, returns the fittest individual of the current
         population.
         """
         try:
@@ -1565,7 +1591,8 @@ class GeneticAlgorithmMusicMaker:
 
     @property
     def fittest_individual_score(self) -> list | float:
-        r"""Read-only property, returns the score of the fittest individual of
+        r"""
+        Read-only property, returns the score of the fittest individual of
         the current population.
         """
         try:

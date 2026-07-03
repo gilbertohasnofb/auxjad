@@ -6,7 +6,8 @@ from .. import get, mutate
 
 
 class Hocketer:
-    r"""A hocket generator that takes an |abjad.Container| (or child class) as
+    r"""
+    A hocket generator that takes an |abjad.Container| (or child class) as
     input and randomly distributes its logical ties among different staves.
 
     Basic usage:
@@ -1419,14 +1420,16 @@ class Hocketer:
         return self._n_voices
 
     def __call__(self) -> tuple[abjad.Selection]:
-        r"""Calls the hocket process, returning a :obj:`tuple` of
+        r"""
+        Calls the hocket process, returning a :obj:`tuple` of
         |abjad.Selection|.
         """
         self._make_music()
         return self.current_window
 
     def __getitem__(self, key: int) -> abjad.Selection:
-        r"""Returns one or more voices of the output of the hocketer through
+        r"""
+        Returns one or more voices of the output of the hocketer through
         indexing or slicing.
         """
         output = []
@@ -1438,7 +1441,8 @@ class Hocketer:
     # ---------- PUBLIC METHODS ----------
 
     def reset_weights(self) -> None:
-        r"""Resets the weight vector of all voices to an uniform
+        r"""
+        Resets the weight vector of all voices to an uniform
         distribution.
         """
         self._weights = [1.0 for _ in range(self.__len__())]
@@ -1446,7 +1450,8 @@ class Hocketer:
     # ---------- PRIVATE METHODS ----------
 
     def _make_music(self) -> None:
-        r"""Runs the hocket process, returning a :obj:`tuple` of
+        r"""
+        Runs the hocket process, returning a :obj:`tuple` of
         |abjad.Container()|. It distributes the logical ties from the
         :attr:`contents` into different voices. Voices can have different
         weights, and the process of distributing a same logical tie can be run
@@ -1484,7 +1489,8 @@ class Hocketer:
             voice[:] = []
 
     def _hocket_process(self) -> abjad.Container:
-        r"""Replaces notes and chords for silences if voice not in the selected
+        r"""
+        Replaces notes and chords for silences if voice not in the selected
         :obj:`list` for a given logical tie.
         """
         indicators_tuple = (
@@ -1741,7 +1747,8 @@ class Hocketer:
 
     @property
     def pitch_ranges(self) -> list:
-        r"""List of tuples or lists for the pitch ranges of each voice.
+        r"""
+        List of tuples or lists for the pitch ranges of each voice.
         Use the format:
 
         [(min0, max0), (min1, max1), (min2, max2), ...]
@@ -1767,7 +1774,8 @@ class Hocketer:
 
     @property
     def explode_chords(self) -> bool:
-        r"""When ``True``, the hocket process will consider each note of a
+        r"""
+        When ``True``, the hocket process will consider each note of a
         chord individually, 'exploding' it into several voices.
         """
         return self._explode_chords
@@ -1783,7 +1791,8 @@ class Hocketer:
 
     @property
     def force_k_voices(self) -> bool:
-        r"""When ``True``, the hocket process will ensure that each logical tie
+        r"""
+        When ``True``, the hocket process will ensure that each logical tie
         is distributed among :attr:`k` voices.
         """
         return self._force_k_voices
@@ -1803,7 +1812,8 @@ class Hocketer:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r"""When ``True``, all time signatures will be omitted from the
+        r"""
+        When ``True``, all time signatures will be omitted from the
         output.
         """
         return self._omit_time_signatures
@@ -1819,7 +1829,8 @@ class Hocketer:
 
     @property
     def disable_rewrite_meter(self) -> bool:
-        r"""When ``True``, the durations of the notes in the output will not be
+        r"""
+        When ``True``, the durations of the notes in the output will not be
         rewritten by the |abjad.Meter.rewrite_meter()| mutation. Rests will
         have the same duration as the logical ties they replaced.
         """
@@ -1836,7 +1847,8 @@ class Hocketer:
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r"""When ``True``, multi-measure rests will be used for silent
+        r"""
+        When ``True``, multi-measure rests will be used for silent
         measures.
         """
         return self._use_multimeasure_rests
@@ -1852,7 +1864,8 @@ class Hocketer:
 
     @property
     def boundary_depth(self) -> int | None:
-        r"""Sets the argument ``boundary_depth`` of
+        r"""
+        Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
@@ -1869,7 +1882,8 @@ class Hocketer:
 
     @property
     def maximum_dot_count(self) -> int | None:
-        r"""Sets the argument ``maximum_dot_count`` of
+        r"""
+        Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
@@ -1886,7 +1900,8 @@ class Hocketer:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of
+        r"""
+        Sets the argument ``rewrite_tuplets`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
@@ -1902,7 +1917,8 @@ class Hocketer:
 
     @property
     def prettify_rewrite_meter(self) -> bool:
-        r"""Used to enable or disable the mutation
+        r"""
+        Used to enable or disable the mutation
         |auxjad.mutate.prettify_rewrite_meter()| (default ``True``).
         """
         return self._prettify_rewrite_meter
@@ -1918,7 +1934,8 @@ class Hocketer:
 
     @property
     def extract_trivial_tuplets(self) -> bool:
-        r"""Sets the argument ``extract_trivial_tuplets`` of
+        r"""
+        Sets the argument ``extract_trivial_tuplets`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._extract_trivial_tuplets
@@ -1934,7 +1951,8 @@ class Hocketer:
 
     @property
     def fuse_across_groups_of_beats(self) -> bool:
-        r"""Sets the argument ``fuse_across_groups_of_beats`` of
+        r"""
+        Sets the argument ``fuse_across_groups_of_beats`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_across_groups_of_beats
@@ -1950,7 +1968,8 @@ class Hocketer:
 
     @property
     def fuse_quadruple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_quadruple_meter`` of
+        r"""
+        Sets the argument ``fuse_quadruple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_quadruple_meter
@@ -1966,7 +1985,8 @@ class Hocketer:
 
     @property
     def fuse_triple_meter(self) -> bool:
-        r"""Sets the argument ``fuse_triple_meter`` of
+        r"""
+        Sets the argument ``fuse_triple_meter`` of
         |auxjad.mutate.prettify_rewrite_meter()|.
         """
         return self._fuse_triple_meter
@@ -1982,7 +2002,8 @@ class Hocketer:
 
     @property
     def current_window(self) -> tuple | None:
-        r"""Read-only property, returns the result of the last operation as a
+        r"""
+        Read-only property, returns the result of the last operation as a
         :obj:`tuple` of |abjad.Selection|..
         """
         if self._voices is not None:

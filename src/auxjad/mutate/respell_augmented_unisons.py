@@ -7,7 +7,8 @@ def respell_augmented_unisons(
     include_multiples: bool = False,
     respell_by_pitch_class: bool = False,
 ) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
     this function changes the accidentals of individual pitches of all chords
     in a container in order to avoid augmented unisons.
 

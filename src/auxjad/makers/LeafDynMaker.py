@@ -4,7 +4,8 @@ import abjad
 
 
 class LeafDynMaker(abjad.LeafMaker):
-    r"""Creates leaves and logical ties from :obj:`list`'s of pitches,
+    r"""
+    Creates leaves and logical ties from :obj:`list`'s of pitches,
     durations, dynamics, and articulations. It is an extension of
     |abjad.LeafMaker| which can take optional :obj:`list`'s of dynamics and
     articulations.
@@ -352,7 +353,8 @@ class LeafDynMaker(abjad.LeafMaker):
         cyclic_dynamics: bool = False,
         cyclic_articulations: bool = False,
     ) -> abjad.Selection:
-        r"""Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
+        r"""
+        Calls the leaf-maker on ``pitches``, ``durations``, ``dynamics``,
         and ``articulations``, returning an |abjad.Selection|.
         """
         if dynamics is not None:
@@ -453,7 +455,8 @@ class LeafDynMaker(abjad.LeafMaker):
         cyclic: bool = False,
         default: Any = None,
     ) -> None:
-        r"""Extends a :obj:`list` to a certain length, filling it with a
+        r"""
+        Extends a :obj:`list` to a certain length, filling it with a
         default value. If ``cyclic`` is ``True``, then it fills the :obj:`list`
         by cycling the original ``input_list``.
         """

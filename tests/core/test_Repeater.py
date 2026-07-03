@@ -115,7 +115,8 @@ def test_Repeater_underfull_containers():
 
 
 def test_Repeater_underfull_containers_after_more_than_one_bar():
-    r"""Confirm underfull containers with more than a single bar get a time
+    r"""
+    Confirm underfull containers with more than a single bar get a time
     signature assigned to them.
     """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 f'2")
@@ -142,7 +143,8 @@ def test_Repeater_underfull_containers_after_more_than_one_bar():
 
 
 def test_Repeater_omit_time_signatures():
-    r"""Confirm omit_time_signatures correctly prevents automatic time
+    r"""
+    Confirm omit_time_signatures correctly prevents automatic time
     signature from being attached.
     """
     container = abjad.Container(r"c'4 d'4 e'4")
@@ -169,7 +171,8 @@ def test_Repeater_omit_time_signatures():
 
 
 def test_Repeater_force_identical_time_signatures():
-    r"""Confirm force_identical_time_signatures will attach time signatures at
+    r"""
+    Confirm force_identical_time_signatures will attach time signatures at
     every repetition point.
     """
     container = abjad.Container(r"\time 5/4 c'2. d'4 e'4")
@@ -237,7 +240,8 @@ def test_Repeater_indicators():
 
 
 def test_Repeater_disabling_reposition_of_indicators():
-    r"""Confirm reposition of indicators can be disabled through individual
+    r"""
+    Confirm reposition of indicators can be disabled through individual
     arguments.
     """
     container = abjad.Container(r"\clef bass f4\pp( e4) d4(")
@@ -282,7 +286,8 @@ def test_Repeater_disabling_reposition_of_indicators():
 
 
 def test_Repeater_initialising_then_changing_attributes():
-    r"""Confirm correct initialisation of attributes then confirm they are
+    r"""
+    Confirm correct initialisation of attributes then confirm they are
     modifiable.
     """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -424,7 +429,8 @@ def test_Repeater_output_n():
 
 
 def test_Repeater_testing_different_container_types():
-    r"""Confirm correct behaviour with any types of containers, including
+    r"""
+    Confirm correct behaviour with any types of containers, including
     Tuplet, Voice, Staff, Score, etc.
     """
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -459,7 +465,8 @@ def test_Repeater_testing_different_container_types():
 
 
 def test_Repeater_repeat_type():
-    r"""Confirm repeat_type can be used for both unfold and volta types of
+    r"""
+    Confirm repeat_type can be used for both unfold and volta types of
     repeat.
     """
     container = abjad.Container(r"c'2 d'2")
@@ -501,7 +508,8 @@ def test_Repeater_repeat_type():
 
 
 def test_Repeater_complex_example_with_volta_repeat():
-    r"""Confirm correct behaviour with volta repeat, including the creation of
+    r"""
+    Confirm correct behaviour with volta repeat, including the creation of
     markups with "Nx" above repeat bars.
     """
     container = abjad.Container(r"c'4 d'4 e'4 f'4")
@@ -555,7 +563,8 @@ def test_Repeater_complex_example_with_volta_repeat():
 
 
 def test_Repeater_disabling_2x_volta_text():
-    r"""Confirm include_2x_volta_text can be disabled, resulting in repeat bars
+    r"""
+    Confirm include_2x_volta_text can be disabled, resulting in repeat bars
     showing "Nx" only for N > 2.
     """
     container = abjad.Container(r"c'4 d'4 e'4 f'4")

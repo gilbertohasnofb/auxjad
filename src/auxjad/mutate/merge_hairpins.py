@@ -2,7 +2,8 @@ import abjad
 
 
 def merge_hairpins(selection: abjad.Selection) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
     this function merges all consecutive hairpins that share a same trend.
 
     Basic usage:

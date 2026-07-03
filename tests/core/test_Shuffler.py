@@ -69,7 +69,8 @@ def test_Shuffler_current_window_not_writable():
 
 
 def test_Shuffler_initialising_then_changing_attributes():
-    r"""Confirm correct initialisation of attributes then confirm they are
+    r"""
+    Confirm correct initialisation of attributes then confirm they are
     modifiable.
     """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -250,7 +251,8 @@ def test_Shuffler_rotate_with_pitch_only():
 
 
 def test_Shuffler_preserve_rest_position():
-    r"""Confirm preserve_rest_position prevents rests from being shuffled in
+    r"""
+    Confirm preserve_rest_position prevents rests from being shuffled in
     both normal and pitch_only modes.
     """
     random.seed(18332)
@@ -295,7 +297,8 @@ def test_Shuffler_preserve_rest_position():
 
 
 def test_Shuffler_preserve_rest_position_and_rotate_method():
-    r"""Confirm preserve_rest_position prevents rests from being rotated in
+    r"""
+    Confirm preserve_rest_position prevents rests from being rotated in
     both normal and pitch_only modes.
     """
     container = abjad.Container(r"c'8. d'4 r8 r8. e'16 f'8.")
@@ -667,7 +670,8 @@ def test_Shuffler_boundary_depth():
 
 
 def test_Shuffler_disable_rewrite_meter():
-    r"""Confirm disable_rewrite_meter will prevent rewrite_meter() from
+    r"""
+    Confirm disable_rewrite_meter will prevent rewrite_meter() from
     rewriting the results.
     """
     random.seed(19867)
@@ -711,7 +715,8 @@ def test_Shuffler_disable_rewrite_meter():
 
 
 def test_Shuffler_process_on_first_call():
-    r"""Confirm process_on_first_call can be disabled, returning the original
+    r"""
+    Confirm process_on_first_call can be disabled, returning the original
     content on first call.
     """
     random.seed(22047)
@@ -780,7 +785,8 @@ def test_Shuffler_as_iterator():
 
 
 def test_Shuffler_testing_different_container_types():
-    r"""Confirm correct behaviour with any types of containers, including
+    r"""
+    Confirm correct behaviour with any types of containers, including
     Tuplet, Voice, Staff, Score, etc.
     """
     container = abjad.Container(r"c'4 d'4 e'4 f'4")

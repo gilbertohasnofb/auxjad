@@ -8,7 +8,8 @@ from .Fader import Fader
 
 
 class CrossFader:
-    r"""Takes two |abjad.Container|'s' (or child class) and gradually
+    r"""
+    Takes two |abjad.Container|'s' (or child class) and gradually
     crossfades from one into the other, by fading out the first while fading in
     the second. It makes use of two :class:`auxjad.Fader` for that.
 
@@ -1722,14 +1723,16 @@ class CrossFader:
         return len(self._fader_in) + len(self._fader_out)
 
     def __call__(self) -> tuple[abjad.Selection]:
-        r"""Calls the cross fading process, returning a :obj:`tuple` of
+        r"""
+        Calls the cross fading process, returning a :obj:`tuple` of
         |abjad.Selection| objects.
         """
         self._cross_fade_process()
         return self.current_window
 
     def __next__(self) -> tuple[abjad.Selection]:
-        r"""Calls the cross fading process for one iteration, returning a
+        r"""
+        Calls the cross fading process for one iteration, returning a
         :obj:`tuple` of |abjad.Selection| objects.
         """
         return self.__call__()
@@ -1741,7 +1744,8 @@ class CrossFader:
     # ---------- PUBLIC METHODS ----------
 
     def output_all(self) -> tuple[abjad.Selection]:
-        r"""Goes through the whole fading process and outputs a tuple of two
+        r"""
+        Goes through the whole fading process and outputs a tuple of two
         |abjad.Selection| objects.
         """
         self.reset()
@@ -1767,7 +1771,8 @@ class CrossFader:
         self,
         n: int,
     ) -> tuple[abjad.Selection]:
-        r"""Goes through ``n`` iterations of the fading process and outputs a
+        r"""
+        Goes through ``n`` iterations of the fading process and outputs a
         tuple of two |abjad.Selection| objects.
         """
         if not isinstance(n, int):
@@ -1888,14 +1893,16 @@ class CrossFader:
 
     @property
     def current_window(self) -> tuple[abjad.Selection]:
-        r"""Read-only property, returns the result of the last operation as a
+        r"""
+        Read-only property, returns the result of the last operation as a
         :obj:`tuple` of |abjad.Selection| objects.
         """
         return (self._fader_out.current_window, self._fader_in.current_window)
 
     @property
     def weighted_duration(self) -> bool:
-        r"""Weights the choice of fader according to its number of notes and
+        r"""
+        Weights the choice of fader according to its number of notes and
         total duration.
         """
         return self._weighted_duration
@@ -1920,7 +1927,8 @@ class CrossFader:
 
     @property
     def repetition_chance(self) -> float:
-        r"""The chance of not processing neither :attr:`fade_in_contents` not
+        r"""
+        The chance of not processing neither :attr:`fade_in_contents` not
         :attr:`fade_out_contents` on a call, thus repeating the previous
         output.
         """
@@ -1939,7 +1947,8 @@ class CrossFader:
 
     @property
     def initial_repetitions(self) -> int:
-        r"""The number of times the initial containers are repeated before the
+        r"""
+        The number of times the initial containers are repeated before the
         cross fade process starts.
         """
         return self._initial_repetitions
@@ -1957,7 +1966,8 @@ class CrossFader:
 
     @property
     def final_repetitions(self) -> int:
-        r"""The number of times the final containers are repeated after the
+        r"""
+        The number of times the final containers are repeated after the
         cross fade process ends.
         """
         return self._final_repetitions
@@ -1975,21 +1985,24 @@ class CrossFader:
 
     @property
     def initial_repetitions_counter(self) -> int:
-        r"""Read-only property, returns the counter of
+        r"""
+        Read-only property, returns the counter of
         :attr:`initial_repetitions`.
         """
         return self._initial_repetitions_counter
 
     @property
     def final_repetitions_counter(self) -> int:
-        r"""Read-only property, returns the counter of
+        r"""
+        Read-only property, returns the counter of
         :attr:`final_repetitions`.
         """
         return self._final_repetitions_counter
 
     @property
     def fade_in_first(self) -> bool:
-        r"""When ``True``, the first note of the fade in content will be added
+        r"""
+        When ``True``, the first note of the fade in content will be added
         before a note from the fade out content is removed.
         """
         return self._fade_in_first
@@ -2005,7 +2018,8 @@ class CrossFader:
 
     @property
     def fade_out_last(self) -> bool:
-        r"""When ``True``, the last note of the fade out content will be
+        r"""
+        When ``True``, the last note of the fade out content will be
         removed only after the full fade in content is added.
         """
         return self._fade_out_last
@@ -2021,7 +2035,8 @@ class CrossFader:
 
     @property
     def disable_rewrite_meter(self) -> bool:
-        r"""When ``True``, the durations of the notes in the output will not be
+        r"""
+        When ``True``, the durations of the notes in the output will not be
         rewritten by the |abjad.Meter.rewrite_meter()| mutation.
         """
         return self._disable_rewrite_meter
@@ -2039,7 +2054,8 @@ class CrossFader:
 
     @property
     def omit_time_signatures(self) -> bool:
-        r"""When ``True``, all time signatures will be omitted from the
+        r"""
+        When ``True``, all time signatures will be omitted from the
         output.
         """
         return self._omit_time_signatures
@@ -2057,7 +2073,8 @@ class CrossFader:
 
     @property
     def use_multimeasure_rests(self) -> bool:
-        r"""When ``True``, multi-measure rests will be used for silent
+        r"""
+        When ``True``, multi-measure rests will be used for silent
         measures.
         """
         return self._use_multimeasure_rests
@@ -2075,7 +2092,8 @@ class CrossFader:
 
     @property
     def boundary_depth(self) -> int | None:
-        r"""Sets the argument ``boundary_depth`` of
+        r"""
+        Sets the argument ``boundary_depth`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._boundary_depth
@@ -2094,7 +2112,8 @@ class CrossFader:
 
     @property
     def maximum_dot_count(self) -> int | None:
-        r"""Sets the argument ``maximum_dot_count`` of
+        r"""
+        Sets the argument ``maximum_dot_count`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._maximum_dot_count
@@ -2113,7 +2132,8 @@ class CrossFader:
 
     @property
     def rewrite_tuplets(self) -> bool:
-        r"""Sets the argument ``rewrite_tuplets`` of
+        r"""
+        Sets the argument ``rewrite_tuplets`` of
         |abjad.Meter.rewrite_meter()|.
         """
         return self._rewrite_tuplets
@@ -2133,7 +2153,8 @@ class CrossFader:
 
     @property
     def _done(self) -> bool:
-        r""":obj:`bool` indicating whether the process is done, which is when
+        r"""
+        :obj:`bool` indicating whether the process is done, which is when
         both faders are done.
         """
         return all(fader._done for fader in self._faders)

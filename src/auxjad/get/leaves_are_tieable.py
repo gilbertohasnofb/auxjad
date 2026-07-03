@@ -8,7 +8,8 @@ def leaves_are_tieable(
     *,
     only_identical_pitches: bool = False,
 ) -> bool:
-    r"""Returns a :obj:`bool` representing whether or not two or more input
+    r"""
+    Returns a :obj:`bool` representing whether or not two or more input
     leaves have any identical pitch(es) and thus can be tied. Input argument
     can be a single |abjad.Selection| with multiple leaves, or an iterable with
     elements of type |abjad.Leaf| or child classes.

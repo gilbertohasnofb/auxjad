@@ -24,7 +24,8 @@ def auto_rewrite_meter(
     merge_partial_tuplets: bool = True,
     split_quadruple_meter: bool = True,
 ) -> None:
-    r"""Mutates an input container (of type |abjad.Container| or child class)
+    r"""
+    Mutates an input container (of type |abjad.Container| or child class)
     in place and has no return value; this function takes every measure of a
     container, detects its time signature, and apply both
     |abjad.Meter.rewrite_meter()| and

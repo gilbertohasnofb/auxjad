@@ -7,7 +7,8 @@ def reposition_clefs(
     shift_clef_to_notes: bool = True,
     implicit_clef: abjad.Clef = abjad.Clef("treble"),
 ) -> None:
-    r"""Mutates an input |abjad.Selection| in place and has no return value;
+    r"""
+    Mutates an input |abjad.Selection| in place and has no return value;
     this function removes all consecutive repeated clefs. It can also be used
     to shift clefs from rests to pitched leaves.
 

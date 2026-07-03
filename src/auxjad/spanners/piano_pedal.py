@@ -15,7 +15,8 @@ def piano_pedal(
     stop_piano_pedal: abjad.StopPianoPedal = None,
     tag: abjad.Tag = None,
 ) -> None:
-    r"""Attaches piano pedal indicators. This function extends the capabilities
+    r"""
+    Attaches piano pedal indicators. This function extends the capabilities
     of Abjad's built-in |abjad.piano_pedal()|.
 
     Basic usage:

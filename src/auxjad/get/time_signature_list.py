@@ -8,7 +8,8 @@ def time_signature_list(
     implicit_common_time: bool = True,
     omit_repeated: bool = False,
 ) -> list[abjad.TimeSignature]:
-    r"""Returns a :obj:`list` with the |abjad.TimeSignature|'s for all measures
+    r"""
+    Returns a :obj:`list` with the |abjad.TimeSignature|'s for all measures
     of an input |abjad.Container|.
 
     Basic usage:

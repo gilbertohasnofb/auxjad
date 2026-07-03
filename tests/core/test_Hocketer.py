@@ -97,7 +97,8 @@ def test_Hocketer_n_voices():
 
 
 def test_Hocketer_initialising_then_changing_attributes():
-    r"""Confirm correct initialisation of attributes then confirm they are
+    r"""
+    Confirm correct initialisation of attributes then confirm they are
     modifiable.
     """
     container = abjad.Container(r"\time 3/4 c'4 d'4 e'4 \time 2/4 f'4 g'4")
@@ -274,7 +275,8 @@ def test_Hocketer_disable_rewrite_meter():
 
 
 def test_Hocketer_weights():
-    r"""Confirm attribute weights can be used to give more weight to some of
+    r"""
+    Confirm attribute weights can be used to give more weight to some of
     the voices.
     """
     random.seed(87201)
@@ -385,7 +387,8 @@ def test_Hocketer_use_multimeasure_rests():
 
 
 def test_Hocketer_k():
-    r"""Confirm k sets the number of times each logical selection is
+    r"""
+    Confirm k sets the number of times each logical selection is
     processed.
     """
     random.seed(98212)
@@ -427,7 +430,8 @@ def test_Hocketer_k():
 
 
 def test_Hocketer_force_k_voices():
-    r"""Confirm force_k_voices forces each logical selection to appear exactly
+    r"""
+    Confirm force_k_voices forces each logical selection to appear exactly
     k times.
     """
     random.seed(14432)
@@ -482,7 +486,8 @@ def test_Hocketer_force_k_voices():
 
 
 def test_Hocketer_force_k_voices_checks_for_number_of_available_voices():
-    r"""Confirm that when force_k_voices is enabled, Hocketer checks if k is
+    r"""
+    Confirm that when force_k_voices is enabled, Hocketer checks if k is
     smaller than or equal to the number of available voices, raising an
     exception if not.
     """
@@ -497,7 +502,8 @@ def test_Hocketer_force_k_voices_checks_for_number_of_available_voices():
 
 
 def test_Hocketer_available_voices_check_after_initialisation():
-    r"""Confirm that when force_k_voices is enabled, Hocketer checks if k is
+    r"""
+    Confirm that when force_k_voices is enabled, Hocketer checks if k is
     smaller than or equal to the number of available voices, raising an
     exception if not, even after initialisation.
     """
@@ -615,7 +621,8 @@ def test_Hocketer_time_signature_and_tuplets():
 
 
 def test_Hocketer_boundary_depth():
-    r"""Confirm rewrite meter's boundary_depth can be set to a non-default
+    r"""
+    Confirm rewrite meter's boundary_depth can be set to a non-default
     value.
     """
     container = abjad.Container(r"c'4. d'8 e'2")

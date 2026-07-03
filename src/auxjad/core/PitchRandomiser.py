@@ -8,7 +8,8 @@ from .TenneySelector import TenneySelector
 
 
 class PitchRandomiser:
-    r"""Takes an input |abjad.Container| (or child class) together with a  list
+    r"""
+    Takes an input |abjad.Container| (or child class) together with a  list
     of pitches and randomises the container's pitch content using the list of
     pitches. The pitches can be of type :obj:`list`, :obj:`tuple`, :obj:`str`,
     or |abjad.PitchSegment|.
@@ -711,7 +712,8 @@ class PitchRandomiser:
         return self.current_window
 
     def __next__(self) -> abjad.Selection:
-        r"""Calls the randomise process for one iteration, returning an
+        r"""
+        Calls the randomise process for one iteration, returning an
         |abjad.Selection|.
         """
         return self.__call__()
@@ -726,7 +728,8 @@ class PitchRandomiser:
         self,
         n: int,
     ) -> abjad.Selection:
-        r"""Goes through ``n`` iterations of the pitch randomisation process
+        r"""
+        Goes through ``n`` iterations of the pitch randomisation process
         and outputs a single |abjad.Selection|.
         """
         if not isinstance(n, int):
@@ -778,7 +781,8 @@ class PitchRandomiser:
         dummy_container[:] = []
 
     def _pick_random_pitch(self) -> abjad.Pitch:
-        r"""Random pitch selector, using either :func:`random.choices()` or
+        r"""
+        Random pitch selector, using either :func:`random.choices()` or
         :class:`auxjad.TenneySelector`.
         """
         if not self._use_tenney_selector:
@@ -888,7 +892,8 @@ class PitchRandomiser:
 
     @property
     def process_on_first_call(self) -> bool:
-        r"""If ``True`` then :attr:`contents` will be processed in the very
+        r"""
+        If ``True`` then :attr:`contents` will be processed in the very
         first call.
         """
         return self._process_on_first_call
@@ -904,7 +909,8 @@ class PitchRandomiser:
 
     @property
     def use_tenney_selector(self) -> bool:
-        r"""If ``True`` then the pitches will be selected using
+        r"""
+        If ``True`` then the pitches will be selected using
         :class:`auxjad.TenneySelector`, otherwise they are chosen using a
         uniform random distribution.
         """

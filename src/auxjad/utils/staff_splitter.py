@@ -8,7 +8,8 @@ def _make_rest_from_leaf(
     *,
     ignore_dynamics: bool = False,
 ) -> abjad.Rest:
-    r"""Creates a rest of the same duration as a leaf and passes the
+    r"""
+    Creates a rest of the same duration as a leaf and passes the
     relevant leaf indicators to the rest (such as time signature or bar
     lines, but not slurs or articulations)
     """
@@ -50,7 +51,8 @@ def staff_splitter(
     use_multimeasure_rests: bool = True,
     rewrite_meter: bool = True,
 ) -> tuple:
-    r"""Takes an |abjad.Staff| or |abjad.Selection| and splits it into two
+    r"""
+    Takes an |abjad.Staff| or |abjad.Selection| and splits it into two
     staves using a reference pitch as threshold. Returns a tuple of
     |abjad.Staff|'s.
 

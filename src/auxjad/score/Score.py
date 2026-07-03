@@ -12,7 +12,8 @@ class Score(Context, abjad.Score):
         *,
         to_each_voice: bool = False,
     ) -> None:
-        r"""Adds a final bar line to all components of |abjad.Score|. Note that
+        r"""
+        Adds a final bar line to all components of |abjad.Score|. Note that
             Auxjad adds this function as an extension method to |abjad.Score| (see
             usage below).
 
@@ -350,7 +351,8 @@ class Score(Context, abjad.Score):
         *,
         to_each_voice: bool = False,
     ) -> None:
-        r"""Adds double bar lines to all components of |abjad.Score| before
+        r"""
+        Adds double bar lines to all components of |abjad.Score| before
         every time signature changes. Note that Auxjad adds this function as an
         extension method to |abjad.Score| (see usage below).
 
@@ -747,7 +749,8 @@ class Score(Context, abjad.Score):
     def _double_bar_line_adder(
         container: abjad.Container,
     ) -> None:
-        r"""Goes through a container and adds double bar lines before each and
+        r"""
+        Goes through a container and adds double bar lines before each and
         every time signature change.
         """
         leaves = abjad.select(container).leaves()
